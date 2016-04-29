@@ -8,6 +8,6 @@ module.exports = {
 
   // stack definition
   'handlers[0]': [
-    '#motley:routes.home'
+    '#routes.home'
   ]
 }
