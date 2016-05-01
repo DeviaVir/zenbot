@@ -8,11 +8,11 @@ module.exports = {
   '@site.title': 'your new Motley site',
 
   // middleware
-  'middleware.session{}': {
-    cookie: {
-      maxAge: 86400 * 365
-    },
-    key: 'motley'
-  },
-  'middleware.addr.proxies[]': '127.0.0.1'
+  'middleware.buffet{}': {
+    indexes: true,
+    index: 'index.html',
+    watch: true,
+    notFoundPath: '/404.html',
+    defaultContentType: 'application/octet-stream'
+  }
 }

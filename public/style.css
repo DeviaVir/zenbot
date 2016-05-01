@@ -1,0 +1,26 @@
+body {
+  font-family: Helvetica, sans-serif;
+  padding: 50px;
+  font-size: 1.1em;
+}
+input, textarea {
+  font-family: Helvetica, sans-serif;
+  padding: 10px;
+  font-size: 1em;
+}
+a {
+  color: #e00;
+  text-decoration: none;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+code {
+  background-color: #eee;
+  color: #555;
+  padding: 0 5px 0 5px;
+  border-radius: 5px;
+}

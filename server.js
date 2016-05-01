@@ -4,7 +4,8 @@ try {
   var app = motley({
     _ns: 'motley',
     _maps: [
-      require('./_codemap')
+      require('./_codemap'),
+      require('motley-buffet')
       // require()'ed motley plugins go here.
     ]
   })

@@ -1,5 +1,6 @@
 module.exports = function container (get, set) {
   return get('vendor.middler')()
+    /*
     .get('/', function (req, res, next) {
       res.json({
         'welcome': 'to ' + get('conf.site.title') + '!',
@@ -7,5 +8,6 @@ module.exports = function container (get, set) {
         'core': require('motley/package.json').version
       })
     })
+    */
     .handler
 }
