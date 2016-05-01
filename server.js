@@ -6,7 +6,8 @@ try {
     _maps: [
       require('./_codemap'),
       require('motley-templ'),
-      require('motley-buffet')
+      require('motley-buffet'),
+      require('motley-auth')
       // require()'ed motley plugins go here.
     ]
   })

@@ -1,0 +1,15 @@
+<form method="post" action="">
+<p><label>Username<br><input type="text" size="50" name="id" value="{{post.id}}"></label></p>
+<p><label>Password<br><input type="password" size="50" name="password" value="{{post.password}}"></label></p>
+<p><input type="submit" value="Log in"></p>
+</form>
+
+<hr>
+
+<h2>Accounts</h2>
+
+{{#each users}}
+<p>Username: {{id}}</p>
+<p>Password: {{plaintext}}</p>
+<hr>
+{{/each}}
