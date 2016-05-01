@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "dependencies": {
-    "motley": "2.x"
+    "motley": "2.x",
+    "motley-buffet": "^2.0.0"
   }
 }
