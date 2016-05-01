@@ -8,11 +8,7 @@ module.exports = {
   '@site.title': 'your new Motley site',
 
   // middleware
-  'middleware.buffet{}': {
-    indexes: true,
-    index: 'index.html',
-    watch: true,
-    notFoundPath: '/404.html',
-    defaultContentType: 'application/octet-stream'
+  'middleware.templ{}': {
+    watch: true
   }
 }

@@ -4,6 +4,7 @@
   "description": "",
   "dependencies": {
     "motley": "2.x",
-    "motley-buffet": "^2.0.0"
+    "motley-buffet": "^2.0.0",
+    "motley-templ": "^2.0.0"
   }
 }
