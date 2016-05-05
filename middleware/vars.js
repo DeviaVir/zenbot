@@ -4,6 +4,10 @@ module.exports = function container (get, set) {
     res.vars.title = get('conf.site.title')
     res.vars.post = req.body
     res.vars.user = req.user
+    res.vars.nonce = Math.random()
+    res.vars.welcome = 'to ' + get('conf.site.title') + '!'
+    res.vars.version = require('../package.json').version
+    res.vars.core = require('motley/package.json').version
     next()
   }
 }

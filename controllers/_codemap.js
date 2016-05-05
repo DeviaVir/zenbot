@@ -3,9 +3,7 @@ module.exports = {
   _ns: 'motley',
 
   'controllers[]': [
-    require('./auth'),
-    require('./home'),
-    require('./test')
+    require('./home')
     // add more controllers here.
   ]
 }
