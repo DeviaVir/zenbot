@@ -1,12 +1,14 @@
 module.exports = {
   // meta
   _ns: 'motley',
-  _folder: 'middleware',
 
   // register handlers with weights
-  'handlers[-5]': function container (get, set) {
+  'middleware[-5]': function container (get, set) {
     return function handler (req, res, next) {
       // access req or res here, before routes are run.
+      res.vars.title = get('conf.site.title')
+      res.vars.post = req.body
+      res.vars.user = req.user
       next()
     }
   }

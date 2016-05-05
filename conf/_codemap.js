@@ -3,16 +3,18 @@ module.exports = {
   _ns: 'motley',
   _folder: 'conf',
 
-  // site
+  // site overrides
   '@site.port': 3000,
   '@site.title': 'your new Motley site',
 
-  // middleware
-  'middleware.session{}': {
-    cookie: {
-      maxAge: 86400 * 365
-    },
-    key: 'motley'
+  // middleware overrides
+  'middleware.templ{}': {
+    watch: true
   },
-  'middleware.addr.proxies[]': '127.0.0.1'
+  'middleware.buffet{}': {
+    watch: true
+  },
+
+  // other variables
+  'auth.strength': 12
 }
