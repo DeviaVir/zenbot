@@ -7,5 +7,8 @@ module.exports = {
   'users': require('./users'),
 
   // collection registration
-  'collections[]': ['#db.users']
+  'collections[]': [
+    '#db.users'
+    // add more collections here.
+  ]
 }

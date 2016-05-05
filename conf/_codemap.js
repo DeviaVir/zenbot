@@ -3,12 +3,18 @@ module.exports = {
   _ns: 'motley',
   _folder: 'conf',
 
-  // site
+  // site overrides
   '@site.port': 3000,
   '@site.title': 'your new Motley site',
 
-  // middleware
+  // middleware overrides
   'middleware.templ{}': {
     watch: true
-  }
+  },
+  'middleware.buffet{}': {
+    watch: true
+  },
+
+  // other variables
+  'auth.strength': 12
 }

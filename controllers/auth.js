@@ -2,16 +2,7 @@ var Faker2 = require('Faker2')
 var bcrypt = require('bcrypt')
 
 module.exports = function container (get, set) {
-  return get('vendor.middler')()
-    .get('/', function (req, res, next) {
-      res.vars.welcome = 'to ' + get('conf.site.title') + '!'
-      res.vars.version = require('../package.json').version
-      res.vars.core = require('motley/package.json').version
-      res.render('index')
-    })
-    .get('/test.html', function (req, res, next) {
-      res.render('test')
-    })
+  return get('controller')()
     .post('/login', function (req, res, next) {
       if (req.user) return next()
       get('db.users').load(req.body.id, function (err, user) {
@@ -41,10 +32,10 @@ module.exports = function container (get, set) {
         id: Faker2.Internet.userName(),
         plaintext: Faker2.Name.lastName()
       }
-      bcrypt.hash(user.plaintext, 10, function (err, hash) {
+      bcrypt.hash(user.plaintext, get('conf.auth.strength'), function (err, hash) {
         if (err) return next(err)
         user.password = hash
-        get('db.users').save(user.id, user, function (err, user) {
+        get('db.users').save(user, function (err, user) {
           if (err) return next(err)
           req.session.users || (req.session.users = [])
           req.session.users.push(user)
@@ -57,5 +48,4 @@ module.exports = function container (get, set) {
       req.logout()
       res.redirect('/')
     })
-    .handler
 }
