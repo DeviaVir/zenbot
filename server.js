@@ -12,24 +12,20 @@ try {
   })
 }
 catch (err) {
+  exit(err)
+}
+
+function exit (err) {
   console.error(err)
   console.error(err.stack)
   process.exit(1)
 }
 
 app.listen(function (err) {
-  if (err) {
-    console.error(err)
-    console.error(err.stack)
-    process.exit(1)
-  }
+  if (err) exit(err)
   function onExit () {
     app.close(function (err) {
-      if (err) {
-        console.error(err)
-        console.error(err.stack)
-        process.exit(1)
-      }
+      if (err) exit(err)
     })
   }
   process.once('SIGINT', onExit)
