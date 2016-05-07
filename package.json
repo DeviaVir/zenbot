@@ -4,6 +4,10 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^0.8.6",
-    "faker2": "^0.5.0"
+    "faker2": "^0.5.0",
+    "motley-auth": "^2.0.1",
+    "motley-buffet": "^2.0.1",
+    "motley-json": "^2.0.2",
+    "motley-templ": "^2.0.2"
   }
 }

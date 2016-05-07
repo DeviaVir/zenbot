@@ -14,24 +14,23 @@ try {
   })
 }
 catch (err) {
-  console.error(err, err.stack)
+  exit(err)
+}
+
+function exit (err) {
+  console.error(err)
+  console.error(err.stack)
   process.exit(1)
 }
 
 app.listen(function (err) {
-  if (err) {
-    console.error(err, err.stack)
-    process.exit(1)
-  }
+  if (err) exit(err)
   var closed = false
   function onExit () {
     if (closed) return
     closed = true
     app.close(function (err) {
-      if (err) {
-        console.error(err, err.stack)
-        process.exit(1)
-      }
+      if (err) exit(err)
     })
   }
   process.once('SIGINT', onExit)
