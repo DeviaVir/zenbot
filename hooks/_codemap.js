@@ -18,13 +18,13 @@ module.exports = {
   },
   'listen[]': function container (get, set) {
     return function task (cb) {
-      get('vendor.console').log('listening on http://localhost:' + get('site.server').address().port + '/')
+      get('console').log('listening on http://localhost:' + get('site.server').address().port + '/')
       setImmediate(cb)
     }
   },
   'close[1]': function container (get, set) {
     return function task (cb) {
-      get('vendor.console').log('\n\nmotley says goodbye :)\n')
+      get('console').log('\n\nmotley says goodbye :)\n')
       setImmediate(cb)
     }
   }
