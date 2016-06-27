@@ -4,11 +4,13 @@ module.exports = {
   _folder: 'db',
 
   // named collections
-  'messages': require('./messages'),
+  'ticks': require('./ticks'),
+  'trades': require('./trades'),
 
   // collection registration
   'collections[]': [
-    '#db.messages'
+    '#db.ticks',
+    '#db.trades'
     // add more collections here.
   ]
 }
