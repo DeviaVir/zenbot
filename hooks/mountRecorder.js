@@ -24,11 +24,20 @@ module.exports = function container (get, set, clear) {
         var vwap = runningTvol / runningVol
         var buyRatio = buyVol / vol
         var side
-        if (buyRatio > 0.5) side = 'BUY'.green
-        if (buyRatio < 0.5) side = 'SELL'.red
-        if (buyRatio === 0.5) side = 'EVEN'.orange
+        if (buyRatio > 0.5) side = 'BUY'
+        if (buyRatio < 0.5) side = 'SELL'
+        if (buyRatio === 0.5) side = 'EVEN'
         var avg = numeral(vwap).format('$0,0')
         trade_ticker = ' trades: ' + side + ' ' + avg + '/' + numeral(vol).format('0.000')
+        if (vol > 20) {
+          trade_ticker = trade_ticker.red
+        }
+        else if (vol > 5) {
+          trade_ticker = trade_ticker.yellow
+        }
+        else {
+          trade_ticker = trade_ticker.white
+        }
       }
       get('console').log('saved ' + counter + ' messages.' + trade_ticker)
       if (counter === 0) {
