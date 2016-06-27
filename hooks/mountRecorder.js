@@ -1,4 +1,5 @@
 var numeral = require('numeral')
+  , colors = require('colors')
 
 module.exports = function container (get, set, clear) {
   var runningVol = 0, runningTvol = 0
@@ -23,11 +24,11 @@ module.exports = function container (get, set, clear) {
         var vwap = runningTvol / runningVol
         var buyRatio = buyVol / vol
         var side
-        if (buyRatio > 0.5) side = 'BUY'
-        if (buyRatio < 0.5) side = 'SELL'
-        if (buyRatio === 0.5) side = 'EVEN'
+        if (buyRatio > 0.5) side = 'BUY'.green
+        if (buyRatio < 0.5) side = 'SELL'.red
+        if (buyRatio === 0.5) side = 'EVEN'.orange
         var avg = numeral(vwap).format('$0,0')
-        trade_ticker = ' trades: ' + numeral(buyRatio).format('(0%)') + ' ' + side + ' ' + avg + '/' + numeral(vol).format('0.000')
+        trade_ticker = ' trades: ' + side + ' ' + avg + '/' + numeral(vol).format('0.000')
       }
       get('console').log('saved ' + counter + ' messages.' + trade_ticker)
       if (counter === 0) {
