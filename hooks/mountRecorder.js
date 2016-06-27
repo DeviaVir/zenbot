@@ -5,14 +5,25 @@ module.exports = function container (get, set, clear) {
     var socket = get('utils.gdaxWebsocket')
     var counter = 0
     function onTick () {
-      var totalSize = trades.reduce(function (prev, curr) {
-        return prev + curr.size
-      }, 0)
-      var totalPrice = trades.reduce(function (prev, curr) {
-        return prev + curr.price
-      }, 0)
-      var avg = trades.length ? numeral(totalPrice / trades.length).format('$0,0') : 0
-      var trade_ticker = trades.length ? ' trades: ' + trades.length + ' ' + avg + ' / ' + numeral(totalSize).format('0.000') : ''
+      var trade_ticker = ''
+      if (trades.length) {
+        var totalSize = trades.reduce(function (prev, curr) {
+          return prev + curr.size
+        }, 0)
+        var totalPrice = trades.reduce(function (prev, curr) {
+          return prev + curr.price
+        }, 0)
+        var numBuy = trades.reduce(function (prev, curr) {
+          return prev + curr.side === 'buy' ? 1 : 0
+        }, 0)
+        var buyRatio = numBuy / trades.length
+        var side
+        if (buyRatio > 0.5) side = 'BUY'
+        if (buyRatio < 0.5) side = 'SELL'
+        if (buyRatio === 0.5) side = 'EVEN'
+        var avg = trades.length ? numeral(totalPrice / trades.length).format('$0,0') : 0
+        trade_ticker = trades.length ? ' trades: ' + numBuy + '/' + trades.length + ' ' + side + ' ' + avg + '/' + numeral(totalSize).format('0.000') : ''
+      }
       get('console').log('saved ' + counter + ' messages.' + trade_ticker)
       if (counter === 0) {
         get('console').log('no messages in last tick. rebooting socket...')
@@ -30,12 +41,13 @@ module.exports = function container (get, set, clear) {
       message.id = String(message.sequence)
       message.time_date = new Date(message.time)
       get('db.messages').save(message, function (err, saved) {
-        if (err) get('console').error('message save err', err)
+        if (err) return get('console').error('message save err', err)
         counter++
         if (saved.type === 'match' && saved.product_id === 'BTC-USD') {
           trades.push({
             size: parseFloat(saved.size),
-            price: parseFloat(saved.price)
+            price: parseFloat(saved.price),
+            side: saved.side
           })
         }
       })
