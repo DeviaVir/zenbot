@@ -1,10 +1,10 @@
 var numeral = require('numeral')
 
-module.exports = function container (get, set) {
+module.exports = function container (get, set, clear) {
   return function mountRecorder (cb) {
     var socket = get('utils.gdaxWebsocket')
     var counter = 0
-    setInterval(function () {
+    function onTick () {
       var totalSize = trades.reduce(function (prev, curr) {
         return prev + curr.size
       }, 0)
@@ -12,10 +12,19 @@ module.exports = function container (get, set) {
         return prev + curr.price
       }, 0)
       var avg = trades.length ? numeral(totalPrice / trades.length).format('$0,0') : 0
-      get('console').log('saved ' + counter + ' messages. trades: ' + trades.length + ' ' + avg + ' / ' + numeral(totalSize).format('0.000'))
+      var trade_ticker = trades.length ? ' trades: ' + trades.length + ' ' + avg + ' / ' + numeral(totalSize).format('0.000') : ''
+      get('console').log('saved ' + counter + ' messages.' + trade_ticker)
+      if (counter === 0) {
+        get('console').log('no messages in last tick. rebooting socket...')
+        socket.disconnect()
+        clear('utils.gdaxWebsocket')
+        clearInterval(interval)
+        mountRecorder()
+      }
       trades = []
       counter = 0
-    }, 10000)
+    }
+    var interval = setInterval(onTick, 10000)
     var trades = []
     socket.on('message', function (message) {
       message.id = String(message.sequence)
@@ -31,7 +40,13 @@ module.exports = function container (get, set) {
         }
       })
     })
+    socket.on('open', function () {
+      get('console').log('socket opened.')
+    })
+    socket.on('close', function () {
+      get('console').log('socket closed.')
+    })
     get('console').log('mounted GDAX recorder.')
-    cb()
+    cb && cb()
   }
 }
