@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "dependencies": {
-    "coinbase-exchange": "^0.2.1",
-    "motley": "^2.2.0",
+    "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
+    "motley": "^2.2.7",
     "motley-buffet": "^2.0.1",
     "motley-mongo": "^2.0.5",
     "motley-templ": "^2.0.2",
