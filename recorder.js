@@ -5,10 +5,15 @@ try {
     _ns: 'motley',
     _maps: [
       require('./_codemap'),
-      require('motley-buffet'),
-      require('motley-templ')
-      // require()'ed motley plugins go here.
-    ]
+      require('motley-mongo')
+    ],
+    // disable http server
+    '@site.mountMiddleware': function (cb) {
+      setImmediate(cb)
+    },
+    '@site.listen': function (cb) {
+      setImmediate(cb)
+    },
   })
 }
 catch (err) {
@@ -26,6 +31,7 @@ app.listen(function (err) {
   function onExit () {
     app.close(function (err) {
       if (err) exit(err)
+      process.exit()
     })
   }
   process.once('SIGINT', onExit)
