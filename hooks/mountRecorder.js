@@ -1,28 +1,33 @@
 var numeral = require('numeral')
 
 module.exports = function container (get, set, clear) {
+  var runningVol = 0, runningTvol = 0
   return function mountRecorder (cb) {
     var socket = get('utils.gdaxWebsocket')
     var counter = 0
     function onTick () {
       var trade_ticker = ''
       if (trades.length) {
-        var totalSize = trades.reduce(function (prev, curr) {
-          return prev + curr.size
-        }, 0)
-        var totalPrice = trades.reduce(function (prev, curr) {
-          return prev + curr.price
-        }, 0)
-        var numBuy = trades.reduce(function (prev, curr) {
-          return prev + curr.side === 'buy' ? 1 : 0
-        }, 0)
-        var buyRatio = numBuy / trades.length
+        var high = 0, low = 10000, close, buys = 0, vol = 0, buyVol = 0
+        trades.forEach(function (trade) {
+          high = Math.max(trade.price, high)
+          low = Math.min(trade.price, low)
+          close = trade.price
+          if (trade.side === 'buy') buyVol += trade.size
+          vol += trade.size
+        })
+        var typical = (high + low + close) / 3
+        var tvol = typical * vol
+        runningVol += vol
+        runningTvol += tvol
+        var vwap = runningTvol / runningVol
+        var buyRatio = buyVol / vol
         var side
         if (buyRatio > 0.5) side = 'BUY'
         if (buyRatio < 0.5) side = 'SELL'
         if (buyRatio === 0.5) side = 'EVEN'
-        var avg = trades.length ? numeral(totalPrice / trades.length).format('$0,0') : 0
-        trade_ticker = trades.length ? ' trades: ' + numBuy + '/' + trades.length + ' ' + side + ' ' + avg + '/' + numeral(totalSize).format('0.000') : ''
+        var avg = numeral(vwap).format('$0,0')
+        trade_ticker = ' trades: ' + numeral(buyRatio).format('(0%)') + ' ' + side + ' ' + avg + '/' + numeral(vol).format('0.000')
       }
       get('console').log('saved ' + counter + ' messages.' + trade_ticker)
       if (counter === 0) {
