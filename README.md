@@ -1,11 +1,12 @@
-# motley-init
+# gdax-history
 
-Clone this repo to get started with [Motley node.js framework](https://s8f.org/motley.html).
+This thing will stream the [GDAX](https://gdax.com/) order book using the public API and insert records into a `messages` collection in a local MongoDB db called `gdax_history`.
 
-Run "node [server.js](https://github.com/carlos8f/motley-init/blob/master/server.js)" to start the server.
+Useful for historical analysis of the order book.
 
-Checkout these other branches for more:
+## Usage
 
-- [motley-auth](https://github.com/carlos8f/motley-init/tree/motley-auth)
-- [motley-cluster-mongo](https://github.com/carlos8f/motley-init/tree/motley-cluster-mongo)
-- [motley-cluster-redis](https://github.com/carlos8f/motley-init/tree/motley-cluster-redis)
+```
+$ npm install
+$ node recorder.js
+```
