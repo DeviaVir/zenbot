@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "description": "",
   "dependencies": {
+    "coinbase-exchange": "^0.2.1",
     "motley": "^2.2.0",
     "motley-buffet": "^2.0.1",
-    "motley-templ": "^2.0.2"
+    "motley-mongo": "^2.0.5",
+    "motley-templ": "^2.0.2",
+    "numeral": "^1.5.3"
   }
 }

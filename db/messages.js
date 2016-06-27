@@ -1,5 +1,5 @@
 module.exports = function container (get, set) {
-  return get('db.createCollection')('users', {
+  return get('db.createCollection')('messages', {
     load: function (obj, opts, cb) {
       // respond after the obj is loaded
       cb(null, obj);
