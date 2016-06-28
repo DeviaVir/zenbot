@@ -1,12 +1,34 @@
-# gdax-history
+# zenbot
 
-This thing will stream the [GDAX](https://gdax.com/) order book using the public API and insert records into a `messages` collection in a local MongoDB db called `gdax_history`.
+# !ALPHA SOFTWARE. DO NOT USE FOR REAL TRADES.
 
-Useful for historical analysis of the order book.
+zenbot is a passive trading bot for [GDAX](https://gdax.com/). zen trusts other bots.
 
 ## Usage
+
+Configure it first in [conf/_codemap.js](https://github.com/carlos8f/zenbot/blob/master/conf/_codemap.js)
+
+## record trades
 
 ```
 $ npm install
 $ node recorder.js
+```
+
+## backfill trades
+
+```
+$ node backfiller.js
+```
+
+### run trade simulation (zen mode)
+
+```
+$ node bot.js --sim
+```
+
+### run trade bot (zen+ mode)
+
+```
+$ node bot.js
 ```

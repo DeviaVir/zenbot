@@ -89,13 +89,17 @@ module.exports = function container (get, set, clear) {
         }
         else if (side === 'BUY') {
           var spend = bot.balance.currency / 2
-          if (spend / close < bot.min_trade) {
+          var price = close + (close * bot.markup) // add markup
+          if (spend / price < bot.min_trade) {
             get('console').log('[bot] HOLD')
             return
           }
           bot.balance.currency -= spend
-          bot.balance.asset += spend / close
-          get('console').log('[bot] BUY ' + numeral(spend / close).format('00.000') + ' BTC at ' + numeral(close).format('$0,0.00'))
+          var size = spend / price
+          bot.balance.asset += size
+          var fee = (size * price) * bot.fee
+          bot.balance.currency -= fee
+          get('console').log('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'))
         }
         else if (side === 'SELL') {
           var sell = bot.balance.asset / 2
@@ -104,8 +108,11 @@ module.exports = function container (get, set, clear) {
             return
           }
           bot.balance.asset -= sell
-          bot.balance.currency += sell * close
-          get('console').log('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(close).format('$0,0.00'))
+          var price = close - (close * bot.markup)
+          bot.balance.currency += sell * price
+          var fee = (sell * price) * bot.fee
+          bot.balance.currency -= fee
+          get('console').log('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'))
         }
         printReport()
       }
@@ -125,7 +132,7 @@ module.exports = function container (get, set, clear) {
       get('db.ticks').select(params, function (err, ticks) {
         if (err) {
           get('console').error('tick select err', err)
-          return setTimeout(getNext, 1000)
+          return setImmediate(getNext)
         }
         if (!ticks.length) {
           return setTimeout(getNext, get('conf.tick_interval'))
@@ -143,15 +150,15 @@ module.exports = function container (get, set, clear) {
         var date = new Date(minTime)
         var tzMatch = date.toString().match(/\((.*)\)/)
         var time = date.toLocaleString() + ' ' + tzMatch[1]
-        if (time.length === 24) {
+        if (time.match(/, [^0]:/)) {
           time = time.replace(', ', ', 0')
         }
         var bar = getGraph()
         get('console').log(bar + ' ' + numeral(close).format('$0,0.00'), time.grey, numeral(bot.balance.asset).format('00.000') + ' BTC/USD ' + numeral(bot.balance.currency).format('$,0.00'))
-        getNext()
+        setImmediate(getNext)
       })
     }
-    setTimeout(getNext, 1000)
+    setImmediate(getNext)
     get('console').log('mounted bot.')
     cb && cb()
   }
