@@ -9,9 +9,11 @@ module.exports = function container (get, set, clear) {
     var bot = get('conf.bot')
     var initBalance = JSON.parse(JSON.stringify(bot.balance))
     var side = null
-    var close = 0
-    var vol = 0
+    var periodVol = 0
     var counter = 0
+    var runningVol = 0, runningTotal = 0
+    var high = 0, low = 10000, close = 0, vol = 0
+    var maxDiff = 0
 
     function printReport () {
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
@@ -21,10 +23,50 @@ module.exports = function container (get, set, clear) {
       if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
       if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
       if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-      get('console').log('[bot]', diff, numeral(bot.balance.asset).format('0.000') + ' BTC/USD ' + numeral(bot.balance.currency).format('$,0.00'))
+      get('console').log('[bot]', diff)
+    }
+
+    function getGraph () {
+      runningTotal += ((high + low + close) / 3) * periodVol
+      //console.log('runningTotal', runningTotal)
+      runningVol += periodVol
+      //console.log('runningVol', runningVol)
+      var vwap = runningTotal / runningVol
+      //console.log('vwap', vwap)
+      var vwapDiff = close - vwap
+      //console.log('vwapDiff', vwapDiff)
+      maxDiff = Math.max(maxDiff, Math.abs(vwapDiff))
+      //console.log('maxDiff', maxDiff)
+      var barWidth = 20
+      var half = barWidth / 2
+      var bar = ''
+      if (vwapDiff > 0) {
+        bar += ' '.repeat(half)
+        var stars = Math.min(Math.round((vwapDiff / maxDiff) * half), half)
+        bar += '+'.green.repeat(stars)
+        bar += ' '.repeat(half - stars)
+      }
+      else if (vwapDiff < 0) {
+        var stars = Math.min(Math.round((Math.abs(vwapDiff) / maxDiff) * half), half)
+        bar += ' '.repeat(half - stars)
+        bar += '-'.red.repeat(stars)
+        bar += ' '.repeat(half)
+      }
+      else {
+        bar += ' '.repeat(half * 2)
+      }
+      vol = 0
+      high = 0
+      low = 10000
+      return bar
     }
 
     var tickStream = through(function write (tick) {
+      periodVol += tick.vol
+      close = tick.close
+      high = Math.max(high, tick.high)
+      low = Math.min(low, tick.low)
+
       if (side && tick.side !== side) {
         vol -= tick.vol
         if (vol < 0) side = tick.side
@@ -51,7 +93,7 @@ module.exports = function container (get, set, clear) {
           }
           bot.balance.currency -= spend
           bot.balance.asset += spend / close
-          get('console').log('[bot] BUY ' + numeral(spend / close).format('0.000') + ' BTC at ' + numeral(close).format('$0,0.00'))
+          get('console').log('[bot] BUY ' + numeral(spend / close).format('00.000') + ' BTC at ' + numeral(close).format('$0,0.00'))
         }
         else if (side === 'SELL') {
           var sell = bot.balance.asset / 2
@@ -61,7 +103,7 @@ module.exports = function container (get, set, clear) {
           }
           bot.balance.asset -= sell
           bot.balance.currency += sell * close
-          get('console').log('[bot] SELL ' + numeral(sell).format('0.000') + ' BTC at ' + numeral(close).format('$0,0.00'))
+          get('console').log('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(close).format('$0,0.00'))
         }
         printReport()
       }
@@ -99,7 +141,11 @@ module.exports = function container (get, set, clear) {
         var date = new Date(minTime)
         var tzMatch = date.toString().match(/\((.*)\)/)
         var time = date.toLocaleString() + ' ' + tzMatch[1]
-        get('console').log(numeral(close).format('$0,0.00'), time.grey, numeral(bot.balance.asset).format('0.000') + ' BTC/USD ' + numeral(bot.balance.currency).format('$,0.00'))
+        if (time.length === 24) {
+          time = time.replace(', ', ', 0')
+        }
+        var bar = getGraph()
+        get('console').log(bar + ' ' + numeral(close).format('$0,0.00'), time.grey, numeral(bot.balance.asset).format('00.000') + ' BTC/USD ' + numeral(bot.balance.currency).format('$,0.00'))
         getNext()
       })
     }
