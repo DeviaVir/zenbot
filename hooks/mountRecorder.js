@@ -26,7 +26,10 @@ module.exports = function container (get, set, clear) {
         get('console').log('saw ' + counter + ' messages.' + ticker)
         if (counter === 0) {
           get('console').log('no messages in last tick. rebooting socket...')
-          socket.disconnect()
+          try {
+            socket.disconnect()
+          }
+          catch (e) {}
           clear('utils.gdaxWebsocket')
           clearInterval(interval)
           mountRecorder()

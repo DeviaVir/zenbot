@@ -33,6 +33,8 @@ module.exports = {
     markup: 0.0002,
     fee: 0.0025,
     query_limit: 100,
-    crash_protection: 0.0019
+    crash_protection: 0.02,
+    sell_for_less: 0.02,
+    buy_for_more: 0.05
   }
 }
