@@ -9,7 +9,7 @@ try {
     ],
     '@hooks.mount': [
       '#db.mountCollections',
-      '#hooks.mountRecorder'
+      '#hooks.mountBot'
     ]
   })
 }
