@@ -10,6 +10,7 @@
     "motley-mongo": "^2.0.5",
     "motley-templ": "^2.0.2",
     "numeral": "^1.5.3",
+    "through": "^2.3.8",
     "timebucket": "^0.3.4"
   }
 }

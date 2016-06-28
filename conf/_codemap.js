@@ -12,5 +12,14 @@ module.exports = {
   'product_id': 'BTC-USD',
 
   'tick_interval': 10000,
-  'tick_size': '10s'
+  'tick_size': '10s',
+
+  'bot': {
+    balance: {
+      asset: 0,
+      currency: 1000
+    },
+    min_vol: 140,
+    min_trade: 0.01
+  }
 }
