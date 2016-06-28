@@ -6,18 +6,20 @@ module.exports = function container (get, set, clear) {
   return function mountRecorder (cb) {
     var socket = get('utils.gdaxWebsocket')
     var counter = 0
+    var lastTick = new Date().getTime()
     function onTick () {
       var trade_ticker = ''
       var params = {
         query: {
           time: {
-            $gt: new Date().getTime() - get('conf.tick_interval')
+            $gt: lastTick
           }
         },
         sort: {
           time: 1
         }
       }
+      lastTick = new Date().getTime()
       get('db.trades').select(params, function (err, trades) {
         if (err) return get('console').error('trade select err', err)
         var ticker = get('db.ticks').create(trades)
