@@ -12,7 +12,7 @@ module.exports = function container (get, set, clear) {
     var periodVol = 0
     var counter = 0
     var runningVol = 0, runningTotal = 0
-    var high = 0, low = 10000, close = 0, vol = 0
+    var high = 0, low = 10000, close = 0, vol = 0, lastClose = 0
     var maxDiff = 0
 
     function printReport () {
@@ -88,10 +88,15 @@ module.exports = function container (get, set, clear) {
           return
         }
         else if (side === 'BUY') {
-          var spend = bot.balance.currency / 2
+          var delta = 1 - (lastClose / close)
           var price = close + (close * bot.markup) // add markup
+          if (delta >= bot.crash_protection) {
+            get('console').log('[bot] refusing to BUY at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.0%'))
+            return
+          }
+          var spend = bot.balance.currency / 2
           if (spend / price < bot.min_trade) {
-            get('console').log('[bot] HOLD')
+            get('console').log('[bot] HOLD', numeral(delta).format('0.0%'))
             return
           }
           bot.balance.currency -= spend
@@ -99,23 +104,29 @@ module.exports = function container (get, set, clear) {
           bot.balance.asset += size
           var fee = (size * price) * bot.fee
           bot.balance.currency -= fee
-          get('console').log('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'))
+          get('console').log('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'), numeral(delta).format('0.0%'))
         }
         else if (side === 'SELL') {
+          var price = close - (close * bot.markup) // add markup
+          var delta = 1 - (close / lastClose)
+          if (delta >= bot.crash_protection) {
+            get('console').log('[bot] refusing to SELL at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.0%'))
+            return
+          }
           var sell = bot.balance.asset / 2
           if (sell < bot.min_trade) {
-            get('console').log('[bot] HOLD')
+            get('console').log('[bot] HOLD', numeral(delta).format('0.0%'))
             return
           }
           bot.balance.asset -= sell
-          var price = close - (close * bot.markup)
           bot.balance.currency += sell * price
           var fee = (sell * price) * bot.fee
           bot.balance.currency -= fee
-          get('console').log('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'))
+          get('console').log('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'), numeral(delta).format('0.0%'))
         }
         printReport()
       }
+      lastClose = close
     })
     function getNext () {
       var params = {
@@ -127,7 +138,7 @@ module.exports = function container (get, set, clear) {
         sort: {
           time: 1
         },
-        limit: 100
+        limit: bot.query_limit
       }
       get('db.ticks').select(params, function (err, ticks) {
         if (err) {
@@ -141,6 +152,7 @@ module.exports = function container (get, set, clear) {
           if (!close) {
             initBalance.currency += initBalance.asset * tick.close
             initBalance.asset = 0
+            lastClose = tick.close
           }
           close = tick.close
           tickStream.write(tick)
@@ -154,12 +166,12 @@ module.exports = function container (get, set, clear) {
           time = time.replace(', ', ', 0')
         }
         var bar = getGraph()
-        get('console').log(bar + ' ' + numeral(close).format('$0,0.00'), time.grey, numeral(bot.balance.asset).format('00.000') + ' BTC/USD ' + numeral(bot.balance.currency).format('$,0.00'))
+        get('console').log(bar + ' ' + numeral(close).format('$0,0.00').yellow, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow)
         setImmediate(getNext)
       })
     }
     setImmediate(getNext)
-    get('console').log('mounted bot.')
+    get('console').log('mounted bot.', bot.sim ? 'SIMULATION' : 'REAL LIFE')
     cb && cb()
   }
 }

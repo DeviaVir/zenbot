@@ -21,14 +21,14 @@ $ node recorder.js
 $ node backfiller.js
 ```
 
-### run trade simulation (zen mode)
-
-```
-$ node bot.js --sim
-```
-
-### run trade bot (zen+ mode)
+### run trade simulation
 
 ```
 $ node bot.js
+```
+
+### run trade bot and do ACTUAL trades (zen mode)
+
+```
+$ node bot.js --real
 ```
