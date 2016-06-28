@@ -80,10 +80,12 @@ module.exports = function container (get, set, clear) {
         vol = 0
         // trigger
         if (side === 'BUY' && !bot.balance.currency) {
-          get('console').log('got BUY signal but i\'m broke.')
+          get('console').log('[bot] HOLD')
+          return
         }
         else if (side === 'SELL' && !bot.balance.asset) {
-          get('console').log('got SELL signal but i got no BTC')
+          get('console').log('[bot] HOLD')
+          return
         }
         else if (side === 'BUY') {
           var spend = bot.balance.currency / 2
