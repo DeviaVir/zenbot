@@ -14,6 +14,8 @@ module.exports = function container (get, set, clear) {
     var runningVol = 0, runningTotal = 0
     var high = 0, low = 10000, close = 0, vol = 0, lastClose = 0
     var maxDiff = 0
+    var buyPrice, sellPrice
+    var tradeVol = 0
 
     function printReport () {
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
@@ -23,7 +25,7 @@ module.exports = function container (get, set, clear) {
       if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
       if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
       if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-      get('console').log('[bot]', diff)
+      get('console').log('[bot]', diff, numeral(tradeVol).format('0.000').white, 'BTC traded'.grey)
     }
 
     function getGraph () {
@@ -77,56 +79,77 @@ module.exports = function container (get, set, clear) {
         vol += tick.vol
       }
       if (vol >= bot.min_vol) {
+        get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
         vol = 0
         // trigger
         if (side === 'BUY' && !bot.balance.currency) {
-          get('console').log('[bot] HOLD')
-          return
+          get('console').log('[bot] HOLD'.grey)
+          return finish()
         }
         else if (side === 'SELL' && !bot.balance.asset) {
-          get('console').log('[bot] HOLD')
-          return
+          get('console').log('[bot] HOLD'.grey)
+          return finish()
         }
         else if (side === 'BUY') {
           var delta = 1 - (lastClose / close)
           var price = close + (close * bot.markup) // add markup
-          if (delta >= bot.crash_protection) {
-            get('console').log('[bot] refusing to BUY at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.0%'))
-            return
-          }
           var spend = bot.balance.currency / 2
           if (spend / price < bot.min_trade) {
-            get('console').log('[bot] HOLD', numeral(delta).format('0.0%'))
-            return
+            get('console').log(('[bot] HOLD ' + numeral(delta).format('0.000%')).grey)
+            return finish()
           }
+          if (sellPrice && price > sellPrice) {
+            var sellDelta = 1 - (sellPrice / price)
+            if (sellDelta >= bot.buy_for_more) {
+              get('console').log(('[bot] refusing to BUY for more (sold for ' + numeral(sellPrice).format('$0,0.00') + ') at ' + numeral(price).format('$0,0.00') + ' ' + numeral(sellDelta).format('0.000%')).red)
+              return finish()
+            }
+          }
+          if (delta >= bot.crash_protection) {
+            get('console').log(('[bot] refusing to BUY at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.000%')).red)
+            return finish()
+          }
+          buyPrice = price
           bot.balance.currency -= spend
           var size = spend / price
+          tradeVol += size
           bot.balance.asset += size
           var fee = (size * price) * bot.fee
           bot.balance.currency -= fee
-          get('console').log('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'), numeral(delta).format('0.0%'))
+          get('console').log(('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
         }
         else if (side === 'SELL') {
           var price = close - (close * bot.markup) // add markup
           var delta = 1 - (close / lastClose)
-          if (delta >= bot.crash_protection) {
-            get('console').log('[bot] refusing to SELL at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.0%'))
-            return
-          }
           var sell = bot.balance.asset / 2
           if (sell < bot.min_trade) {
-            get('console').log('[bot] HOLD', numeral(delta).format('0.0%'))
-            return
+            get('console').log(('[bot] HOLD' + numeral(delta).format('0.000%')).grey)
+            return finish()
           }
+          if (buyPrice && price < buyPrice) {
+            var buyDelta = 1 - (price / buyPrice)
+            if (buyDelta >= bot.sell_for_less) {
+            get('console').log(('[bot] refusing to SELL for less (bought for ' + numeral(buyPrice).format('$0,0.00') + ') at ' + numeral(price).format('$0,0.00') + ' ' + numeral(buyDelta).format('0.000%')).red)
+              return finish()
+            }
+          }
+          if (delta >= bot.crash_protection) {
+            get('console').log(('[bot] refusing to SELL at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.000%')).red)
+            return finish()
+          }
+          sellPrice = price
           bot.balance.asset -= sell
+          tradeVol += sell
           bot.balance.currency += sell * price
           var fee = (sell * price) * bot.fee
           bot.balance.currency -= fee
-          get('console').log('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00'), numeral(delta).format('0.0%'))
+          get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).yellow)
         }
         printReport()
       }
-      lastClose = close
+      function finish () {
+        lastClose = close
+      }
     })
     function getNext () {
       var params = {
