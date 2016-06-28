@@ -14,8 +14,14 @@ module.exports = {
   'tick_interval': 10000,
   'tick_size': '10s',
 
-  'gdax': require('../gdax-config.js'),
-
+  'gdax': function container (get, set) {
+    try {
+      return require('../gdax-config.js')
+    }
+    catch (e) {
+      return {}
+    }
+  },
   'bot': {
     balance: {
       asset: 0,
