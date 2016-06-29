@@ -1,9 +1,11 @@
 var numeral = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
+  , zerofill = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
-  return function mountRecorder (cb) {
+  return function mountRecorder (options) {
+    options || (options = {})
     var socket = get('utils.gdaxWebsocket')
     var counter = 0
     var lastTick = new Date().getTime()
@@ -32,7 +34,7 @@ module.exports = function container (get, set, clear) {
           catch (e) {}
           clear('utils.gdaxWebsocket')
           clearInterval(interval)
-          mountRecorder()
+          mountRecorder(options)
         }
         counter = 0
       })
@@ -59,7 +61,5 @@ module.exports = function container (get, set, clear) {
     socket.on('close', function () {
       get('console').log('socket closed.')
     })
-    get('console').log('mounted GDAX recorder.')
-    cb && cb()
   }
 }

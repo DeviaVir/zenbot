@@ -1,12 +1,14 @@
 var numeral = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
+  , zerofill = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
-  return function mountBackfiller (cb) {
+  return function (options) {
+    options || (options = {})
     var client = get('utils.gdaxClient')
     var counter = 0
-    var after = undefined
+    var after = options.after || undefined
     function getNext () {
       client.getProductTrades({after: after}, function (err, resp, trades) {
         if (err) {
@@ -14,7 +16,10 @@ module.exports = function container (get, set, clear) {
           return setTimeout(getNext, 5000)
         }
         if (!trades) return get('console').error('no trades error')
-        if (!trades.length) return get('console').log('backfilling done!?')
+        if (!trades.length) {
+          get('console').log('done!')
+          process.exit()
+        }
         var trades = trades.map(function (trade) {
           return {
             id: String(trade.trade_id),
@@ -41,7 +46,5 @@ module.exports = function container (get, set, clear) {
       })
     }
     setTimeout(getNext, 1000)
-    get('console').log('mounted GDAX backfiller.')
-    cb && cb()
   }
 }

@@ -1,7 +1,6 @@
 var numeral = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
-  , through = require('through')
   , zerofill = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
