@@ -24,6 +24,12 @@ module.exports = function container (get, set, clear) {
     var cooldown = 0
     var lastTick
     var volDiff = ''
+    if (bot.trade) {
+      var client = get('utils.gdaxAuthedClient')
+      client.getAccounts(function () {
+        console.log(arguments)
+      })
+    }
 
     function getGraph () {
       runningTotal += ((high + low + lastTick.close) / 3) * periodVol
@@ -129,6 +135,9 @@ module.exports = function container (get, set, clear) {
           var fee = (size * price) * bot.fee
           bot.balance.currency -= fee
           get('console').log(('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
+          if (options.trade) {
+            //client.
+          }
         }
         else if (side === 'SELL') {
           if (cooldown > 0) {

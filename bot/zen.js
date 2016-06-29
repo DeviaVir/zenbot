@@ -11,7 +11,7 @@ module.exports = function container (get, set, clear) {
     })
     var maxTime = new Date().getTime()
     var start = get('conf.bot').balance.currency
-    var brain = get('bot.brain')()
+    var brain = get('bot.brain')(sim)
     function getNext () {
       var params = {
         query: {
