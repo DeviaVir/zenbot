@@ -26,8 +26,8 @@ Prereqs: [nodejs](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/)
 ```
 $ git clone git@github.com:carlos8f/zenbot.git && cd zenbot
 $ npm install && npm link
-$ cp gdax-config-sample.js gdax-config.js
-$ (edit gdax-config.js with api key)
+$ cp config-sample.js config.js
+$ (edit config.js with api key)
 $ zenbot
 
   Usage: zenbot [options] [command]

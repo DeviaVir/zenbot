@@ -3,5 +3,7 @@ module.exports = {
   _folder: 'utils',
   'gdaxAuthedClient': require('./gdaxAuthedClient'),
   'gdaxClient': require('./gdaxClient'),
-  'gdaxWebsocket': require('./gdaxWebsocket')
+  'gdaxWebsocket': require('./gdaxWebsocket'),
+  'getTimestamp': require('./getTimestamp'),
+  'twitterClient': require('./twitterClient')
 }

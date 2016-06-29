@@ -11,6 +11,7 @@
     "motley-mongo": "^2.0.5",
     "numeral": "^1.5.3",
     "timebucket": "^0.3.4",
+    "twit": "^2.2.4",
     "zero-fill": "^2.2.3"
   }
 }

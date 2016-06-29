@@ -8,6 +8,7 @@ program
   .command('run')
   .description('run zenbot on the exchange (must run recorder also)')
   .option('--trade', 'do actual trades')
+  .option('--tweet', 'live tweet buys/sells and hourly reports (requires extra config)')
   .option('--silent', 'run in silent mode')
   .action(function (options) {
     try {
@@ -47,7 +48,7 @@ program
       process.once('SIGINT', onExit)
       process.once('SIGTERM', onExit)
 
-      app.get('motley:bot.zen')({trade: options.trade})
+      app.get('motley:bot.zen')({trade: options.trade, tweet: options.tweet})
     })
   })
 
