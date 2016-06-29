@@ -1,5 +1,3 @@
-var numeral = require('numeral')
-
 module.exports = function container (get, set, clear) {
   return function (options) {
     var sim = JSON.parse(JSON.stringify(options || {}))

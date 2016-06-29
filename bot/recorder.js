@@ -1,8 +1,3 @@
-var numeral = require('numeral')
-  , colors = require('colors')
-  , tb = require('timebucket')
-  , zerofill = require('zero-fill')
-
 module.exports = function container (get, set, clear) {
   return function mountRecorder (options) {
     options || (options = {})

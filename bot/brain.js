@@ -24,6 +24,20 @@ module.exports = function container (get, set, clear) {
     var cooldown = 0
     var lastTick
     var volDiff = ''
+    if (bot.tweet) {
+      var twitterClient = get('utils.twitterClient')
+      var tweet = {
+        status: 'zenbot online at ' + get('utils.getTimestamp')()
+      }
+      twitterClient.post('statuses/update', tweet, onTweet)
+      function onTweet (err, data, response) {
+        if (err) return get('console').error('tweet err', err)
+        if (response.statusCode === 200 && data && data.id_str) {
+          get('console').log('tweeted: '.cyan + data.text.white)
+        }
+        else get('console').error('tweet err', response.statusCode, data)
+      }
+    }
     if (bot.trade) {
       var client = get('utils.gdaxAuthedClient')
       syncBalance(function (err) {
@@ -31,26 +45,27 @@ module.exports = function container (get, set, clear) {
         initBalance = JSON.parse(JSON.stringify(bot.balance))
         get('console').log('entering zen mode...')
       })
-      function syncBalance (cb) {
-        bot.trade = false
-        client.getAccounts(function (err, resp, accounts) {
-          if (err) throw err
-          if (resp.statusCode !== 200) throw new Error('non-200 status: ' + resp.statusCode)
-          accounts.forEach(function (account) {
-            switch (account.currency) {
-              case 'USD':
-                bot.balance.currency = parseFloat(account.balance)
-                break;
-              case 'BTC':
-                bot.balance.asset = parseFloat(account.balance)
-                break;
-            }
-          })
-          get('console').log('balance sync completed.')
-          bot.trade = true
-          cb && cb()
+    }
+    function syncBalance (cb) {
+      if (!bot.trade) return cb && cb()
+      bot.trade = false
+      client.getAccounts(function (err, resp, accounts) {
+        if (err) throw err
+        if (resp.statusCode !== 200) throw new Error('non-200 status: ' + resp.statusCode)
+        accounts.forEach(function (account) {
+          switch (account.currency) {
+            case 'USD':
+              bot.balance.currency = parseFloat(account.balance)
+              break;
+            case 'BTC':
+              bot.balance.asset = parseFloat(account.balance)
+              break;
+          }
         })
-      }
+        get('console').log('balance sync completed.')
+        bot.trade = true
+        cb && cb()
+      })
     }
 
     function getGraph () {
@@ -166,7 +181,14 @@ module.exports = function container (get, set, clear) {
             client.buy(buyParams, function (err, resp, result) {
               if (err) return get('console').error('buy err', err, resp, result)
               get('console').log('buy result', resp.statusCode, result)
-              syncBalance()
+              syncBalance(function () {
+                if (bot.tweet) {
+                  var tweet = {
+                    status: 'BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
+                  }
+                  twitterClient.post('statuses/update', tweet, onTweet)
+                }
+              })
             })
           }
         }
@@ -221,7 +243,14 @@ module.exports = function container (get, set, clear) {
             client.sell(sellParams, function (err, resp, result) {
               if (err) return get('console').error('sell err', err, resp, result)
               get('console').log('sell result', resp.statusCode, result)
-              syncBalance()
+              syncBalance(function () {
+                if (bot.tweet) {
+                  var tweet = {
+                    status: 'SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
+                  }
+                  twitterClient.post('statuses/update', tweet, onTweet)
+                }
+              })
             })
           }
         }
@@ -243,14 +272,10 @@ module.exports = function container (get, set, clear) {
         close: lastTick ? lastTick.close : null
       }
     }
+    var lastHour
     function report () {
       if (cooldown) cooldown--
-      var date = new Date(lastTick.time)
-      var tzMatch = date.toString().match(/\((.*)\)/)
-      var time = date.toLocaleString() + ' ' + tzMatch[1]
-      if (time.match(/, [^0]:/)) {
-        time = time.replace(', ', ', 0')
-      }
+      var time = get('utils.getTimestamp')(lastTick.time)
       var bar = getGraph()
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
       newBalance.currency += newBalance.asset * lastTick.close
@@ -259,7 +284,35 @@ module.exports = function container (get, set, clear) {
       if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
       if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
       if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-      get('console').log(bar + ' ' + numeral(lastTick.close).format('$0,0.00').yellow, volDiff, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow + ' ' + diff)
+      var status = [
+        bar,
+        numeral(lastTick.close).format('$0,0.00').yellow,
+        volDiff,
+        time.grey,
+        numeral(bot.balance.asset).format('00.000').white,
+        'BTC/USD'.grey,
+        numeral(bot.balance.currency).format('$,0.00').yellow,
+        diff
+      ].join(' ')
+      get('console').log(status)
+      syncBalance(function () {
+        var thisHour = tb(lastTick.time).resize('1h').toString()
+        if (thisHour !== lastHour) {
+          if (bot.tweet) {
+            var text = [
+              bar,
+              numeral(lastTick.close).format('$0,0.00'),
+              volDiff,
+              time
+            ].join(' ')
+            var tweet = {
+              status: colors.strip(text)
+            }
+            twitterClient.post('statuses/update', tweet, onTweet)
+          }
+        }
+        lastHour = thisHour
+      })
     }
     return {
       write: write,

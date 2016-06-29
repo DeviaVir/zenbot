@@ -16,7 +16,7 @@ module.exports = {
 
   'gdax': function container (get, set) {
     try {
-      return require('../gdax-config.js')
+      return require('../config.js')
     }
     catch (e) {
       return {}
