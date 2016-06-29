@@ -10,7 +10,6 @@
     "motley": "^2.2.7",
     "motley-mongo": "^2.0.5",
     "numeral": "^1.5.3",
-    "through": "^2.3.8",
     "timebucket": "^0.3.4",
     "zero-fill": "^2.2.3"
   }

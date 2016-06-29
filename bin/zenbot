@@ -50,7 +50,100 @@ program
       process.once('SIGINT', onExit)
       process.once('SIGTERM', onExit)
 
-      app.get('motley:bot.simulator')()
+      app.get('motley:bot.simulator')({start: options.start})
+    })
+  })
+
+program
+  .command('backfill')
+  .description('run the backfiller')
+  .option('--after <after>', 'trade sequence id to backfill after')
+  .option('--verbose', 'print all data')
+  .action(function (options) {
+    try {
+      var app = motley({
+        _ns: 'motley',
+        _maps: [
+          require('../_codemap'),
+          require('motley-mongo')
+        ],
+        'conf.console{}': {
+          silent: !options.verbose
+        },
+        '@hooks.mount': [
+          '#hooks.ensureIndexes',
+          '#db.mountCollections'
+        ]
+      })
+    }
+    catch (err) {
+      exit(err)
+    }
+
+    function exit (err) {
+      console.error(err)
+      console.error(err.stack)
+      process.exit(1)
+    }
+
+    app.mount(function (err) {
+      if (err) exit(err)
+      function onExit () {
+        app.close(function (err) {
+          if (err) exit(err)
+          process.exit()
+        })
+      }
+      process.once('SIGINT', onExit)
+      process.once('SIGTERM', onExit)
+
+      app.get('motley:bot.backfiller')({after: options.after})
+    })
+  })
+
+program
+  .command('record')
+  .description('run the recorder')
+  .option('--verbose', 'print all data')
+  .action(function (options) {
+    try {
+      var app = motley({
+        _ns: 'motley',
+        _maps: [
+          require('../_codemap'),
+          require('motley-mongo')
+        ],
+        'conf.console{}': {
+          silent: !options.verbose
+        },
+        '@hooks.mount': [
+          '#hooks.ensureIndexes',
+          '#db.mountCollections'
+        ]
+      })
+    }
+    catch (err) {
+      exit(err)
+    }
+
+    function exit (err) {
+      console.error(err)
+      console.error(err.stack)
+      process.exit(1)
+    }
+
+    app.mount(function (err) {
+      if (err) exit(err)
+      function onExit () {
+        app.close(function (err) {
+          if (err) exit(err)
+          process.exit()
+        })
+      }
+      process.once('SIGINT', onExit)
+      process.once('SIGTERM', onExit)
+
+      app.get('motley:bot.recorder')({})
     })
   })
 
