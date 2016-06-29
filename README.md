@@ -1,15 +1,13 @@
 # zenbot
 
+> “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
+> – Zen Proverb
+
 ## Disclaimer
 
 USE AT YOUR OWN RISK.
 
 END DISCLAIMER!
-
----
-
-> “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
-> – Zen Proverb
 
 ## Description
 
