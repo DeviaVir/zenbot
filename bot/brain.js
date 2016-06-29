@@ -26,9 +26,31 @@ module.exports = function container (get, set, clear) {
     var volDiff = ''
     if (bot.trade) {
       var client = get('utils.gdaxAuthedClient')
-      client.getAccounts(function () {
-        console.log(arguments)
+      syncBalance(function (err) {
+        if (err) throw err
+        initBalance = JSON.parse(JSON.stringify(bot.balance))
+        get('console').log('entering zen mode...')
       })
+      function syncBalance (cb) {
+        bot.trade = false
+        client.getAccounts(function (err, resp, accounts) {
+          if (err) throw err
+          if (resp.statusCode !== 200) throw new Error('non-200 status: ' + resp.statusCode)
+          accounts.forEach(function (account) {
+            switch (account.currency) {
+              case 'USD':
+                bot.balance.currency = parseFloat(account.balance)
+                break;
+              case 'BTC':
+                bot.balance.asset = parseFloat(account.balance)
+                break;
+            }
+          })
+          get('console').log('balance sync completed.')
+          bot.trade = true
+          cb && cb()
+        })
+      }
     }
 
     function getGraph () {
@@ -135,8 +157,17 @@ module.exports = function container (get, set, clear) {
           var fee = (size * price) * bot.fee
           bot.balance.currency -= fee
           get('console').log(('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
-          if (options.trade) {
-            //client.
+          if (bot.trade) {
+            var buyParams = {
+              'type': 'market',
+              'size': numeral(size).format('00.000'),
+              'product_id': get('conf.product_id'),
+            }
+            client.buy(buyParams, function (err, resp, result) {
+              if (err) return get('console').error('buy err', err, resp, result)
+              get('console').log('buy result', resp.statusCode, result)
+              syncBalance()
+            })
           }
         }
         else if (side === 'SELL') {
@@ -181,6 +212,18 @@ module.exports = function container (get, set, clear) {
           var fee = (sell * price) * bot.fee
           bot.balance.currency -= fee
           get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
+          if (bot.trade) {
+            var sellParams = {
+              'type': 'market',
+              'size': numeral(sell).format('00.000'),
+              'product_id': get('conf.product_id'),
+            }
+            client.sell(sellParams, function (err, resp, result) {
+              if (err) return get('console').error('sell err', err, resp, result)
+              get('console').log('sell result', resp.statusCode, result)
+              syncBalance()
+            })
+          }
         }
       }
       finish()
