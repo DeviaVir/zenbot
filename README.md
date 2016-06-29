@@ -21,6 +21,32 @@ since it has no specific strategy, it requires no configuration besides your API
 
 HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine!
 
+## Install
+
+```
+$ git clone git@github.com:carlos8f/zenbot.git && cd zenbot
+$ npm install && npm link
+$ cp gdax-config-sample.js gdax-config.js
+$ (edit gdax-config.js with api key)
+$ zenbot
+
+  Usage: zenbot [options] [command]
+
+
+  Commands:
+
+    run [options]        run zenbot on the exchange (must run recorder also)
+    sim [options]        run the simulator (must run backfiller first)
+    backfill [options]   run the backfiller
+    record [options]     run the recorder
+    *
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+```
+
 ## Screenshot
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/16441892/e791744c-3d82-11e6-834e-b566d498e7e9.png)
@@ -30,7 +56,6 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 ###record trades
 
 ```
-$ npm install -g zenbot
 $ zenbot record
 ```
 
