@@ -5,9 +5,10 @@ var program = require('commander')
   .version(require('../package.json').version)
 
 program
-  .command('zen')
-  .description('do actual trades in zen mode')
-  .option('--verbose', 'whether to print all data')
+  .command('run')
+  .description('run zenbot on the exchange (must run recorder also)')
+  .option('--trade', 'do actual trades')
+  .option('--silent', 'run in silent mode')
   .action(function (options) {
     try {
       var app = motley({
@@ -17,7 +18,7 @@ program
           require('motley-mongo')
         ],
         'conf.console{}': {
-          silent: !options.verbose
+          silent: options.silent
         },
         '@hooks.mount': [
           '#hooks.ensureIndexes',
@@ -46,15 +47,15 @@ program
       process.once('SIGINT', onExit)
       process.once('SIGTERM', onExit)
 
-      app.get('motley:bot.zen')()
+      app.get('motley:bot.zen')({trade: options.trade})
     })
   })
 
 program
   .command('sim')
-  .description('run the simulator')
+  .description('run the simulator (must run backfiller first)')
   .option('--start <time>', 'start time of simulation')
-  .option('--verbose', 'whether to print all data')
+  .option('--silent', 'run in silent mode')
   .action(function (options) {
     try {
       var app = motley({
@@ -67,7 +68,7 @@ program
           min_time: options.start || null
         },
         'conf.console{}': {
-          silent: !options.verbose
+          silent: options.silent
         },
         '@hooks.mount': [
           '#hooks.ensureIndexes',
@@ -104,7 +105,7 @@ program
   .command('backfill')
   .description('run the backfiller')
   .option('--after <after>', 'trade sequence id to backfill after')
-  .option('--verbose', 'print all data')
+  .option('--silent', 'run in silent mode')
   .action(function (options) {
     try {
       var app = motley({
@@ -114,7 +115,7 @@ program
           require('motley-mongo')
         ],
         'conf.console{}': {
-          silent: !options.verbose
+          silent: options.silent
         },
         '@hooks.mount': [
           '#hooks.ensureIndexes',
@@ -150,7 +151,7 @@ program
 program
   .command('record')
   .description('run the recorder')
-  .option('--verbose', 'print all data')
+  .option('--silent', 'print all data')
   .action(function (options) {
     try {
       var app = motley({
@@ -160,7 +161,7 @@ program
           require('motley-mongo')
         ],
         'conf.console{}': {
-          silent: !options.verbose
+          silent: options.silent
         },
         '@hooks.mount': [
           '#hooks.ensureIndexes',
