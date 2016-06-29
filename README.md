@@ -11,15 +11,17 @@ END DISCLAIMER!
 
 ## Description
 
-zenbot is a passive Bitcoin trading bot for [GDAX](https://gdax.com/).
+zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/).
 
-zen trusts the market and bases its decisions on volume triggers. it is "passive" because instead of doing its own analysis, it relies on the self-interest of other traders in the system. it has full console graphing/indicators to show its reasoning when making decisions.
+zenbot bases its decisions on volume triggers of the "taker" side and trades only at market value. The automation is "passive" because instead of doing its own technical analysis, zen follows in the footsteps of other traders/bots. It has full console graphing/indicators to show its reasoning when making decisions.
 
-since it has no specific strategy, it requires no configuration besides your API key.
+Since zenbot has no specific strategy, it requires no configuration besides your API key.
 
 HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine!
 
 ## Install
+
+Prereqs: [nodejs](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/)
 
 ```
 $ git clone git@github.com:carlos8f/zenbot.git && cd zenbot
@@ -51,7 +53,7 @@ $ zenbot
 
 ## Commands
 
-###record trades
+### record trades
 
 ```
 $ zenbot record
@@ -70,6 +72,8 @@ $ zenbot sim
 ```
 
 ### run trade bot on the exchange
+
+Use the `--trade` flag to enable real trading (zen mode).
 
 ```
 $ zenbot run [--trade]
