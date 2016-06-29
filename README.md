@@ -2,7 +2,7 @@
 
 # !ALPHA SOFTWARE. DO NOT USE FOR REAL TRADES.
 
-zenbot is a passive trading bot for [GDAX](https://gdax.com/). zen trusts other bots and people.
+zenbot is a passive trading bot for [GDAX](https://gdax.com/). zen trusts the market and bases its decisions on volume triggers. it is "passive" because instead of doing its own analysis, it relies on the self-interest of other traders in the system.
 
 ## Usage
 
@@ -11,24 +11,24 @@ Configure it first in [conf/_codemap.js](https://github.com/carlos8f/zenbot/blob
 ## record trades
 
 ```
-$ npm install
-$ node recorder.js
+$ npm install -g zenbot
+$ zenbot record --verbose
 ```
 
 ## backfill trades
 
 ```
-$ node backfiller.js
+$ zenbot backfill --verbose
 ```
 
 ### run trade simulation
 
 ```
-$ node bot.js
+$ zenbot sim --verbose
 ```
 
 ### run trade bot and do ACTUAL trades (zen mode)
 
 ```
-$ node bot.js --real
+$ zenbot zen --verbose
 ```
