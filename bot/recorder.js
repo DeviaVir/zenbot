@@ -9,6 +9,7 @@ module.exports = function container (get, set, clear) {
     var socket = get('utils.gdaxWebsocket')
     var counter = 0
     var lastTick = new Date().getTime()
+
     function onTick () {
       var trade_ticker = ''
       var params = {
@@ -28,18 +29,23 @@ module.exports = function container (get, set, clear) {
         get('console').log('saw ' + counter + ' messages.' + ticker)
         if (counter === 0) {
           get('console').log('no messages in last tick. rebooting socket...')
-          try {
-            socket.disconnect()
-          }
-          catch (e) {}
-          clear('utils.gdaxWebsocket')
-          clearInterval(interval)
-          mountRecorder(options)
+          reboot()
         }
         counter = 0
       })
     }
     var interval = setInterval(onTick, get('conf.tick_interval'))
+
+    function reboot () {
+      try {
+        socket.disconnect()
+      }
+      catch (e) {}
+      clear('utils.gdaxWebsocket')
+      clearInterval(interval)
+      mountRecorder(options)
+    }
+
     socket.on('message', function (message) {
       counter++
       if (message.type === 'match' && message.product_id === get('conf.product_id')) {
@@ -60,6 +66,11 @@ module.exports = function container (get, set, clear) {
     })
     socket.on('close', function () {
       get('console').log('socket closed.')
+    })
+    socket.on('error', function (err) {
+      get('console').error('socket err', err)
+      get('console').log('socket error. rebooting socket in 10s...')
+      setTimeout(reboot, 10000)
     })
   }
 }
