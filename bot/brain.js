@@ -37,13 +37,13 @@ module.exports = function container (get, set, clear) {
       if (vwapDiff > 0) {
         bar += ' '.repeat(half)
         var stars = Math.min(Math.round((vwapDiff / maxDiff) * half), half)
-        bar += '+'.green.repeat(stars)
+        bar += '+'.repeat(stars).green.bgGreen
         bar += ' '.repeat(half - stars)
       }
       else if (vwapDiff < 0) {
         var stars = Math.min(Math.round((Math.abs(vwapDiff) / maxDiff) * half), half)
         bar += ' '.repeat(half - stars)
-        bar += '-'.red.repeat(stars)
+        bar += '-'.repeat(stars).red.bgRed
         bar += ' '.repeat(half)
       }
       else {

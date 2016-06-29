@@ -32,7 +32,7 @@ module.exports = function container (get, set, clear) {
         if (!ticks.length) {
           var currency = brain.end()
           get('console').log('ended simulation with', numeral(currency).format('$0,0.00').yellow)
-          var roi = (currency - start) / start
+          var roi = 1 + (currency - start) / start
           console.log(JSON.stringify({roi: roi}))
           process.exit()
         }
