@@ -2,7 +2,9 @@
 
 # !ALPHA SOFTWARE. DO NOT USE FOR REAL TRADES.
 
-zenbot is a passive trading bot for [GDAX](https://gdax.com/). zen trusts the market and bases its decisions on volume triggers. it is "passive" because instead of doing its own analysis, it relies on the self-interest of other traders in the system.
+zenbot is a passive Bitcoin trading bot for [GDAX](https://gdax.com/).
+
+zen trusts the market and bases its decisions on volume triggers. it is "passive" because instead of doing its own analysis, it relies on the self-interest of other traders in the system.
 
 ## Usage
 
