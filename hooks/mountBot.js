@@ -2,6 +2,7 @@ var numeral = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
   , through = require('through')
+  , zerofill = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return function mountBot (cb) {
@@ -16,17 +17,7 @@ module.exports = function container (get, set, clear) {
     var maxDiff = 0
     var buyPrice, sellPrice
     var tradeVol = 0
-
-    function printReport () {
-      var newBalance = JSON.parse(JSON.stringify(bot.balance))
-      newBalance.currency += newBalance.asset * close
-      newBalance.asset = 0
-      var diff = newBalance.currency - initBalance.currency
-      if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
-      if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
-      if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-      get('console').log('[bot]', diff, numeral(tradeVol).format('0.000').white, 'BTC traded'.grey)
-    }
+    var cooldown = 0
 
     function getGraph () {
       runningTotal += ((high + low + close) / 3) * periodVol
@@ -91,9 +82,24 @@ module.exports = function container (get, set, clear) {
           return finish()
         }
         else if (side === 'BUY') {
+          if (cooldown > 0) {
+            get('console').log(('[bot] HOLD too soon to BUY').grey)
+            return finish()
+          }
+          cooldown = bot.cooldown
           var delta = 1 - (lastClose / close)
           var price = close + (close * bot.markup) // add markup
-          var spend = bot.balance.currency / 2
+          var vwap = runningTotal / runningVol
+          var vwapDiff = price - vwap
+          var spend
+          if (vwapDiff > 0) {
+            // buy more when price is rising
+            spend = bot.balance.currency * bot.trade_amt
+          }
+          else {
+            // buy less when price is falling
+            spend = bot.balance.currency * (1 - bot.trade_amt)
+          }
           if (spend / price < bot.min_trade) {
             get('console').log(('[bot] HOLD ' + numeral(delta).format('0.000%')).grey)
             return finish()
@@ -107,6 +113,7 @@ module.exports = function container (get, set, clear) {
           }
           if (delta >= bot.crash_protection) {
             get('console').log(('[bot] refusing to BUY at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.000%')).red)
+            cooldown = 0
             return finish()
           }
           buyPrice = price
@@ -119,9 +126,24 @@ module.exports = function container (get, set, clear) {
           get('console').log(('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
         }
         else if (side === 'SELL') {
+          if (cooldown > 0) {
+            get('console').log(('[bot] HOLD too soon to SELL').grey)
+            return finish()
+          }
+          cooldown = bot.cooldown
           var price = close - (close * bot.markup) // add markup
           var delta = 1 - (close / lastClose)
-          var sell = bot.balance.asset / 2
+          var vwap = runningTotal / runningVol
+          var vwapDiff = price - vwap
+          var sell
+          if (vwapDiff < 0) {
+            // sell more when price is falling
+            sell = bot.balance.asset * bot.trade_amt
+          }
+          else {
+            // sell less when price is rising
+            sell = bot.balance.asset * (1 - bot.trade_amt) / 2
+          }
           if (sell < bot.min_trade) {
             get('console').log(('[bot] HOLD' + numeral(delta).format('0.000%')).grey)
             return finish()
@@ -135,17 +157,17 @@ module.exports = function container (get, set, clear) {
           }
           if (delta >= bot.crash_protection) {
             get('console').log(('[bot] refusing to SELL at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.000%')).red)
+            cooldown = 0
             return finish()
-          }
+          } 
           sellPrice = price
           bot.balance.asset -= sell
           tradeVol += sell
           bot.balance.currency += sell * price
           var fee = (sell * price) * bot.fee
           bot.balance.currency -= fee
-          get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).yellow)
+          get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
         }
-        printReport()
       }
       function finish () {
         lastClose = close
@@ -171,6 +193,7 @@ module.exports = function container (get, set, clear) {
         if (!ticks.length) {
           return setTimeout(getNext, get('conf.tick_interval'))
         }
+        var periodVol = 0
         ticks.forEach(function (tick) {
           if (!close) {
             initBalance.currency += initBalance.asset * tick.close
@@ -181,7 +204,9 @@ module.exports = function container (get, set, clear) {
           tickStream.write(tick)
           minTime = tick.time
           counter++
+          periodVol += tick.vol
         })
+        if (cooldown) cooldown--
         var date = new Date(minTime)
         var tzMatch = date.toString().match(/\((.*)\)/)
         var time = date.toLocaleString() + ' ' + tzMatch[1]
@@ -189,7 +214,14 @@ module.exports = function container (get, set, clear) {
           time = time.replace(', ', ', 0')
         }
         var bar = getGraph()
-        get('console').log(bar + ' ' + numeral(close).format('$0,0.00').yellow, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow)
+        var newBalance = JSON.parse(JSON.stringify(bot.balance))
+        newBalance.currency += newBalance.asset * close
+        newBalance.asset = 0
+        var diff = newBalance.currency - initBalance.currency
+        if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
+        if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
+        if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
+        get('console').log(bar + ' ' + numeral(close).format('$0,0.00').yellow, zerofill(4, numeral(periodVol).format('0'), ' ').white, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow + ' ' + diff)
         setImmediate(getNext)
       })
     }

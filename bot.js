@@ -8,6 +8,7 @@ try {
       require('motley-mongo')
     ],
     '@hooks.mount': [
+      '#hooks.ensureIndexes',
       '#db.mountCollections',
       '#hooks.mountBot'
     ]

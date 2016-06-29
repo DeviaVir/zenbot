@@ -12,7 +12,7 @@ module.exports = function container (get, set, clear) {
       var params = {
         query: {
           time: {
-            $gt: lastTick
+            $gte: lastTick
           }
         },
         sort: {
