@@ -14,7 +14,7 @@ module.exports = function container (get, set, clear) {
       var params = {
         query: {
           time: {
-            $gte: lastTick
+            $gt: lastTick
           }
         },
         sort: {
