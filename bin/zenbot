@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+var motley = require('motley')
+
+var program = require('commander')
+  .version(require('../package.json').version)
+
+program
+  .command('sim')
+  .description('run the simulator')
+  .option('--start <time>', 'start time of simulation')
+  .option('--verbose', 'whether to print all data')
+  .action(function (options) {
+    try {
+      var app = motley({
+        _ns: 'motley',
+        _maps: [
+          require('../_codemap'),
+          require('motley-mongo')
+        ],
+        'conf.sim{}': {
+          min_time: options.start || null
+        },
+        'conf.console{}': {
+          silent: !options.verbose
+        },
+        '@hooks.mount': [
+          '#hooks.ensureIndexes',
+          '#db.mountCollections'
+        ]
+      })
+    }
+    catch (err) {
+      exit(err)
+    }
+
+    function exit (err) {
+      console.error(err)
+      console.error(err.stack)
+      process.exit(1)
+    }
+
+    app.mount(function (err) {
+      if (err) exit(err)
+      function onExit () {
+        app.close(function (err) {
+          if (err) exit(err)
+          process.exit()
+        })
+      }
+      process.once('SIGINT', onExit)
+      process.once('SIGTERM', onExit)
+
+      app.get('motley:bot.simulator')()
+    })
+  })
+
+program
+  .command('*')
+  .action(function (infile) {
+    program.outputHelp()
+    process.exit(1)
+  })
+
+program.parse(process.argv)
+
+if (!program.rawArgs[2]) {
+  program.outputHelp()
+  process.exit(1)
+}

@@ -1,6 +1,7 @@
 module.exports = {
   _ns: 'motley',
   _maps: [
+    require('./bot/_codemap'),
     require('./conf/_codemap'),
     require('./db/_codemap'),
     require('./hooks/_codemap'),

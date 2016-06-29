@@ -5,28 +5,34 @@ var numeral = require('numeral')
   , zerofill = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
-  return function mountBot (cb) {
-    var minTime = new Date().getTime() - (86400000 * 90) // 90 days ago
-    var bot = get('conf.bot')
+  return function (options) {
+    var bot = options || {}
+    var conf = get('conf.bot')
+    Object.keys(conf).forEach(function (k) {
+      if (typeof bot[k] === 'undefined') {
+        bot[k] = JSON.parse(JSON.stringify(conf[k]))
+      }
+    })
     var initBalance = JSON.parse(JSON.stringify(bot.balance))
     var side = null
     var periodVol = 0
     var counter = 0
     var runningVol = 0, runningTotal = 0
-    var high = 0, low = 10000, close = 0, vol = 0, lastClose = 0
+    var high = 0, low = 10000, vol = 0
     var maxDiff = 0
     var buyPrice, sellPrice
     var tradeVol = 0
     var cooldown = 0
+    var lastTick = {}
 
     function getGraph () {
-      runningTotal += ((high + low + close) / 3) * periodVol
+      runningTotal += ((high + low + lastTick.close) / 3) * periodVol
       //console.log('runningTotal', runningTotal)
       runningVol += periodVol
       //console.log('runningVol', runningVol)
       var vwap = runningTotal / runningVol
       //console.log('vwap', vwap)
-      var vwapDiff = close - vwap
+      var vwapDiff = lastTick.close - vwap
       //console.log('vwapDiff', vwapDiff)
       maxDiff = Math.max(maxDiff, Math.abs(vwapDiff))
       //console.log('maxDiff', maxDiff)
@@ -48,15 +54,17 @@ module.exports = function container (get, set, clear) {
       else {
         bar += ' '.repeat(half * 2)
       }
-      vol = 0
       high = 0
       low = 10000
       return bar
     }
 
-    var tickStream = through(function write (tick) {
+    function write (tick) {
+      if (!lastTick) {
+        initBalance.currency += initBalance.asset * tick.close
+        initBalance.asset = 0
+      }
       periodVol += tick.vol
-      close = tick.close
       high = Math.max(high, tick.high)
       low = Math.min(low, tick.low)
 
@@ -87,8 +95,8 @@ module.exports = function container (get, set, clear) {
             return finish()
           }
           cooldown = bot.cooldown
-          var delta = 1 - (lastClose / close)
-          var price = close + (close * bot.markup) // add markup
+          var delta = 1 - (tick.close / lastTick.close)
+          var price = tick.close + (tick.close * bot.markup) // add markup
           var vwap = runningTotal / runningVol
           var vwapDiff = price - vwap
           var spend
@@ -131,8 +139,8 @@ module.exports = function container (get, set, clear) {
             return finish()
           }
           cooldown = bot.cooldown
-          var price = close - (close * bot.markup) // add markup
-          var delta = 1 - (close / lastClose)
+          var price = tick.close - (tick.close * bot.markup) // add markup
+          var delta = 1 - (lastTick.close / tick.close)
           var vwap = runningTotal / runningVol
           var vwapDiff = price - vwap
           var sell
@@ -169,64 +177,40 @@ module.exports = function container (get, set, clear) {
           get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
         }
       }
+      finish()
       function finish () {
-        lastClose = close
+        lastTick = tick
       }
-    })
-    function getNext () {
-      var params = {
-        query: {
-          time: {
-            $gt: minTime
-          }
-        },
-        sort: {
-          time: 1
-        },
-        limit: bot.query_limit
-      }
-      get('db.ticks').select(params, function (err, ticks) {
-        if (err) {
-          get('console').error('tick select err', err)
-          return setImmediate(getNext)
-        }
-        if (!ticks.length) {
-          return setTimeout(getNext, get('conf.tick_interval'))
-        }
-        var periodVol = 0
-        ticks.forEach(function (tick) {
-          if (!close) {
-            initBalance.currency += initBalance.asset * tick.close
-            initBalance.asset = 0
-            lastClose = tick.close
-          }
-          close = tick.close
-          tickStream.write(tick)
-          minTime = tick.time
-          counter++
-          periodVol += tick.vol
-        })
-        if (cooldown) cooldown--
-        var date = new Date(minTime)
-        var tzMatch = date.toString().match(/\((.*)\)/)
-        var time = date.toLocaleString() + ' ' + tzMatch[1]
-        if (time.match(/, [^0]:/)) {
-          time = time.replace(', ', ', 0')
-        }
-        var bar = getGraph()
-        var newBalance = JSON.parse(JSON.stringify(bot.balance))
-        newBalance.currency += newBalance.asset * close
-        newBalance.asset = 0
-        var diff = newBalance.currency - initBalance.currency
-        if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
-        if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
-        if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-        get('console').log(bar + ' ' + numeral(close).format('$0,0.00').yellow, zerofill(4, numeral(periodVol).format('0'), ' ').white, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow + ' ' + diff)
-        setImmediate(getNext)
-      })
     }
-    setImmediate(getNext)
-    get('console').log('mounted bot.', bot.sim ? 'SIMULATION' : 'REAL LIFE')
-    cb && cb()
+    function end () {
+      var newBalance = JSON.parse(JSON.stringify(bot.balance))
+      newBalance.currency += newBalance.asset * lastTick.close
+      newBalance.asset = 0
+      return newBalance.currency
+    }
+    function report () {
+      if (cooldown) cooldown--
+      var date = new Date(lastTick.time)
+      var tzMatch = date.toString().match(/\((.*)\)/)
+      var time = date.toLocaleString() + ' ' + tzMatch[1]
+      if (time.match(/, [^0]:/)) {
+        time = time.replace(', ', ', 0')
+      }
+      var bar = getGraph()
+      var newBalance = JSON.parse(JSON.stringify(bot.balance))
+      newBalance.currency += newBalance.asset * lastTick.close
+      newBalance.asset = 0
+      var diff = newBalance.currency - initBalance.currency
+      if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
+      if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
+      if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
+      //console.log(lastTick)
+      get('console').log(bar + ' ' + numeral(lastTick.close).format('$0,0.00').yellow, zerofill(4, numeral(periodVol).format('0'), ' ').white, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow + ' ' + diff)
+    }
+    return {
+      write: write,
+      end: end,
+      report: report
+    }
   }
 }
