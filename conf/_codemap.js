@@ -22,10 +22,13 @@ module.exports = {
       return {}
     }
   },
+  'sim': {
+    query_limit: 100
+  },
   'bot': {
     balance: {
       asset: 0,
-      currency: 10000
+      currency: 1000
     },
     min_vol: 150,
     trade_amt: 0.70,
@@ -33,7 +36,6 @@ module.exports = {
     sim: process.argv[2] !== '--real',
     markup: 0.0002,
     fee: 0.0025,
-    query_limit: 100,
     cooldown: 3,
     crash_protection: 0.026,
     sell_for_less: 0.05,

@@ -2,9 +2,11 @@
   "name": "zenbot",
   "version": "0.0.0",
   "description": "a passive trading bot for gdax (coinbase exchange)",
+  "bin": "./bin/zenbot",
   "dependencies": {
     "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
     "colors": "^1.1.2",
+    "commander": "^2.9.0",
     "motley": "^2.2.7",
     "motley-mongo": "^2.0.5",
     "numeral": "^1.5.3",
