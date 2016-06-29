@@ -22,19 +22,15 @@ module.exports = function container (get, set, clear) {
     var buyPrice, sellPrice
     var tradeVol = 0
     var cooldown = 0
-    var lastTick = {}
+    var lastTick
+    var volDiff = ''
 
     function getGraph () {
       runningTotal += ((high + low + lastTick.close) / 3) * periodVol
-      //console.log('runningTotal', runningTotal)
       runningVol += periodVol
-      //console.log('runningVol', runningVol)
       var vwap = runningTotal / runningVol
-      //console.log('vwap', vwap)
       var vwapDiff = lastTick.close - vwap
-      //console.log('vwapDiff', vwapDiff)
       maxDiff = Math.max(maxDiff, Math.abs(vwapDiff))
-      //console.log('maxDiff', maxDiff)
       var barWidth = 20
       var half = barWidth / 2
       var bar = ''
@@ -76,6 +72,8 @@ module.exports = function container (get, set, clear) {
         side = tick.side
         vol += tick.vol
       }
+      var volString = zerofill(3, Math.round(vol), ' ').white
+      volDiff = volString + ' ' + (side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
       if (vol >= bot.min_vol) {
         get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
         vol = 0
@@ -183,8 +181,9 @@ module.exports = function container (get, set, clear) {
     }
     function end () {
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
-      newBalance.currency += newBalance.asset * lastTick.close
-      newBalance.asset = 0
+      if (lastTick) {
+        newBalance.currency += newBalance.asset * lastTick.close
+      }
       return newBalance.currency
     }
     function report () {
@@ -203,8 +202,7 @@ module.exports = function container (get, set, clear) {
       if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
       if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
       if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-      //console.log(lastTick)
-      get('console').log(bar + ' ' + numeral(lastTick.close).format('$0,0.00').yellow, zerofill(4, numeral(periodVol).format('0'), ' ').white, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow + ' ' + diff)
+      get('console').log(bar + ' ' + numeral(lastTick.close).format('$0,0.00').yellow, volDiff, time.grey, numeral(bot.balance.asset).format('00.000').white + ' BTC/USD '.grey + numeral(bot.balance.currency).format('$,0.00').yellow + ' ' + diff)
     }
     return {
       write: write,

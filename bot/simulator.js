@@ -36,7 +36,6 @@ module.exports = function container (get, set, clear) {
           console.log(JSON.stringify({roi: roi}))
           process.exit()
         }
-        var periodVol = 0
         ticks.forEach(function (tick) {
           brain.write(tick)
           minTime = tick.time
