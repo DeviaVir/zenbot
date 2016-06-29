@@ -10,7 +10,7 @@ module.exports = function container (get, set, clear) {
       }
     })
     var minTime = sim.min_time || new Date().getTime() - (86400000 * 90) // 90 days ago
-    var start = get('conf.bot').balance.currency
+    var start = get('conf.bot').balance
     var brain = get('bot.brain')()
     function getNext () {
       var params = {
@@ -30,11 +30,22 @@ module.exports = function container (get, set, clear) {
           return setImmediate(getNext)
         }
         if (!ticks.length) {
-          var currency = brain.end()
-          get('console').log('ended simulation with', numeral(currency).format('$0,0.00').yellow)
-          var roi = 1 + (currency - start) / start
-          console.log(JSON.stringify({roi: roi}))
-          process.exit()
+          var balance = brain.end()
+          get('console').log('ended simulation with', numeral(balance.currency).format('$0,0.00').yellow, 'USD', numeral(balance.asset).format('0.000').white, 'BTC')
+          if (balance.close && start.currency) {
+            balance.roi = 1 + (balance.currency - start.currency) / start.currency
+          }
+          else if (balance.close && start.asset) {
+            balance.asset += balance.currency / balance.close
+            balance.currency = 0
+            balance.roi = 1 + (balance.asset - start.asset) / start.asset
+          }
+          else {
+            balance.roi = 1
+          }
+          console.log(JSON.stringify(balance))
+          setTimeout(process.exit, 1000)
+          return
         }
         ticks.forEach(function (tick) {
           brain.write(tick)

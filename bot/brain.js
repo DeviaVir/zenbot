@@ -235,8 +235,13 @@ module.exports = function container (get, set, clear) {
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
       if (lastTick) {
         newBalance.currency += newBalance.asset * lastTick.close
+        newBalance.asset = 0
       }
-      return newBalance.currency
+      return {
+        asset: newBalance.asset,
+        currency: newBalance.currency,
+        close: lastTick ? lastTick.close : null
+      }
     }
     function report () {
       if (cooldown) cooldown--
