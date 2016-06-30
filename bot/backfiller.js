@@ -24,8 +24,8 @@ module.exports = function container (get, set, clear) {
           return {
             id: String(trade.trade_id),
             time: new Date(trade.time).getTime(),
-            size: parseFloat(trade.size),
-            price: parseFloat(trade.price),
+            size: numeral(trade.size).value(),
+            price: numeral(trade.price).value(),
             side: trade.side
           }
         }).reverse()

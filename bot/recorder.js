@@ -1,4 +1,5 @@
 var moment = require('moment')
+  , numeral = require('numeral')
 
 module.exports = function container (get, set, clear) {
   return function mountRecorder (options) {
@@ -66,8 +67,8 @@ module.exports = function container (get, set, clear) {
         var trade = {
           id: String(message.sequence),
           time: new Date(message.time).getTime(),
-          size: parseFloat(message.size),
-          price: parseFloat(message.price),
+          size: numeral(message.size).value(),
+          price: numeral(message.price).value(),
           side: message.side
         }
         get('db.trades').save(trade, function (err, saved) {
