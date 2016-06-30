@@ -15,15 +15,16 @@ module.exports = function container (get, set, clear) {
     var initBalance = JSON.parse(JSON.stringify(bot.balance))
     var side = null
     var periodVol = 0
-    var counter = 0
     var runningVol = 0, runningTotal = 0
     var high = 0, low = 10000, vol = 0
     var maxDiff = 0
-    var buyPrice, sellPrice
+    var buyPrice = null, sellPrice = null
     var tradeVol = 0
     var cooldown = 0
-    var lastTick
+    var lastTick = null
     var volDiff = ''
+    var lastHour = null
+
     if (bot.tweet) {
       var twitterClient = get('utils.twitterClient')
       var tweet = {
@@ -40,10 +41,33 @@ module.exports = function container (get, set, clear) {
     }
     if (bot.trade) {
       var client = get('utils.gdaxAuthedClient')
+      var memId = get('conf.product_id')
+      get('console').log('entering zen mode...')
       syncBalance(function (err) {
         if (err) throw err
         initBalance = JSON.parse(JSON.stringify(bot.balance))
-        get('console').log('entering zen mode...')
+        get('db.mems').load(memId, function (err, mem) {
+          if (err) throw err
+          if (mem) {
+            side = mem.side
+            runningVol = mem.runningVol
+            runningTotal = mem.runningTotal
+            high = mem.high
+            low = mem.low
+            vol = mem.vol
+            maxDiff = mem.maxDiff
+            buyPrice = mem.buyPrice
+            sellPrice = mem.sellPrice
+            tradeVol = mem.tradeVol
+            cooldown = mem.cooldown
+            lastTick = mem.lastTick
+            lastHour = mem.lastHour
+            get('console').log('memory loaded.', JSON.stringify(mem, null, 2))
+          }
+          else {
+            get('console').log('memory created.')
+          }
+        })
       })
     }
     function syncBalance (cb) {
@@ -98,6 +122,23 @@ module.exports = function container (get, set, clear) {
       low = 10000
       return bar
     }
+
+    /* report vars
+
+    side = taker side by volume majority of all processed ticks
+    vol = positive volume by side, until trigger resets it
+    periodVol = trade volume since last report
+    high = high price since last report
+    low = low price since last report
+    cooldown = number of reports until trigger can re-fire
+    lastTick = last tick processed
+    runningTotal = running volume-weighted typical price
+    runningVol = running volume
+    buyPrice = price bot last bought at
+    sellPrice = price bot last sold at
+    tradeVol = total trade volume of bot
+    lastHour = hour-granularity timebucket string of last tick processed
+    */
 
     function write (tick) {
       if (!lastTick) {
@@ -186,7 +227,7 @@ module.exports = function container (get, set, clear) {
               syncBalance(function () {
                 if (bot.tweet) {
                   var tweet = {
-                    status: 'BUY at ' + numeral(price).format('$0,0.00') + ' #btc #bitcoin #gdax ' + get('utils.getTimestamp')()
+                    status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
                   }
                   twitterClient.post('statuses/update', tweet, onTweet)
                 }
@@ -248,7 +289,7 @@ module.exports = function container (get, set, clear) {
               syncBalance(function () {
                 if (bot.tweet) {
                   var tweet = {
-                    status: 'SELL at ' + numeral(price).format('$0,0.00') + ' #btc #bitcoin #gdax ' + get('utils.getTimestamp')()
+                    status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
                   }
                   twitterClient.post('statuses/update', tweet, onTweet)
                 }
@@ -274,9 +315,9 @@ module.exports = function container (get, set, clear) {
         close: lastTick ? lastTick.close : null
       }
     }
-    var lastHour
     function report () {
       if (cooldown) cooldown--
+      periodVol = 0
       var time = get('utils.getTimestamp')(lastTick.time)
       var bar = getGraph()
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
@@ -301,14 +342,23 @@ module.exports = function container (get, set, clear) {
         var thisHour = tb(lastTick.time).resize('1h').toString()
         if (thisHour !== lastHour) {
           if (bot.tweet) {
+            var plainBar = colors.strip(bar)
+            var plusMatch = plainBar.match(/\+/g)
+            var pct = '0%'
+            if (plusMatch) {
+              pct = '+' + (plusMatch.length * 10) + '%'
+            }
+            var minusMatch = plainBar.match(/\-/g)
+            if (minusMatch) {
+              pct = '-' + (minusMatch.length * 10) + '%'
+            }
             var text = [
-              bar,
+              'report:',
+              pct,
               numeral(lastTick.close).format('$0,0.00'),
               volDiff,
-              '#btc',
-              '#bitcoin',
-              '#gdax',
-              time
+              time,
+              '#btc'
             ].join(' ').trim().replace(/\s+/g, ' ')
             var tweet = {
               status: colors.strip(text)
@@ -317,6 +367,28 @@ module.exports = function container (get, set, clear) {
           }
         }
         lastHour = thisHour
+        if (bot.trade) {
+          var mem = {
+            id: memId,
+            side: side,
+            runningVol: runningVol,
+            runningTotal: runningTotal,
+            high: high,
+            low: low,
+            vol: vol,
+            maxDiff: maxDiff,
+            buyPrice: buyPrice,
+            sellPrice: sellPrice,
+            tradeVol: tradeVol,
+            cooldown: cooldown,
+            lastTick: lastTick,
+            lastHour: lastHour,
+            balance: bot.balance
+          }
+          get('db.mems').save(mem, function (err, saved) {
+            if (err) return get('console').error('mem save err', err)
+          })
+        }
       })
     }
     return {
