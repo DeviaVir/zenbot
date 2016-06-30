@@ -186,7 +186,7 @@ module.exports = function container (get, set, clear) {
               syncBalance(function () {
                 if (bot.tweet) {
                   var tweet = {
-                    status: 'BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
+                    status: 'BUY at ' + numeral(price).format('$0,0.00') + ' #btc #bitcoin #gdax ' + get('utils.getTimestamp')()
                   }
                   twitterClient.post('statuses/update', tweet, onTweet)
                 }
@@ -248,7 +248,7 @@ module.exports = function container (get, set, clear) {
               syncBalance(function () {
                 if (bot.tweet) {
                   var tweet = {
-                    status: 'SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
+                    status: 'SELL at ' + numeral(price).format('$0,0.00') + ' #btc #bitcoin #gdax ' + get('utils.getTimestamp')()
                   }
                   twitterClient.post('statuses/update', tweet, onTweet)
                 }
@@ -305,6 +305,9 @@ module.exports = function container (get, set, clear) {
               bar,
               numeral(lastTick.close).format('$0,0.00'),
               volDiff,
+              '#btc',
+              '#bitcoin',
+              '#gdax',
               time
             ].join(' ')
             var tweet = {
