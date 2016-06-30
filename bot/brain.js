@@ -63,7 +63,7 @@ module.exports = function container (get, set, clear) {
             lastTick = mem.lastTick
             lastHour = mem.lastHour
             initBalance = mem.balance // consolidated to currency
-            get('console').log('memory loaded. starting trading!', JSON.stringify(mem, null, 2))
+            get('console').log('memory loaded. starting trading!')
             bot.trade = true
           }
           else {
@@ -327,9 +327,9 @@ module.exports = function container (get, set, clear) {
     }
     function report () {
       if (cooldown) cooldown--
-      periodVol = 0
       var time = get('utils.getTimestamp')(lastTick.time)
       var bar = getGraph()
+      periodVol = 0
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
       newBalance.currency += newBalance.asset * lastTick.close
       newBalance.asset = 0
