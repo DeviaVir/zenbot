@@ -75,6 +75,7 @@ module.exports = function container (get, set, clear) {
               initBalance.asset = 0
             })
             get('console').log('starting trading!')
+            bot.trade = true
           }
         })
       })
