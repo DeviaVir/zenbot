@@ -2,6 +2,7 @@ var numeral = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
   , zerofill = require('zero-fill')
+  , moment = require('moment')
 
 module.exports = function container (get, set, clear) {
   return function (options) {
@@ -234,7 +235,7 @@ module.exports = function container (get, set, clear) {
               get('console').log('buy result', resp.statusCode, result)
               if (bot.tweet) {
                 var tweet = {
-                  status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
+                  status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' now!'
                 }
                 twitterClient.post('statuses/update', tweet, onTweet)
               }
@@ -295,7 +296,7 @@ module.exports = function container (get, set, clear) {
               get('console').log('sell result', resp.statusCode, result)
               if (bot.tweet) {
                 var tweet = {
-                  status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
+                  status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' now!'
                 }
                 twitterClient.post('statuses/update', tweet, onTweet)
               }
@@ -362,7 +363,6 @@ module.exports = function container (get, set, clear) {
             pct,
             numeral(lastTick.close).format('$0,0.00'),
             volDiff,
-            time,
             '#btc'
           ].join(' ').trim()
           var tweet = {

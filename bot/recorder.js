@@ -1,3 +1,5 @@
+var moment = require('moment')
+
 module.exports = function container (get, set, clear) {
   return function mountRecorder (options) {
     options || (options = {})
@@ -35,7 +37,7 @@ module.exports = function container (get, set, clear) {
         get('console').log('saw ' + counter + ' messages.' + (tick ? tick.trade_ticker : ''))
         if (tick && options.tweet && tick.vol > 20) {
           var tweet = {
-            status: 'saw big trade: ' + tick.ticker + ' BTC at ' + get('utils.getTimestamp')(tick.time) + ' #gdax #bitcoin'
+            status: 'saw big trade: ' + tick.ticker + ' BTC ' + moment(tick.time).fromNow() + ' #gdax #bitcoin'
           }
           twitterClient.post('statuses/update', tweet, onTweet)
         }

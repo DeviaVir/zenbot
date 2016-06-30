@@ -9,6 +9,7 @@
     "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
+    "moment": "^2.13.0",
     "motley": "^2.2.7",
     "motley-mongo": "^2.0.5",
     "numeral": "^1.5.3",
