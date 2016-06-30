@@ -27,10 +27,6 @@ module.exports = function container (get, set, clear) {
 
     if (bot.tweet) {
       var twitterClient = get('utils.twitterClient')
-      var tweet = {
-        status: 'zenbot online at ' + get('utils.getTimestamp')()
-      }
-      twitterClient.post('statuses/update', tweet, onTweet)
       function onTweet (err, data, response) {
         if (err) return get('console').error('tweet err', err)
         if (response.statusCode === 200 && data && data.id_str) {
