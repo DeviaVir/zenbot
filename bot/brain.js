@@ -309,7 +309,7 @@ module.exports = function container (get, set, clear) {
               '#bitcoin',
               '#gdax',
               time
-            ].join(' ')
+            ].join(' ').trim().replace(/\s+/g, ' ')
             var tweet = {
               status: colors.strip(text)
             }
