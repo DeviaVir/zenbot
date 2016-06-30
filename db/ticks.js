@@ -45,6 +45,8 @@ module.exports = function container (get, set) {
           if (buyRatio < 0.5) side = 'SELL'
           if (buyRatio === 0.5) side = 'EVEN'
           var bucket = tb(closeTime).resize(get('conf.tick_size'))
+          trade_ticker = side + ' ' + numeral(typical).format('$0,0.00') + '/' + numeral(vol).format('0.000')
+          var orig_ticker = trade_ticker
           var tick = {
             id: bucket.toString(),
             time: bucket.toMilliseconds(),
@@ -62,8 +64,6 @@ module.exports = function container (get, set) {
             side: side,
             ticker: orig_ticker
           }
-          trade_ticker = side + ' ' + tick.price + '/' + numeral(vol).format('0.000')
-          var orig_ticker = trade_ticker
           if (vol > 20) {
             trade_ticker = trade_ticker.red
           }
@@ -73,12 +73,12 @@ module.exports = function container (get, set) {
           else {
             trade_ticker = trade_ticker.white
           }
-          trade_ticker = ' trades: ' + trade_ticker
+          tick.trade_ticker = ' trades: ' + trade_ticker
           get('db.ticks').save(tick, function (err, saved) {
             if (err) return get('console').error('tick save err', err)
           })
+          return tick
         }
-        return trade_ticker
       }
     }
   })

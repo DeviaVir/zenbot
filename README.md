@@ -55,8 +55,10 @@ $ zenbot
 
 ### record trades
 
+Use the `--tweet` flag to live tweet big buys/sells.
+
 ```
-$ zenbot record
+$ zenbot record [--tweet]
 ```
 
 ### backfill trades
@@ -75,8 +77,10 @@ $ zenbot sim
 
 Use the `--trade` flag to enable real trading (zen mode).
 
+Use the `--tweet` flag to live tweet buys/sells and hourly status report.
+
 ```
-$ zenbot run [--trade]
+$ zenbot run [--trade] [--tweet]
 ```
 
 - - -

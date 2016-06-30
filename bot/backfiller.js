@@ -38,8 +38,8 @@ module.exports = function container (get, set, clear) {
           counter++
         })
         Object.keys(ticks).forEach(function (tickId) {
-          var ticker = get('db.ticks').create(ticks[tickId])
-          if (ticker) get('console').log('backfilled', tb(tickId).toDate(), ticker)
+          var tick = get('db.ticks').create(ticks[tickId])
+          if (tick && tick.ticker) get('console').log('backfilled', tb(tickId).toDate(), ticker)
         })
         get('console').log('processed', counter, 'trades. after = ' + after)
         setTimeout(getNext, 0)
