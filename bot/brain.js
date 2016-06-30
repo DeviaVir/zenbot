@@ -45,7 +45,7 @@ module.exports = function container (get, set, clear) {
       get('console').log('entering zen mode...')
       syncBalance(function (err) {
         if (err) throw err
-        initBalance = JSON.parse(JSON.stringify(bot.balance))
+        bot.trade = false
         get('db.mems').load(memId, function (err, mem) {
           if (err) throw err
           if (mem) {
@@ -62,10 +62,22 @@ module.exports = function container (get, set, clear) {
             cooldown = mem.cooldown
             lastTick = mem.lastTick
             lastHour = mem.lastHour
-            get('console').log('memory loaded.', JSON.stringify(mem, null, 2))
+            initBalance = mem.balance // consolidated to currency
+            get('console').log('memory loaded. starting trading!', JSON.stringify(mem, null, 2))
+            bot.trade = true
           }
           else {
-            get('console').log('memory created.')
+            initBalance = JSON.parse(JSON.stringify(bot.balance))
+            get('utils.gdaxClient').getProductTicker(function (err, resp, ticker) {
+              if (err) throw err
+              if (resp.statusCode !== 200) {
+                console.error(ticker)
+                throw new Error('non-200 status from GDAX: ' + resp.statusCode)
+              }
+              initBalance.currency += initBalance.asset * ticker.price
+              initBalance.asset = 0
+            })
+            get('console').log('starting trading!')
           }
         })
       })
@@ -224,14 +236,13 @@ module.exports = function container (get, set, clear) {
             client.buy(buyParams, function (err, resp, result) {
               if (err) return get('console').error('buy err', err, resp, result)
               get('console').log('buy result', resp.statusCode, result)
-              syncBalance(function () {
-                if (bot.tweet) {
-                  var tweet = {
-                    status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
-                  }
-                  twitterClient.post('statuses/update', tweet, onTweet)
+              if (bot.tweet) {
+                var tweet = {
+                  status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
                 }
-              })
+                twitterClient.post('statuses/update', tweet, onTweet)
+              }
+              syncBalance()
             })
           }
         }
@@ -286,14 +297,13 @@ module.exports = function container (get, set, clear) {
             client.sell(sellParams, function (err, resp, result) {
               if (err) return get('console').error('sell err', err, resp, result)
               get('console').log('sell result', resp.statusCode, result)
-              syncBalance(function () {
-                if (bot.tweet) {
-                  var tweet = {
-                    status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
-                  }
-                  twitterClient.post('statuses/update', tweet, onTweet)
+              if (bot.tweet) {
+                var tweet = {
+                  status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + get('utils.getTimestamp')()
                 }
-              })
+                twitterClient.post('statuses/update', tweet, onTweet)
+              }
+              syncBalance()
             })
           }
         }
@@ -338,58 +348,57 @@ module.exports = function container (get, set, clear) {
         diff
       ].join(' ')
       get('console').log(status)
-      syncBalance(function () {
-        var thisHour = tb(lastTick.time).resize('1h').toString()
-        if (thisHour !== lastHour) {
-          if (bot.tweet) {
-            var plainBar = colors.strip(bar)
-            var plusMatch = plainBar.match(/\+/g)
-            var pct = '0%'
-            if (plusMatch) {
-              pct = '+' + (plusMatch.length * 10) + '%'
-            }
-            var minusMatch = plainBar.match(/\-/g)
-            if (minusMatch) {
-              pct = '-' + (minusMatch.length * 10) + '%'
-            }
-            var text = [
-              'report:',
-              pct,
-              numeral(lastTick.close).format('$0,0.00'),
-              volDiff,
-              time,
-              '#btc'
-            ].join(' ').trim()
-            var tweet = {
-              status: colors.strip(text).replace(/\s+/g, ' ')
-            }
-            twitterClient.post('statuses/update', tweet, onTweet)
+      var thisHour = tb(lastTick.time).resize('1h').toString()
+      if (thisHour !== lastHour) {
+        if (bot.tweet) {
+          var plainBar = colors.strip(bar)
+          var plusMatch = plainBar.match(/\+/g)
+          var pct = '0%'
+          if (plusMatch) {
+            pct = '+' + (plusMatch.length * 10) + '%'
           }
-        }
-        lastHour = thisHour
-        if (bot.trade) {
-          var mem = {
-            id: memId,
-            side: side,
-            runningVol: runningVol,
-            runningTotal: runningTotal,
-            high: high,
-            low: low,
-            vol: vol,
-            maxDiff: maxDiff,
-            buyPrice: buyPrice,
-            sellPrice: sellPrice,
-            tradeVol: tradeVol,
-            cooldown: cooldown,
-            lastTick: lastTick,
-            lastHour: lastHour,
-            balance: bot.balance
+          var minusMatch = plainBar.match(/\-/g)
+          if (minusMatch) {
+            pct = '-' + (minusMatch.length * 10) + '%'
           }
-          get('db.mems').save(mem, function (err, saved) {
-            if (err) return get('console').error('mem save err', err)
-          })
+          var text = [
+            'report:',
+            pct,
+            numeral(lastTick.close).format('$0,0.00'),
+            volDiff,
+            time,
+            '#btc'
+          ].join(' ').trim()
+          var tweet = {
+            status: colors.strip(text).replace(/\s+/g, ' ')
+          }
+          twitterClient.post('statuses/update', tweet, onTweet)
         }
-      })
+      }
+      lastHour = thisHour
+      if (bot.trade) {
+        var mem = {
+          id: memId,
+          side: side,
+          runningVol: runningVol,
+          runningTotal: runningTotal,
+          high: high,
+          low: low,
+          vol: vol,
+          maxDiff: maxDiff,
+          buyPrice: buyPrice,
+          sellPrice: sellPrice,
+          tradeVol: tradeVol,
+          cooldown: cooldown,
+          lastTick: lastTick,
+          lastHour: lastHour,
+          balance: newBalance
+        }
+        get('db.mems').save(mem, function (err, saved) {
+          if (err) return get('console').error('mem save err', err)
+        })
+        syncBalance()
+      }
     }
     return {
       write: write,
