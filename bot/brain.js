@@ -359,9 +359,9 @@ module.exports = function container (get, set, clear) {
               volDiff,
               time,
               '#btc'
-            ].join(' ').trim().replace(/\s+/g, ' ')
+            ].join(' ').trim()
             var tweet = {
-              status: colors.strip(text)
+              status: colors.strip(text).replace(/\s+/g, ' ')
             }
             twitterClient.post('statuses/update', tweet, onTweet)
           }
