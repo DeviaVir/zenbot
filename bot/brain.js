@@ -349,25 +349,20 @@ module.exports = function container (get, set, clear) {
       var thisHour = tb(lastTick.time).resize('1h').toString()
       if (thisHour !== lastHour) {
         if (bot.tweet) {
-          var plainBar = colors.strip(bar)
-          var plusMatch = plainBar.match(/\+/g)
-          var pct = '0%'
-          if (plusMatch) {
-            pct = '+' + (plusMatch.length * 10) + '%'
-          }
-          var minusMatch = plainBar.match(/\-/g)
-          if (minusMatch) {
-            pct = '-' + (minusMatch.length * 10) + '%'
-          }
+          var vwap = runningTotal / runningVol
+          var vwapDiff = lastTick.close - vwap
           var text = [
-            'report:',
-            pct,
+            'close price:',
             numeral(lastTick.close).format('$0,0.00'),
-            volDiff,
-            '#btc'
+            'vs vwap:',
+            numeral(vwapDiff).format('$0,0.00'),
+            'vol trigger:',
+            Math.round(vol) + '/' + side,
+            '#btc',
+            '#gdax'
           ].join(' ').trim()
           var tweet = {
-            status: colors.strip(text).replace(/\s+/g, ' ')
+            status: text
           }
           twitterClient.post('statuses/update', tweet, onTweet)
         }
