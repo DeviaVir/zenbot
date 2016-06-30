@@ -33,13 +33,13 @@ module.exports = function container (get, set) {
             close = trade.price
             closeTime = trade.time
             if (trade.side === 'sell') {
-              buyVol += trade.size
+              buyVol = numeral(buyVol).add(trade.size).value()
               buys++
             }
-            vol += trade.size
+            vol = numeral(vol).add(trade.size).value()
           })
-          var typical = (high + low + close) / 3
-          var buyRatio = buyVol / vol
+          var typical = numeral(high).add(low).add(close).divide(3).value()
+          var buyRatio = numeral(buyVol).divide(vol).value()
           var side
           if (buyRatio > 0.5) side = 'BUY'
           if (buyRatio < 0.5) side = 'SELL'

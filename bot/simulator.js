@@ -33,12 +33,12 @@ module.exports = function container (get, set, clear) {
           var balance = brain.end()
           get('console').log('ended simulation with', numeral(balance.currency).format('$0,0.00').yellow, 'USD', numeral(balance.asset).format('0.000').white, 'BTC')
           if (balance.close && start.currency) {
-            balance.roi = 1 + (balance.currency - start.currency) / start.currency
+            balance.roi = numeral(1).add(numeral(balance.currency).subtract(start.currency).divide(start.currency)).value()
           }
           else if (balance.close && start.asset) {
             balance.asset += balance.currency / balance.close
             balance.currency = 0
-            balance.roi = 1 + (balance.asset - start.asset) / start.asset
+            balance.roi = numeral(1).add(numeral(balance.asset).subtract(start.asset).divide(start.asset)).value()
           }
           else {
             balance.roi = 1

@@ -71,7 +71,9 @@ module.exports = function container (get, set, clear) {
                 console.error(ticker)
                 throw new Error('non-200 status from GDAX: ' + resp.statusCode)
               }
-              initBalance.currency += initBalance.asset * ticker.price
+              initBalance.currency = numeral(initBalance.currency)
+                .add(numeral(initBalance.asset).multiply(ticker.price))
+                .value()
               initBalance.asset = 0
             })
             get('console').log('starting trading!')
@@ -92,10 +94,10 @@ module.exports = function container (get, set, clear) {
         accounts.forEach(function (account) {
           switch (account.currency) {
             case 'USD':
-              bot.balance.currency = parseFloat(account.balance)
+              bot.balance.currency = numeral(account.balance).value()
               break;
             case 'BTC':
-              bot.balance.asset = parseFloat(account.balance)
+              bot.balance.asset = numeral(account.balance).value()
               break;
           }
         })
@@ -105,10 +107,11 @@ module.exports = function container (get, set, clear) {
     }
 
     function getGraph () {
-      runningTotal += ((high + low + lastTick.close) / 3) * periodVol
-      runningVol += periodVol
-      var vwap = runningTotal / runningVol
-      var vwapDiff = lastTick.close - vwap
+      var thisTotal = numeral(high).add(low).add(lastTick.close).divide(3).multiply(periodVol).value()
+      runningTotal = numeral(runningTotal).add(thisTotal).value()
+      runningVol = numeral(runningVol).add(periodVol).value()
+      var vwap = numeral(runningTotal).divide(runningVol).value()
+      var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
       maxDiff = Math.max(maxDiff, Math.abs(vwapDiff))
       var barWidth = 20
       var half = barWidth / 2
@@ -155,18 +158,18 @@ module.exports = function container (get, set, clear) {
         initBalance.currency += initBalance.asset * tick.close
         initBalance.asset = 0
       }
-      periodVol += tick.vol
+      periodVol = numeral(periodVol).add(tick.vol).value()
       high = Math.max(high, tick.high)
       low = Math.min(low, tick.low)
 
       if (side && tick.side !== side) {
-        vol -= tick.vol
+        vol = numeral(vol).subtract(tick.vol).value()
         if (vol < 0) side = tick.side
         vol = Math.abs(vol)
       }
       else {
         side = tick.side
-        vol += tick.vol
+        vol = numeral(vol).add(tick.vol).value()
       }
       var volString = zerofill(3, Math.round(vol), ' ').white
       volDiff = volString + ' ' + (side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
@@ -188,25 +191,25 @@ module.exports = function container (get, set, clear) {
             return finish()
           }
           cooldown = bot.cooldown
-          var delta = 1 - (tick.close / lastTick.close)
-          var price = tick.close + (tick.close * bot.markup) // add markup
-          var vwap = runningTotal / runningVol
-          var vwapDiff = price - vwap
+          var delta = numeral(1).subtract(numeral(tick.close).divide(lastTick.close)).value()
+          var price = numeral(tick.close).add(numeral(tick.close).multiply(bot.markup)).value() // add markup
+          var vwap = numeral(runningTotal).divide(runningVol).value()
+          var vwapDiff = numeral(price).subtract(vwap).value()
           var spend
           if (vwapDiff > 0) {
             // buy more when price is rising
-            spend = bot.balance.currency * bot.trade_amt
+            spend = numeral(bot.balance.currency).multiply(bot.trade_amt).value()
           }
           else {
             // buy less when price is falling
-            spend = bot.balance.currency * (1 - bot.trade_amt)
+            spend = numeral(bot.balance.currency).multiply(numeral(1).subtract(bot.trade_amt)).value()
           }
           if (spend / price < bot.min_trade) {
             get('console').log(('[bot] HOLD ' + numeral(delta).format('0.000%')).grey)
             return finish()
           }
           if (sellPrice && price > sellPrice) {
-            var sellDelta = 1 - (sellPrice / price)
+            var sellDelta = numeral(1).subtract(numeral(sellPrice).divide(price))
             if (sellDelta >= bot.buy_for_more) {
               get('console').log(('[bot] refusing to BUY for more (sold for ' + numeral(sellPrice).format('$0,0.00') + ') at ' + numeral(price).format('$0,0.00') + ' ' + numeral(sellDelta).format('0.000%')).red)
               return finish()
@@ -218,12 +221,12 @@ module.exports = function container (get, set, clear) {
             return finish()
           }
           buyPrice = price
-          bot.balance.currency -= spend
-          var size = spend / price
-          tradeVol += size
-          bot.balance.asset += size
-          var fee = (size * price) * bot.fee
-          bot.balance.currency -= fee
+          bot.balance.currency = numeral(bot.balance.currency).subtract(spend).value()
+          var size = numeral(spend).divide(price).value()
+          tradeVol = numeral(tradeVol).add(size).value()
+          bot.balance.asset = numeral(bot.balance.asset).add(size).value()
+          var fee = numeral(size).multiply(price).multiply(bot.fee).value()
+          bot.balance.currency = numeral(bot.balance.currency).subtract(fee).value()
           get('console').log(('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
           if (bot.trade) {
             var buyParams = {
@@ -250,25 +253,25 @@ module.exports = function container (get, set, clear) {
             return finish()
           }
           cooldown = bot.cooldown
-          var price = tick.close - (tick.close * bot.markup) // add markup
-          var delta = 1 - (lastTick.close / tick.close)
-          var vwap = runningTotal / runningVol
-          var vwapDiff = price - vwap
+          var price = numeral(tick.close).subtract(numeral(tick.close).multiply(bot.markup)).value()
+          var delta = numeral(1).subtract(numeral(lastTick.close).divide(tick.close)).value()
+          var vwap = numeral(runningTotal).divide(runningVol).value()
+          var vwapDiff = numeral(price).subtract(vwap).value()
           var sell
           if (vwapDiff < 0) {
             // sell more when price is falling
-            sell = bot.balance.asset * bot.trade_amt
+            sell = numeral(bot.balance.asset).multiply(bot.trade_amt).value()
           }
           else {
             // sell less when price is rising
-            sell = bot.balance.asset * (1 - bot.trade_amt) / 2
+            sell = numeral(bot.balance.asset).multiply(numeral(1).subtract(bot.trade_amt)).divide(2).value()
           }
           if (sell < bot.min_trade) {
             get('console').log(('[bot] HOLD' + numeral(delta).format('0.000%')).grey)
             return finish()
           }
           if (buyPrice && price < buyPrice) {
-            var buyDelta = 1 - (price / buyPrice)
+            var buyDelta = numeral(1).subtract(numeral(price).divide(buyPrice)).value()
             if (buyDelta >= bot.sell_for_less) {
             get('console').log(('[bot] refusing to SELL for less (bought for ' + numeral(buyPrice).format('$0,0.00') + ') at ' + numeral(price).format('$0,0.00') + ' ' + numeral(buyDelta).format('0.000%')).red)
               return finish()
@@ -280,11 +283,11 @@ module.exports = function container (get, set, clear) {
             return finish()
           } 
           sellPrice = price
-          bot.balance.asset -= sell
-          tradeVol += sell
-          bot.balance.currency += sell * price
-          var fee = (sell * price) * bot.fee
-          bot.balance.currency -= fee
+          bot.balance.asset = numeral(bot.balance.asset).subtract(sell).value()
+          tradeVol = numeral(tradeVol).add(sell).value()
+          bot.balance.currency = numeral(bot.balance.currency).add(numeral(sell).multiply(price)).value()
+          var fee = numeral(sell).multiply(price).multiply(bot.fee).value()
+          bot.balance.currency = numeral(bot.balance.currency).subtract(fee).value()
           get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
           if (bot.trade) {
             var sellParams = {
@@ -314,7 +317,7 @@ module.exports = function container (get, set, clear) {
     function end () {
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
       if (lastTick) {
-        newBalance.currency += newBalance.asset * lastTick.close
+        newBalance.currency = numeral(newBalance.currency).add(numeral(newBalance.asset).multiply(lastTick.close)).value()
         newBalance.asset = 0
       }
       return {
@@ -329,7 +332,7 @@ module.exports = function container (get, set, clear) {
       var bar = getGraph()
       periodVol = 0
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
-      newBalance.currency += newBalance.asset * lastTick.close
+      newBalance.currency = numeral(newBalance.currency).add(numeral(newBalance.asset).multiply(lastTick.close)).value()
       newBalance.asset = 0
       var diff = newBalance.currency - initBalance.currency
       if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
@@ -349,8 +352,8 @@ module.exports = function container (get, set, clear) {
       var thisHour = tb(lastTick.time).resize('1h').toString()
       if (thisHour !== lastHour) {
         if (bot.tweet) {
-          var vwap = runningTotal / runningVol
-          var vwapDiff = lastTick.close - vwap
+          var vwap = numeral(runningTotal).divide(runningVol).value()
+          var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
           var text = [
             'close price:',
             numeral(lastTick.close).format('$0,0.00'),
