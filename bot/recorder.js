@@ -35,7 +35,7 @@ module.exports = function container (get, set, clear) {
         get('console').log('saw ' + counter + ' messages.' + (tick ? tick.trade_ticker : ''))
         if (tick && options.tweet && tick.vol > 20) {
           var tweet = {
-            status: 'big trade: ' + tick.ticker + ' BTC at ' + get('utils.getTimestamp')(tick.time)
+            status: 'big trade: ' + tick.ticker + ' BTC at ' + get('utils.getTimestamp')(tick.time) + ' #btc #bitcoin #gdax'
           }
           twitterClient.post('statuses/update', tweet, onTweet)
         }
