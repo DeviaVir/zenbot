@@ -2,7 +2,9 @@
   "name": "zenbot_btc",
   "version": "0.0.0",
   "description": "an automated Bitcoin trading bot for GDAX (Coinbase Exchange)",
-  "bin": "./bin/zenbot",
+  "bin": {
+    "zenbot": "./bin/zenbot"
+  },
   "dependencies": {
     "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
     "colors": "^1.1.2",
