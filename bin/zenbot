@@ -152,6 +152,7 @@ program
 program
   .command('record')
   .description('run the recorder')
+  .option('--tweet', 'live tweet big buys/sells (requires extra config)')
   .option('--silent', 'print all data')
   .action(function (options) {
     try {
@@ -191,7 +192,7 @@ program
       process.once('SIGINT', onExit)
       process.once('SIGTERM', onExit)
 
-      app.get('motley:bot.recorder')({})
+      app.get('motley:bot.recorder')({tweet: options.tweet})
     })
   })
 
