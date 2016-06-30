@@ -51,7 +51,10 @@ module.exports = function container (get, set, clear) {
       bot.trade = false
       client.getAccounts(function (err, resp, accounts) {
         if (err) throw err
-        if (resp.statusCode !== 200) throw new Error('non-200 status: ' + resp.statusCode)
+        if (resp.statusCode !== 200) {
+          console.error(accounts)
+          throw new Error('non-200 status from GDAX: ' + resp.statusCode)
+        }
         accounts.forEach(function (account) {
           switch (account.currency) {
             case 'USD':
@@ -62,7 +65,6 @@ module.exports = function container (get, set, clear) {
               break;
           }
         })
-        get('console').log('balance sync completed.')
         bot.trade = true
         cb && cb()
       })
