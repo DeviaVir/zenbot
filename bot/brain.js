@@ -26,6 +26,7 @@ module.exports = function container (get, set, clear) {
     var lastTick = null
     var volDiff = ''
     var lastHour = null
+    var hourVol = 0
 
     if (bot.tweet) {
       var twitterClient = get('utils.twitterClient')
@@ -60,6 +61,7 @@ module.exports = function container (get, set, clear) {
             cooldown = mem.cooldown
             lastTick = mem.lastTick
             lastHour = mem.lastHour
+            hourVol = mem.hourVol
             initBalance = mem.balance // consolidated to currency
             get('console').log('memory loaded.'.white + ' resuming trading!'.cyan)
             bot.trade = true
@@ -152,6 +154,7 @@ module.exports = function container (get, set, clear) {
     sellPrice = price bot last sold at
     tradeVol = total trade volume of bot
     lastHour = hour-granularity timebucket string of last tick processed
+    hourVol = volume since last hour report
     */
 
     function write (tick) {
@@ -160,6 +163,7 @@ module.exports = function container (get, set, clear) {
         initBalance.asset = 0
       }
       periodVol = numeral(periodVol).add(tick.vol).value()
+      hourVol = numeral(hourVol).add(tick.vol).value()
       high = Math.max(high, tick.high)
       low = Math.min(low, tick.low)
 
@@ -366,9 +370,10 @@ module.exports = function container (get, set, clear) {
       ].join(' ')
       get('console').log(status)
       var thisHour = tb(lastTick.time).resize('1h').toString()
+      var savedHourVol = hourVol
       if (thisHour !== lastHour) {
+        hourVolume = 0
         if (bot.tweet) {
-          var savedPeriodVol = periodVol
           client.getProduct24HrStats(function (err, resp, stats) {
             if (err) return get('console').error('get stats err', err)
             if (resp.statusCode !== 200) {
@@ -386,7 +391,7 @@ module.exports = function container (get, set, clear) {
               getTime() + ' report.\n',
               'close: ' + numeral(lastTick.close).format('$0,0.00'),
               'vs. vwap: ' + vwapDiffStr,
-              'hr. volume: ' + numeral(Math.round(savedPeriodVol)).format('0,0'),
+              'hr. volume: ' + numeral(Math.round(savedHourVol)).format('0,0'),
               'market: ' + side === 'BUY' ? 'BULL' : 'BEAR',
               '24hr. diff: ' + diffStr + '\n',
               '#btc'
@@ -415,7 +420,8 @@ module.exports = function container (get, set, clear) {
           cooldown: cooldown,
           lastTick: lastTick,
           lastHour: lastHour,
-          balance: newBalance
+          balance: newBalance,
+          hourVol: savedHourVol
         }
         get('db.mems').save(mem, function (err, saved) {
           if (err) return get('console').error('mem save err', err)
