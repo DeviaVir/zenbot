@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+var version = require('../package.json').version
+ZENBOT_USER_AGENT = 'zenbot/' + version
+
 var motley = require('motley')
 
 var program = require('commander')
-  .version(require('../package.json').version)
+  .version(version)
 
 program
   .command('run')
