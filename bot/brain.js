@@ -228,16 +228,15 @@ module.exports = function container (get, set, clear) {
           bot.balance.asset = numeral(bot.balance.asset).add(size).value()
           var fee = numeral(size).multiply(price).multiply(bot.fee).value()
           bot.balance.currency = numeral(bot.balance.currency).subtract(fee).value()
-          get('console').log(('[bot] BUY ' + numeral(size).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
+          get('console').log(('[bot] BUY ' + numeral(size).format('0.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
           if (bot.trade) {
             var buyParams = {
               'type': 'market',
               'size': numeral(size).format('00.000'),
               'product_id': get('conf.product_id'),
             }
-            client.buy(buyParams, function (err, resp, result) {
-              if (err) return get('console').error('buy err', err, resp, result)
-              get('console').log('buy result', resp.statusCode, result)
+            client.buy(buyParams, function (err, resp, order) {
+              onOrder(err, resp, order)
               if (bot.tweet) {
                 var tweet = {
                   status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + getTime()
@@ -297,8 +296,7 @@ module.exports = function container (get, set, clear) {
               'product_id': get('conf.product_id'),
             }
             client.sell(sellParams, function (err, resp, result) {
-              if (err) return get('console').error('sell err', err, resp, result)
-              get('console').log('sell result', resp.statusCode, result)
+              onOrder(err, resp, order)
               if (bot.tweet) {
                 var tweet = {
                   status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + getTime()
@@ -308,6 +306,31 @@ module.exports = function container (get, set, clear) {
               syncBalance()
             })
           }
+        }
+        function onOrder (err, resp, order) {
+          if (err) return get('console').error('order err', err, resp, order)
+          if (resp.statusCode !== 200) {
+            console.error(order)
+            return get('console').error('non-200 status from GDAX: ' + resp.statusCode)
+          }
+          get('console').log(('[GDAX] order-id: ' + order.id).cyan)
+          function getStatus () {
+            client.getOrder(order.id, function (err, resp, order) {
+              if (err) return get('console').error('getOrder err', err)
+              if (resp.statusCode !== 200) {
+                console.error(order)
+                return get('console').error('non-200 status from GDAX getOrder: ' + resp.statusCode)
+              }
+              if (order.status === 'done') {
+                return get('console').log(('[GDAX] order ' + order.id + ' done: ' + order.done_reason).cyan)
+              }
+              else {
+                get('console').log(('[GDAX] order ' + order.id + ' ' + order.status).cyan)
+                setTimeout(getStatus, 5000)
+              }
+            })
+          }
+          getStatus()
         }
       }
       finish()
