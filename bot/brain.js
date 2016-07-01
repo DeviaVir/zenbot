@@ -396,7 +396,7 @@ module.exports = function container (get, set, clear) {
               'vs. vwap:',
               vwapDiffStr,
               'volume:',
-              Math.round(periodVol) + '/' + (side === 'BUY' ? 'BULL' : 'BEAR'),
+              numeral(Math.round(periodVol)).format('0,0') + '/' + (side === 'BUY' ? 'BULL' : 'BEAR'),
               '24hr diff:',
               diffStr,
               '#btc'
