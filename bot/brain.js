@@ -383,8 +383,7 @@ module.exports = function container (get, set, clear) {
             var vwapDiffStr = vwapDiff >= 0 ? '+' : '-'
             vwapDiffStr += numeral(Math.abs(vwapDiff)).format('$0.00')
             var text = [
-              getTime(),
-              'report.\n',
+              getTime() + ' report.\n',
               'close: ' + numeral(lastTick.close).format('$0,0.00'),
               'vs. vwap: ' + vwapDiffStr,
               'hr. volume: ' + numeral(Math.round(savedPeriodVol)).format('0,0'),
