@@ -356,13 +356,14 @@ module.exports = function container (get, set, clear) {
           var vwap = numeral(runningTotal).divide(runningVol).value()
           var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
           var text = [
-            'zenbot report:',
             getTime(),
+            'report.',
             'close:',
             numeral(lastTick.close).format('$0,0.00'),
             'vwap:',
             numeral(vwapDiff).format('$0,0.00'),
             'side:',
+            '#btc'
             Math.round(vol) + '/' + side
           ].join(' ').trim()
           var tweet = {
