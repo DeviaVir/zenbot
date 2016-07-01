@@ -5,6 +5,7 @@ var numeral = require('numeral')
   , moment = require('moment')
 
 module.exports = function container (get, set, clear) {
+  var getTime = get('utils.getTime')
   return function (options) {
     var bot = options || {}
     var conf = get('conf.bot')
@@ -239,7 +240,7 @@ module.exports = function container (get, set, clear) {
               get('console').log('buy result', resp.statusCode, result)
               if (bot.tweet) {
                 var tweet = {
-                  status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' now!'
+                  status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + getTime()
                 }
                 twitterClient.post('statuses/update', tweet, onTweet)
               }
@@ -300,7 +301,7 @@ module.exports = function container (get, set, clear) {
               get('console').log('sell result', resp.statusCode, result)
               if (bot.tweet) {
                 var tweet = {
-                  status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' now!'
+                  status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + getTime()
                 }
                 twitterClient.post('statuses/update', tweet, onTweet)
               }
@@ -361,6 +362,7 @@ module.exports = function container (get, set, clear) {
             numeral(vwapDiff).format('$0,0.00'),
             'vol trigger:',
             Math.round(vol) + '/' + side,
+            getTime(),
             '#btc',
             '#gdax'
           ].join(' ').trim()
