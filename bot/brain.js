@@ -392,7 +392,7 @@ module.exports = function container (get, set, clear) {
               'close: ' + numeral(lastTick.close).format('$0,0.00'),
               'vs. vwap: ' + vwapDiffStr,
               'hr. volume: ' + numeral(Math.round(savedHourVol)).format('0,0'),
-              'market: ' + side === 'BUY' ? 'BULL' : 'BEAR',
+              'market: ' + (side === 'BUY' ? 'BULL' : 'BEAR'),
               '24hr. diff: ' + diffStr + '\n',
               '#btc'
             ].join('\n').trim()
