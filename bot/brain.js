@@ -61,7 +61,7 @@ module.exports = function container (get, set, clear) {
             lastTick = mem.lastTick
             lastHour = mem.lastHour
             initBalance = mem.balance // consolidated to currency
-            get('console').log('memory loaded. resuming trading!')
+            get('console').log('memory loaded.'.white + ' resuming trading!'.cyan)
             bot.trade = true
           }
           else {
@@ -77,7 +77,7 @@ module.exports = function container (get, set, clear) {
                 .value()
               initBalance.asset = 0
             })
-            get('console').log('no memory found. starting trading!')
+            get('console').log('no memory found.'.red + ' starting trading!'.cyan)
             bot.trade = true
           }
         })
