@@ -376,23 +376,37 @@ module.exports = function container (get, set, clear) {
       var thisHour = tb(lastTick.time).resize('1h').toString()
       if (thisHour !== lastHour) {
         if (bot.tweet) {
-          var vwap = numeral(runningTotal).divide(runningVol).value()
-          var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
-          var text = [
-            getTime(),
-            'report.',
-            'close:',
-            numeral(lastTick.close).format('$0,0.00'),
-            'vwap:',
-            numeral(vwapDiff).format('$0,0.00'),
-            'side:',
-            Math.round(vol) + '/' + side,
-            '#btc'
-          ].join(' ').trim()
-          var tweet = {
-            status: text
-          }
-          twitterClient.post('statuses/update', tweet, onTweet)
+          client.getProduct24HrStats(function (err, resp, stats) {
+            if (err) return get('console').error('get stats err', err)
+            if (resp.statusCode !== 200) {
+              console.error(stats)
+              return get('console').error('non-200 from GDAX stats: ' + resp.statusCode)
+            }
+            var diff = numeral(lastTick.close).subtract(stats.open).value()
+            var diffStr = diff >= 0 ? '+' : '-'
+            diffStr += numeral(Math.abs(diff)).format('$0.00')
+            var vwap = numeral(runningTotal).divide(runningVol).value()
+            var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
+            var vwapDiffStr = vwapDiff >= 0 ? '+' : '-'
+            vwapDiffStr += numeral(Math.abs(vwapDiff)).format('$0.00')
+            var text = [
+              getTime(),
+              'report.',
+              'close:',
+              numeral(lastTick.close).format('$0,0.00'),
+              'vs. vwap:',
+              vwapDiffStr,
+              'side:',
+              Math.round(vol) + '/' + side,
+              '24hr diff:',
+              diffStr,
+              '#btc'
+            ].join(' ').trim()
+            var tweet = {
+              status: text
+            }
+            twitterClient.post('statuses/update', tweet, onTweet)
+          })
         }
       }
       lastHour = thisHour
