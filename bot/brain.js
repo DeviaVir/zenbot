@@ -354,7 +354,6 @@ module.exports = function container (get, set, clear) {
       if (cooldown) cooldown--
       var time = get('utils.getTimestamp')(lastTick.time)
       var bar = getGraph()
-      periodVol = 0
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
       newBalance.currency = numeral(newBalance.currency).add(numeral(newBalance.asset).multiply(lastTick.close)).value()
       newBalance.asset = 0
@@ -396,8 +395,8 @@ module.exports = function container (get, set, clear) {
               numeral(lastTick.close).format('$0,0.00'),
               'vs. vwap:',
               vwapDiffStr,
-              'side:',
-              Math.round(vol) + '/' + side,
+              'volume:',
+              Math.round(periodVol) + '/' + (side === 'BUY' ? 'BULL' : 'BEAR'),
               '24hr diff:',
               diffStr,
               '#btc'
@@ -433,6 +432,7 @@ module.exports = function container (get, set, clear) {
         })
         syncBalance()
       }
+      periodVol = 0
     }
     return {
       write: write,
