@@ -10,6 +10,7 @@
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "moment": "^2.13.0",
+    "moment-timezone": "^0.5.4",
     "motley": "^2.2.7",
     "motley-mongo": "^2.0.5",
     "numeral": "^1.5.3",
