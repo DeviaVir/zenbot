@@ -237,7 +237,7 @@ module.exports = function container (get, set, clear) {
               onOrder(err, resp, order)
               if (bot.tweet) {
                 var tweet = {
-                  status: 'zenbot recommends: BUY #btc at ' + numeral(price).format('$0,0.00') + ' ' + getTime()
+                  status: 'zenbot recommends: BUY\n\nprice: ' + numeral(price).format('$0,0.00') + '\ntime: ' + getTime() + '\n\n#btc'
                 }
                 twitterClient.post('statuses/update', tweet, onTweet)
               }
@@ -296,7 +296,7 @@ module.exports = function container (get, set, clear) {
               onOrder(err, resp, order)
               if (bot.tweet) {
                 var tweet = {
-                  status: 'zenbot recommends: SELL #btc at ' + numeral(price).format('$0,0.00') + ' ' + getTime()
+                  status: 'zenbot recommends: SELL\n\nprice: ' + numeral(price).format('$0,0.00') + '\ntime: ' + getTime() + '\n\n#btc'
                 }
                 twitterClient.post('statuses/update', tweet, onTweet)
               }
