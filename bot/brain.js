@@ -175,23 +175,17 @@ module.exports = function container (get, set, clear) {
       var volString = zerofill(3, Math.round(vol), ' ').white
       volDiff = volString + ' ' + (side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
       if (vol >= bot.min_vol) {
-        get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
-        vol = 0
         // trigger
         if (side === 'BUY' && !bot.balance.currency) {
-          get('console').log('[bot] HOLD'.grey)
           return finish()
         }
         else if (side === 'SELL' && !bot.balance.asset) {
-          get('console').log('[bot] HOLD'.grey)
           return finish()
         }
         else if (side === 'BUY') {
           if (cooldown > 0) {
-            get('console').log(('[bot] HOLD too soon to BUY').grey)
             return finish()
           }
-          cooldown = bot.cooldown
           var delta = numeral(1).subtract(numeral(tick.close).divide(lastTick.close)).value()
           var price = numeral(tick.close).add(numeral(tick.close).multiply(bot.markup)).value() // add markup
           var vwap = numeral(runningTotal).divide(runningVol).value()
@@ -206,21 +200,21 @@ module.exports = function container (get, set, clear) {
             spend = numeral(bot.balance.currency).multiply(numeral(1).subtract(bot.trade_amt)).value()
           }
           if (spend / price < bot.min_trade) {
-            get('console').log(('[bot] HOLD ' + numeral(delta).format('0.000%')).grey)
             return finish()
           }
           if (sellPrice && price > sellPrice) {
             var sellDelta = numeral(1).subtract(numeral(sellPrice).divide(price))
             if (sellDelta >= bot.buy_for_more) {
-              get('console').log(('[bot] refusing to BUY for more (sold for ' + numeral(sellPrice).format('$0,0.00') + ') at ' + numeral(price).format('$0,0.00') + ' ' + numeral(sellDelta).format('0.000%')).red)
               return finish()
             }
           }
           if (delta >= bot.crash_protection) {
-            get('console').log(('[bot] refusing to BUY at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.000%')).red)
             cooldown = 0
             return finish()
           }
+          get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
+          cooldown = bot.cooldown
+          vol = 0
           buyPrice = price
           bot.balance.currency = numeral(bot.balance.currency).subtract(spend).value()
           var size = numeral(spend).divide(price).value()
@@ -249,10 +243,9 @@ module.exports = function container (get, set, clear) {
         }
         else if (side === 'SELL') {
           if (cooldown > 0) {
-            get('console').log(('[bot] HOLD too soon to SELL').grey)
+            get('console').log(('[bot] too soon to SELL').grey)
             return finish()
           }
-          cooldown = bot.cooldown
           var price = numeral(tick.close).subtract(numeral(tick.close).multiply(bot.markup)).value()
           var delta = numeral(1).subtract(numeral(lastTick.close).divide(tick.close)).value()
           var vwap = numeral(runningTotal).divide(runningVol).value()
@@ -267,21 +260,21 @@ module.exports = function container (get, set, clear) {
             sell = numeral(bot.balance.asset).multiply(numeral(1).subtract(bot.trade_amt)).divide(2).value()
           }
           if (sell < bot.min_trade) {
-            get('console').log(('[bot] HOLD' + numeral(delta).format('0.000%')).grey)
             return finish()
           }
           if (buyPrice && price < buyPrice) {
             var buyDelta = numeral(1).subtract(numeral(price).divide(buyPrice)).value()
             if (buyDelta >= bot.sell_for_less) {
-            get('console').log(('[bot] refusing to SELL for less (bought for ' + numeral(buyPrice).format('$0,0.00') + ') at ' + numeral(price).format('$0,0.00') + ' ' + numeral(buyDelta).format('0.000%')).red)
               return finish()
             }
           }
           if (delta >= bot.crash_protection) {
-            get('console').log(('[bot] refusing to SELL at ' + numeral(price).format('$0,0.00') + ': crash protection ' + numeral(delta).format('0.000%')).red)
             cooldown = 0
             return finish()
-          } 
+          }
+          get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
+          cooldown = bot.cooldown
+          vol = 0
           sellPrice = price
           bot.balance.asset = numeral(bot.balance.asset).subtract(sell).value()
           tradeVol = numeral(tradeVol).add(sell).value()
