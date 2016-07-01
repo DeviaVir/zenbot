@@ -363,8 +363,8 @@ module.exports = function container (get, set, clear) {
             'vwap:',
             numeral(vwapDiff).format('$0,0.00'),
             'side:',
+            Math.round(vol) + '/' + side,
             '#btc'
-            Math.round(vol) + '/' + side
           ].join(' ').trim()
           var tweet = {
             status: text
