@@ -384,19 +384,14 @@ module.exports = function container (get, set, clear) {
             vwapDiffStr += numeral(Math.abs(vwapDiff)).format('$0.00')
             var text = [
               getTime(),
-              'report.',
-              'close:',
-              numeral(lastTick.close).format('$0,0.00'),
-              'vs. vwap:',
-              vwapDiffStr,
-              'hr. volume:',
-              numeral(Math.round(savedPeriodVol)).format('0,0'),
-              'market:',
-              side === 'BUY' ? 'BULL' : 'BEAR',
-              '24hr. diff:',
-              diffStr,
+              'report.\n',
+              'close: ' + numeral(lastTick.close).format('$0,0.00'),
+              'vs. vwap: ' + vwapDiffStr,
+              'hr. volume: ' + numeral(Math.round(savedPeriodVol)).format('0,0'),
+              'market: ' + side === 'BUY' ? 'BULL' : 'BEAR',
+              '24hr. diff: ' + diffStr + '\n',
               '#btc'
-            ].join(' ').trim()
+            ].join('\n').trim()
             var tweet = {
               status: text
             }
