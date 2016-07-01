@@ -368,6 +368,7 @@ module.exports = function container (get, set, clear) {
       var thisHour = tb(lastTick.time).resize('1h').toString()
       if (thisHour !== lastHour) {
         if (bot.tweet) {
+          var savedPeriodVol = periodVol
           client.getProduct24HrStats(function (err, resp, stats) {
             if (err) return get('console').error('get stats err', err)
             if (resp.statusCode !== 200) {
@@ -389,7 +390,7 @@ module.exports = function container (get, set, clear) {
               'vs. vwap:',
               vwapDiffStr,
               'volume:',
-              numeral(Math.round(periodVol)).format('0,0') + '/' + (side === 'BUY' ? 'BULL' : 'BEAR'),
+              numeral(Math.round(savedPeriodVol)).format('0,0') + '/' + (side === 'BUY' ? 'BULL' : 'BEAR'),
               '24hr diff:',
               diffStr,
               '#btc'
