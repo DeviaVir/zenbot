@@ -292,7 +292,7 @@ module.exports = function container (get, set, clear) {
               'size': numeral(sell).format('00.000'),
               'product_id': get('conf.product_id'),
             }
-            client.sell(sellParams, function (err, resp, result) {
+            client.sell(sellParams, function (err, resp, order) {
               onOrder(err, resp, order)
               if (bot.tweet) {
                 var tweet = {
