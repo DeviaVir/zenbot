@@ -37,8 +37,9 @@ module.exports = {
     markup: 0.0002,
     fee: 0.0025,
     cooldown: 3,
-    crash_protection: 0.026,
-    sell_for_less: 0.05,
-    buy_for_more: 0.06
+    crash_protection: 0.046,
+    sell_for_less: 0.08,
+    buy_for_more: 0.15,
+    vol_reset: 999
   }
 }
