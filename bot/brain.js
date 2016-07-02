@@ -372,7 +372,7 @@ module.exports = function container (get, set, clear) {
       var thisHour = tb(lastTick.time).resize('1h').toString()
       var savedHourVol = hourVol
       if (thisHour !== lastHour) {
-        hourVolume = 0
+        hourVol = 0
         if (bot.tweet) {
           client.getProduct24HrStats(function (err, resp, stats) {
             if (err) return get('console').error('get stats err', err)
