@@ -180,6 +180,10 @@ module.exports = function container (get, set, clear) {
       volDiff = volString + ' ' + (side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
       if (vol >= bot.min_vol) {
         // trigger
+        if (cooldown) cooldown--
+        if (vol >= bot.vol_reset) {
+          vol = 0
+        }
         if (side === 'BUY' && !bot.balance.currency) {
           return finish()
         }
@@ -348,7 +352,6 @@ module.exports = function container (get, set, clear) {
       }
     }
     function report () {
-      if (cooldown) cooldown--
       var time = get('utils.getTimestamp')(lastTick.time)
       var bar = getGraph()
       var newBalance = JSON.parse(JSON.stringify(bot.balance))
