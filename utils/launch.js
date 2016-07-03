@@ -54,6 +54,7 @@ module.exports = function (mode, options) {
         app.get('motley:console').info('[param]', k, '=', options[k])
       })
       app.set('motley:bot', options)
+      app.set('motley:mode', mode)
       app.get('motley:bot.' + mode)
     })
     process.once('SIGINT', onExit)

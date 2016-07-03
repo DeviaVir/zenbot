@@ -72,6 +72,19 @@ module.exports = function container (get, set, clear) {
       })
     })
   }
+  function syncLearned () {
+    if (get('mode') === 'zen') {
+      get('db.mems').load('learned', function (err, learned) {
+        if (err) throw err
+        if (learned) {
+          Object.keys(learned.best_params).forEach(function (k) {
+            bot[k] = learned.best_params[k]
+          })
+        }
+      })
+    }
+  }
+  syncLearned()
   function syncBalance (cb) {
     if (!bot.trade) return cb && cb()
     bot.trade = false
@@ -396,7 +409,8 @@ module.exports = function container (get, set, clear) {
       n(rs.asset).format('00.000').white,
       constants.product_id.grey,
       n(rs.currency).format('$,0.00').yellow,
-      diff
+      diff,
+      n(rs.trade_vol).format('0.000').white
     ].join(' ')
     get('console').log(status)
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
@@ -448,6 +462,7 @@ module.exports = function container (get, set, clear) {
       })
       syncBalance()
     }
+    syncLearned()
     gleak.print()
   }
   function end () {
