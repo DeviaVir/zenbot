@@ -3,6 +3,7 @@ gleak = {
   print: function () {}
 }
 module.exports = gleak
+/*
 gleak.whitelist = [
   DTRACE_NET_SERVER_CONNECTION,
   DTRACE_NET_STREAM_END,
@@ -23,4 +24,4 @@ gleak.whitelist = [
   setInterval,
   setTimeout,
   console
-]
+]*/
