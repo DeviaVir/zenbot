@@ -45,6 +45,7 @@ module.exports = function container (get, set, clear) {
           )
           .value()
         result.trade_vol = brain_result.trade_vol
+        result.num_trades = brain_result.num_trades
         console.log(JSON.stringify(result, null, 2))
         setTimeout(process.exit, 1000)
         return

@@ -9,7 +9,7 @@ var spawn = require('child_process').spawn
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
-  var start = bot.start || new Date().getTime() - (86400000 * 30 * 9) // 9 months!
+  var start = bot.start || new Date().getTime() - (86400000 * 30 * 3) // 3 months!
   var defaults = require('../conf/defaults.json'), last_result
   process.once('SIGINT', function () {
     if (last_result) console.log(JSON.stringify(last_result, null, 2))
@@ -115,10 +115,13 @@ module.exports = function container (get, set, clear) {
         if (simulations && result.trade_vol < constants.min_strat_vol) {
           get('console').error('not enough trade_vol', n(result.trade_vol).format('0.000'), '<', n(constants.min_strat_vol).format('0.000'))
         }
-        result.fitness = n(result.roi).add(
-          n(Math.min(result.trade_vol, constants.min_strat_vol))
-            .divide(constants.min_strat_vol)
-        ).value()
+        result.fitness = n(result.roi)
+          .multiply(
+            n(Math.min(result.trade_vol, constants.min_strat_vol))
+              .divide(constants.min_strat_vol)
+          )
+          .divide(result.num_trades)
+          .value()
         if (is_first) {
           start_fitness = result.fitness
           first_ended = true
