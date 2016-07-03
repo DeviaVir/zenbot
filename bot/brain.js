@@ -30,7 +30,8 @@ module.exports = function container (get, set, clear) {
     vol_diff_string: '',
     last_hour: null,
     hour_vol: 0,
-    first_tick: null
+    first_tick: null,
+    num_trades: 0
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -41,6 +42,9 @@ module.exports = function container (get, set, clear) {
       }
       else get('console').error('tweet err', response.statusCode, data)
     }
+  }
+  if (bot.sim) {
+    bot.trade = true
   }
   if (bot.trade) {
     var client = get('utils.authed_client')
@@ -249,6 +253,7 @@ module.exports = function container (get, set, clear) {
         rs.trade_vol = n(rs.trade_vol)
           .add(size)
           .value()
+        rs.num_trades++
         rs.asset = n(rs.asset)
           .add(size)
           .value()
@@ -260,10 +265,11 @@ module.exports = function container (get, set, clear) {
           .subtract(fee)
           .value()
         get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
-        if (bot.trade) {
+        if (bot.trade && !bot.sim) {
           var buy_params = {
-            'type': 'market',
-            'size': n(size).format('00.000')
+            type: 'market',
+            size: n(size).format('00.000'),
+            product_id: constants.product_id
           }
           client.buy(buy_params, function (err, resp, order) {
             onOrder(err, resp, order)
@@ -331,6 +337,7 @@ module.exports = function container (get, set, clear) {
         rs.trade_vol = n(rs.trade_vol)
           .add(sell)
           .value()
+        rs.num_trades++
         rs.currency = n(rs.currency)
           .add(n(sell).multiply(price))
           .value()
@@ -342,10 +349,11 @@ module.exports = function container (get, set, clear) {
           .subtract(fee)
           .value()
         get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
-        if (bot.trade) {
+        if (bot.trade && !bot.sim) {
           var sell_params = {
-            'type': 'market',
-            'size': n(sell).format('00.000')
+            type: 'market',
+            size: n(sell).format('00.000'),
+            product_id: constants.product_id
           }
           client.sell(sell_params, function (err, resp, order) {
             onOrder(err, resp, order)
@@ -462,6 +470,9 @@ module.exports = function container (get, set, clear) {
       })
       syncBalance()
     }
+    else if (bot.sim) {
+      syncBalance()
+    }
     syncLearned()
     gleak.print()
   }
@@ -478,7 +489,8 @@ module.exports = function container (get, set, clear) {
     gleak.print()
     return {
       balance: new_balance,
-      trade_vol: rs.trade_vol
+      trade_vol: rs.trade_vol,
+      num_trades: rs.num_trades
     }
   }
   return {
