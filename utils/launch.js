@@ -51,6 +51,7 @@ module.exports = function (mode, options) {
       }
       Object.keys(defaults).forEach(function (k) {
         if (typeof options[k] === 'undefined') options[k] = defaults[k]
+        app.get('motley:console').info('[param]', k, '=', options[k])
       })
       app.set('motley:bot', options)
       app.get('motley:bot.' + mode)

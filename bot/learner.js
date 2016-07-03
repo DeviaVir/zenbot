@@ -5,6 +5,7 @@ var spawn = require('child_process').spawn
   , n = require('numeral')
   , constants = require('../conf/constants.json')
   , fs = require('fs')
+  , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
@@ -25,13 +26,18 @@ module.exports = function container (get, set, clear) {
     var best_roi = learned ? learned.best_roi : 1
     var iterations = 0
     var simulations = 0
+    var sim_chunks = 0
     var last_sim_chunks = 0
+    var sims_started = false
+    var first_ended = false
     var multi = new MultiProgress(process.stderr)
     get('console').info('running first simulation...')
     for (var i = 0; i < bot.concurrency; i++) {
       (function doNext () {
         var bar, sim_chunks = 0
-        if (last_sim_chunks) {
+        var is_first = !sims_started
+        sims_started = true
+        if (last_sim_chunks && first_ended) {
           bar = multi.newBar('  simulating [:bar] :percent :etas', {
             complete: '=',
             incomplete: ' ',
@@ -48,13 +54,22 @@ module.exports = function container (get, set, clear) {
             .subtract(constants.learn_mutation)
             .multiply(params[keys[idx]])
             .value()
+          if (param === 'vol_reset') {
+            assert(params[param] > 0)
+          }
+          if (param === 'min_trade') {
+            assert(params[param] >= constants.min_trade_possible)
+          }
         }
         catch (e) {
+          /*
           console.error('idx', idx)
           console.error('key', keys[idx])
           console.error('keys', keys)
           console.error('params', params)
-          throw e
+          */
+          if (bar) bar.terminate()
+          return doNext()
         }
         var args = Object.keys(defaults).map(function (k) {
           return '--' + k + '=' + params[k]
@@ -70,7 +85,7 @@ module.exports = function container (get, set, clear) {
             bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', roi = ' + n(best_roi).format('+0.000')
             bar.tick()
           }
-          else {
+          else if (is_first) {
             chunk.toString('utf8').split('\n').forEach(function (line) {
               //process.stderr.clearLine()
               process.stderr.cursorTo(0)
@@ -84,8 +99,9 @@ module.exports = function container (get, set, clear) {
           var stdout = Buffer.concat(chunks).toString('utf8')
           if (bar) bar.terminate()
           var result = JSON.parse(stdout)
-          if (!simulations) {
+          if (is_first) {
             start_roi = result.roi
+            first_ended = true
           }
           simulations++
           last_sim_chunks = sim_chunks
@@ -131,6 +147,9 @@ module.exports = function container (get, set, clear) {
                 last_speed: speed
               }
             }
+            var a = moment()
+            var b = moment().add(result.total_duration, 'seconds')
+            result.total_duration_str = n(b.diff(a, 'hours')).format('0.000') + ' hrs.'
             last_result = result
             get('db.mems').save(result, function (err, saved) {
               if (err) throw err
