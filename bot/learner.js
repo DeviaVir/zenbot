@@ -25,6 +25,7 @@ module.exports = function container (get, set, clear) {
     var start_fitness = learned ? learned.start_fitness : 1
     var best_fitness = learned ? learned.best_fitness : 1
     var roi = learned ? learned.roi : 1
+    var trade_vol = learned ? learned.trade_vol : 0
     var iterations = 0
     var simulations = 0
     var sim_chunks = 0
@@ -117,6 +118,7 @@ module.exports = function container (get, set, clear) {
           if (result.fitness > best_fitness) {
             best_fitness = result.fitness
             roi = result.roi
+            trade_vol = n(trade_vol).add(result.trade_vol).value()
             best_params = params
             iterations++
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(best_params, null, 2))
@@ -136,6 +138,7 @@ module.exports = function container (get, set, clear) {
                 start_fitness: learned.start_fitness,
                 best_fitness: best_fitness || start_fitness,
                 roi: roi,
+                trade_vol: trade_vol,
                 best_params: best_params,
                 iterations: learned.iterations + iterations,
                 simulations: learned.simulations + simulations,
