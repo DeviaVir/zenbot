@@ -1,442 +1,490 @@
-var numeral = require('numeral')
+var n = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
   , zerofill = require('zero-fill')
   , moment = require('moment')
+  , constants = require('../conf/constants.json')
+  , gleak = require('../utils/gleak')
 
 module.exports = function container (get, set, clear) {
-  var getTime = get('utils.getTime')
-  return function (options) {
-    var bot = options || {}
-    var conf = get('conf.bot')
-    Object.keys(conf).forEach(function (k) {
-      if (typeof bot[k] === 'undefined') {
-        bot[k] = JSON.parse(JSON.stringify(conf[k]))
+  var get_time = get('utils.get_time')
+  var bot = get('bot')
+  var start_balance = constants.sim_start_balance
+  var rs = {
+    id: constants.product_id,
+    asset: 0,
+    currency: start_balance,
+    side: null,
+    period_vol: 0,
+    running_vol: 0,
+    running_total: 0,
+    high: 0,
+    low: 10000,
+    vol: 0,
+    max_diff: 0,
+    buy_price: null,
+    sell_price: null,
+    trade_vol: 0,
+    cooldown: 0,
+    last_tick: null,
+    vol_diff_string: '',
+    last_hour: null,
+    hour_vol: 0,
+    first_tick: null
+  }
+  if (bot.tweet) {
+    var twitter_client = get('utils.twitter_client')
+    function onTweet (err, data, response) {
+      if (err) return get('console').error('tweet err', err)
+      if (response.statusCode === 200 && data && data.id_str) {
+        get('console').info('tweeted: '.cyan + data.text.white)
       }
-    })
-    var initBalance = JSON.parse(JSON.stringify(bot.balance))
-    var side = null
-    var periodVol = 0
-    var runningVol = 0, runningTotal = 0
-    var high = 0, low = 10000, vol = 0
-    var maxDiff = 0
-    var buyPrice = null, sellPrice = null
-    var tradeVol = 0
-    var cooldown = 0
-    var lastTick = null
-    var volDiff = ''
-    var lastHour = null
-    var hourVol = 0
-
-    if (bot.tweet) {
-      var twitterClient = get('utils.twitterClient')
-      function onTweet (err, data, response) {
-        if (err) return get('console').error('tweet err', err)
-        if (response.statusCode === 200 && data && data.id_str) {
-          get('console').log('tweeted: '.cyan + data.text.white)
-        }
-        else get('console').error('tweet err', response.statusCode, data)
-      }
+      else get('console').error('tweet err', response.statusCode, data)
     }
-    if (bot.trade) {
-      var client = get('utils.gdaxAuthedClient')
-      var memId = get('conf.product_id')
-      get('console').log('entering zen mode...')
-      syncBalance(function (err) {
-        if (err) throw err
-        bot.trade = false
-        get('db.mems').load(memId, function (err, mem) {
-          if (err) throw err
-          if (mem) {
-            side = mem.side
-            runningVol = mem.runningVol
-            runningTotal = mem.runningTotal
-            high = mem.high
-            low = mem.low
-            vol = mem.vol
-            maxDiff = mem.maxDiff
-            buyPrice = mem.buyPrice
-            sellPrice = mem.sellPrice
-            tradeVol = mem.tradeVol
-            cooldown = mem.cooldown
-            lastTick = mem.lastTick
-            lastHour = mem.lastHour
-            hourVol = mem.hourVol
-            initBalance = mem.balance // consolidated to currency
-            get('console').log('memory loaded.'.white + ' resuming trading!'.cyan)
-            bot.trade = true
-          }
-          else {
-            initBalance = JSON.parse(JSON.stringify(bot.balance))
-            get('utils.gdaxClient').getProductTicker(function (err, resp, ticker) {
-              if (err) throw err
-              if (resp.statusCode !== 200) {
-                console.error(ticker)
-                throw new Error('non-200 status from GDAX: ' + resp.statusCode)
-              }
-              initBalance.currency = numeral(initBalance.currency)
-                .add(numeral(initBalance.asset).multiply(ticker.price))
-                .value()
-              initBalance.asset = 0
-            })
-            get('console').log('no memory found.'.red + ' starting trading!'.cyan)
-            bot.trade = true
-          }
-        })
-      })
-    }
-    function syncBalance (cb) {
-      if (!bot.trade) return cb && cb()
+  }
+  if (bot.trade) {
+    var client = get('utils.authed_client')
+    get('console').info('entering zen mode...')
+    syncBalance(function (err) {
+      if (err) throw err
       bot.trade = false
-      client.getAccounts(function (err, resp, accounts) {
+      get('db.mems').load(rs.id, function (err, mem) {
         if (err) throw err
-        if (resp.statusCode !== 200) {
-          console.error(accounts)
-          throw new Error('non-200 status from GDAX: ' + resp.statusCode)
+        if (mem) {
+          Object.keys(mem).forEach(function (k) {
+            rs[k] = mem[k]
+          })
+          get('console').info('memory loaded.'.white + ' resuming trading!'.cyan)
+          bot.trade = true
         }
-        accounts.forEach(function (account) {
-          switch (account.currency) {
-            case 'USD':
-              bot.balance.currency = numeral(account.balance).value()
-              break;
-            case 'BTC':
-              bot.balance.asset = numeral(account.balance).value()
-              break;
-          }
-        })
-        bot.trade = true
-        cb && cb()
+        else {
+          get('utils.client').getProductTicker(function (err, resp, ticker) {
+            if (err) throw err
+            if (resp.statusCode !== 200) {
+              console.error(ticker)
+              throw new Error('non-200 status from exchange: ' + resp.statusCode)
+            }
+            start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
+            get('console').info('no memory found.'.red + ' starting trading!'.cyan)
+            bot.trade = true
+          })
+        }
+      })
+    })
+  }
+  function syncLearned () {
+    if (get('mode') === 'zen') {
+      get('db.mems').load('learned', function (err, learned) {
+        if (err) throw err
+        if (learned) {
+          Object.keys(learned.best_params).forEach(function (k) {
+            bot[k] = learned.best_params[k]
+          })
+        }
       })
     }
-
-    function getGraph () {
-      var thisTotal = numeral(high).add(low).add(lastTick.close).divide(3).multiply(periodVol).value()
-      runningTotal = numeral(runningTotal).add(thisTotal).value()
-      runningVol = numeral(runningVol).add(periodVol).value()
-      var vwap = numeral(runningTotal).divide(runningVol).value()
-      var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
-      maxDiff = Math.max(maxDiff, Math.abs(vwapDiff))
-      var barWidth = 20
-      var half = barWidth / 2
-      var bar = ''
-      if (vwapDiff > 0) {
-        bar += ' '.repeat(half)
-        var stars = Math.min(Math.round((vwapDiff / maxDiff) * half), half)
-        bar += '+'.repeat(stars).green.bgGreen
-        bar += ' '.repeat(half - stars)
+  }
+  syncLearned()
+  function syncBalance (cb) {
+    if (!bot.trade) return cb && cb()
+    bot.trade = false
+    client.getAccounts(function (err, resp, accounts) {
+      if (err) throw err
+      if (resp.statusCode !== 200) {
+        console.error(accounts)
+        throw new Error('non-200 status from exchange: ' + resp.statusCode)
       }
-      else if (vwapDiff < 0) {
-        var stars = Math.min(Math.round((Math.abs(vwapDiff) / maxDiff) * half), half)
-        bar += ' '.repeat(half - stars)
-        bar += '-'.repeat(stars).red.bgRed
-        bar += ' '.repeat(half)
-      }
-      else {
-        bar += ' '.repeat(half * 2)
-      }
-      high = 0
-      low = 10000
-      return bar
-    }
-
-    /* report vars
-
-    side = taker side by volume majority of all processed ticks
-    vol = positive volume by side, until trigger resets it
-    periodVol = trade volume since last report
-    high = high price since last report
-    low = low price since last report
-    cooldown = number of reports until trigger can re-fire
-    lastTick = last tick processed
-    runningTotal = running volume-weighted typical price
-    runningVol = running volume
-    buyPrice = price bot last bought at
-    sellPrice = price bot last sold at
-    tradeVol = total trade volume of bot
-    lastHour = hour-granularity timebucket string of last tick processed
-    hourVol = volume since last hour report
-    */
-
-    function write (tick) {
-      if (!lastTick) {
-        initBalance.currency += initBalance.asset * tick.close
-        initBalance.asset = 0
-      }
-      periodVol = numeral(periodVol).add(tick.vol).value()
-      hourVol = numeral(hourVol).add(tick.vol).value()
-      high = Math.max(high, tick.high)
-      low = Math.min(low, tick.low)
-
-      if (side && tick.side !== side) {
-        vol = numeral(vol).subtract(tick.vol).value()
-        if (vol < 0) side = tick.side
-        vol = Math.abs(vol)
-      }
-      else {
-        side = tick.side
-        vol = numeral(vol).add(tick.vol).value()
-      }
-      var volString = zerofill(3, Math.round(vol), ' ').white
-      volDiff = volString + ' ' + (side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
-      if (vol >= bot.min_vol) {
-        // trigger
-        if (cooldown) cooldown--
-        if (vol >= bot.vol_reset) {
-          vol = 0
+      accounts.forEach(function (account) {
+        switch (account.currency) {
+          case [constants.currency]:
+            rs.currency = n(account.balance).value()
+            break;
+          case [constants.asset]:
+            rs.asset = n(account.balance).value()
+            break;
         }
-        if (side === 'BUY' && !bot.balance.currency) {
+      })
+      bot.trade = true
+      cb && cb()
+    })
+  }
+
+  function getGraph () {
+    var thisTotal = n(rs.high)
+      .add(rs.low)
+      .add(rs.last_tick.close)
+      .divide(3)
+      .multiply(rs.period_vol)
+      .value()
+    rs.running_total = n(rs.running_total)
+      .add(thisTotal)
+      .value()
+    rs.running_vol = n(rs.running_vol)
+      .add(rs.period_vol)
+      .value()
+    var vwap = n(rs.running_total)
+      .divide(rs.running_vol)
+      .value()
+    var vwap_diff = n(rs.last_tick.close)
+      .subtract(vwap)
+      .value()
+    rs.max_diff = Math.max(rs.max_diff, Math.abs(vwap_diff))
+    var half = constants.bar_width / 2
+    var bar = ''
+    if (vwap_diff > 0) {
+      bar += ' '.repeat(half)
+      var stars = Math.min(Math.round((vwap_diff / rs.max_diff) * half), half)
+      bar += '+'.repeat(stars).green.bgGreen
+      bar += ' '.repeat(half - stars)
+    }
+    else if (vwap_diff < 0) {
+      var stars = Math.min(Math.round((Math.abs(vwap_diff) / rs.max_diff) * half), half)
+      bar += ' '.repeat(half - stars)
+      bar += '-'.repeat(stars).red.bgRed
+      bar += ' '.repeat(half)
+    }
+    else {
+      bar += ' '.repeat(half * 2)
+    }
+    rs.high = 0
+    rs.low = 10000
+    return bar
+  }
+
+  function write (tick) {
+    if (!rs.first_tick) {
+      rs.first_tick = tick
+    }
+    rs.period_vol = n(rs.period_vol)
+      .add(tick.vol)
+      .value()
+    rs.hour_vol = n(rs.hour_vol)
+      .add(tick.vol)
+      .value()
+    rs.high = Math.max(rs.high, tick.high)
+    rs.low = Math.min(rs.low, tick.low)
+
+    if (rs.side && tick.side !== rs.side) {
+      rs.vol = n(rs.vol)
+        .subtract(tick.vol)
+        .value()
+      if (rs.vol < 0) rs.side = tick.side
+      rs.vol = Math.abs(rs.vol)
+    }
+    else {
+      rs.side = tick.side
+      rs.vol = n(rs.vol)
+        .add(tick.vol)
+        .value()
+    }
+    var vol_string = zerofill(3, Math.round(rs.vol), ' ').white
+    rs.vol_diff_string = vol_string + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
+    if (rs.vol >= bot.min_vol) {
+      // trigger
+      if (rs.cooldown >= 1) rs.cooldown--
+      else rs.cooldown = 0
+      if (rs.vol >= bot.vol_reset) {
+        rs.vol = 0
+      }
+      if (rs.side === 'BUY' && rs.currency <= 0) {
+        return finish()
+      }
+      else if (rs.side === 'SELL' && rs.asset <= 0) {
+        return finish()
+      }
+      else if (rs.side === 'BUY') {
+        if (rs.cooldown > 0) {
           return finish()
         }
-        else if (side === 'SELL' && !bot.balance.asset) {
+        var delta = n(1)
+          .subtract(n(tick.close).divide((rs.last_tick ||  tick).close))
+          .value()
+        var price = n(tick.close)
+          .add(n(tick.close).multiply(constants.markup))
+          .value() // add markup
+        var vwap = n(rs.running_total)
+          .divide(rs.running_vol)
+          .value()
+        var vwap_diff = n(price)
+          .subtract(vwap)
+          .value()
+        var spend
+        if (vwap_diff > 0) {
+          // buy more when price is rising
+          spend = n(rs.currency)
+            .multiply(bot.trade_amt)
+            .value()
+        }
+        else {
+          // buy less when price is falling
+          spend = n(rs.currency)
+            .multiply(n(1).subtract(bot.trade_amt))
+            .value()
+        }
+        if (spend / price < bot.min_trade) {
           return finish()
         }
-        else if (side === 'BUY') {
-          if (cooldown > 0) {
+        if (rs.sell_price && price > rs.sell_price) {
+          var sell_delta = n(1)
+            .subtract(n(rs.sell_price).divide(price))
+            .value()
+          if (sell_delta >= bot.buy_for_more) {
             return finish()
-          }
-          var delta = numeral(1).subtract(numeral(tick.close).divide(lastTick.close)).value()
-          var price = numeral(tick.close).add(numeral(tick.close).multiply(bot.markup)).value() // add markup
-          var vwap = numeral(runningTotal).divide(runningVol).value()
-          var vwapDiff = numeral(price).subtract(vwap).value()
-          var spend
-          if (vwapDiff > 0) {
-            // buy more when price is rising
-            spend = numeral(bot.balance.currency).multiply(bot.trade_amt).value()
-          }
-          else {
-            // buy less when price is falling
-            spend = numeral(bot.balance.currency).multiply(numeral(1).subtract(bot.trade_amt)).value()
-          }
-          if (spend / price < bot.min_trade) {
-            return finish()
-          }
-          if (sellPrice && price > sellPrice) {
-            var sellDelta = numeral(1).subtract(numeral(sellPrice).divide(price))
-            if (sellDelta >= bot.buy_for_more) {
-              return finish()
-            }
-          }
-          if (delta >= bot.crash_protection) {
-            cooldown = 0
-            return finish()
-          }
-          get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
-          cooldown = bot.cooldown
-          vol = 0
-          buyPrice = price
-          bot.balance.currency = numeral(bot.balance.currency).subtract(spend).value()
-          var size = numeral(spend).divide(price).value()
-          tradeVol = numeral(tradeVol).add(size).value()
-          bot.balance.asset = numeral(bot.balance.asset).add(size).value()
-          var fee = numeral(size).multiply(price).multiply(bot.fee).value()
-          bot.balance.currency = numeral(bot.balance.currency).subtract(fee).value()
-          get('console').log(('[bot] BUY ' + numeral(size).format('0.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
-          if (bot.trade) {
-            var buyParams = {
-              'type': 'market',
-              'size': numeral(size).format('00.000'),
-              'product_id': get('conf.product_id'),
-            }
-            client.buy(buyParams, function (err, resp, order) {
-              onOrder(err, resp, order)
-              if (bot.tweet) {
-                var tweet = {
-                  status: 'zenbot recommends:\n\naction: BUY\nprice: ' + numeral(price).format('$0,0.00') + '\ntime: ' + getTime() + '\n\n#btc #gdax'
-                }
-                twitterClient.post('statuses/update', tweet, onTweet)
-              }
-              syncBalance()
-            })
           }
         }
-        else if (side === 'SELL') {
-          if (cooldown > 0) {
-            get('console').log(('[bot] too soon to SELL').grey)
-            return finish()
-          }
-          var price = numeral(tick.close).subtract(numeral(tick.close).multiply(bot.markup)).value()
-          var delta = numeral(1).subtract(numeral(lastTick.close).divide(tick.close)).value()
-          var vwap = numeral(runningTotal).divide(runningVol).value()
-          var vwapDiff = numeral(price).subtract(vwap).value()
-          var sell
-          if (vwapDiff < 0) {
-            // sell more when price is falling
-            sell = numeral(bot.balance.asset).multiply(bot.trade_amt).value()
-          }
-          else {
-            // sell less when price is rising
-            sell = numeral(bot.balance.asset).multiply(numeral(1).subtract(bot.trade_amt)).divide(2).value()
-          }
-          if (sell < bot.min_trade) {
-            return finish()
-          }
-          if (buyPrice && price < buyPrice) {
-            var buyDelta = numeral(1).subtract(numeral(price).divide(buyPrice)).value()
-            if (buyDelta >= bot.sell_for_less) {
-              return finish()
-            }
-          }
-          if (delta >= bot.crash_protection) {
-            cooldown = 0
-            return finish()
-          }
-          get('console').log(('[bot] volume trigger ' + side + ' ' + numeral(vol).format('0.0') + ' >= ' + numeral(bot.min_vol).format('0.0')).grey)
-          cooldown = bot.cooldown
-          vol = 0
-          sellPrice = price
-          bot.balance.asset = numeral(bot.balance.asset).subtract(sell).value()
-          tradeVol = numeral(tradeVol).add(sell).value()
-          bot.balance.currency = numeral(bot.balance.currency).add(numeral(sell).multiply(price)).value()
-          var fee = numeral(sell).multiply(price).multiply(bot.fee).value()
-          bot.balance.currency = numeral(bot.balance.currency).subtract(fee).value()
-          get('console').log(('[bot] SELL ' + numeral(sell).format('00.000') + ' BTC at ' + numeral(price).format('$0,0.00') + ' ' + numeral(delta).format('0.000%')).cyan)
-          if (bot.trade) {
-            var sellParams = {
-              'type': 'market',
-              'size': numeral(sell).format('00.000'),
-              'product_id': get('conf.product_id'),
-            }
-            client.sell(sellParams, function (err, resp, order) {
-              onOrder(err, resp, order)
-              if (bot.tweet) {
-                var tweet = {
-                  status: 'zenbot recommends:\n\naction: SELL\nprice: ' + numeral(price).format('$0,0.00') + '\ntime: ' + getTime() + '\n\n#btc #gdax'
-                }
-                twitterClient.post('statuses/update', tweet, onTweet)
-              }
-              syncBalance()
-            })
-          }
+        if (delta >= bot.crash) {
+          rs.cooldown = 0
+          return finish()
         }
-        function onOrder (err, resp, order) {
-          if (err) return get('console').error('order err', err, resp, order)
-          if (resp.statusCode !== 200) {
-            console.error(order)
-            return get('console').error('non-200 status from GDAX: ' + resp.statusCode)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        rs.cooldown = Math.round(bot.cooldown)
+        rs.vol = 0
+        rs.buy_price = price
+        rs.currency = n(rs.currency)
+          .subtract(spend)
+          .value()
+        var size = n(spend)
+          .divide(price)
+          .value()
+        rs.trade_vol = n(rs.trade_vol)
+          .add(size)
+          .value()
+        rs.asset = n(rs.asset)
+          .add(size)
+          .value()
+        var fee = n(size)
+          .multiply(price)
+          .multiply(constants.fee)
+          .value()
+        rs.currency = n(rs.currency)
+          .subtract(fee)
+          .value()
+        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        if (bot.trade) {
+          var buy_params = {
+            'type': 'market',
+            'size': n(size).format('00.000')
           }
-          get('console').log(('[GDAX] order-id: ' + order.id).cyan)
-          function getStatus () {
-            client.getOrder(order.id, function (err, resp, order) {
-              if (err) return get('console').error('getOrder err', err)
-              if (resp.statusCode !== 200) {
-                console.error(order)
-                return get('console').error('non-200 status from GDAX getOrder: ' + resp.statusCode)
+          client.buy(buy_params, function (err, resp, order) {
+            onOrder(err, resp, order)
+            if (bot.tweet) {
+              var tweet = {
+                status: 'zenbot recommends:\n\naction: BUY\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
               }
-              if (order.status === 'done') {
-                return get('console').log(('[GDAX] order ' + order.id + ' done: ' + order.done_reason).cyan)
-              }
-              else {
-                get('console').log(('[GDAX] order ' + order.id + ' ' + order.status).cyan)
-                setTimeout(getStatus, 5000)
-              }
-            })
-          }
-          getStatus()
-        }
-      }
-      finish()
-      function finish () {
-        lastTick = tick
-      }
-    }
-    function end () {
-      var newBalance = JSON.parse(JSON.stringify(bot.balance))
-      if (lastTick) {
-        newBalance.currency = numeral(newBalance.currency).add(numeral(newBalance.asset).multiply(lastTick.close)).value()
-        newBalance.asset = 0
-      }
-      return {
-        asset: newBalance.asset,
-        currency: newBalance.currency,
-        close: lastTick ? lastTick.close : null
-      }
-    }
-    function report () {
-      var time = get('utils.getTimestamp')(lastTick.time)
-      var bar = getGraph()
-      var newBalance = JSON.parse(JSON.stringify(bot.balance))
-      newBalance.currency = numeral(newBalance.currency).add(numeral(newBalance.asset).multiply(lastTick.close)).value()
-      newBalance.asset = 0
-      var diff = newBalance.currency - initBalance.currency
-      if (diff > 0) diff = ('+' + numeral(diff).format('$0,0.00')).green
-      if (diff === 0) diff = ('+' + numeral(diff).format('$0,0.00')).white
-      if (diff < 0) diff = (numeral(diff).format('$0,0.00')).red
-      var status = [
-        bar,
-        numeral(lastTick.close).format('$0,0.00').yellow,
-        volDiff,
-        time.grey,
-        numeral(bot.balance.asset).format('00.000').white,
-        'BTC/USD'.grey,
-        numeral(bot.balance.currency).format('$,0.00').yellow,
-        diff
-      ].join(' ')
-      get('console').log(status)
-      var thisHour = tb(lastTick.time).resize('1h').toString()
-      var savedHourVol = hourVol
-      if (thisHour !== lastHour) {
-        hourVol = 0
-        if (bot.tweet) {
-          client.getProduct24HrStats(function (err, resp, stats) {
-            if (err) return get('console').error('get stats err', err)
-            if (resp.statusCode !== 200) {
-              console.error(stats)
-              return get('console').error('non-200 from GDAX stats: ' + resp.statusCode)
+              twitterClient.post('statuses/update', tweet, onTweet)
             }
-            var diff = numeral(lastTick.close).subtract(stats.open).value()
-            var diffStr = diff >= 0 ? '+' : '-'
-            diffStr += numeral(Math.abs(diff)).format('$0.00')
-            var vwap = numeral(runningTotal).divide(runningVol).value()
-            var vwapDiff = numeral(lastTick.close).subtract(vwap).value()
-            var vwapDiffStr = vwapDiff >= 0 ? '+' : '-'
-            vwapDiffStr += numeral(Math.abs(vwapDiff)).format('$0.00')
-            var text = [
-              getTime() + ' report.\n',
-              'close: ' + numeral(lastTick.close).format('$0,0.00'),
-              'vs. vwap: ' + vwapDiffStr,
-              'hr. volume: ' + numeral(Math.round(savedHourVol)).format('0,0'),
-              'market: ' + (side === 'BUY' ? 'BULL' : 'BEAR'),
-              '24hr. diff: ' + diffStr + '\n',
-              '#btc #gdax'
-            ].join('\n').trim()
-            var tweet = {
-              status: text
-            }
-            twitterClient.post('statuses/update', tweet, onTweet)
+            syncBalance()
           })
         }
       }
-      lastHour = thisHour
-      if (bot.trade) {
-        var mem = {
-          id: memId,
-          side: side,
-          runningVol: runningVol,
-          runningTotal: runningTotal,
-          high: high,
-          low: low,
-          vol: vol,
-          maxDiff: maxDiff,
-          buyPrice: buyPrice,
-          sellPrice: sellPrice,
-          tradeVol: tradeVol,
-          cooldown: cooldown,
-          lastTick: lastTick,
-          lastHour: lastHour,
-          balance: newBalance,
-          hourVol: savedHourVol
+      else if (rs.side === 'SELL') {
+        if (rs.cooldown > 0) {
+          get('console').info(('[bot] too soon to SELL').grey)
+          return finish()
         }
-        get('db.mems').save(mem, function (err, saved) {
-          if (err) return get('console').error('mem save err', err)
-        })
-        syncBalance()
+        var price = n(tick.close)
+          .subtract(n(tick.close).multiply(constants.markup))
+          .value()
+        var delta = n(1)
+          .subtract(n(rs.last_tick.close).divide(tick.close))
+          .value()
+        var vwap = n(rs.running_total)
+          .divide(rs.running_vol)
+          .value()
+        var vwap_diff = n(price)
+          .subtract(vwap)
+          .value()
+        var sell
+        if (vwap_diff < 0) {
+          // sell more when price is falling
+          sell = n(rs.asset)
+            .multiply(bot.trade_amt)
+            .value()
+        }
+        else {
+          // sell less when price is rising
+          sell = n(rs.asset)
+            .multiply(n(1).subtract(bot.trade_amt))
+            .divide(2)
+            .value()
+        }
+        if (sell < bot.min_trade) {
+          return finish()
+        }
+        if (rs.buy_price && price < rs.buy_price) {
+          var buy_delta = n(1).subtract(n(price).divide(rs.buy_price)).value()
+          if (buy_delta >= bot.sell_for_less) {
+            return finish()
+          }
+        }
+        if (delta >= bot.crash) {
+          rs.cooldown = 0
+          return finish()
+        }
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        rs.cooldown = Math.round(bot.cooldown)
+        rs.vol = 0
+        rs.sell_price = price
+        rs.asset = n(rs.asset)
+          .subtract(sell)
+          .value()
+        rs.trade_vol = n(rs.trade_vol)
+          .add(sell)
+          .value()
+        rs.currency = n(rs.currency)
+          .add(n(sell).multiply(price))
+          .value()
+        var fee = n(sell)
+          .multiply(price)
+          .multiply(constants.fee)
+          .value()
+        rs.currency = n(rs.currency)
+          .subtract(fee)
+          .value()
+        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        if (bot.trade) {
+          var sell_params = {
+            'type': 'market',
+            'size': n(sell).format('00.000')
+          }
+          client.sell(sell_params, function (err, resp, order) {
+            onOrder(err, resp, order)
+            if (bot.tweet) {
+              var tweet = {
+                status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + contants.hashtags
+              }
+              twitterClient.post('statuses/update', tweet, onTweet)
+            }
+            syncBalance()
+          })
+        }
       }
-      periodVol = 0
+      function onOrder (err, resp, order) {
+        if (err) return get('console').error('order err', err, resp, order)
+        if (resp.statusCode !== 200) {
+          console.error(order)
+          return get('console').error('non-200 status from exchange: ' + resp.statusCode)
+        }
+        get('console').log(('[exchange] order-id: ' + order.id).cyan)
+        function getStatus () {
+          client.getOrder(order.id, function (err, resp, order) {
+            if (err) return get('console').error('getOrder err', err)
+            if (resp.statusCode !== 200) {
+              console.error(order)
+              return get('console').error('non-200 status from exchange getOrder: ' + resp.statusCode)
+            }
+            if (order.status === 'done') {
+              return get('console').info(('[exchange] order ' + order.id + ' done: ' + order.done_reason).cyan)
+            }
+            else {
+              get('console').info(('[exchange] order ' + order.id + ' ' + order.status).cyan)
+              setTimeout(getStatus, 5000)
+            }
+          })
+        }
+        getStatus()
+      }
     }
+    finish()
+    function finish () {
+      rs.last_tick = tick
+      gleak.print()
+    }
+  }
+  function report () {
+    var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
+    var bar = getGraph()
+    var diff = n(rs.currency)
+      .add(n(rs.asset).multiply(rs.last_tick.close))
+      .subtract(start_balance)
+      .value()
+    if (diff > 0) diff = ('+' + n(diff).format('$0,0.00')).green
+    if (diff === 0) diff = ('+' + n(diff).format('$0,0.00')).white
+    if (diff < 0) diff = (n(diff).format('$0,0.00')).red
+    var status = [
+      bar,
+      n(rs.last_tick.close).format('$0,0.00').yellow,
+      rs.vol_diff_string,
+      timestamp.grey,
+      n(rs.asset).format('00.000').white,
+      constants.product_id.grey,
+      n(rs.currency).format('$,0.00').yellow,
+      diff,
+      n(rs.trade_vol).format('0.000').white
+    ].join(' ')
+    get('console').log(status)
+    var this_hour = tb(rs.last_tick.time).resize('1h').toString()
+    var saved_hour_vol = rs.hour_vol
+    if (this_hour !== rs.last_hour) {
+      rs.hour_vol = 0
+      if (bot.tweet) {
+        client.getProduct24HrStats(function (err, resp, stats) {
+          if (err) return get('console').error('get stats err', err)
+          if (resp.statusCode !== 200) {
+            console.error(stats)
+            return get('console').error('non-200 from exchange stats: ' + resp.statusCode)
+          }
+          var diff = n(rs.last_tick.close)
+            .subtract(stats.open)
+            .value()
+          var diff_str = diff >= 0 ? '+' : '-'
+          diff_str += n(Math.abs(diff)).format('$0.00')
+          var vwap = n(rs.running_total)
+            .divide(rs.running_vol)
+            .value()
+          var vwap_diff = n(rs.last_tick.close)
+            .subtract(vwap)
+            .value()
+          var vwap_diff_str = vwap_diff >= 0 ? '+' : '-'
+          vwap_diff_str += n(Math.abs(vwap_diff)).format('$0.00')
+          var text = [
+            get_time() + ' report.\n',
+            'close: ' + n(rs.last_tick.close).format('$0,0.00'),
+            'vs. vwap: ' + vwap_diff_str,
+            'hr. volume: ' + n(Math.round(saved_hour_vol)).format('0,0'),
+            'market: ' + (side === 'BUY' ? 'BULL' : 'BEAR'),
+            '24hr. diff: ' + diff_str + '\n',
+            constants.hashtags
+          ].join('\n').trim()
+          var tweet = {
+            status: text
+          }
+          twitter_client.post('statuses/update', tweet, onTweet)
+          gleak.print()
+        })
+      }
+    }
+    rs.last_hour = this_hour
+    rs.period_vol = 0
+    if (bot.trade) {
+      get('db.mems').save(rs, function (err, saved) {
+        if (err) throw err
+      })
+      syncBalance()
+    }
+    syncLearned()
+    gleak.print()
+  }
+  function end () {
+    var new_balance = start_balance
+    if (rs.last_tick) {
+      new_balance = n(rs.currency)
+        .add(
+          n(rs.asset)
+            .multiply(rs.last_tick.close)
+        )
+        .value()
+    }
+    gleak.print()
     return {
-      write: write,
-      end: end,
-      report: report
+      balance: new_balance,
+      trade_vol: rs.trade_vol
     }
+  }
+  return {
+    write: write,
+    report: report,
+    end: end,
+    run_state: rs
   }
 }
