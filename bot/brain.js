@@ -13,7 +13,7 @@ module.exports = function container (get, set, clear) {
   var rs = {
     id: constants.product_id,
     asset: 0,
-    currency: 0,
+    currency: start_balance,
     side: null,
     period_vol: 0,
     running_vol: 0,
@@ -29,7 +29,8 @@ module.exports = function container (get, set, clear) {
     last_tick: null,
     vol_diff_string: '',
     last_hour: null,
-    hour_vol: 0
+    hour_vol: 0,
+    first_tick: null
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -124,7 +125,7 @@ module.exports = function container (get, set, clear) {
       bar += ' '.repeat(half - stars)
     }
     else if (vwap_diff < 0) {
-      var stars = Math.min(Math.round((Math.abs(vwap_diff) / max_diff) * half), half)
+      var stars = Math.min(Math.round((Math.abs(vwap_diff) / rs.max_diff) * half), half)
       bar += ' '.repeat(half - stars)
       bar += '-'.repeat(stars).red.bgRed
       bar += ' '.repeat(half)
@@ -138,6 +139,9 @@ module.exports = function container (get, set, clear) {
   }
 
   function write (tick) {
+    if (!rs.first_tick) {
+      rs.first_tick = tick
+    }
     rs.period_vol = n(rs.period_vol)
       .add(tick.vol)
       .value()
@@ -148,7 +152,7 @@ module.exports = function container (get, set, clear) {
     rs.low = Math.min(rs.low, tick.low)
 
     if (rs.side && tick.side !== rs.side) {
-      rs.vol = n(vol)
+      rs.vol = n(rs.vol)
         .subtract(tick.vol)
         .value()
       if (rs.vol < 0) rs.side = tick.side
@@ -161,12 +165,12 @@ module.exports = function container (get, set, clear) {
         .value()
     }
     var vol_string = zerofill(3, Math.round(rs.vol), ' ').white
-    rs.vol_diff_string = vol_string + ' ' + (side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
+    rs.vol_diff_string = vol_string + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       // trigger
       if (rs.cooldown) rs.cooldown--
       if (rs.vol >= bot.vol_reset) {
-        vol = 0
+        rs.vol = 0
       }
       if (rs.side === 'BUY' && rs.currency <= 0) {
         return finish()
@@ -182,7 +186,7 @@ module.exports = function container (get, set, clear) {
           .subtract(n(tick.close).divide((rs.last_tick ||  tick).close))
           .value()
         var price = n(tick.close)
-          .add(n(tick.close).multiply(bot.markup))
+          .add(n(tick.close).multiply(constants.markup))
           .value() // add markup
         var vwap = n(rs.running_total)
           .divide(rs.running_vol)
@@ -218,7 +222,7 @@ module.exports = function container (get, set, clear) {
           rs.cooldown = 0
           return finish()
         }
-        get('console').log(('[bot] volume trigger ' + side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        get('console').log(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
         rs.cooldown = bot.cooldown
         rs.vol = 0
         rs.buy_price = price
@@ -236,7 +240,7 @@ module.exports = function container (get, set, clear) {
           .value()
         var fee = n(size)
           .multiply(price)
-          .multiply(bot.fee)
+          .multiply(constants.fee)
           .value()
         rs.currency = n(rs.currency)
           .subtract(fee)
@@ -265,13 +269,13 @@ module.exports = function container (get, set, clear) {
           return finish()
         }
         var price = n(tick.close)
-          .subtract(n(tick.close).multiply(bot.markup))
+          .subtract(n(tick.close).multiply(constants.markup))
           .value()
         var delta = n(1)
-          .subtract(n(lastTick.close).divide(tick.close))
+          .subtract(n(rs.last_tick.close).divide(tick.close))
           .value()
-        var vwap = n(runningTotal)
-          .divide(runningVol)
+        var vwap = n(rs.running_total)
+          .divide(rs.running_vol)
           .value()
         var vwap_diff = n(price)
           .subtract(vwap)
@@ -303,7 +307,7 @@ module.exports = function container (get, set, clear) {
           rs.cooldown = 0
           return finish()
         }
-        get('console').log(('[bot] volume trigger ' + side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        get('console').log(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
         rs.cooldown = bot.cooldown
         rs.vol = 0
         rs.sell_price = price
@@ -318,7 +322,7 @@ module.exports = function container (get, set, clear) {
           .value()
         var fee = n(sell)
           .multiply(price)
-          .multiply(bot.fee)
+          .multiply(constants.fee)
           .value()
         rs.currency = n(rs.currency)
           .subtract(fee)
@@ -436,13 +440,13 @@ module.exports = function container (get, set, clear) {
       }
     }
     rs.last_hour = this_hour
+    rs.period_vol = 0
     if (bot.trade) {
-      get('db.mems').save(mem, function (err, saved) {
+      get('db.mems').save(rs, function (err, saved) {
         if (err) throw err
       })
       syncBalance()
     }
-    rs.period_vol = 0
     gleak.print()
   }
   function end () {
@@ -457,8 +461,7 @@ module.exports = function container (get, set, clear) {
     }
     gleak.print()
     return {
-      balance: new_balance,
-      close: rs.last_tick ? rs.last_tick.close : null
+      balance: new_balance
     }
   }
   return {
