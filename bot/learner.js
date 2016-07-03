@@ -18,25 +18,32 @@ module.exports = function container (get, set, clear) {
   function cpy (obj) {
     return JSON.parse(JSON.stringify(obj))
   }
-  get('db.mems').load('learned', function (err, learned) {
+  get('db.mems').load('learned', function (err, rs) {
     if (err) throw err
-    var best_params = learned ? learned.best_params : cpy(defaults)
-    var start_fitness = learned ? learned.start_fitness : 0
-    var best_fitness = learned ? learned.best_fitness : 0
-    var roi = learned ? learned.roi : 1
-    var trade_vol = learned ? learned.trade_vol : 0
-    var iterations = 0
+    if (!rs) {
+      rs = {
+        id: 'learned',
+        fitness_diff: 0,
+        start_fitness: 0,
+        best_fitness: 0,
+        roi: 1,
+        trade_vol: 0,
+        best_params: null,
+        iterations: 0,
+        simulations: 0,
+        total_duration: 0,
+        last_duration: '',
+        last_speed: null,
+        direction: null,
+        best_param: null,
+        best_param_direction: null,
+        num_trades: 0
+      }
+    }
     var simulations = 0
-    var sim_chunks = 0
     var last_sim_chunks = 0
     var sims_started = false
     var first_ended = false
-    var best_param, best_param_direction, direction
-    if (learned) {
-      best_param = learned.best_param
-      direction = learned.best_param_direction
-    }
-    var num_trades = 0
     var multi = new MultiProgress(process.stderr)
     get('console').info('running first simulation...')
     ;(function doNext () {
@@ -52,12 +59,12 @@ module.exports = function container (get, set, clear) {
           total: last_sim_chunks,
         })
       }
-      var params = cpy(best_params), param, idx, keys
+      var params = cpy(rs.best_params), param, idx, keys
       if (simulations) {
         var is_followup = false
-        if (best_param && Math.random() >= 0.5) {
+        if (rs.best_param && Math.random() >= 0.5) {
           is_followup = true
-          param = best_param
+          param = rs.best_param
         }
         else {
           keys = Object.keys(params)
@@ -67,7 +74,7 @@ module.exports = function container (get, set, clear) {
         try {
           var mutate = n(Math.random())
           if (is_followup) {
-            if (direction === 'pos') {
+            if (rs.direction === 'pos') {
               // add
               mutate = mutate.add(constants.learn_mutation)
             }
@@ -82,7 +89,7 @@ module.exports = function container (get, set, clear) {
           }
           mutate = mutate.multiply(params[param])
             .value()
-          direction = mutate >= 0 ? 'pos' : 'neg'
+          rs.direction = mutate >= 0 ? 'pos' : 'neg'
           params[param] = n(params[param])
             .add(mutate)
             .value()
@@ -109,7 +116,7 @@ module.exports = function container (get, set, clear) {
           console.error('keys', keys)
           console.error('params', params)
           */
-          get('console').error('bad param', param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
+          get('console').error('bad param', param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
           if (bar) bar.terminate()
           if (is_first) sims_started = false
           return doNext()
@@ -126,7 +133,7 @@ module.exports = function container (get, set, clear) {
       })
       proc.stderr.on('data', function (chunk) {
         if (bar && simulations) {
-          bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness = ' + n(best_fitness).format('+0.000') + ', roi = ' + n(roi).format('+0.000')
+          bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness = ' + n(rs.best_fitness).format('+0.000') + ', roi = ' + n(rs.roi).format('+0.000')
           bar.tick()
         }
         else if (is_first) {
@@ -161,94 +168,62 @@ module.exports = function container (get, set, clear) {
           first_ended = true
         }
         simulations++
+        rs.simulations++
         last_sim_chunks = sim_chunks
         if (result.fitness > best_fitness) {
-          var old_best = best_fitness
-          best_fitness = result.fitness
-          roi = result.roi
-          trade_vol = result.trade_vol
-          num_trades = result.num_trades
-          iterations++
+          var old_best = rs.best_fitness
+          rs.best_fitness = result.fitness
+          rs.roi = result.roi
+          rs.trade_vol = result.trade_vol
+          rs.num_trades = result.num_trades
+          rs.iterations++
           process.stderr.write('\n\n')
           process.stderr.clearLine()
-          get('console').info(('[ding!] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(old_best).format('0.000') + ' -> ' + n(best_fitness).format('0.000') + ', num_trades = ' + num_trades + ', roi = ' + n(roi).format('+0.000') + ', vol = ' + n(trade_vol).format('0.000')).cyan)
+          get('console').info(('[ding!] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(old_best).format('0.000') + ' -> ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).cyan)
           process.stderr.write('\n\n')
           process.stderr.clearLine()
-          best_params = params
-          best_param = param
-          best_param_direction = direction
-          fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(best_params, null, 2))
+          rs.best_params = params
+          rs.best_param = param
+          rs.best_param_direction = direction
+          fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
         }
         else {
           process.stderr.write('\n\n')
           process.stderr.clearLine()
-          var mutated = best_params[param] !== params[param] && result.fitness === best_fitness
+          var mutated = best_params[param] !== params[param] && result.fitness === rs.best_fitness
           if (mutated) {
-            get('console').info(('[mutated] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(best_fitness).format('0.000') + ', num_trades = ' + num_trades + ', roi = ' + n(roi).format('+0.000') + ', vol = ' + n(trade_vol).format('0.000')).white)
+            get('console').info(('[mutated] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).white)
           }
           else {
-            get('console').info(('[died] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(best_fitness).format('0.000') + ', num_trades = ' + num_trades + ', roi = ' + n(roi).format('+0.000') + ', vol = ' + n(trade_vol).format('0.000')).grey)
+            get('console').info(('[died] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).grey)
           }
           process.stderr.write('\n\n')
           process.stderr.clearLine()
           if (mutated) {
-            best_params[param] = params[param]
-            fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(best_params, null, 2))
+            rs.best_params[param] = params[param]
+            fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           }
         }
         var sec_diff = n(new Date().getTime())
           .subtract(started_learning)
           .divide(1000)
           .value()
-        var speed = n(simulations).divide(n(sec_diff).divide(60)).format('0.000') + '/min'
+        var speed = n(1).divide(n(sec_diff).divide(60)).format('0.000') + '/min'
         get('db.mems').load('learned', function (err, learned) {
           if (err) throw err
-          var result
-          if (learned) {
-            result = {
-              id: 'learned',
-              fitness_diff: best_fitness - learned.start_fitness,
-              start_fitness: learned.start_fitness,
-              best_fitness: best_fitness || start_fitness,
-              roi: roi,
-              trade_vol: trade_vol,
-              best_params: best_params,
-              iterations: iterations,
-              simulations: simulations,
-              total_duration: learned.total_duration + sec_diff,
-              last_duration: moment(started_learning).toNow(true),
-              last_speed: speed,
-              direction: direction || null,
-              best_param: best_param || null,
-              best_param_direction: best_param_direction || null
-            }
-          }
-          else {
-            result = {
-              id: 'learned',
-              fitness_diff: best_fitness - start_fitness,
-              start_fitness: start_fitness,
-              best_fitness: best_fitness,
-              roi: roi,
-              best_params: best_params,
-              iterations: iterations,
-              simulations: simulations,
-              total_duration: sec_diff,
-              last_duration: moment(started_learning).toNow(true),
-              last_speed: speed,
-              direction: direction || null,
-              best_param: best_param || null,
-              best_param_direction: best_param_direction || null
-            }
-          }
-          var a = moment()
-          var b = moment().add(result.total_duration, 'seconds')
-          result.total_duration_str = n(b.diff(a, 'hours')).format('0') + ' hrs. ' + n(b.diff(a, 'minutes')).format('0') + ' mins.'
-          last_result = result
-          get('db.mems').save(result, function (err, saved) {
+          rs.fitness_diff = rs.best_fitness - rs.start_fitness
+          rs.total_duration = rs.total_duration + sec_diff
+          a = moment()
+          b = moment().add(sec_diff, 'seconds')
+          rs.last_duration = n(b.diff(a, 'hours')).format('0') + ' hrs. ' + n(b.diff(a, 'minutes')).format('0') + ' mins.'
+          rs.last_speed = speed
+          b = moment().add(rs.total_duration, 'seconds')
+          rs.total_duration_str = n(b.diff(a, 'hours')).format('0') + ' hrs. ' + n(b.diff(a, 'minutes')).format('0') + ' mins.'
+          last_result = cpy(rs)
+          get('db.mems').save(rs, function (err, saved) {
             if (err) throw err
             if (bot.duration && sec_diff >= bot.duration) {
-              console.log(JSON.stringify(result, null, 2))
+              console.log(JSON.stringify(rs, null, 2))
               setTimeout(process.exit, 1000)
               return
             }
