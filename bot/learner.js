@@ -71,7 +71,9 @@ module.exports = function container (get, set, clear) {
           console.error('keys', keys)
           console.error('params', params)
           */
+          get('console').error('bad param', param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
           if (bar) bar.terminate()
+          if (is_first) sims_started = false
           return doNext()
         }
         var args = Object.keys(defaults).map(function (k) {
@@ -152,7 +154,7 @@ module.exports = function container (get, set, clear) {
             }
             var a = moment()
             var b = moment().add(result.total_duration, 'seconds')
-            result.total_duration_str = n(b.diff(a, 'hours')).format('0.000') + ' hrs.'
+            result.total_duration_str = n(b.diff(a, 'hours')).format('0') + ' hrs. ' + n(b.diff(a, 'minutes')).format('0') + ' mins.'
             last_result = result
             get('db.mems').save(result, function (err, saved) {
               if (err) throw err
