@@ -168,7 +168,8 @@ module.exports = function container (get, set, clear) {
     rs.vol_diff_string = vol_string + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       // trigger
-      if (rs.cooldown) rs.cooldown--
+      if (rs.cooldown >= 1) rs.cooldown--
+      else rs.cooldown = 0
       if (rs.vol >= bot.vol_reset) {
         rs.vol = 0
       }
@@ -223,7 +224,7 @@ module.exports = function container (get, set, clear) {
           return finish()
         }
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
-        rs.cooldown = bot.cooldown
+        rs.cooldown = Math.round(bot.cooldown)
         rs.vol = 0
         rs.buy_price = price
         rs.currency = n(rs.currency)
@@ -308,7 +309,7 @@ module.exports = function container (get, set, clear) {
           return finish()
         }
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
-        rs.cooldown = bot.cooldown
+        rs.cooldown = Math.round(bot.cooldown)
         rs.vol = 0
         rs.sell_price = price
         rs.asset = n(rs.asset)
