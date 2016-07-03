@@ -4,6 +4,7 @@ var spawn = require('child_process').spawn
   , moment = require('moment')
   , n = require('numeral')
   , constants = require('../conf/constants.json')
+  , fs = require('fs')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
@@ -91,6 +92,7 @@ module.exports = function container (get, set, clear) {
             best_roi = result.roi
             best_params = params
             iterations++
+            fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(best_params, null, 2))
           }
           var sec_diff = n(new Date().getTime())
             .subtract(started_learning)
