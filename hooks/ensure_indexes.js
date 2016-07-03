@@ -1,5 +1,5 @@
 module.exports = function container (get, set) {
-  return function ensureIndexes (cb) {
+  return function ensure_indexes (cb) {
     var tasks = []
     tasks.push(function (done) {
       get('db.mongo.db').collection('trades').ensureIndex({time: -1}, done)
