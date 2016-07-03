@@ -19,7 +19,7 @@ zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/).
 
 zenbot bases its decisions on volume triggers of the "taker" side and trades only at market value. The automation is "passive" because instead of doing its own technical analysis, zen follows in the footsteps of other traders/bots. It has full console graphing/indicators to show its reasoning when making decisions.
 
-Since zenbot has no specific strategy, it requires no configuration besides your API key.
+Since zenbot has no specific strategy, it requires no configuration. Out of the box, it works as a paper-based trade advisor. Give it a virtual balance, and it will simulate on historical data and give you an ROI figure. Give it an API key, and it will actually perform trades!
 
 HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine!
 

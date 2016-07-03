@@ -2,9 +2,10 @@ module.exports = {
   _ns: 'motley',
   _folder: 'bot',
 
-  'backfiller': require('./backfiller'),
-  'brain': require('./brain'),
-  'recorder': require('./recorder'),
-  'simulator': require('./simulator'),
-  'zen': require('./zen')
+  backfiller: require('./backfiller'),
+  brain: require('./brain'),
+  learner: requrie('./learner'),
+  recorder: require('./recorder'),
+  simulator: require('./simulator'),
+  zen: require('./zen')
 }

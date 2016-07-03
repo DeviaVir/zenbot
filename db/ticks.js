@@ -1,6 +1,7 @@
-var numeral = require('numeral')
+var n = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
+  , constants = require('../conf/constants.json')
 
 module.exports = function container (get, set) {
   return get('db.createCollection')('ticks', {
@@ -24,28 +25,37 @@ module.exports = function container (get, set) {
       create: function (trades) {
         var trade_ticker = ''
         if (trades.length) {
-          var open, high = 0, low = 10000, close, buys = 0, vol = 0, buyVol = 0
-          var closeTime
+          var open, high = 0, low = 10000, close, buys = 0, vol = 0, buy_vol = 0, close_time
           trades.forEach(function (trade) {
-            if (typeof open === 'undefined') open = trade.price
+            if (typeof open === 'undefined') {
+              open = trade.price
+            }
             high = Math.max(trade.price, high)
             low = Math.min(trade.price, low)
             close = trade.price
-            closeTime = trade.time
+            close_time = trade.time
             if (trade.side === 'sell') {
-              buyVol = numeral(buyVol).add(trade.size).value()
+              buy_vol = n(buy_vol)
+                .add(trade.size)
+                .value()
               buys++
             }
-            vol = numeral(vol).add(trade.size).value()
+            vol = n(vol).add(trade.size).value()
           })
-          var typical = numeral(high).add(low).add(close).divide(3).value()
-          var buyRatio = numeral(buyVol).divide(vol).value()
+          var typical = n(high)
+            .add(low)
+            .add(close)
+            .divide(3)
+            .value()
+          var buy_ratio = n(buy_vol)
+            .divide(vol)
+            .value()
           var side
-          if (buyRatio > 0.5) side = 'BUY'
-          if (buyRatio < 0.5) side = 'SELL'
-          if (buyRatio === 0.5) side = 'EVEN'
-          var bucket = tb(closeTime).resize(get('conf.tick_size'))
-          trade_ticker = side + ' ' + numeral(typical).format('$0,0.00') + '/' + numeral(vol).format('0.000')
+          if (buy_ratio > 0.5) side = 'BUY'
+          if (buy_ratio < 0.5) side = 'SELL'
+          if (buy_ratio === 0.5) side = 'EVEN'
+          var bucket = tb(close_time).resize(constants.tick_size)
+          trade_ticker = side + ' ' + n(typical).format('$0,0.00') + '/' + n(vol).format('0.000')
           var orig_ticker = trade_ticker
           var tick = {
             id: bucket.toString(),
@@ -57,10 +67,10 @@ module.exports = function container (get, set) {
             close: close,
             trades: trades.length,
             buys: buys,
-            buyVol: buyVol,
-            buyRatio: buyRatio,
+            buy_vol: buy_vol,
+            buy_ratio: buy_ratio,
             typical: typical,
-            price: numeral(typical).format('$0,0.00'),
+            price: n(typical).format('$0,0.00'),
             side: side,
             ticker: orig_ticker
           }

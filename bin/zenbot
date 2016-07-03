@@ -2,201 +2,63 @@
 var version = require('../package.json').version
 ZENBOT_USER_AGENT = 'zenbot/' + version
 
-var motley = require('motley')
+var launch = require('../utils/launch')
 
 var program = require('commander')
+  .option('--silent', 'speak no evil')
   .version(version)
 
 program
-  .command('run')
-  .description('run zenbot on the exchange (must run recorder also)')
-  .option('--trade', 'do actual trades')
-  .option('--tweet', 'live tweet buys/sells and hourly reports (requires extra config)')
-  .option('--silent', 'run in silent mode')
+  .command('record')
+  .description('1. run the recorder')
+  .option('--tweet', 'live tweet big buys/sells (requires extra config)')
   .action(function (options) {
-    try {
-      var app = motley({
-        _ns: 'motley',
-        _maps: [
-          require('../_codemap'),
-          require('motley-mongo')
-        ],
-        'conf.console{}': {
-          silent: options.silent
-        },
-        '@hooks.mount': [
-          '#hooks.ensureIndexes',
-          '#db.mountCollections'
-        ]
-      })
-    }
-    catch (err) {
-      exit(err)
-    }
-
-    function exit (err) {
-      console.error(err)
-      console.error(err.stack)
-      process.exit(1)
-    }
-
-    app.mount(function (err) {
-      if (err) exit(err)
-      function onExit () {
-        app.close(function (err) {
-          if (err) exit(err)
-          process.exit()
-        })
-      }
-      process.once('SIGINT', onExit)
-      process.once('SIGTERM', onExit)
-
-      app.get('motley:bot.zen')({trade: options.trade, tweet: options.tweet})
-    })
-  })
-
-program
-  .command('sim')
-  .description('run the simulator (must run backfiller first)')
-  .option('--start <time>', 'start time of simulation')
-  .option('--silent', 'run in silent mode')
-  .action(function (options) {
-    try {
-      var app = motley({
-        _ns: 'motley',
-        _maps: [
-          require('../_codemap'),
-          require('motley-mongo')
-        ],
-        'conf.sim{}': {
-          min_time: options.start || null
-        },
-        'conf.console{}': {
-          silent: options.silent
-        },
-        '@hooks.mount': [
-          '#hooks.ensureIndexes',
-          '#db.mountCollections'
-        ]
-      })
-    }
-    catch (err) {
-      exit(err)
-    }
-
-    function exit (err) {
-      console.error(err)
-      console.error(err.stack)
-      process.exit(1)
-    }
-
-    app.mount(function (err) {
-      if (err) exit(err)
-      function onExit () {
-        app.close(function (err) {
-          if (err) exit(err)
-          process.exit()
-        })
-      }
-      process.once('SIGINT', onExit)
-      process.once('SIGTERM', onExit)
-
-      app.get('motley:bot.simulator')({start: options.start})
-    })
+    launch('recorder', options)
   })
 
 program
   .command('backfill')
-  .description('run the backfiller')
+  .description('2. run the backfiller')
   .option('--after <after>', 'trade sequence id to backfill after')
-  .option('--silent', 'run in silent mode')
   .action(function (options) {
-    try {
-      var app = motley({
-        _ns: 'motley',
-        _maps: [
-          require('../_codemap'),
-          require('motley-mongo')
-        ],
-        'conf.console{}': {
-          silent: options.silent
-        },
-        '@hooks.mount': [
-          '#hooks.ensureIndexes',
-          '#db.mountCollections'
-        ]
-      })
-    }
-    catch (err) {
-      exit(err)
-    }
-
-    function exit (err) {
-      console.error(err)
-      console.error(err.stack)
-      process.exit(1)
-    }
-
-    app.mount(function (err) {
-      if (err) exit(err)
-      function onExit () {
-        app.close(function (err) {
-          if (err) exit(err)
-          process.exit()
-        })
-      }
-      process.once('SIGINT', onExit)
-      process.once('SIGTERM', onExit)
-
-      app.get('motley:bot.backfiller')({after: options.after})
-    })
+    launch('backfiller', options)
   })
 
 program
-  .command('record')
-  .description('run the recorder')
-  .option('--tweet', 'live tweet big buys/sells (requires extra config)')
-  .option('--silent', 'print all data')
+  .command('learn')
+  .description('3. run the machine learner')
+  .option('--start <time>', 'start time of simulation')
   .action(function (options) {
-    try {
-      var app = motley({
-        _ns: 'motley',
-        _maps: [
-          require('../_codemap'),
-          require('motley-mongo')
-        ],
-        'conf.console{}': {
-          silent: options.silent
-        },
-        '@hooks.mount': [
-          '#hooks.ensureIndexes',
-          '#db.mountCollections'
-        ]
-      })
-    }
-    catch (err) {
-      exit(err)
-    }
+    launch('learner', options)
+  })
 
-    function exit (err) {
-      console.error(err)
-      console.error(err.stack)
-      process.exit(1)
-    }
+var defaults = require('../conf/defaults.json')
 
-    app.mount(function (err) {
-      if (err) exit(err)
-      function onExit () {
-        app.close(function (err) {
-          if (err) exit(err)
-          process.exit()
-        })
-      }
-      process.once('SIGINT', onExit)
-      process.once('SIGTERM', onExit)
+program
+  .command('sim')
+  .description('run the simulator')
+  .option('--start <time>', 'start time of simulation')
+  .option('--min_vol <float>', 'volume trigger in BTC', Number, defaults.min_vol),
+  .option('--trade_amt <float>', 'trade amount float between 0 and 1', Number, defaults.trade_amt),
+  .option('--min_trade <btc>', 'minimum trade in BTC', Number, defaults.min_trade),
+  .option('--cooldown <int>', 'trigger cooldown integer', Number, defaults.cooldown),
+  .option('--crash <float>', 'crash protection float', Number, defaults.crash),
+  .option('--sell_for_less', 'willingness to sell for less float', Number, defaults.sell_for_less),
+  .option('--buy_for_more', 'willingness to buy for more float', Number, defaults.buy_for_more),
+  .option('--vol_reset', 'volume trigger reset in BTC', Number, defaults.vol_reset),
+  .option('--sim_query_limit', 'query limit integer', Number, defaults.sim_query_limit),
+  .option('--sim_start_balance', 'simulation start balance in currency', Number, defaults.sim_start_balance)
+  .action(function (options) {
+    launch('simulator', options)
+  })
 
-      app.get('motley:bot.recorder')({tweet: options.tweet})
-    })
+program
+  .command('run')
+  .description('4. run zenbot on the exchange')
+  .option('--trade', 'do actual trades')
+  .option('--tweet', 'live tweet buys/sells and hourly reports (requires extra config)')
+  .action(function (options) {
+    launch('zen', options)
   })
 
 program

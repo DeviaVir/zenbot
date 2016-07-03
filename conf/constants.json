@@ -1,0 +1,16 @@
+{
+  "currency": "USD",
+  "asset": "BTC",
+  "product_id": "BTC-USD",
+  "tick_ms": 10000,
+  "tick_size": "10s",
+  "markup": 0.00025,
+  "fee": 0.0025,
+  "min_trade_possible": 0.01,
+  "sim_start_balance": 1000,
+  "sim_query_limit": 100,
+  "bar_width": 20,
+  "hashtags": "#btc #gdax",
+  "websocket_uri": "",
+  "api_uri": ""
+}

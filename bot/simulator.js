@@ -1,60 +1,50 @@
-var numeral = require('numeral')
+var n = require('numeral')
 
 module.exports = function container (get, set, clear) {
-  return function (options) {
-    var sim = JSON.parse(JSON.stringify(options || {}))
-    var conf = get('conf.sim')
-    Object.keys(conf).forEach(function (k) {
-      if (typeof sim[k] === 'undefined') {
-        sim[k] = JSON.parse(JSON.stringify(conf[k]))
-      }
-    })
-    var minTime = sim.min_time || new Date().getTime() - (86400000 * 90) // 90 days ago
-    var start = get('conf.bot').balance
-    var brain = get('bot.brain')()
-    function getNext () {
-      var params = {
-        query: {
-          time: {
-            $gt: minTime
-          }
-        },
-        sort: {
-          time: 1
-        },
-        limit: sim.query_limit
-      }
-      get('db.ticks').select(params, function (err, ticks) {
-        if (err) {
-          get('console').error('tick select err', err)
-          return setImmediate(getNext)
+  var bot = get('bot')
+  var min_time = bot.start || new Date().getTime() - (86400000 * 90) // 90 days ago
+  var brain = get('bot.brain')
+  var start = brain.run_state.currency
+  function getNext () {
+    var params = {
+      query: {
+        time: {
+          $gt: min_time
         }
-        if (!ticks.length) {
-          var balance = brain.end()
-          get('console').log('ended simulation with', numeral(balance.currency).format('$0,0.00').yellow, 'USD', numeral(balance.asset).format('0.000').white, 'BTC')
-          if (balance.close && start.currency) {
-            balance.roi = numeral(1).add(numeral(balance.currency).subtract(start.currency).divide(start.currency)).value()
-          }
-          else if (balance.close && start.asset) {
-            balance.asset += balance.currency / balance.close
-            balance.currency = 0
-            balance.roi = numeral(1).add(numeral(balance.asset).subtract(start.asset).divide(start.asset)).value()
-          }
-          else {
-            balance.roi = 1
-          }
-          console.log(JSON.stringify(balance))
-          setTimeout(process.exit, 1000)
-          return
-        }
-        ticks.forEach(function (tick) {
-          brain.write(tick)
-          minTime = tick.time
-        })
-        brain.report()
-        setImmediate(getNext)
-      })
+      },
+      sort: {
+        time: 1
+      },
+      limit: constants.query_limit
     }
-    setImmediate(getNext)
+    get('db.ticks').select(params, function (err, ticks) {
+      if (err) {
+        get('console').error('tick select err', err)
+        return setImmediate(getNext)
+      }
+      if (!ticks.length) {
+        var balance = brain.end()
+        var currency = n(balance.currency).format('$0,0.00').yellow
+        get('console').log('ended simulation with', currency, 'USD', 'BTC')
+        balance.roi = n(1)
+          .add(
+            n(balance.currency)
+              .subtract(start.currency)
+              .divide(start.currency)
+          )
+          .value()
+        console.log(JSON.stringify(balance, null, 2))
+        setTimeout(process.exit, 1000)
+        return
+      }
+      ticks.forEach(function (tick) {
+        brain.write(tick)
+        min_time = tick.time
+      })
+      brain.report()
+      setImmediate(getNext)
+    })
   }
+  setImmediate(getNext)
+  return null
 }

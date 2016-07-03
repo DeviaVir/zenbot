@@ -3,5 +3,9 @@ module.exports = {
   _ns: 'motley',
   _folder: 'hooks',
 
-  'ensureIndexes': require('./ensureIndexes')
+  'ensure_indexes': require('./ensure_indexes'),
+  '@mount': [
+    '#hooks.ensure_indexes',
+    '#db.mountCollections'
+  ]
 }
