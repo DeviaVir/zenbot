@@ -60,6 +60,9 @@ module.exports = function container (get, set, clear) {
           if (param === 'min_trade') {
             assert(params[param] >= constants.min_trade_possible)
           }
+          if (param === 'trade_amt') {
+            assert(params[param] > 0)
+          }
         }
         catch (e) {
           /*
