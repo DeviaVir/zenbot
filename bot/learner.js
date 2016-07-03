@@ -42,8 +42,9 @@ module.exports = function container (get, set, clear) {
         var params = cpy(best_params)
         var keys = Object.keys(params)
         var idx = Math.ceil(Math.random() * keys.length) - 1
+        var param = keys[idx]
         try {
-          params[keys[idx]] = n(Math.random())
+          params[param] = n(Math.random())
             .subtract(constants.learn_mutation)
             .multiply(params[keys[idx]])
             .value()
@@ -66,7 +67,7 @@ module.exports = function container (get, set, clear) {
         })
         proc.stderr.on('data', function (chunk) {
           if (bar) {
-            bar.fmt = '  simulating [:bar] :percent :etas roi = ' + n(best_roi).format('+0.000')
+            bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', roi = ' + n(best_roi).format('+0.000')
             bar.tick()
           }
           else {
