@@ -99,13 +99,11 @@ module.exports = function container (get, set, clear) {
         throw new Error('non-200 status from exchange: ' + resp.statusCode)
       }
       accounts.forEach(function (account) {
-        switch (account.currency) {
-          case [constants.currency]:
-            rs.currency = n(account.balance).value()
-            break;
-          case [constants.asset]:
-            rs.asset = n(account.balance).value()
-            break;
+        if (account.currency === constants.currency) {
+          rs.currency = n(account.balance).value()
+        }
+        else if (account.currency === constants.asset) {
+          rs.asset = n(account.balance).value()
         }
       })
       bot.trade = true
