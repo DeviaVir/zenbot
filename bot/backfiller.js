@@ -13,7 +13,7 @@ module.exports = function container (get, set, clear) {
     client.getProductTrades({after: bot.start}, function (err, resp, trades) {
       if (err) throw err
       if (!trades.length) {
-        get('console').log('done!')
+        get('console').info('done!')
         process.exit()
       }
       var trades = trades.map(function (trade) {
@@ -37,9 +37,9 @@ module.exports = function container (get, set, clear) {
       })
       Object.keys(ticks).forEach(function (tickId) {
         var tick = get('db.ticks').create(ticks[tickId])
-        if (tick && tick.ticker) get('console').log('backfilled', tb(tickId).toDate(), tick.ticker)
+        if (tick && tick.ticker) get('console').info('backfilled', tb(tickId).toDate(), tick.ticker)
       })
-      get('console').log('processed', counter, 'trades. after = ' + bot.start)
+      get('console').info('processed', counter, 'trades. after = ' + bot.start)
       gleak.print()
       setTimeout(getNext, 0)
     })

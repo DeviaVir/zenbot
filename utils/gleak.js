@@ -1,4 +1,7 @@
-var gleak = require('gleak')()
+//var gleak = require('gleak')()
+gleak = {
+  print: function () {}
+}
 module.exports = gleak
 gleak.whitelist = [
   DTRACE_NET_SERVER_CONNECTION,

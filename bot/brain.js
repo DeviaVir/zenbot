@@ -37,14 +37,14 @@ module.exports = function container (get, set, clear) {
     function onTweet (err, data, response) {
       if (err) return get('console').error('tweet err', err)
       if (response.statusCode === 200 && data && data.id_str) {
-        get('console').log('tweeted: '.cyan + data.text.white)
+        get('console').info('tweeted: '.cyan + data.text.white)
       }
       else get('console').error('tweet err', response.statusCode, data)
     }
   }
   if (bot.trade) {
     var client = get('utils.authed_client')
-    get('console').log('entering zen mode...')
+    get('console').info('entering zen mode...')
     syncBalance(function (err) {
       if (err) throw err
       bot.trade = false
@@ -54,7 +54,7 @@ module.exports = function container (get, set, clear) {
           Object.keys(mem).forEach(function (k) {
             rs[k] = mem[k]
           })
-          get('console').log('memory loaded.'.white + ' resuming trading!'.cyan)
+          get('console').info('memory loaded.'.white + ' resuming trading!'.cyan)
           bot.trade = true
         }
         else {
@@ -65,7 +65,7 @@ module.exports = function container (get, set, clear) {
               throw new Error('non-200 status from exchange: ' + resp.statusCode)
             }
             start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
-            get('console').log('no memory found.'.red + ' starting trading!'.cyan)
+            get('console').info('no memory found.'.red + ' starting trading!'.cyan)
             bot.trade = true
           })
         }
@@ -222,7 +222,7 @@ module.exports = function container (get, set, clear) {
           rs.cooldown = 0
           return finish()
         }
-        get('console').log(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
         rs.cooldown = bot.cooldown
         rs.vol = 0
         rs.buy_price = price
@@ -245,7 +245,7 @@ module.exports = function container (get, set, clear) {
         rs.currency = n(rs.currency)
           .subtract(fee)
           .value()
-        get('console').log(('[bot] BUY ' + n(size).format('0.000') + ' BTC at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' BTC at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
         if (bot.trade) {
           var buy_params = {
             'type': 'market',
@@ -265,7 +265,7 @@ module.exports = function container (get, set, clear) {
       }
       else if (rs.side === 'SELL') {
         if (rs.cooldown > 0) {
-          get('console').log(('[bot] too soon to SELL').grey)
+          get('console').info(('[bot] too soon to SELL').grey)
           return finish()
         }
         var price = n(tick.close)
@@ -307,7 +307,7 @@ module.exports = function container (get, set, clear) {
           rs.cooldown = 0
           return finish()
         }
-        get('console').log(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
         rs.cooldown = bot.cooldown
         rs.vol = 0
         rs.sell_price = price
@@ -327,7 +327,7 @@ module.exports = function container (get, set, clear) {
         rs.currency = n(rs.currency)
           .subtract(fee)
           .value()
-        get('console').log(('[bot] SELL ' + n(sell).format('00.000') + ' BTC at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' BTC at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
         if (bot.trade) {
           var sell_params = {
             'type': 'market',
@@ -360,10 +360,10 @@ module.exports = function container (get, set, clear) {
               return get('console').error('non-200 status from exchange getOrder: ' + resp.statusCode)
             }
             if (order.status === 'done') {
-              return get('console').log(('[exchange] order ' + order.id + ' done: ' + order.done_reason).cyan)
+              return get('console').info(('[exchange] order ' + order.id + ' done: ' + order.done_reason).cyan)
             }
             else {
-              get('console').log(('[exchange] order ' + order.id + ' ' + order.status).cyan)
+              get('console').info(('[exchange] order ' + order.id + ' ' + order.status).cyan)
               setTimeout(getStatus, 5000)
             }
           })

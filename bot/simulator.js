@@ -11,7 +11,7 @@ module.exports = function container (get, set, clear) {
     var params = {
       query: {
         time: {
-          $gt: min_time
+          $gt: n(min_time).value()
         }
       },
       sort: {
@@ -35,7 +35,7 @@ module.exports = function container (get, set, clear) {
         result.open_time = first_tick.time
         result.close_time = last_tick.time
         var currency = n(balance).format('$0,0.00').yellow
-        get('console').log('ended simulation with', currency, 'USD', 'BTC')
+        get('console').info('ended simulation with', currency, 'USD', 'BTC')
         result.roi = n(1)
           .add(
             n(balance)

@@ -10,6 +10,8 @@
   "sim_start_balance": 1000,
   "sim_query_limit": 100,
   "bar_width": 20,
+  "progress_bar_width": 60,
+  "learn_mutation": 0.25,
   "hashtags": "#btc #gdax",
   "websocket_uri": "",
   "api_uri": ""

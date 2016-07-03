@@ -14,6 +14,7 @@
     "moment-timezone": "^0.5.4",
     "motley": "^2.2.7",
     "motley-mongo": "^2.0.5",
+    "multi-progress": "^2.0.0",
     "numeral": "^1.5.3",
     "timebucket": "^0.3.4",
     "twit": "^2.2.4",

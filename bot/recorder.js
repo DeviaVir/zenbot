@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
       function onTweet (err, data, response) {
         if (err) return get('console').error('tweet err', err)
         if (response.statusCode === 200 && data && data.id_str) {
-          get('console').log('tweeted: '.cyan + data.text.white)
+          get('console').info('tweeted: '.cyan + data.text.white)
         }
         else get('console').error('tweet err', response.statusCode, data)
       }
@@ -38,7 +38,7 @@ module.exports = function container (get, set, clear) {
       get('db.trades').select(params, function (err, trades) {
         if (err) return get('console').error('trade select err', err)
         var tick = get('db.ticks').create(trades)
-        get('console').log('saw ' + counter + ' messages.' + (tick ? tick.trade_ticker : ''))
+        get('console').info('saw ' + counter + ' messages.' + (tick ? tick.trade_ticker : ''))
         if (tick && bot.tweet && tick.vol > 20) {
           var tweet = {
             status: 'big trade alert:\n\naction: ' + tick.side + '\nvolume: ' + numeral(tick.vol).format('0.000') + '\nprice: ' + tick.price + '\ntime: ' + get_time(tick.time) + '\n\n #btc #gdax'
@@ -47,7 +47,7 @@ module.exports = function container (get, set, clear) {
         }
         gleak.print()
         if (counter === 0) {
-          get('console').log('no messages in last tick. rebooting websocket...')
+          get('console').info('no messages in last tick. rebooting websocket...')
           reboot()
         }
         counter = 0
@@ -81,14 +81,14 @@ module.exports = function container (get, set, clear) {
       }
     })
     websocket.on('open', function () {
-      get('console').log('websocket opened.')
+      get('console').info('websocket opened.')
     })
     websocket.on('close', function () {
-      get('console').log('websocket closed.')
+      get('console').info('websocket closed.')
     })
     websocket.on('error', function (err) {
       get('console').error('websocket err', err)
-      get('console').log('websocket error. rebooting websocket in 10s...')
+      get('console').info('rebooting websocket in 10s...')
       setTimeout(reboot, 10000)
     })
   }

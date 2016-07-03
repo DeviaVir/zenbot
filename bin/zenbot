@@ -27,9 +27,18 @@ program
 program
   .command('learn')
   .description('3. run the machine learner')
-  .option('--start <time>', 'start time of simulation')
+  .option('-s, --start <time>', 'start time of simulation, default: 9 months ago')
+  .option('-d, --duration <seconds>', 'learning duration in seconds')
+  .option('-c, --concurrency <int>', 'number of concurrent simulations', Number, require('os').cpus().length)
   .action(function (options) {
     launch('learner', options)
+  })
+
+program
+  .command('forget')
+  .description('(optional) forget machine learning')
+  .action(function (options) {
+    launch('forget', options)
   })
 
 var defaults = require('../conf/defaults.json')
