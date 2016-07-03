@@ -13,7 +13,7 @@ module.exports = function container (get, set, clear) {
       sort: {
         time: 1
       },
-      limit: sim.query_limit
+      limit: constants.sim_query_limit
     }
     get('db.ticks').select(params, function (err, ticks) {
       if (err) throw err
