@@ -2,12 +2,25 @@ var motley = require('motley')
 
 module.exports = function (mode, options) {
   try {
+    var config = require('../config.js')
+  }
+  catch (e) {
+    var config = {
+      mongo_uri: 'mongodb://localhost:27017/zenbot'
+    }
+  }
+  try {
     var app = motley({
       _ns: 'motley',
       _maps: [
         require('../_codemap'),
         require('motley-mongo')
-      ]
+      ],
+      'motley:conf.db.mongo{}': {
+        url: config.mongo_uri,
+        username: config.mongo_username,
+        password: config.mongo_password
+      }
     })
   }
   catch (err) {
