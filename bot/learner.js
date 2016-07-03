@@ -28,7 +28,7 @@ module.exports = function container (get, set, clear) {
         best_fitness: 0,
         roi: 1,
         trade_vol: 0,
-        best_params: cp(defaults),
+        best_params: cpy(defaults),
         iterations: 0,
         simulations: 0,
         total_duration: 0,
@@ -170,7 +170,7 @@ module.exports = function container (get, set, clear) {
         simulations++
         rs.simulations++
         last_sim_chunks = sim_chunks
-        if (result.fitness > best_fitness) {
+        if (result.fitness > rs.best_fitness) {
           var old_best = rs.best_fitness
           rs.best_fitness = result.fitness
           rs.roi = result.roi
@@ -184,18 +184,18 @@ module.exports = function container (get, set, clear) {
           process.stderr.clearLine()
           rs.best_params = params
           rs.best_param = param
-          rs.best_param_direction = direction
+          rs.best_param_direction = rs.direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
         }
         else {
           process.stderr.write('\n\n')
           process.stderr.clearLine()
-          var mutated = best_params[param] !== params[param] && result.fitness === rs.best_fitness
+          var mutated = rs.best_params[param] !== params[param] && result.fitness === rs.best_fitness
           if (mutated) {
-            get('console').info(('[mutated] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).white)
+            get('console').info(('[mutated] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).white)
           }
           else {
-            get('console').info(('[died] ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).grey)
+            get('console').info(('[died] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).grey)
           }
           process.stderr.write('\n\n')
           process.stderr.clearLine()
@@ -211,14 +211,14 @@ module.exports = function container (get, set, clear) {
         var speed = n(1).divide(n(sec_diff).divide(60)).format('0.000') + '/min'
         get('db.mems').load('learned', function (err, learned) {
           if (err) throw err
+          if (!rs.start_fitness) {
+            rs.start_fitness = rs.best_fitness
+          }
           rs.fitness_diff = rs.best_fitness - rs.start_fitness
           rs.total_duration = rs.total_duration + sec_diff
-          a = moment()
-          b = moment().add(sec_diff, 'seconds')
-          rs.last_duration = n(b.diff(a, 'hours')).format('0') + ' hrs. ' + n(b.diff(a, 'minutes')).format('0') + ' mins.'
+          rs.last_duration = moment().add(sec_diff, 'seconds').fromNow(true)
           rs.last_speed = speed
-          b = moment().add(rs.total_duration, 'seconds')
-          rs.total_duration_str = n(b.diff(a, 'hours')).format('0') + ' hrs. ' + n(b.diff(a, 'minutes')).format('0') + ' mins.'
+          rs.total_duration_str = moment().add(rs.total_duration, 'seconds').fromNow(true)
           last_result = cpy(rs)
           get('db.mems').save(rs, function (err, saved) {
             if (err) throw err
