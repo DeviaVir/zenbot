@@ -1,10 +1,10 @@
 {
   "min_vol": 150,
-  "trade_amt": 0.7,
-  "min_trade": 0.01,
+  "trade_amt": 0.40491756756219827,
+  "min_trade": 0.0034848410771589357,
   "cooldown": 3,
   "crash": 0.046,
-  "sell_for_less": 0.08,
-  "buy_for_more": 0.15,
+  "sell_for_less": 0.03350681064097759,
+  "buy_for_more": 0.03782369740691187,
   "vol_reset": 999
 }

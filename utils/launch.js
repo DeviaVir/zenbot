@@ -20,6 +20,9 @@ module.exports = function (mode, options) {
         url: config.mongo_uri,
         username: config.mongo_username,
         password: config.mongo_password
+      },
+      'motley:conf.console{}': {
+        silent: options.parent.silent
       }
     })
   }
@@ -38,13 +41,13 @@ module.exports = function (mode, options) {
         process.exit()
       })
     }
-    process.once('SIGINT', onExit)
-    process.once('SIGTERM', onExit)
     var defaults = require('../conf/defaults.json')
     Object.keys(defaults).forEach(function (k) {
       if (typeof options[k] === 'undefined') options[k] = defaults[k]
     })
     app.set('motley:bot', options)
     app.get('motley:bot.' + mode)
+    process.once('SIGINT', onExit)
+    process.once('SIGTERM', onExit)
   })
 }
