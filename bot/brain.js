@@ -462,7 +462,8 @@ module.exports = function container (get, set, clear) {
     }
     gleak.print()
     return {
-      balance: new_balance
+      balance: new_balance,
+      trade_vol: rs.trade_vol
     }
   }
   return {

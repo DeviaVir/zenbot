@@ -29,7 +29,8 @@ module.exports = function container (get, set, clear) {
           throw new Error('no ticks')
         }
         var result = {}
-        var balance = brain.end().balance
+        var brain_result = brain.end()
+        var balance = brain_result.balance
         result.open = first_tick.open
         result.close = last_tick.close
         result.open_time = first_tick.time
@@ -43,6 +44,7 @@ module.exports = function container (get, set, clear) {
               .divide(start)
           )
           .value()
+        result.trade_vol = brain_result.trade_vol
         console.log(JSON.stringify(result, null, 2))
         setTimeout(process.exit, 1000)
         return

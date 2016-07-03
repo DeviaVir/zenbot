@@ -35,6 +35,13 @@ program
   })
 
 program
+  .command('memory')
+  .description('(optional) show zenbot\'s memory')
+  .action(function (options) {
+    launch('memory', options)
+  })
+
+program
   .command('forget')
   .description('(optional) forget machine learning')
   .action(function (options) {

@@ -22,8 +22,9 @@ module.exports = function container (get, set, clear) {
   get('db.mems').load('learned', function (err, learned) {
     if (err) throw err
     var best_params = learned ? learned.best_params : cpy(defaults)
-    var start_roi = learned ? learned.start_roi : 1
-    var best_roi = learned ? learned.best_roi : 1
+    var start_fitness = learned ? learned.start_fitness : 1
+    var best_fitness = learned ? learned.best_fitness : 1
+    var roi = learned ? learned.roi : 1
     var iterations = 0
     var simulations = 0
     var sim_chunks = 0
@@ -49,32 +50,34 @@ module.exports = function container (get, set, clear) {
         var keys = Object.keys(params)
         var idx = Math.ceil(Math.random() * keys.length) - 1
         var param = keys[idx]
-        try {
-          params[param] = n(Math.random())
-            .subtract(constants.learn_mutation)
-            .multiply(params[keys[idx]])
-            .value()
-          if (param === 'vol_reset') {
-            assert(params[param] > 0)
+        if (simulations) {
+          try {
+            params[param] = n(Math.random())
+              .subtract(constants.learn_mutation)
+              .multiply(params[keys[idx]])
+              .value()
+            if (param === 'vol_reset') {
+              assert(params[param] > 0)
+            }
+            if (param === 'min_trade') {
+              assert(params[param] >= constants.min_trade_possible)
+            }
+            if (param === 'trade_amt') {
+              assert(params[param] > 0)
+            }
           }
-          if (param === 'min_trade') {
-            assert(params[param] >= constants.min_trade_possible)
+          catch (e) {
+            /*
+            console.error('idx', idx)
+            console.error('key', keys[idx])
+            console.error('keys', keys)
+            console.error('params', params)
+            */
+            get('console').error('bad param', param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
+            if (bar) bar.terminate()
+            if (is_first) sims_started = false
+            return doNext()
           }
-          if (param === 'trade_amt') {
-            assert(params[param] > 0)
-          }
-        }
-        catch (e) {
-          /*
-          console.error('idx', idx)
-          console.error('key', keys[idx])
-          console.error('keys', keys)
-          console.error('params', params)
-          */
-          get('console').error('bad param', param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
-          if (bar) bar.terminate()
-          if (is_first) sims_started = false
-          return doNext()
         }
         var args = Object.keys(defaults).map(function (k) {
           return '--' + k + '=' + params[k]
@@ -87,7 +90,7 @@ module.exports = function container (get, set, clear) {
         })
         proc.stderr.on('data', function (chunk) {
           if (bar) {
-            bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', roi = ' + n(best_roi).format('+0.000')
+            bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness = ' + n(best_fitness).format('+0.000') + ', roi = ' + n(roi).format('+0.000')
             bar.tick()
           }
           else if (is_first) {
@@ -104,14 +107,16 @@ module.exports = function container (get, set, clear) {
           var stdout = Buffer.concat(chunks).toString('utf8')
           if (bar) bar.terminate()
           var result = JSON.parse(stdout)
+          result.fitness = n(result.roi).add(result.trade_vol).value()
           if (is_first) {
-            start_roi = result.roi
+            start_fitness = result.fitness
             first_ended = true
           }
           simulations++
           last_sim_chunks = sim_chunks
-          if (result.roi > best_roi) {
-            best_roi = result.roi
+          if (result.fitness > best_fitness) {
+            best_fitness = result.fitness
+            roi = result.roi
             best_params = params
             iterations++
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(best_params, null, 2))
@@ -127,9 +132,10 @@ module.exports = function container (get, set, clear) {
             if (learned) {
               result = {
                 id: 'learned',
-                roi_diff: best_roi - learned.start_roi,
-                start_roi: learned.start_roi,
-                best_roi: best_roi || start_roi,
+                fitness_diff: best_fitness - learned.start_fitness,
+                start_fitness: learned.start_fitness,
+                best_fitness: best_fitness || start_fitness,
+                roi: roi,
                 best_params: best_params,
                 iterations: learned.iterations + iterations,
                 simulations: learned.simulations + simulations,
@@ -141,9 +147,10 @@ module.exports = function container (get, set, clear) {
             else {
               result = {
                 id: 'learned',
-                roi_diff: best_roi - start_roi,
-                start_roi: start_roi,
-                best_roi: best_roi,
+                fitness_diff: best_fitness - start_fitness,
+                start_fitness: start_fitness,
+                best_fitness: best_fitness,
+                roi: roi,
                 best_params: best_params,
                 iterations: iterations,
                 simulations: simulations,
