@@ -2,13 +2,15 @@ var n = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
   , zerofill = require('zero-fill')
+  , constants = require('../conf/constants.json')
+  , gleak = require('../utils/gleak')
 
 module.exports = function container (get, set, clear) {
-  var client = get('utils.gdaxClient')
+  var client = get('utils.client')
+  var bot = get('bot')
   var counter = 0
-  var after = get('options').after
   function getNext () {
-    client.getProductTrades({after: after}, function (err, resp, trades) {
+    client.getProductTrades({after: bot.start}, function (err, resp, trades) {
       if (err) throw err
       if (!trades.length) {
         get('console').log('done!')
@@ -23,10 +25,12 @@ module.exports = function container (get, set, clear) {
           side: trade.side
         }
       }).reverse()
-      after = trades[0].id
+      bot.start = trades[0].id
       var ticks = {}
       trades.forEach(function (trade) {
-        var tickId = tb(trade.time).resize(get('conf.tick_size')).toString()
+        var tickId = tb(trade.time)
+          .resize(constants.tick_size)
+          .toString()
         ticks[tickId] || (ticks[tickId] = [])
         ticks[tickId].push(trade)
         counter++
@@ -35,9 +39,11 @@ module.exports = function container (get, set, clear) {
         var tick = get('db.ticks').create(ticks[tickId])
         if (tick && tick.ticker) get('console').log('backfilled', tb(tickId).toDate(), tick.ticker)
       })
-      get('console').log('processed', counter, 'trades. after = ' + after)
+      get('console').log('processed', counter, 'trades. after = ' + bot.start)
+      gleak.print()
       setTimeout(getNext, 0)
     })
   }
   setTimeout(getNext, 1000)
+  return null
 }

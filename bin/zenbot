@@ -36,17 +36,17 @@ var defaults = require('../conf/defaults.json')
 
 program
   .command('sim')
-  .description('run the simulator')
+  .description('(optional) run the simulator')
   .option('--start <time>', 'start time of simulation')
-  .option('--min_vol <float>', 'volume trigger in BTC', Number, defaults.min_vol),
-  .option('--trade_amt <float>', 'trade amount float between 0 and 1', Number, defaults.trade_amt),
-  .option('--min_trade <btc>', 'minimum trade in BTC', Number, defaults.min_trade),
-  .option('--cooldown <int>', 'trigger cooldown integer', Number, defaults.cooldown),
-  .option('--crash <float>', 'crash protection float', Number, defaults.crash),
-  .option('--sell_for_less', 'willingness to sell for less float', Number, defaults.sell_for_less),
-  .option('--buy_for_more', 'willingness to buy for more float', Number, defaults.buy_for_more),
-  .option('--vol_reset', 'volume trigger reset in BTC', Number, defaults.vol_reset),
-  .option('--sim_query_limit', 'query limit integer', Number, defaults.sim_query_limit),
+  .option('--min_vol <float>', 'volume trigger in asset', Number, defaults.min_vol)
+  .option('--trade_amt <float>', 'trade amount float between 0 and 1', Number, defaults.trade_amt)
+  .option('--min_trade <btc>', 'minimum trade in asset', Number, defaults.min_trade)
+  .option('--cooldown <int>', 'trigger cooldown integer', Number, defaults.cooldown)
+  .option('--crash <float>', 'crash protection float', Number, defaults.crash)
+  .option('--sell_for_less', 'willingness to sell for less float', Number, defaults.sell_for_less)
+  .option('--buy_for_more', 'willingness to buy for more float', Number, defaults.buy_for_more)
+  .option('--vol_reset', 'volume trigger reset in asset', Number, defaults.vol_reset)
+  .option('--sim_query_limit', 'query limit integer', Number, defaults.sim_query_limit)
   .option('--sim_start_balance', 'simulation start balance in currency', Number, defaults.sim_start_balance)
   .action(function (options) {
     launch('simulator', options)

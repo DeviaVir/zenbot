@@ -4,7 +4,7 @@ module.exports = {
 
   backfiller: require('./backfiller'),
   brain: require('./brain'),
-  learner: requrie('./learner'),
+  learner: require('./learner'),
   recorder: require('./recorder'),
   simulator: require('./simulator'),
   zen: require('./zen')

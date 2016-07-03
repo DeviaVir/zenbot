@@ -4,7 +4,7 @@ var n = require('numeral')
   , zerofill = require('zero-fill')
   , moment = require('moment')
   , constants = require('../conf/constants.json')
-  , gleak = require('gleak')()
+  , gleak = require('../utils/gleak')
 
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
@@ -23,7 +23,7 @@ module.exports = function container (get, set, clear) {
     vol: 0,
     max_diff: 0,
     buy_price: null,
-    sell_price: null
+    sell_price: null,
     trade_vol: 0,
     cooldown: 0,
     last_tick: null,
