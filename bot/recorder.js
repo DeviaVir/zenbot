@@ -12,7 +12,7 @@ module.exports = function container (get, set, clear) {
     var last_tick = new Date().getTime()
 
     if (bot.tweet) {
-      var twitter_clint = get('utils.twitter_client')
+      var twitter_client = get('utils.twitter_client')
       function onTweet (err, data, response) {
         if (err) return get('console').error('tweet err', err)
         if (response.statusCode === 200 && data && data.id_str) {
