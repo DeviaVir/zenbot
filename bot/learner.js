@@ -31,6 +31,11 @@ module.exports = function container (get, set, clear) {
     var last_sim_chunks = 0
     var sims_started = false
     var first_ended = false
+    var best_param, best_param_direction, direction
+    if (learned) {
+      best_param = learned.best_param
+      direction = learned.best_param_direction
+    }
     var num_trades = 0
     var multi = new MultiProgress(process.stderr)
     get('console').info('running first simulation...')
@@ -47,16 +52,37 @@ module.exports = function container (get, set, clear) {
           total: last_sim_chunks,
         })
       }
-      var params = cpy(best_params)
-      var keys = Object.keys(params)
-      var idx = Math.ceil(Math.random() * keys.length) - 1
-      var param = keys[idx]
+      var params = cpy(best_params), param, idx, keys
       if (simulations) {
+        var is_followup = false
+        if (best_param && Math.random() >= 0.5) {
+          is_followup = true
+          param = best_param
+        }
+        else {
+          keys = Object.keys(params)
+          idx = Math.ceil(Math.random() * keys.length) - 1
+          param = keys[idx]
+        }
         try {
           var mutate = n(Math.random())
-            .subtract(constants.learn_mutation)
-            .multiply(params[keys[idx]])
+          if (is_followup) {
+            if (direction === 'pos') {
+              // add
+              mutate = mutate.add(constants.learn_mutation)
+            }
+            else {
+              // subtract
+              mutate = mutate.subtract(n(constants.learn_mutation).multiply(2))
+            }
+          }
+          else {
+            // neutral
+            mutate = mutate.subtract(constants.learn_mutation)
+          }
+          mutate = mutate.multiply(params[param])
             .value()
+          direction = mutate >= 0 ? 'pos' : 'neg'
           params[param] = n(params[param])
             .add(mutate)
             .value()
@@ -76,6 +102,7 @@ module.exports = function container (get, set, clear) {
           }
         }
         catch (e) {
+          console.error(e.stack.split('\n')[1])
           /*
           console.error('idx', idx)
           console.error('key', keys[idx])
@@ -98,7 +125,7 @@ module.exports = function container (get, set, clear) {
         chunks.push(chunk)
       })
       proc.stderr.on('data', function (chunk) {
-        if (bar) {
+        if (bar && simulations) {
           bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness = ' + n(best_fitness).format('+0.000') + ', roi = ' + n(roi).format('+0.000')
           bar.tick()
         }
@@ -148,6 +175,8 @@ module.exports = function container (get, set, clear) {
           process.stderr.write('\n\n')
           process.stderr.clearLine()
           best_params = params
+          best_param = param
+          best_param_direction = direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(best_params, null, 2))
         }
         else {
@@ -184,11 +213,14 @@ module.exports = function container (get, set, clear) {
               roi: roi,
               trade_vol: trade_vol,
               best_params: best_params,
-              iterations: learned.iterations + iterations,
-              simulations: learned.simulations + simulations,
+              iterations: iterations,
+              simulations: simulations,
               total_duration: learned.total_duration + sec_diff,
               last_duration: moment(started_learning).toNow(true),
-              last_speed: speed
+              last_speed: speed,
+              direction: direction || null,
+              best_param: best_param || null,
+              best_param_direction: best_param_direction || null
             }
           }
           else {
@@ -204,7 +236,9 @@ module.exports = function container (get, set, clear) {
               total_duration: sec_diff,
               last_duration: moment(started_learning).toNow(true),
               last_speed: speed,
-
+              direction: direction || null,
+              best_param: best_param || null,
+              best_param_direction: best_param_direction || null
             }
           }
           var a = moment()
