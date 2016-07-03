@@ -42,11 +42,19 @@ module.exports = function (mode, options) {
       })
     }
     var defaults = require('../conf/defaults.json')
-    Object.keys(defaults).forEach(function (k) {
-      if (typeof options[k] === 'undefined') options[k] = defaults[k]
+    app.get('motley:db.mems').load('learned', function (err, learned) {
+      if (err) throw err
+      if (mode !== 'simulator' && learned) {
+        Object.keys(learned).forEach(function (k) {
+          options[k] = learned[k]
+        })
+      }
+      Object.keys(defaults).forEach(function (k) {
+        if (typeof options[k] === 'undefined') options[k] = defaults[k]
+      })
+      app.set('motley:bot', options)
+      app.get('motley:bot.' + mode)
     })
-    app.set('motley:bot', options)
-    app.get('motley:bot.' + mode)
     process.once('SIGINT', onExit)
     process.once('SIGTERM', onExit)
   })
