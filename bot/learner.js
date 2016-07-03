@@ -28,7 +28,7 @@ module.exports = function container (get, set, clear) {
         best_fitness: 0,
         roi: 1,
         trade_vol: 0,
-        best_params: null,
+        best_params: cp(defaults),
         iterations: 0,
         simulations: 0,
         total_duration: 0,
