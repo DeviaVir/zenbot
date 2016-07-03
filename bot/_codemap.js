@@ -6,6 +6,7 @@ module.exports = {
   brain: require('./brain'),
   forget: require('./forget'),
   learner: require('./learner'),
+  memory: require('./memory'),
   recorder: require('./recorder'),
   simulator: require('./simulator'),
   zen: require('./zen')

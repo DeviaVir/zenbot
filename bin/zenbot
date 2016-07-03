@@ -35,7 +35,7 @@ program
   })
 
 program
-  .command('memory')
+  .command('mem')
   .description('(optional) show zenbot\'s memory')
   .action(function (options) {
     launch('memory', options)
