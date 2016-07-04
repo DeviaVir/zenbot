@@ -52,28 +52,31 @@ module.exports = function container (get, set, clear) {
     syncBalance(function (err) {
       if (err) throw err
       bot.trade = false
-      get('db.mems').load(rs.id, function (err, mem) {
+      get('utils.client').getProductTicker(function (err, resp, ticker) {
         if (err) throw err
-        if (mem) {
-          Object.keys(mem).forEach(function (k) {
-            if (k.match(/^(asset|currency)$/)) return
-            rs[k] = mem[k]
-          })
-          get('console').info('memory loaded.'.white + ' resuming trading!'.cyan)
-          bot.trade = true
+        if (resp.statusCode !== 200) {
+          console.error(ticker)
+          throw new Error('non-200 status from exchange: ' + resp.statusCode)
         }
-        else {
-          get('utils.client').getProductTicker(function (err, resp, ticker) {
-            if (err) throw err
-            if (resp.statusCode !== 200) {
-              console.error(ticker)
-              throw new Error('non-200 status from exchange: ' + resp.statusCode)
-            }
-            start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
+        get('db.mems').load(rs.id, function (err, mem) {
+          if (err) throw err
+          if (mem) {
+            Object.keys(mem).forEach(function (k) {
+              if (k.match(/^(asset|currency)$/)) return
+              rs[k] = mem[k]
+            })
+            get('console').info('memory loaded.'.white + ' resuming trading!'.cyan)
+            finish()
+          }
+          else {
             get('console').info('no memory found.'.red + ' starting trading!'.cyan)
+            finish()
+          }
+          function finish () {
+            start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
             bot.trade = true
-          })
-        }
+          }
+        })
       })
     })
   }
