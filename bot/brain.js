@@ -358,7 +358,7 @@ module.exports = function container (get, set, clear) {
             onOrder(err, resp, order)
             if (bot.tweet) {
               var tweet = {
-                status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + contants.hashtags
+                status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
               }
               twitterClient.post('statuses/update', tweet, onTweet)
             }
