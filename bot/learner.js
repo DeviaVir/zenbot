@@ -146,12 +146,22 @@ module.exports = function container (get, set, clear) {
         sim_chunks++
       })
       proc.on('exit', function (code) {
-        if (code) throw new Error('non-0 code: ' + code)
-        var stdout = Buffer.concat(chunks).toString('utf8')
+        if (code) {
+          get('console').error('non-0 code: ' + code)
+          if (bar) bar.terminate()
+          if (is_first) sims_started = false
+          return doNext()
+        }
+        else {
+          var stdout = Buffer.concat(chunks).toString('utf8')
+        }
         if (bar) bar.terminate()
         var result = JSON.parse(stdout)
         if (simulations && result.trade_vol < constants.min_strat_vol) {
           get('console').error('not enough trade_vol', n(result.trade_vol).format('0.000'), '<', n(constants.min_strat_vol).format('0.000'))
+          if (bar) bar.terminate()
+          if (is_first) sims_started = false
+          return doNext()
         }
         result.fitness = n(result.roi)
           .multiply(
