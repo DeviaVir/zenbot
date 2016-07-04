@@ -3,7 +3,6 @@ var n = require('numeral')
   , tb = require('timebucket')
   , zerofill = require('zero-fill')
   , constants = require('../conf/constants.json')
-  , gleak = require('../utils/gleak')
 
 module.exports = function container (get, set, clear) {
   var client = get('utils.client')
@@ -40,7 +39,6 @@ module.exports = function container (get, set, clear) {
         if (tick && tick.ticker) get('console').info('backfilled', tb(tickId).toDate(), tick.ticker)
       })
       get('console').info('processed', counter, 'trades. after = ' + bot.start)
-      gleak.print()
       setTimeout(getNext, 0)
     })
   }
