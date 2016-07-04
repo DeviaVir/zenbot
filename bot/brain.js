@@ -74,6 +74,7 @@ module.exports = function container (get, set, clear) {
           }
           function finish () {
             start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
+            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).white)
             bot.trade = true
           }
         })
