@@ -44,6 +44,8 @@ module.exports = function (mode, options) {
     var defaults = require('../conf/defaults.json')
     app.get('motley:db.mems').load('learned', function (err, learned) {
       if (err) throw err
+      app.get('motley:console').info((ZENBOT_USER_AGENT + ' booting!').cyan)
+      app.get('motley:console').info(('[zen] i have ' + (learned ? learned.simulations : 0) + ' memories.').yellow)
       if (mode !== 'simulator' && learned) {
         Object.keys(learned).forEach(function (k) {
           options[k] = learned[k]
