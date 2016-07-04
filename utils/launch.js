@@ -1,4 +1,5 @@
 var motley = require('motley')
+  , n = require('numeral')
 
 module.exports = function (mode, options) {
   try {
@@ -45,7 +46,7 @@ module.exports = function (mode, options) {
     app.get('motley:db.mems').load('learned', function (err, learned) {
       if (err) throw err
       app.get('motley:console').info((ZENBOT_USER_AGENT + ' booting!').cyan)
-      app.get('motley:console').info(('[zen] i have ' + (learned ? learned.simulations : 0) + ' memories.').yellow)
+      app.get('motley:console').info(('[zen] i have improved the strategy ' + n(learned ? learned.fitness_diff : 0).format('0.000%') + ' over the defaults!').yellow)
       if (mode !== 'simulator' && learned) {
         Object.keys(learned).forEach(function (k) {
           options[k] = learned[k]
