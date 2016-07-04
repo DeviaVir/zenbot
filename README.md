@@ -2,14 +2,14 @@
 
 Follow zenbot [on Twitter!](https://twitter.com/zenbot_btc)
 
-![zenbot logo](https://raw.githubusercontent.com/carlos8f/zenbot/master/zenbot_square.png)
+![zenbot logo](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
 zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/).
 
-zenbot bases its decisions on volume triggers of the "taker" side and trades only at market value. The trading strategy is based on machine-learning and historical analysis, which you can run yourself and discover better strategies. It has full console graphing/indicators to show its reasoning when making decisions.
+zenbot bases its decisions on volume triggers of the "taker" side and trades only at market value. The trading strategy is based on machine-learning and historical analysis, which you can run yourself to discover better strategies. It has full console graphing/indicators to show its reasoning when making decisions.
 
 Since zenbot has no specific strategy, it requires no configuration. Out of the box, it works as a trade advisor (gives you buy or sell signals while watching live data). Give it a virtual balance, and it will simulate on historical data and give you an ROI figure. Give it some time, and it will learn how to improve the ROI. Give it an API key, and it will actually perform trades!
 
