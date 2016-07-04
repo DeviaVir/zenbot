@@ -280,7 +280,7 @@ module.exports = function container (get, set, clear) {
               var tweet = {
                 status: 'zenbot recommends:\n\naction: BUY\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
               }
-              twitterClient.post('statuses/update', tweet, onTweet)
+              twitter_client.post('statuses/update', tweet, onTweet)
             }
             syncBalance()
           })
@@ -364,7 +364,7 @@ module.exports = function container (get, set, clear) {
               var tweet = {
                 status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
               }
-              twitterClient.post('statuses/update', tweet, onTweet)
+              twitter_client.post('statuses/update', tweet, onTweet)
             }
             syncBalance()
           })
