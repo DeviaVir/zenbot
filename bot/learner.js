@@ -108,6 +108,19 @@ module.exports = function container (get, set, clear) {
             params[param] = n(params[param])
               .add(Math.round((Math.random() - 0.5) * 10))
               .value()
+            assert(params[param] >= 0)
+          }
+          if (param === 'crash') {
+            assert(params[param] >= 0)
+            assert(params[param] <= 10)
+          }
+          if (param === 'buy_for_more') {
+            assert(params[param] >= 0)
+            assert(params[param] <= 10)
+          }
+          if (param === 'sell_for_less') {
+            assert(params[param] >= 0)
+            assert(params[param] <= 10)
           }
         }
         catch (e) {
