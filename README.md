@@ -17,7 +17,7 @@ END DISCLAIMER!
 
 zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/).
 
-zenbot bases its decisions on volume triggers of the "taker" side and trades only at market value. The automation is "passive" because instead of doing its own technical analysis, zen follows in the footsteps of other traders/bots. It has full console graphing/indicators to show its reasoning when making decisions.
+zenbot bases its decisions on volume triggers of the "taker" side and trades only at market value. The trading strategy is based on machine-learning and historical analysis, which you can run yourself and discover better strategies. It has full console graphing/indicators to show its reasoning when making decisions.
 
 Since zenbot has no specific strategy, it requires no configuration. Out of the box, it works as a paper-based trade advisor. Give it a virtual balance, and it will simulate on historical data and give you an ROI figure. Give it an API key, and it will actually perform trades!
 
@@ -39,23 +39,28 @@ $ zenbot
 
   Commands:
 
-    run [options]        run zenbot on the exchange (must run recorder also)
-    sim [options]        run the simulator (must run backfiller first)
-    backfill [options]   run the backfiller
-    record [options]     run the recorder
+    record [options]     1. run the recorder
+    backfill [options]   2. run the backfiller
+    learn [options]      3. run the machine learner
+    mem                  (optional) show zenbot's memory
+    forget               (optional) forget machine learning
+    sim [options]        (optional) run the simulator
+    run [options]        4. run zenbot on the exchange
     *
 
   Options:
 
     -h, --help     output usage information
+    --silent       speak no evil
     -V, --version  output the version number
+
 ```
 
 ## Screenshot
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/16441892/e791744c-3d82-11e6-834e-b566d498e7e9.png)
 
-## Commands
+## Common commands
 
 ### record trades
 
