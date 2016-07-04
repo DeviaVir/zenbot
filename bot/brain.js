@@ -56,6 +56,7 @@ module.exports = function container (get, set, clear) {
         if (err) throw err
         if (mem) {
           Object.keys(mem).forEach(function (k) {
+            if (k.match(/^(asset|currency)$/)) return
             rs[k] = mem[k]
           })
           get('console').info('memory loaded.'.white + ' resuming trading!'.cyan)
