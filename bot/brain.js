@@ -4,7 +4,6 @@ var n = require('numeral')
   , zerofill = require('zero-fill')
   , moment = require('moment')
   , constants = require('../conf/constants.json')
-  , gleak = require('../utils/gleak')
 
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
@@ -399,7 +398,6 @@ module.exports = function container (get, set, clear) {
     finish()
     function finish () {
       rs.last_tick = tick
-      gleak.print()
     }
   }
   function report () {
@@ -461,7 +459,6 @@ module.exports = function container (get, set, clear) {
             status: text
           }
           twitter_client.post('statuses/update', tweet, onTweet)
-          gleak.print()
         })
       }
     }
@@ -477,7 +474,6 @@ module.exports = function container (get, set, clear) {
       syncBalance()
     }
     syncLearned()
-    gleak.print()
   }
   function end () {
     var new_balance = start_balance
@@ -489,7 +485,6 @@ module.exports = function container (get, set, clear) {
         )
         .value()
     }
-    gleak.print()
     return {
       balance: new_balance,
       trade_vol: rs.trade_vol,

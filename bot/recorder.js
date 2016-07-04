@@ -1,7 +1,6 @@
 var moment = require('moment')
   , numeral = require('numeral')
   , constants = require('../conf/constants.json')
-  , gleak = require('../utils/gleak')
 
 module.exports = function container (get, set, clear) {
   function mountRecorder () {
@@ -45,7 +44,6 @@ module.exports = function container (get, set, clear) {
           }
           twitter_client.post('statuses/update', tweet, onTweet)
         }
-        gleak.print()
         if (counter === 0) {
           get('console').info('no messages in last tick. rebooting websocket...')
           reboot()
