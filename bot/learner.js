@@ -189,7 +189,7 @@ module.exports = function container (get, set, clear) {
           rs.iterations++
           process.stderr.write('\n\n')
           process.stderr.clearLine()
-          get('console').info(('[ding!] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(old_best).format('0.000') + ' -> ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).cyan)
+          get('console').info(('[ding!] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(old_best).format('0.000') + ' -> ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + result.num_trades + ', roi = ' + n(result.roi).format('+0.000') + ', vol = ' + n(result.trade_vol).format('0.000')).cyan)
           process.stderr.write('\n\n')
           process.stderr.clearLine()
           rs.best_params = params
@@ -202,10 +202,10 @@ module.exports = function container (get, set, clear) {
           process.stderr.clearLine()
           var mutated = rs.best_params[param] !== params[param] && result.fitness === rs.best_fitness
           if (mutated) {
-            get('console').info(('[mutated] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).white)
+            get('console').info(('[mutated] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(result.best_fitness).format('0.000') + ', num_trades = ' + result.num_trades + ', roi = ' + n(result.roi).format('+0.000') + ', vol = ' + n(result.trade_vol).format('0.000')).white)
           }
           else {
-            get('console').info(('[died] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(rs.best_fitness).format('0.000') + ', num_trades = ' + rs.num_trades + ', roi = ' + n(rs.roi).format('+0.000') + ', vol = ' + n(rs.trade_vol).format('0.000')).grey)
+            get('console').info(('[died] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(result.fitness).format('0.000') + ', num_trades = ' + result.num_trades + ', roi = ' + n(result.roi).format('+0.000') + ', vol = ' + n(result.trade_vol).format('0.000')).grey)
           }
           process.stderr.write('\n\n')
           process.stderr.clearLine()
