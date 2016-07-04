@@ -74,7 +74,7 @@ module.exports = function container (get, set, clear) {
           }
           function finish () {
             start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
-            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).white)
+            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan)
             bot.trade = true
           }
         })
@@ -184,7 +184,7 @@ module.exports = function container (get, set, clear) {
         .add(tick.vol)
         .value()
     }
-    var vol_string = zerofill(3, Math.round(rs.vol), ' ').white
+    var vol_string = zerofill(4, Math.round(rs.vol), ' ').white
     rs.vol_diff_string = vol_string + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       // trigger
