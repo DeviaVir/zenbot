@@ -7,7 +7,30 @@ module.exports = function container (get, set, clear) {
   var brain = get('bot.brain')
   var start = brain.run_state.currency
   var first_tick, last_tick
+
+  if (bot.throttle) {
+    var monitor = require('os-monitor')
+    var pausing = false
+    var pause_msg = ''
+    monitor.start({
+      critical1: bot.throttle,
+      immediate: true,
+      delay: 5000
+    })
+    monitor.on('monitor', function (event) {
+      if (pausing && event.loadavg && event.loadavg[0] < bot.throttle) {
+        get('console').info(('[resuming] load = ' + n(event.loadavg[0]).format('0.000')).yellow)
+        pausing = false
+      }
+      else if (event.loadavg && event.loadavg[0] >= bot.throttle) {
+        pause_msg = ('[paused] load = ' + n(event.loadavg[0]).format('0.000')).yellow
+        pausing = true
+      }
+    })
+  }
+
   function getNext () {
+    if (bot.throttle && pausing) return setTimeout(getNext, 5000)
     var params = {
       query: {
         time: {
@@ -57,6 +80,10 @@ module.exports = function container (get, set, clear) {
         last_tick = tick
       })
       brain.report()
+      if (bot.throttle && pausing) {
+        get('console').info(pause_msg)
+        return setTimeout(getNext, 6000)
+      }
       setImmediate(getNext)
     })
   }

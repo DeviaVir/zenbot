@@ -27,9 +27,10 @@ program
 program
   .command('learn')
   .description('3. run the machine learner')
-  .option('-s, --start <time>', 'start time of simulation, default: 9 months ago')
+  .option('-s, --start <time>', 'start time of simulation, default: 90 days ago')
   .option('-d, --duration <seconds>', 'learning duration in seconds')
   .option('-c, --concurrency <int>', 'number of concurrent simulations', Number, require('os').cpus().length)
+  .option('-t, --throttle <load>', 'pause the simulation if load average goes above this', Number, 10)
   .action(function (options) {
     launch('learner', options)
   })
@@ -55,7 +56,8 @@ var defaults = require('../conf/defaults.json')
 program
   .command('sim')
   .description('(optional) run the simulator')
-  .option('--start <time>', 'start time of simulation, default: 90 days ago')
+  .option('-s, --start <time>', 'start time of simulation, default: 90 days ago')
+  .option('-t, --throttle <load>', 'pause the simulation if load average goes above this', Number, 10)
   .option('--min_vol <float>', 'volume trigger in asset, default: ' + defaults.min_vol, Number, defaults.min_vol)
   .option('--trade_amt <float>', 'trade amount float between 0 and 1, default: ' + defaults.trade_amt, Number, defaults.trade_amt)
   .option('--min_trade <asset>', 'minimum trade in asset, default: ' + defaults.min_trade, Number, defaults.min_trade)
