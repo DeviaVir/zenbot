@@ -2,6 +2,7 @@ var n = require('numeral')
   , colors = require('colors')
   , tb = require('timebucket')
   , constants = require('../conf/constants.json')
+  , zerofill = require('zero-fill')
 
 module.exports = function container (get, set) {
   return get('db.createCollection')('ticks', {
@@ -55,7 +56,7 @@ module.exports = function container (get, set) {
           if (buy_ratio < 0.5) side = 'SELL'
           if (buy_ratio === 0.5) side = 'EVEN'
           var bucket = tb(close_time).resize(constants.tick_size)
-          trade_ticker = side + ' ' + n(typical).format('$0,0.00') + '/' + n(vol).format('0.000')
+          trade_ticker = zerofill(4, side, ' ') + ' ' + n(typical).format('$0,0.00') + '/' + n(vol).format('0.000')
           var orig_ticker = trade_ticker
           var tick = {
             id: bucket.toString(),
