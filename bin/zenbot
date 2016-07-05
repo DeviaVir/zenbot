@@ -43,7 +43,9 @@ program
 
 program
   .command('forget')
-  .description('(optional) forget machine learning')
+  .description('(optional) forget learned stuff')
+  .option('--learned', 'forget machine learning')
+  .option('--rs', 'forget trade bot run-state')
   .action(function (options) {
     launch('forget', options)
   })

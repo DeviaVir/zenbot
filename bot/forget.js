@@ -4,18 +4,28 @@ var spawn = require('child_process').spawn
   , constants = require('../conf/constants.json')
 
 module.exports = function container (get, set, clear) {
+  var bot = get('bot')
   spawn('git', ['checkout', '--', path.resolve(__dirname, '..', 'conf', 'defaults.json')])
     .once('exit', function (code) {
       assert(code === 0)
-      get('db.mems').destroy(constants.product_id, function (err, destroyed) {
-        if (err) throw err
-        console.log(JSON.stringify(destroyed || null, null, 2))
-        get('db.mems').destroy('learned', function (err, destroyed) {
+      function withRs () {
+        if (bot.learned) {
+          get('db.mems').destroy('learned', function (err, destroyed) {
+            if (err) throw err
+            console.log(JSON.stringify(destroyed || null, null, 2))
+            process.exit()
+          })
+        }
+        else process.exit()
+      }
+      if (bot.rs) {
+        get('db.mems').destroy(constants.product_id, function (err, destroyed) {
           if (err) throw err
           console.log(JSON.stringify(destroyed || null, null, 2))
-          process.exit()
+          withRs()
         })
-      })
+      }
+      else withRs()
     })
   return null
 }
