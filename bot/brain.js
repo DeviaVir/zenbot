@@ -102,6 +102,7 @@ module.exports = function container (get, set, clear) {
         get('console').error('non-200 from btcvol: ' + resp.statusCode)
         return
       }
+      body = JSON.parse(body)
       if (rs.volatility !== body.Volatility) {
         get('console').info(('[btcvol.info] volatility ' + rs.volatility + ' -> ' + body.Volatility).cyan)
       }
