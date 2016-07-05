@@ -95,7 +95,7 @@ module.exports = function container (get, set, clear) {
     }
   }
   function syncVolatility () {
-    request('https://btcvol.info/latest', function (err, resp, body) {
+    request('https://btcvol.info/latest', {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
       if (err) throw err
       if (resp.statusCode !== 200) {
         console.error(body)
