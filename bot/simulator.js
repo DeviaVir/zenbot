@@ -5,8 +5,8 @@ var n = require('numeral')
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
   var get_timestamp = get('utils.get_timestamp')
-  var min_time = bot.start || tb('30d').subtract(3).toMilliseconds()
-  var max_time = bot.end || tb(min_time).resize('30d').add(3).toMilliseconds()
+  var min_time = bot.start || tb('7d').subtract(12).toMilliseconds()
+  var max_time = bot.end || tb(min_time).resize('7d').add(12).toMilliseconds()
   get('console').info(('[sim] start = ' + get_timestamp(min_time) + ', end = ' + get_timestamp(max_time)).cyan)
   var brain = get('bot.brain')
   var start = brain.run_state.currency
