@@ -4,6 +4,7 @@ var n = require('numeral')
   , zerofill = require('zero-fill')
   , moment = require('moment')
   , constants = require('../conf/constants.json')
+  , request = require('micro-request')
 
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
@@ -30,7 +31,8 @@ module.exports = function container (get, set, clear) {
     last_hour: null,
     hour_vol: 0,
     first_tick: null,
-    num_trades: 0
+    num_trades: 0,
+    volatility: 0
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -92,7 +94,22 @@ module.exports = function container (get, set, clear) {
       })
     }
   }
+  function syncVolatility () {
+    request('https://btcvol.info/latest', function (err, resp, body) {
+      if (err) throw err
+      if (resp.statusCode !== 200) {
+        console.error(body)
+        get('console').error('non-200 from btcvol: ' + resp.statusCode)
+        return
+      }
+      if (rs.volatility !== body.Volatility) {
+        get('console').info(('[btcvol.info] volatility ' + rs.volatility + ' -> ' + body.Volatility).cyan)
+      }
+      rs.volatility = body.Volatility
+    })
+  }
   syncLearned()
+  syncVolatility()
   function syncBalance (cb) {
     if (!bot.trade) return cb && cb()
     bot.trade = false
@@ -461,6 +478,7 @@ module.exports = function container (get, set, clear) {
           twitter_client.post('statuses/update', tweet, onTweet)
         })
       }
+      syncVolatility()
     }
     rs.last_hour = this_hour
     rs.period_vol = 0
