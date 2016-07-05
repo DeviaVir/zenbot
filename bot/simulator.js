@@ -1,9 +1,13 @@
 var n = require('numeral')
   , constants = require('../conf/constants.json')
+  , tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
-  var min_time = bot.start || new Date().getTime() - (86400000 * 90) // 90 days ago
+  var get_timestamp = get('utils.get_timestamp')
+  var min_time = bot.start || tb('30d').subtract(3).toMilliseconds()
+  var max_time = bot.end || tb(min_time).resize('30d').add(3).toMilliseconds()
+  get('console').info(('[sim] start = ' + get_timestamp(min_time) + ', end = ' + get_timestamp(max_time)).cyan)
   var brain = get('bot.brain')
   var start = brain.run_state.currency
   var first_tick, last_tick
@@ -34,7 +38,8 @@ module.exports = function container (get, set, clear) {
     var params = {
       query: {
         time: {
-          $gt: n(min_time).value()
+          $gt: n(min_time).value(),
+          $lt: n(max_time).value()
         }
       },
       sort: {
