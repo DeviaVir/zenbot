@@ -195,7 +195,7 @@ module.exports = function container (get, set, clear) {
         simulations++
         rs.simulations++
         last_sim_chunks = sim_chunks
-        if (result.fitness > rs.best_fitness) {
+        if (simulations === 1 || result.fitness > rs.best_fitness) {
           var old_best = rs.best_fitness
           rs.best_fitness = result.fitness
           rs.roi = result.roi
