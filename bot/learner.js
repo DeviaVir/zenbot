@@ -6,10 +6,12 @@ var spawn = require('child_process').spawn
   , constants = require('../conf/constants.json')
   , fs = require('fs')
   , assert = require('assert')
+  , tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
-  var start = bot.start || new Date().getTime() - (86400000 * 30 * 3) // 3 months!
+  var min_time = bot.start || tb('30d').subtract(3).toMilliseconds()
+  var max_time = bot.end || tb(min_time).resize('30d').add(3).toMilliseconds()
   var defaults = require('../conf/defaults.json'), last_result
   process.once('SIGINT', function () {
     if (last_result) console.log(JSON.stringify(last_result, null, 2))
@@ -141,7 +143,7 @@ module.exports = function container (get, set, clear) {
         return '--' + k + '=' + params[k]
       })
       if (bot.throttle) args.push('--throttle', bot.throttle)
-      args.unshift('sim', '--start', start)
+      args.unshift('sim', '--start', min_time)
       var proc = spawn(path.resolve(__dirname, '..', 'bin', 'zenbot'), args)
       var chunks = []
       proc.stdout.on('data', function (chunk) {
