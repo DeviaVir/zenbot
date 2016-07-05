@@ -140,6 +140,7 @@ module.exports = function container (get, set, clear) {
       var args = Object.keys(defaults).map(function (k) {
         return '--' + k + '=' + params[k]
       })
+      if (bot.throttle) args.push('--throttle', bot.throttle)
       args.unshift('sim', '--start', start)
       var proc = spawn(path.resolve(__dirname, '..', 'bin', 'zenbot'), args)
       var chunks = []
