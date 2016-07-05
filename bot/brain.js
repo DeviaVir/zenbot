@@ -95,19 +95,21 @@ module.exports = function container (get, set, clear) {
     }
   }
   function syncVolatility () {
-    request('https://btcvol.info/latest', {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
-      if (err) throw err
-      if (resp.statusCode !== 200) {
-        console.error(body)
-        get('console').error('non-200 from btcvol: ' + resp.statusCode)
-        return
-      }
-      body = JSON.parse(body)
-      if (rs.volatility !== body.Volatility) {
-        get('console').info(('[btcvol.info] volatility ' + rs.volatility + ' -> ' + body.Volatility).cyan)
-      }
-      rs.volatility = body.Volatility
-    })
+    if (get('mode') === 'zen') {
+      request('https://btcvol.info/latest', {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
+        if (err) throw err
+        if (resp.statusCode !== 200) {
+          console.error(body)
+          get('console').error('non-200 from btcvol: ' + resp.statusCode)
+          return
+        }
+        body = JSON.parse(body)
+        if (rs.volatility !== body.Volatility) {
+          get('console').info(('[btcvol.info] volatility ' + rs.volatility + ' -> ' + body.Volatility).cyan)
+        }
+        rs.volatility = body.Volatility
+      })
+    }
   }
   syncLearned()
   syncVolatility()
