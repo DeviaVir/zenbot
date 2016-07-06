@@ -32,7 +32,8 @@ module.exports = function container (get, set, clear) {
     hour_vol: 0,
     first_tick: null,
     num_trades: 0,
-    volatility: 0
+    volatility: 0,
+    max_vol: 0
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -203,7 +204,14 @@ module.exports = function container (get, set, clear) {
         .add(tick.vol)
         .value()
     }
-    var vol_string = zerofill(4, Math.round(rs.vol), ' ').white
+    if (rs.vol > rs.max_vol) {
+      rs.new_max_vol = true
+      rs.max_vol = rs.vol
+    }
+    else {
+      rs.new_max_vol = false
+    }
+    var vol_string = zerofill(4, Math.round(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
     rs.vol_diff_string = vol_string + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       // trigger
@@ -265,6 +273,7 @@ module.exports = function container (get, set, clear) {
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
         rs.cooldown = Math.round(bot.cooldown)
         rs.vol = 0
+        rs.max_vol = 0
         rs.buy_price = price
         rs.currency = n(rs.currency)
           .subtract(spend)
@@ -352,6 +361,7 @@ module.exports = function container (get, set, clear) {
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
         rs.cooldown = Math.round(bot.cooldown)
         rs.vol = 0
+        rs.max_vol = 0
         rs.sell_price = price
         rs.asset = n(rs.asset)
           .subtract(sell)
