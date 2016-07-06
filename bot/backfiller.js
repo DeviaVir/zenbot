@@ -10,7 +10,10 @@ module.exports = function container (get, set, clear) {
   var counter = 0
   function getNext () {
     client.getProductTrades({after: bot.after}, function (err, resp, trades) {
-      if (err) throw err
+      if (err) {
+        get('console').error('getProductTrades err', err)
+        return setTimeout(getNext, 5000)
+      }
       if (!trades.length) {
         get('console').info('done!')
         process.exit()
