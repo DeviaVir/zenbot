@@ -84,10 +84,6 @@ $ zenbot record
 7/5/2016, 8:11:46 PM PDT saw 2 trades.
 ```
 
-```
-$ zenbot record [--tweet]
-```
-
 ### backfill trades
 
 ```
