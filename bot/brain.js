@@ -417,6 +417,7 @@ module.exports = function container (get, set, clear) {
     }
     finish()
     function finish () {
+      rs.arrow = rs.last_tick ? (rs.last_tick.close < tick.close ? '↗'.green : '↘'.red) : ' '
       rs.last_tick = tick
     }
   }
@@ -432,6 +433,7 @@ module.exports = function container (get, set, clear) {
     if (diff < 0) diff = (n(diff).format('$0,0.00')).red
     var status = [
       bar,
+      rs.arrow,
       n(rs.last_tick.close).format('$0,0.00').yellow,
       rs.vol_diff_string,
       get('mode') === 'sim' ? timestamp.grey : false,
