@@ -51,7 +51,7 @@ module.exports = function container (get, set, clear) {
         Object.keys(ticks).forEach(function (tickId) {
           var tick = get('db.ticks').create(ticks[tickId])
           if (tick) {
-            get('console').info('tick', zerofill(4, get_time(tick.time), ' '), tick.trade_ticker)
+            get('console').info(tick.trade_ticker)
             if (bot.tweet && tick.vol > 20) {
               var tweet = {
                 status: 'big trade alert:\n\naction: ' + tick.side + '\nvolume: ' + n(tick.vol).format('0.000') + '\nprice: ' + tick.price + '\ntime: ' + get_time(tick.time) + '\n\n #btc #gdax'
