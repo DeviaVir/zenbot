@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
   var bot = get('bot')
   var counter = 0
   function getNext () {
-    client.getProductTrades({after: bot.start}, function (err, resp, trades) {
+    client.getProductTrades({after: bot.after}, function (err, resp, trades) {
       if (err) throw err
       if (!trades.length) {
         get('console').info('done!')
@@ -24,7 +24,7 @@ module.exports = function container (get, set, clear) {
           side: trade.side
         }
       }).reverse()
-      bot.start = trades[0].id
+      bot.after = trades[0].id
       var ticks = {}
       trades.forEach(function (trade) {
         var tickId = tb(trade.time)
@@ -38,7 +38,7 @@ module.exports = function container (get, set, clear) {
         var tick = get('db.ticks').create(ticks[tickId])
         if (tick && tick.ticker) get('console').info('backfilled', tb(tickId).toDate(), tick.ticker)
       })
-      get('console').info('processed', counter, 'trades. after = ' + bot.start)
+      get('console').info('processed', counter, 'trades. after = ' + bot.after)
       setTimeout(getNext, 0)
     })
   }
