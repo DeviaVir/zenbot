@@ -437,7 +437,7 @@ module.exports = function container (get, set, clear) {
       rs.arrow,
       (n(rs.last_tick.close).format('$0,0.00'))[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
-      get('mode') === 'sim' ? timestamp.grey : false,
+      get('mode') === 'simulator' ? timestamp.grey : false,
       n(rs.asset).format('00.000').white,
       constants.product_id.grey,
       n(rs.currency).format('$,0.00').yellow,
