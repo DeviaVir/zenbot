@@ -434,13 +434,13 @@ module.exports = function container (get, set, clear) {
       bar,
       n(rs.last_tick.close).format('$0,0.00').yellow,
       rs.vol_diff_string,
-      timestamp.grey,
+      get('mode') === 'sim' ? timestamp.grey : false,
       n(rs.asset).format('00.000').white,
       constants.product_id.grey,
       n(rs.currency).format('$,0.00').yellow,
       diff,
       n(rs.trade_vol).format('0.000').white
-    ].join(' ')
+    ].filter(function (col) { return col === false ? false : true }).join(' ')
     get('console').log(status)
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
     var saved_hour_vol = rs.hour_vol
