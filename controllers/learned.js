@@ -1,10 +1,10 @@
 module.exports = function container (get, set) {
-  var bot = get('bot')
   return get('controller')()
     .first(function (req, res, next) {
-      if (!bot.secret) return next()
+      req.bot = get('bot')
+      if (!req.bot.secret) return next()
       if (!req.query.secret) return next(new Error('secret required'))
-      if (req.query.secret !== bot.secret) return next(new Error('bad secret'))
+      if (req.query.secret !== req.bot.secret) return next(new Error('bad secret'))
       next()
     })
     .put('/learned', function (req, res, next) {
