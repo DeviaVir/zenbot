@@ -1,3 +1,6 @@
+var fs = require('fs')
+  , path = require('path')
+
 module.exports = function container (get, set) {
   return get('controller')()
     .first(function (req, res, next) {
@@ -26,6 +29,7 @@ module.exports = function container (get, set) {
         learned.id = 'learned'
         get('db.mems').save(learned, function (err, saved) {
           if (err) return next(err)
+          fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(learned.best_params, null, 2))
           get('console').info(('[saved]' + JSON.stringify(req.body, null, 2)).cyan)
           res.json(saved)
         })
