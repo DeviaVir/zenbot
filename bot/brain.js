@@ -90,7 +90,7 @@ module.exports = function container (get, set, clear) {
         if (err) throw err
         if (learned) {
           if (rs.last_learned && learned.best_fitness > rs.last_learned.best_fitness) {
-            get('console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).multiply(100).subtract(100).format('0.000%') + '!').yellow)
+            get('console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).subtract(rs.last_learned.best_fitness).format('0.000') + '!').yellow)
             get('console').info(('[zen] new roi = ' + n(learned.roi).format('0.000') + ' (' + learned.learner + ')').yellow)
           }
           else if (!rs.last_learned) {
