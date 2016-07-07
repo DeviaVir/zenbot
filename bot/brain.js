@@ -34,7 +34,8 @@ module.exports = function container (get, set, clear) {
     num_trades: 0,
     volatility: 0,
     max_vol: 0,
-    last_learned: null
+    last_learned: null,
+    net_worth: null
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -451,9 +452,11 @@ module.exports = function container (get, set, clear) {
   function report () {
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
     var bar = getGraph()
-    var net_worth = n(rs.currency)
+    rs.net_worth = n(rs.currency)
       .add(n(rs.asset).multiply(rs.last_tick.close))
-    var diff = net_worth.subtract(start_balance)
+      .value()
+    rs.start_balance = start_balance
+    var diff = n(rs.net_worth).subtract(start_balance)
       .value()
     if (diff > 0) diff = ('+' + n(diff).format('$0,0.00')).green
     if (diff === 0) diff = ('+' + n(diff).format('$0,0.00')).white
@@ -468,7 +471,7 @@ module.exports = function container (get, set, clear) {
       '/'.grey,
       n(rs.currency).format('$,0.00').yellow,
       diff,
-      net_worth.format('$,0.00').cyan,
+      n(rs.net_worth).format('$,0.00').cyan,
       n(rs.trade_vol).format('0.000').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
     get('console').log(status)
