@@ -5,6 +5,7 @@ module.exports = {
     require('./db/_codemap'),
     require('./controllers/_codemap'),
     require('./hooks/_codemap'),
+    require('./middleware/_codemap'),
     require('./utils/_codemap')
   ]
 }

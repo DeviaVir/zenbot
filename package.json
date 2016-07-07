@@ -6,6 +6,7 @@
     "zenbot": "./bin/zenbot"
   },
   "dependencies": {
+    "ansi-to-html": "^0.4.1",
     "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
@@ -13,7 +14,9 @@
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.4",
     "motley": "^2.2.7",
+    "motley-buffet": "^2.0.2",
     "motley-mongo": "^2.0.5",
+    "motley-templ": "^2.0.4",
     "multi-progress": "^2.0.0",
     "numeral": "^1.5.3",
     "os-monitor": "^1.0.4",

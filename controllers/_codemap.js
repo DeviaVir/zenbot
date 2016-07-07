@@ -1,6 +1,8 @@
 module.exports = {
   _ns: 'motley',
   'controllers[]': [
-    require('./learned')
+    require('./home'),
+    require('./learned'),
+    require('./logs')
   ]
 }
