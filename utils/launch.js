@@ -31,6 +31,7 @@ module.exports = function (mode, options) {
     }
     if (mode === 'server') {
       rootMap._maps.push(require('motley-templ'), require('motley-buffet'))
+      rootMap['@motley:conf.site.title'] = ZENBOT_USER_AGENT
     }
     var app = motley(rootMap)
   }
