@@ -89,13 +89,13 @@ module.exports = function container (get, set, clear) {
       get('db.mems').load('learned', function (err, learned) {
         if (err) throw err
         if (learned) {
-          if (rs.last_learned && learned.iterations > rs.last_learned.iterations) {
-            get('motley:console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).format('(0.000%)') + '!').yellow)
-            get('motley:console').info(('[zen] new roi = ' + n(learned.roi).format('0.000')).yellow)
+          if (rs.last_learned && learned.best_fitness > rs.last_learned.best_fitness) {
+            get('console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).format('0.000%') + '!').yellow)
+            get('console').info(('[zen] new roi = ' + n(learned.roi).format('0.000')).yellow)
           }
           Object.keys(learned.best_params).forEach(function (k) {
             bot[k] = learned.best_params[k]
-            if (!rs.last_learned) get('motley:console').info(('[learned]', k, '=', learned.best_params[k]).yellow)
+            if (!rs.last_learned) get('console').info(('[learned] ' + k + ' = ' + learned.best_params[k]).yellow)
           })
           rs.last_learned = learned
         }
