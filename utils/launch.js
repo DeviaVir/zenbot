@@ -12,7 +12,7 @@ module.exports = function (mode, options) {
     }
   }
   try {
-    var app = motley({
+    var rootMap = {
       _ns: 'motley',
       _maps: [
         require('../_codemap'),
@@ -26,8 +26,13 @@ module.exports = function (mode, options) {
       'motley:conf.console{}': {
         silent: options.parent.silent
       },
-      '@motley:conf.site.port': options.port || constants.listen_port
-    })
+      '@motley:conf.site.port': options.port || constants.listen_port,
+      'motley:mode': mode
+    }
+    if (mode === 'server') {
+      rootMap._maps.push(require('motley-templ'), require('motley-buffet'))
+    }
+    var app = motley(rootMap)
   }
   catch (err) {
     exit(err)
@@ -61,7 +66,6 @@ module.exports = function (mode, options) {
         app.get('motley:console').info('[param]', k, '=', options[k])
       })
       app.set('motley:bot', options)
-      app.set('motley:mode', mode)
       app.get('motley:bot.' + mode)
     })
     process.once('SIGINT', onExit)

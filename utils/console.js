@@ -1,9 +1,12 @@
+var crypto = require('crypto')
+  , tb = require('timebucket')
+
 module.exports = function container (get, set) {
   var conf = get('conf.console')
   var cluster = require('cluster')
   var colors = get('vendor.colors')
   return {
-    _prefixArgs: function (args) {
+    _log: function (args) {
       if (conf.workerId) {
         if (cluster.isMaster && Object.keys(cluster.workers).length) {
           var msg = '[master]'
@@ -23,26 +26,43 @@ module.exports = function container (get, set) {
         if (conf.colors) msg = colors.grey(msg)
         args.unshift(msg)
       }
+      args = args.map(function (arg) {
+        if (typeof arg !== 'string') {
+          return JSON.stringify(arg, null, 2)
+        }
+        return arg
+      }).join(' ')
+      console.error(args)
+      if (get('mode') === 'zen') {
+        var log = {
+          id: tb('µs').toString(),
+          time: new Date().getTime(),
+          line: args
+        }
+        try {
+          get('db.logs').save(log, function (err, saved) {
+            // nothing
+          })
+        }
+        catch (e) {}
+      }
     },
     info: function () {
       if (conf.silent) return
       var args = [].slice.call(arguments)
-      this._prefixArgs(args)
-      console.error.apply(console, args)
+      this._log(args)
     },
     log: function () {
       if (conf.silent) return
       var args = [].slice.call(arguments)
-      this._prefixArgs(args)
-      console.error.apply(console, args)
+      this._log(args)
     },
     error: function () {
       var args = [].slice.call(arguments)
-      this._prefixArgs(args)
       var msg = '[ERROR]'
       if (conf.colors) msg = colors.red(msg)
       args.unshift(msg)
-      console.error.apply(console, args)
+      this._log(args)
     }
   }
 }
