@@ -91,6 +91,7 @@ module.exports = function container (get, set, clear) {
         if (learned) {
           if (rs.last_learned && learned.iterations > rs.last_learned.iterations) {
             get('motley:console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).format('(0.000%)') + '!').yellow)
+            get('motley:console').info(('[zen] new roi = ' + n(learned.roi).format('0.000')).yellow)
             Object.keys(learned.best_params).forEach(function (k) {
               get('motley:console').info('[param]', k, '=', learned.best_params[k])
             })
