@@ -26,7 +26,7 @@ module.exports = function container (get, set, clear) {
           get('console').error('getProductTrades err', err)
           return
         }
-        if (!trades.length) {
+        if (!trades || !trades.length) {
           return
         }
         var orig_max_trade_id = max_trade_id
