@@ -22,7 +22,10 @@ module.exports = function container (get, set, clear) {
     }
     function fetchTrades () {
       client.getProductTrades(max_trade_id ? {before: max_trade_id} : {}, function (err, resp, trades) {
-        if (err) throw err
+        if (err) {
+          get('console').error('getProductTrades err', err)
+          return setTimeout(fetchTrades, 5000)
+        }
         if (!trades.length) {
           return
         }
