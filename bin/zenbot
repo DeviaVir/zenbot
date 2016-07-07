@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var version = require('../package.json').version
 ZENBOT_USER_AGENT = 'zenbot/' + version
+var constants = require('../conf/constants.json')
 
 var launch = require('../utils/launch')
 
@@ -11,7 +12,7 @@ var program = require('commander')
 program
   .command('record')
   .description('1. run the recorder')
-  .option('--tweet', 'live tweet big buys/sells (requires extra config)')
+  .option('--tweet', 'live tweet big buys/sells')
   .action(function (options) {
     launch('recorder', options)
   })
@@ -31,6 +32,7 @@ program
   .option('-d, --duration <seconds>', 'learning duration in seconds')
   .option('-c, --concurrency <int>', 'number of concurrent simulations', Number, require('os').cpus().length)
   .option('-t, --throttle <load>', 'pause the simulation if load average goes above this', Number, 10)
+  .option('--share <url>', 'share strategies')
   .action(function (options) {
     launch('learner', options)
   })
@@ -49,6 +51,14 @@ program
   .option('--rs', 'forget trade bot run-state')
   .action(function (options) {
     launch('forget', options)
+  })
+
+program
+  .command('listen')
+  .description('(optional) listen for new strategies')
+  .option('-p, --port <port>', 'port to listen on. default: ' + constants.listen_port, Number, constants.listen_port)
+  .action(function (options) {
+    launch('server', options)
   })
 
 var defaults = require('../conf/defaults.json')
@@ -76,7 +86,7 @@ program
   .command('run')
   .description('4. run zenbot on the exchange')
   .option('--trade', 'do actual trades')
-  .option('--tweet', 'live tweet buys/sells and hourly reports (requires extra config)')
+  .option('--tweet', 'live tweet buys/sells and hourly reports')
   .option('--sim', 'simulate trading')
   .action(function (options) {
     launch('zen', options)
