@@ -8,6 +8,7 @@ module.exports = {
   learner: require('./learner'),
   memory: require('./memory'),
   recorder: require('./recorder'),
+  server: require('./server'),
   simulator: require('./simulator'),
   zen: require('./zen')
 }

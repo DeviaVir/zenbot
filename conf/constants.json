@@ -16,5 +16,6 @@
   "learn_mutation": 0.25,
   "hashtags": "#btc #gdax",
   "websocket_uri": "",
-  "api_uri": ""
+  "api_uri": "",
+  "listen_port": 3011
 }

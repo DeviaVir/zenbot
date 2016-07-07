@@ -7,6 +7,7 @@ var spawn = require('child_process').spawn
   , fs = require('fs')
   , assert = require('assert')
   , tb = require('timebucket')
+  , request = require('micro-request')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
@@ -215,6 +216,17 @@ module.exports = function container (get, set, clear) {
           rs.best_param = param
           rs.best_param_direction = rs.direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
+          if (bot.share) {
+            request.put(bot.share, {data: rs, headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
+              if (err) throw err
+              if (resp.statusCode !== 200) {
+                console.error(body)
+                get('console').error('non-200 from ' + bot.share + ': ' + res.statusCode)
+                return
+              }
+              get('console').info(('[share]', JSON.stringify(body, null, 2)).cyan)
+            })
+          }
         }
         else if (param) {
           process.stderr.write('\n\n')
