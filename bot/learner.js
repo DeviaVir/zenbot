@@ -45,6 +45,35 @@ module.exports = function container (get, set, clear) {
         last_mutate: null
       }
     }
+    function share () {
+      if (bot.share) {
+        request.put(bot.share, {data: rs, headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
+          if (err) throw err
+          if (resp.statusCode !== 200) {
+            console.error(body)
+            get('console').error('non-200 from ' + bot.share + ': ' + resp.statusCode)
+            process.stderr.write('\n\n\n\n')
+            return
+          }
+          if (body.rejected && body.learned) {
+            rs = body.learned
+            get('console').info(('[server] learned ' + JSON.stringify(body.learned, null, 2)).yellow)
+            process.stderr.write('\n\n\n\n')
+          }
+          else if (body.saved) {
+            get('console').info(('[server] accepted ' + JSON.stringify(body.saved, null, 2)).cyan)
+            process.stderr.write('\n\n\n\n')
+
+          }
+          else {
+            console.error(body)
+            get('console').error('bad resp from ' + bot.share)
+            process.stderr.write('\n\n\n\n')
+            return
+          }
+        })
+      }
+    }
     if (!rs.mutations) rs.mutations = 0
     var simulations = 0
     var last_sim_chunks = 0
@@ -52,6 +81,7 @@ module.exports = function container (get, set, clear) {
     var first_ended = false
     var multi = new MultiProgress(process.stderr)
     get('console').info('running first simulation...')
+    process.stderr.write('\n\n\n\n')
     ;(function doNext () {
       var started_learning = new Date().getTime()
       var bar, sim_chunks = 0
@@ -136,6 +166,7 @@ module.exports = function container (get, set, clear) {
           console.error('params', params)
           */
           get('console').error('bad param', param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
+          process.stderr.write('\n\n\n\n')
           if (bar) bar.terminate()
           if (is_first) sims_started = false
           return doNext()
@@ -168,6 +199,7 @@ module.exports = function container (get, set, clear) {
       proc.on('exit', function (code) {
         if (code) {
           get('console').error('non-0 code: ' + code)
+          process.stderr.write('\n\n\n\n')
           if (bar) bar.terminate()
           if (is_first) sims_started = false
           return doNext()
@@ -179,6 +211,7 @@ module.exports = function container (get, set, clear) {
         var result = JSON.parse(stdout)
         if (simulations && result.trade_vol < constants.min_strat_vol) {
           get('console').error('not enough trade_vol', n(result.trade_vol).format('0.000'), '<', n(constants.min_strat_vol).format('0.000'))
+          process.stderr.write('\n\n\n\n')
           if (bar) bar.terminate()
           if (is_first) sims_started = false
           return doNext()
@@ -200,49 +233,25 @@ module.exports = function container (get, set, clear) {
         simulations++
         rs.simulations++
         last_sim_chunks = sim_chunks
+        rs.roi = result.roi
+        rs.trade_vol = result.trade_vol
+        rs.num_trades = result.num_trades
+        rs.learner = bot.learner
         if (param && result.fitness > rs.best_fitness) {
           var old_best = rs.best_fitness
           rs.best_fitness = result.fitness
-          rs.roi = result.roi
-          rs.trade_vol = result.trade_vol
-          rs.num_trades = result.num_trades
           rs.iterations++
-          rs.learner = bot.learner
-          process.stderr.write('\n\n')
-          process.stderr.clearLine()
+          process.stderr.write('\n\n\n\n')
           get('console').info(('[ding!] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(old_best).format('0.000') + ' -> ' + n(result.fitness).format('0.000') + ', num_trades = ' + result.num_trades + ', vol = ' + n(result.trade_vol).format('0.000')).cyan)
-          process.stderr.write('\n\n')
-          process.stderr.clearLine()
+          process.stderr.write('\n\n\n\n')
           rs.best_params = params
           rs.best_param = param
           rs.best_param_direction = rs.direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
-          if (bot.share) {
-            request.put(bot.share, {data: rs, headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
-              if (err) throw err
-              if (resp.statusCode !== 200) {
-                console.error(body)
-                get('console').error('non-200 from ' + bot.share + ': ' + resp.statusCode)
-                return
-              }
-              if (body.rejected && body.learned) {
-                rs = body.learned
-                get('console').info(('[server] learned ' + JSON.stringify(body.learned, null, 2)).yellow)
-              }
-              else if (body.saved) {
-                get('console').info(('[server] accepted ' + JSON.stringify(body.saved, null, 2)).cyan)
-              }
-              else {
-                console.error(body)
-                get('console').error('bad resp from ' + bot.share)
-                return
-              }
-            })
-          }
+          share()
         }
         else if (param) {
-          process.stderr.write('\n\n')
-          process.stderr.clearLine()
+          process.stderr.write('\n\n\n\n')
           var mutated = rs.best_params[param] !== params[param] && result.fitness === rs.best_fitness
           if (mutated) {
             rs.mutations++
@@ -251,12 +260,14 @@ module.exports = function container (get, set, clear) {
           else {
             get('console').info(('[died] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(result.fitness).format('0.000') + ', num_trades = ' + result.num_trades + ', vol = ' + n(result.trade_vol).format('0.000')).grey)
           }
-          process.stderr.write('\n\n')
-          process.stderr.clearLine()
+          process.stderr.write('\n\n\n\n')
           if (mutated) {
             rs.best_params[param] = params[param]
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           }
+        }
+        else {
+          share()
         }
         var sec_diff = n(new Date().getTime())
           .subtract(started_learning)
@@ -278,6 +289,7 @@ module.exports = function container (get, set, clear) {
             if (err) throw err
             if (bot.duration && sec_diff >= bot.duration) {
               console.log(JSON.stringify(rs, null, 2))
+              process.stderr.write('\n\n\n\n')
               setTimeout(process.exit, 1000)
               return
             }
