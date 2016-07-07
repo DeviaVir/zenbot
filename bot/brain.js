@@ -100,7 +100,7 @@ module.exports = function container (get, set, clear) {
             bot[k] = learned.best_params[k]
             if (!rs.last_learned || rs.last_learned.best_params[k] !== learned.best_params[k]) {
               if (rs.last_learned) {
-                get('console').info(('[old] ' + k + ' = ' + rs.last_learned[k]).grey)
+                get('console').info(('[old] ' + k + ' = ' + rs.last_learned.best_params[k]).grey)
               }
               get('console').info(('[learned] ' + k + ' = ' + learned.best_params[k]).yellow)
             }
