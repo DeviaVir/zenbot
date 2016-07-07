@@ -93,6 +93,9 @@ module.exports = function container (get, set, clear) {
             get('console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).multiply(100).subtract(100).format('0.000%') + '!').yellow)
             get('console').info(('[zen] new roi = ' + n(learned.roi).format('0.000')).yellow)
           }
+          else if (!rs.last_learned) {
+            get('console').info(('[zen] roi = ' + n(learned.roi).format('0.000')).yellow)
+          }
           Object.keys(learned.best_params).forEach(function (k) {
             bot[k] = learned.best_params[k]
             if (!rs.last_learned || rs.last_learned.best_params[k] !== learned.best_params[k]) {
