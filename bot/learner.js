@@ -217,6 +217,7 @@ module.exports = function container (get, set, clear) {
           rs.best_param_direction = rs.direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           if (bot.share) {
+            rs.learner = bot.learner
             request.put(bot.share, {data: rs, headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
               if (err) throw err
               if (resp.statusCode !== 200) {
