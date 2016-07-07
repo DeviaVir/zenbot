@@ -40,7 +40,8 @@ module.exports = function container (get, set, clear) {
         direction: null,
         best_param: null,
         best_param_direction: null,
-        num_trades: 0
+        num_trades: 0,
+        last_mutate: null
       }
     }
     if (!rs.mutations) rs.mutations = 0
@@ -79,20 +80,20 @@ module.exports = function container (get, set, clear) {
           var mutate = n(Math.random())
           if (is_followup) {
             if (rs.direction === 'pos') {
-              // add
-              mutate = mutate.add(constants.learn_mutation)
+              // as-is
             }
             else {
               // subtract
-              mutate = mutate.subtract(n(constants.learn_mutation).multiply(2))
+              mutate = n(1).subtract(mutate)
             }
           }
           else {
             // neutral
-            mutate = mutate.subtract(constants.learn_mutation)
+            mutate = mutate.subtract(0.5)
           }
-          mutate = mutate.multiply(params[param])
+          mutate = mutate.multiply(constants.learn_mutation).multiply(params[param])
             .value()
+          rs.last_mutate = mutate
           rs.direction = mutate >= 0 ? 'pos' : 'neg'
           params[param] = n(params[param])
             .add(mutate)
@@ -151,7 +152,7 @@ module.exports = function container (get, set, clear) {
       })
       proc.stderr.on('data', function (chunk) {
         if (bar && simulations) {
-          bar.fmt = '  simulating [:bar] :percent :etas ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', best_roi = ' + n(rs.roi).format('+0.000')
+          bar.fmt = '  simulating [:bar] :percent :etas mutate = ' + n(mutate).format('0.000') + ', ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', best_roi = ' + n(rs.roi).format('+0.000')
           bar.tick()
         }
         else if (is_first) {
@@ -198,7 +199,7 @@ module.exports = function container (get, set, clear) {
         simulations++
         rs.simulations++
         last_sim_chunks = sim_chunks
-        if (simulations === 1 || result.fitness > rs.best_fitness) {
+        if (param && result.fitness > rs.best_fitness) {
           var old_best = rs.best_fitness
           rs.best_fitness = result.fitness
           rs.roi = result.roi
@@ -215,7 +216,7 @@ module.exports = function container (get, set, clear) {
           rs.best_param_direction = rs.direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
         }
-        else {
+        else if (param) {
           process.stderr.write('\n\n')
           process.stderr.clearLine()
           var mutated = rs.best_params[param] !== params[param] && result.fitness === rs.best_fitness
