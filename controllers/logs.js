@@ -7,7 +7,7 @@ module.exports = function container (get, set) {
         res.json(res.vars)
       })
     })
-    get('/logs/new', function (req, res, next) {
+    .get('/logs/new', function (req, res, next) {
       get('db.logs').select({
         query: {
           time: {
