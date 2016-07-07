@@ -18,10 +18,14 @@ $('.logs').each(function () {
       skip += 1000
       updating = true
       $.getJSON('/logs?skip=' + skip, function (data) {
+        updating = false
+        if (!data.logs || !data.logs.length) {
+          skip -= 1000
+          return
+        }
         data.logs.forEach(function (log) {
           $('.logs').append('<div class="log-line">' + log.html + '</div>')
         })
-        updating = false
       })
     }
   })
