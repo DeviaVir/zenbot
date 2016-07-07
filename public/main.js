@@ -1,5 +1,6 @@
 $('.logs').each(function () {
   var skip = 0, updating = false, start = new Date().getTime()
+  var ids = []
 
   function element_in_scroll(elem)
   {
@@ -24,7 +25,9 @@ $('.logs').each(function () {
           return
         }
         data.logs.forEach(function (log) {
+          if (ids.indexOf(log.id) !== -1) return
           $('.logs').append('<div class="log-line">' + log.html + '</div>')
+          ids.push(log.id)
         })
       })
     }
@@ -33,7 +36,9 @@ $('.logs').each(function () {
   function poll () {
     $.getJSON('/logs/new?start=' + start, function (data) {
       data.logs.forEach(function (log) {
+        if (ids.indexOf(log.id) !== -1) return
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
+        ids.push(log.id)
       })
       start = new Date().getTime()
     })
