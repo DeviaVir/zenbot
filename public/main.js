@@ -35,7 +35,7 @@ $('.logs').each(function () {
 
   function poll () {
     $.getJSON('/logs/new?start=' + start, function (data) {
-      data.logs.forEach(function (log) {
+      data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
         ids.push(log.id)
