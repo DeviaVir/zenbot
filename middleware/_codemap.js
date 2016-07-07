@@ -4,9 +4,11 @@ module.exports = {
 
   // named middleware
   'middleware.secret': require('./secret'),
+  'middleware.vars': require('./vars'),
 
   // register handlers with weights
   'middleware[]': [
-    '#middleware.secret'
+    '#middleware.secret',
+    '#middleware.vars'
   ]
 }
