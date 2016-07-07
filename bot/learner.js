@@ -207,6 +207,7 @@ module.exports = function container (get, set, clear) {
           rs.trade_vol = result.trade_vol
           rs.num_trades = result.num_trades
           rs.iterations++
+          rs.learner = bot.learner
           process.stderr.write('\n\n')
           process.stderr.clearLine()
           get('console').info(('[ding!] ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', fitness ' + n(old_best).format('0.000') + ' -> ' + n(result.fitness).format('0.000') + ', num_trades = ' + result.num_trades + ', vol = ' + n(result.trade_vol).format('0.000')).cyan)
@@ -217,7 +218,6 @@ module.exports = function container (get, set, clear) {
           rs.best_param_direction = rs.direction
           fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           if (bot.share) {
-            rs.learner = bot.learner
             request.put(bot.share, {data: rs, headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, body) {
               if (err) throw err
               if (resp.statusCode !== 200) {
