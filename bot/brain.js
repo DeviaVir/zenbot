@@ -59,7 +59,7 @@ module.exports = function container (get, set, clear) {
         if (err) throw err
         if (resp.statusCode !== 200) {
           console.error(ticker)
-          throw new Error('non-200 status from exchange: ' + resp.statusCode)
+          return get('console').error('non-200 status from exchange: ' + resp.statusCode)
         }
         get('db.mems').load(rs.id, function (err, mem) {
           if (err) throw err
@@ -136,7 +136,8 @@ module.exports = function container (get, set, clear) {
       if (err) throw err
       if (resp.statusCode !== 200) {
         console.error(accounts)
-        throw new Error('non-200 status from exchange: ' + resp.statusCode)
+        get('console').error('non-200 status from exchange: ' + resp.statusCode)
+        return cb && cb()
       }
       accounts.forEach(function (account) {
         if (account.currency === constants.currency) {
