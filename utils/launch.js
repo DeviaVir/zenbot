@@ -1,5 +1,6 @@
 var motley = require('motley')
   , n = require('numeral')
+  , constants = require('../conf/constants.json')
 
 module.exports = function (mode, options) {
   try {
@@ -24,7 +25,8 @@ module.exports = function (mode, options) {
       },
       'motley:conf.console{}': {
         silent: options.parent.silent
-      }
+      },
+      '@motley:conf.site.port': options.port || constants.listen_port
     })
   }
   catch (err) {
