@@ -229,7 +229,7 @@ module.exports = function container (get, set, clear) {
                 get('console').info(('[server] learned ' + JSON.stringify(body.learned, null, 2)).yellow)
               }
               else if (body.saved) {
-                get('console').info(('[server] accepted ' + JSON.stringify(body.saved, null, 2)).yellow)
+                get('console').info(('[server] accepted ' + JSON.stringify(body.saved, null, 2)).cyan)
               }
               else {
                 console.error(body)
