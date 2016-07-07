@@ -33,7 +33,8 @@ module.exports = function container (get, set, clear) {
     first_tick: null,
     num_trades: 0,
     volatility: 0,
-    max_vol: 0
+    max_vol: 0,
+    last_learned: null
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -88,9 +89,16 @@ module.exports = function container (get, set, clear) {
       get('db.mems').load('learned', function (err, learned) {
         if (err) throw err
         if (learned) {
+          if (rs.last_learned && learned.iterations > rs.last_learned.iterations) {
+            get('motley:console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).format('(0.000%)') + '!').yellow)
+            Object.keys(learned.best_params).forEach(function (k) {
+              get('motley:console').info('[param]', k, '=', learned.best_params[k])
+            })
+          }
           Object.keys(learned.best_params).forEach(function (k) {
             bot[k] = learned.best_params[k]
           })
+          rs.last_learned = learned
         }
       })
     }
