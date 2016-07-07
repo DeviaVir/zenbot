@@ -233,11 +233,11 @@ module.exports = function container (get, set, clear) {
         simulations++
         rs.simulations++
         last_sim_chunks = sim_chunks
-        rs.roi = result.roi
-        rs.trade_vol = result.trade_vol
-        rs.num_trades = result.num_trades
         rs.learner = bot.learner
         if (param && result.fitness > rs.best_fitness) {
+          rs.roi = result.roi
+          rs.trade_vol = result.trade_vol
+          rs.num_trades = result.num_trades
           var old_best = rs.best_fitness
           rs.best_fitness = result.fitness
           rs.iterations++
@@ -267,6 +267,9 @@ module.exports = function container (get, set, clear) {
           }
         }
         else {
+          rs.roi = result.roi
+          rs.trade_vol = result.trade_vol
+          rs.num_trades = result.num_trades
           share()
         }
         var sec_diff = n(new Date().getTime())
