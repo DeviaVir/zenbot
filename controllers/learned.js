@@ -20,9 +20,7 @@ module.exports = function container (get, set) {
         }
         else {
           Object.keys(req.body).forEach(function (k) {
-            if (typeof learned[k] !== 'undefined') {
-              learned[k] = req.body[k]
-            }
+            learned[k] = req.body[k]
           })
         }
         learned.id = 'learned'
