@@ -468,7 +468,6 @@ module.exports = function container (get, set, clear) {
       rs.vol_diff_string,
       get('mode') === 'simulator' ? timestamp.grey : false,
       n(rs.asset).format('00.000').white,
-      '/'.grey,
       n(rs.currency).format('$,0.00').yellow,
       diff,
       n(rs.net_worth).format('$,0.00').cyan,
