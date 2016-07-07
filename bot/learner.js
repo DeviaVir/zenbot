@@ -224,7 +224,18 @@ module.exports = function container (get, set, clear) {
                 get('console').error('non-200 from ' + bot.share + ': ' + resp.statusCode)
                 return
               }
-              get('console').info(('[share]', JSON.stringify(body, null, 2)).cyan)
+              if (body.rejected && body.learned) {
+                rs = body.learned
+                get('console').info(('[server] learned ' + JSON.stringify(body.learned, null, 2)).yellow)
+              }
+              else if (body.saved) {
+                get('console').info(('[server] accepted ' + JSON.stringify(body.saved, null, 2)).yellow)
+              }
+              else {
+                console.error(body)
+                get('console').error('bad resp from ' + bot.share)
+                return
+              }
             })
           }
         }
