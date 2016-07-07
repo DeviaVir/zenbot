@@ -221,7 +221,7 @@ module.exports = function container (get, set, clear) {
               if (err) throw err
               if (resp.statusCode !== 200) {
                 console.error(body)
-                get('console').error('non-200 from ' + bot.share + ': ' + res.statusCode)
+                get('console').error('non-200 from ' + bot.share + ': ' + resp.statusCode)
                 return
               }
               get('console').info(('[share]', JSON.stringify(body, null, 2)).cyan)

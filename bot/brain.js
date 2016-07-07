@@ -92,12 +92,10 @@ module.exports = function container (get, set, clear) {
           if (rs.last_learned && learned.iterations > rs.last_learned.iterations) {
             get('motley:console').info(('[zen] i have improved the strategy ' + n(learned.best_fitness).divide(rs.last_learned.best_fitness).format('(0.000%)') + '!').yellow)
             get('motley:console').info(('[zen] new roi = ' + n(learned.roi).format('0.000')).yellow)
-            Object.keys(learned.best_params).forEach(function (k) {
-              get('motley:console').info('[param]', k, '=', learned.best_params[k])
-            })
           }
           Object.keys(learned.best_params).forEach(function (k) {
             bot[k] = learned.best_params[k]
+            if (!rs.last_learned) get('motley:console').info(('[learned]', k, '=', learned.best_params[k]).yellow)
           })
           rs.last_learned = learned
         }
