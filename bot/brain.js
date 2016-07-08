@@ -78,7 +78,12 @@ module.exports = function container (get, set, clear) {
             finish()
           }
           function finish () {
-            start_balance = n(rs.asset).multiply(ticker.price).add(rs.currency).value()
+            if (!rs.start_balance) {
+              rs.start_balance = n(rs.asset)
+                .multiply(ticker.price)
+                .add(rs.currency)
+                .value()
+            }
             get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan)
             bot.trade = true
           }
@@ -425,7 +430,7 @@ module.exports = function container (get, set, clear) {
       .add(n(rs.asset).multiply(rs.last_tick.close))
       .value()
     rs.start_balance = start_balance
-    var diff = n(rs.net_worth).subtract(start_balance)
+    var diff = n(rs.net_worth).subtract(rs.start_balance)
       .value()
     if (diff > 0) diff = ('+' + n(diff).format('$0,0.00')).green
     if (diff === 0) diff = ('+' + n(diff).format('$0,0.00')).white
@@ -498,7 +503,7 @@ module.exports = function container (get, set, clear) {
     syncLearned()
   }
   function end () {
-    var new_balance = start_balance
+    var new_balance = rs.start_balance
     if (rs.last_tick) {
       new_balance = n(rs.currency)
         .add(
