@@ -72,6 +72,8 @@ program
   .option('--min_vol <float>', 'volume trigger in asset, default: ' + defaults.min_vol, Number, defaults.min_vol)
   .option('--trade_amt <float>', 'trade amount float between 0 and 1, default: ' + defaults.trade_amt, Number, defaults.trade_amt)
   .option('--vol_decay <float>', 'volume trigger decay when not enough funds, default: ' + defaults.vol_decay, Number, defaults.vol_decay)
+  .option('--buy_factor <float>', 'multiply buy volume by, default: ' + defaults.buy_factor, Number, defaults.buy_factor)
+  .option('--sell_factor <float>', 'multiply sell volume by, default: ' + defaults.sell_factor, Number, defaults.sell_factor)
   .option('--sim_query_limit <int>', 'query limit integer, default: ' + defaults.sim_query_limit, Number, defaults.sim_query_limit)
   .option('--sim_start_balance <currency>', 'simulation start balance in currency, default: ' + defaults.sim_start_balance, Number, defaults.sim_start_balance)
   .action(function (options) {

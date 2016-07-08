@@ -213,7 +213,7 @@ module.exports = function container (get, set, clear) {
       .value()
     if (rs.side && tick.side !== rs.side) {
       rs.vol = n(rs.vol)
-        .subtract(tick.vol)
+        .subtract(n(tick.vol).multiply(tick.side === 'BUY' ? bot.buy_factor : bot.sell_factor))
         .value()
       if (rs.vol < 0) rs.side = tick.side
       rs.vol = Math.abs(rs.vol)
@@ -221,7 +221,7 @@ module.exports = function container (get, set, clear) {
     else {
       rs.side = tick.side
       rs.vol = n(rs.vol)
-        .add(tick.vol)
+        .add(n(tick.vol).multiply(tick.side === 'BUY' ? bot.buy_factor : bot.sell_factor))
         .value()
     }
     if (rs.vol > rs.max_vol) {
