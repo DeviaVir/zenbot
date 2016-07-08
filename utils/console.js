@@ -1,5 +1,6 @@
 var crypto = require('crypto')
   , tb = require('timebucket')
+  , colors = require('colors')
 
 module.exports = function container (get, set) {
   var conf = get('conf.console')
@@ -33,7 +34,7 @@ module.exports = function container (get, set) {
         return arg
       }).join(' ')
       console.error(args)
-      if (get('mode') === 'zen') {
+      if (get('mode') === 'zen' || colors.strip(args).match(/tweeted/)) {
         var log = {
           id: tb('µs').toString(),
           time: new Date().getTime(),
