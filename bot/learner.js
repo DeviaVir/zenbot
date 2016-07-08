@@ -28,8 +28,8 @@ module.exports = function container (get, set, clear) {
         id: 'learned',
         fitness_diff: 0,
         start_fitness: 0,
-        best_fitness: 0,
-        roi: 1,
+        best_fitness: 1,
+        roi: 0,
         trade_vol: 0,
         best_params: cpy(defaults),
         iterations: 0,
@@ -97,79 +97,59 @@ module.exports = function container (get, set, clear) {
       }
       var params = cpy(rs.best_params), param, idx, keys
       if (simulations) {
-        var is_followup = false
-        if (rs.best_param && Math.random() >= 0.5) {
-          is_followup = true
-          param = rs.best_param
-        }
-        else {
-          keys = Object.keys(params)
-          idx = Math.ceil(Math.random() * keys.length) - 1
-          param = keys[idx]
-        }
-        try {
-          var mutate = n(Math.random())
-          if (is_followup) {
-            if (rs.direction === 'pos') {
-              // as-is
-            }
-            else {
-              // subtract
-              mutate = n(1).subtract(mutate)
-            }
-          }
-          else {
-            // neutral
-            mutate = mutate.subtract(0.5)
-          }
-          mutate = mutate.multiply(constants.learn_mutation).multiply(params[param])
-            .value()
-          rs.last_mutate = mutate
-          rs.direction = mutate >= 0 ? 'pos' : 'neg'
-          params[param] = n(params[param])
-            .add(mutate)
-            .value()
-          if (param === 'vol_reset') {
-            assert(params[param] > 0)
-          }
-          if (param === 'min_trade') {
-            assert(params[param] >= constants.min_trade_possible)
-          }
-          if (param === 'trade_amt') {
-            assert(params[param] > 0)
-          }
-          if (param === 'cooldown') {
-            params[param] = n(params[param])
-              .add(Math.round((Math.random() - 0.5) * 10))
+        keys = Object.keys(params)
+        idx = Math.ceil(Math.random() * keys.length) - 1
+        param = keys[idx]
+        function doMutate (param) {
+          try {
+            var mutate = n(Math.random())
+              .subtract(0.5)
+              .multiply(constants.learn_mutation)
+              .multiply(params[param])
               .value()
-            assert(params[param] >= 0)
+            rs.last_mutate = mutate
+            rs.direction = mutate >= 0 ? 'pos' : 'neg'
+            params[param] = n(params[param])
+              .add(mutate)
+              .value()
+            switch (param) {
+              case 'trade_amt':
+                assert(params[param] <= 1)
+                assert(params[param] > 0)
+                break;
+              case 'vol_decay':
+                assert(params[param] <= 1)
+                assert(params[param] > 0)
+                break;
+              case 'min_vol':
+                assert(params[param] > 0)
+                break;
+            }
           }
-          if (param === 'crash') {
-            assert(params[param] >= 0)
-            assert(params[param] <= 10)
+          catch (e) {
+            console.error(e.stack.split('\n')[1])
+            /*
+            console.error('idx', idx)
+            console.error('key', keys[idx])
+            console.error('keys', keys)
+            console.error('params', params)
+            */
+            process.stderr.write('\n\n\n\n')
+            get('console').error('bad param', param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
+            process.stderr.write('\n\n\n\n')
+            if (bar) bar.terminate()
+            if (is_first) sims_started = false
+            doNext()
+            return 0
           }
-          if (param === 'buy_for_more') {
-            assert(params[param] >= 0)
-            assert(params[param] <= 10)
-          }
-          if (param === 'sell_for_less') {
-            assert(params[param] >= 0)
-            assert(params[param] <= 10)
-          }
+          return mutate
         }
-        catch (e) {
-          console.error(e.stack.split('\n')[1])
-          /*
-          console.error('idx', idx)
-          console.error('key', keys[idx])
-          console.error('keys', keys)
-          console.error('params', params)
-          */
-          get('console').error('bad param', param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
-          process.stderr.write('\n\n\n\n')
-          if (bar) bar.terminate()
-          if (is_first) sims_started = false
-          return doNext()
+        var mutate = doMutate(param)
+        if (param === 'min_vol') {
+          doMutate('vol_decay')
+        }
+        if (param === 'vol_decay') {
+          doMutate('min_vol')
         }
       }
       var args = Object.keys(defaults).map(function (k) {
@@ -196,6 +176,7 @@ module.exports = function container (get, set, clear) {
         }
         sim_chunks++
       })
+      //proc.stderr.pipe(process.stderr)
       proc.on('exit', function (code) {
         if (code) {
           get('console').error('non-0 code: ' + code)
@@ -216,16 +197,7 @@ module.exports = function container (get, set, clear) {
           if (is_first) sims_started = false
           return doNext()
         }
-        result.fitness = n(result.roi)
-          .multiply(
-            n(Math.min(result.trade_vol, constants.min_strat_vol))
-              .divide(constants.min_strat_vol)
-          )
-          .multiply(
-            n(Math.min(result.num_trades, constants.min_strat_trades))
-              .divide(constants.min_strat_trades)
-          )
-          .value()
+        result.fitness = result.roi
         if (is_first) {
           start_fitness = result.fitness
           first_ended = true
@@ -265,12 +237,6 @@ module.exports = function container (get, set, clear) {
             rs.best_params[param] = params[param]
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           }
-        }
-        else {
-          rs.roi = result.roi
-          rs.trade_vol = result.trade_vol
-          rs.num_trades = result.num_trades
-          share()
         }
         var sec_diff = n(new Date().getTime())
           .subtract(started_learning)
