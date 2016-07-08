@@ -17,5 +17,6 @@
   "hashtags": "#btc #gdax",
   "websocket_uri": "",
   "api_uri": "",
-  "listen_port": 3011
+  "listen_port": 3011,
+  "log_limit": 200
 }
