@@ -55,7 +55,7 @@ module.exports = function container (get, set, clear) {
             process.stderr.write('\n\n\n\n')
             return
           }
-          if (body.rejected && body.learned) {
+          if (body.rejected && body.learned && body.learned.best_fitness > rs.best_fitness) {
             rs = body.learned
             get('console').info(('[server] learned ' + JSON.stringify(body.learned, null, 2)).yellow)
             process.stderr.write('\n\n\n\n')
@@ -74,7 +74,6 @@ module.exports = function container (get, set, clear) {
         })
       }
     }
-    if (!rs.mutations) rs.mutations = 0
     var simulations = 0
     var last_sim_chunks = 0
     var sims_started = false
@@ -105,7 +104,7 @@ module.exports = function container (get, set, clear) {
           try {
             change = n(Math.random())
               .subtract(0.5)
-              .multiply(2)
+              .multiply(constants.learn_mutation)
               .multiply(params[param])
               .value()
             rs.last_mutate = change
