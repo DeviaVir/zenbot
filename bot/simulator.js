@@ -1,4 +1,4 @@
-var n = require('numeral')
+var n = require('numbro')
   , constants = require('../conf/constants.json')
   , tb = require('timebucket')
 

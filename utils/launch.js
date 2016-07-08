@@ -1,5 +1,5 @@
 var motley = require('motley')
-  , n = require('numeral')
+  , n = require('numbro')
   , constants = require('../conf/constants.json')
 
 module.exports = function (mode, options) {
