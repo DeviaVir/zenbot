@@ -11,6 +11,8 @@ var spawn = require('child_process').spawn
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
+  var learner = bot.learner
+  assert(learner, '--learner arg required')
   var min_time = bot.start || tb('7d').subtract(12).toMilliseconds()
   var max_time = bot.end || tb(min_time).resize('7d').add(12).toMilliseconds()
   var defaults = require('../conf/defaults.json'), last_result
@@ -43,7 +45,7 @@ module.exports = function container (get, set, clear) {
         best_param_direction: null,
         num_trades: 0,
         last_mutate: null,
-        learner: bot.learner
+        learner: learner
       }
     }
     function share () {
@@ -207,7 +209,7 @@ module.exports = function container (get, set, clear) {
         simulations++
         rs.simulations++
         last_sim_chunks = sim_chunks
-        rs.learner = bot.learner
+        rs.learner = learner
         if (param && result.fitness > rs.best_fitness) {
           rs.roi = result.roi
           rs.trade_vol = result.trade_vol
