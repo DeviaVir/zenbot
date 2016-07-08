@@ -13,7 +13,7 @@
   "min_strat_trades": 60,
   "bar_width": 20,
   "progress_bar_width": 60,
-  "learn_mutation": 1,
+  "learn_mutation": 0.1,
   "hashtags": "#btc #gdax",
   "websocket_uri": "",
   "api_uri": "",
