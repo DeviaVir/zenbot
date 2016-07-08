@@ -50,6 +50,7 @@ program
   .description('(optional) forget learned stuff')
   .option('--learned', 'forget machine learning')
   .option('--rs', 'forget trade bot run-state')
+  .option('--start_balance', 'forget start balance')
   .action(function (options) {
     launch('forget', options)
   })

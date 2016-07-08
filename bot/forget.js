@@ -1,31 +1,35 @@
-var spawn = require('child_process').spawn
-  , path = require('path')
-  , assert = require('assert')
-  , constants = require('../conf/constants.json')
+var constants = require('../conf/constants.json')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
-  function withRs () {
-    if (bot.learned) {
-      spawn('git', ['checkout', '--', path.resolve(__dirname, '..', 'conf', 'defaults.json')])
-        .once('exit', function (code) {
-          assert(code === 0)
-          get('db.mems').destroy('learned', function (err, destroyed) {
-            if (err) throw err
-            console.log(JSON.stringify(destroyed || null, null, 2))
-            process.exit()
-          })
-        })
-    }
-    else process.exit()
+  if (bot.learned) {
+    get('db.mems').destroy('learned', function (err, destroyed) {
+      if (err) throw err
+      else {
+        console.log(JSON.stringify(destroyed || null, null, 2))
+        process.exit()
+      }
+    })
   }
   if (bot.rs) {
     get('db.mems').destroy(constants.product_id, function (err, destroyed) {
       if (err) throw err
       console.log(JSON.stringify(destroyed || null, null, 2))
-      withRs()
+      process.exit()
     })
   }
-  else withRs()
+  if (bot.start_balance) {
+    get('db.mems').load('learned', function (err, learned) {
+      if (err) throw err
+      if (!learned) return process.exit()
+      var old = learned.start_balance
+      learned.start_balance = 0
+      get('db.mems').save(learned, function (err, saved) {
+        if (err) throw err
+        console.log(JSON.stringify(old || null, null, 2))
+        process.exit()
+      })
+    })
+  }
   return null
 }
