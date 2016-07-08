@@ -238,7 +238,7 @@ module.exports = function container (get, set, clear) {
     else {
       rs.new_max_vol = false
     }
-    var vol_string = zerofill(4, Math.round(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
+    var vol_string = zerofill(4, Math.floor(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
     rs.vol_diff_string = vol_string + ('/' + Math.ceil(bot.min_vol)).grey + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       var trigger_vol = rs.vol
@@ -478,7 +478,7 @@ module.exports = function container (get, set, clear) {
             get_time() + ' report.\n',
             'close: ' + n(rs.last_tick.close).format('$0,0.00'),
             'vs. vwap: ' + vwap_diff_str,
-            'hr. volume: ' + n(Math.round(saved_hour_vol)).format('0,0'),
+            'hr. volume: ' + n(saved_hour_vol).format('0,0'),
             'market: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
             '24hr. diff: ' + diff_str + '\n',
             constants.hashtags
