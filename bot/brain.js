@@ -175,26 +175,26 @@ module.exports = function container (get, set, clear) {
     rs.running_vol = n(rs.running_vol)
       .add(rs.period_vol)
       .value()
-    var vwap = n(rs.running_total)
+    rs.vwap = n(rs.running_total)
       .divide(rs.running_vol)
       .value()
-    var vwap_diff = n(rs.last_tick.close)
-      .subtract(vwap)
+    rs.vwap_diff = n(rs.last_tick.close)
+      .subtract(rs.vwap)
       .value()
     rs.max_diff = n(rs.max_diff)
       .multiply(constants.max_diff_decay)
       .value()
-    rs.max_diff = Math.max(rs.max_diff, Math.abs(vwap_diff))
+    rs.max_diff = Math.max(rs.max_diff, Math.abs(rs.vwap_diff))
     var half = constants.bar_width / 2
     var bar = ''
-    if (vwap_diff > 0) {
+    if (rs.vwap_diff > 0) {
       bar += ' '.repeat(half)
-      var stars = Math.min(Math.round((vwap_diff / rs.max_diff) * half), half)
+      var stars = Math.min(Math.round((rs.vwap_diff / rs.max_diff) * half), half)
       bar += '+'.repeat(stars).green.bgGreen
       bar += ' '.repeat(half - stars)
     }
-    else if (vwap_diff < 0) {
-      var stars = Math.min(Math.round((Math.abs(vwap_diff) / rs.max_diff) * half), half)
+    else if (rs.vwap_diff < 0) {
+      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / rs.max_diff) * half), half)
       bar += ' '.repeat(half - stars)
       bar += '-'.repeat(stars).red.bgRed
       bar += ' '.repeat(half)
@@ -447,14 +447,8 @@ module.exports = function container (get, set, clear) {
             .value()
           var diff_str = diff >= 0 ? '+' : '-'
           diff_str += n(Math.abs(diff)).format('$0.00')
-          var vwap = n(rs.running_total)
-            .divide(rs.running_vol)
-            .value()
-          var vwap_diff = n(rs.last_tick.close)
-            .subtract(vwap)
-            .value()
-          var vwap_diff_str = vwap_diff >= 0 ? '+' : '-'
-          vwap_diff_str += n(Math.abs(vwap_diff)).format('$0.00')
+          var vwap_diff_str = rs.vwap_diff >= 0 ? '+' : '-'
+          vwap_diff_str += n(Math.abs(rs.vwap_diff)).format('$0.00')
           var text = [
             get_time() + ' report.\n',
             'close: ' + n(rs.last_tick.close).format('$0,0.00'),
