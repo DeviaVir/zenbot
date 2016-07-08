@@ -107,69 +107,57 @@ module.exports = function container (get, set, clear) {
           idx = Math.ceil(Math.random() * keys.length) - 1
           param = keys[idx]
         }
-        try {
-          var mutate = n(Math.random())
-          if (is_followup) {
-            if (rs.direction === 'pos') {
-              // as-is
+        function doMutate (param) {
+          try {
+            var mutate = n(Math.random())
+            if (is_followup) {
+              if (rs.direction === 'pos') {
+                // as-is
+              }
+              else {
+                // subtract
+                mutate = n(1).subtract(mutate)
+              }
             }
             else {
-              // subtract
-              mutate = n(1).subtract(mutate)
+              // neutral
+              mutate = mutate.subtract(0.5)
+            }
+            mutate = mutate.multiply(constants.learn_mutation).multiply(params[param])
+              .value()
+            rs.last_mutate = mutate
+            rs.direction = mutate >= 0 ? 'pos' : 'neg'
+            params[param] = n(params[param])
+              .add(mutate)
+              .value()
+            if (param === 'trade_amt') {
+              assert(params[param] > 0)
             }
           }
-          else {
-            // neutral
-            mutate = mutate.subtract(0.5)
+          catch (e) {
+            console.error(e.stack.split('\n')[1])
+            /*
+            console.error('idx', idx)
+            console.error('key', keys[idx])
+            console.error('keys', keys)
+            console.error('params', params)
+            */
+            process.stderr.write('\n\n\n\n')
+            get('console').error('bad param', param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
+            process.stderr.write('\n\n\n\n')
+            if (bar) bar.terminate()
+            if (is_first) sims_started = false
+            doNext()
+            return 0
           }
-          mutate = mutate.multiply(constants.learn_mutation).multiply(params[param])
-            .value()
-          rs.last_mutate = mutate
-          rs.direction = mutate >= 0 ? 'pos' : 'neg'
-          params[param] = n(params[param])
-            .add(mutate)
-            .value()
-          if (param === 'vol_reset') {
-            assert(params[param] > 0)
-          }
-          if (param === 'min_trade') {
-            assert(params[param] >= constants.min_trade_possible)
-          }
-          if (param === 'trade_amt') {
-            assert(params[param] > 0)
-          }
-          if (param === 'cooldown') {
-            params[param] = n(params[param])
-              .add(Math.round((Math.random() - 0.5) * 10))
-              .value()
-            assert(params[param] >= 0)
-          }
-          if (param === 'crash') {
-            assert(params[param] >= 0)
-            assert(params[param] <= 10)
-          }
-          if (param === 'buy_for_more') {
-            assert(params[param] >= 0)
-            assert(params[param] <= 10)
-          }
-          if (param === 'sell_for_less') {
-            assert(params[param] >= 0)
-            assert(params[param] <= 10)
-          }
+          return mutate
         }
-        catch (e) {
-          console.error(e.stack.split('\n')[1])
-          /*
-          console.error('idx', idx)
-          console.error('key', keys[idx])
-          console.error('keys', keys)
-          console.error('params', params)
-          */
-          get('console').error('bad param', param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000'))
-          process.stderr.write('\n\n\n\n')
-          if (bar) bar.terminate()
-          if (is_first) sims_started = false
-          return doNext()
+        var mutate = doMutate(param)
+        if (param === 'min_vol') {
+          doMutate('vol_decay')
+        }
+        if (param === 'vol_decay') {
+          doMutate('min_vol')
         }
       }
       var args = Object.keys(defaults).map(function (k) {
