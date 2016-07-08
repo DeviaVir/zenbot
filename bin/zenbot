@@ -79,6 +79,7 @@ program
   .option('--vol_reset <asset>', 'volume trigger reset in asset, default: ' + defaults.vol_reset, Number, defaults.vol_reset)
   .option('--sim_query_limit <int>', 'query limit integer, default: ' + defaults.sim_query_limit, Number, defaults.sim_query_limit)
   .option('--sim_start_balance <currency>', 'simulation start balance in currency, default: ' + defaults.sim_start_balance, Number, defaults.sim_start_balance)
+  .option('--vol_decay <float>', 'volume trigger decay when not enough funds, default: ' + defaults.vol_decay, Number, defaults.vol_decay)
   .action(function (options) {
     launch('simulator', options)
   })
