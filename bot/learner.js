@@ -239,6 +239,9 @@ module.exports = function container (get, set, clear) {
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           }
         }
+        else {
+          share()
+        }
         var sec_diff = n(new Date().getTime())
           .subtract(started_learning)
           .divide(1000)
