@@ -5,6 +5,7 @@ var n = require('numeral')
   , moment = require('moment')
   , constants = require('../conf/constants.json')
   , request = require('micro-request')
+  , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
@@ -207,10 +208,12 @@ module.exports = function container (get, set, clear) {
       .value()
     rs.high = Math.max(rs.high, tick.high)
     rs.low = Math.min(rs.low, tick.low)
-
+    rs.vol = n(rs.vol)
+      .multiply(bot.vol_decay)
+      .value()
     if (rs.side && tick.side !== rs.side) {
       rs.vol = n(rs.vol)
-        .subtract(tick.vol)
+        .subtract(n(tick.vol).multiply(tick.side === 'BUY' ? bot.buy_factor : bot.sell_factor))
         .value()
       if (rs.vol < 0) rs.side = tick.side
       rs.vol = Math.abs(rs.vol)
@@ -218,7 +221,7 @@ module.exports = function container (get, set, clear) {
     else {
       rs.side = tick.side
       rs.vol = n(rs.vol)
-        .add(tick.vol)
+        .add(n(tick.vol).multiply(tick.side === 'BUY' ? bot.buy_factor : bot.sell_factor))
         .value()
     }
     if (rs.vol > rs.max_vol) {
@@ -231,12 +234,11 @@ module.exports = function container (get, set, clear) {
     var vol_string = zerofill(4, Math.round(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
     rs.vol_diff_string = vol_string + ('/' + Math.ceil(bot.min_vol)).grey + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
+      var trigger_vol = rs.vol
+      rs.vol = 0
       // trigger
       if (rs.cooldown >= 1) rs.cooldown--
       else rs.cooldown = 0
-      if (rs.vol >= bot.vol_reset) {
-        rs.vol = 0
-      }
       if (rs.side === 'BUY' && rs.currency <= 0) {
         return finish()
       }
@@ -259,45 +261,31 @@ module.exports = function container (get, set, clear) {
         var vwap_diff = n(price)
           .subtract(vwap)
           .value()
-        var spend
-        if (vwap_diff > 0) {
-          // buy more when price is rising
-          spend = n(rs.currency)
+        var spend = n(rs.currency)
             .multiply(bot.trade_amt)
             .value()
-        }
-        else {
-          // buy less when price is falling
-          spend = n(rs.currency)
-            .multiply(n(1).subtract(bot.trade_amt))
-            .value()
-        }
-        if (spend / price < bot.min_trade) {
-          return finish()
-        }
-        if (rs.sell_price && price > rs.sell_price) {
-          var sell_delta = n(1)
-            .subtract(n(rs.sell_price).divide(price))
-            .value()
-          if (sell_delta >= bot.buy_for_more) {
-            return finish()
-          }
-        }
-        if (delta >= bot.crash) {
-          rs.cooldown = 0
-          return finish()
-        }
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
-        rs.cooldown = Math.round(bot.cooldown)
-        rs.vol = 0
-        rs.max_vol = 0
-        rs.buy_price = price
-        rs.currency = n(rs.currency)
-          .subtract(spend)
+        var fee = n(size)
+          .multiply(price)
+          .multiply(constants.fee)
           .value()
         var size = n(spend)
           .divide(price)
           .value()
+        if (rs.sell_price && price > rs.sell_price) {
+          var sell_delta = n(1)
+            .subtract(n(rs.sell_price).divide(price))
+            .value()
+        }
+        if (spend / price < constants.min_trade_possible) {
+          // would buy, but not enough funds
+          //get('console').info(('[bot] not enough to buy!').red)
+          //rs.vol = 0
+          return finish()
+        }
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
+        // rs.vol = 0
+        // rs.max_vol = 0
+        rs.buy_price = price
         rs.trade_vol = n(rs.trade_vol)
           .add(size)
           .value()
@@ -305,14 +293,13 @@ module.exports = function container (get, set, clear) {
         rs.asset = n(rs.asset)
           .add(size)
           .value()
-        var fee = n(size)
-          .multiply(price)
-          .multiply(constants.fee)
-          .value()
         rs.currency = n(rs.currency)
+          .subtract(spend)
           .subtract(fee)
           .value()
         get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        assert(rs.currency >= 0)
+        assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
           var buy_params = {
             type: 'market',
@@ -348,37 +335,22 @@ module.exports = function container (get, set, clear) {
         var vwap_diff = n(price)
           .subtract(vwap)
           .value()
-        var sell
-        if (vwap_diff < 0) {
-          // sell more when price is falling
-          sell = n(rs.asset)
-            .multiply(bot.trade_amt)
-            .value()
-        }
-        else {
-          // sell less when price is rising
-          sell = n(rs.asset)
-            .multiply(n(1).subtract(bot.trade_amt))
-            .divide(2)
-            .value()
-        }
-        if (sell < bot.min_trade) {
+        var sell = n(rs.asset)
+          .multiply(bot.trade_amt)
+          .value()
+        var fee = n(sell)
+          .multiply(price)
+          .multiply(constants.fee)
+          .value()
+        if (sell < constants.min_trade_possible) {
+          // would buy, but not enough funds
+          //get('console').info(('[bot] not enough to sell!').red)
+          //rs.vol = 0
           return finish()
         }
-        if (rs.buy_price && price < rs.buy_price) {
-          var buy_delta = n(1).subtract(n(price).divide(rs.buy_price)).value()
-          if (buy_delta >= bot.sell_for_less) {
-            return finish()
-          }
-        }
-        if (delta >= bot.crash) {
-          rs.cooldown = 0
-          return finish()
-        }
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
-        rs.cooldown = Math.round(bot.cooldown)
-        rs.vol = 0
-        rs.max_vol = 0
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow)
+        // rs.vol = 0
+        // rs.max_vol = 0
         rs.sell_price = price
         rs.asset = n(rs.asset)
           .subtract(sell)
@@ -389,15 +361,11 @@ module.exports = function container (get, set, clear) {
         rs.num_trades++
         rs.currency = n(rs.currency)
           .add(n(sell).multiply(price))
-          .value()
-        var fee = n(sell)
-          .multiply(price)
-          .multiply(constants.fee)
-          .value()
-        rs.currency = n(rs.currency)
           .subtract(fee)
           .value()
-        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).yellow)
+        assert(rs.currency >= 0)
+        assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
           var sell_params = {
             type: 'market',
