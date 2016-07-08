@@ -15,6 +15,7 @@ module.exports = function container (get, set, clear) {
     id: constants.product_id,
     asset: 0,
     currency: start_balance,
+    start_balance: start_balance,
     side: null,
     period_vol: 0,
     running_vol: 0,
@@ -429,7 +430,6 @@ module.exports = function container (get, set, clear) {
     rs.net_worth = n(rs.currency)
       .add(n(rs.asset).multiply(rs.last_tick.close))
       .value()
-    rs.start_balance = start_balance
     var diff = n(rs.net_worth).subtract(rs.start_balance)
       .value()
     if (diff > 0) diff = ('+' + n(diff).format('$0,0.00')).green

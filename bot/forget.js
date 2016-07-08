@@ -10,6 +10,7 @@ module.exports = function container (get, set, clear) {
         process.exit()
       }
     })
+    return null
   }
   if (bot.rs) {
     get('db.mems').destroy(constants.product_id, function (err, destroyed) {
@@ -17,8 +18,9 @@ module.exports = function container (get, set, clear) {
       console.log(JSON.stringify(destroyed || null, null, 2))
       process.exit()
     })
+    return null
   }
-  if (bot.start_balance) {
+  if (bot.balance) {
     get('db.mems').load('learned', function (err, learned) {
       if (err) throw err
       if (!learned) return process.exit()
@@ -30,6 +32,7 @@ module.exports = function container (get, set, clear) {
         process.exit()
       })
     })
+    return null
   }
-  return null
+  throw new Error('expected flag')
 }
