@@ -54,11 +54,9 @@ module.exports = function (mode, options) {
     app.get('motley:db.mems').load('learned', function (err, learned) {
       if (err) throw err
       app.get('motley:console').info((ZENBOT_USER_AGENT + ' booting!').cyan)
-      if (learned && learned.fitness_diff) {
-        app.get('motley:console').info(('[zen] i have improved the strategy ' + n(learned.fitness_diff).format('0.000') + ' over the defaults!').yellow)
-      }
       if (mode !== 'simulator' && learned) {
         Object.keys(learned).forEach(function (k) {
+          if (k === 'learner') return
           options[k] = learned[k]
         })
       }

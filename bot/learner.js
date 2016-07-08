@@ -45,7 +45,8 @@ module.exports = function container (get, set, clear) {
         best_param_direction: null,
         num_trades: 0,
         last_mutate: null,
-        learner: learner
+        learner: learner,
+        time: new Date().getTime()
       }
     }
     function share () {
@@ -214,6 +215,7 @@ module.exports = function container (get, set, clear) {
           rs.roi = result.roi
           rs.trade_vol = result.trade_vol
           rs.num_trades = result.num_trades
+          rs.time = new Date().getTime()
           var old_best = rs.best_fitness
           rs.best_fitness = result.fitness
           rs.iterations++
