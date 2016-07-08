@@ -1,4 +1,5 @@
-zenbot.tar.gz
+*.tar.gz
+*.log.*
 t.js
 node_modules
 npm-debug.log
