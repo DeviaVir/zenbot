@@ -261,18 +261,9 @@ module.exports = function container (get, set, clear) {
         if (rs.cooldown > 0) {
           return finish()
         }
-        var delta = n(1)
-          .subtract(n(tick.close).divide((rs.last_tick ||  tick).close))
-          .value()
         var price = n(tick.close)
           .add(n(tick.close).multiply(constants.markup))
           .value() // add markup
-        var vwap = n(rs.running_total)
-          .divide(rs.running_vol)
-          .value()
-        var vwap_diff = n(price)
-          .subtract(vwap)
-          .value()
         var spend = n(rs.currency)
             .multiply(bot.trade_amt)
             .value()
@@ -283,18 +274,21 @@ module.exports = function container (get, set, clear) {
         var size = n(spend)
           .divide(price)
           .value()
-        if (rs.sell_price && price > rs.sell_price) {
-          var sell_delta = n(1)
-            .subtract(n(rs.sell_price).divide(price))
-            .value()
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
+        if (bot.tweet) {
+          setImmediate(function () {
+            var tweet = {
+              status: 'zenbot recommends:\n\naction: BUY\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
+            }
+            twitter_client.post('statuses/update', tweet, onTweet)
+          })
         }
         if (spend / price < constants.min_trade_possible) {
           // would buy, but not enough funds
-          //get('console').info(('[bot] not enough to buy!').red)
+          get('console').info(('[bot] not enough currency to buy!').red)
           //rs.vol = 0
           return finish()
         }
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
         // rs.vol = 0
         // rs.max_vol = 0
         rs.buy_price = price
@@ -309,7 +303,7 @@ module.exports = function container (get, set, clear) {
           .subtract(spend)
           .subtract(fee)
           .value()
-        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00').cyan))
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
@@ -320,32 +314,13 @@ module.exports = function container (get, set, clear) {
           }
           client.buy(buy_params, function (err, resp, order) {
             onOrder(err, resp, order)
-            if (bot.tweet) {
-              var tweet = {
-                status: 'zenbot recommends:\n\naction: BUY\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
-              }
-              twitter_client.post('statuses/update', tweet, onTweet)
-            }
             syncBalance()
           })
         }
       }
       else if (rs.side === 'SELL') {
-        if (rs.cooldown > 0) {
-          get('console').info(('[bot] too soon to SELL').grey)
-          return finish()
-        }
         var price = n(tick.close)
           .subtract(n(tick.close).multiply(constants.markup))
-          .value()
-        var delta = n(1)
-          .subtract(n(rs.last_tick.close).divide(tick.close))
-          .value()
-        var vwap = n(rs.running_total)
-          .divide(rs.running_vol)
-          .value()
-        var vwap_diff = n(price)
-          .subtract(vwap)
           .value()
         var sell = n(rs.asset)
           .multiply(bot.trade_amt)
@@ -354,13 +329,21 @@ module.exports = function container (get, set, clear) {
           .multiply(price)
           .multiply(constants.fee)
           .value()
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow)
+        if (bot.tweet) {
+          setImmediate(function () {
+            var tweet = {
+              status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
+            }
+            twitter_client.post('statuses/update', tweet, onTweet)
+          })
+        }
         if (sell < constants.min_trade_possible) {
           // would buy, but not enough funds
-          //get('console').info(('[bot] not enough to sell!').red)
+          get('console').info(('[bot] not enough asset to sell!').red)
           //rs.vol = 0
           return finish()
         }
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow)
         // rs.vol = 0
         // rs.max_vol = 0
         rs.sell_price = price
@@ -375,7 +358,7 @@ module.exports = function container (get, set, clear) {
           .add(n(sell).multiply(price))
           .subtract(fee)
           .value()
-        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).yellow)
+        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00')).yellow)
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
@@ -386,12 +369,6 @@ module.exports = function container (get, set, clear) {
           }
           client.sell(sell_params, function (err, resp, order) {
             onOrder(err, resp, order)
-            if (bot.tweet) {
-              var tweet = {
-                status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
-              }
-              twitter_client.post('statuses/update', tweet, onTweet)
-            }
             syncBalance()
           })
         }
