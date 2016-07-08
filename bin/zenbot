@@ -32,7 +32,7 @@ program
   .option('-d, --duration <seconds>', 'learning duration in seconds')
   .option('-c, --concurrency <int>', 'number of concurrent simulations', Number, require('os').cpus().length)
   .option('-t, --throttle <load>', 'pause the simulation if load average goes above this', Number, 10)
-  .option('-l, --learner <string>', 'id string of the learner node')
+  .option('-l, --learner <string>', 'id string of the learner node', String, require('crypto').randomBytes(4).toString('hex'))
   .option('--share <url>', 'share strategies')
   .action(function (options) {
     launch('learner', options)
