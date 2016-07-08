@@ -110,20 +110,9 @@ module.exports = function container (get, set, clear) {
         function doMutate (param) {
           try {
             var mutate = n(Math.random())
-            if (is_followup) {
-              if (rs.direction === 'pos') {
-                // as-is
-              }
-              else {
-                // subtract
-                mutate = n(1).subtract(mutate)
-              }
-            }
-            else {
-              // neutral
-              mutate = mutate.subtract(0.5)
-            }
-            mutate = mutate.multiply(constants.learn_mutation).multiply(params[param])
+              .subtract(0.5)
+              .multiply(constants.learn_mutation)
+              .multiply(params[param])
               .value()
             rs.last_mutate = mutate
             rs.direction = mutate >= 0 ? 'pos' : 'neg'
