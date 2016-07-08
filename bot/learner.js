@@ -130,8 +130,18 @@ module.exports = function container (get, set, clear) {
             params[param] = n(params[param])
               .add(mutate)
               .value()
-            if (param === 'trade_amt') {
-              assert(params[param] > 0)
+            switch (param) {
+              case 'trade_amt':
+                assert(params[param] <= 1)
+                assert(params[param] > 0)
+                break;
+              case 'vol_decay':
+                assert(params[param] <= 1)
+                assert(params[param] > 0)
+                break;
+              case 'min_vol':
+                assert(params[param] > 0)
+                break;
             }
           }
           catch (e) {
