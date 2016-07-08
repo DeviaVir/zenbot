@@ -84,6 +84,7 @@ module.exports = function container (get, set, clear) {
                 .multiply(ticker.price)
                 .add(rs.currency)
                 .value()
+              rs.start_time = new Date().getTime()
             }
             get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan)
             bot.trade = true
