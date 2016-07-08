@@ -9,7 +9,10 @@ module.exports = function container (get, set) {
         get('console').info(('[best]' + JSON.stringify(learned, null, 2)).white)
         if (!learned) learned = req.body
         else if (learned.best_fitness > req.body.best_fitness) {
-          return res.json({rejected: req.body, learned: learned})
+          return res.json({rejected: req.body, learned: learned, reason: 'low fitness'})
+        }
+        else if (!req.body.vol_decay) {
+          return res.json({rejected: req.body, learned: learned, reason: 'requires brain_upgrade'})
         }
         else {
           Object.keys(req.body).forEach(function (k) {
