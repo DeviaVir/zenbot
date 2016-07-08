@@ -1,4 +1,4 @@
-var n = require('numeral')
+var n = require('numbro')
   , colors = require('colors')
   , tb = require('timebucket')
   , zerofill = require('zero-fill')
