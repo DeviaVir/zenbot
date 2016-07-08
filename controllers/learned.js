@@ -11,7 +11,7 @@ module.exports = function container (get, set) {
         else if (learned.best_fitness > req.body.best_fitness) {
           return res.json({rejected: req.body, learned: learned, reason: 'low fitness'})
         }
-        else if (!eq.body.best_params || !req.body.best_params.vol_decay) {
+        else if (!req.body.best_params || !req.body.best_params.vol_decay) {
           return res.json({rejected: req.body, learned: learned, reason: 'requires brain_upgrade'})
         }
         else {
