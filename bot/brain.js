@@ -478,7 +478,7 @@ module.exports = function container (get, set, clear) {
             'close: ' + n(rs.last_tick.close).format('$0,0.00'),
             'vs. vwap: ' + vwap_diff_str,
             'hr. volume: ' + n(Math.round(saved_hour_vol)).format('0,0'),
-            'market: ' + colors.strip(rs.vol_diff_string),
+            'market: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
             '24hr. diff: ' + diff_str + '\n',
             constants.hashtags
           ].join('\n').trim()
