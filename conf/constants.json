@@ -18,5 +18,6 @@
   "websocket_uri": "",
   "api_uri": "",
   "listen_port": 3011,
-  "log_limit": 200
+  "log_limit": 200,
+  "max_diff_decay": 0.999999
 }
