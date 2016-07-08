@@ -28,8 +28,8 @@ module.exports = function container (get, set, clear) {
         id: 'learned',
         fitness_diff: 0,
         start_fitness: 0,
-        best_fitness: 0,
-        roi: 1,
+        best_fitness: 1,
+        roi: 0,
         trade_vol: 0,
         best_params: cpy(defaults),
         iterations: 0,
@@ -255,12 +255,6 @@ module.exports = function container (get, set, clear) {
             rs.best_params[param] = params[param]
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           }
-        }
-        else if (simulations === 1 && bot.share) {
-          rs.roi = result.roi
-          rs.trade_vol = result.trade_vol
-          rs.num_trades = result.num_trades
-          share()
         }
         var sec_diff = n(new Date().getTime())
           .subtract(started_learning)
