@@ -27,18 +27,18 @@ module.exports = function container (get, set) {
         if (conf.colors) msg = colors.grey(msg)
         args.unshift(msg)
       }
-      args = args.map(function (arg) {
+      var line = args.map(function (arg) {
         if (typeof arg !== 'string') {
           return JSON.stringify(arg, null, 2)
         }
         return arg
       }).join(' ')
-      console.error(args)
-      if (get('mode') === 'zen' || colors.strip(args).match(/tweeted/)) {
+      console.error(line)
+      if (get('mode') === 'zen' || colors.strip(line).match(/tweeted/)) {
         var log = {
           id: tb('µs').toString(),
           time: new Date().getTime(),
-          line: args
+          line: line
         }
         try {
           get('db.logs').save(log, function (err, saved) {
