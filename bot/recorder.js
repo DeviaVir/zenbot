@@ -66,7 +66,7 @@ module.exports = function container (get, set, clear) {
               .value()
             if (bot.tweet && tick.vol > 20) {
               var tweet = {
-                status: 'big trade alert:\n\naction: ' + tick.side + '\nvolume: ' + n(vol).format('0.000') + '\nprice: ' + tick.price + '\ntime: ' + get_time(tick.time) + '\n\n #btc #gdax'
+                status: 'big trade alert:\n\naction: ' + tick.side + '\nvolume: ' + n(vol).format('0.000') + '\nprice: ' + tick.price + '\ntime: ' + get_time(tick.time) + '\n\n' + constants.hashtags
               }
               twitter_client.post('statuses/update', tweet, onTweet)
             }
