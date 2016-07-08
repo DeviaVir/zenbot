@@ -1,29 +1,8 @@
 body {
   font-family: Helvetica, sans-serif;
-  padding: 50px;
+  padding: 10px;
   font-size: 1.1em;
   background-color: black;
-}
-input, textarea {
-  font-family: Helvetica, sans-serif;
-  padding: 10px;
-  font-size: 1em;
-}
-a {
-  color: #e00;
-  text-decoration: none;
-}
-.success {
-  color: green;
-}
-.error {
-  color: red;
-}
-code {
-  background-color: #eee;
-  color: #555;
-  padding: 0 5px 0 5px;
-  border-radius: 5px;
 }
 
 .logs {
@@ -38,4 +17,9 @@ code {
 .log-line {
   white-space: pre;
   line-height: 1.25;
+}
+
+.content {
+  margin: auto;
+  width: 80%;
 }
