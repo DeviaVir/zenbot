@@ -97,16 +97,9 @@ module.exports = function container (get, set, clear) {
       }
       var params = cpy(rs.best_params), param, idx, keys
       if (simulations) {
-        var is_followup = false
-        if (rs.best_param && Math.random() >= 0.5) {
-          is_followup = true
-          param = rs.best_param
-        }
-        else {
-          keys = Object.keys(params)
-          idx = Math.ceil(Math.random() * keys.length) - 1
-          param = keys[idx]
-        }
+        keys = Object.keys(params)
+        idx = Math.ceil(Math.random() * keys.length) - 1
+        param = keys[idx]
         function doMutate (param) {
           try {
             var mutate = n(Math.random())

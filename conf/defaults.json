@@ -1,7 +1,7 @@
 {
   "min_vol": 750,
-  "trade_amt": 0.8,
-  "vol_decay": 0.99999,
-  "buy_factor": 1,
+  "trade_amt": 0.8739884,
+  "vol_decay": 0.999999,
+  "buy_factor": 0.91141856,
   "sell_factor": 1
 }
