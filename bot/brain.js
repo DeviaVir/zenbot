@@ -180,6 +180,9 @@ module.exports = function container (get, set, clear) {
     var vwap_diff = n(rs.last_tick.close)
       .subtract(vwap)
       .value()
+    rs.max_diff = n(rs.max_diff)
+      .multiply(constants.max_diff_decay)
+      .value()
     rs.max_diff = Math.max(rs.max_diff, Math.abs(vwap_diff))
     var half = constants.bar_width / 2
     var bar = ''
