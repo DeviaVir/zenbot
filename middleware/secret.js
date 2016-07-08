@@ -1,5 +1,7 @@
 module.exports = function container (get, set) {
   return function handler (req, res, next) {
+    return next()
+    // secret disabled for now
     req.bot = get('bot')
     if (!req.bot.secret) return next()
     if (req.session.secret && req.session.secret === req.bot.secret) return next()
