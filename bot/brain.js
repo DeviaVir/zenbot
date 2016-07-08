@@ -86,6 +86,7 @@ module.exports = function container (get, set, clear) {
                 .value()
               rs.start_time = new Date().getTime()
             }
+            rs.max_vol = 0
             get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan)
             bot.trade = true
           }
