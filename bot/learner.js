@@ -217,16 +217,7 @@ module.exports = function container (get, set, clear) {
           if (is_first) sims_started = false
           return doNext()
         }
-        result.fitness = n(result.roi)
-          .multiply(
-            n(Math.min(result.trade_vol, constants.min_strat_vol))
-              .divide(constants.min_strat_vol)
-          )
-          .multiply(
-            n(Math.min(result.num_trades, constants.min_strat_trades))
-              .divide(constants.min_strat_trades)
-          )
-          .value()
+        result.fitness = result.roi
         if (is_first) {
           start_fitness = result.fitness
           first_ended = true
