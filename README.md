@@ -1,6 +1,7 @@
 # zenbot
 
-Follow zenbot [on Twitter!](https://twitter.com/zenbot_btc)
+- Follow zenbot [on Twitter!](https://twitter.com/zenbot_btc)
+- Check out zenbot's [live feed!](https://zenbot.s8f.org/)
 
 ![zenbot logo](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
