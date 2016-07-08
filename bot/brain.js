@@ -311,7 +311,7 @@ module.exports = function container (get, set, clear) {
         if (bot.trade && !bot.sim) {
           var buy_params = {
             type: 'market',
-            size: n(size).format('00.000'),
+            size: n(size).format('0.000'),
             product_id: constants.product_id
           }
           client.buy(buy_params, function (err, resp, order) {
@@ -371,13 +371,13 @@ module.exports = function container (get, set, clear) {
           .add(n(sell).multiply(price))
           .subtract(fee)
           .value()
-        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).yellow)
+        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).yellow)
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
           var sell_params = {
             type: 'market',
-            size: n(sell).format('00.000'),
+            size: n(sell).format('0.000'),
             product_id: constants.product_id
           }
           client.sell(sell_params, function (err, resp, order) {
@@ -443,7 +443,7 @@ module.exports = function container (get, set, clear) {
       (n(rs.last_tick.close).format('$0,0.00'))[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
       get('mode') === 'simulator' ? timestamp.grey : false,
-      n(rs.asset).format('00.000').white,
+      n(rs.asset).format('0.000').white,
       n(rs.currency).format('$,0.00').yellow,
       diff,
       n(rs.net_worth).format('$,0.00').cyan,
