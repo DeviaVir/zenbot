@@ -196,6 +196,7 @@ module.exports = function container (get, set, clear) {
         }
         sim_chunks++
       })
+      //proc.stderr.pipe(process.stderr)
       proc.on('exit', function (code) {
         if (code) {
           get('console').error('non-0 code: ' + code)

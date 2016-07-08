@@ -239,9 +239,6 @@ module.exports = function container (get, set, clear) {
       // trigger
       if (rs.cooldown >= 1) rs.cooldown--
       else rs.cooldown = 0
-      if (trigger_vol >= bot.vol_reset) {
-        // rs.vol = 0
-      }
       if (rs.side === 'BUY' && rs.currency <= 0) {
         return finish()
       }
@@ -278,21 +275,14 @@ module.exports = function container (get, set, clear) {
           var sell_delta = n(1)
             .subtract(n(rs.sell_price).divide(price))
             .value()
-          if (sell_delta >= bot.buy_for_more) {
-            //return finish()
-          }
         }
-        if (delta >= bot.crash) {
-          //return finish()
-        }
-        if (spend / price < bot.min_trade) {
+        if (spend / price < constants.min_trade_possible) {
           // would buy, but not enough funds
           //get('console').info(('[bot] not enough to buy!').red)
           //rs.vol = 0
           return finish()
         }
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
-        rs.cooldown = Math.round(bot.cooldown)
         // rs.vol = 0
         // rs.max_vol = 0
         rs.buy_price = price
@@ -352,23 +342,13 @@ module.exports = function container (get, set, clear) {
           .multiply(price)
           .multiply(constants.fee)
           .value()
-        if (rs.buy_price && price < rs.buy_price) {
-          var buy_delta = n(1).subtract(n(price).divide(rs.buy_price)).value()
-          if (buy_delta >= bot.sell_for_less) {
-            //return finish()
-          }
-        }
-        if (delta >= bot.crash) {
-          //return finish()
-        }
-        if (sell < bot.min_trade) {
+        if (sell < constants.min_trade_possible) {
           // would buy, but not enough funds
           //get('console').info(('[bot] not enough to sell!').red)
           //rs.vol = 0
           return finish()
         }
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow)
-        rs.cooldown = Math.round(bot.cooldown)
         // rs.vol = 0
         // rs.max_vol = 0
         rs.sell_price = price
