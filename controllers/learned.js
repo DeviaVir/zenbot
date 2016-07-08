@@ -4,6 +4,12 @@ var fs = require('fs')
 module.exports = function container (get, set) {
   return get('controller')()
     .put('/learned', function (req, res, next) {
+      req.bot = get('bot')
+      if (!req.query.secret) return next(new Error('secret required'))
+      if (req.query.secret !== req.bot.secret) return next(new Error('bad secret'))
+      next()
+    })
+    .put('/learned', function (req, res, next) {
       get('db.mems').load('learned', function (err, learned) {
         if (err) throw err
         get('console').info(('[best]' + JSON.stringify(learned, null, 2)).white)
