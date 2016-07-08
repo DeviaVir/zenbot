@@ -55,9 +55,20 @@ module.exports = function container (get, set, clear) {
           var tick = get('db.ticks').create(ticks[tickId])
           if (tick) {
             get('console').info(tick.trade_ticker)
+            var ratio = n(tick.buy_ratio)
+              .multiply(tick.vol)
+              .value()
+            if (tick.side === 'SELL') {
+              ratio = n(1)
+                .subtract(ratio)
+                .value()
+            }
+            var vol = n(tick.vol)
+              .multiply(ratio)
+              .value()
             if (bot.tweet && tick.vol > 20) {
               var tweet = {
-                status: 'big trade alert:\n\naction: ' + tick.side + '\nvolume: ' + n(tick.vol).format('0.000') + '\nprice: ' + tick.price + '\ntime: ' + get_time(tick.time) + '\n\n #btc #gdax'
+                status: 'big trade alert:\n\naction: ' + tick.side + '\nvolume: ' + n(vol).format('0.000') + '\nprice: ' + tick.price + '\ntime: ' + get_time(tick.time) + '\n\n #btc #gdax'
               }
               twitter_client.post('statuses/update', tweet, onTweet)
             }
