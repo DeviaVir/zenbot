@@ -17,11 +17,13 @@ module.exports = function container (get, set, clear) {
     }
     get('db.ticks').select(params, function (err, ticks) {
       if (err) throw err
-      ticks.forEach(function (tick) {
-        brain.write(tick)
-        maxTime = Math.max(tick.time, maxTime)
-      })
-      brain.report()
+      if (ticks.length) {
+        ticks.forEach(function (tick) {
+          brain.write(tick)
+          maxTime = Math.max(tick.time, maxTime)
+        })
+        brain.report()
+      }
       setTimeout(getNext, constants.tick_ms)
     })
   }
