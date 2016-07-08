@@ -42,7 +42,8 @@ module.exports = function container (get, set, clear) {
         best_param: null,
         best_param_direction: null,
         num_trades: 0,
-        last_mutate: null
+        last_mutate: null,
+        learner: bot.learner
       }
     }
     function share () {
