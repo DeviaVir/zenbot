@@ -272,9 +272,6 @@ module.exports = function container (get, set, clear) {
             .multiply(n(1).subtract(bot.trade_amt))
             .value()
         }
-        if (spend / price < bot.min_trade) {
-          return finish()
-        }
         if (rs.sell_price && price > rs.sell_price) {
           var sell_delta = n(1)
             .subtract(n(rs.sell_price).divide(price))
@@ -284,10 +281,17 @@ module.exports = function container (get, set, clear) {
           }
         }
         if (delta >= bot.crash) {
-          rs.cooldown = 0
           return finish()
         }
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
+        if (spend / price < bot.min_trade) {
+          // would buy, but not enough funds
+          get('console').info(('[bot] not enough to buy!').red)
+          rs.vol = n(rs.vol)
+            .multiply(bot.vol_decay)
+            .value()
+          return finish()
+        }
         rs.cooldown = Math.round(bot.cooldown)
         rs.vol = 0
         rs.max_vol = 0
@@ -362,9 +366,6 @@ module.exports = function container (get, set, clear) {
             .divide(2)
             .value()
         }
-        if (sell < bot.min_trade) {
-          return finish()
-        }
         if (rs.buy_price && price < rs.buy_price) {
           var buy_delta = n(1).subtract(n(price).divide(rs.buy_price)).value()
           if (buy_delta >= bot.sell_for_less) {
@@ -372,10 +373,17 @@ module.exports = function container (get, set, clear) {
           }
         }
         if (delta >= bot.crash) {
-          rs.cooldown = 0
           return finish()
         }
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).grey)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(rs.vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
+        if (sell < bot.min_trade) {
+          // would buy, but not enough funds
+          get('console').info(('[bot] not enough to sell!').red)
+          rs.vol = n(rs.vol)
+            .multiply(bot.vol_decay)
+            .value()
+          return finish()
+        }
         rs.cooldown = Math.round(bot.cooldown)
         rs.vol = 0
         rs.max_vol = 0
