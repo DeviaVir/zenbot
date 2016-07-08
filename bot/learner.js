@@ -51,7 +51,7 @@ module.exports = function container (get, set, clear) {
           if (err) throw err
           if (resp.statusCode !== 200) {
             console.error(body)
-            get('console').error('non-200 from ' + bot.share + ': ' + resp.statusCode)
+            get('console').error('non-200 from server: ' + resp.statusCode)
             process.stderr.write('\n\n\n\n')
             return
           }
@@ -67,7 +67,7 @@ module.exports = function container (get, set, clear) {
           }
           else {
             console.error(body)
-            get('console').error('bad resp from ' + bot.share)
+            get('console').error('bad resp from server')
             process.stderr.write('\n\n\n\n')
             return
           }
