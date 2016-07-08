@@ -95,22 +95,23 @@ module.exports = function container (get, set, clear) {
           total: last_sim_chunks,
         })
       }
-      var params = cpy(rs.best_params), param, idx, keys
+      var params = cpy(rs.best_params), param, param2, idx, keys, change
       if (simulations) {
         keys = Object.keys(params)
         idx = Math.ceil(Math.random() * keys.length) - 1
         param = keys[idx]
-        function doMutate (param) {
+        function doMutate (param, isInternal) {
+          if (isInternal) param2 = param
           try {
-            var mutate = n(Math.random())
+            change = n(Math.random())
               .subtract(0.5)
-              .multiply(constants.learn_mutation)
+              .multiply(2)
               .multiply(params[param])
               .value()
-            rs.last_mutate = mutate
-            rs.direction = mutate >= 0 ? 'pos' : 'neg'
+            rs.last_mutate = change
+            rs.direction = change >= 0 ? 'pos' : 'neg'
             params[param] = n(params[param])
-              .add(mutate)
+              .add(change)
               .value()
             switch (param) {
               case 'trade_amt':
@@ -139,18 +140,19 @@ module.exports = function container (get, set, clear) {
             process.stderr.write('\n\n\n\n')
             if (bar) bar.terminate()
             if (is_first) sims_started = false
-            doNext()
             return 0
           }
-          return mutate
+          return change
         }
-        var mutate = doMutate(param)
+        change = doMutate(param)
+        if (!change) return doNext()
         if (param === 'min_vol') {
-          doMutate('vol_decay')
+          change = doMutate('vol_decay', true)
         }
         if (param === 'vol_decay') {
-          doMutate('min_vol')
+          change = doMutate('min_vol', true)
         }
+        if (!change) return doNext()
       }
       var args = Object.keys(defaults).map(function (k) {
         return '--' + k + '=' + params[k]
@@ -164,7 +166,7 @@ module.exports = function container (get, set, clear) {
       })
       proc.stderr.on('data', function (chunk) {
         if (bar && simulations) {
-          bar.fmt = '  simulating [:bar] :percent :etas mutate = ' + n(mutate).format('0.000') + ', ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', best_roi = ' + n(rs.roi).format('+0.000')
+          bar.fmt = '  simulating [:bar] :percent :etas change = ' + n(change).format('0.000') + ', ' + param + ' = ' + n(rs.best_params[param]).format('0.000') + ' -> ' + n(params[param]).format('0.000') + ', ' + param2 + ' = ' + n(rs.best_params[param2]).format('0.000') + ' -> ' + n(params[param2]).format('0.000') + ', best_roi = ' + n(rs.roi).format('+0.000')
           bar.tick()
         }
         else if (is_first) {
