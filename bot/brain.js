@@ -363,7 +363,7 @@ module.exports = function container (get, set, clear) {
           .add(n(sell).multiply(price))
           .subtract(fee)
           .value()
-        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).cyan)
+        get('console').info(('[bot] SELL ' + n(sell).format('00.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00') + ' ' + n(delta).format('0.000%')).yellow)
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
