@@ -7,8 +7,10 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  {{#if message}}<p><strong style="color:red">{{{message}}}</strong></p>{{/if}}
-  {{{content}}}
+  <div class="content">
+    {{#if message}}<p><strong style="color:red">{{{message}}}</strong></p>{{/if}}
+    {{{content}}}
+  </div>
   <script type="text/javascript" src="/jquery.js"></script>
   <script type="text/javascript" src="/main.js"></script>
 </body>
