@@ -418,6 +418,7 @@ module.exports = function container (get, set, clear) {
     }
   }
   function report () {
+    if (!rs.last_tick) return
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
     var bar = getGraph()
     rs.net_worth = n(rs.currency)
