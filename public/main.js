@@ -16,12 +16,12 @@ $('.logs').each(function () {
   $(document).scroll(function(e){
     if (element_in_scroll(".logs-end")) {
       if (updating) return
-      skip += 1000
+      skip += 200
       updating = true
       $.getJSON('/logs?skip=' + skip, function (data) {
         updating = false
         if (!data.logs || !data.logs.length) {
-          skip -= 1000
+          skip -= 200
           return
         }
         data.logs.forEach(function (log) {
@@ -34,13 +34,14 @@ $('.logs').each(function () {
   })
 
   function poll () {
-    $.getJSON('/logs/new?start=' + start, function (data) {
+    var query_start = start
+    start = new Date().getTime()
+    $.getJSON('/logs/new?start=' + query_start, function (data) {
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
         ids.push(log.id)
       })
-      start = new Date().getTime()
     })
   }
 
