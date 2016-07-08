@@ -246,7 +246,7 @@ module.exports = function container (get, set, clear) {
             fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'defaults.json'), JSON.stringify(rs.best_params, null, 2))
           }
         }
-        else {
+        else if (simulations === 1 && bot.share) {
           rs.roi = result.roi
           rs.trade_vol = result.trade_vol
           rs.num_trades = result.num_trades
