@@ -10,7 +10,7 @@ var n = require('numeral')
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
   var bot = get('bot')
-  var start_balance = constants.sim_start_balance
+  var start_balance = get('mode') === 'simulator' ? constants.sim_start_balance : 0
   var rs = {
     id: constants.product_id,
     asset: 0,
