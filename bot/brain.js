@@ -229,7 +229,7 @@ module.exports = function container (get, set, clear) {
       rs.new_max_vol = false
     }
     var vol_string = zerofill(4, Math.round(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
-    rs.vol_diff_string = vol_string + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
+    rs.vol_diff_string = vol_string + ('/' + Math.ceil(bot.min_vol)).grey + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       // trigger
       if (rs.cooldown >= 1) rs.cooldown--
