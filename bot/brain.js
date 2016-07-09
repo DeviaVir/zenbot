@@ -170,10 +170,10 @@ module.exports = function container (get, set, clear) {
       .multiply(rs.period_vol)
       .value()
     rs.running_total = n(rs.running_total)
-      .add(thisTotal)
+      .add(n(thisTotal).multiply(constants.running_vol_decay))
       .value()
     rs.running_vol = n(rs.running_vol)
-      .add(rs.period_vol)
+      .add(n(rs.period_vol).multiply(constants.running_vol_decay))
       .value()
     rs.vwap = n(rs.running_total)
       .divide(rs.running_vol)
@@ -186,12 +186,12 @@ module.exports = function container (get, set, clear) {
     var bar = ''
     if (rs.vwap_diff > 0) {
       bar += ' '.repeat(half)
-      var stars = Math.min(Math.round((rs.vwap_diff / (rs.max_diff * 0.5)) * half), half)
+      var stars = Math.min(Math.round((rs.vwap_diff / (rs.max_diff * 1.2)) * half), half)
       bar += '+'.repeat(stars).green.bgGreen
       bar += ' '.repeat(half - stars)
     }
     else if (rs.vwap_diff < 0) {
-      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / (rs.max_diff * 0.5)) * half), half)
+      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / (rs.max_diff * 1.2)) * half), half)
       bar += ' '.repeat(half - stars)
       bar += '-'.repeat(stars).red.bgRed
       bar += ' '.repeat(half)
