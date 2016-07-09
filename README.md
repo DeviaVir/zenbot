@@ -26,6 +26,19 @@ Since zenbot discovers its own best parameters based on marked data, you don't h
 
 HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine!
 
+## "following the path": zenbot's core logic
+
+zenbot's logic is pretty open-ended. briefly:
+
+- ticks are in 10s increments
+- each tick is categorized as "buy" or "sell" based on if the trades consisted mostly of buying or selling (this is called the "taker" side, the opposite side of "maker" which was on the books)
+- buying increments the **volume counter** in the positive direction, selling in the negative. each side is independently weighted (machine learned), allowing the bot to be "bullish" or "bearish".
+- a **small decay** factor (machine-learned) is applied to the counter to weight recent events higher
+- when the volume in one direction reaches a **trigger value** (machine learned), the bot gets ready to trade. for example, if `sell_volume - buy_volume > 750`, trigger to sell. amount to trade out of available balance is machine-learned.
+- the volume counter is then **reset** at 0 and the cycle repeats
+
+as you can see, zenbot completely ignores price. it also ignores volume that is cancelled out by the other side, for example a day-trader selling 20BTC and then buying it back immediately, to bait price swings. it does this under the belief that price is mostly an illusion, a result of directly preceding events, and those patterns tend to repeat, signalled by volume changes. thus, all params are based on historical analysis (typically the last 3 months of data) of volume, not price.
+
 ## Install
 
 Prereqs: [nodejs](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/)
