@@ -46,17 +46,16 @@ $ zenbot
     backfill [options]   2. run the backfiller
     learn [options]      3. run the machine learner
     mem                  (optional) show zenbot's memory
-    forget               (optional) forget machine learning
+    forget [options]     (optional) forget learned stuff
+    listen [options]     (optional) listen for new strategies, and expose web console
     sim [options]        (optional) run the simulator
     run [options]        4. run zenbot on the exchange
-    *
 
   Options:
 
     -h, --help     output usage information
     --silent       speak no evil
     -V, --version  output the version number
-
 ```
 
 ## Screenshot

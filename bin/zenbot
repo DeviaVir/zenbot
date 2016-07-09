@@ -57,7 +57,7 @@ program
 
 program
   .command('listen')
-  .description('(optional) listen for new strategies')
+  .description('(optional) listen for new strategies, and expose web console')
   .option('-p, --port <port>', 'port to listen on. default: ' + constants.listen_port, Number, constants.listen_port)
   .action(function (options) {
     launch('server', options)
