@@ -44,7 +44,7 @@ as you can see, zenbot completely ignores price. it also ignores volume that is 
 Prereqs: [nodejs](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/)
 
 ```
-$ git clone git@github.com:carlos8f/zenbot.git && cd zenbot
+$ git clone https://github.com/carlos8f/zenbot.git && cd zenbot
 $ npm install && npm link
 $ cp config-sample.js config.js
 $ (edit config.js with api key)
