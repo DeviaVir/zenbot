@@ -181,20 +181,17 @@ module.exports = function container (get, set, clear) {
     rs.vwap_diff = n(rs.last_tick.close)
       .subtract(rs.vwap)
       .value()
-    rs.max_diff = n(rs.max_diff)
-      .multiply(constants.max_diff_decay)
-      .value()
     rs.max_diff = Math.max(rs.max_diff, Math.abs(rs.vwap_diff))
     var half = constants.bar_width / 2
     var bar = ''
     if (rs.vwap_diff > 0) {
       bar += ' '.repeat(half)
-      var stars = Math.min(Math.round((rs.vwap_diff / rs.max_diff) * half), half)
+      var stars = Math.min(Math.round((rs.vwap_diff / (rs.max_diff * 0.5)) * half), half)
       bar += '+'.repeat(stars).green.bgGreen
       bar += ' '.repeat(half - stars)
     }
     else if (rs.vwap_diff < 0) {
-      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / rs.max_diff) * half), half)
+      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / (rs.max_diff * 0.5)) * half), half)
       bar += ' '.repeat(half - stars)
       bar += '-'.repeat(stars).red.bgRed
       bar += ' '.repeat(half)
@@ -211,6 +208,9 @@ module.exports = function container (get, set, clear) {
     if (!rs.first_tick) {
       rs.first_tick = tick
     }
+    rs.max_diff = Math.max(0, n(rs.max_diff)
+      .subtract(n(tick.vol).multiply(constants.max_diff_decay))
+      .value())
     rs.period_vol = n(rs.period_vol)
       .add(tick.vol)
       .value()
