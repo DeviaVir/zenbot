@@ -23,7 +23,7 @@ module.exports = function container (get, set) {
       }, function (err, logs) {
         if (err) return next(err)
         res.vars.logs = logs
-        res.json(res.vars)
+        res.json({logs: logs})
       })
     })
 }

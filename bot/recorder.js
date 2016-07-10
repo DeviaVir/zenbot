@@ -15,7 +15,7 @@ module.exports = function container (get, set, clear) {
       function onTweet (err, data, response) {
         if (err) return get('console').error('tweet err', err)
         if (response.statusCode === 200 && data && data.id_str) {
-          get('console').info('tweeted: '.cyan + data.text.white)
+          get('console').info('tweeted: '.cyan + data.text.white, {data: {tweet: data}})
         }
         else get('console').error('tweet err', response.statusCode, data)
       }
@@ -54,7 +54,7 @@ module.exports = function container (get, set, clear) {
         Object.keys(ticks).forEach(function (tickId) {
           var tick = get('db.ticks').create(ticks[tickId])
           if (tick) {
-            get('console').info(tick.trade_ticker)
+            get('console').info(tick.trade_ticker, {data: {tick: tick}})
             var ratio = tick.buy_ratio
             if (tick.side === 'SELL') {
               ratio = n(1)
