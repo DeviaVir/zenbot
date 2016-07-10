@@ -2,11 +2,16 @@
 
 - Follow zenbot [on Twitter!](https://twitter.com/zenbot_btc)
 - Check out zenbot's [live feed!](https://zenbot.s8f.org/)
+- Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4rym6o/zenbot_an_automated_bitcoin_trading_bot_for_gdax/)
 
 ![zenbot logo](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
+
+## Screenshot
+
+![screenshot](https://cloud.githubusercontent.com/assets/106763/16441892/e791744c-3d82-11e6-834e-b566d498e7e9.png)
 
 zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/).
 
@@ -24,7 +29,7 @@ Since zenbot discovers its own best parameters based on marked data, you don't h
 - Give it some time, and zenbot will learn how to improve the ROI through tweaking the trade parameters.
 - Give it an API key, and zenbot will actually perform trades!
 
-HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine!
+HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine! **As with buying bitcoin in general, risk is involved and caution is essential. bitcoin is an experiment, and so is zenbot.**
 
 ## "following the path": zenbot's core logic
 
@@ -38,6 +43,20 @@ zenbot's logic is pretty open-ended. briefly:
 - the volume counter is then **reset** at 0 and the cycle repeats
 
 as you can see, zenbot completely ignores price. it also ignores volume that is cancelled out by the other side, for example a day-trader selling 20BTC and then buying it back immediately, to bait price swings. it does this under the belief that price is mostly an illusion, a result of directly preceding events, and those patterns tend to repeat, signalled by volume changes. thus, all params are based on historical analysis (typically the last 3 months of data) of volume, not price.
+
+**TLDR;** so basically it filters out market noise, determines the best action from the traders themselves, and benefits by being among the first to detect these trends.
+
+## How does this method fare when backtested on real data?
+
+For June 2016, zen started out with $1,242.90 (virtual net worth), and ended with $1,940.28, **156% return**. Here's the sim output: https://gist.github.com/carlos8f/0a73f27c5dd28ed39e67867a76f852f9
+
+## the ZMI "zen market index" rating
+
+zenbot generates a "zen market index" for every tick. For example,
+
+`36/750 BULL`
+
+...which means zen is **4% the way to buying**. Since this index has a decay applied, it's weighted to recent events and gives a decent at-a-glance mood of the system. You can check the **live ZMI** at https://zenbot.s8f.org/
 
 ## Install
 
@@ -71,14 +90,31 @@ $ zenbot
     -V, --version  output the version number
 ```
 
-## Screenshot
+## Getting Started
 
-![screenshot](https://cloud.githubusercontent.com/assets/106763/16441892/e791744c-3d82-11e6-834e-b566d498e7e9.png)
+Coming soon: I will publish a step-by-step guide to get started with zenbot.
 
 ## Live Feed
 
 zenbot has a live web console [here](https://zenbot.s8f.org/).
 
+## Why open source?
+
+There is a general lack of open source bots, especially ones with AI. Since I learned how to code by reverse engineering, I publish code so others can do the same, and by doing so I'm saying thanks to Satoshi, Torvalds, djb, et. al for devoting their lives to open source. It might be against my "selfish interest" but in the end it's best for everyone. Plus, I still own the copyright.
+
+## FAQ
+
+### Were there any incidents when the bot's trade made a loss?
+
+I have seen losses in the simulator, so it's possible. It only takes a few hours of machine learning to gain a comfortable (albeit virtual) profit margin though. If the bot starts losing money, you can always step in and manual trade or shut the bot down to prevent more loss.
+
+### Based on what criteria does the bot decide to close a trade?
+
+zenbot always trades with the "market" flag, i.e. the order never goes on the books, and the trade goes through with whatever price the last system trade was at. This way, zenbot never needs to cancel orders or compare prices.
+
+### What does [bot] not enough currency to buy! mean?
+
+It means the bot tried to buy BTC, but had not enough USD balance to do that. The volume counter resets anyway. If you feel comfortable investing, you can deposit USD in your GDAX account and zenbot will use that the next time the volume counter triggers.
 
 - - -
 
