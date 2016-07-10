@@ -1,20 +1,16 @@
 body {
-  font-family: Helvetica, sans-serif;
-  padding: 10px;
+  font-family: 'Source Code Pro', monospace;
+  padding: 0 30px 10px 10px;
   font-size: 1.1em;
   background-color: black;
-}
-
-.logs {
-  background-color: black;
   color: #3ceb00;
-  font-family: monospace;
-  padding: 20px;
-  border-radius: 4px;
-  font-family: 'Source Code Pro', monospace;
 }
 
-.log-line {
+.log-line, .header {
   white-space: pre;
   line-height: 1.25;
+}
+
+.header {
+  color: #555;
 }

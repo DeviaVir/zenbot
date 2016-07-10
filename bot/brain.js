@@ -42,11 +42,11 @@ module.exports = function container (get, set, clear) {
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
     function onTweet (err, data, response) {
-      if (err) return get('console').error('tweet err', err)
+      if (err) return get('console').error('tweet err', err, {data: {err: err}})
       if (response.statusCode === 200 && data && data.id_str) {
-        get('console').info('tweeted: '.cyan + data.text.white)
+        get('console').info('tweeted: '.cyan + data.text.white, {data: {tweet: data}})
       }
-      else get('console').error('tweet err', response.statusCode, data)
+      else get('console').error('tweet err', response.statusCode, {data: {statusCode: response.statusCode, body: data}})
     }
   }
   if (bot.sim) {
@@ -62,7 +62,7 @@ module.exports = function container (get, set, clear) {
         if (err) throw err
         if (resp.statusCode !== 200) {
           console.error(ticker)
-          return get('console').error('non-200 status from exchange: ' + resp.statusCode)
+          return get('console').error('non-200 status from exchange: ' + resp.statusCode, {data: {body: ticker, statusCode: resp.statusCode}})
         }
         get('db.mems').load(rs.id, function (err, mem) {
           if (err) throw err
@@ -71,11 +71,11 @@ module.exports = function container (get, set, clear) {
               if (k.match(/^(asset|currency)$/)) return
               rs[k] = mem[k]
             })
-            get('console').info('memory loaded.'.white + ' resuming trading!'.cyan)
+            get('console').info('memory loaded.'.white + ' resuming trading!'.cyan, {data: {mem: mem}})
             finish()
           }
           else {
-            get('console').info('no memory found.'.red + ' starting trading!'.cyan)
+            get('console').info('no memory found.'.red + ' starting trading!'.cyan, {data: {mem: null}})
             finish()
           }
           function finish () {
@@ -87,7 +87,7 @@ module.exports = function container (get, set, clear) {
               rs.start_time = new Date().getTime()
             }
             rs.max_vol = 0
-            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan)
+            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {data: {ticker: ticker}})
             bot.trade = true
           }
         })
@@ -101,10 +101,10 @@ module.exports = function container (get, set, clear) {
         if (learned) {
           if (rs.last_learned && learned.best_fitness > rs.last_learned.best_fitness) {
             get('console').info(('[zen] i have improved the strategy!').yellow)
-            get('console').info(('[zen] new roi = ' + n(learned.roi).format('0.000') + ' (' + learned.learner + ')').yellow)
+            get('console').info(('[zen] new roi = ' + n(learned.roi).format('0.000') + ' (' + learned.learner + ')').yellow, {data: {learned: learned, last_learned: rs.last_learned}})
           }
           else if (!rs.last_learned) {
-            get('console').info(('[zen] roi = ' + n(learned.roi).format('0.000') + ' (' + learned.learner + ')').yellow)
+            get('console').info(('[zen] roi = ' + n(learned.roi).format('0.000') + ' (' + learned.learner + ')').yellow, {data: {learned: learned}})
           }
           Object.keys(learned.best_params).forEach(function (k) {
             bot[k] = learned.best_params[k]
@@ -126,12 +126,12 @@ module.exports = function container (get, set, clear) {
         if (err) throw err
         if (resp.statusCode !== 200) {
           console.error(body)
-          get('console').error('non-200 from btcvol: ' + resp.statusCode)
+          get('console').error('non-200 from btcvol: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: body}})
           return
         }
         body = JSON.parse(body)
         if (rs.volatility !== body.Volatility) {
-          get('console').info(('[btcvol.info] volatility ' + rs.volatility + ' -> ' + body.Volatility).cyan)
+          get('console').info(('[btcvol.info] volatility ' + n(rs.volatility).format('0.000') + ' -> ' + n(body.Volatility).format('0.000')).cyan, {data: {volatility: body.Volatility}})
         }
         rs.volatility = body.Volatility
       })
@@ -146,7 +146,7 @@ module.exports = function container (get, set, clear) {
       if (err) throw err
       if (resp.statusCode !== 200) {
         console.error(accounts)
-        get('console').error('non-200 status from exchange: ' + resp.statusCode)
+        get('console').error('non-200 status from exchange: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: accounts}})
         return cb && cb()
       }
       accounts.forEach(function (account) {
@@ -274,7 +274,7 @@ module.exports = function container (get, set, clear) {
         var size = n(spend)
           .divide(price)
           .value()
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).cyan, {data: {action: rs.side, trigger_vol: trigger_vol, min_vol: bot.min_vol}})
         if (bot.tweet) {
           setImmediate(function () {
             var tweet = {
@@ -285,7 +285,7 @@ module.exports = function container (get, set, clear) {
         }
         if (spend / price < constants.min_trade_possible) {
           // would buy, but not enough funds
-          get('console').info(('[bot] not enough currency to buy!').red)
+          get('console').info(('[bot] not enough currency to buy!').red, {data: {actionspend: spend, price: price, size: spend / price, min_trade: constants.min_trade_possible, currency: rs.currency}})
           //rs.vol = 0
           return finish()
         }
@@ -303,7 +303,7 @@ module.exports = function container (get, set, clear) {
           .subtract(spend)
           .subtract(fee)
           .value()
-        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00').cyan))
+        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00').cyan), {data: {action: 'BUY', size: size, asset: rs.asset, currency: rs.currency, price: price, fee: fee, num_trades: rs.num_trades, trade_vol: rs.trade_vol}})
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
@@ -329,7 +329,7 @@ module.exports = function container (get, set, clear) {
           .multiply(price)
           .multiply(constants.fee)
           .value()
-        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow)
+        get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow, {data: {action: rs.side, trigger_vol: trigger_vol, min_vol: bot.min_vol}})
         if (bot.tweet) {
           setImmediate(function () {
             var tweet = {
@@ -340,7 +340,7 @@ module.exports = function container (get, set, clear) {
         }
         if (sell < constants.min_trade_possible) {
           // would buy, but not enough funds
-          get('console').info(('[bot] not enough asset to sell!').red)
+          get('console').info(('[bot] not enough asset to sell!').red, {data: {size: sell, price: price, min_trade: constants.min_trade_possible}})
           //rs.vol = 0
           return finish()
         }
@@ -358,7 +358,7 @@ module.exports = function container (get, set, clear) {
           .add(n(sell).multiply(price))
           .subtract(fee)
           .value()
-        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00')).yellow)
+        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00')).yellow, {data: {size: sell, price: price}})
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
@@ -377,21 +377,21 @@ module.exports = function container (get, set, clear) {
         if (err) return get('console').error('order err', err, resp, order)
         if (resp.statusCode !== 200) {
           console.error(order)
-          return get('console').error('non-200 status from exchange: ' + resp.statusCode)
+          return get('console').error('non-200 status from exchange: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
         }
-        get('console').log(('[exchange] order-id: ' + order.id).cyan)
+        get('console').log(('[exchange] order-id: ' + order.id).cyan, {data: {order: order}})
         function getStatus () {
           client.getOrder(order.id, function (err, resp, order) {
             if (err) return get('console').error('getOrder err', err)
             if (resp.statusCode !== 200) {
               console.error(order)
-              return get('console').error('non-200 status from exchange getOrder: ' + resp.statusCode)
+              return get('console').error('non-200 status from exchange getOrder: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
             }
             if (order.status === 'done') {
-              return get('console').info(('[exchange] order ' + order.id + ' done: ' + order.done_reason).cyan)
+              return get('console').info(('[exchange] order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
             }
             else {
-              get('console').info(('[exchange] order ' + order.id + ' ' + order.status).cyan)
+              get('console').info(('[exchange] order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
               setTimeout(getStatus, 5000)
             }
           })
@@ -430,7 +430,7 @@ module.exports = function container (get, set, clear) {
       n(rs.net_worth).format('$,0.00').cyan,
       n(rs.trade_vol).format('0.000').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
-    get('console').log(status)
+    get('console').log(status, {data: {rs: rs, zmi: colors.strip(rs.vol_diff_string).trim()}})
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
     var saved_hour_vol = rs.hour_vol
     if (this_hour !== rs.last_hour) {
@@ -440,7 +440,7 @@ module.exports = function container (get, set, clear) {
           if (err) return get('console').error('get stats err', err)
           if (resp.statusCode !== 200) {
             console.error(stats)
-            return get('console').error('non-200 from exchange stats: ' + resp.statusCode)
+            return get('console').error('non-200 from exchange stats: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: stats}})
           }
           var diff = n(rs.last_tick.close)
             .subtract(stats.open)

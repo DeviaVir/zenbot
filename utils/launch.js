@@ -1,6 +1,7 @@
 var motley = require('motley')
   , n = require('numbro')
   , constants = require('../conf/constants.json')
+  , path = require('path')
 
 module.exports = function (mode, options) {
   try {
@@ -32,6 +33,17 @@ module.exports = function (mode, options) {
     if (mode === 'server') {
       rootMap._maps.push(require('motley-templ'), require('motley-buffet'))
       rootMap['@motley:conf.site.title'] = ZENBOT_USER_AGENT
+      rootMap['@motley:conf.middleware.templ.root'] = {
+        globs: [
+          'views/**/*.hbs',
+          'views/**/*.handlebars'
+        ],
+        cwd: path.resolve(__dirname, '..')
+      }
+      rootMap['@motley:conf.middleware.buffet.root'] = {
+        globs: 'public/**/*',
+        cwd: path.resolve(__dirname, '..')
+      }
     }
     var app = motley(rootMap)
   }

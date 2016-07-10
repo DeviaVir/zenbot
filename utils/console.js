@@ -8,6 +8,10 @@ module.exports = function container (get, set) {
   var colors = get('vendor.colors')
   return {
     _log: function (args) {
+      var options = {}
+      if (toString.call(args[args.length - 1]) === '[object Object]') {
+        options = args.pop()
+      }
       if (conf.workerId) {
         if (cluster.isMaster && Object.keys(cluster.workers).length) {
           var msg = '[master]'
@@ -33,12 +37,13 @@ module.exports = function container (get, set) {
         }
         return arg
       }).join(' ')
-      console.error(line)
+      console.error(line, options)
       if (get('mode') === 'zen' || colors.strip(line).match(/tweeted/)) {
         var log = {
           id: tb('µs').toString(),
           time: new Date().getTime(),
-          line: line
+          line: line,
+          data: options.data || null
         }
         try {
           get('db.logs').save(log, function (err, saved) {
@@ -51,6 +56,7 @@ module.exports = function container (get, set) {
     info: function () {
       if (conf.silent) return
       var args = [].slice.call(arguments)
+      var data = null
       this._log(args)
     },
     log: function () {
