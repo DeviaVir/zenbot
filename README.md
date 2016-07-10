@@ -48,7 +48,7 @@ as you can see, zenbot completely ignores price. it also ignores volume that is 
 
 ## How does this method fare when backtested on real data?
 
-For June 2016, zen started out with $1,242.90 (virtual net worth), and ended with $1,940.28, **156% return**. Here's the sim output: https://gist.github.com/carlos8f/0a73f27c5dd28ed39e67867a76f852f9
+Current simulation results: zenbot started with $1,000 on 4/13/2016, 05:00:00 PM PDT, and ended with $1,923.53 on 7/6/2016, 04:59:30 PM PDT, or **92% return**. Here's the sim output: https://gist.github.com/carlos8f/0a73f27c5dd28ed39e67867a76f852f9
 
 ## the ZMI "zen market index" rating
 
