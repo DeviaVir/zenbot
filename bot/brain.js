@@ -407,8 +407,14 @@ module.exports = function container (get, set, clear) {
       rs.last_tick = tick
     }
   }
+  var first_report = true
   function report () {
     if (!rs.last_tick) return
+    if (first_report) {
+      var ts = get('mode') === 'simulator' ? '             SIM DATE         ' : '   '
+      console.error(('DATE                       GRAPH                PRICE      ZMI' + ts + '          ' + constants.asset + '      ' + constants.currency + '        BALANCE    DIFF       TRADED').grey)
+      first_report = false
+    }
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
     var bar = getGraph()
     rs.net_worth = n(rs.currency)
@@ -422,7 +428,7 @@ module.exports = function container (get, set, clear) {
     var zmi = colors.strip(rs.vol_diff_string).trim()
     var status = [
       bar,
-      zerofill(10, rs.arrow + ' ' + n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(8, n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
       get('mode') === 'simulator' ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
@@ -434,8 +440,7 @@ module.exports = function container (get, set, clear) {
     get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol}})
     var status_public = [
       bar,
-      rs.arrow,
-      zerofill(5, n(rs.last_tick.close).format('$0.00'))[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(8, n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string
     ].join(' ')
     get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol}})
