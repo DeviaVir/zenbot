@@ -87,7 +87,7 @@ module.exports = function container (get, set, clear) {
               rs.start_time = new Date().getTime()
             }
             rs.max_vol = 0
-            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {public: true, data: {ticker: ticker}})
+            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {data: {ticker: ticker}})
             bot.trade = true
           }
         })
@@ -131,7 +131,7 @@ module.exports = function container (get, set, clear) {
         }
         body = JSON.parse(body)
         if (rs.volatility !== body.Volatility) {
-          get('console').info(('[btcvol.info] volatility ' + n(rs.volatility).format('0.000') + ' -> ' + n(body.Volatility).format('0.000')).cyan, {public: true, data: {volatility: body.Volatility}})
+          get('console').info(('[btcvol.info] volatility ' + n(rs.volatility).format('0.000') + ' -> ' + n(body.Volatility).format('0.000')).cyan, {data: {volatility: body.Volatility}})
         }
         rs.volatility = body.Volatility
       })
