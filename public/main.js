@@ -43,6 +43,9 @@ $('.logs').each(function () {
         ids.push(log.id)
         if (log.data && log.data.zmi) {
           document.title = document.title.replace(/.+ \- /, '')
+          if (log.data.rs && log.data.rs.new_max_vol) {
+            log.data.zmi = log.data.zmi + '*'
+          }
           document.title = log.data.zmi + ' - ' + document.title
         }
       })
