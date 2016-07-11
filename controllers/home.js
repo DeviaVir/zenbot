@@ -23,4 +23,8 @@ module.exports = function container (get, set) {
         res.render('home')
       })
     })
+    .get('/forget', function (req, res, next) {
+      delete req.session.secret
+      res.redirect('/')
+    })
 }
