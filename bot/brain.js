@@ -243,7 +243,7 @@ module.exports = function container (get, set, clear) {
     else {
       rs.new_max_vol = false
     }
-    var vol_string = zerofill(4, Math.floor(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
+    var vol_string = zerofill(6, Math.floor(rs.vol), ' ')[rs.new_max_vol ? 'cyan' : 'white']
     rs.vol_diff_string = vol_string + ('/' + Math.ceil(bot.min_vol)).grey + ' ' + (rs.side === 'BUY' ? 'BULL'.green : 'BEAR'.red)
     if (rs.vol >= bot.min_vol) {
       var trigger_vol = rs.vol
@@ -416,27 +416,26 @@ module.exports = function container (get, set, clear) {
       .value()
     var diff = n(rs.net_worth).subtract(rs.start_balance)
       .value()
-    if (diff > 0) diff = ('+' + n(diff).format('$0,0.00')).green
-    if (diff === 0) diff = ('+' + n(diff).format('$0,0.00')).white
-    if (diff < 0) diff = (n(diff).format('$0,0.00')).red
+    if (diff > 0) diff = zerofill(9, '+' + n(diff).format('$0.00'), ' ').green
+    if (diff === 0) diff = zerofill(9, n(diff).format('$0.00'), ' ').white
+    if (diff < 0) diff = (zerofill(9, n(diff).format('$0.00'), ' ')).red
     var zmi = colors.strip(rs.vol_diff_string).trim()
     var status = [
       bar,
-      rs.arrow,
-      (n(rs.last_tick.close).format('$0,0.00'))[rs.uptick ? 'green' : 'red'],
+      zerofill(10, rs.arrow + ' ' + n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
       get('mode') === 'simulator' ? timestamp.grey : false,
-      n(rs.asset).format('0.000').white,
-      n(rs.currency).format('$,0.00').yellow,
+      zerofill(7, n(rs.asset).format('0.000'), ' ').white,
+      zerofill(9, n(rs.currency).format('$0.00'), ' ').yellow,
+      zerofill(9, n(rs.net_worth).format('$0.00'), ' ').cyan,
       diff,
-      n(rs.net_worth).format('$,0.00').cyan,
-      n(rs.trade_vol).format('0.000').white
+      zerofill(7, n(rs.trade_vol).format('0.000'), ' ').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
     get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol}})
     var status_public = [
       bar,
       rs.arrow,
-      (n(rs.last_tick.close).format('$0,0.00'))[rs.uptick ? 'green' : 'red'],
+      zerofill(5, n(rs.last_tick.close).format('$0.00'))[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string
     ].join(' ')
     get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol}})
