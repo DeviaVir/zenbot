@@ -1,6 +1,6 @@
 $('.logs').each(function () {
-  var skip = 0, updating = false, start = new Date().getTime()
-  var ids = []
+  var updating = false, newest_time = new Date().getTime()
+  var ids = [], oldest_time
 
   function element_in_scroll(elem)
   {
@@ -16,27 +16,24 @@ $('.logs').each(function () {
   $(document).scroll(function(e){
     if (element_in_scroll(".logs-end")) {
       if (updating) return
-      skip += 200
       updating = true
-      $.getJSON('/logs?skip=' + skip, function (data) {
+      $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
         updating = false
         if (!data.logs || !data.logs.length) {
-          skip -= 200
           return
         }
         data.logs.forEach(function (log) {
           if (ids.indexOf(log.id) !== -1) return
           $('.logs').append('<div class="log-line">' + log.html + '</div>')
           ids.push(log.id)
+          oldest_time = log.time
         })
       })
     }
   })
 
   function poll () {
-    var query_start = start
-    start = new Date().getTime()
-    $.getJSON('/logs?start=' + query_start, function (data) {
+    $.getJSON('/logs?newest_time=' + newest_time, function (data) {
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
@@ -48,6 +45,7 @@ $('.logs').each(function () {
           }
           document.title = log.data.zmi + ' - ' + document.title
         }
+        newest_time = log.time
       })
     })
   }
