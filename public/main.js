@@ -62,6 +62,18 @@ $('.logs').each(function () {
           document.title = document.title.replace(/.+ \- /, '')
           if (log.data.rs && log.data.rs.new_max_vol) {
             log.data.zmi = log.data.zmi.replace('/', '*/')
+            var orig_zmi = log.data.zmi
+            var blink_on = false
+            var blinks = 5
+            ;(function blink () {
+              setTimeout(function () {
+                document.title = document.title.replace(/.+ \- /, '')
+                var zmi = blink_on ? orig_zmi.replace(/./g, ' ') : orig_zmi
+                document.title = zmi + ' - ' + document.title
+                blink_on = !blink_on
+                if (blinks--) blink()
+              }, 400)
+            })()
           }
           document.title = log.data.zmi + ' - ' + document.title
         }
