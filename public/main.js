@@ -30,7 +30,10 @@ $('.logs').each(function () {
       var delay = 0
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
-        if (!newest_time) newest_time = log.time
+        if (!newest_time) {
+          newest_time = log.time
+          updateTitle(log)
+        }
         var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
@@ -44,6 +47,32 @@ $('.logs').each(function () {
         oldest_time = log.time
       })
     })
+  }
+
+  function updateTitle (log) {
+    if (log.data && log.data.zmi) {
+      document.title = document.title.replace(/.+ \- /, '')
+      if (log.data && log.data.new_max_vol) {
+        $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
+        log.data.zmi = log.data.zmi.replace('/', '*/')
+        var orig_zmi = log.data.zmi
+        var blink_on = false
+        var blinks = 6, orig_title = document.title
+        ;(function blink () {
+          setTimeout(function () {
+            if (blink_on) {
+              document.title = ''
+            }
+            else {
+              document.title = orig_zmi + ' - ' + orig_title
+            }
+            blink_on = !blink_on
+            if (blinks--) blink()
+          }, 400)
+        })()
+      }
+      document.title = log.data.zmi + ' - ' + document.title
+    }
   }
 
   function poll () {
@@ -61,29 +90,7 @@ $('.logs').each(function () {
         }, delay)
         delay += 10
         ids.push(log.id)
-        if (log.data && log.data.zmi) {
-          document.title = document.title.replace(/.+ \- /, '')
-          if (log.data && log.data.new_max_vol) {
-            $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
-            log.data.zmi = log.data.zmi.replace('/', '*/')
-            var orig_zmi = log.data.zmi
-            var blink_on = false
-            var blinks = 6, orig_title = document.title
-            ;(function blink () {
-              setTimeout(function () {
-                if (blink_on) {
-                  document.title = ''
-                }
-                else {
-                  document.title = orig_zmi + ' - ' + orig_title
-                }
-                blink_on = !blink_on
-                if (blinks--) blink()
-              }, 400)
-            })()
-          }
-          document.title = log.data.zmi + ' - ' + document.title
-        }
+        updateTitle(log)
         newest_time = log.time
       })
     })
