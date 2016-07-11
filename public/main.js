@@ -53,7 +53,6 @@ $('.logs').each(function () {
     if (log.data && log.data.zmi) {
       document.title = document.title.replace(/.+ \- /, '')
       if (log.data && log.data.new_max_vol) {
-        $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
         log.data.zmi = log.data.zmi.replace('/', '*/')
         var orig_zmi = log.data.zmi
         var blink_on = false
@@ -91,6 +90,9 @@ $('.logs').each(function () {
         delay += 10
         ids.push(log.id)
         updateTitle(log)
+        if (log.data && log.data.zmi) {
+          $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
+        }
         newest_time = log.time
       })
     })
