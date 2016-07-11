@@ -16,7 +16,7 @@ body {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   display: block;
-  padding: 5px;
+  padding: 0 5px 5px 0;
 }
 
 .logs {
