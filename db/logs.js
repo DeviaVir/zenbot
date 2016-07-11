@@ -1,17 +1,10 @@
-var Convert = require('ansi-to-html');
-var convert = new Convert({
-  fg: '#3ceb00',
-  bg: '#000',
-  newline: true,
-  escapeXML: true,
-  stream: false
-})
+var ansi_up = require('ansi_up')
 
 module.exports = function container (get, set) {
   return get('db.createCollection')('logs', {
     load: function (obj, opts, cb) {
       // respond after the obj is loaded
-      obj.html = convert.toHtml(obj.line)
+      obj.html = ansi_up.ansi_to_html(ansi_up.escape_for_html(obj.line), {use_classes: true})
       cb(null, obj);
     },
     save: function (obj, opts, cb) {
