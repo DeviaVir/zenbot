@@ -439,14 +439,14 @@ module.exports = function container (get, set, clear) {
       diff,
       zerofill(7, n(rs.trade_vol).format('0.000'), ' ').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
-    get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, close: rs.last_tick.close}})
+    get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.last_tick.price}})
     var status_public = [
       constants.product_id.grey,
       bar,
       rs.arrow + zerofill(8, n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string
     ].join(' ')
-    get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, close: rs.last_tick.close}})
+    get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.last_tick.price}})
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
     var saved_hour_vol = rs.hour_vol
     if (this_hour !== rs.last_hour) {
