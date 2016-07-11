@@ -34,4 +34,7 @@ module.exports = function container (get, set) {
         })
       })
     })
+    .get('/learned', function (req, res, next) {
+      res.redirect('/')
+    })
 }
