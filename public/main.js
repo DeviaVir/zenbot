@@ -36,7 +36,7 @@ $('.logs').each(function () {
         setTimeout(function () {
           $el.fadeIn('slow')
         }, delay)
-        delay += 100
+        delay += 10
         ids.push(log.id)
         oldest_time = log.time
       })
@@ -56,7 +56,7 @@ $('.logs').each(function () {
         setTimeout(function () {
           $el.fadeIn('slow')
         }, delay)
-        delay += 100
+        delay += 10
         ids.push(log.id)
         if (log.data && log.data.zmi) {
           document.title = document.title.replace(/.+ \- /, '')
