@@ -4,9 +4,7 @@ var fs = require('fs')
 module.exports = function container (get, set) {
   return get('controller')()
     .put('/learned', function (req, res, next) {
-      req.bot = get('bot')
-      if (!req.query.secret) return next(new Error('secret required'))
-      if (req.query.secret !== req.bot.secret) return next(new Error('bad secret'))
+      if (!res.vars.secret) return next(new Error('secret required'))
       next()
     })
     .put('/learned', function (req, res, next) {
