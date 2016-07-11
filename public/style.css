@@ -15,10 +15,12 @@ body {
   color: #555;
 }
 
-.new_max_vol {
-  border-bottom: 2px solid #555;
-  margin: 2px 0;
-  padding: 2px 0;
+.bear {
+  background-color: #710000;
+}
+
+.bull {
+  background-color: #194a00;
 }
 
 .ansi-black-fg { color: black; }
