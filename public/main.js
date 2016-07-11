@@ -49,10 +49,10 @@ $('.logs').each(function () {
     })
   }
 
+  document.title = document.title.replace(/.+ \- /, '')
+  var orig_title = document.title
   function updateTitle (log) {
     if (log.data && log.data.zmi) {
-      document.title = document.title.replace(/.+ \- /, '')
-      var orig_title = document.title
       if (log.data && log.data.new_max_vol) {
         log.data.zmi = log.data.zmi.replace('/', '*/')
         var orig_zmi = log.data.zmi
