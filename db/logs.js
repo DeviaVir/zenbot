@@ -1,7 +1,7 @@
 var Convert = require('ansi-to-html');
 var convert = new Convert({
   fg: '#3ceb00',
-  bg: 'transparent',
+  bg: '#000',
   newline: true,
   escapeXML: true,
   stream: false
