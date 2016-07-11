@@ -236,7 +236,7 @@ module.exports = function container (get, set, clear) {
         .add(n(tick.vol).multiply(tick.side === 'BUY' ? bot.buy_factor : bot.sell_factor))
         .value()
     }
-    if (Math.floor(rs.vol) > math.ceil(rs.max_vol)) {
+    if (Math.floor(rs.vol) > Math.ceil(rs.max_vol)) {
       rs.new_max_vol = true
       rs.max_vol = rs.vol
     }
