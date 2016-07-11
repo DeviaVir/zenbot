@@ -42,7 +42,8 @@ $('.logs').each(function () {
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
         ids.push(log.id)
         if (log.data && log.data.zmi) {
-          document.title = log.data.zmi + ' - ' + (document.title.indexOf(' - ') ? document.title.split(' - ')[1] : document.title)
+          document.title = document.title.replace(/.+ \- /, '')
+          document.title = log.data.zmi + ' - ' + document.title
         }
       })
     })
