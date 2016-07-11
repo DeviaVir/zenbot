@@ -13,7 +13,7 @@
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/16441892/e791744c-3d82-11e6-834e-b566d498e7e9.png)
 
-zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/).
+zenbot is an automated Bitcoin trading bot for [GDAX](https://gdax.com/). Its strategy is powered by a distributed [Artificial neural network](https://en.wikipedia.org/wiki/Technical_analysis#Systematic_trading) (ANN) which simulates on historical data and evolves the input parameters. It runs on node.js and MongoDB and is fully open-sourced.
 
 zenbot follows a couple human-made rules:
 
@@ -115,6 +115,16 @@ zenbot always trades with the "market" flag, i.e. the order never goes on the bo
 ### What does [bot] not enough currency to buy! mean?
 
 It means the bot tried to buy BTC, but had not enough USD balance to do that. The volume counter resets anyway. If you feel comfortable investing, you can deposit USD in your GDAX account and zenbot will use that the next time the volume counter triggers.
+
+## Systematic trading using neural networks
+
+In mathematical terms, Artificial neural networks (ANNs) are universal function approximators, meaning that given the right data and configured correctly, they can capture and model any input-output relationships. This removes the need for human interpretation of charts to determine entry/exit signals.
+
+As ANNs are essentially non-linear statistical models, their accuracy and prediction capabilities can be both mathematically and empirically tested. In various studies, authors have claimed that neural networks used for generating trading signals given various technical and fundamental inputs have significantly outperformed buy-hold strategies as well as traditional linear technical analysis methods when combined with rule-based expert systems.
+
+While the advanced mathematical nature of such adaptive systems has kept neural networks for financial analysis mostly within academic research circles, in recent years more user friendly neural network software has made the technology more accessible to traders.
+
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Technical_analysis#Systematic_trading)
 
 - - -
 
