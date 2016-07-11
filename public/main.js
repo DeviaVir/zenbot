@@ -57,7 +57,7 @@ $('.logs').each(function () {
         log.data.zmi = log.data.zmi.replace('/', '*/')
         var orig_zmi = log.data.zmi
         var blink_on = false
-        var blinks = 6, 
+        var blinks = 6
         ;(function blink () {
           setTimeout(function () {
             if (blink_on) {
