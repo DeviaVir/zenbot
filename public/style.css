@@ -64,3 +64,8 @@ body {
 .ansi-bright-magenta-bg { background-color: #E7C7F2; }
 .ansi-bright-cyan-bg { background-color: #B0F0F5; }
 .ansi-bright-white-bg { background-color: #FFF; }
+
+small a {
+  color: #777;
+  text-decoration: none;
+}
