@@ -17,4 +17,6 @@ body {
 
 .new_max_vol {
   border-bottom: 2px solid #555;
+  margin: 2px 0;
+  padding: 2px 0;
 }
