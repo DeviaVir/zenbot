@@ -13,6 +13,7 @@ body {
 
 .header {
   color: #cecece;
+  position: fixed;
 }
 
 .bear {
