@@ -1,7 +1,6 @@
 var constants = require('../conf/constants.json')
 
 module.exports = function container (get, set) {
-  var filter_logs = get('utils.filter_logs')
   return get('controller')()
     .get('/', function (req, res, next) {
       var params = {
@@ -13,7 +12,6 @@ module.exports = function container (get, set) {
       }
       get('db.logs').select(params, function (err, logs) {
         if (err) return next(err)
-        res.vars.logs = filter_logs(logs, res)
         var zmi
         logs.forEach(function (log) {
           if (zmi) return
