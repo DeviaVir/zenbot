@@ -15,25 +15,32 @@ $('.logs').each(function () {
 
   $(document).scroll(function(e){
     if (element_in_scroll(".logs-end")) {
-      if (updating) return
-      updating = true
-      $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
-        updating = false
-        if (!data.logs || !data.logs.length) {
-          return
-        }
-        data.logs.forEach(function (log) {
-          if (ids.indexOf(log.id) !== -1) return
-          $('.logs').append('<div class="log-line">' + log.html + '</div>')
-          ids.push(log.id)
-          oldest_time = log.time
-        })
-      })
+      backfill()
     }
   })
 
+  function backfill () {
+    if (updating) return
+    updating = true
+    $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
+      updating = false
+      if (!data.logs || !data.logs.length) {
+        return
+      }
+      data.logs.forEach(function (log) {
+        if (ids.indexOf(log.id) !== -1) return
+        $('.logs').append('<div class="log-line">' + log.html + '</div>')
+        ids.push(log.id)
+        oldest_time = log.time
+      })
+    })
+  }
+
   function poll () {
+    if (updating) return
+    updating = true
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
+      updating = false
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
@@ -51,5 +58,5 @@ $('.logs').each(function () {
   }
 
   setInterval(poll, 10000)
-  poll()
+  backfill()
 })
