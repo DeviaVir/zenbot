@@ -61,6 +61,7 @@ $('.logs').each(function () {
         if (log.data && log.data.zmi) {
           document.title = document.title.replace(/.+ \- /, '')
           if (log.data.rs && log.data.rs.new_max_vol) {
+            $el.addClass('new_max_vol')
             log.data.zmi = log.data.zmi.replace('/', '*/')
             var orig_zmi = log.data.zmi
             var blink_on = false

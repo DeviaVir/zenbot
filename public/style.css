@@ -14,3 +14,9 @@ body {
 .header {
   color: #555;
 }
+
+.new_max_vol {
+  border: 2px solid #0AA;
+  padding: 4px;
+  font-size: 1.1em;
+}
