@@ -1,7 +1,6 @@
 var constants = require('../conf/constants.json')
 
 module.exports = function container (get, set) {
-  var filter_logs = get('utils.filter_logs')
   return get('controller')()
     .get('/logs', function (req, res, next) {
       var params = {
@@ -24,7 +23,7 @@ module.exports = function container (get, set) {
       get('db.logs').select(params, function (err, logs) {
         if (err) return next(err)
         res.json({
-          logs: filter_logs(logs, res)
+          logs: logs
         })
       })
     })
