@@ -14,6 +14,11 @@ body {
 .header {
   color: #cecece;
   position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.logs {
+  padding-top: 1.5em;
 }
 
 .bear {
