@@ -76,7 +76,7 @@ $('.logs').each(function () {
   }
 
   function getPermalink (log) {
-    return ' <small><a class="permalink" target="_blank" href="#oldest_time=' + log.time + '">permalink</a></small>'
+    return ' <small><a class="permalink" target="_blank" href="#oldest_time=' + log.time + '">@</a></small>'
   }
 
   function poll () {
