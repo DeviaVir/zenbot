@@ -410,9 +410,10 @@ module.exports = function container (get, set, clear) {
   var first_report = true
   function report () {
     if (!rs.last_tick) return
+    var is_sim = get('mode') === 'simulator'
     if (first_report) {
-      var ts = get('mode') === 'simulator' ? '             SIM DATE         ' : '   '
-      console.error(('DATE                       GRAPH                PRICE      ZMI' + ts + '          ' + constants.asset + '      ' + constants.currency + '        BALANCE    DIFF       TRADED').grey)
+      var ts = is_sim ? '             SIM DATE      ' : ''
+      console.error(('DATE                       PRODUCT GRAPH                  PRICE     ZMI' + ts + '             ' + constants.asset + '      ' + constants.currency + '        BALANCE    DIFF       TRADED').white)
       first_report = false
     }
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
@@ -427,10 +428,11 @@ module.exports = function container (get, set, clear) {
     if (diff < 0) diff = (zerofill(9, n(diff).format('$0.00'), ' ')).red
     var zmi = colors.strip(rs.vol_diff_string).trim()
     var status = [
+      constants.product_id.grey,
       bar,
-      rs.arrow + zerofill(8, n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(9, n(rs.last_tick.close).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
-      get('mode') === 'simulator' ? timestamp.grey : false,
+      is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
       zerofill(9, n(rs.currency).format('$0.00'), ' ').yellow,
       zerofill(9, n(rs.net_worth).format('$0.00'), ' ').cyan,
