@@ -44,6 +44,7 @@ module.exports = function container (get, set, clear) {
     function onTweet (err, data, response) {
       if (err) return get('console').error('tweet err', err, {data: {err: err}})
       if (response.statusCode === 200 && data && data.id_str) {
+        get('console').info('tweeted: '.cyan + data.text.white, {public: false, data: {tweet: data}})
         get('console').info('tweeted: '.cyan + data.text.white, {public: true, data: {tweet: data}})
       }
       else get('console').error('tweet err', response.statusCode, {data: {statusCode: response.statusCode, body: data}})
