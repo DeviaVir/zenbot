@@ -76,7 +76,7 @@ $('.logs').each(function () {
   }
 
   function getPermalink (log) {
-    return ' <small><a class="permalink" target="_blank" href="#oldest_time=' + (log.time + 1) + '">@</a></small>'
+    return ' <small><a class="permalink" target="_blank" href="#oldest_time__' + (log.time + 1) + '">[link]</a></small>'
   }
 
   function poll () {
@@ -85,10 +85,11 @@ $('.logs').each(function () {
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
       updating = false
       var delay = 0
-      var h = $('.logs').height()
-      data.logs.reverse().forEach(function (log) {
+      var $old_el = $('.log-line').get(0)
+      data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
-        var $el = $('<div class="log-line" style="display:none">' + log.html + getPermalink(log) + '</div>')
+        $('.logs .first').removeClass('first')
+        var $el = $('<div class="log-line first" style="display:none" id="oldest_time__' + (log.time + 1) '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
           $el.fadeIn('slow')
@@ -101,11 +102,8 @@ $('.logs').each(function () {
         }
         newest_time = log.time
       })
-      if (data.logs.length > 10) {
-        var h2 = $('.logs').height()
-        $('html, body').animate({
-          scrollTop: h2 - h
-        }, 2000);
+      if (data.logs.length > 10 && $old_el) {
+        $('html, body').scrollTop($old_el.offset().top)
       }
     })
   }
