@@ -69,7 +69,7 @@ small a {
   display: none;
 }
 
-.log-row:hover small a {
+.log-line:hover small a {
   display: inline;
   color: #777;
   text-decoration: none;
