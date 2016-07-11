@@ -68,7 +68,7 @@ $('.logs').each(function () {
             ;(function blink () {
               setTimeout(function () {
                 document.title = document.title.replace(/.+ \- /, '')
-                var zmi = blink_on ? orig_zmi.replace(/./g, ' ') : orig_zmi
+                var zmi = blink_on ? orig_zmi.replace(/./g, '_') : orig_zmi
                 document.title = zmi + ' - ' + document.title
                 blink_on = !blink_on
                 if (blinks--) blink()
