@@ -1,6 +1,6 @@
 $('.logs').each(function () {
   var updating = false, newest_time = new Date().getTime()
-  var ids = [], oldest_time
+  var ids = [], oldest_time = new Date().getTime()
 
   function element_in_scroll(elem)
   {
