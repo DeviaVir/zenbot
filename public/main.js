@@ -1,5 +1,5 @@
 $('.logs').each(function () {
-  var updating = false, newest_time = new Date().getTime()
+  var updating = false, newest_time = ''
   var ids = [], oldest_time = ''
 
   function element_in_scroll(elem)
@@ -29,6 +29,7 @@ $('.logs').each(function () {
       }
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
+        if (!newest_time) newest_time = log.time
         $('.logs').append('<div class="log-line">' + log.html + '</div>')
         ids.push(log.id)
         oldest_time = log.time
