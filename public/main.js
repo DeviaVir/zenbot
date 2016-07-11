@@ -27,10 +27,16 @@ $('.logs').each(function () {
       if (!data.logs || !data.logs.length) {
         return
       }
+      var delay = 0
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         if (!newest_time) newest_time = log.time
-        $('.logs').append('<div class="log-line">' + log.html + '</div>')
+        var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
+        $('.logs').append($el)
+        setTimeout(function () {
+          $el.fadeIn('slow')
+        }, delay)
+        delay += 100
         ids.push(log.id)
         oldest_time = log.time
       })
@@ -42,9 +48,15 @@ $('.logs').each(function () {
     updating = true
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
       updating = false
+      var delay = 0
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
-        $('.logs').prepend('<div class="log-line">' + log.html + '</div>')
+        var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
+        $('.logs').prepend($el)
+        setTimeout(function () {
+          $el.fadeIn('slow')
+        }, delay)
+        delay += 100
         ids.push(log.id)
         if (log.data && log.data.zmi) {
           document.title = document.title.replace(/.+ \- /, '')
