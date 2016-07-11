@@ -1,7 +1,7 @@
 <div class="header"><div class="log-line">DATE                       GRAPH                PRICE       ZMI{{#if secret}}             BTC      USD        BALANCE    DIFF       TRADED{{/if}}</div></div>
 <div class="logs">
   {{#each logs}}
-    <div class="log-line">{{{html}}}</div>
+    <div class="log-line{{#if data.new_max_vol}}{{#compare data.side "BEAR"}} bear{{/compare}}{{#compare data.side "BULL"}} bull{{/compare}}{{/if}}">{{{html}}}</div>
   {{/each}}
 </div>
 <div class="logs-end"></div>
