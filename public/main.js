@@ -32,6 +32,9 @@ $('.logs').each(function () {
         if (ids.indexOf(log.id) !== -1) return
         if (!newest_time) newest_time = log.time
         var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
+        if (log.data && log.data.new_max_vol) {
+          $el.addClass(log.data.side === 'BULL' ? 'bull' : 'bear')
+        }
         $('.logs').append($el)
         setTimeout(function () {
           $el.fadeIn('slow')
