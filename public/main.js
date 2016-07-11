@@ -103,7 +103,7 @@ $('.logs').each(function () {
     })
   }
 
-  $(window).on('hashchange', function() {
+  function onHash () {
     $('.logs').empty()
     var match = window.location.hash.match(/oldest_time=([^,]+)/)
     if (match) {
@@ -111,8 +111,10 @@ $('.logs').each(function () {
     }
     newest_time = oldest_time
     backfill()
-  });
+  }
 
-  setInterval(poll, 10000)
+  onHash()
   backfill()
+  $(window).on('hashchange', onHash)
+  setInterval(poll, 10000)
 })
