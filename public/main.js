@@ -90,7 +90,7 @@ $('.logs').each(function () {
         delay += 10
         ids.push(log.id)
         updateTitle(log)
-        if (log.data && log.data.zmi) {
+        if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
         }
         newest_time = log.time
