@@ -3,7 +3,7 @@ body {
   padding: 0 30px 10px 10px;
   font-size: 1.1em;
   background-color: black;
-  color: #3ceb00;
+  color: #45d813;
 }
 
 .log-line, .header {
@@ -24,13 +24,13 @@ body {
 }
 
 .ansi-black-fg { color: black; }
-.ansi-red-fg { color: red; }
-.ansi-green-fg { color: #3ceb00; }
-.ansi-yellow-fg { color: yellow; }
+.ansi-red-fg { color: #cc0000; }
+.ansi-green-fg { color: #45d813; }
+.ansi-yellow-fg { color: #ef7200; }
 .ansi-blue-fg { color: blue; }
 .ansi-magenta-fg { color: magenta; }
-.ansi-cyan-fg { color: cyan; }
-.ansi-white-fg { color: white; }
+.ansi-cyan-fg { color: #48c7c7; }
+.ansi-white-fg { color: #cecece; }
 .ansi-bright-black-fg { color: #5E5D5E; }
 .ansi-bright-red-fg { color: #E69B94; }
 .ansi-bright-green-fg { color: #D1F0C3; }
@@ -41,13 +41,13 @@ body {
 .ansi-bright-white-fg { color: #FFF; }
 
 .ansi-black-bg { background-color: black; }
-.ansi-red-bg { background-color: red; }
-.ansi-green-bg { background-color: #3ceb00; }
-.ansi-yellow-bg { background-color: yellow; }
+.ansi-red-bg { background-color: #cc0000; }
+.ansi-green-bg { background-color: #45d813; }
+.ansi-yellow-bg { background-color: #ef7200; }
 .ansi-blue-bg { background-color: blue; }
 .ansi-magenta-bg { background-color: magenta; }
-.ansi-cyan-bg { background-color: cyan; }
-.ansi-white-bg { background-color: white; }
+.ansi-cyan-bg { background-color: #48c7c7; }
+.ansi-white-bg { background-color: #cecece; }
 .ansi-bright-black-bg { background-color: #5E5D5E; }
 .ansi-bright-red-bg { background-color: #E69B94; }
 .ansi-bright-green-bg { background-color: #D1F0C3; }
