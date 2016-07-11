@@ -7,14 +7,18 @@ module.exports = function container (get, set) {
       var params = {
         limit: constants.log_limit,
         sort: {time: -1},
-        skip: parseInt(req.query.skip, 10),
         query: {
           public: !res.vars.secret
         }
       }
-      if (req.query.start) {
+      if (req.query.newest_time) {
         params.query.time = {
-          $gt: parseInt(req.query.start, 10)
+          $gt: parseInt(req.query.newest_time, 10)
+        }
+      }
+      else if (req.query.oldest_time) {
+        params.query.time = {
+          $lt: parseInt(req.query.oldest_time, 10)
         }
       }
       get('db.logs').select(params, function (err, logs) {
