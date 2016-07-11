@@ -85,6 +85,7 @@ $('.logs').each(function () {
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
       updating = false
       var delay = 0
+      var h = $('.logs').height()
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         var $el = $('<div class="log-line" style="display:none">' + log.html + getPermalink(log) + '</div>')
@@ -100,6 +101,12 @@ $('.logs').each(function () {
         }
         newest_time = log.time
       })
+      if (data.logs.length > 10) {
+        var h2 = $('.logs').height()
+        $('html, body').animate({
+          scrollTop: h2 - h
+        }, 2000);
+      }
     })
   }
 
