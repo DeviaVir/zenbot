@@ -65,12 +65,15 @@ $('.logs').each(function () {
             log.data.zmi = log.data.zmi.replace('/', '*/')
             var orig_zmi = log.data.zmi
             var blink_on = false
-            var blinks = 6
+            var blinks = 6, orig_title = document.title
             ;(function blink () {
               setTimeout(function () {
-                document.title = document.title.replace(/.+ \- /, '')
-                var zmi = blink_on ? orig_zmi.replace(/./g, '_') : orig_zmi
-                document.title = zmi + ' - ' + document.title
+                if (blink_on) {
+                  document.title = ''
+                }
+                else {
+                  document.title = orig_zmi + ' - ' + orig_title
+                }
                 blink_on = !blink_on
                 if (blinks--) blink()
               }, 400)
