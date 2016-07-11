@@ -444,18 +444,19 @@ module.exports = function container (get, set, clear) {
           }
           var diff = n(rs.last_tick.close)
             .subtract(stats.open)
+            .divide(rs.last_tick.close)
             .value()
           var diff_str = diff >= 0 ? '+' : '-'
-          diff_str += n(Math.abs(diff)).format('$0.00')
+          diff_str += n(Math.abs(diff)).format('0.000%')
           var vwap_diff_str = rs.vwap_diff >= 0 ? '+' : '-'
-          vwap_diff_str += n(Math.abs(rs.vwap_diff)).format('$0.00')
+          vwap_diff_str += n(Math.abs(n(rs.vwap_diff).divide(rs.last_tick.close).value())).format('0.000%')
           var text = [
             get_time() + ' report.\n',
             'close: ' + n(rs.last_tick.close).format('$0,0.00'),
-            'vs. vwap: ' + vwap_diff_str,
-            'hr. volume: ' + n(saved_hour_vol).format('0,0'),
-            'market: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
-            '24hr. diff: ' + diff_str + '\n',
+            'trend: ' + vwap_diff_str,
+            'hr. vol ' + n(saved_hour_vol).format('0,0'),
+            'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
+            '24hr. trend: ' + diff_str + '\n',
             constants.hashtags
           ].join('\n').trim()
           var tweet = {
