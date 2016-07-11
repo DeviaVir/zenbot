@@ -1,4 +1,4 @@
-<div class="header"><div class="log-line">          DATE                    GRAPH           PRICE      ZMI        BTC   USD   DIFF   BAL   TRADED</div></div>
+<div class="header"><div class="log-line">          DATE                    GRAPH           PRICE      ZMI        {{#if secret}}BTC   USD   DIFF   BAL   TRADED{{/if}}</div></div>
 <div class="logs">
   {{#each logs}}
     <div class="log-line">{{{html}}}</div>

@@ -36,7 +36,7 @@ $('.logs').each(function () {
   function poll () {
     var query_start = start
     start = new Date().getTime()
-    $.getJSON('/logs/new?start=' + query_start, function (data) {
+    $.getJSON('/logs?start=' + query_start, function (data) {
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs').prepend('<div class="log-line">' + log.html + '</div>')

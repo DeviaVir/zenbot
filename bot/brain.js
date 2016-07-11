@@ -44,7 +44,7 @@ module.exports = function container (get, set, clear) {
     function onTweet (err, data, response) {
       if (err) return get('console').error('tweet err', err, {data: {err: err}})
       if (response.statusCode === 200 && data && data.id_str) {
-        get('console').info('tweeted: '.cyan + data.text.white, {data: {tweet: data}})
+        get('console').info('tweeted: '.cyan + data.text.white, {public: true, data: {tweet: data}})
       }
       else get('console').error('tweet err', response.statusCode, {data: {statusCode: response.statusCode, body: data}})
     }
@@ -87,7 +87,7 @@ module.exports = function container (get, set, clear) {
               rs.start_time = new Date().getTime()
             }
             rs.max_vol = 0
-            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {data: {ticker: ticker}})
+            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {public: true, data: {ticker: ticker}})
             bot.trade = true
           }
         })
@@ -131,7 +131,7 @@ module.exports = function container (get, set, clear) {
         }
         body = JSON.parse(body)
         if (rs.volatility !== body.Volatility) {
-          get('console').info(('[btcvol.info] volatility ' + n(rs.volatility).format('0.000') + ' -> ' + n(body.Volatility).format('0.000')).cyan, {data: {volatility: body.Volatility}})
+          get('console').info(('[btcvol.info] volatility ' + n(rs.volatility).format('0.000') + ' -> ' + n(body.Volatility).format('0.000')).cyan, {public: true, data: {volatility: body.Volatility}})
         }
         rs.volatility = body.Volatility
       })
@@ -418,6 +418,7 @@ module.exports = function container (get, set, clear) {
     if (diff > 0) diff = ('+' + n(diff).format('$0,0.00')).green
     if (diff === 0) diff = ('+' + n(diff).format('$0,0.00')).white
     if (diff < 0) diff = (n(diff).format('$0,0.00')).red
+    var zmi = colors.strip(rs.vol_diff_string).trim()
     var status = [
       bar,
       rs.arrow,
@@ -430,7 +431,14 @@ module.exports = function container (get, set, clear) {
       n(rs.net_worth).format('$,0.00').cyan,
       n(rs.trade_vol).format('0.000').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
-    get('console').log(status, {data: {rs: rs, zmi: colors.strip(rs.vol_diff_string).trim()}})
+    get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol}})
+    var status_public = [
+      bar,
+      rs.arrow,
+      (n(rs.last_tick.close).format('$0,0.00'))[rs.uptick ? 'green' : 'red'],
+      rs.vol_diff_string
+    ].join(' ')
+    get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol}})
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
     var saved_hour_vol = rs.hour_vol
     if (this_hour !== rs.last_hour) {

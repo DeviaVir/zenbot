@@ -37,13 +37,16 @@ module.exports = function container (get, set) {
         }
         return arg
       }).join(' ')
-      console.error(line)
+      if (!options.public) {
+        console.error(line)
+      }
       if (get('mode') === 'zen' || colors.strip(line).match(/tweeted/)) {
         var log = {
           id: tb('µs').toString(),
           time: new Date().getTime(),
           line: line,
-          data: options.data || null
+          data: options.data || null,
+          public: options.public || false
         }
         try {
           get('db.logs').save(log, function (err, saved) {
