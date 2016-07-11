@@ -85,7 +85,7 @@ $('.logs').each(function () {
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
       updating = false
       var delay = 0
-      var $old_el = $('.log-line').get(0)
+      var $old_el = $('.log-line').eq(0)
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs .first').removeClass('first')
