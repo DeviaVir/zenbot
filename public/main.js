@@ -33,7 +33,7 @@ $('.logs').each(function () {
         if (!newest_time) newest_time = log.time
         var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
         if (log.data && log.data.new_max_vol) {
-          $el.addClass(log.data.zmi.indexOf('BULL') ? 'bull' : 'bear')
+          $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
         }
         $('.logs').append($el)
         setTimeout(function () {
@@ -64,7 +64,7 @@ $('.logs').each(function () {
         if (log.data && log.data.zmi) {
           document.title = document.title.replace(/.+ \- /, '')
           if (log.data && log.data.new_max_vol) {
-            $el.addClass(log.data.zmi.indexOf('BULL') ? 'bull' : 'bear')
+            $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
             log.data.zmi = log.data.zmi.replace('/', '*/')
             var orig_zmi = log.data.zmi
             var blink_on = false
