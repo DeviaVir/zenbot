@@ -52,25 +52,26 @@ $('.logs').each(function () {
   function updateTitle (log) {
     if (log.data && log.data.zmi) {
       document.title = document.title.replace(/.+ \- /, '')
+      var orig_title = document.title
       if (log.data && log.data.new_max_vol) {
         log.data.zmi = log.data.zmi.replace('/', '*/')
         var orig_zmi = log.data.zmi
         var blink_on = false
-        var blinks = 6, orig_title = document.title
+        var blinks = 6, 
         ;(function blink () {
           setTimeout(function () {
             if (blink_on) {
               document.title = ''
             }
             else {
-              document.title = orig_zmi + ' - ' + orig_title
+              document.title = orig_zmi + ' - ' + log.data.close + ' ' + orig_title + ' live console: ' + constants.product_id + ' via GDAX'
             }
             blink_on = !blink_on
             if (blinks--) blink()
           }, 400)
         })()
       }
-      document.title = log.data.zmi + ' - ' + document.title
+      document.title = log.data.zmi + ' - ' + log.data.close + ' ' + orig_title + ' live console: ' + constants.product_id + ' via GDAX'
     }
   }
 
