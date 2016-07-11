@@ -6,7 +6,7 @@ module.exports = function container (get, set) {
       res.vars.secret = true
       return next()
     }
-    if (req.query.secret !== req.bot.secret) return next(new Error('bad secret'))
+    if (req.query.secret && req.query.secret !== req.bot.secret) return next(new Error('bad secret'))
     req.session.secret = req.query.secret
     res.vars.secret = true
     next()
