@@ -33,7 +33,7 @@ $('.logs').each(function () {
         if (!newest_time) newest_time = log.time
         var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
         if (log.data && log.data.new_max_vol) {
-          $el.addClass(log.data.side === 'BULL' ? 'bull' : 'bear')
+          $el.addClass(log.data.zmi.indexOf('BULL') ? 'bull' : 'bear')
         }
         $('.logs').append($el)
         setTimeout(function () {
