@@ -66,6 +66,11 @@ body {
 .ansi-bright-white-bg { background-color: #FFF; }
 
 small a {
+  display: none;
+}
+
+.log-row:hover small a {
+  display: inline;
   color: #777;
   text-decoration: none;
 }
