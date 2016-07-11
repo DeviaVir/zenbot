@@ -60,7 +60,7 @@ $('.logs').each(function () {
         ids.push(log.id)
         if (log.data && log.data.zmi) {
           document.title = document.title.replace(/.+ \- /, '')
-          if (log.data.rs && log.data.rs.new_max_vol) {
+          if (log.data && log.data.new_max_vol) {
             $el.addClass(log.data.zmi.indexOf('BULL') ? 'bull' : 'bear')
             log.data.zmi = log.data.zmi.replace('/', '*/')
             var orig_zmi = log.data.zmi
