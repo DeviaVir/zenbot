@@ -83,7 +83,7 @@ $('.logs').each(function () {
       var delay = 0
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
-        var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
+        var $el = $('<div class="log-line" style="display:none">' + log.html + ' <small><a class="permalink" target="_blank" href="#oldest_time=' + log.time + '">permalink</a></small></div>')
         $('.logs').prepend($el)
         setTimeout(function () {
           $el.fadeIn('slow')
@@ -98,6 +98,16 @@ $('.logs').each(function () {
       })
     })
   }
+
+  $(window).on('hashchange', function() {
+    $('.logs').empty()
+    var match = window.location.hash.match(/oldest_time=([^,]+)/)
+    if (match) {
+      oldest_time = parseInt(match[1], 10)
+    }
+    newest_time = oldest_time
+    backfill()
+  });
 
   setInterval(poll, 10000)
   backfill()
