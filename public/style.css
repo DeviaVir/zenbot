@@ -15,8 +15,10 @@ body {
   color: #555;
 }
 
+.log-line {
+  border: 2px solid black;
+}
+
 .new_max_vol {
   border: 2px solid #0AA;
-  padding: 4px;
-  font-size: 1.1em;
 }
