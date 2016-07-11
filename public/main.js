@@ -34,7 +34,7 @@ $('.logs').each(function () {
           newest_time = log.time
           updateTitle(log)
         }
-        var $el = $('<div class="log-line" style="display:none">' + log.html + '</div>')
+        var $el = $('<div class="log-line" style="display:none">' + log.html + getPermalink(log) + '</div>')
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
         }
@@ -75,6 +75,10 @@ $('.logs').each(function () {
     }
   }
 
+  function getPermalink (log) {
+    return ' <small><a class="permalink" target="_blank" href="#oldest_time=' + log.time + '">permalink</a></small>'
+  }
+
   function poll () {
     if (updating) return
     updating = true
@@ -83,7 +87,7 @@ $('.logs').each(function () {
       var delay = 0
       data.logs.reverse().forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
-        var $el = $('<div class="log-line" style="display:none">' + log.html + ' <small><a class="permalink" target="_blank" href="#oldest_time=' + log.time + '">permalink</a></small></div>')
+        var $el = $('<div class="log-line" style="display:none">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
           $el.fadeIn('slow')
