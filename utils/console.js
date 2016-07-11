@@ -6,6 +6,7 @@ module.exports = function container (get, set) {
   var conf = get('conf.console')
   var cluster = require('cluster')
   var colors = get('vendor.colors')
+  var get_timestamp = get('utils.get_timestamp')
   return {
     _log: function (args) {
       var options = {}
@@ -25,11 +26,7 @@ module.exports = function container (get, set) {
         }
       }
       if (conf.timestamp) {
-        var date = new Date()
-        var tzMatch = date.toString().match(/\((.*)\)/)
-        var msg = date.toLocaleString() + ' ' + tzMatch[1]
-        if (conf.colors) msg = colors.grey(msg)
-        args.unshift(msg)
+        args.unshift(get_timestamp().grey)
       }
       var line = args.map(function (arg) {
         if (typeof arg !== 'string') {
