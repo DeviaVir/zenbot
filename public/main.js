@@ -64,14 +64,14 @@ $('.logs').each(function () {
               document.title = ''
             }
             else {
-              document.title = orig_zmi + ' - ' + log.data.close + ' ' + orig_title + ' live console: ' + constants.product_id + ' via GDAX'
+              document.title = orig_zmi + ' - ' + log.data.close + ' ' + orig_title
             }
             blink_on = !blink_on
             if (blinks--) blink()
           }, 400)
         })()
       }
-      document.title = log.data.zmi + ' - ' + log.data.close + ' ' + orig_title + ' live console: ' + constants.product_id + ' via GDAX'
+      document.title = log.data.zmi + ' - ' + log.data.close + ' ' + orig_title
     }
   }
 
