@@ -89,7 +89,7 @@ $('.logs').each(function () {
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs .first').removeClass('first')
-        var $el = $('<div class="log-line first" style="display:none" id="oldest_time__' + (log.time + 1) '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line first" style="display:none" id="oldest_time__' + (log.time + 1) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
           $el.fadeIn('slow')
