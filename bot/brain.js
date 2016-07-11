@@ -465,10 +465,10 @@ module.exports = function container (get, set, clear) {
           vwap_diff_str += n(Math.abs(n(rs.vwap_diff).divide(rs.last_tick.close).value())).format('0.000%')
           var text = [
             get_time() + ' report.\n',
-            'close: ' + n(rs.last_tick.close).format('$0,0.00'),
-            'trend: ' + vwap_diff_str,
-            'hr. vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
             'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
+            'close: ' + n(rs.last_tick.close).format('$0,0.00'),
+            'hr. vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
+            'trend: ' + vwap_diff_str,
             '24hr. trend: ' + diff_str + '\n',
             constants.hashtags
           ].join('\n').trim()
