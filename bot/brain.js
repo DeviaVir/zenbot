@@ -454,7 +454,7 @@ module.exports = function container (get, set, clear) {
             get_time() + ' report.\n',
             'close: ' + n(rs.last_tick.close).format('$0,0.00'),
             'trend: ' + vwap_diff_str,
-            'hr. vol ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
+            'hr. vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
             'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
             '24hr. trend: ' + diff_str + '\n',
             constants.hashtags
