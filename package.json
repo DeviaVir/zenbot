@@ -6,7 +6,7 @@
     "zenbot": "./bin/zenbot"
   },
   "dependencies": {
-    "ansi-to-html": "^0.4.1",
+    "ansi-to-html": "git+https://github.com/carlos8f/ansi-to-html.git",
     "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
