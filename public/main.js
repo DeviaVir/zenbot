@@ -34,7 +34,7 @@ $('.logs').each(function () {
           newest_time = log.time
           updateTitle(log)
         }
-        var $el = $('<div class="log-line" style="display:none">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line" style="visibility:hidden" id="oldest_time__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
         }
@@ -110,7 +110,7 @@ $('.logs').each(function () {
 
   function onHash () {
     $('.logs').empty()
-    var match = window.location.hash.match(/oldest_time=([^,]+)/)
+    var match = window.location.hash.match(/oldest_time__([^,]+)/)
     if (match) {
       oldest_time = parseInt(match[1], 10)
     }
