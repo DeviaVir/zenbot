@@ -10,18 +10,6 @@ module.exports = function container (get, set) {
           public: !res.vars.secret
         }
       }
-      if (res.vars.secret) {
-        params.query = {
-          $or: [
-            params.query,
-            {
-              public: {
-                $exists: false
-              }
-            }
-          ]
-        }
-      }
       if (req.query.newest_time) {
         params.query.time = {
           $gt: parseInt(req.query.newest_time, 10)
