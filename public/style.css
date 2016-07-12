@@ -73,6 +73,10 @@ body {
 .ansi-bright-cyan-bg { background-color: #B0F0F5; }
 .ansi-bright-white-bg { background-color: #FFF; }
 
+.locked .ansi-bright-black-fg {
+  color: #000;
+}
+
 a {
   color: #37a8ff;
   text-decoration: none;
