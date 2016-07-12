@@ -115,7 +115,6 @@ $('.logs').each(function () {
       is_locked_line = true
     }
     else {
-      poll()
       pollInterval = setInterval(poll, 10000)
     }
     backfill()
