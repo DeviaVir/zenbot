@@ -81,3 +81,8 @@ small a {
 .log-line:hover small a {
   color: #777;
 }
+
+.loader {
+  visibility: hidden;
+  margin-left: 15px;
+}
