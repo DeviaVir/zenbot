@@ -68,7 +68,7 @@ module.exports = function container (get, set, clear) {
             if (bot.tweet && tick.vol >= 20) {
               var tweet = {
                 status: [
-                  'big trade:\n'
+                  'big trade:\n',
                   'action: ' + tick.side,
                   'size: ' + n(vol).format('0.000') + ' ' + constants.asset,
                   'price: ' + tick.price,
