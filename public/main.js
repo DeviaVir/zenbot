@@ -20,9 +20,9 @@ $('.logs').each(function () {
   })
 
   function backfill () {
-    $('.loader').show()
+    $('.loader').css('visibility', 'visible')
     $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
-      $('.loader').hide()
+      $('.loader').css('visibility', 'hidden')
       if (!data.logs || !data.logs.length) {
         return
       }
@@ -82,9 +82,9 @@ $('.logs').each(function () {
   }
 
   function poll () {
-    $('.loader').show()
+    $('.loader').css('visibility', 'visible')
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
-      $('.loader').hide()
+      $('.loader').css('visibility', 'hidden')
       var delay = data.logs.length * 10
       var $old_el = $('.log-line').eq(0)
       data.logs.reverse().forEach(function (log, idx) {
