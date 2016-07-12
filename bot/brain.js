@@ -473,7 +473,7 @@ module.exports = function container (get, set, clear) {
             'hr. vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
             'trend: ' + vwap_diff_str,
             '24hr. trend: ' + diff_str + '\n',
-            constants.base_url + '/#t__' + (new Date().getTime()) + ' ' + constants.hashtags
+            constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
           ].join('\n').trim()
           var tweet = {
             status: text
