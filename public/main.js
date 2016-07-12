@@ -32,7 +32,7 @@ $('.logs').each(function () {
           newest_time = log.time
           updateTitle(log)
         }
-        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + '" style="visibility:hidden" id="oldest_time__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + '" style="visibility:hidden" id="t__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
         is_locked_line = false
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
@@ -76,7 +76,7 @@ $('.logs').each(function () {
   }
 
   function getPermalink (log) {
-    return ' <small><a class="permalink" target="_blank" href="#oldest_time__' + (log.time) + '">[link]</a></small>'
+    return ' <small><a class="permalink" target="_blank" href="#t__' + (log.time) + '">[link]</a></small>'
   }
 
   function poll () {
@@ -86,7 +86,7 @@ $('.logs').each(function () {
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs .first').removeClass('first')
-        var $el = $('<div class="log-line first" style="visibility:hidden" id="oldest_time__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line first" style="visibility:hidden" id="t__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
           $el.css('visibility', 'visible').css('display', 'none')
@@ -104,21 +104,17 @@ $('.logs').each(function () {
   }
 
   var is_locked_line = false, pollInterval
-  function onHash () {
-    $('.logs').empty()
-    is_locked_line = false
-    var match = window.location.hash.match(/oldest_time__([^,]+)/)
-    if (match) {
-      oldest_time = parseInt(match[1], 10)
-      newest_time = oldest_time
-      clearInterval(pollInterval)
-      is_locked_line = true
-    }
-    else {
-      pollInterval = setInterval(poll, 10000)
-    }
-    backfill()
+  $('.logs').empty()
+  is_locked_line = false
+  var match = window.location.hash.match(/t__([^,]+)/)
+  if (match) {
+    oldest_time = parseInt(match[1], 10)
+    newest_time = oldest_time
+    clearInterval(pollInterval)
+    is_locked_line = true
   }
-  onHash()
-  $(window).on('hashchange', onHash)
+  else {
+    pollInterval = setInterval(poll, 10000)
+  }
+  backfill()
 })
