@@ -70,7 +70,6 @@ body {
 .ansi-bright-white-bg { background-color: #FFF; }
 
 small a {
-  display: none;
   text-decoration: none;
   color: #222;
 }
