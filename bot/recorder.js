@@ -74,7 +74,7 @@ module.exports = function container (get, set, clear) {
                   'price: ' + tick.price,
                   'total: ' + n(tick.typical).multiply(vol).format('$,0.00'),
                   'time: ' + get_time(tick.time) + '\n',
-                  constants.base_url + '/#oldest_time__' + (new Date().getTime()) + ' ' + constants.hashtags
+                  constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
                 ].join('\n')
               }
               twitter_client.post('statuses/update', tweet, onTweet)
