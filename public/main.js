@@ -40,6 +40,7 @@ $('.logs').each(function () {
         }
         $('.logs').append($el)
         setTimeout(function () {
+          $el.css('visibility', 'visible').css('display', 'none')
           $el.fadeIn('slow')
         }, delay)
         delay += 10
