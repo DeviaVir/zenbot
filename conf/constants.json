@@ -20,5 +20,6 @@
   "listen_port": 3011,
   "log_limit": 200,
   "max_diff_decay": 0.00001,
-  "running_vol_decay": 1
+  "running_vol_decay": 1,
+  "base_url": "https://zenbot.s8f.org"
 }
