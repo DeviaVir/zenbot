@@ -30,11 +30,13 @@ $('.logs').each(function () {
       var delay = 0
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
+        var is_locked = false
         if (!newest_time) {
           newest_time = log.time
           updateTitle(log)
+
         }
-        var $el = $('<div class="log-line" style="visibility:hidden" id="oldest_time__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + " style="visibility:hidden" id="oldest_time__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
         }
@@ -110,18 +112,25 @@ $('.logs').each(function () {
     })
   }
 
+  var is_locked_line = false
   function onHash () {
     $('.logs').empty()
+    is_locked_line = false
     var match = window.location.hash.match(/oldest_time__([^,]+)/)
     if (match) {
       oldest_time = parseInt(match[1], 10)
+      newest_time = oldest_time
+      clearInterval(pollInterval)
+      is_locked_line = true
     }
-    newest_time = oldest_time
+    else {
+      poll()
+      pollInterval = setInterval(poll, 10000)
+    }
     backfill()
   }
 
   onHash()
   $(window).on('hashchange', onHash)
-  poll()
-  setInterval(poll, 10000)
+  var pollInterval = setInterval(poll, 10000)
 })

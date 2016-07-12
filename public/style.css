@@ -31,6 +31,10 @@ body {
   background-color: #194a00;
 }
 
+.locked {
+  background-color: #2a00d0 !important;
+}
+
 .ansi-black-fg { color: black; }
 .ansi-red-fg { color: #cc0000; }
 .ansi-green-fg { color: #45d813; }
