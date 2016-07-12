@@ -94,7 +94,7 @@ $('.logs').each(function () {
       var $old_el = $('.log-line').eq(0)
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
-        $('.logs .first').removeClass('locked')
+        $('.logs .first').removeClass('first')
         var $el = $('<div class="log-line first" style="visibility:hidden" id="t__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
@@ -113,7 +113,7 @@ $('.logs').each(function () {
 
   setInterval(function () {
     $('.logs .first').addClass('locked')
-  }, 10000)
+  }, 15000)
 
   var is_locked_line = false, pollInterval
   $('.logs').empty()
