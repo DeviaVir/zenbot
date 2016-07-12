@@ -92,6 +92,7 @@ $('.logs').each(function () {
         var $el = $('<div class="log-line first" style="visibility:hidden" id="oldest_time__' + (log.time + 1) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
+          $el.css('visibility', 'visible').css('display', 'none')
           $el.fadeIn('slow')
         }, delay)
         delay += 10
@@ -119,7 +120,6 @@ $('.logs').each(function () {
   }
 
   onHash()
-  backfill()
   $(window).on('hashchange', onHash)
   setInterval(poll, 10000)
 })
