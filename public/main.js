@@ -79,7 +79,7 @@ $('.logs').each(function () {
   }
 
   function getPermalink (log) {
-    return ' <small><a class="permalink" target="_blank" href="#oldest_time__' + (log.time + 1) + '">[link]</a></small>'
+    return ' <small><a class="permalink" target="_blank" href="#oldest_time__' + (log.time) + '">[link]</a></small>'
   }
 
   function poll () {
@@ -92,7 +92,7 @@ $('.logs').each(function () {
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
         $('.logs .first').removeClass('first')
-        var $el = $('<div class="log-line first" style="visibility:hidden" id="oldest_time__' + (log.time + 1) + '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line first" style="visibility:hidden" id="oldest_time__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
           $el.css('visibility', 'visible').css('display', 'none')
