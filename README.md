@@ -104,6 +104,10 @@ There is a general lack of open source bots, especially ones with AI. Since I le
 
 ## FAQ
 
+### Can I use zenbot with [X] exchange?
+
+Currently zenbot only supports a single exchange (GDAX). This is mainly because the machine learning tunes itself to the exchange's specific volume levels, and GDAX's volume is on the low/predictable side. As I plan the next version of zenbot (3.x), I will consider adding other exchanges and averaging out the volume, possibly even with a bittorrent/swarm p2p setup so instances of zenbot can share computing power. This may result in less accurate, but more universal predictions.
+
 ### Were there any incidents when the bot's trade made a loss?
 
 I have seen losses in the simulator, so it's possible. It only takes a few hours of machine learning to gain a comfortable (albeit virtual) profit margin though. If the bot starts losing money, you can always step in and manual trade or shut the bot down to prevent more loss.
