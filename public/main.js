@@ -112,7 +112,7 @@ $('.logs').each(function () {
     })
   }
 
-  var is_locked_line = false
+  var is_locked_line = false, pollInterval
   function onHash () {
     $('.logs').empty()
     is_locked_line = false
