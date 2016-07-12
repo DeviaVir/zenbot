@@ -17,7 +17,7 @@ module.exports = function container (get, set) {
       }
       else if (req.query.oldest_time) {
         params.query.time = {
-          $lt: parseInt(req.query.oldest_time, 10)
+          $lte: parseInt(req.query.oldest_time, 10)
         }
       }
       get('db.logs').select(params, function (err, logs) {
