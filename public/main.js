@@ -24,7 +24,7 @@ $('.logs').each(function () {
       if (!data.logs || !data.logs.length) {
         return
       }
-      var delay = 0
+      var delay = data.logs.length * 10
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         var is_locked = false
@@ -42,7 +42,7 @@ $('.logs').each(function () {
           $el.css('visibility', 'visible').css('display', 'none')
           $el.fadeIn('slow')
         }, delay)
-        delay += 10
+        delay -= 10
         ids.push(log.id)
         oldest_time = log.time
       })
