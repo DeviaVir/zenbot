@@ -65,7 +65,7 @@ module.exports = function container (get, set, clear) {
             var vol = n(tick.vol)
               .multiply(ratio)
               .value()
-            if (bot.tweet && tick.vol > 20) {
+            if (bot.tweet && tick.vol >= 20) {
               var tweet = {
                 status: [
                   'big trade:\n'
