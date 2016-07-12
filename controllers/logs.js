@@ -7,7 +7,9 @@ module.exports = function container (get, set) {
         limit: constants.log_limit,
         sort: {time: -1},
         query: {
-          public: !res.vars.secret
+          public: !res.vars.secret ? true : {
+            $in: [false, null]
+          }
         }
       }
       if (req.query.newest_time) {
