@@ -24,7 +24,7 @@ $('.logs').each(function () {
       if (!data.logs || !data.logs.length) {
         return
       }
-      var delay = 0
+      var delay = data.logs.length * 10
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
         var is_locked = false
@@ -42,7 +42,7 @@ $('.logs').each(function () {
           $el.css('visibility', 'visible').css('display', 'none')
           $el.fadeIn('slow')
         }, delay)
-        delay += 10
+        delay -= 10
         ids.push(log.id)
         oldest_time = log.time
       })
@@ -81,7 +81,7 @@ $('.logs').each(function () {
 
   function poll () {
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
-      var delay = 0
+      var delay = data.logs.length * 10
       var $old_el = $('.log-line').eq(0)
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
@@ -92,7 +92,7 @@ $('.logs').each(function () {
           $el.css('visibility', 'visible').css('display', 'none')
           $el.fadeIn('slow')
         }, delay)
-        delay += 10
+        delay -= 10
         ids.push(log.id)
         updateTitle(log)
         if (log.data && log.data.new_max_vol) {
