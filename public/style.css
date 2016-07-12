@@ -94,3 +94,9 @@ small a {
   visibility: hidden;
   margin-left: 15px;
 }
+
+.logs-end {
+  margin: 20px 0;
+  text-align: center;
+  color: #555;
+}
