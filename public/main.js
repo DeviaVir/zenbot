@@ -1,5 +1,5 @@
 $('.logs').each(function () {
-  var updating = false, newest_time = ''
+  var newest_time = ''
   var ids = [], oldest_time = ''
 
   function element_in_scroll(elem)
@@ -20,10 +20,7 @@ $('.logs').each(function () {
   })
 
   function backfill () {
-    if (updating) return
-    updating = true
     $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
-      updating = false
       if (!data.logs || !data.logs.length) {
         return
       }
@@ -83,10 +80,7 @@ $('.logs').each(function () {
   }
 
   function poll () {
-    if (updating) return
-    updating = true
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
-      updating = false
       var delay = 0
       var $old_el = $('.log-line').eq(0)
       data.logs.reverse().forEach(function (log, idx) {
@@ -106,9 +100,6 @@ $('.logs').each(function () {
         }
         newest_time = log.time
       })
-      if (data.logs.length > 10 && $old_el) {
-        $('html, body').scrollTop($old_el.offset().top)
-      }
     })
   }
 
