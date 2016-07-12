@@ -78,7 +78,12 @@ $('.logs').each(function () {
   }
 
   function getPermalink (log) {
-    return ' <small><a class="permalink" target="_blank" href="#t__' + (log.time) + '">[link]</a></small>'
+    var str = ' <small><a class="permalink" target="_blank" href="#t__' + (log.time) + '">[link]</a>'
+    if (log.data && log.data.tweet && log.data.tweet.user) {
+      str += ' <a href="https://twitter.com/' + log.data.tweet.user.screen_name + '/status/' + log.data.tweet.id_str + '">[tweet]</a>'
+    }
+    str += '</small>'
+    return str
   }
 
   function poll () {
