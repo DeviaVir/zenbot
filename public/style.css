@@ -69,8 +69,12 @@ body {
 .ansi-bright-cyan-bg { background-color: #B0F0F5; }
 .ansi-bright-white-bg { background-color: #FFF; }
 
-small a {
+a {
+  color: #37a8ff;
   text-decoration: none;
+}
+
+small a {
   color: #222;
 }
 
