@@ -121,5 +121,6 @@ $('.logs').each(function () {
 
   onHash()
   $(window).on('hashchange', onHash)
+  poll()
   setInterval(poll, 10000)
 })
