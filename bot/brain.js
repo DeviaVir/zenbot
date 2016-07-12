@@ -279,7 +279,12 @@ module.exports = function container (get, set, clear) {
         if (bot.tweet) {
           setImmediate(function () {
             var tweet = {
-              status: 'zenbot recommends:\n\naction: BUY\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
+              status: [
+                'zenbot advises: BUY ' + constants.asset,
+                'price: ' + n(price).format('$0,0.00'),
+                'time: ' + get_time(),
+                constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
+              ].join('\n')
             }
             twitter_client.post('statuses/update', tweet, onTweet)
           })
@@ -467,12 +472,11 @@ module.exports = function container (get, set, clear) {
           var vwap_diff_str = rs.vwap_diff >= 0 ? '+' : '-'
           vwap_diff_str += n(Math.abs(n(rs.vwap_diff).divide(rs.last_tick.close).value())).format('0.000%')
           var text = [
-            get_time() + ' report.\n',
+            get_time() + ' report:',
             'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
             'close: ' + n(rs.last_tick.close).format('$0,0.00'),
-            'hr. vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
+            'vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
             'trend: ' + vwap_diff_str,
-            '24hr. trend: ' + diff_str + '\n',
             constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
           ].join('\n').trim()
           var tweet = {
