@@ -57,8 +57,8 @@ body {
 .ansi-bright-white-fg { color: #FFF; }
 
 .ansi-black-bg { background-color: black; }
-.ansi-red-bg { background-color: rgba(204, 0, 0, 0.4); }
-.ansi-green-bg { background-color: rgba(69, 216, 19, 0.4); }
+.ansi-red-bg { background-color: rgba(204, 0, 0, 0.8); }
+.ansi-green-bg { background-color: rgba(69, 216, 19, 0.8); }
 .ansi-yellow-bg { background-color: #ef7200; }
 .ansi-blue-bg { background-color: blue; }
 .ansi-magenta-bg { background-color: magenta; }
