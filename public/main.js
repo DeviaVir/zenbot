@@ -1,6 +1,6 @@
 $('.logs').each(function () {
   var newest_time = ''
-  var ids = [], oldest_time = ''
+  var ids = [], oldest_time = '', updating = false
 
   function element_in_scroll(elem)
   {
@@ -20,8 +20,11 @@ $('.logs').each(function () {
   })
 
   function backfill () {
+    if (updating) return
+    updating = true
     $('.loader').css('visibility', 'visible')
     $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
+      updating = false
       $('.loader').css('visibility', 'hidden')
       if (!data.logs || !data.logs.length) {
         return
@@ -87,8 +90,11 @@ $('.logs').each(function () {
 
   var timeout
   function poll () {
+    if (updating) return
+    updating = true
     $('.loader').css('visibility', 'visible')
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
+      updating = false
       clearTimeout(timeout)
       $('.loader').css('visibility', 'hidden')
       $('.logs .first').removeClass('locked')
