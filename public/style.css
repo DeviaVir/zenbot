@@ -71,10 +71,10 @@ body {
 
 small a {
   display: none;
+  text-decoration: none;
+  color: #222;
 }
 
 .log-line:hover small a {
-  display: inline;
   color: #777;
-  text-decoration: none;
 }
