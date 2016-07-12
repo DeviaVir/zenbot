@@ -98,15 +98,15 @@ Coming soon: I will publish a step-by-step guide to get started with zenbot.
 
 zenbot has a live web console [here](https://zenbot.s8f.org/).
 
-## Why open source?
-
-There is a general lack of open source bots, especially ones with AI. Since I learned how to code by reverse engineering, I publish code so others can do the same, and by doing so I'm saying thanks to Satoshi, Torvalds, djb, et. al for devoting their lives to open source. It might be against my "selfish interest" but in the end it's best for everyone. Plus, I still own the copyright.
-
 ## FAQ
 
 ### Can I use zenbot with [X] exchange?
 
 Currently zenbot only supports a single exchange (GDAX). This is mainly because the machine learning tunes itself to the exchange's specific volume levels, and GDAX's volume is on the low/predictable side. As I plan the next version of zenbot (3.x), I will consider adding other exchanges and averaging out the volume, possibly even with a bittorrent/swarm p2p setup so instances of zenbot can share computing power. This may result in less accurate, but more universal predictions.
+
+### Why open source?
+
+There is a general lack of open source bots, especially ones with AI. Since I learned how to code by reverse engineering, I publish code so others can do the same, and by doing so I'm saying thanks to Satoshi, Torvalds, djb, et. al for devoting their lives to open source. It might be against my "selfish interest" but in the end it's best for everyone. Plus, I still own the copyright.
 
 ### Were there any incidents when the bot's trade made a loss?
 
