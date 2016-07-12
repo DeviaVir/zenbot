@@ -32,7 +32,11 @@ body {
 }
 
 .locked {
-  background-color: #2a00d0 !important;
+  background-color: #545454 !important;
+}
+
+.first {
+  background-color: #292299;
 }
 
 .ansi-black-fg { color: black; }
