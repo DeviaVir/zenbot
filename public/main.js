@@ -34,7 +34,7 @@ $('.logs').each(function () {
           newest_time = log.time
           updateTitle(log)
         }
-        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + (is_newest ? ' first' : '') + " style="visibility:hidden" id="t__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + (is_newest ? ' first' : '') + '" style="visibility:hidden" id="t__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
         is_locked_line = false
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
