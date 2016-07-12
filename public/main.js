@@ -29,12 +29,12 @@ $('.logs').each(function () {
       var delay = 0
       data.logs.forEach(function (log) {
         if (ids.indexOf(log.id) !== -1) return
-        var is_locked = false
-        if (!newest_time) {
+        var is_locked = false, is_newest = !newest_time
+        if (is_newest) {
           newest_time = log.time
           updateTitle(log)
         }
-        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + '" style="visibility:hidden" id="t__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
+        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + (is_newest ? ' first' : '') + " style="visibility:hidden" id="t__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
         is_locked_line = false
         if (log.data && log.data.new_max_vol) {
           $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
