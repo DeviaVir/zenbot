@@ -129,8 +129,6 @@ $('.logs').each(function () {
     }
     backfill()
   }
-
   onHash()
   $(window).on('hashchange', onHash)
-  var pollInterval = setInterval(poll, 10000)
 })
