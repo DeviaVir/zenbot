@@ -41,8 +41,7 @@ $('.logs').each(function () {
         }
         $('.logs').append($el)
         setTimeout(function () {
-          $el.css('visibility', 'visible').css('display', 'none')
-          $el.fadeIn('slow')
+          $el.css('visibility', 'visible').css('display', 'block')
         }, delay)
         delay += 10
         ids.push(log.id)
@@ -98,8 +97,7 @@ $('.logs').each(function () {
         var $el = $('<div class="log-line first" style="visibility:hidden" id="t__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
-          $el.css('visibility', 'visible').css('display', 'none')
-          $el.fadeIn('slow')
+          $el.css('visibility', 'visible').css('display', 'block')
         }, delay)
         delay -= 10
         ids.push(log.id)
