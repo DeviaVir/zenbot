@@ -89,11 +89,12 @@ $('.logs').each(function () {
     $('.loader').css('visibility', 'visible')
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
       $('.loader').css('visibility', 'hidden')
+      $('.logs .first').removeClass('locked')
       var delay = data.logs.length * 10
       var $old_el = $('.log-line').eq(0)
       data.logs.reverse().forEach(function (log, idx) {
         if (ids.indexOf(log.id) !== -1) return
-        $('.logs .first').removeClass('locked').removeClass('first')
+        $('.logs .first').removeClass('locked')
         var $el = $('<div class="log-line first" style="visibility:hidden" id="t__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
         $('.logs').prepend($el)
         setTimeout(function () {
