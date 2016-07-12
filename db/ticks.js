@@ -27,6 +27,7 @@ module.exports = function container (get, set) {
         var trade_ticker = ''
         if (trades.length) {
           var open, high = 0, low = 10000, close, buys = 0, vol = 0, buy_vol = 0, close_time
+          var exchanges = {}
           trades.forEach(function (trade) {
             if (typeof open === 'undefined') {
               open = trade.price
@@ -42,6 +43,8 @@ module.exports = function container (get, set) {
               buys++
             }
             vol = n(vol).add(trade.size).value()
+            exchanges[trade.exchange] || (exchanges[trade.exchange] = 0)
+            exchanges[trade.exchange] = n(exchanges[trade.exchange]).add(trade.size).value()
           })
           var typical = n(high)
             .add(low)
@@ -73,7 +76,8 @@ module.exports = function container (get, set) {
             typical: typical,
             price: n(typical).format('$0,0.00'),
             side: side,
-            ticker: orig_ticker
+            ticker: orig_ticker,
+            exchanges: exchanges
           }
           if (vol > 20) {
             trade_ticker = trade_ticker.red

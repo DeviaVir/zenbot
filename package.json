@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "ansi_up": "^1.3.0",
+    "bitfinex-api-node": "^0.2.9",
     "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
@@ -20,6 +21,7 @@
     "multi-progress": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
     "os-monitor": "^1.0.4",
+    "run-parallel": "^1.1.6",
     "timebucket": "^0.3.4",
     "twit": "^2.2.4",
     "zero-fill": "^2.2.3"
