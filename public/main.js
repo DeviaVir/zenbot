@@ -85,9 +85,11 @@ $('.logs').each(function () {
     return str
   }
 
+  var timeout
   function poll () {
     $('.loader').css('visibility', 'visible')
     $.getJSON('/logs?newest_time=' + newest_time, function (data) {
+      clearTimeout(timeout)
       $('.loader').css('visibility', 'hidden')
       $('.logs .first').removeClass('locked')
       var delay = data.logs.length * 10
@@ -108,12 +110,11 @@ $('.logs').each(function () {
         }
         newest_time = log.time
       })
+      timeout = setTimeout(function () {
+        $('.logs .first').addClass('locked')
+      }, 11000)
     })
   }
-
-  setInterval(function () {
-    $('.logs .first').addClass('locked')
-  }, 15000)
 
   var is_locked_line = false, pollInterval
   $('.logs').empty()
