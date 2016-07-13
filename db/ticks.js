@@ -1,19 +1,34 @@
 var n = require('numbro')
   , colors = require('colors')
   , tb = require('timebucket')
-  , constants = require('../conf/constants.json')
+  , c = require('../conf/constants.json')
   , zerofill = require('zero-fill')
+  , assert = require('assert')
 
 module.exports = function container (get, set) {
+  var get_timestamp = get('zenbot:utils.get_timestamp')
   return get('db.createCollection')('ticks', {
     load: function (obj, opts, cb) {
       // respond after the obj is loaded
       cb(null, obj);
     },
-    save: function (obj, opts, cb) {
+    save: function (tick, opts, cb) {
       // respond before the obj is saved
-      get('zenbot:console').log('tick', obj, obj.ansi_ticker)
-      cb(null, obj);
+      tick.ticker = n(tick.side_vol).divide(tick.vol).format('0%') + (tick.side === 'BUY' ? ' BULL' : ' BEAR')
+      if (tick.buy_vol >= 20) {
+        tick.ansi_ticker = tick.ticker.green
+      }
+      else if (tick.side_vol >= 20 && tick.side === 'SELL') {
+        tick.ansi_ticker = tick.ticker.red
+      }
+      if (tick.ansi_ticker) {
+        tick.exchanges_ticker = Object.keys(tick.exchanges).map(function (name) {
+          var x = tick.exchanges[name]
+          return name + ' = ' + n(x.vol).format('0.000') + ' ' + n(x.side_vol).divide(x.vol).format('0%') + ' buy'
+        }).join(', ')
+        get('zenbot:console').info(get_timestamp(tick.time), tick.ansi_ticker, tick.exchanges_ticker, {data: {tick: tick}})
+      }
+      cb(null, tick);
     },
     afterSave: function (obj, opts, cb) {
       // respond after the obj is saved
@@ -25,106 +40,107 @@ module.exports = function container (get, set) {
     },
     methods: {
       create: function (tick, trades, done) {
-        if (trades.length) {
-          var open, high = 0, low = 10000, close, buys = 0, vol = 0, buy_vol = 0, close_time
-          var exchanges = {}
-          trades.forEach(function (trade) {
-            if (typeof open === 'undefined') {
-              open = trade.price
-            }
-            high = Math.max(trade.price, high)
-            low = Math.min(trade.price, low)
-            close = trade.price
-            close_time = trade.time
-            if (trade.side === 'sell') {
-              buy_vol = n(buy_vol)
-                .add(trade.size)
-                .value()
-              buys++
-            }
-            vol = n(vol).add(trade.size).value()
-            exchanges[trade.exchange] || (exchanges[trade.exchange] = 0)
-            exchanges[trade.exchange] = n(exchanges[trade.exchange]).add(trade.size).value()
+        trades = trades.filter(function (trade) {
+          return trade.asset === c.asset
+        })
+        if (!trades.length) return done(null, tick)
+        if (!tick) {
+          var bucket = tb(trades[0].time).resize(c.tick_size)
+          tick = {
+            id: bucket.toString(),
+            time: bucket.toMilliseconds(),
+            vol: 0,
+            trades: 0,
+            buys: 0,
+            buy_vol: 0,
+            exchanges: {},
+            trade_ids: []
+          }
+          tick.timestamp = tick.end_timestamp = get_timestamp(tick.time)
+        }
+        trades.forEach(function (trade) {
+          if (tick.trade_ids.indexOf(trade.id) !== -1) return
+          assert(tb(trade.time).resize(c.tick_size).toString() === tick.id)
+          tick.trade_ids.push(trade.id)
+          tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
+            vol: 0,
+            trades: 0,
+            buys: 0,
+            buy_vol: 0,
+            high: 0,
+            low: 10000
           })
-          var typical = n(high)
-            .add(low)
-            .add(close)
-            .divide(3)
+          var x = tick.exchanges[trade.exchange]
+          x.vol = n(x.vol).add(trade.size).value()
+          tick.vol = n(tick.vol).add(trade.size).value()
+          x.trades++
+          tick.trades++
+          if (trade.side === 'sell') {
+            x.buys++
+            tick.buys++
+            x.buy_vol = n(x.buy_vol).add(trade.size).value()
+            tick.buy_vol = n(tick.buy_vol).add(trade.size).value()
+          }
+          x.buy_ratio = n(x.buy_vol)
+            .divide(x.vol)
             .value()
-          var buy_ratio = n(buy_vol)
-            .divide(vol)
-            .value()
-          var side
-          if (buy_ratio > 0.5) side = 'BUY'
-          if (buy_ratio < 0.5) side = 'SELL'
-          if (buy_ratio === 0.5) side = 'EVEN'
-          var bucket = tb(close_time).resize(constants.tick_size)
-          var ticker = zerofill(4, side, ' ') + ' ' + n(typical).format('$0,0.00') + '/' + n(vol).format('0.000')
-          if (!tick) {
-            tick = {
-              id: bucket.toString(),
-              time: bucket.toMilliseconds(),
-              vol: vol,
-              high: high,
-              low: low,
-              open: open,
-              close: close,
-              trades: trades.length,
-              buys: buys,
-              buy_vol: buy_vol,
-              buy_ratio: buy_ratio,
-              typical: typical,
-              price: n(typical).format('$0,0.00'),
-              side: side,
-              ticker: ticker,
-              exchanges: exchanges
-            }
+          if (x.buy_ratio > 0.5) {
+            x.side = 'BUY'
+          }
+          else if (x.buy_ratio < 0.5) {
+            x.side = 'SELL'
           }
           else {
-            tick = {
-              id: bucket.toString(),
-              time: bucket.toMilliseconds(),
-              vol: n(tick.vol).add(vol).value(),
-              high: Math.max(tick.high, high),
-              low: Math.min(tick.low, low),
-              open: tick.open,
-              close: close,
-              trades: tick.trades + trades.length,
-              buys: tick.buys + buys,
-              buy_vol: n(tick.buy_vol).add(buy_vol).value(),
-              price: n(typical).format('$0,0.00'),
-              ticker: ticker,
-              exchanges: exchanges
-            }
-            tick.buy_ratio = n(tick.buy_vol)
-              .divide(tick.vol)
+            x.side = 'EVEN'
+          }
+          var ratio = x.buy_ratio
+          if (x.side === 'SELL') {
+            ratio = n(1)
+              .subtract(ratio)
               .value()
-            tick.typical = n(tick.high)
-              .add(tick.low)
-              .add(tick.close)
+          }
+          x.side_vol = n(x.vol)
+            .multiply(ratio)
+            .value()
+          if (trade.asset === c.asset && trade.currency === c.currency) {
+            if (!x.open) {
+              x.open = trade.price
+            }
+            x.high = Math.max(trade.price, x.high)
+            x.low = Math.min(trade.price, x.low)
+            x.close = trade.price
+            x.typical = n(x.high)
+              .add(x.low)
+              .add(x.close)
               .divide(3)
               .value()
-            if (tick.buy_ratio > 0.5) tick.side = 'BUY'
-            if (tick.buy_ratio < 0.5) tick.side = 'SELL'
-            if (tick.buy_ratio === 0.5) tick.side = 'EVEN'
           }
-          if (vol > 20) {
-            tick.ansi_ticker = ticker.red
-          }
-          else if (vol > 5) {
-            tick.ansi_ticker = ticker.yellow
-          }
-          else {
-            tick.ansi_ticker = ticker.white
-          }
-          get('db.ticks').save(tick, function (err, saved) {
-            if (err) return get('console').error('tick save err', err)
-            done(null, saved)
-          })
+        })
+        tick.buy_ratio = n(tick.buy_vol)
+          .divide(tick.vol)
+          .value()
+        if (tick.buy_ratio > 0.5) {
+          tick.side = 'BUY'
+        }
+        else if (tick.buy_ratio < 0.5) {
+          tick.side = 'SELL'
         }
         else {
-          done(null, tick)
+          tick.side = 'EVEN'
         }
+        var ratio = tick.buy_ratio
+        if (tick.side === 'SELL') {
+          ratio = n(1)
+            .subtract(ratio)
+            .value()
+        }
+        tick.side_vol = n(tick.vol)
+          .multiply(ratio)
+          .value()
+        get('db.ticks').save(tick, function (err, saved) {
+          if (err) return get('console').error('tick save err', err)
+          done(null, saved)
+        })
       }
     }
   })
