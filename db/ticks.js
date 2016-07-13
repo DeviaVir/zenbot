@@ -122,11 +122,8 @@ module.exports = function container (get, set) {
         if (tick.buy_ratio > 0.5) {
           tick.side = 'BUY'
         }
-        else if (tick.buy_ratio < 0.5) {
+        else if (tick.buy_ratio <= 0.5) {
           tick.side = 'SELL'
-        }
-        else {
-          tick.side = 'EVEN'
         }
         var ratio = tick.buy_ratio
         if (tick.side === 'SELL') {
