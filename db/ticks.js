@@ -25,8 +25,8 @@ module.exports = function container (get, set) {
         tick.exchanges_ticker = Object.keys(tick.exchanges).map(function (name) {
           var x = tick.exchanges[name]
           return name + ' = ' + n(x.vol).format('0.000') + ' ' + n(x.side_vol).divide(x.vol).format('0%') + ' buy'
-        }).join(', ')
-        get('zenbot:console').info(get_timestamp(tick.time), tick.ansi_ticker, tick.exchanges_ticker, {data: {tick: tick}})
+        }).join(', ').white
+        get('zenbot:console').info(get_timestamp(tick.time).grey, tick.ansi_ticker, tick.exchanges_ticker, {data: {tick: tick}})
       }
       cb(null, tick);
     },
@@ -102,7 +102,7 @@ module.exports = function container (get, set) {
           x.side_vol = n(x.vol)
             .multiply(ratio)
             .value()
-          if (trade.asset === c.asset && trade.currency === c.currency) {
+          if (trade.currency === c.currency) {
             if (!x.open) {
               x.open = trade.price
             }

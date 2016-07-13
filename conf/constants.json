@@ -24,5 +24,6 @@
   "exchanges": [
     "bitfinex",
     "gdax"
-  ]
+  ],
+  "big_trade": 50
 }
