@@ -134,7 +134,7 @@ module.exports = function container (get, set, clear) {
         }
         body = JSON.parse(body)
         if (rs.volatility !== body.Volatility) {
-          get('console').info(('[btcvol.info] volatility ' + n(rs.volatility).format('0.000') + ' -> ' + n(body.Volatility).format('0.000')).cyan, {data: {volatility: body.Volatility}})
+          get('console').info(('[btcvol.info] volatility ' + (rs.volatility ? n(rs.volatility).divide(100).format('0.000%') + ' -> ' : '') + n(body.Volatility).divide(100).format('0.000%')).cyan, {data: {volatility: body.Volatility}})
         }
         rs.volatility = body.Volatility
       })
