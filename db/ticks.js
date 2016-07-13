@@ -21,10 +21,13 @@ module.exports = function container (get, set) {
       else if (tick.side_vol >= 20 && tick.side === 'SELL') {
         tick.ansi_ticker = tick.ticker.red
       }
+      else {
+        tick.ansi_ticker = tick.ticker.grey
+      }
       if (tick.ansi_ticker) {
         tick.exchanges_ticker = Object.keys(tick.exchanges).map(function (name) {
           var x = tick.exchanges[name]
-          return name + ' = ' + n(x.vol).format('0.000') + ' ' + n(x.side_vol).divide(x.vol).format('0%') + ' buy'
+          return name + ' = ' + n(x.vol).format('0.000') + ' ' + n(x.side_vol).divide(x.vol).format('0%') + ' ' + x.side
         }).join(', ').white
         get('zenbot:console').info(get_timestamp(tick.time).grey, tick.ansi_ticker, tick.exchanges_ticker, {data: {tick: tick}})
       }
@@ -54,7 +57,8 @@ module.exports = function container (get, set) {
             buys: 0,
             buy_vol: 0,
             exchanges: {},
-            trade_ids: []
+            trade_ids: [],
+            avg_price: null
           }
           tick.timestamp = get_timestamp(tick.time)
         }
@@ -134,6 +138,19 @@ module.exports = function container (get, set) {
         tick.side_vol = n(tick.vol)
           .multiply(ratio)
           .value()
+        var prices = []
+        Object.keys(tick.exchanges).forEach(function (exchange) {
+          var x = tick.exchanges[exchange]
+          if (x.typical) {
+            prices.push(x.typical)
+          }
+        })
+        if (prices.length) {
+          var total = prices.reduce(function (prev, curr) {
+            return n(prev).add(curr).value()
+          }, 0)
+          tick.avg_price = n(total).divide(prices.length).value()
+        }
         get('db.ticks').save(tick, function (err, saved) {
           if (err) return get('console').error('tick save err', err)
           done(null, saved)

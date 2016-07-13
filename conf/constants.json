@@ -21,9 +21,11 @@
   "base_url": "https://zenbot.s8f.org",
   "gdax_rest_url": "https://api.gdax.com",
   "bitfinex_rest_url": "https://api.bitfinex.com/v1",
+  "bitflyer_rest_url": "https://api.bitflyer.jp/v1",
   "exchanges": [
     "bitfinex",
-    "gdax"
+    "gdax",
+    "bitflyer"
   ],
   "big_trade": 50
 }

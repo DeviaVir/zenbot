@@ -20,10 +20,6 @@ module.exports = function container (get, set, clear) {
             asset = c.asset
             currency = symb.pair.substr(3).toUpperCase()
           }
-          else if (idx > 0) {
-            asset = c.asset
-            currency = symb.pair.substr(0, 3).toUpperCase()
-          }
           else {
             return
           }
@@ -67,7 +63,7 @@ module.exports = function container (get, set, clear) {
                   side: trade.type,
                   exchange: trade.exchange
                 }
-              }).reverse()
+              })
               if (rs.bitfinex_max_timestamp === orig_max_timestamp) {
                 return done(null, [])
               }

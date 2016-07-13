@@ -50,7 +50,7 @@ module.exports = function container (get, set, clear) {
                   side: trade.side,
                   exchange: 'gdax'
                 }
-              }).reverse()
+              })
               if (rs.gdax_max_trade_id === orig_max_trade_id) {
                 return done(null, [])
               }
