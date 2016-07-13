@@ -10,16 +10,19 @@
   "sim_start_balance": 1000,
   "sim_query_limit": 100,
   "min_strat_vol": 5,
-  "min_strat_trades": 60,
   "bar_width": 20,
   "progress_bar_width": 60,
   "learn_mutation": 0.1,
   "hashtags": "#btc #gdax",
-  "websocket_uri": "",
-  "api_uri": "",
   "listen_port": 3011,
   "log_limit": 200,
   "max_diff_decay": 0.00001,
   "running_vol_decay": 1,
-  "base_url": "https://zenbot.s8f.org"
+  "base_url": "https://zenbot.s8f.org",
+  "gdax_rest_url": "https://api.gdax.com",
+  "bitfinex_rest_url": "https://api.bitfinex.com/v1",
+  "exchanges": [
+    "bitfinex",
+    "gdax"
+  ]
 }

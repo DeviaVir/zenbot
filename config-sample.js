@@ -1,5 +1,5 @@
 module.exports = {
-  // required
+  // change if your mongo server is not local
   mongo_uri: 'mongodb://localhost:27017/zenbot',
   mongo_username: null,
   mongo_password: null,

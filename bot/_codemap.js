@@ -1,5 +1,5 @@
 module.exports = {
-  _ns: 'motley',
+  _ns: 'zenbot',
   _folder: 'bot',
 
   backfiller: require('./backfiller'),

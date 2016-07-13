@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var version = require('../package.json').version
 ZENBOT_USER_AGENT = 'zenbot/' + version
-var constants = require('../conf/constants.json')
+var c = require('../conf/constants.json')
 
 var launch = require('../utils/launch')
 
@@ -58,7 +58,7 @@ program
 program
   .command('listen')
   .description('(optional) listen for new strategies, and expose web console')
-  .option('-p, --port <port>', 'port to listen on. default: ' + constants.listen_port, Number, constants.listen_port)
+  .option('-p, --port <port>', 'port to listen on. default: ' + c.listen_port, Number, c.listen_port)
   .action(function (options) {
     launch('server', options)
   })
