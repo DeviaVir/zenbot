@@ -3,5 +3,6 @@ module.exports = {
   _folder: 'exchanges',
 
   'bitfinex': require('./bitfinex'),
+  'bitflyer': require('./bitflyer'),
   'gdax': require('./gdax')
 }
