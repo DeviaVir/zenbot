@@ -56,7 +56,7 @@ module.exports = function container (get, set) {
             exchanges: {},
             trade_ids: []
           }
-          tick.timestamp = tick.end_timestamp = get_timestamp(tick.time)
+          tick.timestamp = get_timestamp(tick.time)
         }
         trades.forEach(function (trade) {
           if (tick.trade_ids.indexOf(trade.id) !== -1) return
