@@ -1,12 +1,12 @@
 var n = require('numbro')
   , c = require('../conf/constants.json')
   , tb = require('timebucket')
-  , run = require('run-parallel')
+  , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
   var bot = get('bot')
-  var series = get('motley:vendor.run-series')
+  var reduce_trades = get('utils.reduce_trades')
   if (bot.tweet) {
     var twitter = get('utils.twitter')
     function on_tweet (err, data, response) {
@@ -31,7 +31,7 @@ module.exports = function container (get, set, clear) {
         })
       }
     })
-    run(tasks, function (err, results) {
+    parallel(tasks, function (err, results) {
       if (err) {
         return get('console').error('fetch trades err', err.exchange, err)
       }
@@ -42,68 +42,16 @@ module.exports = function container (get, set, clear) {
           get('motley:db.trades').save(trade, done)
         }
       })
-      run(tasks, function (err) {
+      parallel(tasks, function (err) {
         if (err) {
           return get('console').error('record trades err', err)
         }
       })
     })
-    record_ticks()
+    reduce_trades()
   }
   rs.tick = tb(c.tick_size)
-  function record_ticks () {
-    get('motley:db.trades').select({query: {processed: false}}, function (err, trades) {
-      if (err) return get('console').error('select trades err', err)
-      var ticks = {}
-      var tasks = []
-      trades.forEach(function (trade) {
-        var tickId = tb(trade.time)
-          .resize(c.tick_size)
-          .toString()
-        ticks[tickId] || (ticks[tickId] = [])
-        ticks[tickId].push(trade)
-      })
-      Object.keys(ticks).forEach(function (tickId) {
-        ticks[tickId].sort(function (a, b) {
-          if (a.time < b.time) return -1
-          if (a.time > b.time) return 1
-          return 0
-        })
-        tasks.push(function (done) {
-          get('motley:db.ticks').load(tickId, function (err, tick) {
-            if (err) return done(err)
-            get('motley:db.ticks').create(tick, ticks[tickId], function (err, tick) {
-              if (err) return done(err)
-              if (bot.tweet && tick.side_vol >= c.big_trade) {
-                var tweet = {
-                  status: [
-                    'big ' + tick.side + ':',
-                    'size: ' + n(tick.side_vol).format('0.000') + ' ' + c.asset,
-                    'price: ' + tick.price,
-                    'time: ' + get_time(tick.time),
-                    c.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + c.hashtags
-                  ].join('\n')
-                }
-                twitter.post('statuses/update', tweet, on_tweet)
-              }
-              done(null, tick)
-            })
-          })
-        })
-      })
-      trades.forEach(function (trade) {
-        tasks.push(function (done) {
-          trade.processed = true
-          get('motley:db.trades').save(trade, done)
-        })
-      })
-      series(tasks, function (err) {
-        if (err) {
-          return get('console').error('create ticks err', err)
-        }
-      })
-    })
-  }
+  
   record_trades()
   return setInterval(record_trades, c.tick_ms)
 }

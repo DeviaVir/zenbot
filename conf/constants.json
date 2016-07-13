@@ -27,5 +27,6 @@
     "gdax",
     "bitflyer"
   ],
-  "big_trade": 50
+  "big_trade": 50,
+  "record_ticks_limit": null
 }
