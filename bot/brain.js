@@ -168,7 +168,7 @@ module.exports = function container (get, set, clear) {
   function getGraph () {
     var thisTotal = n(rs.high)
       .add(rs.low)
-      .add(rs.avg_price)
+      .add(rs.last_tick.typical)
       .divide(3)
       .multiply(rs.period_vol)
       .value()
@@ -181,7 +181,7 @@ module.exports = function container (get, set, clear) {
     rs.vwap = n(rs.running_total)
       .divide(rs.running_vol)
       .value()
-    rs.vwap_diff = n(rs.avg_price)
+    rs.vwap_diff = n(rs.last_tick.typical)
       .subtract(rs.vwap)
       .value()
     rs.max_diff = Math.max(rs.max_diff, Math.abs(rs.vwap_diff))
