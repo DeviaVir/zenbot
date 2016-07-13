@@ -21,13 +21,19 @@ module.exports = function container (get, set, clear) {
   var rs = {}
   function record_trades () {
     var tasks = c.exchanges.map(function (exchange) {
-      return function (cb) {
-        get('exchanges.' + exchange).record_trades(rs, cb)
+      return function (done) {
+        get('exchanges.' + exchange).record_trades(rs, function (err, results) {
+          if (err) {
+            err.exchange = exchange
+            return done(err)
+          }
+          done(null, results)
+        })
       }
     })
     run(tasks, function (err, results) {
       if (err) {
-        return get('console').error('fetch trades err', err)
+        return get('console').error('fetch trades err', err.exchange, err)
       }
       var trades = [].concat.apply([], [].concat.apply([], results))
       var tasks = trades.map(function (trade) {
