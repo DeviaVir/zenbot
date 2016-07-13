@@ -37,7 +37,9 @@ module.exports = function container (get, set, clear) {
     volatility: 0,
     max_vol: 0,
     last_learned: null,
-    net_worth: null
+    net_worth: null,
+    avg_price: null,
+    exchanges: {}
   }
   if (bot.tweet) {
     var twitter_client = get('utils.twitter_client')
@@ -65,7 +67,7 @@ module.exports = function container (get, set, clear) {
           console.error(ticker)
           return get('console').error('non-200 status from exchange: ' + resp.statusCode, {data: {body: ticker, statusCode: resp.statusCode}})
         }
-        get('db.mems').load(rs.id, function (err, mem) {
+        get('motley:db.mems').load(rs.id, function (err, mem) {
           if (err) throw err
           if (mem) {
             Object.keys(mem).forEach(function (k) {
@@ -97,7 +99,7 @@ module.exports = function container (get, set, clear) {
   }
   function syncLearned () {
     if (get('mode') === 'zen') {
-      get('db.mems').load('learned', function (err, learned) {
+      get('motley:db.mems').load('learned', function (err, learned) {
         if (err) throw err
         if (learned) {
           if (rs.last_learned && learned.best_fitness > rs.last_learned.best_fitness) {
@@ -166,7 +168,7 @@ module.exports = function container (get, set, clear) {
   function getGraph () {
     var thisTotal = n(rs.high)
       .add(rs.low)
-      .add(rs.last_tick.typical)
+      .add(rs.avg_price)
       .divide(3)
       .multiply(rs.period_vol)
       .value()
@@ -179,7 +181,7 @@ module.exports = function container (get, set, clear) {
     rs.vwap = n(rs.running_total)
       .divide(rs.running_vol)
       .value()
-    rs.vwap_diff = n(rs.last_tick.typical)
+    rs.vwap_diff = n(rs.avg_price)
       .subtract(rs.vwap)
       .value()
     rs.max_diff = Math.max(rs.max_diff, Math.abs(rs.vwap_diff))
@@ -201,12 +203,12 @@ module.exports = function container (get, set, clear) {
       bar += ' '.repeat(half * 2)
     }
     rs.high = 0
-    rs.low = 10000
+    rs.low = 100000
     return bar
   }
 
   function write (tick) {
-    if (!rs.first_tick) {
+    if (!rs.first_tick && tick.avg_price) {
       rs.first_tick = tick
     }
     rs.max_diff = Math.max(0, n(rs.max_diff)
@@ -262,8 +264,8 @@ module.exports = function container (get, set, clear) {
         if (rs.cooldown > 0) {
           return finish()
         }
-        var price = n(tick.typical)
-          .add(n(tick.typical).multiply(constants.markup))
+        var price = n(rs.avg_price)
+          .add(n(rs.avg_price).multiply(constants.markup))
           .value() // add markup
         var spend = n(rs.currency)
             .multiply(bot.trade_amt)
@@ -325,8 +327,8 @@ module.exports = function container (get, set, clear) {
         }
       }
       else if (rs.side === 'SELL') {
-        var price = n(tick.typical)
-          .subtract(n(tick.typical).multiply(constants.markup))
+        var price = n(rs.avg_price)
+          .subtract(n(rs.avg_price).multiply(constants.markup))
           .value()
         var sell = n(rs.asset)
           .multiply(bot.trade_amt)
@@ -407,14 +409,33 @@ module.exports = function container (get, set, clear) {
     }
     finish()
     function finish () {
-      rs.arrow = rs.last_tick ? (rs.last_tick.typical < tick.typical ? '↗'.green : '↘'.red) : ' '
-      rs.uptick = rs.last_tick ? (rs.last_tick.typical < tick.typical ? true : false) : null
-      rs.last_tick = tick
+      if (tick.avg_price) {
+        rs.last_tick = tick
+        Object.keys(tick.exchanges).forEach(function (exchange) {
+          rs.exchanges[exchange] = tick.exchanges[exchange]
+        })
+        var prices = []
+        Object.keys(rs.exchanges).forEach(function (exchange) {
+          var x = rs.exchanges[exchange]
+          if (x.typical) {
+            prices.push(x.typical)
+          }
+        })
+        var total = prices.reduce(function (prev, curr) {
+          return n(prev).add(curr).value()
+        }, 0)
+        var new_avg = n(total).divide(prices.length).value()
+        if (new_avg !== rs.avg_price) {
+          rs.arrow = rs.avg_price < new_avg ? '↗'.green : '↘'.red
+          rs.uptick = rs.avg_price < new_avg
+        }
+        rs.avg_price = new_avg
+      }
     }
   }
   var first_report = true
   function report () {
-    if (!rs.last_tick) return
+    if (!rs.avg_price) return
     var is_sim = get('mode') === 'simulator'
     if (first_report) {
       var ts = is_sim ? '             SIM DATE      ' : ''
@@ -424,7 +445,7 @@ module.exports = function container (get, set, clear) {
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
     var bar = getGraph()
     rs.net_worth = n(rs.currency)
-      .add(n(rs.asset).multiply(rs.last_tick.typical))
+      .add(n(rs.asset).multiply(rs.avg_price))
       .value()
     var diff = n(rs.net_worth).subtract(rs.start_balance)
       .value()
@@ -435,7 +456,7 @@ module.exports = function container (get, set, clear) {
     var status = [
       constants.product_id.grey,
       bar,
-      rs.arrow + zerofill(9, n(rs.last_tick.typical).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
       is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
@@ -444,14 +465,14 @@ module.exports = function container (get, set, clear) {
       diff,
       zerofill(7, n(rs.trade_vol).format('0.000'), ' ').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
-    get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.last_tick.price}})
+    get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
     var status_public = [
       constants.product_id.grey,
       bar,
-      rs.arrow + zerofill(8, n(rs.last_tick.typical).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(8, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string
     ].join(' ')
-    get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.last_tick.price}})
+    get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
     var saved_hour_vol = rs.hour_vol
     if (this_hour !== rs.last_hour) {
@@ -463,18 +484,18 @@ module.exports = function container (get, set, clear) {
             console.error(stats)
             return get('console').error('non-200 from exchange stats: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: stats}})
           }
-          var diff = n(rs.last_tick.typical)
+          var diff = n(rs.avg_price)
             .subtract(stats.open)
-            .divide(rs.last_tick.typical)
+            .divide(rs.avg_price)
             .value()
           var diff_str = diff >= 0 ? '+' : '-'
           diff_str += n(Math.abs(diff)).format('0.000%')
           var vwap_diff_str = rs.vwap_diff >= 0 ? '+' : '-'
-          vwap_diff_str += n(Math.abs(n(rs.vwap_diff).divide(rs.last_tick.typical).value())).format('0.000%')
+          vwap_diff_str += n(Math.abs(n(rs.vwap_diff).divide(rs.avg_price).value())).format('0.000%')
           var text = [
             get_time() + ' report:',
             'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
-            'price: ' + rs.last_tick.price,
+            'price: ' + rs.avg_price,
             'vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
             'trend: ' + vwap_diff_str,
             constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
@@ -490,7 +511,7 @@ module.exports = function container (get, set, clear) {
     rs.last_hour = this_hour
     rs.period_vol = 0
     if (bot.trade) {
-      get('db.mems').save(rs, function (err, saved) {
+      get('motley:db.mems').save(rs, function (err, saved) {
         if (err) throw err
       })
       syncBalance()
@@ -502,11 +523,11 @@ module.exports = function container (get, set, clear) {
   }
   function end () {
     var new_balance = rs.start_balance
-    if (rs.last_tick) {
+    if (rs.avg_price) {
       new_balance = n(rs.currency)
         .add(
           n(rs.asset)
-            .multiply(rs.last_tick.typical)
+            .multiply(rs.avg_price)
         )
         .value()
     }

@@ -58,7 +58,9 @@ module.exports = function container (get, set) {
             buy_vol: 0,
             exchanges: {},
             trade_ids: [],
-            avg_price: null
+            avg_price: null,
+            high: 0,
+            low: 100000
           }
           tick.timestamp = get_timestamp(tick.time)
         }
@@ -72,7 +74,7 @@ module.exports = function container (get, set) {
             buys: 0,
             buy_vol: 0,
             high: 0,
-            low: 10000
+            low: 100000
           })
           var x = tick.exchanges[trade.exchange]
           x.vol = n(x.vol).add(trade.size).value()
@@ -111,8 +113,11 @@ module.exports = function container (get, set) {
               x.open = trade.price
             }
             x.high = Math.max(trade.price, x.high)
+            tick.high = Math.max(tick.high, x.high)
             x.low = Math.min(trade.price, x.low)
+            tick.low = Math.min(tick.low, x.low)
             x.close = trade.price
+            tick.close = x.close
             x.typical = n(x.high)
               .add(x.low)
               .add(x.close)
@@ -150,6 +155,11 @@ module.exports = function container (get, set) {
             return n(prev).add(curr).value()
           }, 0)
           tick.avg_price = n(total).divide(prices.length).value()
+          tick.typical = n(tick.high)
+              .add(tick.low)
+              .add(tick.close)
+              .divide(3)
+              .value()
         }
         get('db.ticks').save(tick, function (err, saved) {
           if (err) return get('console').error('tick save err', err)
