@@ -31,13 +31,47 @@ module.exports = function container (get, set, clear) {
       var trades = [].concat.apply([], [].concat.apply([], results))
       var tasks = trades.map(function (trade) {
         return function (done) {
+          trade.processed = false
           get('motley:db.trades').save(trade, done)
         }
       })
       run(tasks, function (err) {
         if (err) {
-          throw err
           return get('console').error('record trades err', err)
+        }
+      })
+    })
+    record_ticks()
+  }
+  rs.tick = tb('')
+  function record_ticks () {
+    get('motley:db.trades').select({query: {processed: false}}, function (err, trades) {
+      if (err) return get('console').error('select trades err', err)
+      var ticks = {}
+      trades.forEach(function (trade) {
+        var tickId = tb(trade.time)
+          .resize(c.tick_size)
+          .toString()
+        ticks[tickId] || (ticks[tickId] = [])
+        ticks[tickId].push(trade)
+      })
+      var tasks = []
+      Object.keys(ticks).forEach(function (tickId) {
+        ticks[tickId].sort(function (a, b) {
+          if (a.time < b.time) return -1
+          if (a.time > b.time) return 1
+          return 0
+        })
+        tasks.push(function (done) {
+          get('motley:db.ticks').load(tickId, function (err, tick) {
+            if (err) return done(err)
+            get('motley:db.ticks').create(tick, trades, done)
+          })
+        })
+      })
+      run(tasks, function (err) {
+        if (err) {
+          return get('console').error('create ticks err', err)
         }
       })
     })
