@@ -4,8 +4,10 @@ var request = require('micro-request')
   , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
+  var cached_pairs
   return {
     get_pairs: function (cb) {
+      if (cached_pairs) return cb(null, cached_pairs)
       var pairs = {}
       request(c.gdax_rest_url + '/products', {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, products) {
         if (err) return cb(err)
@@ -19,6 +21,7 @@ module.exports = function container (get, set, clear) {
             pairs[product.id] = product
           }
         })
+        cached_pairs = pairs
         cb(null, pairs)
       })
     },
