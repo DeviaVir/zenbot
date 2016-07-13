@@ -12,6 +12,7 @@ module.exports = function container (get, set) {
     },
     save: function (obj, opts, cb) {
       // respond before the obj is saved
+      get('zenbot:console').log('tick', obj, obj.ansi_ticker)
       cb(null, obj);
     },
     afterSave: function (obj, opts, cb) {
@@ -23,8 +24,7 @@ module.exports = function container (get, set) {
       cb(null, obj)
     },
     methods: {
-      create: function (trades) {
-        var trade_ticker = ''
+      create: function (tick, trades, done) {
         if (trades.length) {
           var open, high = 0, low = 10000, close, buys = 0, vol = 0, buy_vol = 0, close_time
           var exchanges = {}
@@ -59,40 +59,71 @@ module.exports = function container (get, set) {
           if (buy_ratio < 0.5) side = 'SELL'
           if (buy_ratio === 0.5) side = 'EVEN'
           var bucket = tb(close_time).resize(constants.tick_size)
-          trade_ticker = zerofill(4, side, ' ') + ' ' + n(typical).format('$0,0.00') + '/' + n(vol).format('0.000')
-          var orig_ticker = trade_ticker
-          var tick = {
-            id: bucket.toString(),
-            time: bucket.toMilliseconds(),
-            vol: vol,
-            high: high,
-            low: low,
-            open: open,
-            close: close,
-            trades: trades.length,
-            buys: buys,
-            buy_vol: buy_vol,
-            buy_ratio: buy_ratio,
-            typical: typical,
-            price: n(typical).format('$0,0.00'),
-            side: side,
-            ticker: orig_ticker,
-            exchanges: exchanges
-          }
-          if (vol > 20) {
-            trade_ticker = trade_ticker.red
-          }
-          else if (vol > 5) {
-            trade_ticker = trade_ticker.yellow
+          var ticker = zerofill(4, side, ' ') + ' ' + n(typical).format('$0,0.00') + '/' + n(vol).format('0.000')
+          if (!tick) {
+            tick = {
+              id: bucket.toString(),
+              time: bucket.toMilliseconds(),
+              vol: vol,
+              high: high,
+              low: low,
+              open: open,
+              close: close,
+              trades: trades.length,
+              buys: buys,
+              buy_vol: buy_vol,
+              buy_ratio: buy_ratio,
+              typical: typical,
+              price: n(typical).format('$0,0.00'),
+              side: side,
+              ticker: ticker,
+              exchanges: exchanges
+            }
           }
           else {
-            trade_ticker = trade_ticker.white
+            tick = {
+              id: bucket.toString(),
+              time: bucket.toMilliseconds(),
+              vol: n(tick.vol).add(vol).value(),
+              high: Math.max(tick.high, high),
+              low: Math.min(tick.low, low),
+              open: tick.open,
+              close: close,
+              trades: tick.trades + trades.length,
+              buys: tick.buys + buys,
+              buy_vol: n(tick.buy_vol).add(buy_vol).value(),
+              price: n(typical).format('$0,0.00'),
+              ticker: ticker,
+              exchanges: exchanges
+            }
+            tick.buy_ratio = n(tick.buy_vol)
+              .divide(tick.vol)
+              .value()
+            tick.typical = n(tick.high)
+              .add(tick.low)
+              .add(tick.close)
+              .divide(3)
+              .value()
+            if (tick.buy_ratio > 0.5) tick.side = 'BUY'
+            if (tick.buy_ratio < 0.5) tick.side = 'SELL'
+            if (tick.buy_ratio === 0.5) tick.side = 'EVEN'
           }
-          tick.trade_ticker = ' trades: ' + trade_ticker
+          if (vol > 20) {
+            tick.ansi_ticker = ticker.red
+          }
+          else if (vol > 5) {
+            tick.ansi_ticker = ticker.yellow
+          }
+          else {
+            tick.ansi_ticker = ticker.white
+          }
           get('db.ticks').save(tick, function (err, saved) {
             if (err) return get('console').error('tick save err', err)
+            done(null, saved)
           })
-          return tick
+        }
+        else {
+          done(null, tick)
         }
       }
     }
