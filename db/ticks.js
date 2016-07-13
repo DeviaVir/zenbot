@@ -47,6 +47,11 @@ module.exports = function container (get, set) {
           return trade.asset === c.asset
         })
         if (!trades.length) return done(null, tick)
+        trades.sort(function (a, b) {
+          if (a.time < b.time) return -1
+          if (a.time > b.time) return 1
+          return 0
+        })
         if (!tick) {
           var bucket = tb(trades[0].time).resize(c.tick_size)
           tick = {
@@ -60,7 +65,9 @@ module.exports = function container (get, set) {
             trade_ids: [],
             avg_price: null,
             high: 0,
-            low: 100000
+            low: 100000,
+            close: null,
+            close_time: null
           }
           tick.timestamp = get_timestamp(tick.time)
         }
@@ -74,7 +81,9 @@ module.exports = function container (get, set) {
             buys: 0,
             buy_vol: 0,
             high: 0,
-            low: 100000
+            low: 100000,
+            close: null,
+            close_time: null
           })
           var x = tick.exchanges[trade.exchange]
           x.vol = n(x.vol).add(trade.size).value()
@@ -116,8 +125,14 @@ module.exports = function container (get, set) {
             tick.high = Math.max(tick.high, x.high)
             x.low = Math.min(trade.price, x.low)
             tick.low = Math.min(tick.low, x.low)
-            x.close = trade.price
-            tick.close = x.close
+            if (!x.close_time || trade.time > x.close_time) {
+              x.close_time = trade.time
+              x.close = trade.price
+            }
+            if (!tick.close_time || x.close_time > tick.close_time) {
+              tick.close_time = x.close_time
+              tick.close = x.close
+            }
             x.typical = n(x.high)
               .add(x.low)
               .add(x.close)
