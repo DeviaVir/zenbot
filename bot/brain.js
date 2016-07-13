@@ -168,7 +168,7 @@ module.exports = function container (get, set, clear) {
   function getGraph () {
     var thisTotal = n(rs.high)
       .add(rs.low)
-      .add(rs.last_tick.typical)
+      .add(rs.avg_price)
       .divide(3)
       .multiply(rs.period_vol)
       .value()
@@ -181,7 +181,7 @@ module.exports = function container (get, set, clear) {
     rs.vwap = n(rs.running_total)
       .divide(rs.running_vol)
       .value()
-    rs.vwap_diff = n(rs.last_tick.typical)
+    rs.vwap_diff = n(rs.avg_price)
       .subtract(rs.vwap)
       .value()
     rs.max_diff = Math.max(rs.max_diff, Math.abs(rs.vwap_diff))
@@ -510,16 +510,13 @@ module.exports = function container (get, set, clear) {
     }
     rs.last_hour = this_hour
     rs.period_vol = 0
-    if (bot.trade) {
+    if (get('mode') === 'zen') {
       get('motley:db.mems').save(rs, function (err, saved) {
         if (err) throw err
       })
       syncBalance()
+      syncLearned()
     }
-    else if (bot.sim) {
-      syncBalance()
-    }
-    syncLearned()
   }
   function end () {
     var new_balance = rs.start_balance
