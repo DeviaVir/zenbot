@@ -4,8 +4,10 @@ var request = require('micro-request')
   , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
+  var cached_pairs
   return {
     get_pairs: function (cb) {
+      if (cached_pairs) return cb(null, cached_pairs)
       var pairs = {}
       request(c.bitfinex_rest_url + '/symbols_details', {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, symbols) {
         if (err) return cb(err)
@@ -32,6 +34,7 @@ module.exports = function container (get, set, clear) {
             quote_increment: null
           }
         })
+        cached_pairs = pairs
         cb(null, pairs)
       })
     },
