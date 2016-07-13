@@ -74,7 +74,7 @@ module.exports = function container (get, set, clear) {
             if (err) return done(err)
             get('motley:db.ticks').create(tick, ticks[tickId], function (err, tick) {
               if (err) return done(err)
-              if (bot.tweet && tick.side_vol >= 20) {
+              if (bot.tweet && tick.side_vol >= c.big_trade) {
                 var tweet = {
                   status: [
                     'big ' + tick.side + ':',
