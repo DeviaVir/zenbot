@@ -14,7 +14,7 @@ module.exports = function (mode, options) {
   }
   try {
     var rootMap = {
-      _ns: 'motley',
+      _ns: 'zenbot',
       _maps: [
         require('../_codemap'),
         require('motley-mongo')
@@ -28,7 +28,7 @@ module.exports = function (mode, options) {
         silent: options.parent.silent
       },
       '@motley:conf.site.port': options.port || constants.listen_port,
-      'motley:mode': mode
+      'mode': mode
     }
     if (mode === 'server') {
       rootMap._maps.push(require('motley-templ'), require('motley-buffet'))
@@ -64,7 +64,7 @@ module.exports = function (mode, options) {
     var defaults = require('../conf/defaults.json')
     app.get('motley:db.mems').load('learned', function (err, learned) {
       if (err) throw err
-      app.get('motley:console').info((ZENBOT_USER_AGENT + ' booting!').cyan)
+      app.get('zenbot:console').info((ZENBOT_USER_AGENT + ' booting!').cyan)
       if (mode !== 'simulator' && learned) {
         Object.keys(learned).forEach(function (k) {
           if (k === 'learner') return
@@ -73,10 +73,10 @@ module.exports = function (mode, options) {
       }
       Object.keys(defaults).forEach(function (k) {
         if (typeof options[k] === 'undefined') options[k] = defaults[k]
-        app.get('motley:console').info('[param]', k, '=', options[k])
+        app.get('zenbot:console').info('[param]', k, '=', options[k])
       })
-      app.set('motley:bot', options)
-      app.get('motley:bot.' + mode)
+      app.set('zenbot:bot', options)
+      app.get('zenbot:bot.' + mode)
     })
     process.once('SIGINT', onExit)
     process.once('SIGTERM', onExit)

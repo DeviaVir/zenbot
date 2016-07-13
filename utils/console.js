@@ -3,9 +3,8 @@ var crypto = require('crypto')
   , colors = require('colors')
 
 module.exports = function container (get, set) {
-  var conf = get('conf.console')
+  var conf = get('motley:conf.console')
   var cluster = require('cluster')
-  var colors = get('vendor.colors')
   var get_timestamp = get('utils.get_timestamp')
   return {
     _log: function (args) {

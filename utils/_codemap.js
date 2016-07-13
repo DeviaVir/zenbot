@@ -1,12 +1,12 @@
 module.exports = {
-  _ns: 'motley',
+  _ns: 'zenbot',
   _folder: 'utils',
   'authed_client': require('./authed_client'),
   'client': require('./client'),
   'bitfinex_client': require('./bitfinex_client'),
-  '@motley:console': require('./console'),
+  'zenbot:console': require('./console'),
   'get_time': require('./get_time'),
   'get_timestamp': require('./get_timestamp'),
-  'twitter_client': require('./twitter_client'),
+  'twitter': require('./twitter'),
   'websocket': require('./websocket')
 }
