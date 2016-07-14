@@ -2,6 +2,8 @@ var request = require('micro-request')
   , c = require('../conf/constants.json')
   , n = require('numbro')
   , parallel = require('run-parallel')
+  , sig = require('sig')
+  , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
   var cached_pairs
@@ -41,16 +43,19 @@ module.exports = function container (get, set, clear) {
     record_trades: function (rs, cb) {
       var x = rs.bitfinex ? rs.bitfinex : {}
       rs.bitfinex = x
+      //console.error('bitfinex record trades', x)
       var results = []
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
           if (!x[id]) {
-            x[id] = {}
+            x[id] = {
+              hashes: {}
+            }
           }
           return function (done) {
             var uri = c.bitfinex_rest_url + '/trades/' + id + '?limit_trades=' + c.backfill_limit + (x[id].max_timestamp ? '&timestamp=' + x[id].max_timestamp : '')
-            get('console').info('GET', uri)
+            //get('console').info('GET', uri)
             request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
@@ -60,9 +65,17 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
+              var hash = sig(trades)
+              if (x[id].hashes[hash]) {
+                //get('console').error('DUPE', uri, hash, trades.length, 'trades')
+                return cb && cb(null, [])
+              }
+              x[id].hashes[hash] = true
+              //get('console').info('GET', uri, hash, trades.length, 'trades')
               var orig_max_timestamp = x[id].max_timestamp
               trades = trades.map(function (trade) {
-                x[id].max_timestamp = Math.max(x[id].max_timestamp, trade.timestamp)
+                x[id].max_timestamp = x[id].max_timestamp ? Math.max(x[id].max_timestamp, trade.timestamp) : trade.timestamp
+                assert(!Number.isNaN(x[id].max_timestamp))
                 return {
                   id: 'bitfinex-' + pairs[id].display + '-' + String(trade.tid),
                   currency: pairs[id].quote_currency,

@@ -17,7 +17,7 @@
   "listen_port": 3011,
   "log_limit": 200,
   "graph_decay": 0.9999,
-  "graph_expand": 1.2,
+  "graph_expand": 1.0,
   "running_vol_decay": 1,
   "base_url": "https://zenbot.s8f.org",
   "gdax_rest_url": "https://api.gdax.com",

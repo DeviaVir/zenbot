@@ -7,6 +7,7 @@ module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
   var bot = get('bot')
   var reduce_trades = get('utils.reduce_trades')
+  var get_timestamp = get('utils.get_timestamp')
   if (bot.tweet) {
     var twitter = get('utils.twitter')
     function on_tweet (err, data, response) {
@@ -29,6 +30,15 @@ module.exports = function container (get, set, clear) {
             if (err) {
               err.exchange = exchange
               return done(err)
+            }
+            if (results.length) {
+              var max_time = 0
+              var ticker = results.slice(0, 3).map(function (trade) {
+                max_time = Math.max(max_time, trade.time)
+                return trade.side + ' ' + n(trade.size).format('0.000') + ' ' + trade.asset + ' at ' + n(trade.price).format('0.000') + ' ' + trade.currency
+              }).join(', ')
+              ticker = get_timestamp(max_time).grey + ' ' + ticker
+              get('console').info('recorded', exchange, results.length, 'trades. ' + ticker)
             }
             done(null, results)
           })
