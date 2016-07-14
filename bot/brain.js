@@ -487,7 +487,7 @@ module.exports = function container (get, set, clear) {
       rs.bar,
       rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
       zerofill(7, rs.period_buys + '/' + n(rs.period_trades).subtract(rs.period_buys).value(), ' ').grey,
-      zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
+      zerofill(9, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string,
       is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
@@ -502,7 +502,7 @@ module.exports = function container (get, set, clear) {
       rs.bar,
       rs.arrow + zerofill(8, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
       zerofill(7, rs.period_buys + '/' + n(rs.period_trades).subtract(rs.period_buys).value(), ' ').grey,
-      zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
+      zerofill(9, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string
     ].join(' ')
     get('console').log(status_public, {public: true, data: {zmi: rs.zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
