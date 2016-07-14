@@ -13,16 +13,37 @@ module.exports = function container (get, set, clear) {
   var series = get('motley:vendor.run-series')
   return {
     get_pairs: function (cb) {
-      var pairs = {
-        'btc_cny': {
-          display: 'BTC-CNY',
-          base_currency: 'BTC',
-          quote_currency: 'CNY'
-        },
-        'ltc_cny': {
-          display: 'LTC-CNY',
-          base_currency: 'LTC',
-          quote_currency: 'CNY'
+      var pairs = {}
+      if (c.asset == 'BTC') {
+        pairs = {
+          'btc_cny': {
+            display: 'BTC-CNY',
+            base_currency: 'BTC',
+            quote_currency: 'CNY',
+            url: c.okcoin_cny_rest_url
+          },
+          'btc_usd': {
+            display: 'BTC-USD',
+            base_currency: 'BTC',
+            quote_currency: 'USD',
+            url: c.okcoin_usd_rest_url
+          }
+        }
+      }
+      else if (c.asset === 'LTC') {
+        pairs = {
+          'ltc_cny': {
+            display: 'LTC-CNY',
+            base_currency: 'LTC',
+            quote_currency: 'CNY',
+            url: c.okcoin_cny_rest_url
+          },
+          'ltc_usd': {
+            display: 'LTC-USD',
+            base_currency: 'LTC',
+            quote_currency: 'USD',
+            url: c.okcoin_usd_rest_url
+          }
         }
       }
       cb(null, pairs)
@@ -41,7 +62,7 @@ module.exports = function container (get, set, clear) {
             }
           }
           return function (done) {
-            var uri = c.okcoin_rest_url + '/trades.do?symbol=' + id + (x[id].max_trade_id ? '&since=' + x[id].max_trade_id : '')
+            var uri = pairs[id].url + '/trades.do?symbol=' + id + (x[id].max_trade_id ? '&since=' + x[id].max_trade_id : '')
             //get('console').info('GET', uri)
             request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
