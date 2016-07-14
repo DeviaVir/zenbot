@@ -24,6 +24,11 @@ module.exports = function container (get, set, clear) {
             }
             if (results.length) {
               var min_time
+              results.sort(function (a, b) {
+                if (a.size > b.size) return -1
+                if (a.size < b.size) return 1
+                return 0
+              })
               var ticker = results.slice(0, 3).map(function (trade) {
                 min_time = min_time ? Math.min(min_time, trade.time) : trade.time
                 return trade.side + ' ' + n(trade.size).format('0.000') + ' ' + trade.asset + ' at ' + n(trade.price).format('0.000') + ' ' + trade.currency
