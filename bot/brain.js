@@ -486,7 +486,7 @@ module.exports = function container (get, set, clear) {
       rs.vwap_diff_ansi_str,
       rs.bar,
       rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
-      zerofill(7, rs.period_buys + '/' + rs.period_trades, ' ').grey,
+      zerofill(7, rs.period_buys + '/' + n(rs.period_trades).subtract(rs.period_buys).value(), ' ').grey,
       zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string,
       is_sim ? timestamp.grey : false,
@@ -501,7 +501,7 @@ module.exports = function container (get, set, clear) {
       c.product_id.grey,
       rs.bar,
       rs.arrow + zerofill(8, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
-      zerofill(7, rs.period_buys + '/' + rs.period_trades, ' ').grey,
+      zerofill(7, rs.period_buys + '/' + n(rs.period_trades).subtract(rs.period_buys).value(), ' ').grey,
       zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string
     ].join(' ')
