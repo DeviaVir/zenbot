@@ -1,6 +1,6 @@
 {
   "name": "zenbot_btc",
-  "version": "2.8.0",
+  "version": "3.x-dev",
   "description": "an automated Bitcoin trading bot for GDAX (Coinbase Exchange)",
   "bin": {
     "zenbot": "./bin/zenbot"
