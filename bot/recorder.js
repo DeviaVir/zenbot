@@ -18,39 +18,48 @@ module.exports = function container (get, set, clear) {
       else get('console').error('tweet err', response.statusCode, data)
     }
   }
-  var rs = {}
-  function record_trades () {
-    rs.tick = tb(c.tick_size).toString()
-    var tasks = c.exchanges.map(function (exchange) {
-      return function (done) {
-        get('exchanges.' + exchange).record_trades(rs, function (err, results) {
-          if (err) {
-            err.exchange = exchange
-            return done(err)
-          }
-          done(null, results)
-        })
-      }
-    })
-    parallel(tasks, function (err, results) {
-      if (err) {
-        return get('console').error('fetch trades err', err.exchange, err)
-      }
-      var trades = [].concat.apply([], [].concat.apply([], results))
-      var tasks = trades.map(function (trade) {
+  get('motley:db.mems').load('recorder', function (err, rs) {
+    if (err) throw err
+    if (!rs) rs = {id: 'recorder'}
+    function record_trades () {
+      rs.tick = tb(c.tick_size).toString()
+      var tasks = c.exchanges.map(function (exchange) {
         return function (done) {
-          trade.processed = false
-          get('motley:db.trades').save(trade, done)
+          get('exchanges.' + exchange).record_trades(rs, function (err, results) {
+            if (err) {
+              err.exchange = exchange
+              return done(err)
+            }
+            done(null, results)
+          })
         }
       })
-      parallel(tasks, function (err) {
+      parallel(tasks, function (err, results) {
         if (err) {
-          return get('console').error('record trades err', err)
+          return get('console').error('fetch trades err', err.exchange, err)
         }
+        var trades = [].concat.apply([], [].concat.apply([], results))
+        var tasks = trades.map(function (trade) {
+          return function (done) {
+            trade.processed = false
+            get('motley:db.trades').save(trade, done)
+          }
+        })
+        parallel(tasks, function (err) {
+          if (err) {
+            return get('console').error('record trades err', err)
+          }
+          get('motley:db.mems').save(rs, function (err) {
+            if (err) {
+              return get('console').error('save recorder rs err', err)
+            }
+          })
+        })
       })
-    })
-    reduce_trades()
-  }
-  record_trades()
-  return setInterval(record_trades, c.tick_ms)
+      reduce_trades()
+    }
+    record_trades()
+    setInterval(record_trades, c.tick_ms)
+  })
+  return null
 }

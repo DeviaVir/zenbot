@@ -49,7 +49,9 @@ module.exports = function container (get, set, clear) {
             x[id] = {}
           }
           return function (done) {
-            request(c.bitfinex_rest_url + '/trades/' + id + '?limit_trades=' + c.backfill_limit + (x[id].max_timestamp ? '&timestamp=' + x[id].max_timestamp : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            var uri = c.bitfinex_rest_url + '/trades/' + id + '?limit_trades=' + c.backfill_limit + (x[id].max_timestamp ? '&timestamp=' + x[id].max_timestamp : '')
+            get('console').info('GET', uri)
+            request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)

@@ -39,7 +39,9 @@ module.exports = function container (get, set, clear) {
             x[id] = {}
           }
           return function (done) {
-            request(c.bitflyer_rest_url + '/getexecutions?count=' + c.backfill_limit + '&product_code=' + id + (x[id].max_id ? '&after=' + x[id].max_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            var uri = c.bitflyer_rest_url + '/getexecutions?count=' + c.backfill_limit + '&product_code=' + id + (x[id].max_id ? '&after=' + x[id].max_id : '')
+            get('console').info('GET', uri)
+            request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -87,7 +89,9 @@ module.exports = function container (get, set, clear) {
             x[id] = {}
           }
           return function (done) {
-            request(c.bitflyer_rest_url + '/getexecutions?count=' + c.backfill_limit + '&product_code=' + id + (x[id].min_id ? '&before=' + x[id].min_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            var uri = c.bitflyer_rest_url + '/getexecutions?count=' + c.backfill_limit + '&product_code=' + id + (x[id].min_id ? '&before=' + x[id].min_id : '')
+            get('console').info('GET', uri)
+            request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
