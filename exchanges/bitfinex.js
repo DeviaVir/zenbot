@@ -82,7 +82,9 @@ module.exports = function container (get, set, clear) {
       })
     },
     backfill_trades: function (rs, cb) {
-
+      // bitfinex doesn't offer historical trade api.
+      // @todo: backfill from another zenbot instance using server
+      cb(null, [])
     }
   }
 }
