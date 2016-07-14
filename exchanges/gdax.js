@@ -19,7 +19,7 @@ module.exports = function container (get, set, clear) {
           return cb(new Error('non-200 status: ' + resp.statusCode))
         }
         products.forEach(function (product) {
-          if (product.base_currency === c.asset) {
+          if (product.base_currency === c.asset && product.quote_currency === c.currency) {
             product.display = product.id
             pairs[product.id] = product
           }

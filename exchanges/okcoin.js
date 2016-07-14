@@ -15,14 +15,16 @@ module.exports = function container (get, set, clear) {
     get_pairs: function (cb) {
       var pairs = {}
       if (c.asset == 'BTC') {
-        pairs = {
-          'btc_cny': {
+        if (c.currency === 'CNY') {
+          pairs['btc_cny'] = {
             display: 'BTC-CNY',
             base_currency: 'BTC',
             quote_currency: 'CNY',
             url: c.okcoin_cny_rest_url
-          },
-          'btc_usd': {
+          }
+        }
+        else if (c.currency === 'USD') {
+          pairs['btc_usd'] = {
             display: 'BTC-USD',
             base_currency: 'BTC',
             quote_currency: 'USD',
@@ -31,14 +33,16 @@ module.exports = function container (get, set, clear) {
         }
       }
       else if (c.asset === 'LTC') {
-        pairs = {
-          'ltc_cny': {
+        if (c.currency === 'CNY') {
+          pairs['ltc_cny'] = {
             display: 'LTC-CNY',
             base_currency: 'LTC',
             quote_currency: 'CNY',
             url: c.okcoin_cny_rest_url
-          },
-          'ltc_usd': {
+          }
+        }
+        else if (c.currency === 'USD') {
+          pairs['ltc_usd'] = {
             display: 'LTC-USD',
             base_currency: 'LTC',
             quote_currency: 'USD',
