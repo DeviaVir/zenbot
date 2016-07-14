@@ -1,6 +1,6 @@
 module.exports = function container (get, set) {
   return function handler (req, res, next) {
-    req.bot = get('bot')
+    req.bot = get('zenbot:bot')
     if (!req.bot.secret) return next()
     if (req.session.secret && req.session.secret === req.bot.secret) {
       res.vars.secret = true
