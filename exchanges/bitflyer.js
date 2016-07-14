@@ -12,18 +12,21 @@ module.exports = function container (get, set, clear) {
   var series = get('motley:vendor.run-series')
   return {
     get_pairs: function (cb) {
-      var pairs = {
-        'BTC_JPY': {
+      var pairs = {}
+      if (c.asset === 'BTC') {
+        pairs['BTC_JPY'] = {
           display: 'BTC-JPY',
           base_currency: 'BTC',
           quote_currency: 'JPY'
-        },
-        'FX_BTC_JPY': {
+        }
+        pairs['FX_BTC_JPY'] = {
           display: 'FX-BTC-JPY',
           base_currency: 'BTC',
           quote_currency: 'JPY'
-        },
-        'ETH_BTC': {
+        }
+      }
+      else if (c.asset === 'ETH') {
+        pairs['ETH_BTC'] = {
           display: 'ETH-BTC',
           base_currency: 'ETH',
           quote_currency: 'BTC'
