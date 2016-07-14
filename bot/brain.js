@@ -457,7 +457,14 @@ module.exports = function container (get, set, clear) {
   function report () {
     if (!rs.avg_price) return
     rs.uptick = !rs.last_avg_price || rs.last_avg_price < rs.avg_price
-    rs.arrow = rs.uptick ? '↗'.green : '↘'.red
+    if (rs.last_avg_price === rs.avg_price) {
+      rs.uptick = 0
+      rs.arrow = '='.grey
+    }
+    else {
+      rs.arrow = rs.uptick ? '↗'.green : '↘'.red
+    }
+
     rs.last_avg_price = rs.avg_price
     var is_sim = get('mode') === 'simulator'
     if (first_report) {
@@ -471,7 +478,7 @@ module.exports = function container (get, set, clear) {
       c.product_id.grey,
       rs.vwap_diff_ansi_str,
       rs.bar,
-      rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
       is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
