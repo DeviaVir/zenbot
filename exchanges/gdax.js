@@ -27,12 +27,17 @@ module.exports = function container (get, set, clear) {
       })
     },
     record_trades: function (rs, cb) {
-      if (!rs.gdax_max_trade_id) rs.gdax_max_trade_id = ''
+      var x = rs.gdax ? rs.gdax : {}
+      rs.gdax = x
+      var results = []
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
+          if (!x[id]) {
+            x[id] = {}
+          }
           return function (done) {
-            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades' + (rs.gdax_max_trade_id ? '?before=' + rs.gdax_max_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + rs.gdax_max_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -58,24 +63,29 @@ module.exports = function container (get, set, clear) {
               if (rs.gdax_max_trade_id === orig_max_trade_id) {
                 return done(null, [])
               }
+              results = results.concat(trades)
               done(null, trades)
             })
           }
         })
-        parallel(tasks, function (err, results) {
+        parallel(tasks, function (err) {
           if (err) return cb(err)
-          results = [].concat.call([], results)
           cb(null, results)
         })
       })
     },
     backfill_trades: function (rs, cb) {
-      if (!rs.gdax_min_trade_id) rs.gdax_min_trade_id = ''
+      var x = rs.gdax ? rs.gdax : {}
+      rs.gdax = x
+      var results = []
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
+          if (!x[id]) {
+            x[id] = {}
+          }
           return function (done) {
-            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades' + (rs.gdax_min_trade_id ? '?after=' + rs.gdax_min_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].min_trade_id ? '&after=' + x[id].min_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -84,9 +94,9 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
-              var orig_min_trade_id = rs.gdax_min_trade_id
+              var orig_min_trade_id = x[id].min_trade_id
               trades = trades.map(function (trade) {
-                rs.gdax_min_trade_id = rs.gdax_min_trade_id ? Math.min(rs.gdax_min_trade_id, trade.trade_id) : trade.trade_id
+                x[id].min_trade_id = x[id].min_trade_id ? Math.min(x[id].min_trade_id, trade.trade_id) : trade.trade_id
                 return {
                   id: 'gdax-' + pairs[id].display + '-' + String(trade.trade_id),
                   asset: pairs[id].base_currency,
@@ -101,13 +111,13 @@ module.exports = function container (get, set, clear) {
               if (rs.gdax_min_trade_id === orig_min_trade_id) {
                 return done(null, [])
               }
+              results = results.concat(trades)
               done(null, trades)
             })
           }
         })
-        parallel(tasks, function (err, results) {
+        parallel(tasks, function (err) {
           if (err) return cb(err)
-          results = [].concat.call([], results)
           cb(null, results)
         })
       })

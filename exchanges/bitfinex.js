@@ -39,12 +39,17 @@ module.exports = function container (get, set, clear) {
       })
     },
     record_trades: function (rs, cb) {
-      if (!rs.bitfinex_max_timestamp) rs.bitfinex_max_timestamp = ''
+      var x = rs.bitfinex ? rs.bitfinex : {}
+      rs.bitfinex = x
+      var results = []
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
+          if (!x[id]) {
+            x[id] = {}
+          }
           return function (done) {
-            request(c.bitfinex_rest_url + '/trades/' + id + '?timestamp=' + rs.bitfinex_max_timestamp, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            request(c.bitfinex_rest_url + '/trades/' + id + '?limit_trades=' + c.backfill_limit + (x[id].max_timestamp ? '&timestamp=' + x[id].max_timestamp : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -53,9 +58,9 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
-              var orig_max_timestamp = rs.bitfinex_max_timestamp
+              var orig_max_timestamp = x[id].max_timestamp
               trades = trades.map(function (trade) {
-                rs.bitfinex_max_timestamp = Math.max(rs.bitfinex_max_timestamp, trade.timestamp)
+                x[id].max_timestamp = Math.max(x[id].max_timestamp, trade.timestamp)
                 return {
                   id: 'bitfinex-' + pairs[id].display + '-' + String(trade.tid),
                   currency: pairs[id].quote_currency,
@@ -67,16 +72,16 @@ module.exports = function container (get, set, clear) {
                   exchange: trade.exchange
                 }
               })
-              if (rs.bitfinex_max_timestamp === orig_max_timestamp) {
+              if (x[id].max_timestamp === orig_max_timestamp) {
                 return done(null, [])
               }
+              results = results.concat(trades)
               done(null, trades)
             })
           }
         })
-        parallel(tasks, function (err, results) {
+        parallel(tasks, function (err) {
           if (err) return cb(err)
-          results = [].concat.call([], results)
           cb(null, results)
         })
       })

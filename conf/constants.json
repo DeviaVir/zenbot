@@ -29,5 +29,6 @@
     "bitflyer"
   ],
   "big_trade": 50,
-  "record_ticks_limit": null
+  "record_ticks_limit": null,
+  "backfill_limit": 500
 }
