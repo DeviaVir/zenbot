@@ -1,4 +1,4 @@
-var constants = require('../conf/constants.json')
+var c = require('../conf/constants.json')
   , crypto = require('crypto')
   , fs = require('fs')
   , path = require('path')
@@ -13,12 +13,12 @@ module.exports = function container (get, set, clear) {
     bot.secret = crypto.randomBytes(8).toString('hex')
     fs.writeFileSync(path.resolve(__dirname, '..', 'conf', 'secret.json'), JSON.stringify(bot.secret, null, 2), {mode: parseInt('0600', 8)})
   }
-  get('db.mems').load('learned', function (err, learned) {
+  get('motley:db.mems').load('learned', function (err, learned) {
     if (err) throw err
-    get('hooks.runListen')(function (err) {
+    get('motley:hooks.runListen')(function (err) {
       if (err) throw err
       get('console').info(('[server] listening on port ' + bot.port).white)
-      get('console').info(('[share url] http://localhost:' + bot.port + '/learned?secret=' + bot.secret).yellow)
+      get('console').info(('[share url] ' + c.base_url + '/learned?secret=' + bot.secret).yellow)
     })
   })
   return null
