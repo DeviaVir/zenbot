@@ -142,7 +142,9 @@ module.exports = function container (get, set, clear) {
           .value()
     }
     get('motley:db.ticks').save(tick, function (err, saved) {
-      if (err) return get('console').error('tick save err', err)
+      if (err) {
+        get('console').error('tick save err', err)
+      }
       done(null, saved)
     })
   }

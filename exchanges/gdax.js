@@ -37,7 +37,9 @@ module.exports = function container (get, set, clear) {
             x[id] = {}
           }
           return function (done) {
-            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + rs.gdax_max_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + rs.gdax_max_trade_id : '')
+            get('console').info('GET', uri)
+            request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -85,7 +87,9 @@ module.exports = function container (get, set, clear) {
             x[id] = {}
           }
           return function (done) {
-            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].min_trade_id ? '&after=' + x[id].min_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].min_trade_id ? '&after=' + x[id].min_trade_id : '')
+            get('console').info('GET', uri)
+            request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
