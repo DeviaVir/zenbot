@@ -496,7 +496,9 @@ module.exports = function container (get, set, clear) {
     var status_public = [
       c.product_id.grey,
       rs.bar,
-      rs.arrow + zerofill(8, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
+      rs.arrow + zerofill(8, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
+      zerofill(5, rs.period_trades, ' ').grey,
+      zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string
     ].join(' ')
     get('console').log(status_public, {public: true, data: {zmi: rs.zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
