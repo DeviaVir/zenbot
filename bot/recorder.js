@@ -20,6 +20,7 @@ module.exports = function container (get, set, clear) {
   }
   var rs = {}
   function record_trades () {
+    rs.tick = tb(c.tick_size).toString()
     var tasks = c.exchanges.map(function (exchange) {
       return function (done) {
         get('exchanges.' + exchange).record_trades(rs, function (err, results) {
@@ -50,8 +51,6 @@ module.exports = function container (get, set, clear) {
     })
     reduce_trades()
   }
-  rs.tick = tb(c.tick_size)
-  
   record_trades()
   return setInterval(record_trades, c.tick_ms)
 }

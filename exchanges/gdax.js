@@ -5,6 +5,7 @@ var request = require('micro-request')
 
 module.exports = function container (get, set, clear) {
   var cached_pairs
+  var series = get('motley:vendor.run-series')
   return {
     get_pairs: function (cb) {
       if (cached_pairs) return cb(null, cached_pairs)
@@ -69,7 +70,47 @@ module.exports = function container (get, set, clear) {
       })
     },
     backfill_trades: function (rs, cb) {
-
+      if (!rs.gdax_min_trade_id) rs.gdax_min_trade_id = ''
+      this.get_pairs(function (err, pairs) {
+        if (err) return cb(err)
+        var tasks = Object.keys(pairs).map(function (id) {
+          return function (done) {
+            request(c.gdax_rest_url + '/products/' + pairs[id].id + '/trades' + (rs.gdax_min_trade_id ? '?after=' + rs.gdax_min_trade_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+              if (err) return done(err)
+              if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
+                console.error(trades)
+                return done(new Error('non-200 status: ' + resp.statusCode))
+              }
+              if (!trades.length) {
+                return done(null, [])
+              }
+              var orig_min_trade_id = rs.gdax_min_trade_id
+              trades = trades.map(function (trade) {
+                rs.gdax_min_trade_id = rs.gdax_min_trade_id ? Math.min(rs.gdax_min_trade_id, trade.trade_id) : trade.trade_id
+                return {
+                  id: 'gdax-' + pairs[id].display + '-' + String(trade.trade_id),
+                  asset: pairs[id].base_currency,
+                  currency: pairs[id].quote_currency,
+                  time: new Date(trade.time).getTime(),
+                  size: n(trade.size).value(),
+                  price: n(trade.price).value(),
+                  side: trade.side,
+                  exchange: 'gdax'
+                }
+              })
+              if (rs.gdax_min_trade_id === orig_min_trade_id) {
+                return done(null, [])
+              }
+              done(null, trades)
+            })
+          }
+        })
+        parallel(tasks, function (err, results) {
+          if (err) return cb(err)
+          results = [].concat.call([], results)
+          cb(null, results)
+        })
+      })
     }
   }
 }

@@ -1,50 +1,54 @@
 var n = require('numbro')
-  , colors = require('colors')
+  , c = require('../conf/constants.json')
   , tb = require('timebucket')
-  , zerofill = require('zero-fill')
-  , constants = require('../conf/constants.json')
+  , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
-  var client = get('utils.client')
+  var get_time = get('utils.get_time')
   var bot = get('bot')
-  var counter = 0
-  function getNext () {
-    client.getProductTrades({after: bot.after}, function (err, resp, trades) {
+  var reduce_trades = get('utils.reduce_trades')
+  var rs = {}
+  var series = get('motley:vendor.run-series')
+  function backfill_trades () {
+    rs.tick = tb(c.tick_size).toString()
+    var tasks = c.exchanges.map(function (exchange) {
+      return function (done) {
+        get('exchanges.' + exchange).backfill_trades(rs, function (err, results) {
+          if (err) {
+            err.exchange = exchange
+            return done(err)
+          }
+          get('console').info('got', results.length, 'trades.')
+          done(null, results)
+        })
+      }
+    })
+    parallel(tasks, function (err, results) {
       if (err) {
-        get('console').error('getProductTrades err', err)
-        return setTimeout(getNext, 5000)
+        setImmediate(backfill_trades)
+        return get('console').error('fetch trades err', err.exchange, err)
       }
-      if (!trades.length) {
-        get('console').info('done!')
-        process.exit()
-      }
-      var trades = trades.map(function (trade) {
-        return {
-          id: String(trade.trade_id),
-          time: new Date(trade.time).getTime(),
-          size: n(trade.size).value(),
-          price: n(trade.price).value(),
-          side: trade.side
+      var trades = [].concat.apply([], [].concat.apply([], results))
+      var tasks = trades.map(function (trade) {
+        return function (done) {
+          trade.processed = false
+          get('motley:db.trades').save(trade, done)
         }
-      }).reverse()
-      bot.after = trades[0].id
-      var ticks = {}
-      trades.forEach(function (trade) {
-        var tickId = tb(trade.time)
-          .resize(constants.tick_size)
-          .toString()
-        ticks[tickId] || (ticks[tickId] = [])
-        ticks[tickId].push(trade)
-        counter++
       })
-      Object.keys(ticks).forEach(function (tickId) {
-        var tick = get('db.ticks').create(ticks[tickId])
-        if (tick && tick.trade_ticker) get('console').info('backfilled', tb(tickId).toDate(), tick.trade_ticker)
+      parallel(tasks, function (err) {
+        if (err) {
+          setImmediate(backfill_trades)
+          return get('console').error('record trades err', err)
+        }
+        reduce_trades(function (err) {
+          setImmediate(backfill_trades)
+          if (err) {
+            return get('console').error('reduce trades err', err)
+          }
+        })
       })
-      get('console').info('processed', counter, 'trades. after = ' + bot.after)
-      setTimeout(getNext, 0)
     })
   }
-  setTimeout(getNext, 1000)
+  backfill_trades()
   return null
 }

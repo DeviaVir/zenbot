@@ -1,13 +1,17 @@
 var tb = require('timebucket')
   , c = require('../conf/constants.json')
-  , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
   var bot = get('bot')
   var get_time = get('utils.get_time')
-  return function reduce_trades () {
+  var series = get('motley:vendor.run-series')
+  var create_tick = get('utils.create_tick')
+  return function reduce_trades (cb) {
     get('motley:db.trades').select({query: {processed: false}, limit: c.record_ticks_limit}, function (err, trades) {
-      if (err) return get('console').error('select trades err', err)
+      if (err) {
+        if (cb) return cb(err)
+        throw err
+      }
       var ticks = {}
       var tasks = []
       trades.forEach(function (trade) {
@@ -21,7 +25,7 @@ module.exports = function container (get, set, clear) {
         tasks.push(function (done) {
           get('motley:db.ticks').load(tickId, function (err, tick) {
             if (err) return done(err)
-            get('motley:db.ticks').create(tick, ticks[tickId], function (err, tick) {
+            create_tick(tick, ticks[tickId], function (err, tick) {
               if (err) return done(err)
               if (bot.tweet && tick.side_vol >= c.big_trade) {
                 var tweet = {
@@ -46,10 +50,12 @@ module.exports = function container (get, set, clear) {
           get('motley:db.trades').save(trade, done)
         })
       })
-      parallel(tasks, function (err) {
+      series(tasks, function (err) {
         if (err) {
-          return get('console').error('create ticks err', err)
+          if (cb) return cb(err)
+          throw err
         }
+        cb && cb()
       })
     })
   }
