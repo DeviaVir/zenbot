@@ -4,5 +4,6 @@ module.exports = {
 
   'bitfinex': require('./bitfinex'),
   'bitflyer': require('./bitflyer'),
-  'gdax': require('./gdax')
+  'gdax': require('./gdax'),
+  'okcoin': require('./okcoin')
 }

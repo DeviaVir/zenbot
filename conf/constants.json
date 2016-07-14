@@ -23,10 +23,12 @@
   "gdax_rest_url": "https://api.gdax.com",
   "bitfinex_rest_url": "https://api.bitfinex.com/v1",
   "bitflyer_rest_url": "https://api.bitflyer.jp/v1",
+  "okcoin_rest_url": "https://www.okcoin.cn/api/v1",
   "exchanges": [
     "bitfinex",
+    "bitflyer",
     "gdax",
-    "bitflyer"
+    "okcoin"
   ],
   "big_trade": 50,
   "record_ticks_limit": null,
