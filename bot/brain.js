@@ -18,6 +18,7 @@ module.exports = function container (get, set, clear) {
     start_balance: start_balance,
     side: null,
     period_vol: 0,
+    period_trades: 0,
     running_vol: 0,
     running_total: 0,
     high: 0,
@@ -234,6 +235,9 @@ module.exports = function container (get, set, clear) {
     if (!rs.first_tick && tick.avg_price) {
       rs.first_tick = tick
     }
+    rs.period_trades = n(rs.period_trades)
+      .add(tick.trades)
+      .value()
     rs.max_diff = Math.max(0, n(rs.max_diff)
       .multiply(c.graph_decay)
       .value())
@@ -459,17 +463,16 @@ module.exports = function container (get, set, clear) {
     rs.uptick = !rs.last_avg_price || rs.last_avg_price < rs.avg_price
     if (rs.last_avg_price === rs.avg_price) {
       rs.uptick = 0
-      rs.arrow = '='.grey
+      rs.arrow = '↘'.grey
     }
     else {
       rs.arrow = rs.uptick ? '↗'.green : '↘'.red
     }
-
     rs.last_avg_price = rs.avg_price
     var is_sim = get('mode') === 'simulator'
     if (first_report) {
       var ts = is_sim ? '             SIM DATE      ' : ''
-      console.error(('DATE                       PAIR    HEALTH                        PRICE     ZMI' + ts + '             ' + c.asset + '      ' + c.currency + '        BALANCE    DIFF       TRADED').white)
+      console.error(('DATE                       PAIR    HEALTH                        PRICE     TXNS  VOL      ZMI' + ts + '             ' + c.asset + '      ' + c.currency + '        BALANCE    DIFF       TRADED').white)
       first_report = false
     }
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
@@ -479,6 +482,8 @@ module.exports = function container (get, set, clear) {
       rs.vwap_diff_ansi_str,
       rs.bar,
       rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
+      zerofill(5, rs.period_trades, ' ').grey,
+      zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string,
       is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
@@ -530,6 +535,7 @@ module.exports = function container (get, set, clear) {
     }
     rs.last_hour = this_hour
     rs.period_vol = 0
+    rs.period_trades = 0
     if (get('mode') === 'zen') {
       get('motley:db.mems').save(rs, function (err, saved) {
         if (err) throw err
