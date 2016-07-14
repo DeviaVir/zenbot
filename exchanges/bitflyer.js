@@ -30,12 +30,16 @@ module.exports = function container (get, set, clear) {
       cb(null, pairs)
     },
     record_trades: function (rs, cb) {
-      if (!rs.bitflyer_max_id) rs.bitflyer_max_id = ''
+      var x = rs.bitflyer ? rs.bitflyer : {}
+      rs.bitflyer = x
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
+          if (!x[id]) {
+            x[id] = {}
+          }
           return function (done) {
-            request(c.bitflyer_rest_url + '/getexecutions?product_code=' + id + (rs.bitflyer_max_id ? '&after=' + rs.bitflyer_max_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            request(c.bitflyer_rest_url + '/getexecutions?count=' + c.backfill_limit + '&product_code=' + id + (x[id].max_id ? '&after=' + x[id].max_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -44,9 +48,9 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
-              var orig_max_id = rs.bitflyer_max_id
+              var orig_max_id = x[id].max_id
               trades = trades.map(function (trade) {
-                rs.bitflyer_max_id = Math.max(rs.bitflyer_max_id, trade.id)
+                x[id].max_id = Math.max(x[id].max_id, trade.id)
                 return {
                   id: 'bitflyer-' + pairs[id].display + '-' + String(trade.id),
                   currency: pairs[id].quote_currency,
@@ -58,7 +62,7 @@ module.exports = function container (get, set, clear) {
                   exchange: 'bitflyer'
                 }
               })
-              if (rs.bitflyer_max_id === orig_max_id) {
+              if (x[id].max_id === orig_max_id) {
                 return done(null, [])
               }
               done(null, trades)
@@ -73,12 +77,17 @@ module.exports = function container (get, set, clear) {
       })
     },
     backfill_trades: function (rs, cb) {
-      if (!rs.bitflyer_min_id) rs.bitflyer_min_id = ''
+      var x = rs.bitflyer ? rs.bitflyer : {}
+      rs.bitflyer = x
+      var results = []
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
+          if (!x[id]) {
+            x[id] = {}
+          }
           return function (done) {
-            request(c.bitflyer_rest_url + '/getexecutions?product_code=' + id + (rs.bitflyer_min_id ? '&before=' + rs.bitflyer_min_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
+            request(c.bitflyer_rest_url + '/getexecutions?count=' + c.backfill_limit + '&product_code=' + id + (x[id].min_id ? '&before=' + x[id].min_id : ''), {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
                 console.error(trades)
@@ -87,9 +96,9 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
-              var orig_min_id = rs.bitflyer_min_id
+              var orig_min_id = x[id].min_id
               trades = trades.map(function (trade) {
-                rs.bitflyer_min_id = rs.bitflyer_min_id ? Math.min(rs.bitflyer_min_id, trade.id) : trade.id
+                x[id].min_id = x[id].min_id ? Math.min(x[id].min_id, trade.id) : trade.id
                 return {
                   id: 'bitflyer-' + pairs[id].display + '-' + String(trade.id),
                   currency: pairs[id].quote_currency,
@@ -101,16 +110,16 @@ module.exports = function container (get, set, clear) {
                   exchange: 'bitflyer'
                 }
               })
-              if (rs.bitflyer_min_id === orig_min_id) {
+              if (x[id].min_id === orig_min_id) {
                 return done(null, [])
               }
+              results = results.concat(trades)
               done(null, trades)
             })
           }
         })
-        parallel(tasks, function (err, results) {
+        parallel(tasks, function (err) {
           if (err) return cb(err)
-          results = [].concat.call([], results)
           cb(null, results)
         })
       })

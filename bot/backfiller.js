@@ -18,7 +18,7 @@ module.exports = function container (get, set, clear) {
             err.exchange = exchange
             return done(err)
           }
-          get('console').info('got', results.length, 'trades.')
+          get('console').info('backfilled', exchange, results.length, 'trades.')
           done(null, results)
         })
       }
