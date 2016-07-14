@@ -47,7 +47,7 @@ module.exports = function container (get, set, clear) {
       },
       limit: constants.sim_query_limit
     }
-    get('db.ticks').select(params, function (err, ticks) {
+    get('motley:db.ticks').select(params, function (err, ticks) {
       if (err) {
         get('console').error('tick select err', err)
         return setImmediate(getNext)

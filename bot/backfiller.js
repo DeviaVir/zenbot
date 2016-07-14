@@ -8,6 +8,7 @@ module.exports = function container (get, set, clear) {
   var bot = get('bot')
   var reduce_trades = get('utils.reduce_trades')
   var series = get('motley:vendor.run-series')
+  var get_timestamp = get('utils.get_timestamp')
   get('motley:db.mems').load('backfiller', function (err, rs) {
     if (err) throw err
     if (!rs) rs = {id: 'backfiller'}
@@ -21,7 +22,15 @@ module.exports = function container (get, set, clear) {
               err.exchange = exchange
               return done(err)
             }
-            get('console').info('backfilled', exchange, results.length, 'trades.')
+            if (results.length) {
+              var min_time
+              var ticker = results.slice(0, 3).map(function (trade) {
+                min_time = min_time ? Math.min(min_time, trade.time) : trade.time
+                return trade.side + ' ' + n(trade.size).format('0.000') + ' ' + trade.asset + ' at ' + n(trade.price).format('0.000') + ' ' + trade.currency
+              }).join(', ')
+              ticker = get_timestamp(min_time).grey + ' ' + ticker
+              get('console').info('backfilled', exchange, results.length, 'trades. ' + ticker)
+            }
             done(null, results)
           })
         }
@@ -31,7 +40,9 @@ module.exports = function container (get, set, clear) {
           setImmediate(backfill_trades)
           return get('console').error('fetch trades err', err.exchange, err)
         }
-        var trades = [].concat.apply([], [].concat.apply([], results))
+        var trades = [].concat.apply([], [].concat.apply([], results)).filter(function (trade) {
+          return !!trade
+        })
         var tasks = trades.map(function (trade) {
           return function (done) {
             trade.processed = false

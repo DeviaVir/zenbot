@@ -284,7 +284,7 @@ module.exports = function container (get, set, clear) {
         return finish()
       }
       else if (rs.side === 'BUY') {
-        if (rs.cooldown > 0) {
+        if (rs.cooldown > 0 || !rs.avg_price) {
           return finish()
         }
         var price = n(rs.avg_price)
@@ -350,6 +350,9 @@ module.exports = function container (get, set, clear) {
         }
       }
       else if (rs.side === 'SELL') {
+        if (!rs.avg_price) {
+          return finish()
+        }
         var price = n(rs.avg_price)
           .subtract(n(rs.avg_price).multiply(c.markup))
           .value()
@@ -432,33 +435,30 @@ module.exports = function container (get, set, clear) {
     }
     finish()
     function finish () {
-      if (tick.avg_price) {
-        rs.last_tick = tick
-        Object.keys(tick.exchanges).forEach(function (exchange) {
-          rs.exchanges[exchange] = tick.exchanges[exchange]
-        })
-        var prices = []
-        Object.keys(rs.exchanges).forEach(function (exchange) {
-          var x = rs.exchanges[exchange]
-          if (x.typical) {
-            prices.push(x.typical)
-          }
-        })
-        var total = prices.reduce(function (prev, curr) {
-          return n(prev).add(curr).value()
-        }, 0)
-        var new_avg = n(total).divide(prices.length).value()
-        if (new_avg !== rs.avg_price) {
-          rs.arrow = rs.avg_price < new_avg ? '↗'.green : '↘'.red
-          rs.uptick = rs.avg_price < new_avg
+      if (!tick.avg_price) return
+      rs.last_tick = tick
+      Object.keys(tick.exchanges).forEach(function (exchange) {
+        rs.exchanges[exchange] = tick.exchanges[exchange]
+      })
+      var prices = []
+      Object.keys(rs.exchanges).forEach(function (exchange) {
+        var x = rs.exchanges[exchange]
+        if (x.typical) {
+          prices.push(x.typical)
         }
-        rs.avg_price = new_avg
-      }
+      })
+      var total = prices.reduce(function (prev, curr) {
+        return n(prev).add(curr).value()
+      }, 0)
+      rs.avg_price = n(total).divide(prices.length).value()
     }
   }
   var first_report = true
   function report () {
     if (!rs.avg_price) return
+    rs.uptick = !rs.last_avg_price || rs.last_avg_price < rs.avg_price
+    rs.arrow = rs.uptick ? '↗'.green : '↘'.red
+    rs.last_avg_price = rs.avg_price
     var is_sim = get('mode') === 'simulator'
     if (first_report) {
       var ts = is_sim ? '             SIM DATE      ' : ''
@@ -473,7 +473,6 @@ module.exports = function container (get, set, clear) {
       rs.bar,
       rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
-      rs.last_tick.
       is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
       zerofill(9, n(rs.currency).format('$0.00'), ' ').yellow,

@@ -2,6 +2,8 @@ var request = require('micro-request')
   , c = require('../conf/constants.json')
   , n = require('numbro')
   , parallel = require('run-parallel')
+  , sig = require('sig')
+  , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
   var cached_pairs
@@ -29,16 +31,19 @@ module.exports = function container (get, set, clear) {
     record_trades: function (rs, cb) {
       var x = rs.gdax ? rs.gdax : {}
       rs.gdax = x
+      //console.error('gdax record trades', x)
       var results = []
       this.get_pairs(function (err, pairs) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
           if (!x[id]) {
-            x[id] = {}
+            x[id] = {
+              hashes: {}
+            }
           }
           return function (done) {
-            var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + rs.gdax_max_trade_id : '')
-            get('console').info('GET', uri)
+            var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + x[id].max_trade_id : '')
+            //get('console').info('GET', uri)
             request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
@@ -48,9 +53,17 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
-              var orig_max_trade_id = rs.gdax_max_trade_id
+              var hash = sig(trades)
+              if (x[id].hashes[hash]) {
+                //get('console').error('DUPE', uri, hash, trades.length, 'trades')
+                return cb && cb(null, [])
+              }
+              x[id].hashes[hash] = true
+              //get('console').info('GET', uri, hash, trades.length, 'trades')
+              var orig_max_trade_id = x[id].max_trade_id
               trades = trades.map(function (trade) {
-                rs.gdax_max_trade_id = Math.max(rs.gdax_max_trade_id, trade.trade_id)
+                x[id].max_trade_id = x[id].max_trade_id ? Math.max(x[id].max_trade_id, trade.trade_id) : trade.trade_id
+                assert(!Number.isNaN(x[id].max_trade_id))
                 return {
                   id: 'gdax-' + pairs[id].display + '-' + String(trade.trade_id),
                   asset: pairs[id].base_currency,
@@ -62,7 +75,7 @@ module.exports = function container (get, set, clear) {
                   exchange: 'gdax'
                 }
               })
-              if (rs.gdax_max_trade_id === orig_max_trade_id) {
+              if (x[id].max_trade_id === orig_max_trade_id) {
                 return done(null, [])
               }
               results = results.concat(trades)
@@ -84,11 +97,13 @@ module.exports = function container (get, set, clear) {
         if (err) return cb(err)
         var tasks = Object.keys(pairs).map(function (id) {
           if (!x[id]) {
-            x[id] = {}
+            x[id] = {
+              hashes: {}
+            }
           }
           return function (done) {
             var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].min_trade_id ? '&after=' + x[id].min_trade_id : '')
-            get('console').info('GET', uri)
+            //get('console').info('GET', uri)
             request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
               if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
@@ -98,9 +113,17 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 return done(null, [])
               }
+              var hash = sig(trades)
+              if (x[id].hashes[hash]) {
+                //get('console').error('DUPE', uri, hash, trades.length, 'trades')
+                return cb && cb(null, [])
+              }
+              x[id].hashes[hash] = true
+              //get('console').info('GET', uri, hash, trades.length, 'trades')
               var orig_min_trade_id = x[id].min_trade_id
               trades = trades.map(function (trade) {
                 x[id].min_trade_id = x[id].min_trade_id ? Math.min(x[id].min_trade_id, trade.trade_id) : trade.trade_id
+                assert(!Number.isNaN(x[id].min_trade_id))
                 return {
                   id: 'gdax-' + pairs[id].display + '-' + String(trade.trade_id),
                   asset: pairs[id].base_currency,
@@ -112,7 +135,7 @@ module.exports = function container (get, set, clear) {
                   exchange: 'gdax'
                 }
               })
-              if (rs.gdax_min_trade_id === orig_min_trade_id) {
+              if (x[id].min_trade_id === orig_min_trade_id) {
                 return done(null, [])
               }
               results = results.concat(trades)
