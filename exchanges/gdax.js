@@ -42,7 +42,7 @@ module.exports = function container (get, set, clear) {
             }
           }
           return function (done) {
-            var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + x[id].max_trade_id : '')
+            var uri = c.gdax_rest_url + '/products/' + id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].max_trade_id ? '&before=' + x[id].max_trade_id : '')
             //get('console').info('GET', uri)
             request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
@@ -102,7 +102,7 @@ module.exports = function container (get, set, clear) {
             }
           }
           return function (done) {
-            var uri = c.gdax_rest_url + '/products/' + pairs[id].id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].min_trade_id ? '&after=' + x[id].min_trade_id : '')
+            var uri = c.gdax_rest_url + '/products/' + id + '/trades?limit=' + Math.min(c.backfill_limit, 100) + (x[id].min_trade_id ? '&after=' + x[id].min_trade_id : '')
             //get('console').info('GET', uri)
             request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
               if (err) return done(err)
