@@ -9,6 +9,10 @@
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
+## Overhaul in progress!
+
+zenbot is now undergoing a large [overhaul (3.x)](https://github.com/carlos8f/zenbot/tree/3.x) which will add multi-exchange support. The current 2.x version should be considered a working proof of concept. Please be patient until 3.x lands!
+
 ## Screenshot
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/16441892/e791744c-3d82-11e6-834e-b566d498e7e9.png)
