@@ -3,16 +3,16 @@ var n = require('numbro')
   , tb = require('timebucket')
   , zerofill = require('zero-fill')
   , moment = require('moment')
-  , constants = require('../conf/constants.json')
+  , c = require('../conf/constants.json')
   , request = require('micro-request')
   , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
   var get_time = get('utils.get_time')
   var bot = get('bot')
-  var start_balance = get('mode') === 'simulator' ? constants.sim_start_balance : 0
+  var start_balance = get('mode') === 'simulator' ? c.sim_start_balance : 0
   var rs = {
-    id: constants.product_id,
+    id: c.product_id,
     asset: 0,
     currency: start_balance,
     start_balance: start_balance,
@@ -153,10 +153,10 @@ module.exports = function container (get, set, clear) {
         return cb && cb()
       }
       accounts.forEach(function (account) {
-        if (account.currency === constants.currency) {
+        if (account.currency === c.currency) {
           rs.currency = n(account.balance).value()
         }
-        else if (account.currency === constants.asset) {
+        else if (account.currency === c.asset) {
           rs.asset = n(account.balance).value()
         }
       })
@@ -173,10 +173,10 @@ module.exports = function container (get, set, clear) {
       .multiply(rs.period_vol)
       .value()
     rs.running_total = n(rs.running_total)
-      .add(n(thisTotal).multiply(constants.running_vol_decay))
+      .add(n(thisTotal).multiply(c.running_vol_decay))
       .value()
     rs.running_vol = n(rs.running_vol)
-      .add(n(rs.period_vol).multiply(constants.running_vol_decay))
+      .add(n(rs.period_vol).multiply(c.running_vol_decay))
       .value()
     rs.vwap = n(rs.running_total)
       .divide(rs.running_vol)
@@ -185,16 +185,16 @@ module.exports = function container (get, set, clear) {
       .subtract(rs.vwap)
       .value()
     rs.max_diff = Math.max(rs.max_diff, Math.abs(rs.vwap_diff))
-    var half = constants.bar_width / 2
+    var half = c.bar_width / 2
     var bar = ''
     if (rs.vwap_diff > 0) {
       bar += ' '.repeat(half)
-      var stars = Math.min(Math.round((rs.vwap_diff / (rs.max_diff * 1.2)) * half), half)
+      var stars = Math.min(Math.round((rs.vwap_diff / (rs.max_diff * c.graph_expand)) * half), half)
       bar += '+'.repeat(stars).green.bgGreen
       bar += ' '.repeat(half - stars)
     }
     else if (rs.vwap_diff < 0) {
-      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / (rs.max_diff * 1.2)) * half), half)
+      var stars = Math.min(Math.round((Math.abs(rs.vwap_diff) / (rs.max_diff * c.graph_expand)) * half), half)
       bar += ' '.repeat(half - stars)
       bar += '-'.repeat(stars).red.bgRed
       bar += ' '.repeat(half)
@@ -202,9 +202,25 @@ module.exports = function container (get, set, clear) {
     else {
       bar += ' '.repeat(half * 2)
     }
+    rs.net_worth = n(rs.currency)
+      .add(n(rs.asset).multiply(rs.avg_price))
+      .value()
+    rs.diff = n(rs.net_worth).subtract(rs.start_balance)
+      .value()
+    if (rs.diff > 0) rs.diff_ansi = zerofill(9, '+' + n(rs.diff).format('$0.00'), ' ').green
+    if (rs.diff === 0) rs.diff_ansi = zerofill(9, n(rs.diff).format('$0.00'), ' ').white
+    if (rs.diff < 0) rs.diff_ansi = (zerofill(9, n(rs.diff).format('$0.00'), ' ')).red
+    rs.zmi = colors.strip(rs.vol_diff_string).trim()
+    rs.vwap_diff_str = rs.max_diff ? n(rs.vwap_diff).divide(rs.max_diff).format('0%') : '0%'
+    if (rs.vwap_diff >= 0) {
+      rs.vwap_diff_ansi_str = (zerofill(6, '+' + rs.vwap_diff_str, ' ')).green
+    }
+    else {
+      rs.vwap_diff_ansi_str = (zerofill(6, rs.vwap_diff_str, ' ')).red
+    }
     rs.high = 0
     rs.low = 100000
-    return bar
+    rs.bar = bar
   }
 
   function write (tick) {
@@ -212,7 +228,7 @@ module.exports = function container (get, set, clear) {
       rs.first_tick = tick
     }
     rs.max_diff = Math.max(0, n(rs.max_diff)
-      .subtract(n(tick.vol).multiply(constants.max_diff_decay))
+      .multiply(c.graph_decay)
       .value())
     rs.period_vol = n(rs.period_vol)
       .add(tick.vol)
@@ -265,14 +281,14 @@ module.exports = function container (get, set, clear) {
           return finish()
         }
         var price = n(rs.avg_price)
-          .add(n(rs.avg_price).multiply(constants.markup))
+          .add(n(rs.avg_price).multiply(c.markup))
           .value() // add markup
         var spend = n(rs.currency)
             .multiply(bot.trade_amt)
             .value()
         var fee = n(size)
           .multiply(price)
-          .multiply(constants.fee)
+          .multiply(c.fee)
           .value()
         var size = n(spend)
           .divide(price)
@@ -282,18 +298,18 @@ module.exports = function container (get, set, clear) {
           setImmediate(function () {
             var tweet = {
               status: [
-                'zenbot advises: BUY ' + constants.asset,
+                'zenbot advises: BUY ' + c.asset,
                 'price: ' + n(price).format('$0,0.00'),
                 'time: ' + get_time(),
-                constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
+                c.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + c.hashtags
               ].join('\n')
             }
             twitter_client.post('statuses/update', tweet, onTweet)
           })
         }
-        if (spend / price < constants.min_trade_possible) {
+        if (spend / price < c.min_trade_possible) {
           // would buy, but not enough funds
-          get('console').info(('[bot] not enough currency to buy!').red, {data: {actionspend: spend, price: price, size: spend / price, min_trade: constants.min_trade_possible, currency: rs.currency}})
+          get('console').info(('[bot] not enough currency to buy!').red, {data: {actionspend: spend, price: price, size: spend / price, min_trade: c.min_trade_possible, currency: rs.currency}})
           //rs.vol = 0
           return finish()
         }
@@ -311,14 +327,14 @@ module.exports = function container (get, set, clear) {
           .subtract(spend)
           .subtract(fee)
           .value()
-        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00').cyan), {data: {action: 'BUY', size: size, asset: rs.asset, currency: rs.currency, price: price, fee: fee, num_trades: rs.num_trades, trade_vol: rs.trade_vol}})
+        get('console').info(('[bot] BUY ' + n(size).format('0.000') + ' ' + c.asset + ' at ' + n(price).format('$0,0.00').cyan), {data: {action: 'BUY', size: size, asset: rs.asset, currency: rs.currency, price: price, fee: fee, num_trades: rs.num_trades, trade_vol: rs.trade_vol}})
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
           var buy_params = {
             type: 'market',
             size: n(size).format('0.000'),
-            product_id: constants.product_id
+            product_id: c.product_id
           }
           client.buy(buy_params, function (err, resp, order) {
             onOrder(err, resp, order)
@@ -328,27 +344,27 @@ module.exports = function container (get, set, clear) {
       }
       else if (rs.side === 'SELL') {
         var price = n(rs.avg_price)
-          .subtract(n(rs.avg_price).multiply(constants.markup))
+          .subtract(n(rs.avg_price).multiply(c.markup))
           .value()
         var sell = n(rs.asset)
           .multiply(bot.trade_amt)
           .value()
         var fee = n(sell)
           .multiply(price)
-          .multiply(constants.fee)
+          .multiply(c.fee)
           .value()
         get('console').info(('[bot] volume trigger ' + rs.side + ' ' + n(trigger_vol).format('0.0') + ' >= ' + n(bot.min_vol).format('0.0')).yellow, {data: {action: rs.side, trigger_vol: trigger_vol, min_vol: bot.min_vol}})
         if (bot.tweet) {
           setImmediate(function () {
             var tweet = {
-              status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + constants.hashtags
+              status: 'zenbot recommends:\n\naction: SELL\nprice: ' + n(price).format('$0,0.00') + '\ntime: ' + get_time() + '\n\n' + c.hashtags
             }
             twitter_client.post('statuses/update', tweet, onTweet)
           })
         }
-        if (sell < constants.min_trade_possible) {
+        if (sell < c.min_trade_possible) {
           // would buy, but not enough funds
-          get('console').info(('[bot] not enough asset to sell!').red, {data: {size: sell, price: price, min_trade: constants.min_trade_possible}})
+          get('console').info(('[bot] not enough asset to sell!').red, {data: {size: sell, price: price, min_trade: c.min_trade_possible}})
           //rs.vol = 0
           return finish()
         }
@@ -366,14 +382,14 @@ module.exports = function container (get, set, clear) {
           .add(n(sell).multiply(price))
           .subtract(fee)
           .value()
-        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + constants.asset + ' at ' + n(price).format('$0,0.00')).yellow, {data: {size: sell, price: price}})
+        get('console').info(('[bot] SELL ' + n(sell).format('0.000') + ' ' + c.asset + ' at ' + n(price).format('$0,0.00')).yellow, {data: {size: sell, price: price}})
         assert(rs.currency >= 0)
         assert(rs.asset >= 0)
         if (bot.trade && !bot.sim) {
           var sell_params = {
             type: 'market',
             size: n(sell).format('0.000'),
-            product_id: constants.product_id
+            product_id: c.product_id
           }
           client.sell(sell_params, function (err, resp, order) {
             onOrder(err, resp, order)
@@ -439,40 +455,33 @@ module.exports = function container (get, set, clear) {
     var is_sim = get('mode') === 'simulator'
     if (first_report) {
       var ts = is_sim ? '             SIM DATE      ' : ''
-      console.error(('DATE                       PRODUCT GRAPH                  PRICE     ZMI' + ts + '             ' + constants.asset + '      ' + constants.currency + '        BALANCE    DIFF       TRADED').white)
+      console.error(('DATE                       PAIR    TREND  GRAPH                  PRICE     ZMI' + ts + '             ' + c.asset + '      ' + c.currency + '        BALANCE    DIFF       TRADED').white)
       first_report = false
     }
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
-    var bar = getGraph()
-    rs.net_worth = n(rs.currency)
-      .add(n(rs.asset).multiply(rs.avg_price))
-      .value()
-    var diff = n(rs.net_worth).subtract(rs.start_balance)
-      .value()
-    if (diff > 0) diff = zerofill(9, '+' + n(diff).format('$0.00'), ' ').green
-    if (diff === 0) diff = zerofill(9, n(diff).format('$0.00'), ' ').white
-    if (diff < 0) diff = (zerofill(9, n(diff).format('$0.00'), ' ')).red
-    var zmi = colors.strip(rs.vol_diff_string).trim()
+    getGraph()
     var status = [
-      constants.product_id.grey,
-      bar,
+      c.product_id.grey,
+      rs.vwap_diff_ansi_str,
+      rs.bar,
       rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string,
+      rs.last_tick.
       is_sim ? timestamp.grey : false,
       zerofill(7, n(rs.asset).format('0.000'), ' ').white,
       zerofill(9, n(rs.currency).format('$0.00'), ' ').yellow,
       zerofill(9, n(rs.net_worth).format('$0.00'), ' ').cyan,
-      diff,
+      rs.diff_ansi,
       zerofill(7, n(rs.trade_vol).format('0.000'), ' ').white
     ].filter(function (col) { return col === false ? false : true }).join(' ')
-    get('console').log(status, {data: {rs: rs, zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
+    get('console').log(status, {data: {rs: rs, zmi: rs.zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
     var status_public = [
-      constants.product_id.grey,
-      bar,
+      c.product_id.grey,
+      rs.bar,
       rs.arrow + zerofill(8, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick ? 'green' : 'red'],
       rs.vol_diff_string
     ].join(' ')
-    get('console').log(status_public, {public: true, data: {zmi: zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
+    get('console').log(status_public, {public: true, data: {zmi: rs.zmi, new_max_vol: rs.new_max_vol, side: rs.side, price: rs.avg_price}})
     var this_hour = tb(rs.last_tick.time).resize('1h').toString()
     var saved_hour_vol = rs.hour_vol
     if (this_hour !== rs.last_hour) {
@@ -490,15 +499,13 @@ module.exports = function container (get, set, clear) {
             .value()
           var diff_str = diff >= 0 ? '+' : '-'
           diff_str += n(Math.abs(diff)).format('0.000%')
-          var vwap_diff_str = rs.vwap_diff >= 0 ? '+' : '-'
-          vwap_diff_str += n(Math.abs(n(rs.vwap_diff).divide(rs.avg_price).value())).format('0.000%')
           var text = [
             get_time() + ' report:',
             'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
             'price: ' + rs.avg_price,
-            'vol: ' + n(saved_hour_vol).format('0,0') + ' ' + constants.asset,
-            'trend: ' + vwap_diff_str,
-            constants.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + constants.hashtags
+            'vol: ' + n(saved_hour_vol).format('0,0') + ' ' + c.asset,
+            'trend: ' + rs.vwap_diff_str,
+            c.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + c.hashtags
           ].join('\n').trim()
           var tweet = {
             status: text
