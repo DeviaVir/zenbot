@@ -23,6 +23,7 @@ module.exports = function container (get, set, clear) {
           if (idx === 0) {
             asset = c.asset
             currency = symb.pair.substr(3).toUpperCase()
+            if (currency !== c.currency) return
           }
           else {
             return

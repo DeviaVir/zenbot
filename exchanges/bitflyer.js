@@ -13,7 +13,7 @@ module.exports = function container (get, set, clear) {
   return {
     get_pairs: function (cb) {
       var pairs = {}
-      if (c.asset === 'BTC') {
+      if (c.asset === 'BTC' && c.currency === 'JPY') {
         pairs['BTC_JPY'] = {
           display: 'BTC-JPY',
           base_currency: 'BTC',
@@ -25,7 +25,7 @@ module.exports = function container (get, set, clear) {
           quote_currency: 'JPY'
         }
       }
-      else if (c.asset === 'ETH') {
+      else if (c.asset === 'ETH' && c.currency === 'BTC') {
         pairs['ETH_BTC'] = {
           display: 'ETH-BTC',
           base_currency: 'ETH',
