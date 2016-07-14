@@ -55,47 +55,54 @@ module.exports = function container (get, set, clear) {
   if (bot.sim) {
     bot.trade = true
   }
-  if (bot.trade) {
-    var client = get('utils.authed_client')
-    get('console').info('entering zen mode...')
-    syncBalance(function (err) {
+  if (get('mode') === 'zen') {
+    get('motley:db.mems').load(rs.id, function (err, mem) {
       if (err) throw err
-      bot.trade = false
-      get('utils.client').getProductTicker(function (err, resp, ticker) {
+      if (mem) {
+        Object.keys(mem).forEach(function (k) {
+          if (k.match(/^(asset|currency)$/)) return
+          rs[k] = mem[k]
+        })
+        get('console').info('memory loaded.'.white + ' resuming trading!'.cyan, {data: {mem: mem}})
+        start()
+      }
+      else {
+        get('console').info('no memory found.'.red + ' starting trading!'.cyan, {data: {mem: null}})
+        start()
+      }
+    })
+  }
+  else {
+    get('console').info(('mode = ' + get('mode')).red + ' starting!'.cyan, {data: {mem: null}})
+    start()
+  }
+
+  function start () {
+    if (bot.trade) {
+      var client = get('utils.authed_client')
+      get('console').info('entering zen mode...')
+      syncBalance(function (err) {
         if (err) throw err
-        if (resp.statusCode !== 200) {
-          console.error(ticker)
-          return get('console').error('non-200 status from exchange: ' + resp.statusCode, {data: {body: ticker, statusCode: resp.statusCode}})
-        }
-        get('motley:db.mems').load(rs.id, function (err, mem) {
+        bot.trade = false
+        get('utils.client').getProductTicker(function (err, resp, ticker) {
           if (err) throw err
-          if (mem) {
-            Object.keys(mem).forEach(function (k) {
-              if (k.match(/^(asset|currency)$/)) return
-              rs[k] = mem[k]
-            })
-            get('console').info('memory loaded.'.white + ' resuming trading!'.cyan, {data: {mem: mem}})
-            finish()
+          if (resp.statusCode !== 200) {
+            console.error(ticker)
+            return get('console').error('non-200 status from exchange: ' + resp.statusCode, {data: {body: ticker, statusCode: resp.statusCode}})
           }
-          else {
-            get('console').info('no memory found.'.red + ' starting trading!'.cyan, {data: {mem: null}})
-            finish()
+          if (!rs.start_balance) {
+            rs.start_balance = n(rs.asset)
+              .multiply(ticker.price)
+              .add(rs.currency)
+              .value()
+            rs.start_time = new Date().getTime()
           }
-          function finish () {
-            if (!rs.start_balance) {
-              rs.start_balance = n(rs.asset)
-                .multiply(ticker.price)
-                .add(rs.currency)
-                .value()
-              rs.start_time = new Date().getTime()
-            }
-            rs.max_vol = 0
-            get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {data: {ticker: ticker}})
-            bot.trade = true
-          }
+          rs.max_vol = 0
+          get('console').info(('[exchange] bid = ' + ticker.bid + ', ask = ' + ticker.ask).cyan, {data: {ticker: ticker}})
+          bot.trade = true
         })
       })
-    })
+    }
   }
   function syncLearned () {
     if (get('mode') === 'zen') {
@@ -455,7 +462,7 @@ module.exports = function container (get, set, clear) {
     var is_sim = get('mode') === 'simulator'
     if (first_report) {
       var ts = is_sim ? '             SIM DATE      ' : ''
-      console.error(('DATE                       PAIR    TREND  GRAPH                  PRICE     ZMI' + ts + '             ' + c.asset + '      ' + c.currency + '        BALANCE    DIFF       TRADED').white)
+      console.error(('DATE                       PAIR    HEALTH                        PRICE     ZMI' + ts + '             ' + c.asset + '      ' + c.currency + '        BALANCE    DIFF       TRADED').white)
       first_report = false
     }
     var timestamp = get('utils.get_timestamp')(rs.last_tick.time)
@@ -504,7 +511,7 @@ module.exports = function container (get, set, clear) {
             'zmi: ' + colors.strip(rs.vol_diff_string).replace(/ +/g, ' ').trim(),
             'price: ' + rs.avg_price,
             'vol: ' + n(saved_hour_vol).format('0,0') + ' ' + c.asset,
-            'trend: ' + rs.vwap_diff_str,
+            '24hr trend: ' + diff_str,
             c.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + c.hashtags
           ].join('\n').trim()
           var tweet = {
