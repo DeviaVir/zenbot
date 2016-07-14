@@ -19,6 +19,7 @@ module.exports = function container (get, set, clear) {
     side: null,
     period_vol: 0,
     period_trades: 0,
+    period_buys: 0,
     running_vol: 0,
     running_total: 0,
     high: 0,
@@ -237,6 +238,9 @@ module.exports = function container (get, set, clear) {
     }
     rs.period_trades = n(rs.period_trades)
       .add(tick.trades)
+      .value()
+    rs.period_buys = n(rs.period_buys)
+      .add(tick.buys)
       .value()
     rs.max_diff = Math.max(0, n(rs.max_diff)
       .multiply(c.graph_decay)
@@ -482,7 +486,7 @@ module.exports = function container (get, set, clear) {
       rs.vwap_diff_ansi_str,
       rs.bar,
       rs.arrow + zerofill(9, n(rs.avg_price).format('$0.00'), ' ')[rs.uptick === 0 ? 'grey' : rs.uptick ? 'green' : 'red'],
-      zerofill(5, rs.period_trades, ' ').grey,
+      zerofill(5, rs.period_buys + '/' + rs.period_trades, ' ').grey,
       zerofill(7, n(rs.period_vol).format('0.000'), ' ').white,
       rs.vol_diff_string,
       is_sim ? timestamp.grey : false,
@@ -538,6 +542,7 @@ module.exports = function container (get, set, clear) {
     rs.last_hour = this_hour
     rs.period_vol = 0
     rs.period_trades = 0
+    rs.period_buys = 0
     if (get('mode') === 'zen') {
       get('motley:db.mems').save(rs, function (err, saved) {
         if (err) throw err
