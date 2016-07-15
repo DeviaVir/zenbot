@@ -1,3 +1,4 @@
-'motley:conf.console{}': {
-        silent: options.parent.silent
-      },
+module.exports = {
+  _ns: 'zenbot',
+  'logger': require('./default_logger')
+}

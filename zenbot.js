@@ -2,6 +2,7 @@ var version = require('./package.json').version
 ZENBOT_USER_AGENT = 'zenbot/' + version
 var motley = require('motley')
 var colors = require('colors')
+var commander = require('commander')
 
 module.exports = {
   get_config: function () {
@@ -27,34 +28,35 @@ module.exports = {
             map = require('./plugins/' + plugin + '/_codemap')
           }
           catch (e) {
+            throw e
             if (e.code === 'MODULE_NOT_FOUND') {
               throw new Error('plugin ' + plugin + ' could not be found. try `npm install zenbot_' + plugin + '`')
             }
             throw e
           }
         }
-        throw e
+        else {
+          throw e
+        }
       }
       return map
     }).concat(require('./_codemap'))
   },
+  get_constants: function () {
+    return require('./constants.json')
+  },
   boot: function (cb) {
     var app = motley({
+      _ns: 'zenbot',
       _maps: this.get_codemaps(),
-      'zenbot:config': this.get_config(),
-      'zenbot:run_state': {}
+      'config': this.get_config(),
+      'constants': this.get_constants()
     })
     var program = require('commander')
       .option('--silent', 'speak no evil')
       .version(version)
-    program
-      .command('*')
-      .action(function () {
-        program.outputHelp()
-        process.exit(1)
-      })
     app.set('zenbot:program', program)
-    app.get('zenbot:console').info((ZENBOT_USER_AGENT + ' booting!').cyan)
+    app.get('zenbot:logger').info((ZENBOT_USER_AGENT + ' booting!').cyan)
     app.mount(function (err) {
       if (err) cb(err)
       function onExit () {
@@ -71,11 +73,22 @@ module.exports = {
     this.boot(function (err, app) {
       if (err) throw err
       var program = app.get('zenbot:program')
-      program.parse(process.argv)
-      if (!program.rawArgs[2]) {
+      var command = process.argv[2]
+      if (!command) {
         program.outputHelp()
         process.exit(1)
       }
+      app.get('zenbot:commands').forEach(function (func) {
+        func()
+      })
+      program
+        .command('*')
+        .action(function () {
+          program.outputHelp()
+          process.exit(1)
+        })
+      app.set('zenbot:command', command)
+      program.parse(process.argv)
     })
   }
 }

@@ -1,1 +1,4 @@
-_codemap.js
+module.exports = {
+  _ns: 'zenbot',
+  'launcher': require('./default_launcher')
+}

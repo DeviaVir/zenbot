@@ -1,12 +1,7 @@
 var request = require('micro-request')
-  , c = require('../conf/constants.json')
   , n = require('numbro')
-  , parallel = require('run-parallel')
-  , sig = require('sig')
-  , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
-  var cached_pairs
   return function gdax_recorder (cb) {
     var rs = get('rs')
     rs.gdax = x
