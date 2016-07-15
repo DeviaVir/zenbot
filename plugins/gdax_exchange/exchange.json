@@ -1,5 +1,6 @@
 {
-  "name": "gdax",
+  "slug": "gdax",
+  "label": "GDAX",
   "rest_url": "https://api.gdax.com",
   "backfill_limit": 100,
   "products": [
@@ -10,7 +11,7 @@
       "min_size":0.01,
       "max_size":10000,
       "increment":0.01,
-      "name":"BTC/USD"
+      "label":"BTC/USD"
     },
     {
       "id":"ETH-USD",
@@ -19,7 +20,7 @@
       "min_size":0.01,
       "max_size":100000,
       "increment":0.01,
-      "name":"ETH/USD"
+      "label":"ETH/USD"
     },
     {
       "id":"BTC-GBP",
@@ -28,7 +29,7 @@
       "min_size":0.01,
       "max_size":10000,
       "increment":0.01,
-      "name":"BTC/GBP"
+      "label":"BTC/GBP"
     },
     {
       "id":"BTC-EUR",
@@ -37,7 +38,7 @@
       "min_size":0.01,
       "max_size":10000,
       "increment":0.01,
-      "name":"BTC/EUR"
+      "label":"BTC/EUR"
     },
     {
       "id":"BTC-CAD",
@@ -46,7 +47,7 @@
       "min_size":0.01,
       "max_size":10000,
       "increment":0.01,
-      "name":"BTC/CAD"
+      "label":"BTC/CAD"
     },
     {
       "id":"ETH-BTC",
@@ -55,7 +56,7 @@
       "min_size":0.01,
       "max_size":100000,
       "increment":0.00001,
-      "name":"ETH/BTC"
+      "label":"ETH/BTC"
     }
   ]
 }
