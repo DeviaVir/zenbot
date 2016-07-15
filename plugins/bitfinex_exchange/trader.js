@@ -1,0 +1,1 @@
+bitfinex_trader.js
