@@ -45,7 +45,7 @@ module.exports = {
   get_constants: function () {
     return require('./constants.json')
   },
-  boot: function (cb) {
+  boot: function () {
     var app = motley({
       _ns: 'zenbot',
       _maps: this.get_codemaps(),
@@ -57,6 +57,22 @@ module.exports = {
       .version(version)
     app.set('zenbot:program', program)
     app.get('zenbot:logger').info((ZENBOT_USER_AGENT + ' booting!').cyan)
+    return app
+  },
+  cli: function () {
+    var app = this.boot()
+    var program = app.get('zenbot:program')
+    var command = process.argv[2]
+    var cmds = []
+    app.get('zenbot:commands').forEach(function (cmd) {
+      cmds.push(cmd.name)
+      cmd.define()
+    })
+    if (!command || cmds.indexOf(command) === -1) {
+      program.outputHelp()
+      process.exit(1)
+    }
+    app.set('zenbot:command', command)
     app.mount(function (err) {
       if (err) cb(err)
       function onExit () {
@@ -66,28 +82,6 @@ module.exports = {
       }
       process.once('SIGINT', onExit)
       process.once('SIGTERM', onExit)
-      cb(null, app)
-    })
-  },
-  cli: function () {
-    this.boot(function (err, app) {
-      if (err) throw err
-      var program = app.get('zenbot:program')
-      var command = process.argv[2]
-      if (!command) {
-        program.outputHelp()
-        process.exit(1)
-      }
-      app.get('zenbot:commands').forEach(function (func) {
-        func()
-      })
-      program
-        .command('*')
-        .action(function () {
-          program.outputHelp()
-          process.exit(1)
-        })
-      app.set('zenbot:command', command)
       program.parse(process.argv)
     })
   }
