@@ -17,7 +17,7 @@ module.exports = function container (get, set, clear) {
       Object.keys(run_state).forEach(function (k) {
         var val = run_state[k]
         if (typeof val === 'number') {
-          val = n(val).format('0.000').white
+          val = n(val).format('0').white
         }
         else if (typeof val === 'string') {
           val = ('"' + val + '"').green

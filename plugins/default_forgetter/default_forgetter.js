@@ -5,6 +5,7 @@ module.exports = function container (get, set, clear) {
       get('logger').info('[forgetter]'.yellow + ' forgot '.grey + id.cyan, destroyed, {public: false})
       get('app').close(function (err) {
         if (err) throw err
+        process.exit()
       })
     })
   }
