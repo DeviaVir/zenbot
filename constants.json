@@ -2,5 +2,6 @@
   "id_bytes": 16,
   "tick_size": "10s",
   "backfiller_limit": 1500,
-  "log_trades_limit": 1
+  "log_trades_limit": 1,
+  "save_state_interval": 60000
 }
