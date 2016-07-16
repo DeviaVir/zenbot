@@ -15,7 +15,7 @@ module.exports = function container (get, set, clear) {
     get('motley:db.run_states').save(run_state, function (err, saved) {
       if (err) throw err
       get('logger').info('[launcher]'.green + ' saved run_state, id = '.grey + run_state.id.cyan + ', last_duration = '.grey + run_state.last_duration.yellow)
-      cb()
+      cb && cb()
     })
   }
 }
