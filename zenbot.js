@@ -55,6 +55,7 @@ module.exports = {
     var program = require('commander')
       .option('--silent', 'speak no evil')
       .version(version)
+    app.set('zenbot:app', app)
     app.set('zenbot:program', program)
     app.get('zenbot:logger').info((ZENBOT_USER_AGENT + ' booting!').cyan)
     return app
