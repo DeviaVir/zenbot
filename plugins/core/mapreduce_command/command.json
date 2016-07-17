@@ -1,0 +1,6 @@
+{
+  "name": "mapreduce",
+  "spec": "mapreduce",
+  "description": "map/reduce data",
+  "action": "mapreduce"
+}

@@ -1,3 +1,5 @@
 module.exports = {
-  _ns: 'zenbot'
+  _ns: 'zenbot',
+  'reducers.tick': require('./reducer'),
+  'reducers[]': '#reducers.tick'
 }
