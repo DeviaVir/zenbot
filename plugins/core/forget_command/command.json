@@ -1,0 +1,6 @@
+{
+  "name": "forget",
+  "spec": "forget <id>",
+  "description": "forget run_state by id",
+  "action": "forget"
+}

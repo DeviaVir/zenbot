@@ -45,7 +45,7 @@ module.exports = {
   get_constants: function () {
     return require('./constants.json')
   },
-  boot: function () {
+  get_app: function () {
     var app = motley({
       _ns: 'zenbot',
       _maps: this.get_codemaps(),
@@ -61,13 +61,11 @@ module.exports = {
     return app
   },
   cli: function () {
-    var app = this.boot()
+    var app = this.get_app()
     var program = app.get('zenbot:program')
     var command = process.argv[2]
-    var cmds = []
-    app.get('zenbot:commands').forEach(function (cmd) {
-      cmds.push(cmd.name)
-      cmd.define()
+    var cmds = app.get('zenbot:commands').map(function (cmd) {
+      return cmd.name
     })
     if (!command || cmds.indexOf(command) === -1) {
       program.outputHelp()
