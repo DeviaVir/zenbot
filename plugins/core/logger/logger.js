@@ -39,8 +39,7 @@ module.exports = function container (get, set) {
     },
     error: function () {
       var args = [].slice.call(arguments)
-      var msg = '[ERROR]'
-      if (conf.colors) msg = colors.red(msg)
+      var msg = '[ERROR]'.red
       args.unshift(msg)
       this._log(args)
     }

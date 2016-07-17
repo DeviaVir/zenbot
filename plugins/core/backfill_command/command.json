@@ -4,6 +4,7 @@
   "description": "backfill trades",
   "options": [
     {
+      "name": "limit",
       "spec": "-l, --limit <limit>",
       "description": "query limit for API requests",
       "number": true,

@@ -1,0 +1,6 @@
+{
+  "name": "learn",
+  "spec": "learn",
+  "description": "run the machine learner",
+  "action": "learn"
+}
