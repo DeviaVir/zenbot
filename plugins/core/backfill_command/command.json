@@ -1,7 +1,7 @@
 {
   "name": "backfill",
   "spec": "backfill",
-  "description": "backfill trades",
+  "description": "backfill data using exchange APIs",
   "options": [
     {
       "name": "limit",

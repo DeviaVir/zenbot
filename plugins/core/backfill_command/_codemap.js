@@ -1,6 +1,6 @@
 module.exports = {
   _ns: 'zenbot',
-  'actions.backfill_trades': require('./backfill_trades'),
+  'actions.backfill': require('./action'),
   'commands.backfill': require('./command.json'),
   'commands[]': '#commands.backfill'
 }
