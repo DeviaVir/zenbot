@@ -9,6 +9,9 @@ var spawn = require('child_process').spawn
   , request = require('micro-request')
 
 module.exports = function container (get, set, clear) {
+  return function learn (options) {
+    
+  }
   var bot = get('bot')
   var learner = bot.learner
   assert(learner, '--learner arg required')

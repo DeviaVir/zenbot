@@ -1,9 +1,11 @@
 var n = require('numbro')
-  , c = require('../conf/constants.json')
   , tb = require('timebucket')
   , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
+  return function record (options) {
+    
+  }
   var get_time = get('utils.get_time')
   var bot = get('bot')
   var reduce_trades = get('utils.reduce_trades')

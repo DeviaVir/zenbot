@@ -7,6 +7,9 @@ var n = require('numbro')
   , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
+  return function run (options) {
+    
+  }
   var get_time = get('utils.get_time')
   var bot = get('bot')
   var start_balance = get('mode') === 'simulator' ? c.sim_start_balance : 0

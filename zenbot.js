@@ -52,22 +52,31 @@ module.exports = {
       'config': this.get_config(),
       'constants': this.get_constants()
     })
-    var program = require('commander')
-      .option('--silent', 'speak no evil')
-      .version(version)
-    app.set('zenbot:app', app)
-    app.set('zenbot:program', program)
     app.get('zenbot:logger').info((ZENBOT_USER_AGENT + ' booting!').cyan)
     return app
   },
   cli: function () {
     var app = this.get_app()
-    var program = app.get('zenbot:program')
+    app.set('zenbot:app', app)
+    var launcher = app.get('zenbot:launcher')
+    var program = require('commander')
+      .option('--silent', 'speak no evil')
+      .version(version)
+    app.set('zenbot:program', program)
     var command = process.argv[2]
     app.set('zenbot:command', command || null)
-    var cmds = app.get('zenbot:commands').map(function (cmd) {
-      return cmd.name
+    var cmds = app.get('zenbot:commands').map(function (command) {
+      var cmd = program
+        .command(command.spec)
+        .description(command.description)
+      ;(command.options || []).forEach(function (option) {
+        cmd = cmd.option(option.spec, option.description, option.number ? Number : String, option.default)
+      })
+      var action = app.get('zenbot:actions.' + command.action)
+      cmd.action(launcher(action))
+      return command.name
     })
+    //program = app.get('zenbot:program')
     if (!command || cmds.indexOf(command) === -1) {
       program.outputHelp()
       process.exit(1)
