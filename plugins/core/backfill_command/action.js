@@ -49,7 +49,7 @@ module.exports = function container (get, set, clear) {
       }
       var timeout = setTimeout(function () {
         backfill_trades(options)
-      }, 0)
+      }, c.backfill_timeout)
       set('timeouts[]', timeout)
     })
   }

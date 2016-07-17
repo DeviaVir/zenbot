@@ -2,5 +2,7 @@
   "id_bytes": 16,
   "tick_size": "10s",
   "log_trades_limit": 1,
-  "save_state_interval": 60000
+  "save_state_interval": 60000,
+  "backfill_timeout": 0,
+  "mapreduce_timeout": 0
 }

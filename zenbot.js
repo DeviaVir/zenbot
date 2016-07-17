@@ -72,7 +72,7 @@ module.exports = {
       ;(command.options || []).forEach(function (option) {
         cmd = cmd.option(option.spec, option.description, option.number ? Number : String, option.default)
       })
-      var action = app.get('zenbot:actions.' + command.action)
+      var action = app.get('zenbot:actions.' + command.name)
       cmd.action(launcher(action))
       return command.name
     })
