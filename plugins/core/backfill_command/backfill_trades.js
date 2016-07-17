@@ -25,6 +25,9 @@ module.exports = function container (get, set, clear) {
               var tasks = trades.map(function (trade) {
                 return function task (done) {
                   trade.id = exchange.slug + '-' + config.asset + '-' + config.currency + '-' + trade.id
+                  trade.asset = config.asset
+                  trade.currency = config.currency
+                  trade.exchange = exchange.slug
                   trade.processed = false
                   get('motley:db.trades').save(trade, done)
                 }
