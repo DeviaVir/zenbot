@@ -64,6 +64,7 @@ module.exports = {
     var app = this.get_app()
     var program = app.get('zenbot:program')
     var command = process.argv[2]
+    app.set('zenbot:command', command || null)
     var cmds = app.get('zenbot:commands').map(function (cmd) {
       return cmd.name
     })
@@ -71,7 +72,6 @@ module.exports = {
       program.outputHelp()
       process.exit(1)
     }
-    app.set('zenbot:command', command)
     app.mount(function (err) {
       if (err) cb(err)
       function onExit () {
