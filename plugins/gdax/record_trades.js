@@ -2,7 +2,7 @@ var request = require('micro-request')
   , n = require('numbro')
 
 module.exports = function container (get, set, clear) {
-  return function gdax_recorder (product_id, limit, cb) {
+  return function record_trades (product_id, limit, cb) {
     var x = require('./exchange.json')
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + Math.min(limit, 100) + (rs.gdax_recorder_id ? '&before=' + rs.gdax_recorder_id : '')

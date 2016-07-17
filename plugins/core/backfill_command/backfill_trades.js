@@ -3,11 +3,12 @@ var n = require('numbro')
   , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
-  function backfill_trades () {
+  function backfill_trades (options) {
     var command = get('commands.backfill')
     var get_products = get('utils.get_products')
     var log_trades = get('utils.log_trades')
     var rs = get('run_state')
+    var c = get('constants')
     rs.tick = tb(c.tick_size).toString()
     var tasks = get('exchanges').map(function (exchange) {
       return function task (cb) {
@@ -15,9 +16,9 @@ module.exports = function container (get, set, clear) {
         var tasks = products.map(function (product) {
           return function task (done) {
             if (!exchange.backfill_trades) return done(null, [])
-            exchange.backfill_trades(product.id, command.limit, function (err, trades) {
+            exchange.backfill_trades(product.id, options.limit, function (err, trades) {
               if (err) {
-                err.slug = exchange.slug
+                err.exchange = exchange.slug
                 return done(err)
               }
               log_trades(exchange, trades)
@@ -30,9 +31,11 @@ module.exports = function container (get, set, clear) {
     })
     parallel(tasks, function (err) {
       if (err) {
-        get('logger').error('[' + err.slug + ']', err, {public: false})
+        get('logger').error('[' + err.exchange + ']', err.message, {public: false})
       }
-      var timeout = setTimeout(backfill_trades, 0)
+      var timeout = setTimeout(function () {
+        backfill_trades(options)
+      }, 0)
       set('timeouts[]', timeout)
     })
   }

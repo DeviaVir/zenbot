@@ -8,7 +8,8 @@ module.exports = function container (get, set, clear) {
     ;(command.options || []).forEach(function (option) {
       program = program.option(option.spec, option.description, option.number ? Number : String, option.default)
     })
-    program = program.action(get('actions.' + command.action))
+    var action = get('actions.' + command.action)
+    program = program.action(launcher(action))
     return command
   }
 }

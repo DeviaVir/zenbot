@@ -7,5 +7,6 @@ module.exports = {
   get_time: require('./get_time'),
   get_timestamp: require('./get_timestamp'),
   log_trades: require('./log_trades'),
-  make_command: require('./make_command')
+  make_command: require('./make_command'),
+  make_exchange: require('./make_exchange')
 }

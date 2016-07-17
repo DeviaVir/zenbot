@@ -1,5 +1,5 @@
 module.exports = function container (get, set, clear) {
-  return null
+  return require('./command.json')
   program
       .command('learn')
       .description('3. run the machine learner')

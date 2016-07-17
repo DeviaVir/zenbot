@@ -11,5 +11,5 @@ module.exports = function container (get, set, clear) {
         zenbot('run', options)
       })
   */
-  return null
+  return require('./command.json')
 }
