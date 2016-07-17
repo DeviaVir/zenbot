@@ -1,0 +1,14 @@
+{
+  "name": "backfill",
+  "spec": "backfill",
+  "description": "backfill trades",
+  "options": [
+    {
+      "spec": "-l, --limit <limit>",
+      "description": "query limit for API requests",
+      "number": true,
+      "default": 1500
+    }
+  ],
+  "action": "backfill_trades"
+}
