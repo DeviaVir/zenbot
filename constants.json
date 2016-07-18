@@ -5,6 +5,6 @@
   "save_state_interval": 60000,
   "backfill_timeout": 0,
   "reduce_timeout": 0,
-  "trade_reducer_limit": null,
+  "trade_reducer_limit": 1000,
   "big_trade": 50
 }

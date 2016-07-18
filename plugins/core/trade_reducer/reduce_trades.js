@@ -9,9 +9,9 @@ module.exports = function container (get, set, clear) {
   var get_timestamp = get('utils.get_timestamp')
   var program = get('program')
   var get_time = get('utils.get_time')
+  var log_trades = get('utils.log_trades')
   var c = get('constants')
   var config = get('config')
-
   function create_tick (tick, trades, cb) {
     trades = trades.filter(function (trade) {
       return trade.asset === config.asset
@@ -148,7 +148,7 @@ module.exports = function container (get, set, clear) {
     }
     get('motley:db.ticks').save(tick, function (err, saved) {
       if (err) {
-        get('console').error('tick save err', err)
+        get('logger').error('tick save err', err, {public: false})
       }
       cb(null, saved)
     })
@@ -173,22 +173,7 @@ module.exports = function container (get, set, clear) {
         tasks.push(function (done) {
           get('motley:db.ticks').load(tickId, function (err, tick) {
             if (err) return done(err)
-            create_tick(tick, ticks[tickId], function (err, tick) {
-              if (err) return done(err)
-              if (program.tweet && tick.side_vol >= c.big_trade) {
-                var tweet = {
-                  status: [
-                    'big ' + tick.side + ':',
-                    'size: ' + n(tick.side_vol).format('0.000') + ' ' + config.asset,
-                    'price: ' + tick.price,
-                    'time: ' + get_time(tick.time),
-                    c.base_url + '/#t__' + (new Date().getTime() + 30000) + ' ' + config.hashtags
-                  ].join('\n')
-                }
-                twitter.post('statuses/update', tweet, on_tweet)
-              }
-              done(null, tick)
-            })
+            create_tick(tick, ticks[tickId], done)
           })
         })
       })
@@ -203,6 +188,7 @@ module.exports = function container (get, set, clear) {
           if (cb) return cb(err)
           throw err
         }
+        log_trades('trade_reducer', trades)
         cb && cb()
       })
     })

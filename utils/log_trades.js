@@ -5,7 +5,7 @@ module.exports = function container (get, set, clear) {
   var c = get('constants')
   var config = get('config')
   var get_timestamp = get('utils.get_timestamp')
-  return function log_trades (exchange, trades) {
+  return function log_trades (slug, trades) {
     if (!trades.length) return
     trades = trades.slice().sort(function (a, b) {
       if (a.size > b.size) return -1
@@ -18,6 +18,6 @@ module.exports = function container (get, set, clear) {
       return z(4, (trade.side === 'buy' ? 'SELL' : 'BUY') , ' ')[trade.side === 'buy' ? 'red' : 'green'] + ' ' + z(9, n(trade.size).format('0.000'), ' ')[trade.side === 'buy' ? 'red' : 'green'] + ' ' + config.asset.grey + ' at '.grey + z(9, n(trade.price).format('0.000'), ' ').yellow + ' ' + config.currency.grey
     }).join(', ')
     ticker = get_timestamp(min_time).grey + ' ' + ticker
-    get('logger').info(('[' + exchange.slug + ']').cyan + ' processed ' + z(5, trades.length, ' ') + ' trades. ' + ticker)
+    get('logger').info(('[' + slug + ']').cyan + ' processed ' + z(5, trades.length, ' ') + ' trades. ' + ticker)
   }
 }

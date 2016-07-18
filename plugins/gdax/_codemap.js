@@ -1,7 +1,7 @@
 module.exports = {
   _ns: 'zenbot',
-  'exchanges[]': require('./exchange.json'),
-  'backfillers[]': require('./backfiller'),
-  'recorders[]': require('./recorder'),
-  'traders[]': require('./trader')
+  _folder: 'exchanges',
+  'gdax': require('./exchange.json'),
+  'zenbot:exchanges[]': '#exchanges.gdax',
+  'gdax.backfiller': require('./backfiller')
 }
