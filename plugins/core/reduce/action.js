@@ -11,16 +11,16 @@ module.exports = function container (get, set, clear) {
     var c = get('constants')
     var config = get('config')
     rs.tick = tb(c.tick_size).toString()
-    var tasks = get('exchanges').map(function (exchange) {
-      
+    var tasks = get('reducers').map(function (reducer) {
+      return get('actions.' + reducer.action)
     })
     parallel(tasks, function (err) {
       if (err) {
-        get('logger').error('[' + err.exchange + ']', err.message, {public: false})
+        get('logger').error(err.message, {public: false})
       }
       var timeout = setTimeout(function () {
         reduce(options)
-      }, c.mapreduce_timeout)
+      }, c.reduce_timeout)
       set('timeouts[]', timeout)
     })
   }

@@ -2,10 +2,10 @@ var request = require('micro-request')
   , n = require('numbro')
 
 module.exports = function container (get, set, clear) {
-  return function record_trades (product_id, limit, cb) {
+  return function recorder (product_id, cb) {
     var x = require('./exchange.json')
     var rs = get('run_state')
-    var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + Math.min(limit, 100) + (rs.gdax_recorder_id ? '&before=' + rs.gdax_recorder_id : '')
+    var uri = x.rest_url + '/products/' + product_id + '/trades' + (rs.gdax_recorder_id ? '?before=' + rs.gdax_recorder_id : '')
     //get('console').info('GET', uri)
     request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
       if (err) return cb(err)
