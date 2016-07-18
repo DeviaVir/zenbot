@@ -4,5 +4,7 @@
   "log_trades_limit": 1,
   "save_state_interval": 60000,
   "backfill_timeout": 0,
-  "mapreduce_timeout": 0
+  "reduce_timeout": 0,
+  "trade_reducer_limit": null,
+  "big_trade": 50
 }

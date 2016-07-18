@@ -11,5 +11,5 @@
       "default": 1500
     }
   ],
-  "action": "backfill_trades"
+  "action": "backfill"
 }

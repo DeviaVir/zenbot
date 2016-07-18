@@ -3,7 +3,7 @@ var n = require('numbro')
   , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
-  function backfill_trades (options) {
+  function action (options) {
     var command = get('commands.backfill')
     var get_products = get('utils.get_products')
     var log_trades = get('utils.log_trades')
@@ -48,10 +48,10 @@ module.exports = function container (get, set, clear) {
         get('logger').error('[' + err.exchange + ']', err.message, {public: false})
       }
       var timeout = setTimeout(function () {
-        backfill_trades(options)
+        action(options)
       }, c.backfill_timeout)
       set('timeouts[]', timeout)
     })
   }
-  return backfill_trades
+  return action
 }

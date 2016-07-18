@@ -60,7 +60,6 @@ module.exports = {
     app.set('zenbot:app', app)
     var launcher = app.get('zenbot:launcher')
     var program = require('commander')
-      .option('--silent', 'speak no evil')
       .version(version)
     app.set('zenbot:program', program)
     var command = process.argv[2]
