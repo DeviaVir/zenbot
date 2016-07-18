@@ -10,6 +10,5 @@
       "number": true,
       "default": 1500
     }
-  ],
-  "action": "backfill"
+  ]
 }

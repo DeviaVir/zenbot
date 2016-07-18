@@ -1,6 +1,6 @@
 module.exports = {
   _ns: 'zenbot',
-  'actions.reduce': require('./action'),
+  'actions.reduce': require('./reduce'),
   'commands.reduce': require('./command.json'),
   'commands[]': '#commands.reduce'
 }

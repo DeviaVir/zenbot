@@ -1,5 +1,5 @@
 {
-  "slug": "gdax",
+  "name": "gdax",
   "label": "GDAX",
   "rest_url": "https://api.gdax.com",
   "backfill_limit": 100,
