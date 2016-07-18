@@ -18,10 +18,6 @@ module.exports = function container (get, set, clear) {
       if (err) {
         get('logger').error(err.message, {public: false})
       }
-      var timeout = setTimeout(function () {
-        reduce(options)
-      }, c.reduce_timeout)
-      set('timeouts[]', timeout)
     })
   }
   return reduce
