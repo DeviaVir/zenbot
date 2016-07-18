@@ -156,7 +156,7 @@ module.exports = function container (get, set, clear) {
 
   var idle = false
   return function reduce_trades (cb) {
-    get('motley:db.trades').select({query: {processed: false}, limit: c.trade_reducer_limit}, function (err, trades) {
+    get('motley:db.trades').select({query: {processed: false}, limit: c.trade_reducer_limit, sort: {time: 1}}, function (err, trades) {
       if (err) {
         if (cb) return cb(err)
         throw err
