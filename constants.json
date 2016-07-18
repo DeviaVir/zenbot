@@ -1,10 +1,10 @@
 {
   "id_bytes": 16,
+  "tick": 10000,
   "tick_size": "10s",
   "log_trades_limit": 1,
   "save_state_interval": 60000,
-  "backfill_timeout": 0,
-  "reduce_timeout": 0,
+  "backfill_interval": 0,
   "trade_reducer_limit": 1000,
   "big_trade": 50
 }

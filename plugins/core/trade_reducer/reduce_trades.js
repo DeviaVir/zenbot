@@ -154,6 +154,7 @@ module.exports = function container (get, set, clear) {
     })
   }
 
+  var idle = false
   return function reduce_trades (cb) {
     get('motley:db.trades').select({query: {processed: false}, limit: c.trade_reducer_limit}, function (err, trades) {
       if (err) {
@@ -188,7 +189,16 @@ module.exports = function container (get, set, clear) {
           if (cb) return cb(err)
           throw err
         }
-        log_trades('trade_reducer', trades)
+        if (trades.length) {
+          idle = false
+          log_trades('[trade_reducer]'.blue, trades)
+        }
+        else if (!idle) {
+          idle = true
+          get('logger').info('[trade_reducer]'.blue, 'idle'.grey)
+        }
+        var timeout = setTimeout(reduce_trades, trades.length ? 0 : c.tick)
+        set('timeouts[]', timeout)
         cb && cb()
       })
     })
