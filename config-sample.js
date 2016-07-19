@@ -19,6 +19,6 @@ module.exports = {
   twitter_access_token_secret: '',
 
   enabled_plugins: [
-    // fill in later
+    'gdax'
   ]
 }
