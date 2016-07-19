@@ -3,5 +3,6 @@ module.exports = {
   _folder: 'exchanges',
   'gdax': require('./exchange.json'),
   'zenbot:exchanges[]': '#exchanges.gdax',
-  'gdax.backfiller': require('./backfiller')
+  'gdax.backfiller': require('./backfiller'),
+  'gdax.recorder': require('./recorder')
 }

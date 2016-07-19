@@ -19,9 +19,10 @@ module.exports = function container (get, set, clear) {
               var recorder = get('exchanges.' + exchange.name + '.recorder')
             }
             catch (e) {
+              throw e
               return done(null, [])
             }
-            recorder(product.id, options.limit, function (err, trades) {
+            recorder(product.id, function (err, trades) {
               if (err) {
                 err.exchange = exchange.name
                 return done(err)
@@ -51,6 +52,10 @@ module.exports = function container (get, set, clear) {
       if (err) {
         get('logger').error('[' + err.exchange + ']', err.message, {public: false})
       }
+      var timeout = setTimeout(function () {
+        record(options)
+      }, c.record_timeout)
+      set('timeouts[]', timeout)
     })
   }
   return record
