@@ -12,20 +12,24 @@ module.exports = function container (get, set, clear) {
     rs.tick = tb(c.tick_size).toString()
     var tasks = get('exchanges').map(function (exchange) {
       return function task (cb) {
+        get('logger').info('[' + exchange.name + ']'.blue, 'recording trades...')
         var products = get_products(exchange)
         var tasks = products.map(function (product) {
           return function task (done) {
             try {
-              var backfiller = get('exchanges.' + exchange.name + '.backfiller')
+              var recorder = get('exchanges.' + exchange.name + '.recorder')
             }
             catch (e) {
+              throw e
               return done(null, [])
             }
-            backfiller(product.id, options.limit, function (err, trades) {
+            get('logger').info('[' + exchange.name + ']'.blue, product.id, 'recording trades...')
+            recorder(product.id, options.limit, function (err, trades) {
               if (err) {
                 err.exchange = exchange.name
                 return done(err)
               }
+              get('logger').info('[' + exchange.name + ']'.blue, 'got', trades.length, 'trades.')
               var tasks = trades.map(function (trade) {
                 return function task (done) {
                   trade.id = exchange.name + '-' + config.asset + '-' + config.currency + '-' + trade.id
@@ -52,10 +56,10 @@ module.exports = function container (get, set, clear) {
         get('logger').error('[' + err.exchange + ']', err.message, {public: false})
       }
       var timeout = setTimeout(function () {
-        backfill(options)
-      }, c.backfill_timeout)
+        record(options)
+      }, c.record)
       set('timeouts[]', timeout)
     })
   }
-  return backfill
+  return record
 }
