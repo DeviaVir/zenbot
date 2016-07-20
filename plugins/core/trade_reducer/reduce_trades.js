@@ -53,11 +53,11 @@ module.exports = function container (get, set, clear) {
           }
           if (trades.length) {
             idle = false
-            log_trades('trade_reducer', trades)
+            log_trades('trade reducer', trades)
           }
           else if (!idle) {
             idle = true
-            get('logger').info('trade_reducer', 'idle'.grey)
+            get('logger').info('trade reducer', 'idle'.grey)
           }
           var timeout = setTimeout(reduce_trades, trades.length ? 0 : c.tick)
           set('timeouts[]', timeout)

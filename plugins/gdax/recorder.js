@@ -52,7 +52,7 @@ module.exports = function container (get, set, clear) {
         if (err) {
           get('logger').error('gdax trade save err', err, {public: false})
         }
-        log_trades(x.name, trades)
+        log_trades(x.name + ' recorder', trades)
         return retry()
       })
     })
