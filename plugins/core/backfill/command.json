@@ -1,14 +1,5 @@
 {
   "name": "backfill",
   "spec": "backfill",
-  "description": "backfill data using exchange APIs",
-  "options": [
-    {
-      "name": "limit",
-      "spec": "-l, --limit <limit>",
-      "description": "query limit for API requests",
-      "number": true,
-      "default": 1500
-    }
-  ]
+  "description": "backfill data using exchange APIs"
 }
