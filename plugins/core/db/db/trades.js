@@ -2,9 +2,10 @@ module.exports = function container (get, set) {
   var get_timestamp = get('zenbot:utils.get_timestamp')
   return get('db.createCollection')('trades', {
     save: function (trade, opts, cb) {
-      trade.id = trade.exchange + '-' + trade.id
-      trade.processed = false
-      trade.timestamp = get_timestamp(trade.time)
+      if (!trade.timestamp) {
+        trade.timestamp = get_timestamp(trade.time)
+        trade.processed = false
+      }
       cb(null, trade)
     }
   })

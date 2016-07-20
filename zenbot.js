@@ -52,7 +52,7 @@ module.exports = {
       'config': this.get_config(),
       'constants': this.get_constants()
     })
-    app.get('zenbot:logger').info((ZENBOT_USER_AGENT + ' booting!').cyan)
+    app.get('zenbot:logger').info('core', (ZENBOT_USER_AGENT + ' booting!').cyan)
     return app
   },
   cli: function () {
