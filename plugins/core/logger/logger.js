@@ -44,7 +44,7 @@ module.exports = function container (get, set) {
         'white'
       ]
       var hash_val = crypto.createHash('sha1').update(slug).digest().readInt8() + 127
-      var color_idx = Math.round((hash_val / 255) * slug_colors.length)
+      var color_idx = Math.round((hash_val / 255) * slug_colors.length - 1)
       slug = ('[' + slug + ']')[slug_colors[color_idx]]
       args.unshift(slug)
       this._log(args)

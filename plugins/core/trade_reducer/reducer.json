@@ -1,5 +1,0 @@
-{
-  "name": "trade_reducer",
-  "description": "reduce trades",
-  "action": "reduce_trades"
-}
