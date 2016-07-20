@@ -1,17 +1,32 @@
 var request = require('micro-request')
   , n = require('numbro')
+  , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
-  return function backfiller (product_id, cb) {
-    var x = get('exchanges.gdax')
+  var x = get('exchanges.gdax')
+  var c = get('constants')
+  var config = get('config')
+  var log_trades = get('utils.log_trades')
+  var product_id
+  x.products.forEach(function (product) {
+    if (product.asset === config.asset && product.currency === config.currency) {
+      product_id = product.id
+    }
+  })
+  return function backfiller (options) {
+    if (!product_id) return
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
     //get('console').info('GET', uri)
     request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
-      if (err) return cb(err)
+      if (err) {
+        get('logger').error('gdax backfiller err', err, {public: false})
+        return setTimeout(backfiller, c.backfill_interval)
+      }
       if (resp.statusCode !== 200 || toString.call(trades) !== '[object Array]') {
         console.error(trades)
-        return cb(new Error('non-200 status: ' + resp.statusCode))
+        get('logger').error('gdax non-200 status: ' + resp.statusCode, {public: false})
+        return setTimeout(backfiller, c.backfill_interval)
       }
       trades = trades.map(function (trade) {
         rs.gdax_backfiller_id = rs.gdax_backfiller_id ? Math.min(rs.gdax_backfiller_id, trade.trade_id) : trade.trade_id
@@ -20,10 +35,22 @@ module.exports = function container (get, set, clear) {
           time: new Date(trade.time).getTime(),
           size: n(trade.size).value(),
           price: n(trade.price).value(),
-          side: trade.side
+          side: trade.side,
+          exchange: x.name
         }
       })
-      cb(null, trades)
+      var tasks = trades.map(function (trade) {
+        return function (cb) {
+          get('motley:db.trades').save(trade, cb)
+        }
+      })
+      parallel(tasks, function (err, trades) {
+        if (err) {
+          get('logger').error('gdax trade save err', err, {public: false})
+        }
+        log_trades(x.name, trades)
+        return setTimeout(backfiller, c.backfill_interval)
+      })
     })
   }
 }
