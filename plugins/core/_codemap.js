@@ -15,7 +15,6 @@ module.exports = {
     //require('./sim_command/_codemap'),
     //require('./status_command/_codemap'),
     //require('./tick_reporter/_codemap'),
-    require('./trade_recorder/_codemap'),
     require('./trade_reducer/_codemap'),
     //require('./twitter_client/_codemap')
   ]
