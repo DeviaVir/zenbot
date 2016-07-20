@@ -2,10 +2,10 @@ var request = require('micro-request')
   , n = require('numbro')
 
 module.exports = function container (get, set, clear) {
-  return function backfiller (product_id, limit, cb) {
+  return function backfiller (product_id, cb) {
     var x = get('exchanges.gdax')
     var rs = get('run_state')
-    var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + Math.min(limit, x.backfill_limit) + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
+    var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
     //get('console').info('GET', uri)
     request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
       if (err) return cb(err)
