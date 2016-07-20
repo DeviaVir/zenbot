@@ -1,3 +1,4 @@
 module.exports = {
-  _ns: 'zenbot'
+  _ns: 'zenbot',
+  brain: require('./brain')
 }

@@ -11,7 +11,7 @@ module.exports = {
     require('./logger/_codemap'),
     require('./record/_codemap'),
     require('./reduce/_codemap'),
-    //require('./run_command/_codemap'),
+    require('./run/_codemap'),
     //require('./sim_command/_codemap'),
     //require('./status_command/_codemap'),
     //require('./tick_reporter/_codemap'),
