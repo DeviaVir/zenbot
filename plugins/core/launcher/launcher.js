@@ -24,7 +24,7 @@ module.exports = function container (get, set, clear) {
           else if (typeof val === 'string') {
             val = ('"' + val + '"').green
           }
-          get('logger').info(('[launcher]'.yellow + ' run_state.'.grey + (k + ' =').cyan), val, {public: false})
+          get('logger').info('launcher', 'run_state.'.grey + (k + ' =').cyan, val, {public: false})
         })
         var save_interval = setInterval(get('launcher.save_state'), c.save_state_interval)
         set('intervals[]', save_interval)

@@ -35,6 +35,18 @@ module.exports = function container (get, set) {
     },
     info: function () {
       var args = [].slice.call(arguments)
+      var slug = args.shift()
+      var slug_colors = [
+        'yellow',
+        'blue',
+        'magenta',
+        'cyan',
+        'white'
+      ]
+      var hash_val = crypto.createHash('sha1').update(slug).digest().readInt8() + 127
+      var color_idx = Math.round((hash_val / 255) * slug_colors.length)
+      slug = ('[' + slug + ']')[slug_colors[color_idx]]
+      args.unshift(slug)
       this._log(args)
     },
     error: function () {
