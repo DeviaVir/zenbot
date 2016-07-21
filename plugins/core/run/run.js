@@ -1,10 +1,8 @@
-var constants = require('../conf/constants.json')
-
 module.exports = function container (get, set, clear) {
-  var brain = get('brain')
   var c = get('constants')
   return function run (options) {
     var rs = get('run_state')
+    var brain = get('brain')
     rs.max_time = new Date().getTime()
     (function getNext () {
       var params = {

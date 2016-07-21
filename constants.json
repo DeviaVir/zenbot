@@ -1,7 +1,15 @@
 {
   "id_bytes": 16,
   "tick": 10000,
-  "tick_size": "10s",
+  "tick_sizes": [
+    "10s",
+    "1m",
+    "5m",
+    "15m",
+    "1h",
+    "6h",
+    "1d"
+  ],
   "log_trades_limit": 1,
   "save_state_interval": 60000,
   "backfill_interval": 0,
