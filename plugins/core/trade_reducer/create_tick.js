@@ -6,13 +6,6 @@ var n = require('numbro')
   , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
-  var get_timestamp = get('utils.get_timestamp')
-  var program = get('program')
-  var get_time = get('utils.get_time')
-  var log_trades = get('utils.log_trades')
-  var c = get('constants')
-  var config = get('config')
-  var idle = false
   return function create_tick (tick, trades, cb) {
     if (!trades.length) return cb()
     trades.sort(function (a, b) {
@@ -20,28 +13,9 @@ module.exports = function container (get, set, clear) {
       if (a.time > b.time) return 1
       return 0
     })
-    if (!tick) {
-      var bucket = tb(trades[0].time).resize(c.tick_size)
-      tick = {
-        id: bucket.toString(),
-        time: bucket.toMilliseconds(),
-        vol: 0,
-        trades: 0,
-        buys: 0,
-        buy_vol: 0,
-        exchanges: {},
-        trade_ids: [],
-        avg_price: null,
-        high: 0,
-        low: 100000,
-        close: null,
-        close_time: null
-      }
-      tick.timestamp = get_timestamp(tick.time)
-    }
     trades.forEach(function (trade) {
       if (tick.trade_ids.indexOf(trade.id) !== -1) return
-      assert(tb(trade.time).resize(c.tick_size).toString() === tick.id)
+      assert(tb(trade.time).resize(tick.size).toString() === tick.id)
       tick.trade_ids.push(trade.id)
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         vol: 0,
@@ -85,28 +59,26 @@ module.exports = function container (get, set, clear) {
       x.side_vol = n(x.vol)
         .multiply(ratio)
         .value()
-      if (trade.currency === config.currency) {
-        if (!x.open) {
-          x.open = trade.price
-        }
-        x.high = Math.max(trade.price, x.high)
-        tick.high = Math.max(tick.high, x.high)
-        x.low = Math.min(trade.price, x.low)
-        tick.low = Math.min(tick.low, x.low)
-        if (!x.close_time || trade.time > x.close_time) {
-          x.close_time = trade.time
-          x.close = trade.price
-        }
-        if (!tick.close_time || x.close_time > tick.close_time) {
-          tick.close_time = x.close_time
-          tick.close = x.close
-        }
-        x.typical = n(x.high)
-          .add(x.low)
-          .add(x.close)
-          .divide(3)
-          .value()
+      if (!x.open) {
+        x.open = trade.price
       }
+      x.high = Math.max(trade.price, x.high)
+      tick.high = Math.max(tick.high, x.high)
+      x.low = Math.min(trade.price, x.low)
+      tick.low = Math.min(tick.low, x.low)
+      if (!x.close_time || trade.time > x.close_time) {
+        x.close_time = trade.time
+        x.close = trade.price
+      }
+      if (!tick.close_time || x.close_time > tick.close_time) {
+        tick.close_time = x.close_time
+        tick.close = x.close
+      }
+      x.typical = n(x.high)
+        .add(x.low)
+        .add(x.close)
+        .divide(3)
+        .value()
     })
     tick.buy_ratio = n(tick.buy_vol)
       .divide(tick.vol)
