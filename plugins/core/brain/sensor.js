@@ -7,7 +7,6 @@ module.exports = function container (get, set, clear) {
   return function sensor (tick, cb) {
     var rs = get('run_state')
     tick.seen = true
-    get('logger').info('sensor', tick.id)
     if (tick.size !== c.brain_speed) return cb()
     rs.high = Math.max(rs.high, tick.high)
     rs.low = Math.min(rs.low, tick.low)

@@ -12,7 +12,7 @@ module.exports = function container (get, set, clear) {
       var timeout
       if (!trades.length) {
         idle = true
-        get('logger').info('trade reducer', 'idle'.grey)
+        //get('logger').info('trade reducer', 'idle'.grey)
         timeout = setTimeout(reduce_trades, trades.length ? 0 : c.tick)
         set('timeouts[]', timeout)
       }

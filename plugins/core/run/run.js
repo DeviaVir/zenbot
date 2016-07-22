@@ -28,6 +28,7 @@ module.exports = function container (get, set, clear) {
             var tasks = ticks.map(function (tick) {
               return function task (done) {
                 rs.max_times[tick_size] = Math.max(tick.min_time, rs.max_times[tick_size])
+                get('logger').info('run', 'see', tick.id)
                 brain.see(tick, function (err) {
                   if (err) return done(err)
                   tick.seen = true
@@ -36,6 +37,7 @@ module.exports = function container (get, set, clear) {
               }
             })
             series(tasks, function (err) {
+              get('logger').info('run', 'think', rs.last_tick.id)
               brain.think(function (err) {
                 if (err) {
                   get('logger').error('think err', err)
