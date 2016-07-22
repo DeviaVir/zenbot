@@ -10,6 +10,7 @@
     "6h",
     "1d"
   ],
+  "brain_speed": "10s",
   "log_trades_limit": 1,
   "save_state_interval": 60000,
   "backfill_interval": 0,
