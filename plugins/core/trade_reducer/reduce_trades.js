@@ -6,6 +6,7 @@ module.exports = function container (get, set, clear) {
   return function reduce_trades () {
     get('motley:db.trades').select({query: {processed: false}, limit: c.trade_reducer_limit}, function (err, trades) {
       if (err) {
+        if (get('app').closing) return
         throw err
       }
       var timeout
@@ -18,6 +19,7 @@ module.exports = function container (get, set, clear) {
       else {
         process_trades(trades, function (err) {
           if (err) {
+            if (get('app').closing) return
             throw err
           }
           idle = false

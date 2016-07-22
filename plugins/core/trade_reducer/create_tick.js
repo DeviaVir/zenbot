@@ -8,14 +8,15 @@ var n = require('numbro')
 module.exports = function container (get, set, clear) {
   return function create_tick (tick, trades, cb) {
     if (!trades.length) return cb()
-    assert(!tick.complete)
     trades.sort(function (a, b) {
       if (a.time < b.time) return -1
       if (a.time > b.time) return 1
       return 0
     })
+    var new_trades = false
     trades.forEach(function (trade) {
       if (tick.trade_ids.indexOf(trade.id) !== -1) return
+      new_trades = true
       assert(tb(trade.time).resize(tick.size).toString() === tick.id)
       tick.trade_ids.push(trade.id)
       tick.min_time = tick.min_time ? Math.min(tick.min_time, trade.time) : trade.time
@@ -83,6 +84,9 @@ module.exports = function container (get, set, clear) {
         .divide(3)
         .value()
     })
+    if (!new_trades) {
+      return cb()
+    }
     tick.buy_ratio = n(tick.buy_vol)
       .divide(tick.vol)
       .value()
@@ -120,7 +124,7 @@ module.exports = function container (get, set, clear) {
           .value()
     }
     get('motley:db.ticks').save(tick, function (err, saved) {
-      if (err) {
+      if (err && !get('app').closing) {
         get('logger').error('tick save err', err, {public: false})
       }
       cb()

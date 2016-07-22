@@ -83,6 +83,7 @@ module.exports = {
     app.mount(function (err) {
       if (err) cb(err)
       function onExit () {
+        app.closing = true
         app.close(function (err) {
           process.exit()
         })
