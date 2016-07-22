@@ -1,5 +1,5 @@
 var request = require('micro-request')
-  , c = require('../conf/constants.json')
+  , c = require('../../constants.json')
   , n = require('numbro')
   , parallel = require('run-parallel')
   , sig = require('sig')
