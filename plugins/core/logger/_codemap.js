@@ -1,4 +1,7 @@
 module.exports = {
   _ns: 'zenbot',
-  'logger': require('./logger')
+  'logger': require('./logger'),
+  'motley:conf.console{}': {
+    silent: true
+  }
 }

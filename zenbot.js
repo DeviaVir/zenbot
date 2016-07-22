@@ -46,14 +46,12 @@ module.exports = {
     return require('./constants.json')
   },
   get_app: function () {
-    var app = motley({
+    return motley({
       _ns: 'zenbot',
       _maps: this.get_codemaps(),
       'config': this.get_config(),
       'constants': this.get_constants()
     })
-    app.get('zenbot:logger').info('core', (ZENBOT_USER_AGENT + ' booting!').cyan)
-    return app
   },
   cli: function () {
     var app = this.get_app()
@@ -63,6 +61,9 @@ module.exports = {
       .version(version)
     app.set('zenbot:program', program)
     var command = process.argv[2]
+    if (command === 'run') {
+      app.get('zenbot:logger').info('core', (ZENBOT_USER_AGENT).cyan)
+    }
     app.set('zenbot:command', command || null)
     var cmds = app.get('zenbot:commands').map(function (command) {
       var cmd = program
