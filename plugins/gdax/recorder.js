@@ -35,7 +35,7 @@ module.exports = function container (get, set, clear) {
       trades = trades.map(function (trade) {
         rs.gdax_recorder_id = rs.gdax_recorder_id ? Math.max(rs.gdax_recorder_id, trade.trade_id) : trade.trade_id
         return {
-          id: String(trade.trade_id),
+          id: 'gdax-' + String(trade.trade_id),
           time: new Date(trade.time).getTime(),
           size: n(trade.size).value(),
           price: n(trade.price).value(),

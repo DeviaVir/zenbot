@@ -9,8 +9,6 @@ module.exports = function container (get, set, clear) {
     var ticks = {}
     var tasks = []
     trades.forEach(function (trade) {
-      trade.orig_trade_id = trade.id
-      trade.id = trade.exchange + '-' + trade.orig_trade_id
       c.tick_sizes.forEach(function (size) {
         var tickId = tb(trade.time)
           .resize(size)
@@ -20,15 +18,20 @@ module.exports = function container (get, set, clear) {
       })
     })
     Object.keys(ticks).forEach(function (tickId) {
+      var t = ticks[tickId]
       tasks.push(function (done) {
         get('motley:db.ticks').load(tickId, function (err, tick) {
           if (err) return done(err)
           if (!tick) {
-            var bucket = tb(ticks[tickId].trades[0].time).resize(ticks[tickId].size)
+            var bucket = tb(t.trades[0].time).resize(t.size)
             tick = {
               id: bucket.toString(),
-              size: ticks[tickId].size,
+              complete: false,
+              seen: false,
+              size: t.size,
               time: bucket.toMilliseconds(),
+              min_time: null,
+              max_time: null,
               vol: 0,
               trades: 0,
               buys: 0,
@@ -43,7 +46,7 @@ module.exports = function container (get, set, clear) {
             }
             tick.timestamp = get_timestamp(tick.time)
           }
-          create_tick(tick, ticks[tickId].trades, done)
+          create_tick(tick, t.trades, done)
         })
       })
     })

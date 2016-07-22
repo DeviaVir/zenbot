@@ -4,7 +4,7 @@ module.exports = function container (get, set, clear) {
   var process_trades = get('process_trades')
   var idle = false
   return function reduce_trades () {
-    get('motley:db.trades').select({query: {processed: false}, limit: c.trade_reducer_limit, sort: {time: 1}}, function (err, trades) {
+    get('motley:db.trades').select({query: {processed: false}, limit: c.trade_reducer_limit}, function (err, trades) {
       if (err) {
         throw err
       }

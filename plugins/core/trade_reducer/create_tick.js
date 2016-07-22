@@ -8,6 +8,7 @@ var n = require('numbro')
 module.exports = function container (get, set, clear) {
   return function create_tick (tick, trades, cb) {
     if (!trades.length) return cb()
+    assert(!tick.complete)
     trades.sort(function (a, b) {
       if (a.time < b.time) return -1
       if (a.time > b.time) return 1
@@ -17,6 +18,8 @@ module.exports = function container (get, set, clear) {
       if (tick.trade_ids.indexOf(trade.id) !== -1) return
       assert(tb(trade.time).resize(tick.size).toString() === tick.id)
       tick.trade_ids.push(trade.id)
+      tick.min_time = tick.min_time ? Math.min(tick.min_time, trade.time) : trade.time
+      tick.max_time = tick.max_time ? Math.max(tick.max_time, trade.time) : trade.time
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         vol: 0,
         trades: 0,
