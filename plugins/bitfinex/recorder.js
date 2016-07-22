@@ -21,8 +21,7 @@ module.exports = function container (get, set, clear) {
     }
     var rs = get('run_state')
     //Bitfinex does not seem to support pagination.
-	//var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_recorder_id ? '?limit_trades=9999' : '')
-	var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_recorder_timestamp ? '?timestamp=' + rs.bitfinex_recorder_timestamp : '')
+    var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_recorder_timestamp ? '?timestamp=' + rs.bitfinex_recorder_timestamp : '')
     //get('logger').info('GET', uri)
     request(uri, {headers: {'User-Agent': ZENBOT_USER_AGENT}}, function (err, resp, trades) {
       if (err) {
@@ -35,8 +34,7 @@ module.exports = function container (get, set, clear) {
         return retry()
       }
       trades = trades.map(function (trade) {
-        //rs.bitfinex_recorder_id = rs.bitfinex_recorder_id ? Math.max(rs.bitfinex_recorder_id, trade.trade_id) : trade.trade_id
-		rs.bitfinex_recorder_timestamp = rs.bitfinex_recorder_timestamp ? Math.max(rs.bitfinex_recorder_timestamp, trade.timestamp) : trade.timestamp
+        rs.bitfinex_recorder_timestamp = rs.bitfinex_recorder_timestamp ? Math.max(rs.bitfinex_recorder_timestamp, trade.timestamp) : trade.timestamp
         return {
           id: 'bitfinex-' + String(trade.tid),
           time: n(trade.timestamp).value(),
