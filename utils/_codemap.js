@@ -1,6 +1,7 @@
 module.exports = {
   _ns: 'zenbot',
   _folder: 'utils',
+  apply_funcs: require('./apply_funcs'),
   get_duration: require('./get_duration'),
   get_id: require('./get_id'),
   get_products: require('./get_products'),
