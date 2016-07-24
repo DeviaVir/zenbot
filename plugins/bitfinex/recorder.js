@@ -37,7 +37,7 @@ module.exports = function container (get, set, clear) {
         rs.bitfinex_recorder_timestamp = rs.bitfinex_recorder_timestamp ? Math.max(rs.bitfinex_recorder_timestamp, trade.timestamp) : trade.timestamp
         return {
           id: 'bitfinex-' + String(trade.tid),
-          time: n(trade.timestamp).value(),
+          time: n(trade.timestamp).value()*1000,
           size: n(trade.amount).value(),
           price: n(trade.price).value(),
           side: trade.type,
