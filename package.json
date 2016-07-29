@@ -3,7 +3,7 @@
   "version": "3.0.0-alpha",
   "description": "A machine-learning cryptocurrency trading bot",
   "bin": {
-    "zenbot": "./bin/zenbot"
+    "zenbot": "./zenbot"
   },
   "dependencies": {
     "ansi_up": "^1.3.0",
