@@ -1,8 +1,7 @@
 {
-  "name": "zenbot_btc",
+  "name": "zenbot_trader",
   "version": "3.0.0-alpha",
-  "description": "an automated Bitcoin trading bot for GDAX (Coinbase Exchange)",
-  "main": "zenbot.js",
+  "description": "A machine-learning cryptocurrency trading bot",
   "bin": {
     "zenbot": "./bin/zenbot"
   },
@@ -27,6 +26,7 @@
     "sig": "^1.0.0",
     "timebucket": "^0.3.4",
     "twit": "^2.2.4",
+    "zenbrain": "git+https://github.com/carlos8f/zenbrain.git",
     "zero-fill": "^2.2.3"
   }
 }

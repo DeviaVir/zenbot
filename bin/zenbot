@@ -1,3 +1,5 @@
 #!/usr/bin/env node
-var zenbot = require('../')
-zenbot.cli()
+var zenbrain = require('zenbrain')
+var path = require('path')
+var brain = zenbrain(path.resolve(__dirname, '..'), 'zenbot')
+brain.cli()

@@ -1,6 +1,0 @@
-{
-  "name": "status",
-  "spec": "status",
-  "description": "print status",
-  "action": "status"
-}

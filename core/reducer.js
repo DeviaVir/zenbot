@@ -1,12 +1,34 @@
-var n = require('numbro')
-  , colors = require('colors')
-  , tb = require('timebucket')
-  , parallel = require('run-parallel')
-  , zerofill = require('zero-fill')
-  , assert = require('assert')
+return function sensor (tick, cb) {
+    var rs = get('run_state')
 
-module.exports = function container (get, set, clear) {
-  return function create_tick (tick, trades, cb) {
+    if (!tick) {
+            var bucket = tb(t.trades[0].time).resize(t.size)
+            tick = {
+              id: bucket.toString(),
+              complete: false,
+              seen: false,
+              size: t.size,
+              time: bucket.toMilliseconds(),
+              min_time: null,
+              max_time: null,
+              vol: 0,
+              trades: 0,
+              buys: 0,
+              buy_vol: 0,
+              exchanges: {},
+              trade_ids: [],
+              avg_price: null,
+              high: 0,
+              low: 100000,
+              close: null,
+              close_time: null
+            }
+
+    tick.seen = true
+    if (tick.size !== c.brain_speed) return cb()
+    
+
+
     if (!trades.length) return cb()
     trades.sort(function (a, b) {
       if (a.time < b.time) return -1
@@ -129,5 +151,6 @@ module.exports = function container (get, set, clear) {
       }
       cb()
     })
+
+    cb()
   }
-}

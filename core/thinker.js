@@ -1,6 +1,4 @@
-module.exports = function container (get, set, clear) {
-  var apply_funcs = get('utils.apply_funcs')
-  var rs = get('run_state')
+var rs = get('run_state')
   var defaults = {
     asset: 0,
     currency: 1000,
@@ -33,22 +31,9 @@ module.exports = function container (get, set, clear) {
       rs[k] = defaults[k]
     }
   })
-  return {
-    see: function (tick, cb) {
-      if (!rs.first_tick) rs.first_tick = tick
-      rs.last_tick = tick
-      var tasks = get('sensors')
-      apply_funcs(tick, tasks, function (err) {
-        if (err) return cb(err)
-        cb()
-      })
-    },
-    think: function (cb) {
-      var tasks = get('thinkers')
-      apply_funcs(rs, tasks, function (err) {
-        if (err) return cb(err)
-        cb()
-      })
-    }
-  }
-}
+
+rs.high = Math.max(rs.high, tick.high)
+    rs.low = Math.min(rs.low, tick.low)
+    rs.arrow = rs.last_tick ? (rs.last_tick.close < tick.close ? '↗'.green : '↘'.red) : ' '
+    rs.uptick = rs.last_tick ? (rs.last_tick.close < tick.close ? true : false) : null
+    rs.last_tick = tick
