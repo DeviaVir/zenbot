@@ -23,7 +23,7 @@ module.exports = function container (get, set, clear) {
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_max_timestamp ? '?timestamp=' + rs.bitfinex_max_timestamp : '')
-    get('logger').info('GET', uri.grey)
+    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
     request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
       if (err) {
         get('logger').error(x.name + ' recorder err', err, {public: false})
@@ -55,9 +55,6 @@ module.exports = function container (get, set, clear) {
       })
       if (trades.length) {
         log_trades(x.name + ' recorder', trades)
-      }
-      else {
-        get('logger').info(z(c.max_slug_length, x.name + ' recorder', ' '), 'no new trades.', {feed: 'mapper'})
       }
       retry()
     })

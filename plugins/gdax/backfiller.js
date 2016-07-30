@@ -1,5 +1,6 @@
 var request = require('micro-request')
   , n = require('numbro')
+  , z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.gdax')
@@ -21,7 +22,7 @@ module.exports = function container (get, set, clear) {
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
-    get('logger').info('GET', uri.grey)
+    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
     request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
       if (err) {
         get('logger').error('gdax backfiller err', err, {feed: 'errors'})
