@@ -3,7 +3,6 @@ module.exports = {
   'exchanges.bitfinex': require('./exchange.json'),
   'exchanges[]': '#exchanges.bitfinex',
   'mappers[]': [
-    require('./backfiller'),
     require('./recorder')
   ]
 }
