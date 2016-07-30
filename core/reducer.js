@@ -1,6 +1,15 @@
 var n = require('numbro')
+  , z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
+  var num_processed = 0
+  var c = get('config')
+  setInterval(function () {
+    if (num_processed) {
+      get('logger').info(z(c.max_slug_length, 'reducer', ' '), 'processed'.grey, num_processed, 'trades.'.grey, {feed: 'reducer'})
+      num_processed = 0
+    }
+  }, c.reducer_report_interval)
   return function reducer (t, cb) {
     var tick = t.tick, thoughts = t.thoughts
     if (typeof tick.trades === 'undefined') {
@@ -25,6 +34,11 @@ module.exports = function container (get, set, clear) {
       return thought.value
     })
     trades.forEach(function (trade) {
+      if (tick.trade_ids.indexOf(trade.id) !== -1) {
+        return
+      }
+      tick.trade_ids.push(trade.id)
+      num_processed++
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         vol: 0,
         trades: 0,
