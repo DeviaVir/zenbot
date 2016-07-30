@@ -8,3 +8,4 @@ config.enabled_plugins = [
 ]
 config.sim_chunk_size = '90d'
 config.max_slug_length = 22
+config.backfill_status_check = '1m'

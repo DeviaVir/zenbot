@@ -3,7 +3,13 @@ var tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
   var c = get('config')
+  var current_period = tb().resize(c.backfill_status_check).toString()
   return function backfill_status (exchange, cb) {
+    var this_period = tb().resize(c.backfill_status_check).toString()
+    if (this_period === current_period) {
+      return cb()
+    }
+    current_period = this_period
     var sim_chunk_bucket = tb().resize(c.sim_chunk_size).subtract(1)
     get('db').collection('thoughts').count({
       app_name: get('app_name'),
