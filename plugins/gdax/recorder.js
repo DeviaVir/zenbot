@@ -22,7 +22,7 @@ module.exports = function container (get, set, clear) {
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades' + (rs.gdax_recorder_id ? '?before=' + rs.gdax_recorder_id : '')
-    get('logger').info('GET', uri.grey)
+    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
     request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
       if (err) {
         get('logger').error('gdax recorder err', err, {public: false})
@@ -54,9 +54,6 @@ module.exports = function container (get, set, clear) {
       })
       if (trades.length) {
         log_trades(x.name + ' recorder', trades)
-      }
-      else {
-        get('logger').info(z(c.max_slug_length, x.name + ' recorder', ' '), 'no new trades.', {feed: 'mapper'})
       }
       retry()
     })
