@@ -17,6 +17,6 @@ module.exports = function container (get, set, clear) {
       return z(4, (trade.side === 'buy' ? 'SELL' : 'BUY') , ' ')[trade.side === 'buy' ? 'red' : 'green'] + ' ' + z(9, n(trade.size).format('0.000'), ' ')[trade.side === 'buy' ? 'red' : 'green'] + ' ' + c.asset.grey + ' at '.grey + z(9, n(trade.price).format('0.000'), ' ').yellow + ' ' + c.currency.grey
     }).join(', ')
     ticker = get_timestamp(min_time).grey + ' ' + ticker
-    get('logger').info(z(c.max_slug_length, slug, ' '), ('processed ' + z(5, trades.length, ' ') + ' trades. ').grey + ticker)
+    get('logger').info(z(c.max_slug_length, slug, ' '), 'processed'.grey + z(5, trades.length, ' ') + ' trades. '.grey + ticker)
   }
 }
