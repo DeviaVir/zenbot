@@ -1,48 +1,30 @@
-return function sensor (tick, cb) {
-    var rs = get('run_state')
+var n = require('numbro')
 
-    if (!tick) {
-            var bucket = tb(t.trades[0].time).resize(t.size)
-            tick = {
-              id: bucket.toString(),
-              complete: false,
-              seen: false,
-              size: t.size,
-              time: bucket.toMilliseconds(),
-              min_time: null,
-              max_time: null,
-              vol: 0,
-              trades: 0,
-              buys: 0,
-              buy_vol: 0,
-              exchanges: {},
-              trade_ids: [],
-              avg_price: null,
-              high: 0,
-              low: 100000,
-              close: null,
-              close_time: null
-            }
-
-    tick.seen = true
-    if (tick.size !== c.brain_speed) return cb()
-    
-
-
-    if (!trades.length) return cb()
-    trades.sort(function (a, b) {
-      if (a.time < b.time) return -1
-      if (a.time > b.time) return 1
-      return 0
+module.exports = function container (get, set, clear) {
+  return function reducer (t, cb) {
+    var tick = t.tick, thoughts = t.thoughts
+    if (typeof tick.trades === 'undefined') {
+      tick.trades = {
+        vol: 0,
+        trades: 0,
+        buys: 0,
+        buy_vol: 0,
+        exchanges: {},
+        trade_ids: [],
+        avg_price: null,
+        high: 0,
+        low: 100000,
+        close: null,
+        close_time: null
+      }
+    }
+    tick = tick.trades
+    var trades = thoughts.filter(function (thought) {
+      return thought.key === 'trade'
+    }).map(function (thought) {
+      return thought.value
     })
-    var new_trades = false
     trades.forEach(function (trade) {
-      if (tick.trade_ids.indexOf(trade.id) !== -1) return
-      new_trades = true
-      assert(tb(trade.time).resize(tick.size).toString() === tick.id)
-      tick.trade_ids.push(trade.id)
-      tick.min_time = tick.min_time ? Math.min(tick.min_time, trade.time) : trade.time
-      tick.max_time = tick.max_time ? Math.max(tick.max_time, trade.time) : trade.time
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         vol: 0,
         trades: 0,
@@ -106,51 +88,6 @@ return function sensor (tick, cb) {
         .divide(3)
         .value()
     })
-    if (!new_trades) {
-      return cb()
-    }
-    tick.buy_ratio = n(tick.buy_vol)
-      .divide(tick.vol)
-      .value()
-    if (tick.buy_ratio > 0.5) {
-      tick.side = 'BUY'
-    }
-    else if (tick.buy_ratio <= 0.5) {
-      tick.side = 'SELL'
-    }
-    var ratio = tick.buy_ratio
-    if (tick.side === 'SELL') {
-      ratio = n(1)
-        .subtract(ratio)
-        .value()
-    }
-    tick.side_vol = n(tick.vol)
-      .multiply(ratio)
-      .value()
-    var prices = []
-    Object.keys(tick.exchanges).forEach(function (exchange) {
-      var x = tick.exchanges[exchange]
-      if (x.typical) {
-        prices.push(x.typical)
-      }
-    })
-    if (prices.length) {
-      var total = prices.reduce(function (prev, curr) {
-        return n(prev).add(curr).value()
-      }, 0)
-      tick.avg_price = n(total).divide(prices.length).value()
-      tick.typical = n(tick.high)
-          .add(tick.low)
-          .add(tick.close)
-          .divide(3)
-          .value()
-    }
-    get('motley:db.ticks').save(tick, function (err, saved) {
-      if (err && !get('app').closing) {
-        get('logger').error('tick save err', err, {public: false})
-      }
-      cb()
-    })
-
     cb()
   }
+}

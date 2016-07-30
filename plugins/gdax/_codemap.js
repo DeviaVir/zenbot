@@ -1,7 +1,9 @@
 module.exports = {
-  _ns: 'zenbot',
+  _ns: 'zenbrain',
   'exchanges.gdax': require('./exchange.json'),
   'exchanges[]': '#exchanges.gdax',
-  'backfillers[]': require('./backfiller'),
-  'recorders[]': require('./recorder')
+  'mappers[]': [
+    require('./backfiller'),
+    require('./recorder')
+  ]
 }

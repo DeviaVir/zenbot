@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+var version = require('./package.json').version
+USER_AGENT = 'zenbot/' + version
 var zenbrain = require('zenbrain')
 var path = require('path')
-var brain = zenbrain(path.resolve(__dirname, '..'), 'zenbot')
+var brain = zenbrain(__dirname, 'zenbot')
 brain.cli()
