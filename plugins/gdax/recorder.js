@@ -17,8 +17,7 @@ module.exports = function container (get, set, clear) {
   return function mapper () {
     if (!product_id) return function () {}
     function retry () {
-      var timeout = setTimeout(mapper, x.record_interval)
-      set('timeouts[]', timeout)
+      setTimeout(mapper, x.record_interval)
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades' + (rs.gdax_recorder_id ? '?before=' + rs.gdax_recorder_id : '')
