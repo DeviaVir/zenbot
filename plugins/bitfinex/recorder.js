@@ -18,8 +18,7 @@ module.exports = function container (get, set, clear) {
   return function recorder () {
     if (!product_id) return
     function retry (ms) {
-      var timeout = setTimeout(recorder, x.record_interval)
-      set('timeouts[]', timeout)
+      setTimeout(recorder, x.record_interval)
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_max_timestamp ? '?timestamp=' + rs.bitfinex_max_timestamp : '')

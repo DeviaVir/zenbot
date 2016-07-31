@@ -14,11 +14,15 @@ module.exports = function container (get, set, clear) {
       product_id = product.id
     }
   })
+  var first_run = true
   return function mapper () {
     if (!product_id) return function () {}
+    if (first_run) {
+      first_run = false
+      return backfill_status(x, retry)
+    }
     function retry () {
-      var timeout = setTimeout(mapper, x.backfill_interval)
-      set('timeouts[]', timeout)
+      setImmediate(mapper)
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
