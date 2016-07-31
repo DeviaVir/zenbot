@@ -3,7 +3,7 @@
   "rest_url": "https://api.gdax.com",
   "backfill_limit": 100,
   "backfill_interval": 0,
-  "record_interval": 10000,
+  "record_interval": 60000,
   "products": [
     {
       "id":"BTC-USD",

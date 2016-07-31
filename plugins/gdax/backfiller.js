@@ -1,6 +1,7 @@
 var request = require('micro-request')
   , n = require('numbro')
   , z = require('zero-fill')
+  , sig = require('sig')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.gdax')
@@ -16,31 +17,22 @@ module.exports = function container (get, set, clear) {
   })
   var first_run = true
   return function mapper () {
-    if (!product_id) return function () {}
+    var rs = get('run_state')
     if (first_run) {
       first_run = false
-      return backfill_status(x, retry)
+      rs.gdax_backfiller_id = null
+      backfill_status(x, retry)
+      return
     }
     function retry () {
       setImmediate(mapper)
     }
-    var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
-    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
-    request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
-      if (err) {
-        get('logger').error('gdax backfiller err', err, {feed: 'errors'})
-        return retry()
-      }
-      if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
-        console.error(result)
-        get('logger').error('gdax non-200 status: ' + resp.statusCode, {feed: 'errors'})
-        return retry()
-      }
+    function withResult (result) {
       var trades = result.map(function (trade) {
         rs.gdax_backfiller_id = rs.gdax_backfiller_id ? Math.min(rs.gdax_backfiller_id, trade.trade_id) : trade.trade_id
         var obj = {
-          id: x.name + '-' + String(trade.trade_id),
+          id: trade.trade_id,
           time: new Date(trade.time).getTime(),
           size: n(trade.size).value(),
           price: n(trade.price).value(),
@@ -52,6 +44,19 @@ module.exports = function container (get, set, clear) {
       })
       log_trades(x.name + ' backfiller', trades)
       backfill_status(x, retry)
+    }
+    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
+    request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
+      if (err) {
+        get('logger').error('gdax backfiller err', err, {feed: 'errors'})
+        return retry()
+      }
+      if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
+        console.error(result)
+        get('logger').error('gdax non-200 status: ' + resp.statusCode, {feed: 'errors'})
+        return retry()
+      }
+      withResult(result)
     })
   }
 }
