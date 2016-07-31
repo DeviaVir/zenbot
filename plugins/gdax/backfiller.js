@@ -22,7 +22,6 @@ module.exports = function container (get, set, clear) {
     var rs = get('run_state')
     if (first_run) {
       first_run = false
-      rs.gdax_old_backfiller_id = rs.gdax_backfiller_id
       rs.gdax_backfiller_id = null
       get('db').collection('thoughts').find({
         app_name: get('app_name'),
@@ -31,7 +30,7 @@ module.exports = function container (get, set, clear) {
       }).limit(1).sort({time: -1}).toArray(function (err, results) {
         if (err) throw err
         if (results.length) {
-          rs.gdax_max_id = results[0].value.id
+          rs.gdax_max_id = results[0].value.trade_id
         }
         backfill_status(x, retry)
       })
@@ -44,17 +43,19 @@ module.exports = function container (get, set, clear) {
     function withResult (result) {
       var filter_on = true
       var trades = result.filter(function (trade) {
+        rs.gdax_min_backfiller_id = rs.gdax_min_backfiller_id ? Math.min(rs.gdax_min_backfiller_id, trade.trade_id) : trade.trade_id
         if (trade.trade_id === rs.gdax_max_id) {
           get('logger').info('gdax backfiller', 'caught up.'.cyan)
-          if (rs.gdax_old_backfiller_id && rs.gdax_old_backfiller_id < rs.gdax_backfiller_id) {
-            filter_on = false
-          }
+          get('logger').info('gdax backfiller', 'continuing backfill after'.grey, rs.gdax_min_backfiller_id)
+          rs.gdax_backfiller_id = rs.gdax_min_backfiller_id
+          filter_on = false
         }
         return filter_on
       }).map(function (trade) {
         rs.gdax_backfiller_id = rs.gdax_backfiller_id ? Math.min(rs.gdax_backfiller_id, trade.trade_id) : trade.trade_id
         var obj = {
-          id: trade.trade_id,
+          id: x.name + '-' + String(trade.trade_id),
+          trade_id: trade.trade_id,
           time: new Date(trade.time).getTime(),
           size: n(trade.size).value(),
           price: n(trade.price).value(),
@@ -64,10 +65,6 @@ module.exports = function container (get, set, clear) {
         map('trade', obj)
         return obj
       })
-      if (!filter_on) {
-        get('logger').info('gdax backfiller', 'continuing backfill after'.grey, rs.gdax_old_backfiller_id)
-        rs.gdax_backfiller_id = rs.gdax_old_backfiller_id
-      }
       log_trades(x.name + ' backfiller', trades)
       backfill_status(x, retry)
     }
