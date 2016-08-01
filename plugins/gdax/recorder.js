@@ -15,7 +15,7 @@ module.exports = function container (get, set, clear) {
     }
   })
   return function mapper () {
-    if (!product_id) return function () {}
+    if (!product_id) return
     function retry () {
       setTimeout(mapper, x.record_interval)
     }

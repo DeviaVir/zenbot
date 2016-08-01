@@ -2,12 +2,13 @@ var n = require('numbro')
   , z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
-  var num_processed = 0
+  var trades_processed = []
   var c = get('config')
+  var log_trades = get('utils.log_trades')
   setInterval(function () {
-    if (num_processed) {
-      get('logger').info(z(c.max_slug_length, 'reducer', ' '), 'processed'.grey, num_processed, 'trades.'.grey, {feed: 'reducer'})
-      num_processed = 0
+    if (trades_processed.length) {
+      log_trades('reducer', trades_processed)
+      trades_processed = []
     }
   }, c.reducer_report_interval)
   return function reducer (t, cb) {
@@ -38,7 +39,7 @@ module.exports = function container (get, set, clear) {
         return
       }
       tick.trade_ids.push(trade.id)
-      num_processed++
+      trades_processed.push(trade)
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         vol: 0,
         trades: 0,

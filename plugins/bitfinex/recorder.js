@@ -1,6 +1,5 @@
 var request = require('micro-request')
   , n = require('numbro')
-  , parallel = require('run-parallel')
   , z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
@@ -15,26 +14,26 @@ module.exports = function container (get, set, clear) {
       product_id = product.id
     }
   })
-  return function recorder () {
+  return function mapper () {
     if (!product_id) return
-    function retry (ms) {
-      setTimeout(recorder, x.record_interval)
+    function retry () {
+      setTimeout(mapper, x.record_interval)
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_max_timestamp ? '?timestamp=' + rs.bitfinex_max_timestamp : '')
     //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
     request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
       if (err) {
-        get('logger').error(x.name + ' recorder err', err, {public: false})
+        get('logger').error('bitfinex recorder err', err, {public: false})
         return retry()
       }
       if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
         console.error(result)
-        get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {public: false})
+        get('logger').error('bitfinex non-200 status: ' + resp.statusCode, {feed: 'errors'})
         return retry()
       }
       var trades = result.map(function (trade) {
-        rs.bitfinex_max_timestamp = rs.bitfinex_recorder_timestamp ? Math.max(rs.bitfinex_max_timestamp, trade.timestamp) : trade.timestamp
+        rs.bitfinex_max_timestamp = rs.bitfinex_max_timestamp ? Math.max(rs.bitfinex_max_timestamp, trade.timestamp) : trade.timestamp
         var obj = {
           id: x.name + '-' + String(trade.tid),
           time: n(trade.timestamp).multiply(1000).value(),
