@@ -21,6 +21,7 @@ module.exports = function container (get, set, clear) {
         buy_vol: 0,
         exchanges: {},
         trade_ids: [],
+        total_price: 0,
         avg_price: null,
         high: 0,
         low: 100000,
@@ -38,6 +39,7 @@ module.exports = function container (get, set, clear) {
       if (tick.trade_ids.indexOf(trade.id) !== -1) {
         return
       }
+      tick.total_price = n(tick.total_price).add(trade.price).value()
       tick.trade_ids.push(trade.id)
       trades_processed.push(trade)
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
@@ -103,6 +105,7 @@ module.exports = function container (get, set, clear) {
         .divide(3)
         .value()
     })
+    tick.avg_price = n(tick.total_price).divide(tick.trades).value()
     cb()
   }
 }
