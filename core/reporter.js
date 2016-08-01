@@ -6,7 +6,7 @@ module.exports = function container (get, set, clear) {
   return function reporter (tick, cb) {
     if (tick.size !== c.brain_speed) return cb()
     var rs = get('run_state')
-    console.error('report', rs)
+    get('logger').info('reporter', tick.id)
     cb()
   }
 }

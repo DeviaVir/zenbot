@@ -8,18 +8,18 @@ config.twitter_secret = ""
 config.twitter_access_token = ""
 config.twitter_access_token_secret = ""
 config.id_bytes = 8 // for random IDs
-config.brain_speed = "10s"
-config.brain_speed_ms = 10000 // same in ms
+config.brain_speed = "1m"
+config.brain_speed_ms = 60000 // same in ms
 config.reducer_limit = 1000 // how many thoughts to process per reduce run
 config.save_state_interval = 10000 // save state
 config.parallel_limit = 8 // run this many concurrent tasks
-config.reduce_timeout = 0
+config.reduce_timeout = 1000
 
 config.asset = 'BTC'
 config.currency = 'USD'
 config.reducer_report_interval = 30000
 config.enabled_plugins = [
-  //'bitfinex',
+  'bitfinex',
   'gdax'
 ]
 config.sim_chunk_size = '7d'
