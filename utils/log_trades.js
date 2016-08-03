@@ -6,6 +6,7 @@ var n = require('numbro')
 module.exports = function container (get, set, clear) {
   var c = get('config')
   var get_timestamp = get('utils.get_timestamp')
+  var get_tick_str = get('utils.get_tick_str')
   return function log_trades (slug, trades, tick_id) {
     if (!trades.length) return
     var rs = get('run_states')
@@ -26,8 +27,7 @@ module.exports = function container (get, set, clear) {
     var dominant_vol = (buy_ratio < 0.5 ? n(vol).subtract(buy_vol) : n(buy_vol)).format('0.000')
     var ticker = (dominant_side + ' ' + z(9, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(9, n(avg_price).format('0.00'), ' ').yellow + ' ' + c.currency.grey
     ticker = get_timestamp(min_time).grey + ' ' + ticker
-    var tick_str = tick_id ? tick_id : tb(max_time).resize(c.brain_speed).toString()
-    tick_str = tick_str.substring(0, tick_str.length - 2).grey + tick_str.substring(tick_str.length - 2).cyan
+    var tick_str = get_tick_str(tick_id || tb(max_time).resize(c.brain_speed).toString())
     get('logger').info(z(c.max_slug_length, slug, ' '), tick_str + z(5, trades.length, ' ') + ' trades. '.grey + ticker)
   }
 }
