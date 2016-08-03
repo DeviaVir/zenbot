@@ -22,7 +22,11 @@ module.exports = function container (get, set, clear) {
         high: 0,
         low: 100000,
         close: null,
-        close_time: null
+        close_time: null,
+        buy_ratio: null,
+        side: null,
+        side_vol: null,
+        typical: null
       }
     }
     tick = tick.trades
@@ -37,6 +41,8 @@ module.exports = function container (get, set, clear) {
           buy_vol: 0,
           high: 0,
           low: 100000,
+          open: null,
+          open_time: null,
           close: null,
           close_time: null
         })
@@ -71,20 +77,25 @@ module.exports = function container (get, set, clear) {
         x.side_vol = n(x.vol)
           .multiply(ratio)
           .value()
-        if (!x.open) {
+        if (!x.open || s.open_time < x.open_time) {
           x.open = s.open
+          x.open_time = s.open_time
+        }
+        if (!tick.open || x.open_time < tick.open_time) {
+          tick.open = x.open
+          tick.open_time = x.open_time
         }
         x.high = Math.max(s.high, x.high)
         tick.high = Math.max(tick.high, sub_tick.high)
         x.low = Math.min(s.low, x.low)
         tick.low = Math.min(tick.low, sub_tick.low)
         if (!x.close_time || s.close_time > x.close_time) {
-          x.close_time = s.close_time
           x.close = s.close
+          x.close_time = s.close_time
         }
-        if (!tick.close_time || x.close_time > tick.close_time) {
-          tick.close_time = x.close_time
+        if (!tick.close || x.close_time > tick.close_time) {
           tick.close = x.close
+          tick.close_time = x.close_time
         }
         x.typical = n(x.high)
           .add(x.low)
@@ -93,6 +104,32 @@ module.exports = function container (get, set, clear) {
           .value()
       })
     })
+    if (tick.buy_ratio > 0.5) {
+      tick.side = 'BUY'
+    }
+    else if (tick.buy_ratio < 0.5) {
+      tick.side = 'SELL'
+    }
+    else {
+      tick.side = 'EVEN'
+    }
+    tick.buy_ratio = n(tick.buy_vol)
+      .divide(tick.vol)
+      .value()
+    var ratio = tick.buy_ratio
+    if (tick.side === 'SELL') {
+      ratio = n(1)
+        .subtract(ratio)
+        .value()
+    }
+    tick.side_vol = n(tick.vol)
+      .multiply(ratio)
+      .value()
+    tick.typical = n(tick.high)
+      .add(tick.low)
+      .add(tick.close)
+      .divide(3)
+      .value()
     cb()
   }
 }

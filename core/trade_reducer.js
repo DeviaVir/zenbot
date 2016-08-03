@@ -23,7 +23,11 @@ module.exports = function container (get, set, clear) {
         high: 0,
         low: 100000,
         close: null,
-        close_time: null
+        close_time: null,
+        buy_ratio: null,
+        side: null,
+        side_vol: null,
+        typical: null
       }
     }
     tick = tick.trades
@@ -41,6 +45,7 @@ module.exports = function container (get, set, clear) {
         buy_vol: 0,
         high: 0,
         low: 100000,
+        open: null,
         close: null,
         close_time: null
       })
@@ -76,20 +81,25 @@ module.exports = function container (get, set, clear) {
       x.side_vol = n(x.vol)
         .multiply(ratio)
         .value()
-      if (!x.open) {
+      if (!x.open || trade.time < x.open_time) {
         x.open = trade.price
+        x.open_time = trade.time
+      }
+      if (!tick.open || x.open_time < tick.open_time) {
+        tick.open = x.open
+        tick.open_time = x.open_time
       }
       x.high = Math.max(trade.price, x.high)
       tick.high = Math.max(tick.high, x.high)
       x.low = Math.min(trade.price, x.low)
       tick.low = Math.min(tick.low, x.low)
       if (!x.close_time || trade.time > x.close_time) {
-        x.close_time = trade.time
         x.close = trade.price
+        x.close_time = trade.time
       }
-      if (!tick.close_time || x.close_time > tick.close_time) {
-        tick.close_time = x.close_time
+      if (!tick.close || x.close_time > tick.close_time) {
         tick.close = x.close
+        tick.close_time = x.close_time
       }
       x.typical = n(x.high)
         .add(x.low)
@@ -97,6 +107,32 @@ module.exports = function container (get, set, clear) {
         .divide(3)
         .value()
     })
+    if (tick.buy_ratio > 0.5) {
+      tick.side = 'BUY'
+    }
+    else if (tick.buy_ratio < 0.5) {
+      tick.side = 'SELL'
+    }
+    else {
+      tick.side = 'EVEN'
+    }
+    tick.buy_ratio = n(tick.buy_vol)
+      .divide(tick.vol)
+      .value()
+    var ratio = tick.buy_ratio
+    if (tick.side === 'SELL') {
+      ratio = n(1)
+        .subtract(ratio)
+        .value()
+    }
+    tick.side_vol = n(tick.vol)
+      .multiply(ratio)
+      .value()
+    tick.typical = n(tick.high)
+      .add(tick.low)
+      .add(tick.close)
+      .divide(3)
+      .value()
     cb()
   }
 }
