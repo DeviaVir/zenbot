@@ -20,7 +20,6 @@ module.exports = function container (get, set, clear) {
         buys: 0,
         buy_vol: 0,
         exchanges: {},
-        trade_ids: [],
         high: 0,
         low: 100000,
         close: null,
@@ -34,10 +33,6 @@ module.exports = function container (get, set, clear) {
       return thought.value
     })
     trades.forEach(function (trade) {
-      if (tick.trade_ids.indexOf(trade.id) !== -1) {
-        return
-      }
-      tick.trade_ids.push(trade.id)
       trades_processed.push(trade)
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         vol: 0,
