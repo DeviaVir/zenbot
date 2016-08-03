@@ -11,19 +11,20 @@ config.id_bytes = 8 // for random IDs
 config.brain_speed = "10s"
 config.brain_speed_ms = 10000 // same in ms
 config.reducer_limit = 1000 // how many thoughts to process per reduce run
+config.reducer_sizes = ["1m", "5m", "15m", "1h", "6h", "1d"]
 config.save_state_interval = 10000 // save state
 config.parallel_limit = 8 // run this many concurrent tasks
 config.reduce_timeout = 1000
 
-config.asset = 'BTC'
-config.currency = 'USD'
+config.asset = "BTC"
+config.currency = "USD"
 config.reducer_report_interval = 30000
 config.enabled_plugins = [
   //'bitfinex',
-  'gdax'
+  "gdax"
 ]
-config.sim_chunk_size = '7d'
+config.sim_chunk_size = "7d"
 config.sim_chunks_required = 12
 config.max_slug_length = 17
-config.backfill_status_check = '30s'
+config.backfill_status_check = "30s"
 config.backfill_status_timeout = 35000
