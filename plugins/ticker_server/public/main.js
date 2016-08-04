@@ -65,6 +65,7 @@ $('.ticker-graph').each(function () {
             .xScale(x)
             .yScale(yVolume);
 
+/*
     var trendline = techan.plot.trendline()
             .xScale(x)
             .yScale(y);
@@ -72,6 +73,7 @@ $('.ticker-graph').each(function () {
     var supstance = techan.plot.supstance()
             .xScale(x)
             .yScale(y);
+*/
 
     var xAxis = d3.svg.axis()
             .scale(x)
@@ -300,12 +302,14 @@ $('.ticker-graph').each(function () {
     svg.append('g')
             .attr("class", "crosshair rsi");
 
+/*
     svg.append("g")
             .attr("class", "trendlines analysis")
             .attr("clip-path", "url(#ohlcClip)");
     svg.append("g")
             .attr("class", "supstances analysis")
             .attr("clip-path", "url(#ohlcClip)");
+*/
 
     var first_run = true
     function poll () {
@@ -366,42 +370,35 @@ $('.ticker-graph').each(function () {
           document.title = last.close_str + ' - BTC/USD (GDAX)'
           svg.select("g.volume").datum(data)
 
-          if (first_run) {
-            svg.select("g.close.annotation").datum([last])
-            svg.select("g.sma.ma-0").datum(sma0Indicator(data))
-            svg.select("g.sma.ma-1").datum(sma1Indicator(data))
-            svg.select("g.ema.ma-2").datum(ema2Indicator(data))
-            var macdData = macdIndicator(data);
+          svg.select("g.close.annotation").remove()
+            ohlcSelection.append("g")
+                .attr("class", "close annotation up")
+                .datum([last])
+                .call(closeAnnotation);
+
+          var macdData = macdIndicator(data);
             macdScale.domain(techan.scale.plot.macd(macdData).domain());
             var rsiData = rsiIndicator(data);
             rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
             svg.select("g.macd .indicator-plot").datum(macdData)
             svg.select("g.rsi .indicator-plot").datum(rsiData)
-          }
-          else {
-            //var selection = svg.select("g.close.annotation")
-            //var datum = selection.datum();
-            // Some trickery to remove old and insert new without changing array reference,
-            // so no need to update __data__ in the DOM
-            //datum.splice.apply(datum, [0, datum.length].concat(last));
-            svg.select("g.close.annotation").remove()
-            ohlcSelection.append("g")
-                .attr("class", "close annotation up")
-                .datum([last])
-            refreshIndicator(svg.select("g .sma.ma-0"), sma0, sma0Indicator(data));
-            refreshIndicator(svg.select("g .sma.ma-1"), sma1, sma1Indicator(data));
-            refreshIndicator(svg.select("g .ema.ma-2"), ema2, ema2Indicator(data));
-            refreshIndicator(svg.select("g.macd .indicator-plot"), macd, macdIndicator(data));
-            refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiIndicator(data));
-          }
+            var sma0Data = sma0Indicator(data)
+            var sma1Data = sma1Indicator(data)
+            var ema2Data = ema2Indicator(data)
+            refreshIndicator(svg.select("g.macd .indicator-plot"), macd, macdData);
+            refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiData);
+            refreshIndicator(svg.select("g .sma.ma-0"), sma0, sma0Data);
+            refreshIndicator(svg.select("g .sma.ma-1"), sma1, sma1Data);
+            refreshIndicator(svg.select("g .ema.ma-2"), ema2, ema2Data);
+            //svg.select("g.rsi .indicator-plot").call(rsi);
 
           //svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
           //svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
           //svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
-          svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
-          svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
+          //svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
+          //svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
 
-          svg.select("g.tradearrow").datum(trades).call(tradearrow);
+          //svg.select("g.tradearrow").datum(trades).call(tradearrow);
 
           draw();
 
@@ -422,9 +419,15 @@ $('.ticker-graph').each(function () {
 
     function refreshIndicator(selection, indicator, data) {
         var datum = selection.datum();
+        if (!datum) {
+            selection.datum(data)
+            datum = selection.datum()
+        }
         // Some trickery to remove old and insert new without changing array reference,
         // so no need to update __data__ in the DOM
-        datum.splice.apply(datum, [0, datum.length].concat(data));
+        if (Array.isArray(datum)) {
+            datum.splice.apply(datum, [0, datum.length].concat(data));
+        }
         selection.call(indicator);
     }
 
@@ -440,21 +443,14 @@ $('.ticker-graph').each(function () {
         svg.select("g.rsi .axis.right").call(rsiAxis);
         svg.select("g.macd .axis.left").call(macdAxisLeft);
         svg.select("g.rsi .axis.left").call(rsiAxisLeft);
-
         svg.select("g.candlestick").call(candlestick);
-        svg.select("g.close.annotation").call(closeAnnotation);
         svg.select("g.volume").call(volume);
-
-        svg.select("g .sma.ma-0").call(sma0);
-        svg.select("g .sma.ma-1").call(sma1);
-        svg.select("g .ema.ma-2").call(ema2);
-        svg.select("g.macd .indicator-plot").call(macd);
-        svg.select("g.rsi .indicator-plot").call(rsi);
         svg.select("g.crosshair.ohlc").call(ohlcCrosshair);
         svg.select("g.crosshair.macd").call(macdCrosshair);
         svg.select("g.crosshair.rsi").call(rsiCrosshair);
-        svg.select("g.trendlines").call(trendline);
-        svg.select("g.supstances").call(supstance);
-        svg.select("g.tradearrow").call(tradearrow);
+        svg.select("g.macd .indicator-plot").call(macd);
+        //svg.select("g.trendlines").call(trendline);
+        //svg.select("g.supstances").call(supstance);
+        //svg.select("g.tradearrow").call(tradearrow);
     }
 })
