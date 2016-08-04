@@ -1,13 +1,13 @@
 # zenbot/3.0.0-alpha
 
-![zenbot logo](https://raw.githubusercontent.com/carlos8f/zenbot/3.x/assets/zenbot_master.svg)
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/3.x/assets/zenbot_master.svg)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
 ## Screenshot
 
-![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/3.x/assets/zenbot_web_ui.svg)
+![screenshot](https://rawgit.com/carlos8f/zenbot/3.x/assets/zenbot_web_ui.png)
 
 - - -
 
