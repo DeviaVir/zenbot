@@ -10,4 +10,4 @@ npm install
 npm link zenbrain
 rm -Rf /usr/local/bin/zenbot
 npm link
-zenbot launch map reduce
+zenbot launch map --backfill reduce run ticker_server

@@ -9,6 +9,12 @@
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/3.x/assets/zenbot_web_ui.png)
 
+## Install
+
+```shell
+curl --silent https://raw.githubusercontent.com/carlos8f/zenbot/3.x/install.sh | /bin/sh
+```
+
 - - -
 
 ### License: MIT
