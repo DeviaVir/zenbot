@@ -46,7 +46,7 @@ module.exports = function container (get, set, clear) {
       var trades = result.filter(function (trade) {
         rs.gdax_min_backfiller_id = rs.gdax_min_backfiller_id ? Math.min(rs.gdax_min_backfiller_id, trade.trade_id) : trade.trade_id
         if (trade.trade_id === rs.gdax_max_id) {
-          get('logger').info('gdax backfiller', 'caught up.'.cyan, 'continuing backfill after'.grey, rs.gdax_min_backfiller_id)
+          //get('logger').info('gdax backfiller', 'caught up.'.cyan, 'continuing backfill after'.grey, rs.gdax_min_backfiller_id)
           rs.gdax_backfiller_id = rs.gdax_min_backfiller_id
           filter_on = false
         }
@@ -65,7 +65,7 @@ module.exports = function container (get, set, clear) {
         map('trade', obj)
         return obj
       })
-      log_trades(x.name + ' backfiller', trades)
+      //log_trades(x.name + ' backfiller', trades)
       backfill_status(x, retry)
     }
     //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
