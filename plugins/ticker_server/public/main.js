@@ -308,7 +308,9 @@ $('.ticker-graph').each(function () {
 
     var first_run = true
     function poll () {
+      $('.loading').show()
       d3.csv("data.csv" + location.search, function(error, data) {
+        $('.loading').hide()
           var accessor = candlestick.accessor(),
               indicatorPreRoll = 0;  // Don't show where indicators don't have data
 
@@ -319,6 +321,7 @@ $('.ticker-graph').each(function () {
                   high: +d.High,
                   low: +d.Low,
                   close: +d.Close,
+                  close_str: '$' + d.Close,
                   volume: +d.Volume
               };
           }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
@@ -359,7 +362,7 @@ $('.ticker-graph').each(function () {
 
           svg.select("g.candlestick").datum(data)
           var last = data[data.length-1]
-          document.title = '$' + last.close + ' - BTC/USD (GDAX)'
+          document.title = last.close_str + ' - BTC/USD (GDAX)'
           svg.select("g.volume").datum(data)
 
           if (first_run) {
