@@ -15,15 +15,6 @@ $('.ticker-graph').each(function () {
     var indicatorTop = d3.scale.linear()
             .range([dim.indicator.top, dim.indicator.bottom]);
 
-    var parseDate = d3.time.format("%d-%b-%y").parse;
-
-    /*
-    var zoom = d3.behavior.zoom()
-            .on("zoom", draw);
-
-    var zoomPercent = d3.behavior.zoom();
-    */
-
     var x = techan.scale.financetime()
             .range([0, dim.plot.width]);
 
@@ -46,8 +37,6 @@ $('.ticker-graph').each(function () {
     var sma0Indicator = techan.indicator.sma().period(10)
     var sma1Indicator = techan.indicator.sma().period(20)
     var ema2Indicator = techan.indicator.ema().period(50)
-
-
 
     var tradearrow = techan.plot.tradearrow()
             .xScale(x)
@@ -91,7 +80,7 @@ $('.ticker-graph').each(function () {
     var timeAnnotation = techan.plot.axisannotation()
             .axis(xAxis)
             .format(d3.time.format('%x %I %p'))
-            .width(65)
+            .width(100)
             .translate([0, dim.plot.height]);
 
     var yAxis = d3.svg.axis()
@@ -107,6 +96,7 @@ $('.ticker-graph').each(function () {
             .axis(yAxis)
             .accessor(candlestick.accessor())
             .format(d3.format(',.2fs'))
+            .width(40)
             .translate([x(1), 0]);
 
     var percentAxis = d3.svg.axis()
@@ -316,11 +306,8 @@ $('.ticker-graph').each(function () {
             .attr("class", "supstances analysis")
             .attr("clip-path", "url(#ohlcClip)");
 
-    d3.select("button").on("click", reset);
-
     var first_run = true
     function poll () {
-      if (is_dragging) return
       d3.csv("data.csv" + location.search, function(error, data) {
           var accessor = candlestick.accessor(),
               indicatorPreRoll = 33;  // Don't show where indicators don't have data
@@ -427,22 +414,6 @@ $('.ticker-graph').each(function () {
     }
     poll()
     setInterval(poll, 10000)
-
-    function reset() {
-        //zoom.scale(1);
-        //zoom.translate([0,0]);
-        draw();
-    }
-
-    var is_dragging = false
-    var $body = $('svg')
-    $body.on('mousedown', function (evt) {
-      is_dragging = true
-      $body.on('mouseup', function handler(evt) {
-        is_dragging = false
-        $body.off('mouseup', handler);
-      });
-    });
 
     function refreshIndicator(selection, indicator, data) {
         var datum = selection.datum();

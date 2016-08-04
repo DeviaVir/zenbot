@@ -1,12 +1,18 @@
 body {
         font: 10px sans-serif;
+        background-color: #1f2d35;
+        color: #888;
     }
 
     .axis path,
     .axis line {
         fill: none;
-        stroke: #000;
+        stroke: #444;
         shape-rendering: crispEdges;
+    }
+
+    text {
+        fill: #888;
     }
 
     text.symbol {
@@ -19,7 +25,7 @@ body {
     }
 
     path.candle {
-        stroke: #000000;
+        stroke: #888;
     }
 
     path.candle.body {
@@ -27,21 +33,24 @@ body {
     }
 
     path.candle.up {
-        fill: #00AA00;
-        stroke: #00AA00;
+        stroke-width: 1px;
+        fill: #1e2b34;
+        stroke: rgba(132,247,102,.75)
     }
 
     path.candle.down {
-        fill: #FF0000;
-        stroke: #FF0000;
+        fill: rgba(255,105,57,.95);
+        stroke: #ff6939
     }
 
     .close.annotation.up path {
-        fill: #00AA00;
+        stroke: #fff;
+        stroke-width: 1;
+        fill: #1f2d35;
     }
 
     path.volume {
-        fill: #bbb;
+        fill: #444;
     }
 
     .indicator-plot path.line {
@@ -68,7 +77,7 @@ body {
     }
 
     path.macd {
-        stroke: #0000AA;
+        stroke: #a030AA;
     }
 
     path.signal {
@@ -87,7 +96,7 @@ body {
     }
 
     path.rsi {
-        stroke: #000000;
+        stroke: #09d;
     }
 
     path.overbought, path.oversold {
@@ -162,7 +171,8 @@ body {
     }
 
     .crosshair .axisannotation path {
-        fill: #DDDDDD;
+        fill: #000;
+        stroke: #fff;
     }
 
     .tradearrow path.tradearrow {
