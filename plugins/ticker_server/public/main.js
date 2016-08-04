@@ -223,7 +223,7 @@ $('.ticker-graph').each(function () {
     svg.append('text')
             .attr("class", "symbol")
             .attr("x", 20)
-            .text("BTC/USD (GDAX)");
+            .text("zenbot");
 
     svg.append("g")
             .attr("class", "x axis")
@@ -371,7 +371,7 @@ $('.ticker-graph').each(function () {
           if (!last) {
             return
           }
-          document.title = last.close_str + ' - BTC/USD (GDAX)'
+          document.title = last.close_str
           svg.select("g.volume").datum(data)
 
           svg.select("g.close.annotation").remove()

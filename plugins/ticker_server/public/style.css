@@ -222,13 +222,6 @@ body {
         stroke: #9900FF;
     }
 
-.ticker-graph h1 {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
-}
-
 .ticker-graph .loading {
     position: absolute;
     left: 200px;
