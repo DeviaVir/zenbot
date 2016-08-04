@@ -18,6 +18,7 @@ config.reduce_timeout = 1000
 
 config.asset = "BTC"
 config.currency = "USD"
+config.currency_symbol = "$"
 config.reducer_report_interval = 30000
 config.enabled_plugins = [
   //'bitfinex',
