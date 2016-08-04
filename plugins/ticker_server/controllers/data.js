@@ -9,12 +9,12 @@ module.exports = function container (get, set) {
       {
         query: {
           app_name: get('zenbrain:app_name'),
-          size: '15m'
+          size: req.query.period ? req.query.period : '15m'
         },
         sort: {
           time: -1
         },
-        limit: 1000
+        limit: req.query.limit ? parseInt(req.query.limit, 10) : 200
       }, function (err, ticks) {
         if (err) return next(err)
         ticks.forEach(function (tick) {
