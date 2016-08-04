@@ -311,14 +311,15 @@ $('.ticker-graph').each(function () {
             .attr("clip-path", "url(#ohlcClip)");
 */
 
+    var accessor = candlestick.accessor(),
+    indicatorPreRoll = 0;  // Don't show where indicators don't have data
+
     var first_run = true
     function poll () {
       $('.loading').css('visibility', 'visible')
       d3.csv("data.csv" + location.search, function(error, data) {
+        if (!data) return
         $('.loading').css('visibility', 'hidden')
-          var accessor = candlestick.accessor(),
-              indicatorPreRoll = 0;  // Don't show where indicators don't have data
-
           data = data.map(function(d) {
               return {
                   date: new Date(+d.Time),
@@ -380,13 +381,15 @@ $('.ticker-graph').each(function () {
             macdScale.domain(techan.scale.plot.macd(macdData).domain());
             var rsiData = rsiIndicator(data);
             rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
-            svg.select("g.macd .indicator-plot").datum(macdData)
-            svg.select("g.rsi .indicator-plot").datum(rsiData)
+            if (first_run) {
+                svg.select("g.macd .indicator-plot").datum(macdData)
+                svg.select("g.rsi .indicator-plot").datum(rsiData)
+            }
+            refreshIndicator(svg.select("g.macd .indicator-plot"), macd, macdData);
+            refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiData);
             var sma0Data = sma0Indicator(data)
             var sma1Data = sma1Indicator(data)
             var ema2Data = ema2Indicator(data)
-            refreshIndicator(svg.select("g.macd .indicator-plot"), macd, macdData);
-            refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiData);
             refreshIndicator(svg.select("g .sma.ma-0"), sma0, sma0Data);
             refreshIndicator(svg.select("g .sma.ma-1"), sma1, sma1Data);
             refreshIndicator(svg.select("g .ema.ma-2"), ema2, ema2Data);
@@ -448,7 +451,7 @@ $('.ticker-graph').each(function () {
         svg.select("g.crosshair.ohlc").call(ohlcCrosshair);
         svg.select("g.crosshair.macd").call(macdCrosshair);
         svg.select("g.crosshair.rsi").call(rsiCrosshair);
-        svg.select("g.macd .indicator-plot").call(macd);
+        //svg.select("g.macd .indicator-plot").call(macd);
         //svg.select("g.trendlines").call(trendline);
         //svg.select("g.supstances").call(supstance);
         //svg.select("g.tradearrow").call(tradearrow);
