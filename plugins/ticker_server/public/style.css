@@ -11,6 +11,10 @@ body {
         shape-rendering: crispEdges;
     }
 
+    .axis.x path {
+        stroke: none;
+    }
+
     text {
         fill: #888;
     }
@@ -44,9 +48,13 @@ body {
     }
 
     .close.annotation.up path {
-        stroke: #fff;
+        stroke: #8ff;
         stroke-width: 1;
         fill: #1f2d35;
+    }
+
+    .close.annotation.up text {
+        fill: #fff;
     }
 
     path.volume {
@@ -101,12 +109,12 @@ body {
 
     path.overbought, path.oversold {
         stroke: #FF9999;
-        stroke-dasharray: 5, 5;
+        stroke-dasharray: 1, 5;
     }
 
     path.middle, path.zero {
-        stroke: #BBBBBB;
-        stroke-dasharray: 5, 5;
+        stroke: #000;
+        stroke-dasharray: 2, 2;
     }
 
     .analysis path, .analysis circle {
@@ -175,6 +183,10 @@ body {
         stroke: #fff;
     }
 
+    .axisannotation.y path {
+        stroke: #fff;
+    }
+
     .tradearrow path.tradearrow {
         stroke: none;
     }
@@ -199,3 +211,8 @@ body {
     .tradearrow path.highlight.sell {
         stroke: #9900FF;
     }
+
+.ticker-graph h1 {
+    position: absolute;
+    left: 1000px;
+}

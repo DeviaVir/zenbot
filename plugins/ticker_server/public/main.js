@@ -2,7 +2,7 @@ $('.ticker-graph').each(function () {
   var dim = {
         width: 1200, height: 650,
         margin: { top: 20, right: 50, bottom: 30, left: 50 },
-        ohlc: { height: 500 },
+        ohlc: { height: 460 },
         indicator: { height: 65, padding: 5 }
     };
     dim.plot = {
@@ -24,7 +24,7 @@ $('.ticker-graph').each(function () {
     var yPercent = y.copy();   // Same as y at this stage, will get a different domain later
 
     var yVolume = d3.scale.linear()
-            .range([y(0), y(0.2)]);
+            .range([y(0), y(1)]);
 
     var candlestick = techan.plot.candlestick()
             .xScale(x)
@@ -310,7 +310,7 @@ $('.ticker-graph').each(function () {
     function poll () {
       d3.csv("data.csv" + location.search, function(error, data) {
           var accessor = candlestick.accessor(),
-              indicatorPreRoll = 33;  // Don't show where indicators don't have data
+              indicatorPreRoll = 0;  // Don't show where indicators don't have data
 
           data = data.map(function(d) {
               return {
@@ -359,6 +359,7 @@ $('.ticker-graph').each(function () {
 
           svg.select("g.candlestick").datum(data)
           var last = data[data.length-1]
+          document.title = '$' + last.close + ' - BTC/USD (GDAX)'
           svg.select("g.volume").datum(data)
 
           if (first_run) {

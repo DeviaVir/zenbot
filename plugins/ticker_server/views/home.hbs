@@ -1,1 +1,15 @@
-<div class="ticker-graph"></div>
+<div class="ticker-graph">
+<h1>zenbot</h1>
+</div>
+<form class="options" onchange="javascript:this.submit()">
+<select name="period">
+{{#each tick_sizes}}
+<option value="{{size}}"{{#if is_default}} selected{{/if}}>{{size}}</option>
+{{/each}}
+</select>
+<select name="limit">
+{{#each graph_limits}}
+<option value="{{limit}}"{{#if is_default}} selected{{/if}}>{{limit}}</option>
+{{/each}}
+</select>
+</form>
