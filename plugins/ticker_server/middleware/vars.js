@@ -1,7 +1,7 @@
 module.exports = function container (get, set, clear) {
   var c = get('zenbrain:config')
   return function (req, res, next) {
-    res.vars.tick_sizes = c.reducer_sizes.map(function (size) {
+    res.vars.tick_sizes = [c.brain_speed].concat(c.reducer_sizes).map(function (size) {
       return {
         size: size,
         is_default: req.query.period ? req.query.period == size : size === c.default_graph_period

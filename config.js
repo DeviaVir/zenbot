@@ -32,3 +32,4 @@ config.backfill_status_timeout = 35000
 config.default_graph_period = '5m'
 config.default_graph_limit = 150
 config.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
+config.rsi_periods = 14
