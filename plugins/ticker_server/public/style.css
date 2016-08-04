@@ -4,6 +4,11 @@ body {
         color: #888;
     }
 
+    svg {
+        width: 100%;
+        height: auto;
+    }
+
     .axis path,
     .axis line {
         fill: none;
@@ -219,10 +224,12 @@ body {
 
 .ticker-graph h1 {
     position: absolute;
-    left: 1000px;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .ticker-graph .loading {
-    font-size: 20px;
-    display: none;
+    position: absolute;
+    left: 200px;
 }
