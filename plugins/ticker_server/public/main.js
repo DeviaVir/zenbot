@@ -191,6 +191,7 @@ $('.ticker-graph').each(function () {
             .verticalWireRange([0, dim.plot.height]);
 
     var svg = d3.select("body").append("svg")
+            .attr("viewBox", "0 0 1200 650")
             .attr("width", dim.width)
             .attr("height", dim.height);
 
@@ -308,9 +309,9 @@ $('.ticker-graph').each(function () {
 
     var first_run = true
     function poll () {
-      $('.loading').show()
+      $('.loading').css('visibility', 'visible')
       d3.csv("data.csv" + location.search, function(error, data) {
-        $('.loading').hide()
+        $('.loading').css('visibility', 'hidden')
           var accessor = candlestick.accessor(),
               indicatorPreRoll = 0;  // Don't show where indicators don't have data
 
