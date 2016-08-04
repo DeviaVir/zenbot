@@ -36,6 +36,9 @@ module.exports = function container (get, set, clear) {
     }).map(function (thought) {
       return thought.value
     })
+    if (!trades.length) {
+      return cb()
+    }
     trades.forEach(function (trade) {
       trades_processed.push(trade)
       tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {

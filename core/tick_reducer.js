@@ -30,8 +30,11 @@ module.exports = function container (get, set, clear) {
       }
     }
     tick = tick.trades
+    var has_trades = false
     ticks.forEach(function (sub_tick) {
       sub_tick = sub_tick.trades
+      if (!sub_tick) return
+      has_trades = true
       ticks_processed++
       Object.keys(sub_tick.exchanges).forEach(function (slug) {
         tick.exchanges[slug] || (tick.exchanges[slug] = {
@@ -104,6 +107,9 @@ module.exports = function container (get, set, clear) {
           .value()
       })
     })
+    if (!has_trades) {
+      return cb()
+    }
     if (tick.buy_ratio > 0.5) {
       tick.side = 'BUY'
     }
