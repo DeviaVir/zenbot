@@ -27,6 +27,6 @@ module.exports = function container (get, set, clear) {
     var ticker = (dominant_side + ' ' + z(9, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(9, n(avg_price).format('0.00'), ' ').yellow + ' ' + c.currency.grey
     ticker = get_timestamp(max_time).grey + ' ' + ticker
     var tick_str = get_tick_str(tick_id || tb(max_time).resize(c.brain_speed).toString())
-    get('logger').info(z(c.max_slug_length, slug, ' '), tick_str + z(5, trades.length, ' ') + ' trades. '.grey + ticker)
+    get('logger').info(z(c.max_slug_length, slug, ' '), tick_str + z(7, trades.length, ' ') + ' trades. '.grey + ticker)
   }
 }
