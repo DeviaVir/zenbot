@@ -1,7 +1,8 @@
 module.exports = {
   _ns: 'zenbrain',
   _maps: [
-    require('./controllers/_codemap')
+    require('./controllers/_codemap'),
+    require('./middleware/_codemap')
   ],
   'actions.ticker_server': require('./action'),
   'commands.ticker_server': require('./command.json'),

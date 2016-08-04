@@ -1,4 +1,5 @@
 var moment = require('moment')
+  , n = require('numbro')
 
 module.exports = function container (get, set) {
   var c = get('zenbrain:config')
@@ -22,10 +23,10 @@ module.exports = function container (get, set) {
           var date = moment(tick.time).format('D-MMM-YY')
           var line = [
             tick.time,
-            tick.trades.open,
-            tick.trades.high,
-            tick.trades.low,
-            tick.trades.close,
+            n(tick.trades.open).format('0.00'),
+            n(tick.trades.high).format('0.00'),
+            n(tick.trades.low).format('0.00'),
+            n(tick.trades.close).format('0.00'),
             tick.trades.vol
           ].join(',')
           res.write(line + '\n')
