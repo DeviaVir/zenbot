@@ -21,7 +21,8 @@ config.currency = "USD"
 config.reducer_report_interval = 30000
 config.enabled_plugins = [
   //'bitfinex',
-  "gdax"
+  'gdax',
+  'ticker_server'
 ]
 config.sim_chunk_size = "7d"
 config.sim_chunks_required = 12

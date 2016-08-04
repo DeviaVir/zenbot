@@ -1,138 +1,191 @@
-$('.logs').each(function () {
-  var newest_time = ''
-  var ids = [], oldest_time = '', updating = false
+$('.ticker-graph').each(function () {
+  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
-  function element_in_scroll(elem)
-  {
-    var docViewTop = $(window).scrollTop();
-    var docViewBottom = docViewTop + $(window).height() + 800;
+  var parseDate = d3.time.format("%d-%b-%y").parse;
 
-    var elemTop = $(elem).offset().top;
-    var elemBottom = elemTop + $(elem).height();
+  var x = techan.scale.financetime()
+      .range([0, width]);
 
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-  }
+  var y = d3.scale.linear()
+      .range([height, 0]);
 
-  $(document).scroll(function(e){
-    if (element_in_scroll(".logs-end")) {
-      backfill()
-    }
-  })
+  var yVolume = d3.scale.linear()
+      .range([y(0), y(0.2)]);
 
-  function backfill () {
-    if (updating) return
-    updating = true
-    $('.loader').css('visibility', 'visible')
-    $.getJSON('/logs?oldest_time=' + oldest_time, function (data) {
-      updating = false
-      $('.loader').css('visibility', 'hidden')
-      if (!data.logs || !data.logs.length) {
-        return
-      }
-      var delay = 0
-      data.logs.forEach(function (log) {
-        if (ids.indexOf(log.id) !== -1) return
-        var is_locked = false, is_newest = !newest_time
-        if (is_newest) {
-          newest_time = log.time
-          updateTitle(log)
-        }
-        var $el = $('<div class="log-line' + (is_locked_line ? ' locked' : '') + (is_newest ? ' first' : '') + '" style="visibility:hidden" id="t__' + log.time + '">' + log.html + getPermalink(log) + '</div>')
-        is_locked_line = false
-        if (log.data && log.data.new_max_vol) {
-          $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
-        }
-        $('.logs').append($el)
-        setTimeout(function () {
-          $el.css('visibility', 'visible').css('display', 'block')
-        }, delay)
-        delay += 10
-        ids.push(log.id)
-        oldest_time = log.time
-      })
-    })
-  }
+  var candlestick = techan.plot.candlestick()
+      .xScale(x)
+      .yScale(y);
 
-  document.title = document.title.replace(/.+ \- /, '')
-  var orig_title = document.title
-  function updateTitle (log) {
-    if (log.data && log.data.zmi) {
-      if (log.data && log.data.new_max_vol) {
-        log.data.zmi = log.data.zmi.replace('/', '*/')
-        var orig_zmi = log.data.zmi
-        var blink_on = false
-        var blinks = 6
-        ;(function blink () {
-          setTimeout(function () {
-            if (blink_on) {
-              document.title = ''
-            }
-            else {
-              document.title = orig_zmi + ' - ' + log.data.price + ' ' + orig_title
-            }
-            blink_on = !blink_on
-            if (blinks--) blink()
-          }, 400)
-        })()
-      }
-      document.title = log.data.zmi + ' - ' + log.data.price + ' ' + orig_title
-    }
-  }
+  var sma0 = techan.plot.sma()
+      .xScale(x)
+      .yScale(y);
 
-  function getPermalink (log) {
-    var str = ' <small><a class="permalink" target="_blank" href="#t__' + (log.time) + '">[link]</a>'
-    if (log.data && log.data.tweet && log.data.tweet.user) {
-      str += ' <a href="https://twitter.com/' + log.data.tweet.user.screen_name + '/status/' + log.data.tweet.id_str + '">[tweet]</a>'
-    }
-    str += '</small>'
-    return str
-  }
+  var sma0Calculator = techan.indicator.sma()
+      .period(10);
 
-  var timeout
+  var sma1 = techan.plot.sma()
+      .xScale(x)
+      .yScale(y);
+
+  var sma1Calculator = techan.indicator.sma()
+      .period(20);
+
+  var volume = techan.plot.volume()
+      .accessor(candlestick.accessor())
+      .xScale(x)
+      .yScale(yVolume);
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+
+  var volumeAxis = d3.svg.axis()
+      .scale(yVolume)
+      .orient("right")
+      .ticks(3)
+      .tickFormat(d3.format(",.3s"));
+
+  var timeAnnotation = techan.plot.axisannotation()
+      .axis(xAxis)
+      .format(d3.time.format('%Y-%m-%d'))
+      .width(65)
+      .translate([0, height]);
+
+  var ohlcAnnotation = techan.plot.axisannotation()
+      .axis(yAxis)
+      .format(d3.format(',.2fs'));
+
+  var volumeAnnotation = techan.plot.axisannotation()
+      .axis(volumeAxis)
+      .width(35);
+
+  var crosshair = techan.plot.crosshair()
+      .xScale(x)
+      .yScale(y)
+      .xAnnotation(timeAnnotation)
+      .yAnnotation([ohlcAnnotation, volumeAnnotation]);
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
+
+  var defs = svg.append("defs");
+
+  defs.append("clipPath")
+      .attr("id", "ohlcClip")
+    .append("rect")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", width)
+      .attr("height", height);
+
+  svg = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var ohlcSelection = svg.append("g")
+      .attr("class", "ohlc")
+      .attr("transform", "translate(0,0)");
+
+  ohlcSelection.append("g")
+      .attr("class", "volume")
+      .attr("clip-path", "url(#ohlcClip)");
+
+  ohlcSelection.append("g")
+      .attr("class", "candlestick")
+      .attr("clip-path", "url(#ohlcClip)");
+
+  ohlcSelection.append("g")
+      .attr("class", "indicator sma ma-0")
+      .attr("clip-path", "url(#ohlcClip)");
+
+  ohlcSelection.append("g")
+      .attr("class", "indicator sma ma-1")
+      .attr("clip-path", "url(#ohlcClip)");
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")");
+
+  svg.append("g")
+      .attr("class", "y axis")
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Price ($)");
+
+  svg.append("g")
+      .attr("class", "volume axis");
+
+  svg.append('g')
+      .attr("class", "crosshair ohlc");
+
+  var data;
+
   function poll () {
-    if (updating) return
-    updating = true
-    $('.loader').css('visibility', 'visible')
-    $.getJSON('/logs?newest_time=' + newest_time, function (data) {
-      updating = false
-      clearTimeout(timeout)
-      $('.loader').css('visibility', 'hidden')
-      $('.logs .first').removeClass('locked')
-      var delay = data.logs.length * 10
-      var $old_el = $('.log-line').eq(0)
-      data.logs.reverse().forEach(function (log, idx) {
-        if (ids.indexOf(log.id) !== -1) return
-        $('.logs .first').removeClass('first')
-        var $el = $('<div class="log-line first" style="visibility:hidden" id="t__' + (log.time) + '">' + log.html + getPermalink(log) + '</div>')
-        $('.logs').prepend($el)
-        setTimeout(function () {
-          $el.css('visibility', 'visible').css('display', 'block')
-        }, delay)
-        delay -= 10
-        ids.push(log.id)
-        updateTitle(log)
-        if (log.data && log.data.new_max_vol) {
-          $el.addClass(log.data.zmi.indexOf('BULL') > 0 ? 'bull' : 'bear')
-        }
-        newest_time = log.time
-      })
-      timeout = setTimeout(function () {
-        $('.logs .first').addClass('locked')
-      }, 11000)
-    })
+    d3.csv("data.csv", function(error, csv) {
+      var accessor = candlestick.accessor();
+
+      data = csv.map(function(d) {
+        return {
+          date: new Date(+d.Time),
+          open: +d.Open,
+          high: +d.High,
+          low: +d.Low,
+          close: +d.Close,
+          volume: +d.Volume
+        };
+      }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
+
+      svg.select("g.candlestick").datum(data);
+      svg.select("g.sma.ma-0").datum(sma0Calculator(data));
+      svg.select("g.sma.ma-1").datum(sma1Calculator(data));
+      svg.select("g.volume").datum(data);
+
+      redraw();
+    });
+  }
+  poll()
+
+  function refreshIndicator(selection, indicator, data) {
+    var datum = selection.datum();
+    // Some trickery to remove old and insert new without changing array reference,
+    // so no need to update __data__ in the DOM
+    datum.splice.apply(datum, [0, datum.length].concat(data));
+    selection.call(indicator);
   }
 
-  var is_locked_line = false, pollInterval
-  $('.logs').empty()
-  is_locked_line = false
-  var match = window.location.hash.match(/t__([^,]+)/)
-  if (match) {
-    oldest_time = parseInt(match[1], 10)
-    newest_time = oldest_time
-    is_locked_line = true
+  function redraw() {
+    var accessor = candlestick.accessor();
+
+    x.domain(data.map(accessor.d));
+    // Show only 150 points on the plot
+    x.zoomable().domain([data.length-130, data.length]);
+
+    // Update y scale min max, only on viewable zoomable.domain()
+    y.domain(techan.scale.plot.ohlc(data.slice(data.length-130, data.length)).domain());
+    yVolume.domain(techan.scale.plot.volume(data.slice(data.length-130, data.length)).domain());
+
+    svg.select('g.x.axis').call(xAxis);
+    svg.select('g.y.axis').call(yAxis);
+    svg.select("g.volume.axis").call(volumeAxis);
+
+    svg.select("g.candlestick").call(candlestick);
+    // Recalculate indicators and update the SAME array and redraw moving average
+    refreshIndicator(svg.select("g.sma.ma-0"), sma0, sma0Calculator(data));
+    refreshIndicator(svg.select("g.sma.ma-1"), sma1, sma1Calculator(data));
+
+    svg.select("g.volume").call(volume);
+
+    svg.select("g.crosshair.candlestick").call(crosshair);
+
+    setTimeout(poll, 10000);
   }
-  else {
-    pollInterval = setInterval(poll, 10000)
-  }
-  backfill()
 })
