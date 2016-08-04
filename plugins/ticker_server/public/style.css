@@ -85,11 +85,11 @@ body {
     }
 
     path.macd {
-        stroke: #a030AA;
+        stroke: #a0f;
     }
 
     path.signal {
-        stroke: #FF9999;
+        stroke: #0f0;
     }
 
     path.zero {
@@ -99,7 +99,7 @@ body {
     }
 
     path.difference {
-        fill: #BBBBBB;
+        fill: #777;
         opacity: 0.5;
     }
 
@@ -107,8 +107,13 @@ body {
         stroke: #09d;
     }
 
-    path.overbought, path.oversold {
-        stroke: #FF9999;
+    path.overbought {
+        stroke: #9f9;
+        stroke-dasharray: 1, 5;
+    }
+
+    path.oversold {
+        stroke: #f99;
         stroke-dasharray: 1, 5;
     }
 
@@ -215,4 +220,9 @@ body {
 .ticker-graph h1 {
     position: absolute;
     left: 1000px;
+}
+
+.ticker-graph .loading {
+    font-size: 20px;
+    display: none;
 }
