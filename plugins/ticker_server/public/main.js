@@ -331,6 +331,7 @@ $('.ticker-graph').each(function () {
                   volume: +d.Volume
               };
           }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
+          if (!data[indicatorPreRoll]) return
 
           //if (first_run) {
           /*
