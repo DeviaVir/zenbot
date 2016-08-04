@@ -1,0 +1,13 @@
+{
+  "name": "ticker_server",
+  "spec": "ticker_server",
+  "description": "launch the ticker server",
+  "options": [
+    {
+      "name": "port",
+      "spec": "-p, --port <port>",
+      "description": "port to listen on",
+      "default": 3013
+    }
+  ]
+}
