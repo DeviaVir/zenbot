@@ -327,7 +327,7 @@ $('.ticker-graph').each(function () {
                   high: +d.High,
                   low: +d.Low,
                   close: +d.Close,
-                  close_str: '$' + d.Close,
+                  close_str: d.Close_str,
                   volume: +d.Volume
               };
           }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });

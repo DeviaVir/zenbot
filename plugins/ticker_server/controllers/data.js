@@ -6,7 +6,7 @@ module.exports = function container (get, set) {
   return get('controller')()
     .get('/data.csv', function (req, res, next) {
       res.setHeader('Content-Type', 'text/csv')
-      res.write('Time,Open,High,Low,Close,Volume\n')
+      res.write('Time,Open,High,Low,Close,Volume,Close_str\n')
       get('db.ticks').select(
       {
         query: {
@@ -27,7 +27,8 @@ module.exports = function container (get, set) {
             n(tick.trades.high).format('0.00'),
             n(tick.trades.low).format('0.00'),
             n(tick.trades.close).format('0.00'),
-            tick.trades.vol
+            tick.trades.vol,
+            c.currency_symbol + n(tick.trades.close).format(',0.00')
           ].join(',')
           res.write(line + '\n')
         })
