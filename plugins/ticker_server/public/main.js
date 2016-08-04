@@ -368,6 +368,9 @@ $('.ticker-graph').each(function () {
 
           svg.select("g.candlestick").datum(data)
           var last = data[data.length-1]
+          if (!last) {
+            return
+          }
           document.title = last.close_str + ' - BTC/USD (GDAX)'
           svg.select("g.volume").datum(data)
 
