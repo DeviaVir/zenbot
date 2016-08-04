@@ -29,3 +29,5 @@ config.sim_chunks_required = 12
 config.max_slug_length = 17
 config.backfill_status_check = "30s"
 config.backfill_status_timeout = 35000
+config.default_graph_period = '5m'
+config.default_graph_limit = 100

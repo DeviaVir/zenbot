@@ -1,6 +1,7 @@
 var moment = require('moment')
 
 module.exports = function container (get, set) {
+  var c = get('zenbrain:config')
   return get('controller')()
     .get('/data.csv', function (req, res, next) {
       res.setHeader('Content-Type', 'text/csv')
@@ -9,12 +10,12 @@ module.exports = function container (get, set) {
       {
         query: {
           app_name: get('zenbrain:app_name'),
-          size: req.query.period ? req.query.period : '15m'
+          size: req.query.period ? req.query.period : c.default_graph_period
         },
         sort: {
           time: -1
         },
-        limit: req.query.limit ? parseInt(req.query.limit, 10) : 200
+        limit: req.query.limit ? parseInt(req.query.limit, 10) : c.default_graph_limit
       }, function (err, ticks) {
         if (err) return next(err)
         ticks.forEach(function (tick) {
