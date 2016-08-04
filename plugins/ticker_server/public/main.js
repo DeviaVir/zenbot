@@ -1,6 +1,6 @@
 $('.ticker-graph').each(function () {
   var dim = {
-        width: 1400, height: 700,
+        width: 1200, height: 650,
         margin: { top: 20, right: 50, bottom: 30, left: 50 },
         ohlc: { height: 500 },
         indicator: { height: 65, padding: 5 }
@@ -17,10 +17,12 @@ $('.ticker-graph').each(function () {
 
     var parseDate = d3.time.format("%d-%b-%y").parse;
 
+    /*
     var zoom = d3.behavior.zoom()
             .on("zoom", draw);
 
     var zoomPercent = d3.behavior.zoom();
+    */
 
     var x = techan.scale.financetime()
             .range([0, dim.plot.width]);
@@ -335,11 +337,15 @@ $('.ticker-graph').each(function () {
           }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
 
           //if (first_run) {
+          /*
           var trans = zoom.translate()
           var scale = zoom.scale()
+          */
           x.domain(techan.scale.plot.time(data).domain());
+          /*
           zoom.translate(trans);
           zoom.scale(scale);
+          */
           y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
           yPercent.domain(techan.scale.plot.percent(y, accessor(data[indicatorPreRoll])).domain());
           yVolume.domain(techan.scale.plot.volume(data).domain());
@@ -364,22 +370,32 @@ $('.ticker-graph').each(function () {
           ];
           */
 
-          svg.select("g.candlestick").datum(data).call(candlestick);
-          svg.select("g.close.annotation").datum([data[data.length-1]]).call(closeAnnotation);
-          svg.select("g.volume").datum(data).call(volume);
+          svg.select("g.candlestick").datum(data)
+          var last = data[data.length-1]
+          svg.select("g.volume").datum(data)
 
           if (first_run) {
-            svg.select("g.sma.ma-0").datum(sma0Indicator(data)).call(sma0);
-            svg.select("g.sma.ma-1").datum(sma1Indicator(data)).call(sma1);
-            svg.select("g.ema.ma-2").datum(ema2Indicator(data)).call(ema2);
+            svg.select("g.close.annotation").datum([last])
+            svg.select("g.sma.ma-0").datum(sma0Indicator(data))
+            svg.select("g.sma.ma-1").datum(sma1Indicator(data))
+            svg.select("g.ema.ma-2").datum(ema2Indicator(data))
             var macdData = macdIndicator(data);
             macdScale.domain(techan.scale.plot.macd(macdData).domain());
             var rsiData = rsiIndicator(data);
             rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
-            svg.select("g.macd .indicator-plot").datum(macdData).call(macd);
-            svg.select("g.rsi .indicator-plot").datum(rsiData).call(rsi);
+            svg.select("g.macd .indicator-plot").datum(macdData)
+            svg.select("g.rsi .indicator-plot").datum(rsiData)
           }
           else {
+            //var selection = svg.select("g.close.annotation")
+            //var datum = selection.datum();
+            // Some trickery to remove old and insert new without changing array reference,
+            // so no need to update __data__ in the DOM
+            //datum.splice.apply(datum, [0, datum.length].concat(last));
+            svg.select("g.close.annotation").remove()
+            ohlcSelection.append("g")
+                .attr("class", "close annotation up")
+                .datum([last])
             refreshIndicator(svg.select("g .sma.ma-0"), sma0, sma0Indicator(data));
             refreshIndicator(svg.select("g .sma.ma-1"), sma1, sma1Indicator(data));
             refreshIndicator(svg.select("g .ema.ma-2"), ema2, ema2Indicator(data));
@@ -387,9 +403,9 @@ $('.ticker-graph').each(function () {
             refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiIndicator(data));
           }
 
-          svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
-          svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
-          svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
+          //svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
+          //svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
+          //svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
           svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
           svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
 
@@ -399,9 +415,11 @@ $('.ticker-graph').each(function () {
 
           // Associate the zoom with the scale after a domain has been applied
           if (first_run) {
+            /*
             var zoomable = x.zoomable();
             zoomable.domain([indicatorPreRoll, data.length]); // Zoom in a little to hide indicator preroll
             zoom.x(zoomable) //.y(y);
+            */
             //zoomPercent.y(yPercent);
           }
           first_run = false
@@ -411,8 +429,8 @@ $('.ticker-graph').each(function () {
     setInterval(poll, 10000)
 
     function reset() {
-        zoom.scale(1);
-        zoom.translate([0,0]);
+        //zoom.scale(1);
+        //zoom.translate([0,0]);
         draw();
     }
 
@@ -435,8 +453,8 @@ $('.ticker-graph').each(function () {
     }
 
     function draw() {
-        zoomPercent.translate(zoom.translate());
-        zoomPercent.scale(zoom.scale());
+        //zoomPercent.translate(zoom.translate());
+        //zoomPercent.scale(zoom.scale());
 
         svg.select("g.x.axis").call(xAxis);
         svg.select("g.ohlc .axis").call(yAxis);
