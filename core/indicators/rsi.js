@@ -57,13 +57,13 @@ module.exports = function container (get, set, clear) {
     }, current_loss)
     var avg_loss_2 = n(loss_sum_2).divide(rs.avg_lookback.length).value()
     if (avg_loss_2 === 0) {
-      rs.rsi = 100
+      rs.rsi = avg_gain_2 ? 100 : 50
     }
     else {
       var relative_strength = n(avg_gain_2).divide(avg_loss_2).value()
       rs.rsi = n(100).subtract(n(100).divide(n(1).add(relative_strength))).value()
     }
-    rs.ansi = 'RSI: '.grey + n(rs.rsi).format('0')[rs.rsi > 70 ? 'green' : rs.rsi < 30 ? 'red' : 'white']
+    rs.ansi = n(rs.rsi).format('0')[rs.rsi > 70 ? 'green' : rs.rsi < 30 ? 'red' : 'white']
     cb()
   }
 }

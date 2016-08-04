@@ -312,7 +312,7 @@ $('.ticker-graph').each(function () {
 */
 
     var accessor = candlestick.accessor(),
-    indicatorPreRoll = 0;  // Don't show where indicators don't have data
+    indicatorPreRoll = 35;  // Don't show where indicators don't have data
 
     var first_run = true
     function poll () {
@@ -337,7 +337,7 @@ $('.ticker-graph').each(function () {
           var trans = zoom.translate()
           var scale = zoom.scale()
           */
-          x.domain(techan.scale.plot.time(data).domain());
+          x.domain(techan.scale.plot.time(data.slice(indicatorPreRoll)).domain());
           /*
           zoom.translate(trans);
           zoom.scale(scale);
