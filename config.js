@@ -26,6 +26,10 @@ config.enabled_plugins = [
   'poloniex',
   'ticker_server'
 ]
+config.exchanges = [
+  'poloniex',
+  'gdax'
+]
 config.sim_chunk_size = "7d"
 config.sim_chunks_required = 12
 config.max_slug_length = 17

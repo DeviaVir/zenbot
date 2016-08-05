@@ -13,6 +13,12 @@ module.exports = function container (get, set, clear) {
         is_default: req.query.limit ? req.query.limit == limit : limit === c.default_graph_limit
       }
     })
+    res.vars.exchanges = c.exchanges.map(function (exchange) {
+      return {
+        exchange: exchange,
+        is_default: req.query.exchange ? req.query.exchange == exchange : exchange === c.exchanges[0]
+      }
+    })
     next()
   }
 }
