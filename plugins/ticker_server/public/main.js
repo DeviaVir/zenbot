@@ -316,9 +316,15 @@ $('.ticker-graph').each(function () {
 
     var first_run = true
     function poll () {
-      $('.loading').css('visibility', 'visible')
-      $('body').css('backgroundColor', '#333')
+        var returned = false
+        setTimeout(function () {
+            if (!returned) {
+                $('.loading').css('visibility', 'visible')
+                $('body').css('backgroundColor', '#333')
+            }
+        }, 2000)
       d3.csv("data.csv" + location.search, function(error, data) {
+        returned = true
         if (!data) return
         $('.loading').css('visibility', 'hidden')
         $('body').css('backgroundColor', '#1f2d35')
