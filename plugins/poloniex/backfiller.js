@@ -52,7 +52,8 @@ module.exports = function container (get, set, clear) {
     var uri = x.rest_url
     var query = {
       command: 'returnTradeHistory',
-      currencyPair: product_id
+      currencyPair: product_id,
+      start: Math.round(tb().resize('1h').subtract(2).toMilliseconds() / 1000)
     }
     if (rs.backfiller_id) {
       query.end = rs.backfiller_id
