@@ -179,7 +179,7 @@ body {
     }
 
     .crosshair path.wire {
-        stroke: #888;
+        stroke: #fff;
         stroke-opacity: 0.5;
         stroke-dasharray: 1, 5;
     }
