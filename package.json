@@ -12,7 +12,7 @@
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "formatmicro": "^1.0.6",
-    "micro-request": "^666.0.5",
+    "micro-request": "^666.0.8",
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.4",
     "motley": "^2.2.7",

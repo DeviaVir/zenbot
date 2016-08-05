@@ -23,6 +23,7 @@ config.reducer_report_interval = 30000
 config.enabled_plugins = [
   //'bitfinex',
   'gdax',
+  'poloniex',
   'ticker_server'
 ]
 config.sim_chunk_size = "7d"
