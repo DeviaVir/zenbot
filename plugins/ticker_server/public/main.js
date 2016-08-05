@@ -319,7 +319,7 @@ $('.ticker-graph').each(function () {
         var timeout = setTimeout(function () {
             $('.loading').css('visibility', 'visible')
             $('body').css('backgroundColor', '#333')
-        }, 2000)
+        }, 10000)
       d3.csv("data.csv" + location.search, function(error, data) {
         clearTimeout(timeout)
         setTimeout(poll, 10000)
