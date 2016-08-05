@@ -21,9 +21,11 @@ module.exports = function container (get, set, clear) {
     var options = get('options')
     if (!options.backfill || !product_id) return
     var rs = get('run_state')
+    rs.gdax || (rs.gdax = {})
+    rs = rs.gdax
     if (first_run) {
       first_run = false
-      rs.gdax_backfiller_id = null
+      rs.backfiller_id = null
       get('db').collection('thoughts').find({
         app_name: get('app_name'),
         key: 'trade',
@@ -31,7 +33,7 @@ module.exports = function container (get, set, clear) {
       }).limit(1).sort({time: -1}).toArray(function (err, results) {
         if (err) throw err
         if (results.length) {
-          rs.gdax_max_id = results[0].value.trade_id
+          rs.max_id = results[0].value.trade_id
         }
         backfill_status(x, retry)
       })
@@ -40,19 +42,19 @@ module.exports = function container (get, set, clear) {
     function retry () {
       setImmediate(mapper)
     }
-    var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.gdax_backfiller_id ? '&after=' + rs.gdax_backfiller_id : '')
+    var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.backfiller_id ? '&after=' + rs.backfiller_id : '')
     function withResult (result) {
       var filter_on = true
       var trades = result.filter(function (trade) {
-        rs.gdax_min_backfiller_id = rs.gdax_min_backfiller_id ? Math.min(rs.gdax_min_backfiller_id, trade.trade_id) : trade.trade_id
-        if (trade.trade_id === rs.gdax_max_id) {
-          //get('logger').info('gdax backfiller', 'caught up.'.cyan, 'continuing backfill after'.grey, rs.gdax_min_backfiller_id)
-          rs.gdax_backfiller_id = rs.gdax_min_backfiller_id
+        rs.min_backfiller_id = rs.min_backfiller_id ? Math.min(rs.min_backfiller_id, trade.trade_id) : trade.trade_id
+        if (trade.trade_id === rs.max_id) {
+          //get('logger').info('gdax backfiller', 'caught up.'.cyan, 'continuing backfill after'.grey, rs.min_backfiller_id)
+          rs.backfiller_id = rs.min_backfiller_id
           filter_on = false
         }
         return filter_on
       }).map(function (trade) {
-        rs.gdax_backfiller_id = rs.gdax_backfiller_id ? Math.min(rs.gdax_backfiller_id, trade.trade_id) : trade.trade_id
+        rs.backfiller_id = rs.backfiller_id ? Math.min(rs.backfiller_id, trade.trade_id) : trade.trade_id
         var obj = {
           id: x.name + '-' + String(trade.trade_id),
           trade_id: trade.trade_id,

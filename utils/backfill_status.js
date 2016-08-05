@@ -8,6 +8,7 @@ module.exports = function container (get, set, clear) {
   return function backfill_status (exchange, cb, isComplete) {
     var rs = get('run_state')
     rs[exchange.name] || (rs[exchange.name] = {sim_chunks: {}})
+    rs[exchange.name].sim_chunks || (rs[exchange.name].sim_chunks = [])
     var sim_chunk_bucket = tb().resize(c.sim_chunk_size).subtract(c.sim_chunks_required + 1)
     var sim_chunk = rs[exchange.name].sim_chunks[sim_chunk_bucket.toString()]
     if (sim_chunk) {
