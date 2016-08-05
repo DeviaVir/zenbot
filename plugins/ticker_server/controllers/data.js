@@ -32,7 +32,7 @@ module.exports = function container (get, set) {
             n(tick.trades.exchanges[exchange].high).format('0.00'),
             n(tick.trades.exchanges[exchange].low).format('0.00'),
             n(tick.trades.exchanges[exchange].close).format('0.00'),
-            tick.trades[exchange].vol,
+            tick.trades.exchanges[exchange].vol,
             c.currency_symbol + n(tick.trades.exchanges[exchange].close).format(',0.00'),
             exchange.toUpperCase()
           ].join(',')
