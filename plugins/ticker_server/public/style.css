@@ -179,8 +179,9 @@ body {
     }
 
     .crosshair path.wire {
-        stroke: #DDDDDD;
-        stroke-dasharray: 1, 1;
+        stroke: #888;
+        stroke-opacity: 0.5;
+        stroke-dasharray: 1, 5;
     }
 
     .crosshair .axisannotation path {
