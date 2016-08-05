@@ -97,12 +97,6 @@ body {
         stroke: #0f0;
     }
 
-    path.zero {
-        stroke: #BBBBBB;
-        stroke-dasharray: 0;
-        stroke-opacity: 0.5;
-    }
-
     path.difference {
         fill: #51a4f5;
         opacity: 0.5;
@@ -123,8 +117,9 @@ body {
     }
 
     path.middle, path.zero {
-        stroke: #fff;
-        stroke-dasharray: 2, 2;
+        stroke: #888;
+        stroke-opacity: 0.5;
+        stroke-dasharray: 1, 5;
     }
 
     .analysis path, .analysis circle {
