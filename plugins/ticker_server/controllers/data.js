@@ -28,12 +28,12 @@ module.exports = function container (get, set) {
           var date = moment(tick.time).format('D-MMM-YY')
           var line = [
             tick.time,
-            n(tick.trades[exchange].open).format('0.00'),
-            n(tick.trades[exchange].high).format('0.00'),
-            n(tick.trades[exchange].low).format('0.00'),
-            n(tick.trades[exchange].close).format('0.00'),
+            n(tick.trades.exchanges[exchange].open).format('0.00'),
+            n(tick.trades.exchanges[exchange].high).format('0.00'),
+            n(tick.trades.exchanges[exchange].low).format('0.00'),
+            n(tick.trades.exchanges[exchange].close).format('0.00'),
             tick.trades[exchange].vol,
-            c.currency_symbol + n(tick.trades[exchange].close).format(',0.00'),
+            c.currency_symbol + n(tick.trades.exchanges[exchange].close).format(',0.00'),
             exchange.toUpperCase()
           ].join(',')
           res.write(line + '\n')
