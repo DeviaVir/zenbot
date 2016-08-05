@@ -241,7 +241,7 @@ $('.ticker-graph').each(function () {
             .attr("y", -12)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Price ($)");
+            .text("Price");
 
     ohlcSelection.append("g")
             .attr("class", "close annotation up");
