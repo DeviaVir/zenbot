@@ -8,15 +8,16 @@ module.exports = function container (get, set) {
       res.setHeader('Content-Type', 'text/csv')
       res.write('Time,Open,High,Low,Close,Volume,Close_str,Exchange\n')
       var exchange = req.query.exchange || c.exchanges[0]
+      var query = {
+        app_name: get('zenbrain:app_name'),
+        size: req.query.period ? req.query.period : c.default_graph_period
+      }
+      query['exchanges.' + exchange] = {
+        $exists: true
+      }
       get('db.ticks').select(
       {
-        query: {
-          app_name: get('zenbrain:app_name'),
-          size: req.query.period ? req.query.period : c.default_graph_period,
-          'exchanges.' + exchange: {
-            $exists: true
-          }
-        },
+        query: query,
         sort: {
           time: -1
         },
