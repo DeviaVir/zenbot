@@ -6,10 +6,11 @@ module.exports = function container (get, set, clear) {
   return function thinker (tick, cb) {
     var rs = get('run_state')
     rs.rsi || (rs.rsi = {})
-    rs.rsi[tick.size] || (rs.rsi[tick.size] = {})
+    rs.rsi[tick.size] || (rs.rsi[tick.size] = {samples: 0})
     rs = rs.rsi[tick.size]
     rs.ansi = ''
     if (!tick.trades) return cb()
+    rs.samples++
     rs.close_lookback || (rs.close_lookback = [])
     rs.close_lookback.push(tick.trades.close)
     var last_close = rs.close_lookback[rs.close_lookback.length - 2]
