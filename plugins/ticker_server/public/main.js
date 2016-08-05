@@ -81,7 +81,7 @@ $('.ticker-graph').each(function () {
 
     var timeAnnotation = techan.plot.axisannotation()
             .axis(xAxis)
-            .format(d3.time.format('%e'))
+            .format(d3.time.format('%c'))
             .width(140)
             .translate([0, dim.plot.height]);
 
