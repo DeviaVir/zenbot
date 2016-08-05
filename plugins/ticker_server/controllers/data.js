@@ -12,7 +12,7 @@ module.exports = function container (get, set) {
         app_name: get('zenbrain:app_name'),
         size: req.query.period ? req.query.period : c.default_graph_period
       }
-      query['exchanges.' + exchange] = {
+      query['trades.exchanges.' + exchange] = {
         $exists: true
       }
       get('db.ticks').select(
