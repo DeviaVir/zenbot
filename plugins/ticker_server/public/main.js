@@ -81,8 +81,8 @@ $('.ticker-graph').each(function () {
 
     var timeAnnotation = techan.plot.axisannotation()
             .axis(xAxis)
-            .format(d3.time.format('%x %I %p'))
-            .width(100)
+            .format(d3.time.format('%e'))
+            .width(140)
             .translate([0, dim.plot.height]);
 
     var yAxis = d3.svg.axis()
