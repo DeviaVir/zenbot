@@ -333,8 +333,8 @@ $('.ticker-graph').each(function () {
                   high: +d.High,
                   low: +d.Low,
                   close: +d.Close,
-                  close_str: d.Close_str,
-                  volume: +d.Volume
+                  volume: +d.Volume,
+                  caption: d.Caption
               };
           }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
           if (!data[indicatorPreRoll]) return
@@ -378,7 +378,7 @@ $('.ticker-graph').each(function () {
           if (!last) {
             return
           }
-          document.title = last.close_str
+          document.title = last.caption + ' - zenbot'
           svg.select("g.volume").datum(data)
 
           svg.select("g.close.annotation").remove()
