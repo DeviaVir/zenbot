@@ -12,9 +12,6 @@ module.exports = function container (get, set) {
         app: get('zenbrain:app_name'),
         size: req.query.period ? req.query.period : c.default_graph_period
       }
-      query['data.trades.exchanges.' + exchange] = {
-        $exists: true
-      }
       get('db.ticks').select(
       {
         query: query,
@@ -26,6 +23,7 @@ module.exports = function container (get, set) {
         if (err) return next(err)
         ticks.forEach(function (tick) {
           var x = tick.data.trades.exchanges[exchange]
+          if (!x) return
           var line = [
             tick.time,
             n(x.open).format('0.00'),
