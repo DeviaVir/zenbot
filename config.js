@@ -18,8 +18,8 @@ config.enabled_plugins = [
   'ticker_server'
 ]
 config.exchanges = [
-  'poloniex',
-  'gdax'
+  'gdax',
+  'poloniex'
 ]
 config.sim_chunk_size = "7d"
 config.sim_chunks_required = 12
