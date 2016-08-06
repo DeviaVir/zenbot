@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
         rsi = 'RSI:'.grey + rs.rsi[tick.size].ansi
       }
     }
-    get('logger').info(slug, tick_str, z(6, tick.trades.trades, ' '), get_timestamp(tick.time).grey, n(tick.trades.vol).format('0.000').white, n(tick.trades.typical).format('0.00').yellow, c.currency.grey, rsi)
+    get('logger').info(slug, tick_str, z(6, tick.data.trades.count, ' '), get_timestamp(tick.time).grey, n(tick.data.trades.volume).format('0.000').white, c.currency.grey, rsi)
     cb()
   }
 }
