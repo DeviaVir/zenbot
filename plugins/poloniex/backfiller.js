@@ -38,6 +38,9 @@ module.exports = function container (get, set, clear) {
         rs.backfiller_start = null
       }
     }
+    else {
+      rs.backfilled = 0
+    }
     function retry () {
       setImmediate(mapper)
     }
@@ -52,7 +55,7 @@ module.exports = function container (get, set, clear) {
       query.start = Math.round(tb('s', rs.backfiller_id).resize('1h').subtract(2).toMilliseconds() / 1000)
     }
     function withResult (result) {
-      var max_id
+      var max_id, min_time
       var trades = result.map(function (trade) {
         var ts = new Date(trade.date + ' GMT').getTime()
         var ts_s = n(ts).divide(1000).value()
@@ -75,6 +78,8 @@ module.exports = function container (get, set, clear) {
           exchange: x.name
         }
         max_id = max_id ? Math.max(ts, max_id) : max_id
+        min_time = min_time ? Math.min(obj.time, min_time) : min_time
+        rs.backfilled++
         map('trade', obj)
         return obj
       })
@@ -82,7 +87,12 @@ module.exports = function container (get, set, clear) {
         rs.backfiller_start = max_id
       }
       //log_trades(x.name, trades)
-      retry()
+      if (min_time < c.backfill_stop) {
+        get('logger').info(x.name, 'backfill complete with'.grey, rs.backfilled, 'trades.'.grey)
+      }
+      else {
+        retry()
+      }
     }
     //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey, query, {feed: 'backfiller'})
     request(uri, {query: query, headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {

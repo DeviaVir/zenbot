@@ -29,3 +29,4 @@ config.default_graph_limit = 150
 config.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 config.rsi_exchange = 'gdax'
 config.rsi_periods = 14
+config.backfill_stop = new Date().getTime() - 7776000000 // 90 days
