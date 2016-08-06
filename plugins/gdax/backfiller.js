@@ -8,7 +8,6 @@ module.exports = function container (get, set, clear) {
   var x = get('exchanges.gdax')
   var c = get('config')
   var log_trades = get('utils.log_trades')
-  var backfill_status = get('utils.backfill_status')
   var product_id
   var map = get('map')
   x.products.forEach(function (product) {
@@ -25,36 +24,29 @@ module.exports = function container (get, set, clear) {
     rs = rs.gdax
     if (first_run) {
       first_run = false
-      rs.backfiller_id = null
-      get('db').collection('thoughts').find({
-        app_name: get('app_name'),
-        key: 'trade',
-        'value.exchange': x.name
-      }).limit(1).sort({time: -1}).toArray(function (err, results) {
-        if (err) throw err
-        if (results.length) {
-          rs.max_id = results[0].value.trade_id
-        }
-        backfill_status(x, retry)
-      })
-      return
+      if (rs.backfiller_id) {
+        rs.old_backfiller_id = rs.backfiller_id
+        rs.backfiller_id = null
+        rs.resume_target = rs.backfiller_start
+        rs.backfiller_start = null
+      }
     }
     function retry () {
       setImmediate(mapper)
     }
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.backfiller_id ? '&after=' + rs.backfiller_id : '')
     function withResult (result) {
-      var filter_on = true
-      var trades = result.filter(function (trade) {
-        rs.min_backfiller_id = rs.min_backfiller_id ? Math.min(rs.min_backfiller_id, trade.trade_id) : trade.trade_id
-        if (trade.trade_id === rs.max_id) {
-          //get('logger').info('gdax backfiller', 'caught up.'.cyan, 'continuing backfill after'.grey, rs.min_backfiller_id)
-          rs.backfiller_id = rs.min_backfiller_id
-          filter_on = false
+      var max_id
+      var trades = result.map(function (trade) {
+        if (!rs.backfiller_start) {
+          rs.backfiller_start = trade.trade_id
         }
-        return filter_on
-      }).map(function (trade) {
         rs.backfiller_id = rs.backfiller_id ? Math.min(rs.backfiller_id, trade.trade_id) : trade.trade_id
+        if (rs.resume_target && rs.backfiller_id === rs.resume_target) {
+          rs.backfiller_id = rs.old_backfiller_id
+          rs.resume_target = null
+          get('logger').info(x.name, 'caught up. resuming after', rs.old_backfiller_id)
+        }
         var obj = {
           id: x.name + '-' + String(trade.trade_id),
           trade_id: trade.trade_id,
@@ -64,21 +56,25 @@ module.exports = function container (get, set, clear) {
           side: trade.side,
           exchange: x.name
         }
+        max_id = max_id ? Math.max(obj.trade_id, max_id) : max_id
         map('trade', obj)
         return obj
       })
-      //log_trades(x.name + ' backfiller', trades)
-      backfill_status(x, retry)
+      if (!rs.backfiller_start) {
+        rs.backfiller_start = max_id
+      }
+      //log_trades(x.name, trades)
+      retry()
     }
-    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
+    //get('logger').info(z(c.max_slug_length, 'backfiller GET', ' '), uri.grey)
     request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
       if (err) {
-        get('logger').error('gdax backfiller err', err, {feed: 'errors'})
+        get('logger').error(x.name + ' backfiller err', err, {feed: 'errors'})
         return retry()
       }
       if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
         console.error(result)
-        get('logger').error('gdax non-200 status: ' + resp.statusCode, {feed: 'errors'})
+        get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {feed: 'errors'})
         return retry()
       }
       withResult(result)

@@ -8,7 +8,6 @@ module.exports = function container (get, set, clear) {
   var log_trades = get('utils.log_trades')
   var product_id
   var map = get('map')
-  var trade_ids = []
   x.products.forEach(function (product) {
     if (product.asset === c.asset && product.currency === c.currency) {
       product_id = product.id
@@ -21,7 +20,7 @@ module.exports = function container (get, set, clear) {
     }
     var rs = get('run_state')
     var uri = x.rest_url + '/products/' + product_id + '/trades' + (rs.gdax_recorder_id ? '?before=' + rs.gdax_recorder_id : '')
-    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
+    //get('logger').info(z(c.max_slug_length, 'recorder GET', ' '), uri.grey)
     request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
       if (err) {
         get('logger').error('gdax recorder err', err, {public: false})
@@ -45,16 +44,8 @@ module.exports = function container (get, set, clear) {
         }
         map('trade', obj)
         return obj
-      }).filter(function (trade) {
-        var is_new = trade_ids.indexOf(trade.id) === -1
-        if (is_new) {
-          trade_ids.push(trade.id)
-        }
-        return is_new
       })
-      if (trades.length) {
-        log_trades(x.name + ' recorder', trades)
-      }
+      //log_trades(x.name, trades)
       retry()
     })
   }
