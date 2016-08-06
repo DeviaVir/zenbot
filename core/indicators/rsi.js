@@ -11,16 +11,20 @@ module.exports = function container (get, set, clear) {
     rs.rsi[tick.size] || (rs.rsi[tick.size] = {samples: 0})
     rs = rs.rsi[tick.size]
     rs.ansi = ''
-    if (!tick.trades) {
-      console.error('no trades', tick.id)
+    if (!tick.data.trades) {
+      //console.error('no trades', tick.id)
+      return cb()
+    }
+    var x = tick.data.trades.exchanges[c.rsi_exchange]
+    if (!x) {
       return cb()
     }
     rs.samples++
     rs.close_lookback || (rs.close_lookback = [])
-    rs.close_lookback.push(tick.trades.close)
+    rs.close_lookback.push(x.close)
     var last_close = rs.close_lookback[rs.close_lookback.length - 2]
-    var current_gain = tick.trades.close > last_close ? n(tick.trades.close).subtract(last_close).value() : 0
-    var current_loss = tick.trades.close < last_close ? n(last_close).subtract(tick.trades.close).value() : 0
+    var current_gain = x.close > last_close ? n(x.close).subtract(last_close).value() : 0
+    var current_loss = x.close < last_close ? n(last_close).subtract(x.close).value() : 0
     if (rs.close_lookback.length > c.rsi_periods) {
       rs.close_lookback.splice(0, rs.close_lookback.length - c.rsi_periods)
       assert.equal(rs.close_lookback.length, c.rsi_periods)
