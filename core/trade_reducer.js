@@ -10,6 +10,9 @@ module.exports = function container (get, set, clear) {
       log_trades('reducer', trades_processed)
       trades_processed = []
     }
+    else {
+      //console.error('no trade processed')
+    }
   }, c.reducer_report_interval)
   return function thought_reducer (g, cb) {
     //get('logger').info('trade_reducer', g.bucket.id)
