@@ -16,15 +16,15 @@ module.exports = function container (get, set, clear) {
   }, c.reducer_report_interval)
   return function thought_reducer (g, cb) {
     //get('logger').info('trade_reducer', g.bucket.id)
-    var bucket = g.bucket, thoughts = g.thoughts
-    if (typeof bucket.data.trades === 'undefined') {
-      bucket.data.trades = {
+    var tick = g.tick, thoughts = g.thoughts
+    if (typeof tick.data.trades === 'undefined') {
+      tick.data.trades = {
         volume: 0,
         count: 0,
         exchanges: {}
       }
     }
-    var t = bucket.data.trades
+    var t = tick.data.trades
     thoughts.forEach(function (thought) {
       if (thought.key !== 'trade') {
         return

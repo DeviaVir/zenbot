@@ -10,7 +10,7 @@ config.twitter_access_token_secret = ""
 config.asset = "BTC"
 config.currency = "USD"
 config.currency_symbol = "$"
-config.reducer_report_interval = 30000
+config.reducer_report_interval = 60000
 config.enabled_plugins = [
   //'bitfinex',
   'gdax',
@@ -24,8 +24,6 @@ config.exchanges = [
 config.sim_chunk_size = "7d"
 config.sim_chunks_required = 12
 config.max_slug_length = 17
-config.backfill_status_check = "10s"
-config.backfill_status_timeout = 35000
 config.default_graph_period = '5m'
 config.default_graph_limit = 150
 config.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
