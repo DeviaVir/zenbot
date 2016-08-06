@@ -11,60 +11,50 @@ module.exports = function container (get, set, clear) {
       trades_processed = []
     }
   }, c.reducer_report_interval)
-  return function reducer (t, cb) {
-    var tick = t.tick, thoughts = t.thoughts
-    if (typeof tick.trades === 'undefined') {
-      tick.trades = {
-        vol: 0,
-        trades: 0,
-        buys: 0,
-        buy_vol: 0,
-        exchanges: {},
-        high: 0,
-        low: 100000,
-        close: null,
-        close_time: null,
+  return function thought_reducer (g, cb) {
+    //get('logger').info('trade_reducer', g.bucket.id)
+    var bucket = g.bucket, thoughts = g.thoughts
+    if (typeof bucket.data.trades === 'undefined') {
+      bucket.data.trades = {
+        volume: 0,
+        count: 0,
+        exchanges: {}
+      }
+    }
+    var t = bucket.data.trades
+    thoughts.forEach(function (thought) {
+      if (thought.key !== 'trade') {
+        return
+      }
+      var trade = thought.value
+      trades_processed.push(trade)
+      t.exchanges[trade.exchange] || (t.exchanges[trade.exchange] = {
+        volume: 0,
+        count: 0,
+        buy_count: 0,
+        buy_volume: 0,
         buy_ratio: null,
         side: null,
-        side_vol: null,
-        typical: null
-      }
-    }
-    tick = tick.trades
-    var trades = thoughts.filter(function (thought) {
-      return thought.key === 'trade'
-    }).map(function (thought) {
-      return thought.value
-    })
-    if (!trades.length) {
-      return cb()
-    }
-    trades.forEach(function (trade) {
-      trades_processed.push(trade)
-      tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
-        vol: 0,
-        trades: 0,
-        buys: 0,
-        buy_vol: 0,
-        high: 0,
-        low: 100000,
+        side_volume: null,
         open: null,
+        open_time: null,
+        high: null,
+        low: null,
         close: null,
-        close_time: null
+        close_time: null,
+        typical_price: null
       })
-      var x = tick.exchanges[trade.exchange]
-      x.vol = n(x.vol).add(trade.size).value()
-      tick.vol = n(tick.vol).add(trade.size).value()
-      x.trades++
-      tick.trades++
+      var x = t.exchanges[trade.exchange]
+      x.volume = n(x.volume).add(trade.size).value()
+      t.volume = n(t.volume).add(trade.size).value()
+      x.count++
+      t.count++
       if (trade.side === 'sell') {
-        x.buys++
-        tick.buys++
-        x.buy_vol = n(x.buy_vol).add(trade.size).value()
-        tick.buy_vol = n(tick.buy_vol).add(trade.size).value()
+        x.buy_count++
+        x.buy_volume = n(x.buy_volume).add(trade.size).value()
       }
-      x.buy_ratio = n(x.buy_vol)
-        .divide(x.vol)
+      x.buy_ratio = n(x.buy_volume)
+        .divide(x.volume)
         .value()
       if (x.buy_ratio > 0.5) {
         x.side = 'BUY'
@@ -81,61 +71,25 @@ module.exports = function container (get, set, clear) {
           .subtract(ratio)
           .value()
       }
-      x.side_vol = n(x.vol)
+      x.side_volume = n(x.volume)
         .multiply(ratio)
         .value()
-      if (!x.open || trade.time < x.open_time) {
+      if (x.open === null || trade.time < x.open_time) {
         x.open = trade.price
         x.open_time = trade.time
       }
-      if (!tick.open || x.open_time < tick.open_time) {
-        tick.open = x.open
-        tick.open_time = x.open_time
-      }
-      x.high = Math.max(trade.price, x.high)
-      tick.high = Math.max(tick.high, x.high)
-      x.low = Math.min(trade.price, x.low)
-      tick.low = Math.min(tick.low, x.low)
-      if (!x.close_time || trade.time > x.close_time) {
+      x.high = x.high === null ? trade.price : Math.max(trade.price, x.high)
+      x.low = x.low === null ? trade.price : Math.min(trade.price, x.low)
+      if (!x.close || trade.time > x.close_time) {
         x.close = trade.price
         x.close_time = trade.time
       }
-      if (!tick.close || x.close_time > tick.close_time) {
-        tick.close = x.close
-        tick.close_time = x.close_time
-      }
-      x.typical = n(x.high)
+      x.typical_price = n(x.high)
         .add(x.low)
         .add(x.close)
         .divide(3)
         .value()
     })
-    if (tick.buy_ratio > 0.5) {
-      tick.side = 'BUY'
-    }
-    else if (tick.buy_ratio < 0.5) {
-      tick.side = 'SELL'
-    }
-    else {
-      tick.side = 'EVEN'
-    }
-    tick.buy_ratio = n(tick.buy_vol)
-      .divide(tick.vol)
-      .value()
-    var ratio = tick.buy_ratio
-    if (tick.side === 'SELL') {
-      ratio = n(1)
-        .subtract(ratio)
-        .value()
-    }
-    tick.side_vol = n(tick.vol)
-      .multiply(ratio)
-      .value()
-    tick.typical = n(tick.high)
-      .add(tick.low)
-      .add(tick.close)
-      .divide(3)
-      .value()
     cb()
   }
 }
