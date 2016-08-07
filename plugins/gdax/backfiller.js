@@ -43,9 +43,9 @@ module.exports = function container (get, set, clear) {
       var trades = result.map(function (trade) {
         rs.backfiller_id = rs.backfiller_id ? Math.min(rs.backfiller_id, trade.trade_id) : trade.trade_id
         if (rs.resume_target && rs.backfiller_id === rs.resume_target) {
-          rs.backfiller_id = rs.old_backfiller_id
-          rs.resume_target = null
-          get('logger').info(x.name, 'caught up. resuming after', rs.old_backfiller_id)
+          //rs.backfiller_id = rs.old_backfiller_id
+          //rs.resume_target = null
+          //get('logger').info(x.name, 'caught up. resuming after', rs.old_backfiller_id)
         }
         var obj = {
           id: x.name + '-' + String(trade.trade_id),
