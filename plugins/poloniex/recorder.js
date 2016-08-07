@@ -17,7 +17,7 @@ module.exports = function container (get, set, clear) {
   return function mapper () {
     if (!product_id) return
     function retry () {
-      setTimeout(mapper, x.record_interval)
+      setTimeout(mapper, c.record_timeout)
     }
     var rs = get('run_state')
     rs.poloniex || (rs.poloniex = {})

@@ -43,7 +43,7 @@ module.exports = function container (get, set, clear) {
       rs.backfilled = 0
     }
     function retry () {
-      setImmediate(mapper)
+      setTimeout(mapper, c.backfill_timeout)
     }
     var uri = x.rest_url
     var query = {
