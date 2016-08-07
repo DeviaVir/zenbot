@@ -14,8 +14,8 @@ module.exports = function container (get, set, clear) {
       //console.error('no trade processed')
     }
   }, c.reducer_report_interval)
-  return function thought_reducer (tick, cb) {
-    var queue = tick.queue
+  return function thought_reducer (g, cb) {
+    var tick = g.tick, thoughts = g.thoughts
     //get('logger').info('trade_reducer', g.bucket.id)
     if (typeof tick.data.trades === 'undefined') {
       tick.data.trades = {
@@ -24,14 +24,14 @@ module.exports = function container (get, set, clear) {
         exchanges: {}
       }
     }
-    var t = tick.data.trades
-    queue.forEach(function (thought) {
+    tick = tick.data.trades
+    thoughts.forEach(function (thought) {
       if (thought.key !== 'trade') {
         return
       }
       var trade = thought.value
       trades_processed.push(trade)
-      t.exchanges[trade.exchange] || (t.exchanges[trade.exchange] = {
+      tick.exchanges[trade.exchange] || (tick.exchanges[trade.exchange] = {
         volume: 0,
         count: 0,
         buy_count: 0,
@@ -47,11 +47,11 @@ module.exports = function container (get, set, clear) {
         close_time: null,
         typical_price: null
       })
-      var x = t.exchanges[trade.exchange]
+      var x = tick.exchanges[trade.exchange]
       x.volume = n(x.volume).add(trade.size).value()
-      t.volume = n(t.volume).add(trade.size).value()
+      tick.volume = n(tick.volume).add(trade.size).value()
       x.count++
-      t.count++
+      tick.count++
       if (trade.side === 'sell') {
         x.buy_count++
         x.buy_volume = n(x.buy_volume).add(trade.size).value()
@@ -93,6 +93,6 @@ module.exports = function container (get, set, clear) {
         .divide(3)
         .value()
     })
-    cb()
+    cb(null, g)
   }
 }

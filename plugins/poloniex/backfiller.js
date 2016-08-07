@@ -32,10 +32,10 @@ module.exports = function container (get, set, clear) {
     if (first_run) {
       first_run = false
       if (rs.backfiller_id) {
-        rs.old_backfiller_id = rs.backfiller_id
-        rs.backfiller_id = null
-        rs.resume_target = rs.backfiller_start
-        rs.backfiller_start = null
+        //rs.old_backfiller_id = rs.backfiller_id
+        //rs.backfiller_id = null
+        //rs.resume_target = rs.backfiller_start
+        //rs.backfiller_start = null
       }
     }
     else {
