@@ -61,7 +61,7 @@ module.exports = function container (get, set, clear) {
         map('trade', obj)
         return obj
       })
-      //log_trades(x.name, trades)
+      log_trades(x.name, trades)
       retry()
     })
   }
