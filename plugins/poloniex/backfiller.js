@@ -31,6 +31,7 @@ module.exports = function container (get, set, clear) {
     rs = rs.poloniex
     if (first_run) {
       first_run = false
+      rs.backfiller_id = null
       if (rs.backfiller_id) {
         //rs.old_backfiller_id = rs.backfiller_id
         //rs.backfiller_id = null
@@ -64,9 +65,9 @@ module.exports = function container (get, set, clear) {
         }
         rs.backfiller_id = rs.backfiller_id ? Math.min(rs.backfiller_id, ts_s) : ts_s
         if (rs.resume_target && rs.backfiller_id === rs.resume_target) {
-          rs.backfiller_id = rs.old_backfiller_id
-          rs.resume_target = null
-          get('logger').info(x.name, 'caught up. resuming after', rs.old_backfiller_id)
+          //rs.backfiller_id = rs.old_backfiller_id
+          //rs.resume_target = null
+          //get('logger').info(x.name, 'caught up. resuming after', rs.old_backfiller_id)
         }
         var obj = {
           id: x.name + '-' + String(trade.globalTradeID),
