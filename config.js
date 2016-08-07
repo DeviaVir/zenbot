@@ -13,20 +13,20 @@ config.currency_symbol = "$"
 config.reducer_report_interval = 60000
 config.enabled_plugins = [
   //'bitfinex',
-  'gdax',
-  'poloniex',
-  'ticker_server'
+  "gdax",
+  "poloniex",
+  "ticker_server"
 ]
 config.exchanges = [
-  'gdax',
-  'poloniex'
+  "gdax",
+  "poloniex"
 ]
 config.sim_chunk_size = "7d"
 config.sim_chunks_required = 12
 config.max_slug_length = 17
-config.default_graph_period = '5m'
-config.default_graph_limit = 150
+config.default_graph_period = "15m"
+config.default_graph_limit = 300
 config.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
-config.rsi_exchange = 'gdax'
+config.rsi_exchange = "gdax"
 config.rsi_periods = 14
 config.backfill_stop = new Date().getTime() - 7776000000 // 90 days
