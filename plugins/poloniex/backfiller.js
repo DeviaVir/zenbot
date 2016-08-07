@@ -87,7 +87,7 @@ module.exports = function container (get, set, clear) {
       if (!rs.backfiller_start) {
         rs.backfiller_start = max_id
       }
-      //log_trades(x.name, trades)
+      log_trades(x.name, trades)
       if (min_time < c.backfill_stop) {
         get('logger').info(x.name, 'backfill complete with'.grey, rs.backfilled, 'trades.'.grey)
       }
