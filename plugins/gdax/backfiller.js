@@ -36,7 +36,7 @@ module.exports = function container (get, set, clear) {
       }
     }
     function retry () {
-      setImmediate(mapper)
+      setTimeout(mapper, c.backfill_timeout)
     }
     var uri = x.rest_url + '/products/' + product_id + '/trades?limit=' + x.backfill_limit + (rs.backfiller_id ? '&after=' + rs.backfiller_id : '')
     function withResult (result) {
