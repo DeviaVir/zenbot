@@ -5,8 +5,10 @@ var colors = require('colors')
 module.exports = function container (get, set, clear) {
   var c = get('config')
   var get_timestamp = get('utils.get_timestamp')
+  var start = new Date().getTime()
   return function reporter (tick, cb) {
     var rs = get('run_state')
+    if (tick.time < start) return cb()
     var tick_str = z(12, tick.id.split(':')[1], ' ')
     tick_str = tick_str.substring(0, tick_str.length - 2).grey + tick_str.substring(tick_str.length - 2).cyan
     var slug = z(c.max_slug_length, 'reporter', ' ')

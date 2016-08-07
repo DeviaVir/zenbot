@@ -3,16 +3,16 @@ var n = require('numbro')
   , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
-  return function tick_reducer (g, cb) {
-    //get('logger').info('tick_reducer', g.tick.id)
-    var tick = g.tick, sub_ticks = g.sub_ticks
+  return function tick_reducer (tick, cb) {
+    var queue = tick.queue
+    get('logger').info('tick_reducer', tick.id)
     tick.data.trades || (tick.data.trades = {
       volume: 0,
       count: 0,
       exchanges: {}
     })
     tick = tick.data.trades
-    sub_ticks.forEach(function (sub_tick) {
+    queue.forEach(function (sub_tick) {
       sub_tick = sub_tick.data.trades
       if (!sub_tick) return
       Object.keys(sub_tick.exchanges).forEach(function (slug) {

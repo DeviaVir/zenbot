@@ -14,9 +14,9 @@ module.exports = function container (get, set, clear) {
       //console.error('no trade processed')
     }
   }, c.reducer_report_interval)
-  return function thought_reducer (g, cb) {
+  return function thought_reducer (tick, cb) {
+    var queue = tick.queue
     //get('logger').info('trade_reducer', g.bucket.id)
-    var tick = g.tick, thoughts = g.thoughts
     if (typeof tick.data.trades === 'undefined') {
       tick.data.trades = {
         volume: 0,
@@ -25,7 +25,7 @@ module.exports = function container (get, set, clear) {
       }
     }
     var t = tick.data.trades
-    thoughts.forEach(function (thought) {
+    queue.forEach(function (thought) {
       if (thought.key !== 'trade') {
         return
       }
