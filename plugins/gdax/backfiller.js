@@ -41,9 +41,6 @@ module.exports = function container (get, set, clear) {
     function withResult (result) {
       var max_id, min_time
       var trades = result.map(function (trade) {
-        if (!rs.backfiller_start) {
-          rs.backfiller_start = trade.trade_id
-        }
         rs.backfiller_id = rs.backfiller_id ? Math.min(rs.backfiller_id, trade.trade_id) : trade.trade_id
         if (rs.resume_target && rs.backfiller_id === rs.resume_target) {
           rs.backfiller_id = rs.old_backfiller_id
