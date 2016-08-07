@@ -1,7 +1,7 @@
 {
-  "name": "ticker_server",
-  "spec": "ticker_server",
-  "description": "launch the ticker server",
+  "name": "server",
+  "spec": "server",
+  "description": "launch the server",
   "options": [
     {
       "name": "port",
