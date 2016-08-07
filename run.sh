@@ -1,2 +1,2 @@
 #!/bin/bash
-zenbot launch map --backfill reduce run ticker_server
+zenbot launch map --backfill reduce run server

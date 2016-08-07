@@ -11,8 +11,10 @@ module.exports = function container (get, set, clear) {
     if (!trades.length) return
     var rs = get('run_states')
     var vol = 0, buy_vol = 0, total_price = 0
-    var max_time
+    var max_time, asset, currency
     trades.forEach(function (trade) {
+      asset = trade.asset
+      currency = trade.currency
       vol = n(vol).add(trade.size).value()
       if (trade.side === 'sell') {
         buy_vol = n(buy_vol).add(trade.size).value()
@@ -24,7 +26,7 @@ module.exports = function container (get, set, clear) {
     var buy_ratio = n(buy_vol).divide(vol).value()
     var dominant_side = z(4, buy_ratio < 0.5 ? 'SELL' : 'BUY', ' ')
     var dominant_vol = (buy_ratio < 0.5 ? n(vol).subtract(buy_vol) : n(buy_vol)).format('0.000')
-    var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(12, n(avg_price).format('0.00'), ' ').yellow + ' ' + c.currency.grey
+    var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(12, n(avg_price).format('0.00'), ' ').yellow + ' ' + (asset + '/' + currency).grey
     ticker = get_timestamp(max_time).grey + ' ' + ticker
     var tick_str = get_tick_str(tick_id || tb(max_time).resize(c.bucket_size).toString())
     get('logger').info(z(c.max_slug_length, slug, ' '), tick_str + z(7, trades.length, ' ') + ' trades. '.grey + ticker)

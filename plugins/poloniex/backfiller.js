@@ -1,113 +1,86 @@
-/*
-https://poloniex.com/support/api/
-https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_NXT&start=1410158341&end=1410499372
-https://poloniex.com/public?command=returnTradeHistory&currencyPair=USDT_BTC
-*/
+var request = require('micro-request')
+  , n = require('numbro')
+  , tb = require('timebucket')
+
 
 var request = require('micro-request')
   , n = require('numbro')
   , z = require('zero-fill')
   , sig = require('sig')
   , tb = require('timebucket')
-  , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.poloniex')
   var c = get('config')
   var log_trades = get('utils.log_trades')
-  var product_id
+  var get_products = get('utils.get_products')
+  var is_backfilled = get('utils.is_backfilled')
   var map = get('map')
-  x.products.forEach(function (product) {
-    if (product.asset === c.asset && product.currency === c.currency) {
-      product_id = product.id
-    }
-  })
-  var first_run = true
   return function mapper () {
+    var products = get_products(x)
     var options = get('options')
-    if (!options.backfill || !product_id) return
+    if (!options.backfill || !products.length) return
     var rs = get('run_state')
-    rs.poloniex || (rs.poloniex = {})
-    rs = rs.poloniex
-    if (first_run) {
-      first_run = false
-      rs.backfiller_id = null
-      if (rs.backfiller_id) {
-        //rs.old_backfiller_id = rs.backfiller_id
-        //rs.backfiller_id = null
-        //rs.resume_target = rs.backfiller_start
-        //rs.backfiller_start = null
+    rs[x.name] || (rs[x.name] = {})
+    rs = rs[x.name]
+    products.forEach(function (product) {
+      rs[product.id] || (rs[product.id] = {})
+      var s = rs[product.id]
+      function retry () {
+        setTimeout(getNext, c.backfill_timeout)
       }
-    }
-    else {
-      rs.backfilled = 0
-    }
-    function retry () {
-      setTimeout(mapper, c.backfill_timeout)
-    }
-    var uri = x.rest_url
-    var query = {
-      command: 'returnTradeHistory',
-      currencyPair: product_id,
-      start: Math.round(tb().resize('1h').subtract(2).toMilliseconds() / 1000)
-    }
-    if (rs.backfiller_id) {
-      query.end = rs.backfiller_id
-      query.start = Math.round(tb('s', rs.backfiller_id).resize('1h').subtract(2).toMilliseconds() / 1000)
-    }
-    function withResult (result) {
-      var max_id, min_time
-      var trades = result.map(function (trade) {
-        var ts = new Date(trade.date + ' GMT').getTime()
-        var ts_s = n(ts).divide(1000).value()
-        if (!rs.backfiller_start) {
-          rs.backfiller_start = ts_s
+      function getNext () {
+        function withResult (result) {
+          var trades = result.map(function (trade) {
+            var ts = new Date(trade.date + ' GMT').getTime()
+            var ts_s = n(ts).divide(1000).value()
+            s.backfiller_id = s.backfiller_id ? Math.min(s.backfiller_id, ts_s) : ts_s
+            var obj = {
+              id: x.name + '-' + String(trade.globalTradeID),
+              trade_id: trade.globalTradeID,
+              time: ts,
+              asset: product.asset,
+              currency: product.currency,
+              size: n(trade.amount).value(),
+              price: n(trade.rate).value(),
+              side: trade.type,
+              exchange: x.name
+            }
+            map('trade', obj)
+            return obj
+          })
+          log_trades(x.name, trades)
+          if (is_backfilled(trades)) {
+            get('logger').info(x.name, 'backfill complete'.grey)
+          }
+          else {
+            retry()
+          }
         }
-        rs.backfiller_id = rs.backfiller_id ? Math.min(rs.backfiller_id, ts_s) : ts_s
-        if (rs.resume_target && rs.backfiller_id === rs.resume_target) {
-          //rs.backfiller_id = rs.old_backfiller_id
-          //rs.resume_target = null
-          //get('logger').info(x.name, 'caught up. resuming after', rs.old_backfiller_id)
+        var uri = x.rest_url
+        var query = {
+          command: 'returnTradeHistory',
+          currencyPair: product.id,
+          start: Math.round(tb().resize('1h').subtract(2).toMilliseconds() / 1000)
         }
-        var obj = {
-          id: x.name + '-' + String(trade.globalTradeID),
-          trade_id: trade.globalTradeID,
-          time: ts,
-          size: n(trade.amount).value(),
-          price: n(trade.rate).value(),
-          side: trade.type,
-          exchange: x.name
+        if (s.backfiller_id) {
+          query.end = s.backfiller_id
+          query.start = Math.round(tb('s', s.backfiller_id).resize('1h').subtract(2).toMilliseconds() / 1000)
         }
-        max_id = max_id ? Math.max(ts, max_id) : max_id
-        min_time = min_time ? Math.min(obj.time, min_time) : min_time
-        rs.backfilled++
-        map('trade', obj)
-        return obj
-      })
-      if (!rs.backfiller_start) {
-        rs.backfiller_start = max_id
+        request(uri, {query: query, headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
+          if (err) {
+            get('logger').error(x.name + ' backfiller err', err, {feed: 'errors'})
+            return retry()
+          }
+          if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
+            console.error(result)
+            get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {feed: 'errors'})
+            return retry()
+          }
+          withResult(result)
+        })
       }
-      log_trades(x.name, trades)
-      if (min_time < c.backfill_stop) {
-        get('logger').info(x.name, 'backfill complete with'.grey, rs.backfilled, 'trades.'.grey)
-      }
-      else {
-        retry()
-      }
-    }
-    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey, query, {feed: 'backfiller'})
-    request(uri, {query: query, headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
-      if (err) {
-        console.error('error', err)
-        get('logger').error(x.name + ' backfiller err', err, {feed: 'errors'})
-        return retry()
-      }
-      if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
-        console.error(result)
-        get('logger').error(x.name + ' backfiller non-200 status: ' + resp.statusCode, {feed: 'errors'})
-        return retry()
-      }
-      withResult(result)
+      getNext()
     })
   }
 }
