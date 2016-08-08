@@ -1,6 +1,5 @@
 var request = require('micro-request')
   , n = require('numbro')
-  , z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.gdax')

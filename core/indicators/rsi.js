@@ -4,7 +4,7 @@ var n = require('numbro')
 
 module.exports = function container (get, set, clear) {
   var c = get('config')
-  return function tick_handler (tick, cb) {
+  return function tick_reducer (g, cb) {
     //console.error('rsi', tick.id)
     var rs = get('run_state')
     rs.rsi || (rs.rsi = {})
@@ -15,6 +15,7 @@ module.exports = function container (get, set, clear) {
       //console.error('no trades', tick.id)
       return cb()
     }
+    Object.keys()
     var x = tick.data.trades.exchanges[c.rsi_exchange]
     if (!x) {
       return cb()

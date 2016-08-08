@@ -2,13 +2,6 @@ var request = require('micro-request')
   , n = require('numbro')
   , tb = require('timebucket')
 
-
-var request = require('micro-request')
-  , n = require('numbro')
-  , z = require('zero-fill')
-  , sig = require('sig')
-  , tb = require('timebucket')
-
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.poloniex')
   var c = get('config')
