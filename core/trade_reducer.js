@@ -30,22 +30,22 @@ module.exports = function container (get, set, clear) {
       d[e] || (d[e] = {})
       var pair = trade.asset + '-' + trade.currency
       d[e][pair] || (d[e][pair] = tick_defaults())
-      var x = d[e][pair]
-      x.volume = n(x.volume).add(trade.size).value()
-      x.count++
+      var de = d[e][pair]
+      de.volume = n(de.volume).add(trade.size).value()
+      de.count++
       if (trade.side === 'sell') {
-        x.buy_count++
-        x.buy_volume = n(x.buy_volume).add(trade.size).value()
+        de.buy_count++
+        de.buy_volume = n(de.buy_volume).add(trade.size).value()
       }
-      if (x.open === null || trade.time < x.open_time) {
-        x.open = trade.price
-        x.open_time = trade.time
+      if (de.open === null || trade.time < de.open_time) {
+        de.open = trade.price
+        de.open_time = trade.time
       }
-      x.high = x.high === null ? trade.price : Math.max(trade.price, x.high)
-      x.low = x.low === null ? trade.price : Math.min(trade.price, x.low)
-      if (!x.close || trade.time > x.close_time) {
-        x.close = trade.price
-        x.close_time = trade.time
+      de.high = de.high === null ? trade.price : Math.max(trade.price, de.high)
+      de.low = de.low === null ? trade.price : Math.min(trade.price, de.low)
+      if (!de.close || trade.time > de.close_time) {
+        de.close = trade.price
+        de.close_time = trade.time
       }
     })
     cb(null, g)

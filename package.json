@@ -21,6 +21,7 @@
     "motley-templ": "^2.0.4",
     "multi-progress": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
+    "object-get": "^2.1.0",
     "os-monitor": "^1.0.4",
     "run-parallel": "^1.1.6",
     "run-parallel-limit": "^1.0.3",
