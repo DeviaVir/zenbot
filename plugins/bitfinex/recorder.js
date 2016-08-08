@@ -40,7 +40,7 @@ module.exports = function container (get, set, clear) {
           log_trades(x.name, trades)
           retry()
         }
-        var uri = x.rest_url + '/trades/' + product.id + (rs.recorder_id ? '?timestamp=' + rs.recorder_id : '')
+        //var uri = x.rest_url + '/trades/' + product.id + (rs.recorder_id ? '?timestamp=' + rs.recorder_id : '')
         get('logger').info(x.name, uri.grey)
         request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
           if (err) {
