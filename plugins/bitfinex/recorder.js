@@ -48,7 +48,7 @@ module.exports = function container (get, set, clear) {
             return retry()
           }
           if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
-            console.error(result)
+            //console.error(result)
             get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {feed: 'errors'})
             return retry()
           }
