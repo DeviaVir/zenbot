@@ -18,7 +18,7 @@ module.exports = function container (get, set, clear) {
       rs[product.id] || (rs[product.id] = {})
       var s = rs[product.id]
       function retry () {
-        setTimeout(getNext, x.record_timeout)
+        setTimeout(getNext, c.record_timeout)
       }
       function getNext () {
         function withResult (result) {
