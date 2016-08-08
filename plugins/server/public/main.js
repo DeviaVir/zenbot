@@ -193,7 +193,7 @@ $('.ticker-graph').each(function () {
             .verticalWireRange([0, dim.plot.height]);
 
     var svg = d3.select("body").append("svg")
-            .attr("viewBox", "0 0 1200 650")
+            .attr("viewBox", "0 0 1200 600")
             .attr("width", dim.width)
             .attr("height", dim.height);
 
