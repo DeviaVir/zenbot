@@ -4,7 +4,7 @@ var moment = require('moment')
 
 module.exports = function container (get, set) {
   var c = get('zenbrain:config')
-  var get_currency_format = get('zenbrain:utils.get_currency_format')
+  var format_currency = get('zenbrain:utils.format_currency')
   return get('controller')()
     .get('/data.csv', function (req, res, next) {
       res.setHeader('Content-Type', 'text/csv')
@@ -29,7 +29,6 @@ module.exports = function container (get, set) {
           var x = o(tick, 'data.trades.' + selector)
           var currency = selector.split('-')[1]
           var asset = selector.split('.')[1].split('-')[0]
-          var format = get_currency_format(currency)
           var line = [
             tick.time,
             n(x.open).format('0.00'),
@@ -37,7 +36,7 @@ module.exports = function container (get, set) {
             n(x.low).format('0.00'),
             n(x.close).format('0.00'),
             x.volume,
-            n(x.close).format(format) + ' ' + asset + '/' + currency + ' (' + exchange + ')'
+            format_currency(x.close, currency) + ' ' + asset + '/' + currency + ' (' + exchange + ')'
           ].join(',')
           res.write(line + '\n')
         })

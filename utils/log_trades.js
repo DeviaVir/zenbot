@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
   var get_timestamp = get('utils.get_timestamp')
   var get_tick_str = get('utils.get_tick_str')
   var app_name = get('app_name')
-  var get_currency_format = get('utils.get_currency_format')
+  var format_currency = get('utils.format_currency')
   return function log_trades (slug, trades) {
     if (!trades.length) return
     var rs = get('run_states')
@@ -28,7 +28,7 @@ module.exports = function container (get, set, clear) {
     var buy_ratio = n(buy_vol).divide(vol).value()
     var dominant_side = z(4, buy_ratio < 0.5 ? 'SELL' : 'BUY', ' ')
     var dominant_vol = (buy_ratio < 0.5 ? n(vol).subtract(buy_vol) : n(buy_vol)).format('0.000')
-    var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(12, n(avg_price).format(get_currency_format(currency)), ' ').yellow + ' ' + (asset + '/' + currency).grey
+    var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(12, format_currency(avg_price, currency), ' ').yellow + ' ' + (asset + '/' + currency).grey
     ticker = get_timestamp(max_time).grey + ' ' + ticker
     var tick_str = get_tick_str(app_name + ':' + tb(max_time).resize(c.bucket_size).toString())
     get('logger').info(slug, tick_str + z(7, trades.length, ' ') + ' trades. '.grey + ticker)
