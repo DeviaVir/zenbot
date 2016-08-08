@@ -1,8 +1,8 @@
 $('.ticker-graph').each(function () {
   var dim = {
-        width: 1200, height: 640,
+        width: 1200, height: 600,
         margin: { top: 20, right: 50, bottom: 10, left: 50 },
-        ohlc: { height: 460 },
+        ohlc: { height: 420 },
         indicator: { height: 90, padding: 10 }
     };
     dim.plot = {
