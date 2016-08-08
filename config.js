@@ -6,7 +6,6 @@ c.twitter_key = "" // create a twitter app, generate an access token, and add it
 c.twitter_secret = ""
 c.twitter_access_token = ""
 c.twitter_access_token_secret = ""
-
 c.assets = [
   "BTC",
   "ETH",
@@ -28,7 +27,6 @@ c.exchanges = [
   "gdax",
   "poloniex"
 ]
-
 c.default_graph_period = "15m"
 c.default_graph_limit = 300
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
@@ -37,3 +35,4 @@ c.rsi_periods = 14
 c.backfill_days = 90
 c.record_timeout = 20000
 c.backfill_timeout = 5000
+c.trade_report_interval = 5000

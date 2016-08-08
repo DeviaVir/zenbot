@@ -3,9 +3,8 @@ module.exports = {
   _maps: [
     require('./indicators/_codemap')
   ],
-  'thought_reducers[]': require('./trade_reducer'),
   'reporters[]': require('./reporter'),
-  'thinkers[]': require('./thinker'),
+  tick_defaults: require('./tick_defaults'),
   'tick_reducers[]': require('./tick_reducer'),
-  trade_reducer: require('./trade_reducer')
+  'thought_reducers[]': require('./trade_reducer'),
 }

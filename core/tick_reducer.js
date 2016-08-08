@@ -3,79 +3,59 @@ var n = require('numbro')
   , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
+  var tick_defaults = get('tick_defaults')
   return function tick_reducer (g, cb) {
     var tick = g.tick, sub_tick = g.sub_tick
     //get('logger').info('tick_reducer', tick.id)
-    tick.data.trades || (tick.data.trades = {
-      volume: 0,
-      count: 0,
-      exchanges: {}
-    })
-    tick = tick.data.trades
-    if (!tick) return cb(null, g)
-    if (!sub_tick.data.trades) return cb(null, g)
-    sub_tick = sub_tick.data.trades
-    Object.keys(sub_tick.exchanges).forEach(function (slug) {
-      tick.exchanges[slug] || (tick.exchanges[slug] = {
-        volume: 0,
-        count: 0,
-        buy_count: 0,
-        buy_volume: 0,
-        buy_ratio: null,
-        side: null,
-        side_volume: null,
-        open: null,
-        open_time: null,
-        high: null,
-        low: null,
-        close: null,
-        close_time: null,
-        typical_price: null
-      })
-      var x = tick.exchanges[slug]
-      var s = sub_tick.exchanges[slug]
-      x.volume = n(x.volume).add(s.volume).value()
-      tick.volume = n(tick.volume).add(sub_tick.volume).value()
-      x.count = n(x.count).add(s.count).value()
-      tick.count = n(tick.count).add(sub_tick.count).value()
-      x.buy_count = n(x.buy_count).add(s.buy_count).value()
-      x.buy_volume = n(x.buy_volume).add(s.buy_volume).value()
-      x.buy_ratio = n(x.buy_volume)
-        .divide(x.volume)
-        .value()
-      if (x.buy_ratio > 0.5) {
-        x.side = 'BUY'
-      }
-      else if (x.buy_ratio < 0.5) {
-        x.side = 'SELL'
-      }
-      else {
-        x.side = 'EVEN'
-      }
-      var ratio = x.buy_ratio
-      if (x.side === 'SELL') {
-        ratio = n(1)
-          .subtract(ratio)
+    tick.data.trades || (tick.data.trades = {})
+    var s = sub_tick.data.trades
+    if (!s) return cb(null, g)
+    var d = tick.data.trades
+    Object.keys(s).forEach(function (e) {
+      d[e] || (d[e] = {})
+      Object.keys(s[e]).forEach(function (pair) {
+        d[e][pair] || (d[e][pair] = tick_defaults())
+        var de = d[e][pair]
+        var se = s[e][pair]
+        de.volume = n(de.volume).add(se.volume).value()
+        de.count = n(de.count).add(se.count).value()
+        de.buy_count = n(de.buy_count).add(se.buy_count).value()
+        de.buy_volume = n(de.buy_volume).add(se.buy_volume).value()
+        de.buy_ratio = n(de.buy_volume).divide(se.volume).value()
+        if (de.buy_ratio > 0.5) {
+          de.side = 'BUY'
+        }
+        else if (de.buy_ratio < 0.5) {
+          de.side = 'SELL'
+        }
+        else {
+          de.side = 'EVEN'
+        }
+        var ratio = de.buy_ratio
+        if (de.side === 'SELL') {
+          ratio = n(1)
+            .subtract(ratio)
+            .value()
+        }
+        de.side_volume = n(de.volume)
+          .multiply(ratio)
           .value()
-      }
-      x.side_volume = n(x.volume)
-        .multiply(ratio)
-        .value()
-      if (x.open === null || s.open_time < x.open_time) {
-        x.open = s.open
-        x.open_time = s.open_time
-      }
-      x.high = x.high === null ? s.high : Math.max(s.high, x.high)
-      x.low = x.low === null ? s.low : Math.min(s.low, x.low)
-      if (x.close === null || s.close_time > x.close_time) {
-        x.close = s.close
-        x.close_time = s.close_time
-      }
-      x.typical_price = n(x.high)
-        .add(x.low)
-        .add(x.close)
-        .divide(3)
-        .value()
+        if (de.open === null || se.open_time < de.open_time) {
+          de.open = se.open
+          de.open_time = se.open_time
+        }
+        de.high = de.high === null ? se.high : Math.max(se.high, de.high)
+        de.low = de.low === null ? se.low : Math.min(se.low, de.low)
+        if (de.close === null || se.close_time > de.close_time) {
+          de.close = se.close
+          de.close_time = se.close_time
+        }
+        de.typical_price = n(de.high)
+          .add(de.low)
+          .add(de.close)
+          .divide(3)
+          .value()
+      })
     })
     cb(null, g)
   }
