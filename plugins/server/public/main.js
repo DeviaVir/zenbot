@@ -1,9 +1,9 @@
 $('.ticker-graph').each(function () {
   var dim = {
-        width: 1200, height: 680,
-        margin: { top: 20, right: 50, bottom: 30, left: 50 },
+        width: 1200, height: 640,
+        margin: { top: 20, right: 50, bottom: 10, left: 50 },
         ohlc: { height: 460 },
-        indicator: { height: 65, padding: 20 }
+        indicator: { height: 90, padding: 10 }
     };
     dim.plot = {
         width: dim.width - dim.margin.left - dim.margin.right,
