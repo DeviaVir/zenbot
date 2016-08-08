@@ -27,6 +27,10 @@ c.default_graph_period = "15m"
 c.default_graph_limit = 300
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 c.graph_selectors = [
+  "gdax.BTC-USD",
+  "gdax.BTC-EUR",
+  "gdax.ETH-USD",
+  "poloniex.BTC-USD",
   "bitfinex.BTC-USD",
   "bitfinex.ETH-USD",
   "bitfinex.ETH-BTC",
@@ -34,11 +38,7 @@ c.graph_selectors = [
   "bitfinex.LTC-USD",
   "bitfinex.LTC-BTC",
   "bitfinex.ETC-BTC",
-  "bitfinex.ETC-USD",
-  "gdax.BTC-USD",
-  "gdax.BTC-EUR",
-  "gdax.ETH-USD",
-  "poloniex.BTC-USD"
+  "bitfinex.ETC-USD"
 ]
 c.rsi_query_limit = 100
 c.rsi_periods = 14
