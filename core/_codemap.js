@@ -7,4 +7,5 @@ module.exports = {
   tick_defaults: require('./tick_defaults'),
   'tick_reducers[]': require('./tick_reducer'),
   'thought_reducers[]': require('./trade_reducer'),
+  reporter_cols: []
 }
