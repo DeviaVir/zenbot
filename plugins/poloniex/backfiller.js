@@ -44,7 +44,7 @@ module.exports = function container (get, set, clear) {
           })
           log_trades(x.name, trades)
           if (is_backfilled(trades)) {
-            get('logger').info(x.name, 'backfill complete'.grey)
+            get('logger').info(x.name, (product.asset + '/' + product.currency + ' backfill complete').grey)
           }
           else {
             retry()
