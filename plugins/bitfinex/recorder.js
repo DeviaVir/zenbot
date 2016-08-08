@@ -52,7 +52,7 @@ module.exports = function container (get, set, clear) {
             get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {feed: 'errors'})
             return retry()
           }
-          console.error('result', result)
+          //console.error('result', result)
           withResult(result)
         })
       }
