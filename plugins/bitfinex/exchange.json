@@ -1,7 +1,6 @@
 {
   "name": "bitfinex",
   "rest_url": "https://api.bitfinex.com/v1",
-  "record_timeout": 120000,
   "products": [
     {
       "id":"BTCUSD",
