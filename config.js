@@ -32,6 +32,18 @@ c.default_graph_limit = 300
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 c.rsi_query_limit = 100
 c.rsi_periods = 14
+c.rsi_reporter_selector = "gdax.BTC-USD"
+c.price_reporter_selector = "gdax.BTC-USD"
+c.price_reporter_length = 8
+c.price_reporter_format = "$,0.00"
+c.reporter_cols = [
+  "tick_id",
+  "timestamp",
+  "num_trades",
+  "volume",
+  "price",
+  "rsi"
+]
 c.backfill_days = 90
 c.record_timeout = 20000
 c.backfill_timeout = 5000

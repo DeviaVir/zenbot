@@ -1,23 +1,24 @@
 var colors = require('colors')
   , n = require('numbro')
-  , z = require('zero-fill')
+  , o = require('object-get')
 
 module.exports = function container (get, set, clear) {
   var c = get('config')
-  var get_timestamp = get('utils.get_timestamp')
-  var start = new Date().getTime()
+  var apply_funcs = get('utils.apply_funcs')
+  var reporter_cols = c.reporter_cols.map(function (i) {
+    return get('reporter_cols.' + i)
+  })
   return function reporter (tick, cb) {
+    if (!tick.data.trades) return cb()
     var rs = get('run_state')
-    //if (tick.time < start) return cb()
-    var tick_str = z(11, tick.id.split(':')[1], ' ')
-    tick_str = tick_str.substring(0, tick_str.length - 2).grey + tick_str.substring(tick_str.length - 2).cyan
-    var rsi = ''
-    if (rs.rsi && rs.rsi[tick.size]) {
-      if (rs.rsi[tick.size].tick_id === tick.id) {
-        rsi = 'RSI:'.grey + rs.rsi[tick.size].ansi
-      }
+    var g = {
+      tick: tick,
+      cols: []
     }
-    get('logger').info('reporter', tick_str, z(6, tick.data.trades.count, ' '), get_timestamp(tick.time).grey, n(tick.data.trades.volume).format('0.000').white, rsi)
-    cb()
+    apply_funcs(g, reporter_cols, function (err, g) {
+      if (err) return cb(err)
+      get('logger').info('reporter', g.cols.join(' '))
+      cb()
+    })
   }
 }
