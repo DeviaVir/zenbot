@@ -23,19 +23,20 @@ c.enabled_plugins = [
   "poloniex",
   "server"
 ]
-c.exchanges = [
-  "gdax",
-  "poloniex"
-]
 c.default_graph_period = "15m"
 c.default_graph_limit = 300
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
+c.graph_selectors = [
+  "gdax.BTC-USD",
+  "gdax.BTC-EUR",
+  "gdax.ETH-USD",
+  "poloniex.BTC-USD"
+]
 c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 8
-c.price_reporter_format = "$,0.00"
 c.reporter_cols = [
   "tick_id",
   "timestamp",

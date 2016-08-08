@@ -1,8 +1,8 @@
 <div class="ticker-graph"></div>
 <form class="options" onchange="javascript:this.submit()">
-<select name="exchange">
-{{#each exchanges}}
-<option value="{{exchange}}"{{#if is_default}} selected{{/if}}>{{exchange}}</option>
+<select name="selector">
+{{#each selectors}}
+<option value="{{selector}}"{{#if is_default}} selected{{/if}}>{{selector}}</option>
 {{/each}}
 </select>
 <select name="period">
