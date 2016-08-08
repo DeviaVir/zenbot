@@ -6,8 +6,12 @@ var n = require('numbro')
 
 module.exports = function container (get, set, clear) {
   var c = get('config')
+  var start = new Date().getTime()
   return function tick_reducer (g, cb) {
     var tick = g.tick, sub_tick = g.sub_tick
+    // this operation is expensive (querying for lookback ticks)
+    // so only perform it for future ticks and not backfilled ones.
+    if (tick.time < start) return cb()
     if (!tick.data.trades) return cb()
     var bucket = tb(tick.time).resize(tick.size)
     var d = tick.data.trades
