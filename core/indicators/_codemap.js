@@ -1,6 +1,6 @@
 module.exports = {
   _ns: 'zenbrain',
-  'tick_reducers[]': [
-    //require('./rsi')
+  'tick_reducers[10]': [
+    require('./rsi')
   ]
 }

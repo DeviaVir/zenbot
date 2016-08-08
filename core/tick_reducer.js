@@ -21,7 +21,7 @@ module.exports = function container (get, set, clear) {
         de.count = n(de.count).add(se.count).value()
         de.buy_count = n(de.buy_count).add(se.buy_count).value()
         de.buy_volume = n(de.buy_volume).add(se.buy_volume).value()
-        de.buy_ratio = n(de.buy_volume).divide(se.volume).value()
+        de.buy_ratio = n(de.buy_volume).divide(de.volume).value()
         if (de.buy_ratio > 0.5) {
           de.side = 'BUY'
         }
