@@ -55,5 +55,5 @@ c.reporter_cols = [
 ]
 c.backfill_days = 90
 c.record_timeout = 20000
-c.backfill_timeout = 5000
-c.trade_report_interval = 5000
+c.backfill_timeout = 10000
+c.trade_report_interval = 20000

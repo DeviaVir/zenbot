@@ -91,7 +91,7 @@ module.exports = function container (get, set, clear) {
           //console.error(gain_sum, avg_gain, loss_sum, avg_loss, avg_gain_2, avg_loss_2, relative_strength)
           r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
           r.samples++
-          /*
+          // /*
           r.close_lookback = close_lookback
           r.current_gain = current_gain
           r.current_loss = current_loss
@@ -102,7 +102,7 @@ module.exports = function container (get, set, clear) {
           r.avg_gain_2 = avg_gain_2
           r.avg_loss_2 = avg_loss_2
           r.relative_strength = relative_strength || null
-          */
+          // */
         })
       })
       cb()
