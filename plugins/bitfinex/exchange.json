@@ -3,7 +3,7 @@
   "rest_url": "https://api.bitfinex.com/v1",
   "products": [
     {
-      "id":"BTCUSD",
+      "id":"btcusd",
       "asset":"BTC",
       "currency":"USD",
       "min_size":0.01,
@@ -12,7 +12,7 @@
       "label":"BTC/USD"
     },
     {
-      "id":"ETHUSD",
+      "id":"ethusd",
       "asset":"ETH",
       "currency":"USD",
       "min_size":0.01,
@@ -21,7 +21,7 @@
       "label":"ETH/USD"
     },
 	{
-      "id":"ETHBTC",
+      "id":"ethbtc",
       "asset":"ETH",
       "currency":"BTC",
       "min_size":0.01,
@@ -30,7 +30,7 @@
       "label":"ETH/BTC"
     },
     {
-      "id":"LTCUSD",
+      "id":"ltcusd",
       "asset":"LTC",
       "currency":"USD",
       "min_size":0.01,
@@ -39,13 +39,31 @@
       "label":"LTC/USD"
     },
     {
-      "id":"LTCBTC",
+      "id":"ltcbtc",
       "asset":"LTC",
       "currency":"BTC",
       "min_size":0.01,
       "max_size":10000,
       "increment":0.00001,
       "label":"LTC/BTC"
+    },
+    {
+      "id":"etcbtc",
+      "asset":"ETC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.00001,
+      "label":"ETC/BTC"
+    },
+    {
+      "id":"etcusd",
+      "asset":"ETC",
+      "currency":"USD",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.00001,
+      "label":"ETC/USD"
     }
   ]
 }
