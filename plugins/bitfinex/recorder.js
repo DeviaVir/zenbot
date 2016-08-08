@@ -1,60 +1,62 @@
 var request = require('micro-request')
   , n = require('numbro')
-  , z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.bitfinex')
   var c = get('config')
   var log_trades = get('utils.log_trades')
-  var product_id
+  var get_products = get('utils.get_products')
   var map = get('map')
-  var trade_ids = []
-  x.products.forEach(function (product) {
-    if (product.asset === c.asset && product.currency === c.currency) {
-      product_id = product.id
-    }
-  })
   return function mapper () {
-    if (!product_id) return
-    function retry () {
-      setTimeout(mapper, x.record_interval)
-    }
+    var products = get_products(x)
+    var options = get('options')
+    if (!products.length) return
     var rs = get('run_state')
-    var uri = x.rest_url + '/trades/' + product_id + (rs.bitfinex_max_timestamp ? '?timestamp=' + rs.bitfinex_max_timestamp : '')
-    //get('logger').info(z(c.max_slug_length, 'GET', ' '), uri.grey)
-    request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
-      if (err) {
-        get('logger').error('bitfinex recorder err', err, {public: false})
-        return retry()
+    rs[x.name] || (rs[x.name] = {})
+    rs = rs[x.name]
+    products.forEach(function (product) {
+      rs[product.id] || (rs[product.id] = {})
+      var s = rs[product.id]
+      function retry () {
+        setTimeout(getNext, x.record_timeout)
       }
-      if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
-        console.error(result)
-        get('logger').error('bitfinex non-200 status: ' + resp.statusCode, {feed: 'errors'})
-        return retry()
-      }
-      var trades = result.map(function (trade) {
-        rs.bitfinex_max_timestamp = rs.bitfinex_max_timestamp ? Math.max(rs.bitfinex_max_timestamp, trade.timestamp) : trade.timestamp
-        var obj = {
-          id: x.name + '-' + String(trade.tid),
-          time: n(trade.timestamp).multiply(1000).value(),
-          size: n(trade.amount).value(),
-          price: n(trade.price).value(),
-          side: trade.type,
-          exchange: x.name
+      function getNext () {
+        function withResult (result) {
+          var trades = result.map(function (trade) {
+            s.recorder_id = s.recorder_id ? Math.max(s.recorder_id, trade.timestamp) : trade.timestamp
+            var obj = {
+              id: x.name + '-' + String(trade.tid),
+              time: n(trade.timestamp).multiply(1000).value(),
+              asset: product.asset,
+              currency: product.currency,
+              size: n(trade.amount).value(),
+              price: n(trade.price).value(),
+              side: trade.type,
+              exchange: x.name
+            }
+            map('trade', obj)
+            return obj
+          })
+          log_trades(x.name, trades)
+          retry()
         }
-        map('trade', obj)
-        return obj
-      }).filter(function (trade) {
-        var is_new = trade_ids.indexOf(trade.id) === -1
-        if (is_new) {
-          trade_ids.push(trade.id)
-        }
-        return is_new
-      })
-      if (trades.length) {
-        log_trades(x.name + ' recorder', trades)
+        var uri = x.rest_url + '/trades/' + product.id + (rs.recorder_id ? '?timestamp=' + rs.recorder_id : '')
+        get('logger').info(x.name, uri.grey)
+        request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
+          if (err) {
+            get('logger').error(x.name + ' recorder err', err, {public: false})
+            return retry()
+          }
+          if (resp.statusCode !== 200 || toString.call(result) !== '[object Array]') {
+            console.error(result)
+            get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {feed: 'errors'})
+            return retry()
+          }
+          console.error('result', result)
+          withResult(result)
+        })
       }
-      retry()
+      getNext()
     })
   }
 }

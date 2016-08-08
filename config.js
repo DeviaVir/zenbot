@@ -18,7 +18,7 @@ c.currencies = [
 ]
 c.reducer_report_interval = 60000
 c.enabled_plugins = [
-  //'bitfinex',
+  "bitfinex",
   "gdax",
   "poloniex",
   "server"
