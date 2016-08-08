@@ -379,6 +379,8 @@ $('.ticker-graph').each(function () {
             return
           }
           document.title = last.caption + ' - zenbot'
+          svg.select(".symbol")
+            .text(last.caption)
           svg.select("g.volume").datum(data)
 
           svg.select("g.close.annotation").remove()
