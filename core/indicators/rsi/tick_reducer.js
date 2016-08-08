@@ -25,11 +25,11 @@ module.exports = function container (get, set, clear) {
       },
       limit: c.rsi_query_limit,
       sort: {
-        time: 1
+        time: -1
       }
     }, function (err, lookback) {
       if (err) return done(err)
-      withLookback(lookback)
+      withLookback(lookback.reverse())
     })
     function withLookback (lookback) {
       Object.keys(d).forEach(function (e) {
