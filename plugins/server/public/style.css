@@ -50,7 +50,7 @@ body {
     .close.annotation.up path {
         stroke: #8ff;
         stroke-width: 1;
-        fill: #1f2d35;
+        fill: #8ff;
     }
 
     .close.annotation.up text {
