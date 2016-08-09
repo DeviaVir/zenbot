@@ -230,6 +230,13 @@ body {
     color: #888;
 }
 
+.no-data {
+    display: none;
+    color: #888;
+    font-size: 80px;
+    text-align: center;
+} 
+
 .options {
     display: block;
     position: absolute;
