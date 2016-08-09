@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+}
+
 body {
         font: 10px sans-serif;
         background-color: #1f2d35;
@@ -226,8 +230,9 @@ body {
     color: #888;
 }
 
-.content {
+.options {
+    display: block;
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 40px;
+    left: 40px;
 }
