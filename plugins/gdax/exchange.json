@@ -2,7 +2,7 @@
   "name": "gdax",
   "rest_url": "https://api.gdax.com",
   "backfill_limit": 100,
-  "backfill_timeout": 100,
+  "backfill_timeout": 2000,
   "products": [
     {
       "id":"BTC-USD",
