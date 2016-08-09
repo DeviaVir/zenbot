@@ -23,15 +23,17 @@ module.exports = function container (get, set, clear) {
       function getNext () {
         function withResult (result) {
           var trades = result.map(function (trade) {
-            s.recorder_id = s.recorder_id ? Math.max(s.recorder_id, trade.timestamp) : trade.timestamp
+            var ts = new Date(trade.created_at).getTime()
+            var ts_s = Math.floor(n(ts).divide(1000).value())
+            s.recorder_id = s.recorder_id ? Math.max(s.recorder_id, ts_s) : ts_s
             var obj = {
-              id: x.name + '-' + String(trade.tid),
-              time: n(trade.timestamp).multiply(1000).value(),
+              id: x.name + '-' + String(trade.id),
+              time: ts,
               asset: product.asset,
               currency: product.currency,
               size: n(trade.amount).value(),
               price: n(trade.price).value(),
-              side: trade.type,
+              side: trade.side ? 'sell' : 'buy',
               exchange: x.name
             }
             map('trade', obj)
