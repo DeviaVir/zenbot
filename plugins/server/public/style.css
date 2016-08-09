@@ -2,6 +2,7 @@ body {
         font: 10px sans-serif;
         background-color: #1f2d35;
         color: #888;
+        position: relative;
     }
 
     svg {
@@ -213,14 +214,16 @@ body {
     }
 
 .loading {
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    margin: auto;
     position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
     text-align: center;
-    width: 100%;
-    top: 40%;
-    height: auto;
     font-size: 80px;
     z-index: 1;
-    color: white;
+    color: #888;
 }
 
 .content {
