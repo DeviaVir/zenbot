@@ -83,7 +83,7 @@ $('.ticker-graph').each(function () {
             .axis(xAxis)
             .format(d3.time.format('%c'))
             .width(140)
-            .translate([0, dim.plot.height]);
+            .translate([0, dim.plot.height - 50]);
 
     var yAxis = d3.svg.axis()
             .scale(y)

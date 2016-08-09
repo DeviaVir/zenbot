@@ -223,8 +223,8 @@ body {
     left: 200px;
 }
 
-.options {
-    position absolute;
+.content {
+    position: absolute;
     bottom: 20px;
     left: 20px;
 }
