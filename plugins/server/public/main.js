@@ -244,7 +244,8 @@ $('.ticker-graph').each(function () {
             .text("Price");
 
     ohlcSelection.append("g")
-            .attr("class", "close annotation up");
+            .attr("class", "close annotation up")
+            .attr("font-weight", "900")
 
     ohlcSelection.append("g")
             .attr("class", "volume")
@@ -325,7 +326,7 @@ $('.ticker-graph').each(function () {
         clearTimeout(timeout)
         setTimeout(poll, 10000)
         $('.fa-spinner').hide()
-        if (!data.length || !data[indicatorPreRoll]) {
+        if (!data || !data[indicatorPreRoll]) {
             $('.no-data').show()
         }
         else {
