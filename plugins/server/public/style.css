@@ -7,6 +7,7 @@ body {
     svg {
         width: 100%;
         height: auto;
+        z-index: 1;
     }
 
     .axis path,
@@ -220,7 +221,12 @@ body {
 
 .ticker-graph .loading {
     position: absolute;
-    left: 200px;
+    text-align: center;
+    width: 100%;
+    top: 40%;
+    height: auto;
+    font-size: 80px;
+    z-index: 0;
 }
 
 .content {
