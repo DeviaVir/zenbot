@@ -38,10 +38,6 @@ body {
         stroke: #888;
     }
 
-    path.candle.body {
-        stroke-width: 0;
-    }
-
     path.candle.up {
         stroke: rgb(85, 255, 14);
     }
@@ -52,7 +48,9 @@ body {
     }
 
     .close.annotation.up path {
-        fill: #8ff;
+        stroke: #8ff;
+        stroke-width: 1;
+        fill: #1f2d35;
     }
 
     .close.annotation.up text {
