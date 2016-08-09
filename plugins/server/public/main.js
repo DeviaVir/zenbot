@@ -3,7 +3,7 @@ $('.ticker-graph').each(function () {
         width: 1280, height: 600,
         margin: { top: 20, right: 50, bottom: 0, left: 50 },
         ohlc: { height: 360 },
-        indicator: { height: 110, padding: 10 }
+        indicator: { height: 60, padding: 10 }
     };
     dim.plot = {
         width: dim.width - dim.margin.left - dim.margin.right,
