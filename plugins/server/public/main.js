@@ -317,14 +317,20 @@ $('.ticker-graph').each(function () {
     var first_run = true
     function poll () {
         var timeout = setTimeout(function () {
-            $('.loading').css('visibility', 'visible')
+            $('.loading').show()
             $('body').css('backgroundColor', '#333')
         }, 10000)
       d3.csv("data.csv" + location.search, function(error, data) {
         clearTimeout(timeout)
         setTimeout(poll, 10000)
+        $('.loading').hide()
+        if (!data.length || !data[indicatorPreRoll]) {
+            $('.no-data').show()
+        }
+        else {
+            $('.no-data').hide()
+        }
         if (!data) return
-        $('.loading').css('visibility', 'hidden')
         $('body').css('backgroundColor', '#1f2d35')
           data = data.map(function(d) {
               return {
