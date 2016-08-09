@@ -97,9 +97,7 @@ $('.ticker-graph').each(function () {
     var closeAnnotation = techan.plot.axisannotation()
             .axis(yAxis)
             .accessor(candlestick.accessor())
-            .format(function () {
-                console.log(arguments)
-            })
+            .format(d3.format(',.2fs'))
             .width(40)
             .translate([x(1), 0]);
 
