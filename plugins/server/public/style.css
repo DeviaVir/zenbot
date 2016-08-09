@@ -43,24 +43,20 @@ body {
     }
 
     path.candle.up {
-        stroke-width: 1px;
-        fill: #1e2b34;
-        stroke: rgba(132,247,102,.75)
+        stroke: rgb(85, 255, 14);
     }
 
     path.candle.down {
-        fill: rgb(255, 32, 0)
-        stroke: #ff6939
+        fill: rgb(232, 87, 35);
+        stroke: #944329;
     }
 
     .close.annotation.up path {
-        stroke: #8ff;
-        stroke-width: 1;
-        fill: #1f2d35;
+        fill: #8ff;
     }
 
     .close.annotation.up text {
-        fill: #fff;
+        fill: #000;
     }
 
     path.volume {
