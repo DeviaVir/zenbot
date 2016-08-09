@@ -317,6 +317,7 @@ $('.ticker-graph').each(function () {
     var first_run = true
     function poll () {
         var timeout = setTimeout(function () {
+            $('.loading').show()
             $('.fa-spinner').show()
             $('body').css('backgroundColor', '#333')
         }, 10000)
@@ -329,6 +330,7 @@ $('.ticker-graph').each(function () {
         }
         else {
             $('.no-data').hide()
+            $('.loading').hide()
         }
         if (!data) return
         $('body').css('backgroundColor', '#1f2d35')
