@@ -317,13 +317,13 @@ $('.ticker-graph').each(function () {
     var first_run = true
     function poll () {
         var timeout = setTimeout(function () {
-            $('.loading').show()
+            $('.fa-spinner').show()
             $('body').css('backgroundColor', '#333')
         }, 10000)
       d3.csv("data.csv" + location.search, function(error, data) {
         clearTimeout(timeout)
         setTimeout(poll, 10000)
-        $('.loading').hide()
+        $('.fa-spinner').hide()
         if (!data.length || !data[indicatorPreRoll]) {
             $('.no-data').show()
         }
