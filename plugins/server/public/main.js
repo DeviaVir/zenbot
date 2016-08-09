@@ -1,6 +1,6 @@
 $('.ticker-graph').each(function () {
   var dim = {
-        width: 1280, height: 720,
+        width: 1280, height: 600,
         margin: { top: 10, right: 50, bottom: 0, left: 50 },
         ohlc: { height: 400 },
         indicator: { height: 70, padding: 20 }
