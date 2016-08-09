@@ -1,9 +1,9 @@
 $('.ticker-graph').each(function () {
   var dim = {
         width: 1280, height: 600,
-        margin: { top: 10, right: 50, bottom: 0, left: 50 },
-        ohlc: { height: 400 },
-        indicator: { height: 70, padding: 20 }
+        margin: { top: 20, right: 50, bottom: 0, left: 50 },
+        ohlc: { height: 360 },
+        indicator: { height: 110, padding: 10 }
     };
     dim.plot = {
         width: dim.width - dim.margin.left - dim.margin.right,
@@ -83,7 +83,7 @@ $('.ticker-graph').each(function () {
             .axis(xAxis)
             .format(d3.time.format('%c'))
             .width(140)
-            .translate([0, dim.plot.height]);
+            .translate([0, dim.plot.height - 100]);
 
     var yAxis = d3.svg.axis()
             .scale(y)
@@ -193,7 +193,7 @@ $('.ticker-graph').each(function () {
             .verticalWireRange([0, dim.plot.height]);
 
     var svg = d3.select("body").append("svg")
-            .attr("viewBox", "0 0 1200 600")
+            .attr("viewBox", "0 0 " + dim.width + " " + dim.height)
             .attr("width", dim.width)
             .attr("height", dim.height);
 
@@ -227,7 +227,7 @@ $('.ticker-graph').each(function () {
 
     svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + dim.plot.height + ")");
+            .attr("transform", "translate(0," + (dim.plot.height - 100) + ")");
 
     var ohlcSelection = svg.append("g")
             .attr("class", "ohlc")
