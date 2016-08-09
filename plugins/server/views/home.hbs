@@ -1,3 +1,4 @@
+<i class="loading fa fa-spinner fa-pulse fa-fw"></i>
 <div class="ticker-graph"></div>
 <form class="options" onchange="javascript:this.submit()">
 <select name="selector">
@@ -14,5 +15,5 @@
 {{#each graph_limits}}
 <option value="{{limit}}"{{#if is_default}} selected{{/if}}>{{limit}}</option>
 {{/each}}
-</select> <i class="loading fa fa-spinner fa-pulse fa-fw"></i>
+</select>
 </form>
