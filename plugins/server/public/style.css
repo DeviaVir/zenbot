@@ -7,6 +7,7 @@ body {
         background-color: #1f2d35;
         color: #888;
         position: relative;
+        height: 100%;
     }
 
     svg {
