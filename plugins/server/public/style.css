@@ -241,6 +241,6 @@ body {
 .options {
     display: block;
     position: absolute;
-    bottom: 40px;
-    left: 40px;
+    bottom: 10px;
+    left: 10px;
 }
