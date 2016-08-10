@@ -51,6 +51,71 @@ c.graph_selectors = [
 c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
+c.logic = function container (get, set, clear) {
+  // these callbacks will run in order on every tick.
+  // return something like
+  /*
+  cb(null, {
+    action: 'buy',
+    asset: 'BTC',
+    currency: 'USD',
+    exchange: 'gdax',
+    price: 'market',
+    size: 0.01
+  })
+  */
+  // and the action will be queued for execution.
+  var o = get('utils.object_get')
+  return [
+    // BEGIN DEFAULT TRADE LOGIC
+    // BTC/USD at GDAX: trade at market using 14-hour RSI indicator.
+    function (tick, trigger, cb) {
+      // act only on hour ticks
+      if (tick.size !== '1h') return cb()
+      // get gdax rsi
+      var gdax_rsi = o(tick, 'data.trades.gdax.BTC-USD.rsi')
+      // require minimum data
+      if (!gdax_rsi || gdax_rsi.samples < c.rsi_periods) return cb()
+      // overbought/oversold
+      if (gdax_rsi > 70) {
+        tick.data.overbought = true
+      }
+      else if gdax_rsi < 30) {
+        tick.data.oversold = true
+      }
+      cb()
+    },
+    // @todo MACD
+    function (tick, trigger, cb) {
+      cb()
+    },
+    function (tick, trigger, cb) {
+      if (tick.data.overbought) {
+        // anticipating a reversal DOWN. sell at market.
+        trigger({
+          action: 'sell',
+          asset: 'BTC',
+          currency: 'USD',
+          exchange: 'gdax',
+          price: 'market',
+          size: '100%'
+        })
+      }
+      else if (tick.data.oversold) {
+        // anticipating a reversal UP. buy at market.
+        trigger({
+          action: 'buy',
+          asset: 'BTC',
+          currency: 'USD',
+          exchange: 'gdax',
+          price: 'market',
+          size: '100%'
+        })
+      }
+    }
+    // END DEFAULT TRADE LOGIC
+  ]
+}
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 8
 c.reporter_cols = [

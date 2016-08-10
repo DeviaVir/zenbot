@@ -43,8 +43,8 @@ module.exports = function container (get, set, clear) {
           }).map(function (tick) {
             return o(tick, 'data.trades.' + e + '.' + pair + '.close')
           })
-          if (close_lookback.length > c.rsi_periods) {
-            close_lookback = close_lookback.slice(close_lookback.length - c.rsi_periods)
+          if (close_lookback.length > c.rsi_periods - 1) {
+            close_lookback = close_lookback.slice(close_lookback.length - c.rsi_periods - 1)
           }
           r.samples = close_lookback.length
           var current_gain, current_loss
@@ -91,7 +91,6 @@ module.exports = function container (get, set, clear) {
           //console.error(gain_sum, avg_gain, loss_sum, avg_loss, avg_gain_2, avg_loss_2, relative_strength)
           r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
           r.samples++
-          // /*
           r.close_lookback = close_lookback
           r.current_gain = current_gain
           r.current_loss = current_loss
@@ -102,7 +101,6 @@ module.exports = function container (get, set, clear) {
           r.avg_gain_2 = avg_gain_2
           r.avg_loss_2 = avg_loss_2
           r.relative_strength = relative_strength || null
-          // */
         })
       })
       cb()
