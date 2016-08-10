@@ -23,7 +23,15 @@ module.exports = function container (get, set, clear) {
       function getNext () {
         function withResult (result) {
           var trades = result.map(function (trade) {
-            var ts = new Date(trade.created_at).getTime()
+            var ts
+            // normal trades
+            if (trade.timestamp) {
+              ts = n(trade.timestamp).multiply(1000).value()
+            }
+            // system-created trades
+            else if (trade.created_at) {
+              ts = new Date(trade.created_at).getTime()
+            }
             var ts_s = Math.floor(n(ts).divide(1000).value())
             s.recorder_id = s.recorder_id ? Math.max(s.recorder_id, ts_s) : ts_s
             var obj = {
