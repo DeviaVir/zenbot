@@ -9,12 +9,18 @@ c.twitter_access_token_secret = ""
 c.assets = [
   "BTC",
   "ETH",
-  "LTC"
+  "LTC",
+  "BFX",
+  "ETC"
 ]
 c.currencies = [
   "CNY",
+  "CAD",
+  "GBP",
+  "JPY",
   "EUR",
-  "USD"
+  "USD",
+  "BTC"
 ]
 c.reducer_report_interval = 60000
 c.enabled_plugins = [
@@ -33,12 +39,14 @@ c.graph_selectors = [
   "poloniex.BTC-USD",
   "bitfinex.BTC-USD",
   "bitfinex.ETH-USD",
-  "bitfinex.ETH-BTC",
-  "bitfinex.ETC-BTC",
+  //"bitfinex.ETH-BTC",
+  //"bitfinex.ETC-BTC",
   "bitfinex.LTC-USD",
-  "bitfinex.LTC-BTC",
-  "bitfinex.ETC-BTC",
-  "bitfinex.ETC-USD"
+  //"bitfinex.LTC-BTC",
+  //"bitfinex.ETC-BTC",
+  //"bitfinex.ETC-USD"
+  "bitfinex.BFX-USD",
+  "bitfinex.BFX-BTC"
 ]
 c.rsi_query_limit = 100
 c.rsi_periods = 14

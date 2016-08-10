@@ -64,6 +64,24 @@
       "max_size":10000,
       "increment":0.00001,
       "label":"ETC/USD"
+    },
+    {
+      "id":"bfxusd",
+      "asset":"BFX",
+      "currency":"USD",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.00001,
+      "label":"BFX/USD"
+    },
+    {
+      "id":"bfxbtc",
+      "asset":"BFX",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.00001,
+      "label":"BFX/BTC"
     }
   ]
 }
