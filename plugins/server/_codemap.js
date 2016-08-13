@@ -16,5 +16,6 @@ module.exports = {
       }
       cb()
     }
-  }
+  },
+  'secret': null
 }

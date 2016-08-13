@@ -97,7 +97,7 @@ c.logic = function container (get, set, clear) {
     // BEGIN DEFAULT TRADE LOGIC
     // sync balance
     function (tick, trigger, rs, cb) {
-      if (get('command') !== 'run') {
+      if (get('command') !== 'run' || !c.gdax_key) {
         return cb()
       }
       client.getAccounts(function (err, resp, accounts) {
@@ -209,7 +209,7 @@ c.logic = function container (get, set, clear) {
           gdax_rsi: rs.gdax_rsi,
           roi: rs.roi
         })
-        if (get('command') === 'run') {
+        if (get('command') === 'run' && c.gdax_key) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),
@@ -242,3 +242,5 @@ c.reducer_report_interval = 2000
 c.trade_report_interval = 10000
 c.sim_input_unit = "7d"
 c.sim_input_limit = 12
+c.log_query_limit = 200
+
