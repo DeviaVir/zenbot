@@ -176,11 +176,11 @@ c.logic = function container (get, set, clear) {
       if ((rs.overbought || rs.oversold) && rs.balance && rs.market_price) {
         var size, new_balance = {}
         if (rs.overbought) {
-          get('logger').info('trader', 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
+          get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           size = rs.balance[asset]
         }
         else if (rs.oversold) {
-          get('logger').info('trader', 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
+          get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           size = n(rs.balance[currency]).divide(rs.market_price).value()
         }
         // scale down size a little, to prevent out-of-balance errors
