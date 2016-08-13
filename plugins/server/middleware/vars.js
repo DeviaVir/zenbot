@@ -20,6 +20,7 @@ module.exports = function container (get, set, clear) {
       }
     })
     res.vars.sim_id = req.query.sim_id
+    res.vars.tracking_scripts = c.tracking_scripts
     next()
   }
 }
