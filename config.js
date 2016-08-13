@@ -21,21 +21,6 @@ c.twitter_access_token = ""
 c.twitter_access_token_secret = ""
 c.assets = [
   "BTC",
-<<<<<<< eb84af6b7e2df22e55752e50253fcd3eb00d7ed8
-  "ETH",
-  "LTC",
-  "BFX",
-  "ETC"
-]
-c.currencies = [
-  "CNY",
-  "CAD",
-  "GBP",
-  "JPY",
-  "EUR",
-  "USD",
-  "BTC"
-=======
   //"ETH",
   //"LTC"
 ]
@@ -43,7 +28,6 @@ c.currencies = [
   //"CNY",
   //"EUR",
   "USD"
->>>>>>> wip
 ]
 c.enabled_plugins = [
   //"bitfinex",
