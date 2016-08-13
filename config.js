@@ -60,9 +60,11 @@ c.key = '58ec4f01eab0d51d0a7c528fed431c'
 c.secret = '9NgJe0WOY5T50KeRi+LbZo2Q9UjZEQhLqzFjtSqG3JEoJSkgfzV1wMk42sN5BRTA3qkFRLgvHs4azshHD6A0BQ=='
 c.passphrase = 'c2vtpmsm2pp'
 var first_run = true
+var last_balance_sig
 c.logic = function container (get, set, clear) {
   var o = get('utils.object_get')
   var n = require('numbro')
+  var sig = require('sig')
   var format_currency = get('utils.format_currency')
   var get_timestamp = get('utils.get_timestamp')
   var CoinbaseExchange = require('coinbase-exchange')
@@ -76,7 +78,7 @@ c.logic = function container (get, set, clear) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
       console.error(order)
-      return get('logger').error('non-200 status from GDAX: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
+      return get('logger').error('non-200 status: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
     }
     get('logger').info(exchange, ('order-id: ' + order.id).cyan, {data: {order: order}})
     function getStatus () {
@@ -120,10 +122,13 @@ c.logic = function container (get, set, clear) {
             rs.balance[asset] = n(account.balance).value()
           }
         })
-        if (first_run) {
-          get('logger').info('gdax', 'starting balance'.grey, n(rs.balance[asset]).format('0.000').white, asset.grey, n(rs.balance[currency]).format('0.00').yellow, currency.grey, {feed: 'exchange'})
+        var balance_sig = sig(rs.balance)
+        if (balance_sig !== last_balance_sig) {
+          get('logger').info(exchange, 'balance'.grey, n(rs.balance[asset]).format('0.000').white, asset.grey, n(rs.balance[currency]).format('0.00').yellow, currency.grey, {feed: 'exchange'})
           first_run = false
+          last_balance_sig = balance_sig
         }
+        else if 
         cb && cb()
       })
     },
@@ -133,7 +138,7 @@ c.logic = function container (get, set, clear) {
       if (market_price) {
         rs.market_price = market_price
       }
-      // BTC/USD at GDAX: trade at market using 15m RSI indicator.
+      // Trade at market using 15m RSI indicator.
       if (!rs.market_price) return cb()
       if (!rs.balance) {
         // start with $1000, neutral position
@@ -144,7 +149,7 @@ c.logic = function container (get, set, clear) {
       rs.ticks || (rs.ticks = 0)
       rs.ticks++
       if (tick.size !== rsi_period) return cb()
-      // get gdax rsi
+      // get rsi
       var rsi = o(tick, selector + '.rsi')
       // require minimum data
       // overbought/oversold
@@ -203,7 +208,7 @@ c.logic = function container (get, set, clear) {
           type: rs.overbought ? 'sell' : 'buy',
           asset: asset,
           currency: currency,
-          exchange: 'gdax',
+          exchange: exchange,
           price: rs.market_price,
           market: true,
           size: size,
