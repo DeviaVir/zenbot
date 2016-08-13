@@ -37,7 +37,6 @@ module.exports = function container (get, set) {
         res.setHeader('Content-Type', 'text/csv')
         res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
         res.end()
-        console.error('no secret')
         return
       }
       get('db.run_states').load(get('zenbrain:app_name') + '_run', function (err, run_state) {
