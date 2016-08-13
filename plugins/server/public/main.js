@@ -317,7 +317,7 @@ $('.ticker-graph').each(function () {
 
     var first_run = true
     function withTrades (trades) {
-        function poll () {
+        var poll = function () {
             var timeout = setTimeout(function () {
                 $('.loading').show()
                 $('.fa-spinner').show()
@@ -430,6 +430,21 @@ $('.ticker-graph').each(function () {
                   first_run = false
             });
         }
+        if (!trades) {
+            var _poll = poll
+            poll = function () {
+                d3.csv("trades.csv" + location.search, function (err, data) {
+                    trades = data.map(function (row) {
+                        return {
+                            date: new Date(+row.Time),
+                            type: row.Type,
+                            price: +row.Price
+                        }
+                    })
+                    _poll()
+                })
+            }
+        }
         poll()
     }
     if (location.search.match(/sim_id=([^&]+)/)) {
@@ -445,16 +460,7 @@ $('.ticker-graph').each(function () {
         })
     }
     else {
-        d3.csv("trades.csv" + location.search, function (err, data) {
-            var trades = data.map(function (row) {
-                return {
-                    date: new Date(+row.Time),
-                    type: row.Type,
-                    price: +row.Price
-                }
-            })
-            withTrades(trades)
-        })
+        withTrades()
     }
 
     function refreshIndicator(selection, indicator, data) {
