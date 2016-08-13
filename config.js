@@ -175,23 +175,30 @@ c.logic = function container (get, set, clear) {
       if ((rs.overbought || rs.oversold) && rs.balance && rs.market_price) {
         var size, new_balance = {}
         if (rs.overbought) {
+          get('logger').info('trader', 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           size = rs.balance[asset]
         }
         else if (rs.oversold) {
+          get('logger').info('trader', 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           size = n(rs.balance[currency]).divide(rs.market_price).value()
         }
+        // scale down size a little, to prevent out-of-balance errors
+        size = n(size || 0).multiply(0.95).value()
+        // min size
         if (!size || size < 0.01) {
+          if (rs.overbought) {
+            get('logger').info('trader', ('not enough ' + asset + ' to execute sell!').red, {feed: 'trader'})
+          }
+          else if (rs.oversold) {
+            get('logger').info('trader', ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
+          }
           return cb()
         }
-        // scale down size a little, to prevent out-of-balance errors
-        size = n(size).multiply(0.95).value()
         if (rs.overbought) {
-          get('logger').info('trader', 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           new_balance[currency] = n(rs.balance[currency]).add(n(size).multiply(rs.market_price)).value()
           new_balance[asset] = n(rs.balance[asset]).subtract(size).value()
         }
         else if (rs.oversold) {
-          get('logger').info('trader', 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           new_balance[asset] = n(rs.balance[asset]).add(size).value()
           new_balance[currency] = n(rs.balance[currency]).subtract(n(size).multiply(rs.market_price)).value()
         }
