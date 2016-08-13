@@ -155,6 +155,7 @@ c.logic = function container (get, set, clear) {
       // sanity check
       if (rsi && rsi.samples >= c.rsi_periods) {
         rs.rsi = Math.round(rsi.value)
+        rs.rsi_ansi = rsi.ansi
         if (rsi.value > 70) {
           rs.overbought = true
           rs.oversold = false
@@ -187,10 +188,10 @@ c.logic = function container (get, set, clear) {
         // min size
         if (!size || size < 0.01) {
           if (rs.overbought) {
-            get('logger').info('trader', ('not enough ' + asset + ' to execute sell!').red, {feed: 'trader'})
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + asset + ' to execute sell!').red, {feed: 'trader'})
           }
           else if (rs.oversold) {
-            get('logger').info('trader', ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
           }
           return cb()
         }
