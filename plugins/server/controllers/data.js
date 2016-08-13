@@ -45,7 +45,6 @@ module.exports = function container (get, set) {
         if (!run_state) return res.renderStatus(404)
         res.setHeader('Content-Type', 'text/csv')
         res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
-        console.error('run_state', run_state)
         run_state.actions.forEach(function (action) {
           var line = [
             action.type,
