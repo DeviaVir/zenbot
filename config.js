@@ -244,4 +244,5 @@ c.trade_report_interval = 10000
 c.sim_input_unit = "7d"
 c.sim_input_limit = 12
 c.log_query_limit = 200
+c.tracking_scripts = ''
 
