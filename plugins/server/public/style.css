@@ -197,12 +197,8 @@ body {
         stroke: none;
     }
 
-    .tradearrow path.buy {
-        fill: #0000FF;
-    }
-
-    .tradearrow path.sell {
-        fill: #9900FF;
+    .tradearrow path.buy, .tradearrow path.sell {
+        fill: #ff0056;
     }
 
     .tradearrow path.highlight {

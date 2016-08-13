@@ -5,6 +5,7 @@
 <div class="ticker-graph"></div>
 
 <form class="options" onchange="javascript:this.submit()">
+  <input type="hidden" name="sim_id" value="{{sim_id}}">
   <select name="selector">
     {{#each selectors}}
     <option value="{{selector}}"{{#if is_default}} selected{{/if}}>{{selector}}</option>

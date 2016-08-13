@@ -1,5 +1,4 @@
 var n = require('numbro')
-  , z = require('zero-fill')
   , colors = require('colors')
   , tb = require('timebucket')
 
@@ -9,6 +8,7 @@ module.exports = function container (get, set, clear) {
   var get_tick_str = get('utils.get_tick_str')
   var app_name = get('app_name')
   var format_currency = get('utils.format_currency')
+  var z = get('utils.zero_fill')
   return function log_trades (slug, trades) {
     if (!trades.length) return
     var rs = get('run_states')
@@ -31,6 +31,6 @@ module.exports = function container (get, set, clear) {
     var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(12, format_currency(avg_price, currency), ' ').yellow + ' ' + (asset + '/' + currency).grey
     ticker = get_timestamp(max_time).grey + ' ' + ticker
     var tick_str = get_tick_str(app_name + ':' + tb(max_time).resize(c.bucket_size).toString())
-    get('logger').info(slug, z(11, tick_str), z(7, trades.length, ' '), 'trades.'.grey, ticker)
+    get('logger').info(slug, z(12, tick_str), z(7, trades.length, ' '), 'trades.'.grey, ticker)
   }
 }

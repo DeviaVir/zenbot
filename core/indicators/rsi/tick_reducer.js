@@ -7,12 +7,14 @@ var n = require('numbro')
 module.exports = function container (get, set, clear) {
   var c = get('config')
   var start = new Date().getTime()
+  var get_tick_str = get('utils.get_tick_str')
+  var get_timestamp = get('utils.get_timestamp')
+  var z = get('utils.zero_fill')
   return function tick_reducer (g, cb) {
-    var tick = g.tick, sub_tick = g.sub_tick
-    // this operation is expensive (querying for lookback ticks)
-    // so only perform it for future ticks and not backfilled ones.
-    if (tick.time < start) return cb()
-    if (!tick.data.trades) return cb()
+    var options = get('options')
+    var tick = g.tick
+    if (c.rsi_sizes.indexOf(tick.size) === -1 || !tick.data.trades || (tick.time < start && !options.backfill_rsi)) return cb()
+    //console.error('computing RSI', tick.id)
     var bucket = tb(tick.time).resize(tick.size)
     var d = tick.data.trades
     get('ticks').select({
@@ -32,6 +34,7 @@ module.exports = function container (get, set, clear) {
       withLookback(lookback.reverse())
     })
     function withLookback (lookback) {
+      var computations = 0
       Object.keys(d).forEach(function (e) {
         Object.keys(d[e]).forEach(function (pair) {
           var de = d[e][pair]
@@ -44,7 +47,7 @@ module.exports = function container (get, set, clear) {
             return o(tick, 'data.trades.' + e + '.' + pair + '.close')
           })
           if (close_lookback.length > c.rsi_periods - 1) {
-            close_lookback = close_lookback.slice(close_lookback.length - c.rsi_periods - 1)
+            close_lookback = close_lookback.slice(close_lookback.length - c.rsi_periods + 1)
           }
           r.samples = close_lookback.length
           var current_gain, current_loss
@@ -79,8 +82,8 @@ module.exports = function container (get, set, clear) {
             return prev + loss
           }, 0)
           var avg_loss = r.samples ? n(loss_sum).divide(r.samples).value() : 0
-          var avg_gain_2 = n(avg_gain).multiply(c.rsi_periods - 1).add(current_gain).divide(c.rsi_periods).value()
-          var avg_loss_2 = n(avg_loss).multiply(c.rsi_periods - 1).add(current_loss).divide(c.rsi_periods).value()
+          var avg_gain_2 = n(avg_gain).multiply(c.rsi_periods - 2).add(current_gain).divide(c.rsi_periods).value()
+          var avg_loss_2 = n(avg_loss).multiply(c.rsi_periods - 2).add(current_loss).divide(c.rsi_periods).value()
           if (avg_loss_2 === 0) {
             r.value = avg_gain_2 ? 100 : 50
           }
@@ -101,8 +104,15 @@ module.exports = function container (get, set, clear) {
           r.avg_gain_2 = avg_gain_2
           r.avg_loss_2 = avg_loss_2
           r.relative_strength = relative_strength || null
+          if (r.samples >= c.rsi_periods) {
+            get('logger').info('RSI', z(12, get_tick_str(tick.id)), get_timestamp(tick.time).grey, r.ansi, ('x' + r.samples).grey)
+            computations++
+          }
         })
       })
+      if (computations) {
+        //get('logger').info('RSI', 'computed RSI '.grey, ('x' + computations).grey)
+      }
       cb()
     }
   }

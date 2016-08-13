@@ -18,6 +18,7 @@ module.exports = function container (get, set, clear) {
     products.forEach(function (product) {
       rs[product.id] || (rs[product.id] = {})
       var s = rs[product.id]
+      //s.backfiller_id = null // start from scratch
       function retry () {
         setTimeout(getNext, x.backfill_timeout)
       }
