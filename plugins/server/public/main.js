@@ -445,7 +445,16 @@ $('.ticker-graph').each(function () {
         })
     }
     else {
-        withTrades([])
+        d3.csv("trades.csv" + location.search, function (err, data) {
+            var trades = data.map(function (row) {
+                return {
+                    date: new Date(+row.Time),
+                    type: row.Type,
+                    price: +row.Price
+                }
+            })
+            withTrades(trades)
+        })
     }
 
     function refreshIndicator(selection, indicator, data) {

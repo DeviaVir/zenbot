@@ -56,9 +56,9 @@ c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_sizes = ['15m', '1h']
-c.gdax_key = ''
-c.gdax_secret = ''
-c.gdax_passphrase = ''
+c.key = ''
+c.secret = ''
+c.passphrase = ''
 var first_run = true
 c.logic = function container (get, set, clear) {
   var o = get('utils.object_get')
@@ -66,30 +66,31 @@ c.logic = function container (get, set, clear) {
   var format_currency = get('utils.format_currency')
   var get_timestamp = get('utils.get_timestamp')
   var CoinbaseExchange = require('coinbase-exchange')
-  var client = new CoinbaseExchange.AuthenticatedClient(c.gdax_key, c.gdax_secret, c.gdax_passphrase)
+  var client = new CoinbaseExchange.AuthenticatedClient(c.key, c.secret, c.passphrase)
   var asset = 'BTC'
   var currency = 'USD'
   var rsi_period = '15m'
-  var selector = 'data.trades.gdax.' + asset + '-' + currency
+  var exchange = 'gdax'
+  var selector = 'data.trades.' + exchange + '.' + asset + '-' + currency
   function onOrder (err, resp, order) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
       console.error(order)
       return get('logger').error('non-200 status from GDAX: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
     }
-    get('logger').log('GDAX', ('order-id: ' + order.id).cyan, {data: {order: order}})
+    get('logger').log(exchange, ('order-id: ' + order.id).cyan, {data: {order: order}})
     function getStatus () {
       client.getOrder(order.id, function (err, resp, order) {
         if (err) return get('logger').error('getOrder err', err)
         if (resp.statusCode !== 200) {
           console.error(order)
-          return get('logger').error('non-200 status from GDAX getOrder: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
+          return get('logger').error('non-200 status from getOrder: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
         }
         if (order.status === 'done') {
-          return get('logger').info('GDAX', ('order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
+          return get('logger').info(exchange, ('order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
         }
         else {
-          get('logger').info('GDAX', ('order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
+          get('logger').info(exchange, ('order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
           setTimeout(getStatus, 5000)
         }
       })
@@ -100,7 +101,7 @@ c.logic = function container (get, set, clear) {
     // BEGIN DEFAULT TRADE LOGIC
     // sync balance
     function (tick, trigger, rs, cb) {
-      if (get('command') !== 'run' || !c.gdax_key) {
+      if (get('command') !== 'run' || !c.key) {
         return cb()
       }
       client.getAccounts(function (err, resp, accounts) {
@@ -144,21 +145,19 @@ c.logic = function container (get, set, clear) {
       rs.ticks++
       if (tick.size !== rsi_period) return cb()
       // get gdax rsi
-      var gdax_rsi = o(tick, selector + '.rsi')
+      var rsi = o(tick, selector + '.rsi')
       // require minimum data
       // overbought/oversold
       // sanity check
-      if (gdax_rsi && gdax_rsi.samples >= c.rsi_periods) {
-        rs.gdax_rsi = Math.round(gdax_rsi.value)
-        if (gdax_rsi.value > 70) {
+      if (rsi && rsi.samples >= c.rsi_periods) {
+        rs.rsi = Math.round(rsi.value)
+        if (rsi.value > 70) {
           rs.overbought = true
           rs.oversold = false
-          //console.error('overbought', format_currency(gdax_rsi.last_close, 'USD').red)
         }
-        else if (gdax_rsi.value < 30) {
+        else if (rsi.value < 30) {
           rs.oversold = true
           rs.overbought = false
-          //console.error('oversold', format_currency(gdax_rsi.last_close, 'USD').green)
         }
       }
       cb()
@@ -208,10 +207,10 @@ c.logic = function container (get, set, clear) {
           price: rs.market_price,
           market: true,
           size: size,
-          gdax_rsi: rs.gdax_rsi,
+          rsi: rs.rsi,
           roi: rs.roi
         })
-        if (get('command') === 'run' && c.gdax_key) {
+        if (get('command') === 'run' && c.key) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),

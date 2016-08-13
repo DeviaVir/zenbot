@@ -24,7 +24,38 @@ module.exports = function container (get, set) {
             action.exchange,
             action.price,
             action.size,
-            action.gdax_rsi,
+            action.rsi,
+            action.roi
+          ].join(',')
+          res.write(line + '\n')
+        })
+        res.end()
+      })
+    })
+    .get('/trades.csv', function (req, res, next) {
+      if (!req.session.secret) {
+        res.setHeader('Content-Type', 'text/csv')
+        res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
+        res.end()
+        console.error('no secret')
+        return
+      }
+      get('db.run_states').load(get('zenbrain:app_name') + '_run', function (err, run_state) {
+        if (err) return next(err)
+        if (!run_state) return res.renderStatus(404)
+        res.setHeader('Content-Type', 'text/csv')
+        res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
+        console.error('run_state', run_state)
+        run_state.actions.forEach(function (action) {
+          var line = [
+            action.type,
+            action.time,
+            action.asset,
+            action.currency,
+            action.exchange,
+            action.price,
+            action.size,
+            action.rsi,
             action.roi
           ].join(',')
           res.write(line + '\n')
