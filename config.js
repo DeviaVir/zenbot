@@ -128,7 +128,6 @@ c.logic = function container (get, set, clear) {
           first_run = false
           last_balance_sig = balance_sig
         }
-        else if 
         cb && cb()
       })
     },
