@@ -78,7 +78,7 @@ c.logic = function container (get, set, clear) {
       console.error(order)
       return get('logger').error('non-200 status from GDAX: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
     }
-    get('logger').log(exchange, ('order-id: ' + order.id).cyan, {data: {order: order}})
+    get('logger').info(exchange, ('order-id: ' + order.id).cyan, {data: {order: order}})
     function getStatus () {
       client.getOrder(order.id, function (err, resp, order) {
         if (err) return get('logger').error('getOrder err', err)
