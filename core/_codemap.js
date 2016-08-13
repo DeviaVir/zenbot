@@ -3,6 +3,7 @@ module.exports = {
   _maps: [
     require('./indicators/_codemap')
   ],
+  'action_handlers[]': require('./action_handler'),
   'reporters[]': require('./reporter'),
   tick_defaults: require('./tick_defaults'),
   'tick_reducers[]': require('./tick_reducer'),

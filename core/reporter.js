@@ -8,9 +8,8 @@ module.exports = function container (get, set, clear) {
   var reporter_cols = c.reporter_cols.map(function (i) {
     return get('reporter_cols.' + i)
   })
-  return function reporter (tick, cb) {
+  return function reporter (tick, rs, cb) {
     if (!tick.data.trades) return cb()
-    var rs = get('run_state')
     var g = {
       tick: tick,
       cols: []

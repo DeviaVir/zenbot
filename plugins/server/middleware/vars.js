@@ -19,6 +19,7 @@ module.exports = function container (get, set, clear) {
         is_default: req.query.limit ? req.query.limit == limit : limit === c.default_graph_limit
       }
     })
+    res.vars.sim_id = req.query.sim_id
     next()
   }
 }

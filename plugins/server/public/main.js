@@ -43,8 +43,8 @@ $('.ticker-graph').each(function () {
             .yScale(y)
             .y(function(d) {
                 // Display the buy and sell arrows a bit above and below the price, so the price is still visible
-                if(d.type === 'buy') return y(d.low)+5;
-                if(d.type === 'sell') return y(d.high)-5;
+                if(d.type === 'buy') return y(d.price)+5;
+                if(d.type === 'sell') return y(d.price)-5;
                 else return y(d.price);
             });
 
@@ -316,129 +316,137 @@ $('.ticker-graph').each(function () {
     indicatorPreRoll = 35;  // Don't show where indicators don't have data
 
     var first_run = true
-    function poll () {
-        var timeout = setTimeout(function () {
-            $('.loading').show()
-            $('.fa-spinner').show()
-            $('body').css('backgroundColor', '#333')
-        }, 10000)
-      d3.csv("data.csv" + location.search, function(error, data) {
-        clearTimeout(timeout)
-        setTimeout(poll, 10000)
-        $('.fa-spinner').hide()
-        if (!data || !data[indicatorPreRoll]) {
-            $('.no-data').show()
+    function withTrades (trades) {
+        function poll () {
+            var timeout = setTimeout(function () {
+                $('.loading').show()
+                $('.fa-spinner').show()
+                $('body').css('backgroundColor', '#333')
+            }, 10000)
+        
+            d3.csv("data.csv" + location.search, function(error, data) {
+                clearTimeout(timeout)
+                setTimeout(poll, 10000)
+                $('.fa-spinner').hide()
+                if (!data || !data[indicatorPreRoll]) {
+                    $('.no-data').show()
+                }
+                else {
+                    $('.no-data').hide()
+                    $('.loading').hide()
+                }
+                if (!data) return
+                $('body').css('backgroundColor', '#1f2d35')
+                  data = data.map(function(d) {
+                      return {
+                          date: new Date(+d.Time),
+                          open: +d.Open,
+                          high: +d.High,
+                          low: +d.Low,
+                          close: +d.Close,
+                          volume: +d.Volume,
+                          caption: d.Caption
+                      };
+                  }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
+                  if (!data[indicatorPreRoll]) return
+
+                  //if (first_run) {
+                  /*
+                  var trans = zoom.translate()
+                  var scale = zoom.scale()
+                  */
+                  x.domain(techan.scale.plot.time(data.slice(indicatorPreRoll)).domain());
+                  /*
+                  zoom.translate(trans);
+                  zoom.scale(scale);
+                  */
+                  y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
+                  yPercent.domain(techan.scale.plot.percent(y, accessor(data[indicatorPreRoll])).domain());
+                  yVolume.domain(techan.scale.plot.volume(data).domain());
+
+                  var trendlineData = [
+                      { start: { date: new Date(2014, 2, 11), value: 72.50 }, end: { date: new Date(2014, 5, 9), value: 63.34 } },
+                      { start: { date: new Date(2013, 10, 21), value: 43 }, end: { date: new Date(2014, 2, 17), value: 70.50 } }
+                  ];
+
+                  var supstanceData = [
+                      { start: new Date(2014, 2, 11), end: new Date(2014, 5, 9), value: 63.64 },
+                      { start: new Date(2013, 10, 21), end: new Date(2014, 2, 17), value: 55.50 }
+                  ];
+
+                  svg.select("g.candlestick").datum(data)
+                  var last = data[data.length-1]
+                  if (!last) {
+                    return
+                  }
+                  document.title = last.caption + ' - zenbot'
+                  svg.select(".symbol")
+                    .text(last.caption)
+                  svg.select("g.volume").datum(data)
+
+                  svg.select("g.close.annotation").remove()
+                    ohlcSelection.append("g")
+                        .attr("class", "close annotation up")
+                        .datum([last])
+                        .call(closeAnnotation);
+
+                  var macdData = macdIndicator(data);
+                    macdScale.domain(techan.scale.plot.macd(macdData).domain());
+                    var rsiData = rsiIndicator(data);
+                    rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
+                    if (first_run) {
+                        svg.select("g.macd .indicator-plot").datum(macdData)
+                        svg.select("g.rsi .indicator-plot").datum(rsiData)
+                    }
+                    refreshIndicator(svg.select("g.macd .indicator-plot"), macd, macdData);
+                    refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiData);
+                    var sma0Data = sma0Indicator(data)
+                    var sma1Data = sma1Indicator(data)
+                    var ema2Data = ema2Indicator(data)
+                    refreshIndicator(svg.select("g .sma.ma-0"), sma0, sma0Data);
+                    refreshIndicator(svg.select("g .sma.ma-1"), sma1, sma1Data);
+                    refreshIndicator(svg.select("g .ema.ma-2"), ema2, ema2Data);
+                    //svg.select("g.rsi .indicator-plot").call(rsi);
+
+                  //svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
+                  //svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
+                  //svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
+                  //svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
+                  //svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
+
+                  svg.select("g.tradearrow").datum(trades).call(tradearrow);
+
+                  draw();
+
+                  // Associate the zoom with the scale after a domain has been applied
+                  if (first_run) {
+                    /*
+                    var zoomable = x.zoomable();
+                    zoomable.domain([indicatorPreRoll, data.length]); // Zoom in a little to hide indicator preroll
+                    zoom.x(zoomable) //.y(y);
+                    */
+                    //zoomPercent.y(yPercent);
+                  }
+                  first_run = false
+            });
         }
-        else {
-            $('.no-data').hide()
-            $('.loading').hide()
-        }
-        if (!data) return
-        $('body').css('backgroundColor', '#1f2d35')
-          data = data.map(function(d) {
-              return {
-                  date: new Date(+d.Time),
-                  open: +d.Open,
-                  high: +d.High,
-                  low: +d.Low,
-                  close: +d.Close,
-                  volume: +d.Volume,
-                  caption: d.Caption
-              };
-          }).sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
-          if (!data[indicatorPreRoll]) return
-
-          //if (first_run) {
-          /*
-          var trans = zoom.translate()
-          var scale = zoom.scale()
-          */
-          x.domain(techan.scale.plot.time(data.slice(indicatorPreRoll)).domain());
-          /*
-          zoom.translate(trans);
-          zoom.scale(scale);
-          */
-          y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
-          yPercent.domain(techan.scale.plot.percent(y, accessor(data[indicatorPreRoll])).domain());
-          yVolume.domain(techan.scale.plot.volume(data).domain());
-
-          var trendlineData = [
-              { start: { date: new Date(2014, 2, 11), value: 72.50 }, end: { date: new Date(2014, 5, 9), value: 63.34 } },
-              { start: { date: new Date(2013, 10, 21), value: 43 }, end: { date: new Date(2014, 2, 17), value: 70.50 } }
-          ];
-
-          var supstanceData = [
-              { start: new Date(2014, 2, 11), end: new Date(2014, 5, 9), value: 63.64 },
-              { start: new Date(2013, 10, 21), end: new Date(2014, 2, 17), value: 55.50 }
-          ];
-
-          var trades = []
-          /*
-          [
-              { date: data[67].date, type: "buy", price: data[67].low, low: data[67].low, high: data[67].high },
-              { date: data[100].date, type: "sell", price: data[100].high, low: data[100].low, high: data[100].high },
-              { date: data[130].date, type: "buy", price: data[130].low, low: data[130].low, high: data[130].high },
-              { date: data[170].date, type: "sell", price: data[170].low, low: data[170].low, high: data[170].high }
-          ];
-          */
-
-          svg.select("g.candlestick").datum(data)
-          var last = data[data.length-1]
-          if (!last) {
-            return
-          }
-          document.title = last.caption + ' - zenbot'
-          svg.select(".symbol")
-            .text(last.caption)
-          svg.select("g.volume").datum(data)
-
-          svg.select("g.close.annotation").remove()
-            ohlcSelection.append("g")
-                .attr("class", "close annotation up")
-                .datum([last])
-                .call(closeAnnotation);
-
-          var macdData = macdIndicator(data);
-            macdScale.domain(techan.scale.plot.macd(macdData).domain());
-            var rsiData = rsiIndicator(data);
-            rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
-            if (first_run) {
-                svg.select("g.macd .indicator-plot").datum(macdData)
-                svg.select("g.rsi .indicator-plot").datum(rsiData)
-            }
-            refreshIndicator(svg.select("g.macd .indicator-plot"), macd, macdData);
-            refreshIndicator(svg.select("g.rsi .indicator-plot"), rsi, rsiData);
-            var sma0Data = sma0Indicator(data)
-            var sma1Data = sma1Indicator(data)
-            var ema2Data = ema2Indicator(data)
-            refreshIndicator(svg.select("g .sma.ma-0"), sma0, sma0Data);
-            refreshIndicator(svg.select("g .sma.ma-1"), sma1, sma1Data);
-            refreshIndicator(svg.select("g .ema.ma-2"), ema2, ema2Data);
-            //svg.select("g.rsi .indicator-plot").call(rsi);
-
-          //svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
-          //svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
-          //svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
-          //svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
-          //svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
-
-          //svg.select("g.tradearrow").datum(trades).call(tradearrow);
-
-          draw();
-
-          // Associate the zoom with the scale after a domain has been applied
-          if (first_run) {
-            /*
-            var zoomable = x.zoomable();
-            zoomable.domain([indicatorPreRoll, data.length]); // Zoom in a little to hide indicator preroll
-            zoom.x(zoomable) //.y(y);
-            */
-            //zoomPercent.y(yPercent);
-          }
-          first_run = false
-      });
+        poll()
     }
-    poll()
+    if (location.search.indexOf('sim_id') !== -1) {
+        d3.csv("sim_trades.csv" + location.search, function (err, data) {
+            var trades = data.map(function (row) {
+                return {
+                    date: new Date(+row.Time),
+                    type: row.Type,
+                    price: +row.Price
+                }
+            })
+            withTrades(trades)
+        })
+    }
+    else {
+        withTrades([])
+    }
 
     function refreshIndicator(selection, indicator, data) {
         var datum = selection.datum();
@@ -474,6 +482,6 @@ $('.ticker-graph').each(function () {
         //svg.select("g.macd .indicator-plot").call(macd);
         //svg.select("g.trendlines").call(trendline);
         //svg.select("g.supstances").call(supstance);
-        //svg.select("g.tradearrow").call(tradearrow);
+        svg.select("g.tradearrow").call(tradearrow);
     }
 })
