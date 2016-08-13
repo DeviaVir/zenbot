@@ -176,7 +176,7 @@ c.logic = function container (get, set, clear) {
         else if (rs.oversold) {
           size = n(rs.balance[currency]).divide(rs.market_price).value()
         }
-        if (!size) {
+        if (!size || size < 0.01) {
           return cb()
         }
         // scale down size a little, to prevent out-of-balance errors
