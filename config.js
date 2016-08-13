@@ -72,9 +72,9 @@ c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_sizes = ['15m', '1h']
-c.gdax_key = 'c1ff823c63a6796409aae026f0ece588'
-c.gdax_secret = 'vEJd/ZeM9PkjVyMIYUTTzYr2+rigk5PHYF7TC/yvxFPJjmjc+MkfCswFXiLTf1+pNtV4hfU/5gTjlclxoanbdA=='
-c.gdax_passphrase = 'q518a4d7r0599iz015tp4x6r'
+c.gdax_key = ''
+c.gdax_secret = ''
+c.gdax_passphrase = ''
 var first_run = true
 c.logic = function container (get, set, clear) {
   var o = get('utils.object_get')
