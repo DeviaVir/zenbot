@@ -56,9 +56,9 @@ c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_sizes = ['15m', '1h']
-c.key = ''
-c.secret = ''
-c.passphrase = ''
+c.key = '58ec4f01eab0d51d0a7c528fed431c'
+c.secret = '9NgJe0WOY5T50KeRi+LbZo2Q9UjZEQhLqzFjtSqG3JEoJSkgfzV1wMk42sN5BRTA3qkFRLgvHs4azshHD6A0BQ=='
+c.passphrase = 'c2vtpmsm2pp'
 var first_run = true
 c.logic = function container (get, set, clear) {
   var o = get('utils.object_get')
@@ -184,12 +184,12 @@ c.logic = function container (get, set, clear) {
         if (rs.overbought) {
           get('logger').info('trader', 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           new_balance[currency] = n(rs.balance[currency]).add(n(size).multiply(rs.market_price)).value()
-          new_balance[asset] = 0
+          new_balance[asset] = n(rs.balance[asset]).subtract(size).value()
         }
         else if (rs.oversold) {
           get('logger').info('trader', 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
           new_balance[asset] = n(rs.balance[asset]).add(size).value()
-          new_balance[currency] = 0
+          new_balance[currency] = n(rs.balance[currency]).subtract(n(size).multiply(rs.market_price)).value()
         }
         // consolidate balance
         var new_end_balance = n(new_balance[currency]).add(n(new_balance[asset]).multiply(rs.market_price)).value()
