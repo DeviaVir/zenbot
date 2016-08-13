@@ -432,7 +432,7 @@ $('.ticker-graph').each(function () {
         }
         poll()
     }
-    if (location.search.indexOf('sim_id') !== -1) {
+    if (location.search.match(/sim_id=([^&]+)/)) {
         d3.csv("sim_trades.csv" + location.search, function (err, data) {
             var trades = data.map(function (row) {
                 return {
