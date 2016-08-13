@@ -82,8 +82,8 @@ module.exports = function container (get, set, clear) {
             return prev + loss
           }, 0)
           var avg_loss = r.samples ? n(loss_sum).divide(r.samples).value() : 0
-          var avg_gain_2 = n(avg_gain).multiply(c.rsi_periods - 2).add(current_gain).divide(c.rsi_periods).value()
-          var avg_loss_2 = n(avg_loss).multiply(c.rsi_periods - 2).add(current_loss).divide(c.rsi_periods).value()
+          var avg_gain_2 = n(avg_gain).multiply(c.rsi_periods - 1).add(current_gain).divide(c.rsi_periods).value()
+          var avg_loss_2 = n(avg_loss).multiply(c.rsi_periods - 1).add(current_loss).divide(c.rsi_periods).value()
           if (avg_loss_2 === 0) {
             r.value = avg_gain_2 ? 100 : 50
           }
