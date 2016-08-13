@@ -64,10 +64,13 @@ c.logic = function container (get, set, clear) {
   var o = get('utils.object_get')
   var n = require('numbro')
   var format_currency = get('utils.format_currency')
-  var selector = 'data.trades.gdax.BTC-USD'
   var get_timestamp = get('utils.get_timestamp')
   var CoinbaseExchange = require('coinbase-exchange')
   var client = new CoinbaseExchange.AuthenticatedClient(c.gdax_key, c.gdax_secret, c.gdax_passphrase)
+  var asset = 'BTC'
+  var currency = 'USD'
+  var rsi_period = '15m'
+  var selector = 'data.trades.gdax.' + asset + '-' + currency
   function onOrder (err, resp, order) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
@@ -109,15 +112,15 @@ c.logic = function container (get, set, clear) {
         }
         rs.balance = {}
         accounts.forEach(function (account) {
-          if (account.currency === 'USD') {
-            rs.balance.USD = n(account.balance).value()
+          if (account.currency === currency) {
+            rs.balance[currency] = n(account.balance).value()
           }
-          else if (account.currency === 'BTC') {
-            rs.balance.BTC = n(account.balance).value()
+          else if (account.currency === asset) {
+            rs.balance[asset] = n(account.balance).value()
           }
         })
         if (first_run) {
-          get('logger').info('GDAX', 'starting balance'.grey, n(rs.balance.BTC).format('0.000').white, 'BTC'.grey, n(rs.balance.USD).format('0.00').yellow, 'USD'.grey, {feed: 'exchange'})
+          get('logger').info('gdax', 'starting balance'.grey, n(rs.balance[asset]).format('0.000').white, asset.grey, n(rs.balance[currency]).format('0.00').yellow, currency.grey, {feed: 'exchange'})
           first_run = false
         }
         cb && cb()
@@ -133,14 +136,13 @@ c.logic = function container (get, set, clear) {
       if (!rs.market_price) return cb()
       if (!rs.balance) {
         // start with $1000, neutral position
-        rs.balance = {
-          USD: 500,
-          BTC: n(500).divide(rs.market_price).value()
-        }
+        rs.balance = {}
+        rs.balance[currency] = 500
+        rs.balance[asset] = n(500).divide(rs.market_price).value()
       }
       rs.ticks || (rs.ticks = 0)
       rs.ticks++
-      if (tick.size !== '15m') return cb()
+      if (tick.size !== rsi_period) return cb()
       // get gdax rsi
       var gdax_rsi = o(tick, selector + '.rsi')
       // require minimum data
@@ -170,12 +172,10 @@ c.logic = function container (get, set, clear) {
       if ((rs.overbought || rs.oversold) && rs.balance && rs.market_price) {
         var size, new_balance = {}
         if (rs.overbought) {
-          get('logger').info('trader', 'anticipating a reversal DOWN. sell at market. (' + Math.round(rs.market_price) + ')', {feed: 'trader'})
-          size = rs.balance.BTC
+          size = rs.balance[asset]
         }
         else if (rs.oversold) {
-          get('logger').info('trader', 'anticipating a reversal UP. buy at market. (' + Math.round(rs.market_price) + ')', {feed: 'trader'})
-          size = n(rs.balance.USD).divide(rs.market_price).value()
+          size = n(rs.balance[currency]).divide(rs.market_price).value()
         }
         if (!size) {
           return cb()
@@ -183,15 +183,17 @@ c.logic = function container (get, set, clear) {
         // scale down size a little, to prevent out-of-balance errors
         size = n(size).multiply(0.95).value()
         if (rs.overbought) {
-          new_balance.USD = n(rs.balance.USD).add(n(size).multiply(rs.market_price)).value()
-          new_balance.BTC = 0
+          get('logger').info('trader', 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
+          new_balance[currency] = n(rs.balance[currency]).add(n(size).multiply(rs.market_price)).value()
+          new_balance[asset] = 0
         }
         else if (rs.oversold) {
-          new_balance.BTC = n(rs.balance.BTC).add(size).value()
-          new_balance.USD = 0
+          get('logger').info('trader', 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ')', {feed: 'trader'})
+          new_balance[asset] = n(rs.balance[asset]).add(size).value()
+          new_balance[currency] = 0
         }
         // consolidate balance
-        var new_end_balance = n(new_balance.USD).add(n(new_balance.BTC).multiply(rs.market_price)).value()
+        var new_end_balance = n(new_balance[currency]).add(n(new_balance[asset]).multiply(rs.market_price)).value()
         var new_roi = n(new_end_balance).divide(1000).value()
         rs.balance = new_balance
         rs.end_balance = new_end_balance
@@ -200,8 +202,8 @@ c.logic = function container (get, set, clear) {
         rs.trades++
         trigger({
           type: rs.overbought ? 'sell' : 'buy',
-          asset: 'BTC',
-          currency: 'USD',
+          asset: asset,
+          currency: currency,
           exchange: 'gdax',
           price: rs.market_price,
           market: true,
@@ -213,7 +215,7 @@ c.logic = function container (get, set, clear) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),
-            product_id: 'BTC-USD'
+            product_id: asset + '-' + currency
           }
           client[rs.overbought ? 'sell' : 'buy'](params, function (err, resp, order) {
             onOrder(err, resp, order)
