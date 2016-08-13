@@ -224,6 +224,7 @@ c.logic = function container (get, set, clear) {
             onOrder(err, resp, order)
           })
         }
+        rs.overbought = rs.oversold = false
       }
       cb()
     }
