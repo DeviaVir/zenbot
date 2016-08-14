@@ -222,7 +222,7 @@ $('.ticker-graph').each(function () {
 
     svg.append('text')
             .attr("class", "symbol")
-            .attr("x", 20)
+            .attr("x", 50)
             .text("zenbot");
 
     svg.append("g")
