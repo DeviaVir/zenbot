@@ -1,6 +1,6 @@
 {
   "name": "zenbot_trader",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A machine-learning cryptocurrency trading bot",
   "bin": {
     "zenbot": "./zenbot"
