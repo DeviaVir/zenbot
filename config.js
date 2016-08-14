@@ -56,9 +56,9 @@ c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_sizes = ['15m', '1h']
-c.key = '58ec4f01eab0d51d0a7c528fed431c'
-c.secret = '9NgJe0WOY5T50KeRi+LbZo2Q9UjZEQhLqzFjtSqG3JEoJSkgfzV1wMk42sN5BRTA3qkFRLgvHs4azshHD6A0BQ=='
-c.passphrase = 'c2vtpmsm2pp'
+c.key = ''
+c.secret = ''
+c.passphrase = ''
 var first_run = true
 var last_balance_sig
 c.logic = function container (get, set, clear) {
@@ -245,11 +245,11 @@ c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 8
 c.reporter_cols = [
   "tick_id",
-  "timestamp",
   "num_trades",
+  "timestamp",
+  "rsi",
   "volume",
-  "price",
-  "rsi"
+  "price"
 ]
 c.backfill_days = 91
 c.record_timeout = 20000
