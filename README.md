@@ -15,7 +15,7 @@ zenbot is an automated cryptocurrency trading bot. It runs on node.js and MongoD
 
 - Out of the box, zenbot is an AI-powered trade advisor for GDAX (gives you buy or sell signals while watching live data).
 - Enable trades by simply giving it your GDAX API key.
-- Trade strategy is exposed in the config file. This allows you to have full control over the bot's actions and logic.
+- Trade strategy is exposed in the config file. This allows you to have full control over the bot's actions and logic. For example, instead of trading on GDAX, you could trade on a different exchange or currency pair by implementing a few lines of JavaScript.
 - A live candlestick graph is provided via a built-in HTTP server.
 
 HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine! **As with buying bitcoin in general, risk is involved and caution is essential. bitcoin is an experiment, and so is zenbot.**
