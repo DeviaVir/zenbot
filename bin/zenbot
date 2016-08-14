@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var version = require('../package.json').version
-ZENBOT_USER_AGENT = 'zenbot/' + version
+ZENBOT_USER_AGENT = USER_AGENT = 'zenbot/' + version
 var constants = require('../conf/constants.json')
 
 var launch = require('../utils/launch')
