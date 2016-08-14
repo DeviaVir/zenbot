@@ -30,6 +30,8 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ### 2. Install zenbot 3:
 
+Note: it will ask for your password. This is for `sudo rm -Rf /usr/local/bin/zenbot && sudo npm link` to install the binary.
+
 ```shell
 curl --silent https://raw.githubusercontent.com/carlos8f/zenbot/master/install.sh | /bin/sh
 ```
