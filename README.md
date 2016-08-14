@@ -26,21 +26,23 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ## Quick-start
 
-Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://mongodb.org/)
+1. Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://mongodb.org/)
 
-Then run this in your projects folder:
+2. Install zenbot 3:
 
 ```shell
-curl --silent https://raw.githubusercontent.com/carlos8f/zenbot/3.x/install.sh | /bin/sh
+curl --silent https://raw.githubusercontent.com/carlos8f/zenbot/master/install.sh | /bin/sh
 ```
 
-It will install an run zenbot on the default exchange (GDAX).
+3. Edit `zenbot/config.js` with API keys, database credentials, trade logic, etc.
 
-To run zenbot,
+4. Run zenbot on the exchange:
 
 ```shell
 ./run.sh
 ```
+
+5. Open the live graph URL provided in the console.
 
 To access the CLI,
 
@@ -64,6 +66,8 @@ zenbot
     -V, --version  output the version number
 ```
 
+The `./run.sh` script combines `launch map --backfill reduce run server`, so use the CLI to access the other commands.
+
 ## Simulation
 
 Run a simulation on backfilled/recorded data by running:
@@ -72,7 +76,7 @@ Run a simulation on backfilled/recorded data by running:
 zenbot sim
 ```
 
-Zenbot will return you a list of virtual trades, and an ROI figure.
+Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph.
 
 ## FAQ
 
