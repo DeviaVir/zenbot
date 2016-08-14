@@ -11,7 +11,8 @@ body {
     }
 
     svg {
-        width: 100%;
+        margin: 20px;
+        width: 90%;
         height: auto;
         z-index: 2;
     }
@@ -235,7 +236,8 @@ body {
 } 
 
 .options {
-    display: static;
-    bottom: 20px;
+    position: absolute;
+    top: 20px;
     left: 20px;
+    z-index: 3;
 }
