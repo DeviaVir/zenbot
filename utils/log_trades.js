@@ -28,7 +28,7 @@ module.exports = function container (get, set, clear) {
     var buy_ratio = n(buy_vol).divide(vol).value()
     var dominant_side = z(4, buy_ratio < 0.5 ? 'SELL' : 'BUY', ' ')
     var dominant_vol = (buy_ratio < 0.5 ? n(vol).subtract(buy_vol) : n(buy_vol)).format('0.000')
-    var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' '))[buy_ratio < 0.5 ? 'red' : 'green'] + ' at '.grey + z(12, format_currency(avg_price, currency), ' ').yellow + ' ' + (asset + '/' + currency).grey
+    var ticker = (dominant_side + ' ' + z(12, dominant_vol, ' ')).grey + ' at '.grey + z(12, format_currency(avg_price, currency), ' ').grey + ' ' + (asset + '/' + currency).grey
     ticker = get_timestamp(max_time).grey + ' ' + ticker
     var tick_str = get_tick_str(app_name + ':' + tb(max_time).resize(c.bucket_size).toString())
     get('logger').info(slug, z(12, tick_str), z(7, trades.length, ' '), 'trades.'.grey, ticker)
