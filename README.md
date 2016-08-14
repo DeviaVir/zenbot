@@ -7,7 +7,7 @@
 
 - Follow zenbot [on Twitter!](https://twitter.com/zenbot_btc)
 - Check out zenbot's [live feed!](https://zenbot.s8f.org/)
-- Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4rym6o/zenbot_an_automated_bitcoin_trading_bot_for_gdax/)
+- Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
 ## Description
 
@@ -136,6 +136,9 @@ Source: [Wikipedia](https://en.wikipedia.org/wiki/Technical_analysis#Systematic_
 
 P.S., some have asked for how to donate to Zenbot development. I accept donations at [my Bitcoin address](bitcoin:187rmNSkSvehgcKpBunre6a5wA5hQQop6W), thanks!
 
+## Discuss
+
+Join the [discussion on Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 - - -
 
 ### License: MIT
