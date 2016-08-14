@@ -22,7 +22,7 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ## Screenshot
 
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_web_ui.png)
+![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_ui.png)
 
 ## Quick-start
 
@@ -82,7 +82,7 @@ Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL
 
 When the server is running, and you have visited the `?secret` URL provided in the console, you can access an aggregated, live feed of log messages at `http://localhost:3013/logs`. Example:
 
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
+![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
 
 ## FAQ
 
