@@ -10,6 +10,9 @@ module.exports = function container (get, set, clear) {
       var line = 'RSI:'.grey + z(3, rsi.ansi) + 'x'.grey + z(2, rsi.samples).grey
       g.cols.push(line)
     }
+    else {
+      g.cols.push(z(10, ' '))
+    }
     cb()
   }
 }
