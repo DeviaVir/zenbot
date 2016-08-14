@@ -10,7 +10,7 @@ module.exports = function container (get, set, clear) {
     app.listen(function (err) {
       if (err) throw err
       var port = get('motley:site.server').address().port
-      get('logger').info(z(c.max_slug_length, 'ticker server', ' '), 'open'.grey, ('http://localhost:' + port + '/?secret=' + secret).yellow, 'to see a live graph.'.grey)
+      get('logger').info('server', 'open'.grey, ('http://localhost:' + port + '/?secret=' + secret).yellow, 'to see a live graph.'.grey)
     })
   }
 }

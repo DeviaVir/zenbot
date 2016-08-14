@@ -10,7 +10,7 @@ module.exports = function container (get, set, clear) {
     var close = o(g.tick, 'data.trades.' + c.price_reporter_selector + '.close')
     if (close) {
       var currency = c.price_reporter_selector.split('-')[1]
-      var line = z(c.price_reporter_length, format_currency(close, currency)).yellow
+      var line = 'CLOSE:'.grey + z(c.price_reporter_length, format_currency(close, currency)).yellow + ' ' + currency.grey
       g.cols.push(line)
     }
     cb()

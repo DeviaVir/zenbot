@@ -11,7 +11,7 @@ module.exports = function container (get, set, clear) {
         return prev + d[e][pair].count
       }, 0)
     }, 0)
-    g.cols.push(z(5, num_trades).grey)
+    g.cols.push(z(7, num_trades, ' ') + ' trades.'.grey)
     cb()
   }
 }

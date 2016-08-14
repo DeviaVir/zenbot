@@ -11,7 +11,7 @@ module.exports = function container (get, set, clear) {
         return prev + d[e][pair].volume
       }, 0)
     }, 0)
-    g.cols.push(z(10, n(volume).format('0.000')).grey)
+    g.cols.push(z(6, n(volume).format('0.000')).white)
     cb()
   }
 }
