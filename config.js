@@ -239,7 +239,7 @@ c.logic = function container (get, set, clear) {
     // END DEFAULT TRADE LOGIC
   ]
 }
-c.reporter_sizes = ['15m']
+c.reporter_sizes = ['1m', '15m']
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 9
 c.reporter_cols = [
