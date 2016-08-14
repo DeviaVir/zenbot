@@ -5,6 +5,5 @@ t.js
 node_modules
 npm-debug.log
 db.json
-config.js
 dump
 conf/secret.json

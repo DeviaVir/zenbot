@@ -1,0 +1,24 @@
+<div class="loading">
+  <i class="fa fa-spinner fa-pulse fa-fw"></i>
+  <h1 class="no-data">No data :(</h1>
+</div>
+<div class="ticker-graph"></div>
+
+<form class="options" onchange="javascript:this.submit()">
+  <input type="hidden" name="sim_id" value="{{sim_id}}">
+  <select name="selector">
+    {{#each selectors}}
+    <option value="{{selector}}"{{#if is_default}} selected{{/if}}>{{selector}}</option>
+    {{/each}}
+    </select>
+    <select name="period">
+    {{#each tick_sizes}}
+    <option value="{{size}}"{{#if is_default}} selected{{/if}}>{{size}}</option>
+    {{/each}}
+    </select>
+    <select name="limit">
+    {{#each graph_limits}}
+    <option value="{{limit}}"{{#if is_default}} selected{{/if}}>{{limit}}</option>
+    {{/each}}
+  </select>
+</form>

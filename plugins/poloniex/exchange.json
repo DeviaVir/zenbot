@@ -1,0 +1,15 @@
+{
+  "name": "poloniex",
+  "rest_url": "https://poloniex.com/public",
+  "products": [
+    {
+      "id":"USDT_BTC",
+      "asset":"BTC",
+      "currency":"USD",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"USDT/BTC"
+    }
+  ]
+}

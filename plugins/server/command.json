@@ -1,0 +1,13 @@
+{
+  "name": "server",
+  "spec": "server",
+  "description": "launch the server",
+  "options": [
+    {
+      "name": "port",
+      "spec": "-p, --port <port>",
+      "description": "port to listen on",
+      "default": 3013
+    }
+  ]
+}

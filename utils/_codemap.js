@@ -1,11 +1,8 @@
 module.exports = {
-  _ns: 'motley',
+  _ns: 'zenbrain',
   _folder: 'utils',
-  'authed_client': require('./authed_client'),
-  'client': require('./client'),
-  '@motley:console': require('./console'),
-  'get_time': require('./get_time'),
-  'get_timestamp': require('./get_timestamp'),
-  'twitter_client': require('./twitter_client'),
-  'websocket': require('./websocket')
+  format_currency: require('./format_currency'),
+  get_products: require('./get_products'),
+  is_backfilled: require('./is_backfilled'),
+  log_trades: require('./log_trades')
 }

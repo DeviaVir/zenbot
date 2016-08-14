@@ -1,0 +1,111 @@
+<style type="text/css">
+body {
+  font-family: 'Source Code Pro', monospace;
+  padding: 0 30px 10px 10px;
+  font-size: 85%;
+  background-color: black;
+  color: #45d813;
+  overflow: scroll;
+}
+
+.log-line, .header {
+  white-space: pre;
+  line-height: 1.3;
+}
+
+.header {
+/*
+  color: #cecece;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+  padding: 0 5px 5px 0;
+*/
+}
+
+.logs {
+  /* padding-top: 1.7em; */
+}
+
+.bear {
+  background-color: #710000;
+}
+
+.bull {
+  background-color: #194a00;
+}
+
+.locked {
+  background-color: #545454 !important;
+}
+
+.first {
+  background-color: #292299;
+}
+
+.ansi-black-fg { color: black; }
+.ansi-red-fg { color: #cc0000; }
+.ansi-green-fg { color: #45d813; }
+.ansi-yellow-fg { color: yellow; }
+.ansi-blue-fg { color: blue; }
+.ansi-magenta-fg { color: magenta; }
+.ansi-cyan-fg { color: #48c7c7; }
+.ansi-white-fg { color: #cecece; }
+.ansi-bright-black-fg { color: #5E5D5E; }
+.ansi-bright-red-fg { color: #E69B94; }
+.ansi-bright-green-fg { color: #D1F0C3; }
+.ansi-bright-yellow-fg { color: #F4D799; }
+.ansi-bright-blue-fg { color: #A6CBFE; }
+.ansi-bright-magenta-fg { color: #E7C7F2; }
+.ansi-bright-cyan-fg { color: #B0F0F5; }
+.ansi-bright-white-fg { color: #FFF; }
+
+.ansi-black-bg { background-color: black; }
+.ansi-red-bg { background-color: rgba(204, 0, 0, 0.8); }
+.ansi-green-bg { background-color: rgba(69, 216, 19, 0.8); }
+.ansi-yellow-bg { background-color: #ef7200; }
+.ansi-blue-bg { background-color: blue; }
+.ansi-magenta-bg { background-color: magenta; }
+.ansi-cyan-bg { background-color: #48c7c7; }
+.ansi-white-bg { background-color: #cecece; }
+.ansi-bright-black-bg { background-color: #5E5D5E; }
+.ansi-bright-red-bg { background-color: #E69B94; }
+.ansi-bright-green-bg { background-color: #D1F0C3; }
+.ansi-bright-yellow-bg { background-color: #F4D799; }
+.ansi-bright-blue-bg { background-color: #A6CBFE; }
+.ansi-bright-magenta-bg { background-color: #E7C7F2; }
+.ansi-bright-cyan-bg { background-color: #B0F0F5; }
+.ansi-bright-white-bg { background-color: #FFF; }
+
+.locked .ansi-bright-black-fg {
+  color: #000;
+}
+
+a {
+  color: #37a8ff;
+  text-decoration: none;
+}
+
+small a {
+  color: #222;
+}
+
+.log-line:hover small a {
+  color: #777;
+}
+
+.loader {
+  visibility: hidden;
+  margin-left: 15px;
+}
+
+.logs-end {
+  margin: 20px 0;
+  text-align: center;
+  color: #555;
+}
+</style>
+
+<div class="header"><i class="loader fa fa-fw fa-spinner fa-pulse"></i></div>
+<div class="logs"></div>
+<div class="logs-end"><i class="loader fa fa-fw fa-spinner fa-pulse fa-3x"></i></div>
