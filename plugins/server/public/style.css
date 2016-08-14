@@ -11,8 +11,8 @@ body {
     }
 
     svg {
-        margin: 20px;
-        width: 90%;
+        margin: 50px;
+        width: 98%;
         height: auto;
         z-index: 2;
     }
