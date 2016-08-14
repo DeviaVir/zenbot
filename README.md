@@ -86,6 +86,19 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
 
+## About the default trade logic in config.js
+
+- uses [GDAX](https://gdax.com/) API
+- watches/trades BTC/USD
+- acts at 15m increments (ticks)
+- computes 14-period 15m RSI
+- considers `RSI > 70` overbought and `RSI < 30` oversold
+- trades 95% of current balance, market price
+
+You can tweak `config.js` from there to use bitfinex, or trade ETH, or whatever. Common `config.js` logic will be moved to core or plugins in later versions of zenbot. Use `zenbot sim` to check your trade strategy against historical trades.
+
+Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
+
 ## FAQ
 
 ### Can I use zenbot with [X] exchange?
