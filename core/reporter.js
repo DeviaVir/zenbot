@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
     return get('reporter_cols.' + i)
   })
   return function reporter (tick, rs, cb) {
-    if (!tick.data.trades) return cb()
+    if (c.reporter_sizes.indexOf(tick.size) === -1 || !tick.data.trades) return cb()
     var g = {
       tick: tick,
       cols: []
