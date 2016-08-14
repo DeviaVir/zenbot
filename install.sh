@@ -7,4 +7,3 @@ npm install
 npm install zenbrain
 sudo rm -Rf /usr/local/bin/zenbot
 sudo npm link
-./run.sh
