@@ -193,6 +193,7 @@ c.logic = function container (get, set, clear) {
           else if (rs.oversold) {
             get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
           }
+          rs.overbought = rs.oversold = false
           return cb()
         }
         if (rs.overbought) {
