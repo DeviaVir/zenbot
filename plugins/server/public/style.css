@@ -235,8 +235,7 @@ body {
 } 
 
 .options {
-    display: block;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
+    display: static;
+    bottom: 20px;
+    left: 20px;
 }
