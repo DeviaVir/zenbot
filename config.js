@@ -2,9 +2,9 @@ var c = module.exports = {}
 c.mongo_url = "mongodb://localhost:27017/zenbrain" // change if your mongo server isn't local
 c.mongo_username = null // normally not needed
 c.mongo_password = null
-c.bucket_size = "10s"
+c.bucket_size = "1m"
 c.reducer_limit = 500 // how many thoughts to process per reduce run
-c.reducer_sizes = ["10s", "1m", "5m", "15m", "1h", "6h", "1d"]
+c.reducer_sizes = ["1m", "5m", "15m", "1h", "6h", "1d"]
 c.save_state_interval = 10000 // save state
 c.parallel_limit = 8 // run this many concurrent tasks
 c.reduce_timeout = 200
@@ -55,7 +55,7 @@ c.graph_selectors = [
 c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
-c.rsi_sizes = ['10s', '15m', '1h']
+c.rsi_sizes = ['15m', '1h']
 c.key = ''
 c.secret = ''
 c.passphrase = ''
@@ -240,7 +240,7 @@ c.logic = function container (get, set, clear) {
     // END DEFAULT TRADE LOGIC
   ]
 }
-c.reporter_sizes = ['10s']
+c.reporter_sizes = ['15m']
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 9
 c.reporter_cols = [
