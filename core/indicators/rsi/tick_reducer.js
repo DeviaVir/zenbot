@@ -105,7 +105,7 @@ module.exports = function container (get, set, clear) {
           r.avg_loss_2 = avg_loss_2
           r.relative_strength = relative_strength || null
           if (r.samples >= c.rsi_periods) {
-            get('logger').info('RSI', z(12, get_tick_str(tick.id)), get_timestamp(tick.time).grey, r.ansi, ('x' + r.samples).grey)
+            //get('logger').info('RSI', z(12, get_tick_str(tick.id)), get_timestamp(tick.time).grey, r.ansi, ('x' + r.samples).grey)
             computations++
           }
         })
