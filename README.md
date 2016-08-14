@@ -1,6 +1,6 @@
 # zenbot 3
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/3.x/assets/zenbot_clean.png)
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_clean.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
@@ -22,7 +22,7 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ## Screenshot
 
-![screenshot](https://rawgit.com/carlos8f/zenbot/3.x/assets/zenbot_web_ui.png)
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_web_ui.png)
 
 ## Quick-start
 
@@ -77,6 +77,12 @@ zenbot sim
 ```
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `config.js` for new trade strategies and check your results this way.
+
+### 7. Web console
+
+When the server is running, and you have visited the `?secret` URL provided in the console, you can access an aggregated, live feed of log messages at `http://localhost:3013/logs`. Example:
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
 
 ## FAQ
 
