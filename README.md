@@ -26,7 +26,7 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ## Quick-start
 
-### 1. Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://mongodb.org/)
+### 1. Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/download-center)
 
 ### 2. Install zenbot 3:
 
