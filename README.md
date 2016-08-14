@@ -132,6 +132,10 @@ While the advanced mathematical nature of such adaptive systems has kept neural 
 
 Source: [Wikipedia](https://en.wikipedia.org/wiki/Technical_analysis#Systematic_trading)
 
+## Donate
+
+P.S., some have asked for how to donate to Zenbot development. I accept donations at [my Bitcoin address](bitcoin:187rmNSkSvehgcKpBunre6a5wA5hQQop6W), thanks!
+
 - - -
 
 ### License: MIT
