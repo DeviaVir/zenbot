@@ -1,6 +1,6 @@
 {
   "name": "zenbot_trader",
-  "version": "3.0.0-alpha",
+  "version": "2.8.10",
   "description": "A machine-learning cryptocurrency trading bot",
   "bin": {
     "zenbot": "./zenbot"
@@ -8,7 +8,7 @@
   "dependencies": {
     "ansi_up": "^1.3.0",
     "bitfinex-api-node": "^0.2.9",
-    "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git",
+    "coinbase-exchange": "git+https://github.com/carlos8f/coinbase-exchange-node.git#e6133d9a9e4ee3c5f911ba533529167e16e99324",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "formatmicro": "^1.0.6",
@@ -20,7 +20,7 @@
     "motley-mongo": "^2.0.5",
     "motley-templ": "^2.0.4",
     "multi-progress": "^2.0.0",
-    "numbro": "git+https://github.com/carlos8f/numbro.git",
+    "numbro": "git+https://github.com/carlos8f/numbro.git#11a9605bbd8a0bc8dc27c778cd7b4f467aebe2fa",
     "object-get": "^2.1.0",
     "os-monitor": "^1.0.4",
     "run-parallel": "^1.1.6",
@@ -28,7 +28,7 @@
     "sig": "^1.0.0",
     "timebucket": "^0.3.4",
     "twit": "^2.2.4",
-    "zenbrain": "git+https://github.com/carlos8f/zenbrain.git",
+    "zenbrain": "git+https://github.com/carlos8f/zenbrain.git#d90d42ae9c07ef6ad50a04c2fe9ecfae4a026e01",
     "zero-fill": "^2.2.3"
   }
 }

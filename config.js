@@ -56,9 +56,9 @@ c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_sizes = ['15m', '1h']
-c.key = ''
-c.secret = ''
-c.passphrase = ''
+c.key = '' // TO ENABLE BOT TRADING: set this to GDAX api key,
+c.secret = '' // set this to GDAX api secret,
+c.passphrase = '' // set this to GDAX api passphrase.
 var first_run = true
 var last_balance_sig
 c.logic = function container (get, set, clear) {
@@ -137,7 +137,6 @@ c.logic = function container (get, set, clear) {
       if (market_price) {
         rs.market_price = market_price
       }
-      // Trade at market using 15m RSI indicator.
       if (!rs.market_price) return cb()
       if (!rs.balance) {
         // start with $1000, neutral position
