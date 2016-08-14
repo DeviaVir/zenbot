@@ -8,6 +8,7 @@ body {
         color: #888;
         position: relative;
         height: 100%;
+        overflow: hidden;
     }
 
     svg {
