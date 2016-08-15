@@ -64,6 +64,7 @@ var last_balance_sig
 c.logic = function container (get, set, clear) {
   var o = get('utils.object_get')
   var n = require('numbro')
+  var tb = require('timebucket')
   var sig = require('sig')
   var format_currency = get('utils.format_currency')
   var get_timestamp = get('utils.get_timestamp')
@@ -137,6 +138,8 @@ c.logic = function container (get, set, clear) {
       if (market_price) {
         rs.market_price = market_price
       }
+      rs.ticks || (rs.ticks = 0)
+      rs.progress || (rs.progress = 0)
       if (!rs.market_price) return cb()
       if (!rs.balance) {
         // start with $1000, neutral position
@@ -144,9 +147,15 @@ c.logic = function container (get, set, clear) {
         rs.balance[currency] = 500
         rs.balance[asset] = n(500).divide(rs.market_price).value()
       }
-      rs.ticks || (rs.ticks = 0)
       rs.ticks++
-      if (tick.size !== rsi_period) return cb()
+      if (tick.size !== rsi_period) {
+        // what % are we to a decision?
+        var base_time = tb(tick.time).resize(rsi_period).toMilliseconds()
+        var target_time = tb(tick.time).resize(rsi_period).add(1).toMilliseconds()
+        rs.progress = n(tick.time - base_time).divide(target_time - base_time).value()
+        return cb()
+      }
+      rs.progress = 1
       // get rsi
       var rsi = o(tick, selector + '.rsi')
       // require minimum data
@@ -239,7 +248,7 @@ c.logic = function container (get, set, clear) {
     // END DEFAULT TRADE LOGIC
   ]
 }
-c.reporter_sizes = ['1m', '15m', '1h', '6h']
+c.reporter_sizes = ['15m', '1h', '6h']
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 9
 c.reporter_cols = [
@@ -248,13 +257,14 @@ c.reporter_cols = [
   "timestamp",
   "rsi",
   "volume",
-  "price"
+  "price",
+  "progress"
 ]
 c.backfill_days = 91
 c.record_timeout = 20000
 c.backfill_timeout = 5000
-c.reducer_report_interval = 2000
-c.trade_report_interval = 10000
+c.reducer_report_interval = 10000
+c.trade_report_interval = 60000
 c.sim_input_unit = "7d"
 c.sim_input_limit = 12
 c.log_query_limit = 200
