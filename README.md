@@ -11,7 +11,7 @@
 
 ## Updates
 
-- **3.1.1** - Updated zenbrain version.
+- **3.1.1** - Updated zenbrain version. Please run `./update.sh`.
 
 - **3.1.0** - Major logic update. Much of the default trade logic reprogrammed. Moved default logic to `./default_logic.js`. RSI now backfills by default, reconfigured to 15m intervals. Safe to drop your zenbrain DB before this update.
 
