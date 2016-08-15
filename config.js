@@ -35,8 +35,8 @@ c.twitter_access_token = ""
 c.twitter_access_token_secret = ""
 
 // graph server
-c.default_graph_period = "1h"
-c.default_graph_limit = 300
+c.default_graph_period = "15m"
+c.default_graph_limit = 1000
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 c.graph_selectors = [
   "gdax.BTC-USD",
