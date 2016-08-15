@@ -55,7 +55,7 @@ c.graph_selectors = [
 c.rsi_query_limit = 100
 c.rsi_periods = 14
 c.rsi_reporter_selector = "gdax.BTC-USD"
-c.rsi_sizes = ['15m', '1h']
+c.rsi_sizes = ['15m', '1h', '6h']
 c.key = '' // TO ENABLE BOT TRADING: set this to GDAX api key,
 c.secret = '' // set this to GDAX api secret,
 c.passphrase = '' // set this to GDAX api passphrase.
@@ -71,7 +71,7 @@ c.logic = function container (get, set, clear) {
   var client = new CoinbaseExchange.AuthenticatedClient(c.key, c.secret, c.passphrase)
   var asset = 'BTC'
   var currency = 'USD'
-  var rsi_period = '15m'
+  var rsi_period = '6h'
   var exchange = 'gdax'
   var selector = 'data.trades.' + exchange + '.' + asset + '-' + currency
   function onOrder (err, resp, order) {
@@ -239,7 +239,7 @@ c.logic = function container (get, set, clear) {
     // END DEFAULT TRADE LOGIC
   ]
 }
-c.reporter_sizes = ['1m', '15m']
+c.reporter_sizes = ['1m', '15m', '1h', '6h']
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 9
 c.reporter_cols = [
