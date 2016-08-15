@@ -83,7 +83,7 @@ c.trade_report_interval = 5000
 // backfiller
 c.backfill_days = 91
 c.record_timeout = 20000
-c.backfill_timeout = 500
+c.backfill_timeout = 5000
 
 // simulator
 c.sim_input_unit = "7d"
