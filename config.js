@@ -77,8 +77,8 @@ c.reporter_cols = [
   "price",
   //"progress"
 ]
-c.reducer_report_interval = 5000
-c.trade_report_interval = 5000
+c.reducer_report_interval = 30000
+c.trade_report_interval = 30000
 
 // backfiller
 c.backfill_days = 91
