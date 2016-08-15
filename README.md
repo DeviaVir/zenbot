@@ -91,8 +91,8 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 - uses [GDAX](https://gdax.com/) API
 - watches/trades BTC/USD
-- acts at 15m increments (ticks)
-- computes 14-period 15m RSI
+- acts at 6h increments (ticks), but you can configure to act quicker or slower.
+- computes 14-period 6h RSI
 - considers `RSI > 70` overbought and `RSI < 30` oversold
 - trades 95% of current balance, market price
 
