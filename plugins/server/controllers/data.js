@@ -9,9 +9,6 @@ module.exports = function container (get, set) {
     .get('/sim_trades.csv', function (req, res, next) {
       res.setHeader('Content-Type', 'text/csv')
       res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
-      if (!req.session.secret) {
-        return res.end()
-      }
       get('db.run_states').load(req.query.sim_id, function (err, sim_result) {
         if (err) return next(err)
         if (sim_result && sim_result.actions) {
