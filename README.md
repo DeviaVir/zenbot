@@ -89,24 +89,26 @@ zenbot sim
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `config.js` for new trade strategies and check your results this way.
 
+#### About the default trade logic in `default_logic.js`
+
+- uses [GDAX](https://gdax.com/) API
+- watches/trades BTC/USD
+- acts at 1m increments (ticks), but you can configure to act quicker or slower.
+- computes 14-period 15m RSI
+- considers `RSI >= 70` overbought and `RSI <= 20` oversold
+- trades 95% of current balance, market price
+
+You can tweak `config.js` from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
+
+Note that simulations always end on Wednesday 5pm PST, and run for a max 90 days, to ensure consistency of results.
+
+Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
+
 ### 7. Web console
 
 When the server is running, and you have visited the `?secret` URL provided in the console, you can access an aggregated, live feed of log messages at `http://localhost:3013/logs`. Example:
 
 ![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
-
-## About the default trade logic in config.js
-
-- uses [GDAX](https://gdax.com/) API
-- watches/trades BTC/USD
-- acts at 6h increments (ticks), but you can configure to act quicker or slower.
-- computes 14-period 6h RSI
-- considers `RSI > 70` overbought and `RSI < 30` oversold
-- trades 95% of current balance, market price
-
-You can tweak `config.js` from there to use bitfinex, or trade ETH, or whatever. Common `config.js` logic will be moved to core or plugins in later versions of zenbot. Use `zenbot sim` to check your trade strategy against historical trades.
-
-Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
 
 ## FAQ
 
