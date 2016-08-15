@@ -9,6 +9,10 @@
 - Check out zenbot's [live feed!](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
+## Updates
+
+- **3.1.0** - Major logic update. Much of the default trade logic reprogrammed. Moved default logic to `./default_logic.js`. RSI now backfills by default, reconfigured to 15m intervals. Safe to drop your zenbrain DB before this update.
+
 ## Description
 
 zenbot is an automated cryptocurrency trading bot. It runs on node.js and MongoDB and is fully open-sourced. A plugin architecture is included that allows any exchange, trade strategy, or currency pair to be supported.
