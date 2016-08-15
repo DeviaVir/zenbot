@@ -98,7 +98,7 @@ Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL
 - considers `RSI >= 70` overbought and `RSI <= 20` oversold
 - trades 95% of current balance, market price
 
-You can tweak `config.js` from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
+You can tweak the JS from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
 
 Note that simulations always end on Wednesday 5pm PST, and run for a max 90 days, to ensure consistency of results.
 
