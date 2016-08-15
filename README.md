@@ -84,7 +84,7 @@ The `./run.sh` script combines `launch map --backfill reduce run server`, so use
 Once backfill has finished, run a simulation:
 
 ```shell
-zenbot sim
+zenbot sim [--verbose]
 ```
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `config.js` for new trade strategies and check your results this way.
