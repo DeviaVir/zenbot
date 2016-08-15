@@ -144,7 +144,15 @@ Source: [Wikipedia](https://en.wikipedia.org/wiki/Technical_analysis#Systematic_
 
 ## Donate
 
-P.S., some have asked for how to donate to Zenbot development. I accept donations at [my Bitcoin address](bitcoin:187rmNSkSvehgcKpBunre6a5wA5hQQop6W), thanks!
+P.S., some have asked for how to donate to Zenbot development. I accept donations at **my Bitcoin address** Here:
+
+### carlos8f's BTC
+
+`187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
+
+![zenbot logo](https://s8f.org/files/bitcoin.png)
+
+thanks!
 
 ## Discuss
 
