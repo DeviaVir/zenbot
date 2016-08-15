@@ -10,7 +10,6 @@ module.exports = function container (get, set, clear) {
   var z = get('utils.zero_fill')
   return function mapper () {
     var options = get('options')
-    if (!options.backfill_rsi) return
     var min_time, num_marked = 0
     function getNext () {
       var params = {
@@ -47,10 +46,7 @@ module.exports = function container (get, set, clear) {
           setImmediate(getNext)
         }
         else {
-          get('logger').info('RSI', 'marked'.grey, num_marked, 'ticks for RSI backfill'.grey)
-          get('app').close(function () {
-            process.exit()
-          })
+          get('logger').info('RSI', 'marked'.grey, num_marked, c.rsi_sizes.join(',') + ' ticks for RSI backfill'.grey)
         }
       })
     }
