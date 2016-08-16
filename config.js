@@ -1,8 +1,8 @@
 var c = module.exports = {}
 
-c.key = '' // TO ENABLE BOT TRADING: set this to GDAX api key,
-c.secret = '' // set this to GDAX api secret,
-c.passphrase = '' // set this to GDAX api passphrase.
+c.gdax_key = '' // TO ENABLE BOT TRADING: set this to GDAX api key,
+c.gdax_secret = '' // set this to GDAX api secret,
+c.gdax_passphrase = '' // set this to GDAX api passphrase.
 
 // mongo stuff
 c.mongo_url = "mongodb://localhost:27017/zenbrain" // change if your mongo server isn't local
