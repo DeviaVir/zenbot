@@ -12,7 +12,7 @@ module.exports = {
     return function task (cb) {
       if (get.exists('zenbrain:sim_result')) {
         var sim_result = get('zenbrain:sim_result')
-        console.error('simulation result graph: http://localhost:3013/?sim_id=' + sim_result.id)
+        console.error('simulation result graph: http://localhost:3013/?sim_id=' + sim_result.id + '&period=1h&limit=2000')
       }
       cb()
     }

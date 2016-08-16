@@ -7,28 +7,26 @@ module.exports = function container (get, set) {
   var format_currency = get('zenbrain:utils.format_currency')
   return get('controller')()
     .get('/sim_trades.csv', function (req, res, next) {
-      if (!req.query.sim_id) {
-        return next(new Error('sim_id required'))
-      }
       res.setHeader('Content-Type', 'text/csv')
       res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
       get('db.run_states').load(req.query.sim_id, function (err, sim_result) {
         if (err) return next(err)
-        if (!sim_result) return res.renderStatus(404)
-        sim_result.actions.forEach(function (action) {
-          var line = [
-            action.type,
-            action.time,
-            action.asset,
-            action.currency,
-            action.exchange,
-            action.price,
-            action.size,
-            action.rsi,
-            action.roi
-          ].join(',')
-          res.write(line + '\n')
-        })
+        if (sim_result && sim_result.actions) {
+          sim_result.actions.forEach(function (action) {
+            var line = [
+              action.type,
+              action.time,
+              action.asset,
+              action.currency,
+              action.exchange,
+              action.price,
+              action.size,
+              action.rsi,
+              action.roi
+            ].join(',')
+            res.write(line + '\n')
+          })
+        }
         res.end()
       })
     })
@@ -44,7 +42,7 @@ module.exports = function container (get, set) {
         if (!run_state) return res.renderStatus(404)
         res.setHeader('Content-Type', 'text/csv')
         res.write('Type,Time,Asset,Currency,Exchange,Price,Size,RSI,ROI\n')
-        run_state.actions.forEach(function (action) {
+        ;(run_state.actions || []).forEach(function (action) {
           var line = [
             action.type,
             action.time,
