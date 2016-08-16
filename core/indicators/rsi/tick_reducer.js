@@ -30,7 +30,7 @@ module.exports = function container (get, set, clear) {
         time: -1
       }
     }, function (err, lookback) {
-      if (err) return done(err)
+      if (err) return cb(err)
       withLookback(lookback.reverse())
     })
     function withLookback (lookback) {
