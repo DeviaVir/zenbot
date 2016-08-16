@@ -14,6 +14,7 @@ id: 'gdax-8809631',
 */
 var request = require('micro-request')
   , n = require('numbro')
+  , tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.kraken')
@@ -22,6 +23,7 @@ module.exports = function container (get, set, clear) {
   var get_products = get('utils.get_products')
   var is_backfilled = get('utils.is_backfilled')
   var map = get('map')
+  var trade_id_multiplier = 1000000000
   return function mapper () {
     var products = get_products(x)
     var options = get('options')
@@ -32,6 +34,12 @@ module.exports = function container (get, set, clear) {
     products.forEach(function (product) {
       rs[product.id] || (rs[product.id] = {})
       var s = rs[product.id]
+      if (!s.backfiller_id) {
+        s.backfiller_id = n(tb('1d')
+          .subtract(c.backfill_days)
+          .toMilliseconds()).divide(1000).multiply(trade_id_multiplier).value()
+        s.backfiller_target = n(new Date().getTime()).multiply(trade_id_multiplier).value()
+      }
       //s.backfiller_id = null // start from scratch
       function retry () {
         setTimeout(getNext, x.backfill_timeout)
@@ -47,12 +55,12 @@ module.exports = function container (get, set, clear) {
           var trades = result.map(function (trade) {
             // conversions
             trade[SIDE] = (trade[SIDE] === 'b') ? 'buy' : 'sell'
+            var trade_id = n(trade[TIME]).multiply(trade_id_multiplier).value()
+            //s.backfiller_id = s.backfiller_id ? Math.max(s.backfiller_id, trade_id) : trade_id
             trade[TIME] = Math.floor(trade[TIME] * 1000)
-
-            s.backfiller_id = s.backfiller_id ? Math.min(s.backfiller_id, trade[TIME]) : trade[TIME]
             var obj = {
-              id: x.name + '-' + String(trade[TIME]),
-              trade_id: trade[TIME],
+              id: x.name + '-' + String(trade_id),
+              trade_id: trade_id,
               time: new Date(trade[TIME]).getTime(),
               asset: product.asset,
               currency: product.currency,
@@ -67,31 +75,39 @@ module.exports = function container (get, set, clear) {
             return obj
           })
           log_trades(x.name, trades)
-          if (is_backfilled(trades)) {
+          if (s.backfiller_id >= s.backfiller_target) {
             get('logger').info(x.name, (product.asset + '/' + product.currency + ' backfill complete').grey)
           }
           else {
             retry()
           }
         }
-        var uri = x.rest_url + '/public/Trades?pair=' + product.id + (s.backfiller_id ? '&since=' + s.backfiller_id : '')
-        get('logger').info('URL', uri)
+        var uri = x.rest_url + '/public/Trades?pair=' + product.id + '&since=' + n(s.backfiller_id).format('0')
+        //get('logger').info('URL', uri)
         request(uri, {headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
-          var resp_key = Object.keys(result.result)[0]
-          var trades = result.result[resp_key]
-
           if (err) {
             get('logger').error(x.name + ' backfiller err', err, {feed: 'errors'})
             return retry()
           }
-          if (resp.statusCode !== 200 || toString.call(result.result[resp_key]) !== '[object Array]' ) {
+          if (resp.statusCode !== 200) {
             console.error(result)
             get('logger').error(x.name + ' non-200 status: ' + resp.statusCode, {feed: 'errors'})
             return retry()
           }
-
-          // NOTE: the array of trades is something like result.result.XXBTZUSD
-          withResult(result.result[resp_key])
+          if (result && result.result && Object.keys(result.result).length) {
+            var resp_key = Object.keys(result.result)[0]
+            var trades = result.result[resp_key]
+            // NOTE: the array of trades is something like result.result.XXBTZUSD
+            s.backfiller_id = n(result.result.last).value()
+            withResult(result.result[resp_key])
+          }
+          else if (result && result.error && result.error.length) {
+            get('logger').error(x.name + ' err: ' + result.error[0], {feed: 'errors'})
+            setTimeout(retry, 10000)
+          }
+          else {
+            setTimeout(retry, 10000)
+          }
         })
       }
       getNext()

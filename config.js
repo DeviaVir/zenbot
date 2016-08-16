@@ -13,17 +13,20 @@ c.mongo_password = null
 c.assets = [
   "BTC",
   //"ETH",
-  //"LTC"
+  //"LTC",
 ]
 c.currencies = [
   //"CNY",
   //"EUR",
-  "USD"
+  "USD",
+  "USDT"
 ]
 // will require(plugins/{name}/_codemap or {name}/_codemap)
+// to watch an exchange, uncomment it from the list below.
 c.enabled_plugins = [
   //"bitfinex",
   "gdax",
+  //"kraken",
   //"poloniex",
   "server"
 ]
@@ -35,22 +38,15 @@ c.twitter_access_token = ""
 c.twitter_access_token_secret = ""
 
 // graph server
-c.default_graph_period = "15m"
-c.default_graph_limit = 1000
+c.default_graph_period = "1h"
+c.default_graph_limit = 500
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
+// add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
 c.graph_selectors = [
   "gdax.BTC-USD",
-  //"gdax.BTC-EUR",
-  //"gdax.ETH-USD",
-  //"poloniex.BTC-USD",
+  //"kraken.BTC-USD",
+  //"poloniex.BTC-USDT",
   //"bitfinex.BTC-USD",
-  //"bitfinex.ETH-USD",
-  //"bitfinex.ETH-BTC",
-  //"bitfinex.ETC-BTC",
-  //"bitfinex.LTC-USD",
-  //"bitfinex.LTC-BTC",
-  //"bitfinex.ETC-BTC",
-  //"bitfinex.ETC-USD"
 ]
 c.log_query_limit = 200
 c.tracking_scripts = ''

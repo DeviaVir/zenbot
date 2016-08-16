@@ -2086,9 +2086,9 @@
       "label":"BTC/USDE"
     },
     {
-      "id":"BTC_USDT",
-      "asset":"USDT",
-      "currency":"BTC",
+      "id":"USDT_BTC",
+      "asset":"BTC",
+      "currency":"USDT",
       "min_size":0.01,
       "max_size":10000,
       "increment":0.01,

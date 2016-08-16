@@ -60,6 +60,7 @@ module.exports = function container (get, set, clear) {
           query.end = s.backfiller_id
           query.start = Math.round(tb('s', s.backfiller_id).resize('1h').subtract(2).toMilliseconds() / 1000)
         }
+        //get('logger').info(x.name, query, uri.grey)
         request(uri, {query: query, headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
           if (err) {
             get('logger').error(x.name + ' backfiller err', err, {feed: 'errors'})

@@ -1,8 +1,7 @@
 {
   "name": "kraken",
   "rest_url": "https://api.kraken.com/0",
-  "backfill_limit": 100,
-  "backfill_timeout": 1000,
+  "backfill_timeout": 5000,
   "products": [
     {
       "id":"XBTUSD",
