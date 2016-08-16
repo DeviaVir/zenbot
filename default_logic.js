@@ -52,11 +52,11 @@ module.exports = function container (get, set, clear) {
     // BEGIN DEFAULT TRADE LOGIC
     // sync balance
     function (tick, trigger, rs, cb) {
-      if (get('command') !== 'run' || !c.key) {
+      if (get('command') !== 'run' || !c.gdax_key) {
         return cb()
       }
       if (!client) {
-        client = new CoinbaseExchange.AuthenticatedClient(c.key, c.secret, c.passphrase)
+        client = new CoinbaseExchange.AuthenticatedClient(c.gdax_key, c.gdax_secret, c.gdax_passphrase)
       }
       client.getAccounts(function (err, resp, accounts) {
         if (err) throw err
@@ -210,7 +210,7 @@ module.exports = function container (get, set, clear) {
           rsi: rs.rsi,
           roi: rs.roi
         })
-        if (get('command') === 'run' && c.key) {
+        if (get('command') === 'run' && c.gdax_key) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),
