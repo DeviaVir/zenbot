@@ -1831,7 +1831,7 @@
       "label":"BTC/SHIBE"
     },
     {
-      "id":"BTC_"SHOPX,
+      "id":"BTC_SHOPX",
       "asset":"SHOPX",
       "currency":"BTC",
       "min_size":0.01,
