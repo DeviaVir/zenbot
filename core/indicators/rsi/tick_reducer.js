@@ -13,7 +13,7 @@ module.exports = function container (get, set, clear) {
   return function tick_reducer (g, cb) {
     var options = get('options')
     var tick = g.tick
-    if (c.rsi_sizes.indexOf(tick.size) === -1 || !tick.data.trades || (tick.time < start && !options.backfill_rsi)) return cb()
+    if (c.rsi_sizes.indexOf(tick.size) === -1 || !tick.data.trades) return cb()
     //console.error('computing RSI', tick.id)
     var bucket = tb(tick.time).resize(tick.size)
     var d = tick.data.trades
