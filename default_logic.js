@@ -174,10 +174,10 @@ module.exports = function container (get, set, clear) {
         // min size
         if (!size || size < min_trade) {
           if (rs.overbought) {
-            //get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + asset + ' to execute sell!').red, {feed: 'trader'})
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + asset + ' to execute sell!').red, {feed: 'trader'})
           }
           else if (rs.oversold) {
-            //get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
           }
           rs.overbought = rs.oversold = false
           return cb()
