@@ -12,7 +12,8 @@ module.exports = function container (get, set, clear) {
     if (c.reporter_sizes.indexOf(tick.size) === -1 || !tick.data.trades) return cb()
     var g = {
       tick: tick,
-      cols: []
+      cols: [],
+      rs: rs
     }
     apply_funcs(g, reporter_cols, function (err, g) {
       if (err) return cb(err)

@@ -40,7 +40,7 @@ module.exports = function container (get, set, clear) {
             map('trade', obj)
             return obj
           })
-          //log_trades(x.name, trades)
+          log_trades(x.name, trades)
           if (is_backfilled(trades)) {
             get('logger').info(x.name, (product.asset + '/' + product.currency + ' backfill complete').grey)
           }
