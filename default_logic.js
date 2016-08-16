@@ -22,6 +22,7 @@ module.exports = function container (get, set, clear) {
   var recovery_ticks = 300
   var trade_pct = 0.95
   var min_trade = 0.01
+  var tot_balance = 1000
   function onOrder (err, resp, order) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
@@ -92,10 +93,10 @@ module.exports = function container (get, set, clear) {
       rs.progress || (rs.progress = 0)
       if (!rs.market_price) return cb()
       if (!rs.balance) {
-        // start with $1000, neutral position
+        // start with tot_balance, neutral position
         rs.balance = {}
-        rs.balance[currency] = 500
-        rs.balance[asset] = n(500).divide(rs.market_price).value()
+        rs.balance[currency] = tot_balance/2
+        rs.balance[asset] = n(tot_balance/2).divide(rs.market_price).value()
       }
       rs.ticks++
       if (tick.size !== check_period) {
@@ -192,7 +193,7 @@ module.exports = function container (get, set, clear) {
         }
         // consolidate balance
         var new_end_balance = n(new_balance[currency]).add(n(new_balance[asset]).multiply(rs.market_price)).value()
-        var new_roi = n(new_end_balance).divide(1000).value()
+        var new_roi = n(new_end_balance).divide(tot_balance).value()
         rs.balance = new_balance
         rs.end_balance = new_end_balance
         rs.roi = new_roi
