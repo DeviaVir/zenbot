@@ -708,24 +708,6 @@
       "label":"BTC/ETC"
     },
     {
-      "id":"BTC_ETC",
-      "asset":"BTC",
-      "currency":"ETC",
-      "min_size":0.0001,
-      "max_size":10000,
-      "increment":0.01,
-      "label":"BTC/ETC"
-    },
-    {
-      "id":"BTC_ETC",
-      "asset":"BTC",
-      "currency":"ETC",
-      "min_size":0.0001,
-      "max_size":10000,
-      "increment":0.01,
-      "label":"BTC/ETC"
-    },
-    {
       "id":"BTC_ETH",
       "asset":"BTC",
       "currency":"ETH",
