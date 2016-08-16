@@ -39,7 +39,7 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ### 2. Install zenbot 3:
 
-```shell
+```
 git clone https://github.com/carlos8f/zenbot.git
 cd zenbot
 npm install
@@ -49,7 +49,7 @@ npm install
 
 ### 4. Run zenbot on the exchange:
 
-```shell
+```
 ./run.sh
 ```
 
@@ -57,7 +57,7 @@ npm install
 
 To access the CLI,
 
-```shell
+```
 zenbot
 
   Usage: zenbot [options] [command]
@@ -83,7 +83,7 @@ The `./run.sh` script combines `launch map --backfill reduce run server`, so use
 
 Once backfill has finished, run a simulation:
 
-```shell
+```
 zenbot sim [--verbose]
 ```
 
