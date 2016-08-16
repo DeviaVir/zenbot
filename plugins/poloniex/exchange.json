@@ -1489,7 +1489,8 @@
       "max_size":10000,
       "increment":0.01,
       "label":"BTC/NAT"
-    },    {
+    },
+    {
       "id":"BTC_NBT",
       "asset":"NBT",
       "currency":"BTC",
@@ -1506,7 +1507,8 @@
       "max_size":10000,
       "increment":0.01,
       "label":"BTC/NEOS"
-    },    {
+    },
+    {
       "id":"BTC_NL",
       "asset":"NL",
       "currency":"BTC",
@@ -1542,7 +1544,8 @@
       "max_size":10000,
       "increment":0.01,
       "label":"BTC/NOTE"
-    },    {
+    },
+    {
       "id":"BTC_NOXT",
       "asset":"NOXT",
       "currency":"BTC",
@@ -2225,6 +2228,249 @@
       "max_size":10000,
       "increment":0.01,
       "label":"BTC/XAP"
+    },
+    {
+      "id":"BTC_XAP",
+      "asset":"XAP",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XAP"
+    },
+    {
+      "id":"BTC_XBC",
+      "asset":"XBC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XBC"
+    },
+    {
+      "id":"BTC_XC",
+      "asset":"XC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XC"
+    },
+    {
+      "id":"BTC_XCH",
+      "asset":"XCH",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XCH"
+    },
+    {
+      "id":"BTC_XCN",
+      "asset":"XCN",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XCN"
+    },
+    {
+      "id":"BTC_XCP",
+      "asset":"XCP",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XCP"
+    },
+    {
+      "id":"BTC_XCR",
+      "asset":"XCR",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XCR"
+    },
+    {
+      "id":"BTC_XDN",
+      "asset":"XDN",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XDN"
+    },
+    {
+      "id":"BTC_XDP",
+      "asset":"XDP",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XDP"
+    },
+    {
+      "id":"BTC_XEM",
+      "asset":"XEM",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XEM"
+    },
+    {
+      "id":"BTC_XHC",
+      "asset":"XHC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XHC"
+    },
+    {
+      "id":"BTC_XLB",
+      "asset":"XLB",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XLB"
+    },
+    {
+      "id":"BTC_XLB",
+      "asset":"",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XMG"
+    },
+    {
+      "id":"BTC_XMG",
+      "asset":"XMG",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XMG"
+    },
+    {
+      "id":"BTC_XMR",
+      "asset":"XMR",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XMR"
+    },
+    {
+      "id":"BTC_XPB",
+      "asset":"XPB",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XPB"
+    },
+    {
+      "id":"BTC_XPM",
+      "asset":"XPM",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XPM"
+    },
+    {
+      "id":"BTC_XRP",
+      "asset":"XRP",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XRP"
+    },
+    {
+      "id":"BTC_XSI",
+      "asset":"XSI",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XSI"
+    },
+    {
+      "id":"BTC_XST",
+      "asset":"XST",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XST"
+    },
+    {
+      "id":"BTC_XSV",
+      "asset":"XSV",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XSV"
+    },
+    {
+      "id":"BTC_XUSD",
+      "asset":"XUSD",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XUSD"
+    },
+    {
+      "id":"BTC_XVC",
+      "asset":"XVC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XVC"
+    },
+    {
+      "id":"BTC_XXC",
+      "asset":"XXC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/XXC"
+    },
+    {
+      "id":"BTC_YACC",
+      "asset":"YACC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/YACC"
+    },
+    {
+      "id":"BTC_YANG",
+      "asset":"YANG",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/YANG"
+    },
+    {
+      "id":"BTC_YC",
+      "asset":"YC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/YC"
     }
   ]
 }
