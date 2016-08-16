@@ -37,6 +37,12 @@ HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage do
 
 ### 1. Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/download-center)
 
+### 2.5 Windows - I don't support it.
+
+If you're having an error on Windows and you're about to give up, it's probaby because Node.js is generally broken on Windows and you should try running on a Linux docker container or a Mac instead.
+
+If you're still insistent on using Windows, you'll have to fork zenbot, fix it yourself, and I'll accept a Pull Request.
+
 ### 2. Install zenbot 3:
 
 ```
