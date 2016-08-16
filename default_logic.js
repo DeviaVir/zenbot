@@ -99,16 +99,14 @@ module.exports = function container (get, set, clear) {
       }
       rs.ticks++
       if (tick.size !== check_period) {
-        // what % are we to a decision?
-        var base_time = tb(tick.time).resize(check_period).toMilliseconds()
-        var target_time = tb(tick.time).resize(check_period).add(1).toMilliseconds()
-        rs.progress = n(tick.time - base_time).divide(target_time - base_time).value()
         return cb()
       }
       rs.progress = 1
       if (rs.recovery_ticks) {
         rs.recovery_ticks--
       }
+      // what % are we to a decision?
+      rs.progress = recovery_ticks ? n(1).subtract(n(rs.recovery_ticks).divide(recovery_ticks)).value() : 1
       if (rs.recovery_ticks) {
         return cb()
       }

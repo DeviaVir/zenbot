@@ -75,7 +75,7 @@ c.reporter_cols = [
   "rsi",
   "volume",
   "price",
-  //"progress"
+  "progress"
 ]
 c.reducer_report_interval = 30000
 c.trade_report_interval = 30000
