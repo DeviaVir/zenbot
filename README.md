@@ -95,6 +95,8 @@ zenbot sim [--verbose]
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `config.js` for new trade strategies and check your results this way.
 
+Example simulation graph: https://zenbot.s8f.org/?sim_id=9cb6ac63f85168e3&period=1h&limit=2000
+
 #### About the default trade logic in `default_logic.js`
 
 - uses [GDAX](https://gdax.com/) API
