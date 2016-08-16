@@ -51,7 +51,7 @@ module.exports = function container (get, set, clear) {
         if (s.recorder_id) {
           query.start = s.recorder_id
         }
-        //get('logger').info(z(c.max_slug_length, 'recorder GET', ' '), uri.grey)
+        //get('logger').info(x.name, query, uri.grey)
         request(uri, {query: query, headers: {'User-Agent': USER_AGENT}}, function (err, resp, result) {
           if (err) {
             get('logger').error(x.name + ' recorder err', err, {public: false})
