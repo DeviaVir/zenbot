@@ -10,6 +10,7 @@ module.exports = function container (get, set, clear) {
   var z = get('utils.zero_fill')
   return function mapper () {
     var options = get('options')
+    if (!options.backfill) return
     var min_time, num_marked = 0
     function getNext () {
       var params = {
