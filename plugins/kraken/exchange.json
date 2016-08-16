@@ -1,1 +1,17 @@
-exchange.json
+{
+  "name": "kraken",
+  "rest_url": "https://api.kraken.com/0",
+  "backfill_limit": 100,
+  "backfill_timeout": 1000,
+  "products": [
+    {
+      "id":"XBTUSD",
+      "asset":"BTC",
+      "currency":"USD",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/USD"
+    }
+  ]
+}
