@@ -3,7 +3,7 @@ module.exports = {
   'exchanges.kraken': require('./exchange.json'),
   'exchanges[]': '#exchanges.kraken',
   'mappers[]': [
-    require('./backfiller') //,
-    //require('./recorder')
+    require('./backfiller'),
+    require('./recorder')
   ]
 }
