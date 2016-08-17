@@ -10,7 +10,7 @@ module.exports = function container (get, set, clear) {
   var format_currency = get('utils.format_currency')
   var z = get('utils.zero_fill')
   return function log_trades (slug, trades) {
-    if (!trades.length) return
+    if (trades.length < c.min_log_trades) return
     var rs = get('run_states')
     var vol = 0, buy_vol = 0, total_price = 0
     var max_time, asset, currency
