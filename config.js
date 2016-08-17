@@ -75,6 +75,7 @@ c.reporter_cols = [
 ]
 c.reducer_report_interval = 30000
 c.trade_report_interval = 30000
+c.min_log_trades = 2
 
 // backfiller
 c.backfill_days = 91
