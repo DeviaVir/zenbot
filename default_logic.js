@@ -140,8 +140,8 @@ module.exports = function container (get, set, clear) {
             trend = null
           }
         }
-        if (trend && trend !== rs.trend) {
-          get('logger').info('trader', 'RSI:'.grey + rs.rsi.ansi, ('current trend: ' + trend).yellow, {feed: 'trader'})
+        if (trend !== rs.trend) {
+          get('logger').info('trader', 'RSI:'.grey + rs.rsi.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
           delete rs.balance_warning
           delete rs.roi_warning
         }

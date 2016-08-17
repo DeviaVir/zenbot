@@ -61,7 +61,7 @@ c.rsi_periods = 14
 c.logic = require('./default_logic')
 
 // reporter
-c.reporter_sizes = ['1h']
+c.reporter_sizes = ['5m']
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 9
 c.reporter_cols = [
