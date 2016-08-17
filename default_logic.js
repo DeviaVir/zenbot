@@ -146,7 +146,7 @@ module.exports = function container (get, set, clear) {
             rs.overbought = true
           }
           else if (rsi.value <= rsi_oversold) {
-            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency)).red, {feed: 'trader'})
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency)).green, {feed: 'trader'})
             rs.oversold = true
           }
           else {
