@@ -1,3 +1,7 @@
+var first_run = true
+var last_balance_sig
+var sync_start_balance = false
+
 module.exports = function container (get, set, clear) {
   var c = get('config')
   var o = get('utils.object_get')
@@ -8,9 +12,6 @@ module.exports = function container (get, set, clear) {
   var get_timestamp = get('utils.get_timestamp')
   var CoinbaseExchange = require('coinbase-exchange')
   var client
-  var first_run = true
-  var last_balance_sig
-  var sync_start_balance = false
   function onOrder (err, resp, order) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
