@@ -1,6 +1,3 @@
-var first_run = true
-var last_balance_sig
-
 module.exports = function container (get, set, clear) {
   var c = get('config')
   var o = get('utils.object_get')
@@ -11,25 +8,16 @@ module.exports = function container (get, set, clear) {
   var get_timestamp = get('utils.get_timestamp')
   var CoinbaseExchange = require('coinbase-exchange')
   var client
-  var asset = 'BTC'
-  var currency = 'USD'
-  var rsi_period = '15m'
-  var rsi_overbought = 70
-  var rsi_oversold = 20
-  var check_period = '1m'
-  var exchange = 'gdax'
-  var selector = 'data.trades.' + exchange + '.' + asset + '-' + currency
-  var recovery_ticks = 300
-  var trade_pct = 0.95
-  var min_trade = 0.01
-  var start_balance = 1000
+  var first_run = true
+  var last_balance_sig
+  var sync_start_balance = false
   function onOrder (err, resp, order) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
       console.error(order)
       return get('logger').error('non-200 status: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
     }
-    get('logger').info(exchange, ('order-id: ' + order.id).cyan, {data: {order: order}})
+    get('logger').info('gdax', ('order-id: ' + order.id).cyan, {data: {order: order}})
     function getStatus () {
       client.getOrder(order.id, function (err, resp, order) {
         if (err) return get('logger').error('getOrder err', err)
@@ -38,10 +26,10 @@ module.exports = function container (get, set, clear) {
           return get('logger').error('non-200 status from getOrder: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
         }
         if (order.status === 'done') {
-          return get('logger').info(exchange, ('order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
+          return get('logger').info('gdax', ('order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
         }
         else {
-          get('logger').info(exchange, ('order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
+          get('logger').info('gdax', ('order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
           setTimeout(getStatus, 5000)
         }
       })
@@ -50,7 +38,24 @@ module.exports = function container (get, set, clear) {
   }
   return [
     // BEGIN DEFAULT TRADE LOGIC
-    // sync balance
+    // default params
+    function (tick, trigger, rs, cb) {
+      rs.asset = 'BTC'
+      rs.currency = 'USD'
+      rs.rsi_period = '1h'
+      rs.rsi_up = 80
+      rs.rsi_down = 20
+      rs.check_period = '1m'
+      rs.exchange = 'gdax'
+      rs.selector = 'data.trades.' + rs.exchange + '.' + rs.asset + '-' + rs.currency
+      rs.hold_ticks = 100 // hold x check_period after trade
+      rs.trade_pct = 0.95 // trade % of current balance
+      rs.min_trade = 0.01
+      rs.start_balance = 1000
+      rs.min_roi_delta = -0.06 // accept a loss of up to 6%
+      cb()
+    },
+    // sync balance if key is present and we're in the `run` command
     function (tick, trigger, rs, cb) {
       if (get('command') !== 'run' || !c.gdax_key) {
         return cb()
@@ -67,17 +72,19 @@ module.exports = function container (get, set, clear) {
         }
         rs.balance = {}
         accounts.forEach(function (account) {
-          if (account.currency === currency) {
-            rs.balance[currency] = n(account.balance).value()
+          if (account.currency === rs.currency) {
+            rs.balance[rs.currency] = n(account.balance).value()
           }
-          else if (account.currency === asset) {
-            rs.balance[asset] = n(account.balance).value()
+          else if (account.currency === rs.asset) {
+            rs.balance[rs.asset] = n(account.balance).value()
           }
         })
+        if (first_run) {
+          sync_start_balance = true
+        }
         var balance_sig = sig(rs.balance)
         if (balance_sig !== last_balance_sig) {
-          get('logger').info(exchange, 'balance'.grey, n(rs.balance[asset]).format('0.000').white, asset.grey, n(rs.balance[currency]).format('0.00').yellow, currency.grey, {feed: 'exchange'})
-          first_run = false
+          get('logger').info(rs.exchange, 'balance'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
           last_balance_sig = balance_sig
         }
         cb && cb()
@@ -85,76 +92,59 @@ module.exports = function container (get, set, clear) {
     },
     function (tick, trigger, rs, cb) {
       // note the last close price
-      var market_price = o(tick, selector + '.close')
-      if (market_price) {
-        rs.market_price = market_price
-      }
+      rs.market_price = o(tick, rs.selector + '.close')
       rs.ticks || (rs.ticks = 0)
       rs.progress || (rs.progress = 0)
       if (!rs.market_price) return cb()
       if (!rs.balance) {
         // start with start_balance, neutral position
         rs.balance = {}
-        rs.balance[currency] = start_balance/2
-        rs.balance[asset] = n(start_balance/2).divide(rs.market_price).value()
+        rs.balance[rs.currency] = n(rs.start_balance).divide(2).value()
+        rs.balance[rs.asset] = n(rs.start_balance).divide(2).divide(rs.market_price).value()
       }
       rs.ticks++
-      if (tick.size !== check_period) {
-        return cb()
-      }
-      rs.progress = 1
-      if (rs.recovery_ticks) {
-        rs.recovery_ticks--
-      }
-      // what % are we to a decision?
-      rs.progress = recovery_ticks ? n(1).subtract(n(rs.recovery_ticks).divide(recovery_ticks)).value() : 1
-      if (rs.recovery_ticks) {
+      if (tick.size !== rs.check_period) {
         return cb()
       }
       // check price diff
-      var close = o(tick || {}, selector + '.close')
+      rs.close = o(tick || {}, rs.selector + '.close')
       // get rsi
-      var rsi_tick_id = tb(tick.time).resize(rsi_period).toString()
-      get('ticks').load(get('app_name') + ':' + rsi_tick_id, function (err, rsi_tick) {
+      rs.rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
+      get('ticks').load(get('app_name') + ':' + rs.rsi_tick_id, function (err, rsi_tick) {
         if (err) return cb(err)
-        var rsi = o(rsi_tick || {}, selector + '.rsi')
-        var rsi_open = o(rsi_tick || {}, selector + '.open')
+        var rsi = o(rsi_tick || {}, rs.selector + '.rsi')
+        var trend
+        if (rsi) {
+          rs.rsi = rsi
+        }
         // require minimum data
-        // overbought/oversold
-        // sanity check
-        close || (close = o(rsi_tick || {}, selector + '.close'))
-        rs.check_diff = close ? n(close).subtract(rsi_open || close).value() : rs.check_diff || null
-        rs.last_close = close
-        get('logger').info('trader', '================== TRADER REPORT =================='.yellow, {feed: 'trader'})
-        if (!rsi) {
-          get('logger').info('trader', ('no ' + rsi_period + ' RSI').red, {feed: 'trader'})
+        rs.close || (rs.close = o(rsi_tick || {}, rs.selector + '.close'))
+        if (!rs.rsi) {
+          get('logger').info('trader', ('no ' + rs.rsi_period + ' RSI for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
         }
-        else if (rsi.samples < c.rsi_periods) {
-          get('logger').info('trader', (rsi_period + ' RSI: not enough samples: ' + rsi.samples).red, {feed: 'trader'})
+        else if (rs.rsi.samples < c.rsi_periods) {
+          get('logger').info('trader', (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
         }
-        else if (!close) {
-          get('logger').info('trader', ('no close price').red, {feed: 'trader'})
-        }
-        else if (rs.check_diff === null) {
-          get('logger').info('trader', ('not enough ticks to make decision').red, {feed: 'trader'})
+        else if (!rs.close) {
+          get('logger').info('trader', ('no close price for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
         }
         else {
-          rs.rsi = Math.round(rsi.value)
-          rs.rsi_ansi = rsi.ansi
-          if (rsi.value >= rsi_overbought) {
-            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency)).green, {feed: 'trader'})
-            rs.overbought = true
+          if (rs.rsi.value >= rs.rsi_up) {
+            trend = 'UP'
           }
-          else if (rsi.value <= rsi_oversold) {
-            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency)).green, {feed: 'trader'})
-            rs.oversold = true
+          else if (rs.rsi.value <= rs.rsi_down) {
+            trend = 'DOWN'
           }
           else {
-            get('logger').info('trader', (rsi_period + ' RSI within HOLD range: ').yellow + rsi.ansi + ' diff: '.grey + format_currency(rs.check_diff, currency).grey, {feed: 'trader'})
+            trend = null
           }
         }
-        get('logger').info('trader', '================== END REPORT =================='.yellow, {feed: 'trader'})
-        rs.recovery_ticks = recovery_ticks + 1
+        if (trend && trend !== rs.trend) {
+          get('logger').info('trader', 'RSI:'.grey + rs.rsi.ansi, ('current trend: ' + trend).yellow, {feed: 'trader'})
+          delete rs.balance_warning
+          delete rs.roi_warning
+        }
+        rs.trend = trend
         cb()
       })
     },
@@ -164,66 +154,100 @@ module.exports = function container (get, set, clear) {
     },
     // trigger trade signals
     function (tick, trigger, rs, cb) {
-      if ((rs.overbought || rs.oversold) && rs.balance && rs.market_price) {
+      if (rs.trend && rs.balance && rs.market_price) {
         var size, new_balance = {}
-        if (rs.overbought) {
-          size = rs.balance[asset]
+        // delay buying or selling, perhaps the trend intensifies
+        if (rs.hold_ticks_active) {
+          rs.hold_ticks_active--
         }
-        else if (rs.oversold) {
-          size = n(rs.balance[currency]).divide(rs.market_price).value()
-        }
-        // scale down size a little, to prevent out-of-balance errors
-        size = n(size || 0).multiply(trade_pct).value()
-        // min size
-        if (!size || size < min_trade) {
-          if (rs.overbought) {
-            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + asset + ' to execute sell!').red, {feed: 'trader'})
-          }
-          else if (rs.oversold) {
-            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('not enough ' + currency + ' to execute buy!').red, {feed: 'trader'})
-          }
-          rs.overbought = rs.oversold = false
+        if (rs.hold_ticks_active) {
+          rs.progress = n(1).subtract(n(rs.hold_ticks_active).divide(rs.hold_ticks)).value()
           return cb()
         }
-        if (rs.overbought) {
-          new_balance[currency] = n(rs.balance[currency]).add(n(size).multiply(rs.market_price)).value()
-          new_balance[asset] = n(rs.balance[asset]).subtract(size).value()
+        if (rs.trend === 'DOWN') {
+          // calculate sell size
+          size = rs.balance[rs.asset]
         }
-        else if (rs.oversold) {
-          new_balance[asset] = n(rs.balance[asset]).add(size).value()
-          new_balance[currency] = n(rs.balance[currency]).subtract(n(size).multiply(rs.market_price)).value()
+        else if (rs.trend === 'UP') {
+          // calculate buy size
+          size = n(rs.balance[rs.currency]).divide(rs.market_price).value()
+        }
+        size = n(size || 0).multiply(rs.trade_pct).value()
+        // min size
+        if (!size || size < rs.min_trade) {
+          if (!rs.balance_warning) {
+            get('logger').info('trader', 'trend: '.grey, rs.trend, ('not enough balance, aborting trade!').red, {feed: 'trader'})
+          }
+          rs.balance_warning = true
+          return cb()
+        }
+        if (rs.trend === 'DOWN') {
+          // SELL!
+          new_balance[rs.currency] = n(rs.balance[rs.currency]).add(n(size).multiply(rs.market_price)).value()
+          new_balance[rs.asset] = n(rs.balance[rs.asset]).subtract(size).value()
+          rs.op = 'sell'
+        }
+        else if (rs.trend === 'UP') {
+          // BUY!
+          new_balance[rs.asset] = n(rs.balance[rs.asset]).add(size).value()
+          new_balance[rs.currency] = n(rs.balance[rs.currency]).subtract(n(size).multiply(rs.market_price)).value()
+          rs.op = 'buy'
+        }
+        else {
+          // unknown trend
+          get('logger').info('trader', ('unkown trend (' + rs.trend + ') aborting trade!').red, {feed: 'trader'})
+          return cb()
         }
         // consolidate balance
-        var new_end_balance = n(new_balance[currency]).add(n(new_balance[asset]).multiply(rs.market_price)).value()
-        var new_roi = n(new_end_balance).divide(start_balance).value()
+        rs.new_end_balance = n(new_balance[rs.currency]).add(n(new_balance[rs.asset]).multiply(rs.market_price)).value()
+        if (sync_start_balance) {
+          rs.start_balance = rs.new_end_balance
+          sync_start_balance = false
+        }
+        rs.new_roi = n(rs.new_end_balance).divide(rs.start_balance).value()
+        rs.new_roi_delta = n(rs.new_roi).subtract(rs.roi || 0).value()
+        if (rs.roi && rs.new_roi_delta < rs.min_roi_delta) {
+          if (!rs.roi_warning) {
+            get('logger').info('trader', ('new ROI below delta threshold (' + n(rs.new_roi_delta).format('%0.000') + ' < ' + n(rs.min_roi_delta).format('%0.000') + ') aborting ' + rs.op + '!').red, {feed: 'trader'})
+          }
+          rs.roi_warning = true
+          return cb()
+        }
+        if (!rs.hold_ticks_active) {
+          rs.hold_ticks_active = rs.hold_ticks + 1
+        }
         rs.balance = new_balance
-        rs.end_balance = new_end_balance
-        rs.roi = new_roi
+        rs.end_balance = rs.new_end_balance
+        rs.roi = rs.new_roi
         rs.trades || (rs.trades = 0)
         rs.trades++
-        trigger({
-          type: rs.overbought ? 'sell' : 'buy',
-          asset: asset,
-          currency: currency,
-          exchange: exchange,
+        var trade = {
+          type: rs.op,
+          asset: rs.asset,
+          currency: rs.currency,
+          exchange: rs.exchange,
           price: rs.market_price,
           market: true,
           size: size,
-          rsi: rs.rsi,
+          rsi: rs.rsi.value,
           roi: rs.roi
-        })
+        }
+        trigger(trade)
         if (get('command') === 'run' && c.gdax_key) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),
-            product_id: asset + '-' + currency
+            product_id: rs.asset + '-' + rs.currency
           }
-          client[rs.overbought ? 'sell' : 'buy'](params, function (err, resp, order) {
+          client[rs.op](params, function (err, resp, order) {
             onOrder(err, resp, order)
           })
         }
-        rs.overbought = rs.oversold = false
       }
+      cb()
+    },
+    function (tick, trigger, rs, cb) {
+      first_run = false
       cb()
     }
     // END DEFAULT TRADE LOGIC
