@@ -52,7 +52,7 @@ c.log_query_limit = 200
 c.tracking_scripts = ''
 
 // RSI indicator config
-c.rsi_sizes = ['15m']
+c.rsi_sizes = ['1h']
 c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_query_limit = 100
 c.rsi_periods = 14
@@ -61,7 +61,7 @@ c.rsi_periods = 14
 c.logic = require('./default_logic')
 
 // reporter
-c.reporter_sizes = ['15m']
+c.reporter_sizes = ['1h']
 c.price_reporter_selector = "gdax.BTC-USD"
 c.price_reporter_length = 9
 c.reporter_cols = [
