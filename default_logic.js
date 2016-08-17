@@ -125,6 +125,7 @@ module.exports = function container (get, set, clear) {
         close || (close = o(rsi_tick || {}, selector + '.close'))
         rs.check_diff = close ? n(close).subtract(rsi_open || close).value() : rs.check_diff || null
         rs.last_close = close
+        get('logger').info('trader', '================== TRADER REPORT =================='.yellow, {feed: 'trader'})
         if (!rsi) {
           get('logger').info('trader', ('no ' + rsi_period + ' RSI').red, {feed: 'trader'})
         }
@@ -140,16 +141,19 @@ module.exports = function container (get, set, clear) {
         else {
           rs.rsi = Math.round(rsi.value)
           rs.rsi_ansi = rsi.ansi
-          if (rsi.value >= rsi_overbought && !rs.recovery_ticks) {
+          if (rsi.value >= rsi_overbought) {
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency)).green, {feed: 'trader'})
             rs.overbought = true
           }
-          else if (rsi.value <= rsi_oversold && !rs.recovery_ticks) {
+          else if (rsi.value <= rsi_oversold) {
+            get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, ('anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency)).red, {feed: 'trader'})
             rs.oversold = true
           }
           else {
-            get('logger').info('trader', (rsi_period + ' RSI: ').grey + rsi.ansi + ' diff: '.grey + format_currency(rs.check_diff, currency).grey, {feed: 'trader'})
+            get('logger').info('trader', (rsi_period + ' RSI within HOLD range: ').yellow + rsi.ansi + ' diff: '.grey + format_currency(rs.check_diff, currency).grey, {feed: 'trader'})
           }
         }
+        get('logger').info('trader', '================== END REPORT =================='.yellow, {feed: 'trader'})
         rs.recovery_ticks = recovery_ticks + 1
         cb()
       })
@@ -163,11 +167,9 @@ module.exports = function container (get, set, clear) {
       if ((rs.overbought || rs.oversold) && rs.balance && rs.market_price) {
         var size, new_balance = {}
         if (rs.overbought) {
-          get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, 'anticipating a reversal DOWN. sell at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency), {feed: 'trader'})
           size = rs.balance[asset]
         }
         else if (rs.oversold) {
-          get('logger').info('trader', 'RSI:'.grey + rs.rsi_ansi, 'anticipating a reversal UP. buy at market. (' + format_currency(rs.market_price, currency) + ') diff: ' + format_currency(rs.check_diff, currency), {feed: 'trader'})
           size = n(rs.balance[currency]).divide(rs.market_price).value()
         }
         // scale down size a little, to prevent out-of-balance errors
