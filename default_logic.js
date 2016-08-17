@@ -68,7 +68,7 @@ module.exports = function container (get, set, clear) {
         if (resp.statusCode !== 200) {
           console.error(accounts)
           get('logger').error('non-200 status from exchange: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: accounts}})
-          return cb && cb()
+          return cb()
         }
         rs.balance = {}
         accounts.forEach(function (account) {
@@ -87,7 +87,7 @@ module.exports = function container (get, set, clear) {
           get('logger').info(rs.exchange, 'balance'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
           last_balance_sig = balance_sig
         }
-        cb && cb()
+        cb()
       })
     },
     function (tick, trigger, rs, cb) {
