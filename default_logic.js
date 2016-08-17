@@ -165,6 +165,7 @@ module.exports = function container (get, set, clear) {
           rs.progress = n(1).subtract(n(rs.hold_ticks_active).divide(rs.hold_ticks)).value()
           return cb()
         }
+        rs.progress = 1
         if (rs.trend === 'DOWN') {
           // calculate sell size
           size = rs.balance[rs.asset]
