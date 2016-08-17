@@ -144,6 +144,7 @@ module.exports = function container (get, set, clear) {
           get('logger').info('trader', 'RSI:'.grey + rs.rsi.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
           delete rs.balance_warning
           delete rs.roi_warning
+          rs.hold_ticks_active = 0
         }
         rs.trend = trend
         cb()
