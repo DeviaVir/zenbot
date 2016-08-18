@@ -35,16 +35,14 @@ module.exports = function container (get, set, clear) {
       get('ticks').select(params, function (err, ticks) {
         if (err) throw err
         ticks.forEach(function (tick) {
+          min_time = min_time ? Math.min(tick.time, min_time) : tick.time
           if (tick.data.trades) {
             var tick_sig = sig(tick)
             if (sigs.indexOf(tick_sig) !== -1) {
               return
             }
             sigs.push(tick_sig)
-            min_time = min_time ? Math.min(tick.time, min_time) : tick.time
-            tick.tick_id = tick.id
-            tick.id = get_id()
-            map('rsi_backfill', {id: tick.id + ':rsi_backfill', time: tick.time})
+            map('rsi_backfill', {time: tick.time})
             num_marked++
           }
           //get('logger').info('RSI', 'backfill map'.grey, z(12, get_tick_str(tick.tick_id)), get_timestamp(tick.time).grey)
