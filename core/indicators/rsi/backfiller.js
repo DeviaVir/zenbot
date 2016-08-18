@@ -8,9 +8,11 @@ module.exports = function container (get, set, clear) {
   var c = get('config')
   var get_timestamp = get('utils.get_timestamp')
   var z = get('utils.zero_fill')
+  var ran = false
   return function mapper () {
     var options = get('options')
-    if (!options.backfill) return
+    if (!options.backfill || ran) return
+    ran = true
     var min_time, num_marked = 0
     function getNext () {
       var params = {
