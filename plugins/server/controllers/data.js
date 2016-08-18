@@ -84,10 +84,10 @@ module.exports = function container (get, set) {
           var asset = selector.split('.')[1].split('-')[0]
           var line = [
             tick.time,
-            n(x.open).format('0.00'),
-            n(x.high).format('0.00'),
-            n(x.low).format('0.00'),
-            n(x.close).format('0.00'),
+            n(x.open).format('0.00000000'),
+            n(x.high).format('0.00000000'),
+            n(x.low).format('0.00000000'),
+            n(x.close).format('0.00000000'),
             x.volume,
             format_currency(x.close, currency) + ' ' + asset + '/' + currency + ' (' + exchange + ')'
           ].join(',')
