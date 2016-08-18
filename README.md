@@ -11,6 +11,8 @@
 
 ## Updates
 
+- **3.2.1**
+    - Bugfix for techan.js performance patch
 - **3.2.0**
     - Major logic update again. Safe to drop your `zenbrain` DB before this update. Please run `./update.sh` to update your existing zenbot and dependencies (Zenbrain).
     - Now using 1h RSI by default. Reporter chimes in every 5m. Trade signals should trigger roughly 2-3 times over a few days.
