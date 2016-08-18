@@ -11,7 +11,7 @@
 
 ## Updates
 
-- **3.2.1**
+- [**3.2.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.1) (Latest)
     - Bugfix for techan.js performance patch
 - **3.2.0**
     - Major logic update again. Safe to drop your `zenbrain` DB before this update. Please run `./update.sh` to update your existing zenbot and dependencies (Zenbrain).
