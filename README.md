@@ -11,11 +11,19 @@
 
 ## Updates
 
+- **3.2.0**
+    - Major logic update again. Safe to drop your `zenbrain` DB before this update. Please run `./update.sh` to update your existing zenbot and dependencies (Zenbrain).
+    - Now using 1h RSI by default. Reporter chimes in every 5m. Trade signals should trigger roughly 2-3 times over a few days.
+    - Way better trend detection in `default_logic.js`, 83-day simulated ROI went from ~10% to 89%!
+    - Poloniex product update by @RDash21, Kraken product update by @grigio. Thanks!
+    - Logic update by @xangma. Thanks!
+    - Graph performance patch, submitted to techan.js project at https://github.com/andredumas/techan.js/issues/138
 - **3.1.2** - Relaxed backfill timeout. Backfill is slower to let reducer catch up. Reducer report interval -> 30s, Trade report interval -> 30s
-
 - **3.1.1** - Updated zenbrain version. Please run `./update.sh`.
-
-- **3.1.0** - Major logic update. Much of the default trade logic reprogrammed. Moved default logic to `./default_logic.js`. RSI now backfills by default, reconfigured to 15m intervals. Safe to drop your zenbrain DB before this update.
+- **3.1.0**
+    - Major logic update. Safe to drop your zenbrain DB before this update. Much of the default trade logic reprogrammed.
+    - Moved default logic to `./default_logic.js`.
+    - RSI now backfills by default, reconfigured to 15m intervals.
 
 ## Description
 
