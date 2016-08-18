@@ -144,7 +144,6 @@ module.exports = function container (get, set, clear) {
           get('logger').info('trader', 'RSI:'.grey + rs.rsi.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
           delete rs.balance_warning
           delete rs.roi_warning
-          rs.hold_ticks_active = 0
         }
         rs.trend = trend
         cb()
@@ -216,9 +215,7 @@ module.exports = function container (get, set, clear) {
           rs.roi_warning = true
           return cb()
         }
-        if (!rs.hold_ticks_active) {
-          rs.hold_ticks_active = rs.hold_ticks + 1
-        }
+        rs.hold_ticks_active = rs.hold_ticks + 1
         rs.balance = new_balance
         rs.end_balance = rs.new_end_balance
         rs.roi = rs.new_roi
