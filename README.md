@@ -11,7 +11,7 @@
 
 ## Updates
 
-- [**3.2.2](https://github.com/carlos8f/zenbot/releases/tag/v3.2.2) (Latest)
+- [**3.2.2**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.2) (Latest)
     - Fixed a non-indexed query in Zenbrain. Please apply this update with `./update.sh`.
 - **3.2.1**
     - Bugfix for techan.js performance patch
