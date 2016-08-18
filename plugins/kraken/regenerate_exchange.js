@@ -21,8 +21,8 @@ function get_products() {
 
       const products = Object.keys(items).map(key => {
         if (key.length === 8) {
-          const id1 = key.slice(1, 4)
-          const id2 = key.slice(5, 8)
+          const id1 = key.slice(0, 4)
+          const id2 = key.slice(4, 8)
           // NOTE: to map min/max size from API data
           return {
             "id": id1 + id2,
