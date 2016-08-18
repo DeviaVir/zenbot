@@ -11,7 +11,9 @@
 
 ## Updates
 
-- [**3.2.2**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.2) (Latest)
+- [**3.2.3**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.3) (Latest)
+    - Fixed some performance issues with RSI backfiller. Updated `update.sh` to run `git stash` before and `git stash pop` after update, to avoid merge conflict when pulling. However you may have to resolve a conflict with your `config.js` after `update.sh` completes, this is normal when config defaults have been updated.
+- **3.2.2**
     - Fixed a non-indexed query in Zenbrain. Please apply this update with `./update.sh`.
 - **3.2.1**
     - Bugfix for techan.js performance patch
