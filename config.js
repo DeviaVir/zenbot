@@ -13,7 +13,7 @@ c.mongo_password = null
 c.assets = [
   "BTC",
   //"ETH",
-  "LTC",
+  //"LTC",
 ]
 c.currencies = [
   //"CNY",
@@ -28,7 +28,7 @@ c.enabled_plugins = [
   //"bitfinex",
   "gdax",
   //"kraken",
-  "poloniex",
+  //"poloniex",
   "server"
 ]
 
@@ -46,8 +46,8 @@ c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 c.graph_selectors = [
   "gdax.BTC-USD",
   //"kraken.BTC-USD",
-  "poloniex.BTC-USDT",
-  "poloniex.LTC-BTC",
+  //"poloniex.BTC-USDT",
+  //"poloniex.LTC-BTC",
   //"bitfinex.BTC-USD",
 ]
 c.log_query_limit = 200
