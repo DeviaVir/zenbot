@@ -10,10 +10,20 @@ module.exports = function container (get, set, clear) {
   var get_tick_str = get('utils.get_tick_str')
   var get_timestamp = get('utils.get_timestamp')
   var z = get('utils.zero_fill')
+  var start = new Date().getTime()
   return function tick_reducer (g, cb) {
     var options = get('options')
-    var tick = g.tick
-    if (c.rsi_sizes.indexOf(tick.size) === -1 || !tick.data.trades) return cb()
+    var tick = g.tick, sub_tick = g.sub_tick
+    if (sub_tick.data.rsi_backfill) {
+      tick.data.rsi_backfill = true
+    }
+    // only process specific tick sizes
+    if (c.rsi_sizes.indexOf(tick.size) === -1) return cb()
+    // abort if tick is historical and backfill flag not set
+    if (tick.time < start && !sub_tick.data.rsi_backfill) {
+      //console.error('no backfill flag', sub_tick.data)
+    }
+    if (tick.time < start && !sub_tick.data.rsi_backfill) return cb()
     //console.error('computing RSI', tick.id)
     var bucket = tb(tick.time).resize(tick.size)
     var d = tick.data.trades
@@ -113,6 +123,8 @@ module.exports = function container (get, set, clear) {
       if (computations) {
         //get('logger').info('RSI', 'computed RSI '.grey, ('x' + computations).grey)
       }
+      delete sub_tick.data.rsi_backfill
+      delete tick.data.rsi_backfill
       cb()
     }
   }

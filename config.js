@@ -56,8 +56,9 @@ c.tracking_scripts = ''
 // RSI indicator config
 c.rsi_sizes = ['1h']
 c.rsi_reporter_selector = "gdax.BTC-USD"
-c.rsi_query_limit = 100
+c.rsi_query_limit = 20
 c.rsi_periods = 14
+c.rsi_backfill_timeout = 30000
 
 // trade logic
 c.logic = require('./default_logic')
@@ -90,7 +91,7 @@ c.sim_input_limit = 12
 
 // zenbrain engine stuff
 c.bucket_size = "1m"
-c.reducer_limit = 500 // how many thoughts to process per reduce run
+c.reducer_limit = 1500 // how many thoughts to process per reduce run
 c.reducer_sizes = ["1m", "5m", "15m", "1h", "6h", "1d"]
 c.save_state_interval = 10000 // save state
 c.parallel_limit = 8 // run this many concurrent tasks
