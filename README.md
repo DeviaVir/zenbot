@@ -11,7 +11,7 @@
 
 ## Description
 
-Zenbot is a lightweight, self-contained, realtime, artificially intelligent, extendable trading bot. Currently Zenbot is capable of:
+Zenbot is a lightweight, extendable, artificially intelligent trading bot. Currently Zenbot is capable of:
 
 - High-frequency trading, day trading, week trading
 - Multiple asset support for Bitcoin, Ether, Litecoin (and more)
@@ -23,7 +23,7 @@ Zenbot is a lightweight, self-contained, realtime, artificially intelligent, ext
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.2.3 is capable of [**DOUBLING your investment**](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) in only 84 days, using default parameters.
+Current simulations on historical data from May - August 2016 show Zenbot 3.2.3 [**DOUBLING its investment**](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) in only 12 weeks, using default parameters!
 
 _Zenbot is a genius!_
 
