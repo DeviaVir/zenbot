@@ -69,7 +69,11 @@ To update your Zenbot installation, use `./update.sh`. If you have merge conflic
 
 ## Screenshot
 
+In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product. The simulation iterated 12 weeks of data and ended with 198% balance, an unbelieveable 90% [ROI](https://en.wikipedia.org/wiki/Return_on_investment).
+
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
+
+RAW data from simulation: https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd
 
 ## Quick-start
 
