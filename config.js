@@ -59,6 +59,7 @@ c.rsi_reporter_selector = "gdax.BTC-USD"
 c.rsi_query_limit = 20
 c.rsi_periods = 14
 c.rsi_backfill_timeout = 30000
+c.rsi_backfill_min_report = 2
 
 // trade logic
 c.logic = require('./default_logic')
@@ -79,6 +80,8 @@ c.reporter_cols = [
 c.reducer_report_interval = 30000
 c.trade_report_interval = 30000
 c.min_log_trades = 2
+c.reducer_perf_report_min = 2
+c.reducer_perf_report_timeout = 30000
 
 // backfiller
 c.backfill_days = 91
