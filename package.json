@@ -30,5 +30,8 @@
     "twit": "^2.2.4",
     "zenbrain": "git+https://github.com/carlos8f/zenbrain.git#f09ba9e96f978e309d109a889ef7866fad12652d",
     "zero-fill": "^2.2.3"
+  },
+  "devDependencies": {
+    "axios": "^0.13.1"
   }
 }
