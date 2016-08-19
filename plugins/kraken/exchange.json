@@ -4,265 +4,265 @@
   "backfill_timeout": 5000,
   "products": [
     {
-      "id": "DAOETH",
-      "asset": "DAO",
-      "currency": "ETH",
+      "id": "XDAOXETH",
+      "asset": "XDAO",
+      "currency": "XETH",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/ETH"
+      "label": "XDAO/XETH"
     },
     {
-      "id": "DAOXBT",
-      "asset": "DAO",
-      "currency": "XBT",
+      "id": "XDAOXXBT",
+      "asset": "XDAO",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/XBT"
+      "label": "XDAO/XXBT"
     },
     {
-      "id": "DAOCAD",
-      "asset": "DAO",
-      "currency": "CAD",
+      "id": "XDAOZCAD",
+      "asset": "XDAO",
+      "currency": "ZCAD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/CAD"
+      "label": "XDAO/ZCAD"
     },
     {
-      "id": "DAOEUR",
-      "asset": "DAO",
-      "currency": "EUR",
+      "id": "XDAOZEUR",
+      "asset": "XDAO",
+      "currency": "ZEUR",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/EUR"
+      "label": "XDAO/ZEUR"
     },
     {
-      "id": "DAOGBP",
-      "asset": "DAO",
-      "currency": "GBP",
+      "id": "XDAOZGBP",
+      "asset": "XDAO",
+      "currency": "ZGBP",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/GBP"
+      "label": "XDAO/ZGBP"
     },
     {
-      "id": "DAOJPY",
-      "asset": "DAO",
-      "currency": "JPY",
+      "id": "XDAOZJPY",
+      "asset": "XDAO",
+      "currency": "ZJPY",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/JPY"
+      "label": "XDAO/ZJPY"
     },
     {
-      "id": "DAOUSD",
-      "asset": "DAO",
-      "currency": "USD",
+      "id": "XDAOZUSD",
+      "asset": "XDAO",
+      "currency": "ZUSD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "DAO/USD"
+      "label": "XDAO/ZUSD"
     },
     {
-      "id": "ETCETH",
-      "asset": "ETC",
-      "currency": "ETH",
+      "id": "XETCXETH",
+      "asset": "XETC",
+      "currency": "XETH",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETC/ETH"
+      "label": "XETC/XETH"
     },
     {
-      "id": "ETCXBT",
-      "asset": "ETC",
-      "currency": "XBT",
+      "id": "XETCXXBT",
+      "asset": "XETC",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETC/XBT"
+      "label": "XETC/XXBT"
     },
     {
-      "id": "ETCEUR",
-      "asset": "ETC",
-      "currency": "EUR",
+      "id": "XETCZEUR",
+      "asset": "XETC",
+      "currency": "ZEUR",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETC/EUR"
+      "label": "XETC/ZEUR"
     },
     {
-      "id": "ETCUSD",
-      "asset": "ETC",
-      "currency": "USD",
+      "id": "XETCZUSD",
+      "asset": "XETC",
+      "currency": "ZUSD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETC/USD"
+      "label": "XETC/ZUSD"
     },
     {
-      "id": "ETHXBT",
-      "asset": "ETH",
-      "currency": "XBT",
+      "id": "XETHXXBT",
+      "asset": "XETH",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETH/XBT"
+      "label": "XETH/XXBT"
     },
     {
-      "id": "ETHCAD",
-      "asset": "ETH",
-      "currency": "CAD",
+      "id": "XETHZCAD",
+      "asset": "XETH",
+      "currency": "ZCAD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETH/CAD"
+      "label": "XETH/ZCAD"
     },
     {
-      "id": "ETHEUR",
-      "asset": "ETH",
-      "currency": "EUR",
+      "id": "XETHZEUR",
+      "asset": "XETH",
+      "currency": "ZEUR",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETH/EUR"
+      "label": "XETH/ZEUR"
     },
     {
-      "id": "ETHGBP",
-      "asset": "ETH",
-      "currency": "GBP",
+      "id": "XETHZGBP",
+      "asset": "XETH",
+      "currency": "ZGBP",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETH/GBP"
+      "label": "XETH/ZGBP"
     },
     {
-      "id": "ETHJPY",
-      "asset": "ETH",
-      "currency": "JPY",
+      "id": "XETHZJPY",
+      "asset": "XETH",
+      "currency": "ZJPY",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETH/JPY"
+      "label": "XETH/ZJPY"
     },
     {
-      "id": "ETHUSD",
-      "asset": "ETH",
-      "currency": "USD",
+      "id": "XETHZUSD",
+      "asset": "XETH",
+      "currency": "ZUSD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "ETH/USD"
+      "label": "XETH/ZUSD"
     },
     {
-      "id": "LTCXBT",
-      "asset": "LTC",
-      "currency": "XBT",
+      "id": "XLTCXXBT",
+      "asset": "XLTC",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "LTC/XBT"
+      "label": "XLTC/XXBT"
     },
     {
-      "id": "LTCCAD",
-      "asset": "LTC",
-      "currency": "CAD",
+      "id": "XLTCZCAD",
+      "asset": "XLTC",
+      "currency": "ZCAD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "LTC/CAD"
+      "label": "XLTC/ZCAD"
     },
     {
-      "id": "LTCEUR",
-      "asset": "LTC",
-      "currency": "EUR",
+      "id": "XLTCZEUR",
+      "asset": "XLTC",
+      "currency": "ZEUR",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "LTC/EUR"
+      "label": "XLTC/ZEUR"
     },
     {
-      "id": "LTCUSD",
-      "asset": "LTC",
-      "currency": "USD",
+      "id": "XLTCZUSD",
+      "asset": "XLTC",
+      "currency": "ZUSD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "LTC/USD"
+      "label": "XLTC/ZUSD"
     },
     {
-      "id": "XBTCAD",
-      "asset": "XBT",
-      "currency": "CAD",
+      "id": "XXBTZCAD",
+      "asset": "XXBT",
+      "currency": "ZCAD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XBT/CAD"
+      "label": "XXBT/ZCAD"
     },
     {
-      "id": "XBTEUR",
-      "asset": "XBT",
-      "currency": "EUR",
+      "id": "XXBTZEUR",
+      "asset": "XXBT",
+      "currency": "ZEUR",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XBT/EUR"
+      "label": "XXBT/ZEUR"
     },
     {
-      "id": "XBTGBP",
-      "asset": "XBT",
-      "currency": "GBP",
+      "id": "XXBTZGBP",
+      "asset": "XXBT",
+      "currency": "ZGBP",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XBT/GBP"
+      "label": "XXBT/ZGBP"
     },
     {
-      "id": "XBTJPY",
-      "asset": "XBT",
-      "currency": "JPY",
+      "id": "XXBTZJPY",
+      "asset": "XXBT",
+      "currency": "ZJPY",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XBT/JPY"
+      "label": "XXBT/ZJPY"
     },
     {
-      "id": "XBTUSD",
-      "asset": "XBT",
-      "currency": "USD",
+      "id": "XXBTZUSD",
+      "asset": "XXBT",
+      "currency": "ZUSD",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XBT/USD"
+      "label": "XXBT/ZUSD"
     },
     {
-      "id": "XDGXBT",
-      "asset": "XDG",
-      "currency": "XBT",
+      "id": "XXDGXXBT",
+      "asset": "XXDG",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XDG/XBT"
+      "label": "XXDG/XXBT"
     },
     {
-      "id": "XLMXBT",
-      "asset": "XLM",
-      "currency": "XBT",
+      "id": "XXLMXXBT",
+      "asset": "XXLM",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XLM/XBT"
+      "label": "XXLM/XXBT"
     },
     {
-      "id": "XRPXBT",
-      "asset": "XRP",
-      "currency": "XBT",
+      "id": "XXRPXXBT",
+      "asset": "XXRP",
+      "currency": "XXBT",
       "min_size": 0.01,
       "max_size": 10000,
       "increment": 0.01,
-      "label": "XRP/XBT"
+      "label": "XXRP/XXBT"
     }
   ]
 }
