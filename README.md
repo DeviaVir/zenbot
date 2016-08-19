@@ -116,15 +116,17 @@ Example simulation result: https://gist.github.com/carlos8f/e8237b3089a2b316093e
 #### About the default trade logic in `default_logic.js`
 
 - uses [GDAX](https://gdax.com/) API
-- watches/trades BTC/USD
+- watches BTC/USD
 - acts at 1m increments (ticks), but you can configure to act quicker or slower.
-- computes 14-period 15m RSI
-- considers `RSI >= 70` overbought and `RSI <= 20` oversold
+- computes the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi)
+- considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend
+- Buys at the beginning of upwards trend, sells at the beginning of downwards trend
 - trades 95% of current balance, market price
+- Holds for min. 100 minutes after a trade
 
 You can tweak the JS from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
 
-Note that simulations always end on Wednesday 5pm PST, and run for a max 90 days, to ensure consistency of results.
+Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days (12 weeks), to ensure input consistency.
 
 Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
 
