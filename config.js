@@ -70,9 +70,9 @@ c.price_reporter_length = 9
 c.reporter_cols = [
   "tick_id",
   "num_trades",
-  "timestamp",
+  //"timestamp",
   "rsi",
-  "volume",
+  //"volume",
   "price",
   "progress"
 ]
