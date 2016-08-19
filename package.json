@@ -28,7 +28,7 @@
     "sig": "^1.0.0",
     "timebucket": "^0.3.4",
     "twit": "^2.2.4",
-    "zenbrain": "git+https://github.com/carlos8f/zenbrain.git#f09ba9e96f978e309d109a889ef7866fad12652d",
+    "zenbrain": "git+https://github.com/carlos8f/zenbrain.git#999dec0eaf53697cf312112b251d78dbe942f6ec",
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
