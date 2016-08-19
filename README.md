@@ -1,12 +1,12 @@
-# zenbot 3
+# Zenbot 3
 
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_clean.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
-- Follow zenbot [on Twitter!](https://twitter.com/zenbot_btc)
-- Check out zenbot's [live feed!](https://zenbot.s8f.org/)
+- Follow Zenbot [on Twitter!](https://twitter.com/zenbot_btc)
+- Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
 ## Updates
@@ -18,7 +18,7 @@
 - **3.2.1**
     - Bugfix for techan.js performance patch
 - **3.2.0**
-    - Major logic update again. Safe to drop your `zenbrain` DB before this update. Please run `./update.sh` to update your existing zenbot and dependencies (Zenbrain).
+    - Major logic update again. Please run `./update.sh` to apply this update. If you have errors after this update, try dropping your `zenbrain` DB and run `run.sh` again to start the map/reduce from raw data.
     - Now using 1h RSI by default. Reporter chimes in every 5m. Trade signals should trigger roughly 2-3 times over a few days.
     - Way better trend detection in `default_logic.js`, 83-day simulated ROI went from ~10% to 89%!
     - Poloniex product update by @RDash21, Kraken product update by @grigio. Thanks!
@@ -27,25 +27,42 @@
 - **3.1.2** - Relaxed backfill timeout. Backfill is slower to let reducer catch up. Reducer report interval -> 30s, Trade report interval -> 30s
 - **3.1.1** - Updated zenbrain version. Please run `./update.sh`.
 - **3.1.0**
-    - Major logic update. Safe to drop your zenbrain DB before this update. Much of the default trade logic reprogrammed.
+    - Major logic update. Much of the default trade logic reprogrammed.
     - Moved default logic to `./default_logic.js`.
     - RSI now backfills by default, reconfigured to 15m intervals.
 
 ## Description
 
-zenbot is an automated cryptocurrency trading bot. It runs on node.js and MongoDB and is fully open-sourced. A plugin architecture is included that allows any exchange, trade strategy, or currency pair to be supported.
+Zenbot is a lightweight, self-contained, artificially intelligent, extendable trading bot. Currently Zenbot is capable of:
 
-- Out of the box, zenbot is an AI-powered trade advisor (gives you buy or sell signals while watching live data).
+- High-frequency trading, day trading, week trading
+- Multiple asset support for Bitcoin, Ether, Litecoin (and more)
+- Multiple currency support for US Dollars, Euros, Chinese Yuan (and more)
+- Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
+- Realtime consuming and analysis of trade data into candlestick graphs
+- Simulating your trade strategy using the historical data
+
+### Performance
+
+Current simulations on historical data from May - August 2016 show Zenbot 3.2.3 is capable of [**DOUBLING your investment**](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) in only 84 days, using default parameters.
+
+_Zenbot is a genius!_
+
+### Features
+
+- A powerful map/reduce system to live-process data at scale.
+- A plugin system to facilitate incremental support for any exchange, currency pair, trade strategy, or reporting medium.
+- Out of the box, Zenbot is an AI-powered trade advisor (gives you buy or sell signals while watching live data).
 - Default support for [GDAX](https://gdax.com/) is included, so if you have a GDAX account, enable bot trades by simply putting your GDAX API key in `config.js` and setting what currency pair to trade.
 - Default support for other exchanges is ongoing.
 - Trade strategy is fully exposed in the config file. This allows you to have full control over the bot's actions and logic. For example, instead of trading on GDAX, you could trade on a different exchange or currency pair by implementing a few lines of JavaScript.
 - A live candlestick graph is provided via a built-in HTTP server.
 
-HOWEVER. BE AWARE that once you hook up zenbot to a live exchange, the damage done is your fault, not mine! **As with buying bitcoin in general, risk is involved and caution is essential. bitcoin is an experiment, and so is zenbot.**
+HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage done is your fault, not mine! **As with buying crypto currency in general, risk is involved and caution is essential. Crypto currency is an experiment, and so is Zenbot.**
 
 ## Screenshot
 
-![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_ui.png)
+![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
 
 ## Quick-start
 
@@ -109,9 +126,7 @@ zenbot sim [--verbose]
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `config.js` for new trade strategies and check your results this way.
 
-Example simulation result: https://gist.github.com/carlos8f/e8237b3089a2b316093e5e8aac1469e8
-
-![sim result](https://cloud.githubusercontent.com/assets/106763/17756862/b37c9cb8-6497-11e6-8768-e9d2ffa2543e.png)
+Example simulation result: https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd
 
 #### About the default trade logic in `default_logic.js`
 
@@ -156,7 +171,7 @@ zenbot always trades with the "market" flag, i.e. the order never goes on the bo
 
 ### What does [bot] not enough currency to buy! mean?
 
-It means the bot tried to buy BTC, but had not enough USD balance to do that. The volume counter resets anyway. If you feel comfortable investing, you can deposit USD in your GDAX account and zenbot will use that the next time the trade signal triggers.
+It means the bot tried to buy, but had not enough USD balance to do that. The volume counter resets anyway. If you feel comfortable investing, you can deposit USD in your account and zenbot will use that the next time the trade signal triggers.
 
 ## Reading assignment: Systematic trading using neural networks
 
