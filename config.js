@@ -80,8 +80,6 @@ c.reporter_cols = [
 c.reducer_report_interval = 30000
 c.trade_report_interval = 30000
 c.min_log_trades = 2
-c.reducer_perf_report_min = 2
-c.reducer_perf_report_timeout = 30000
 
 // backfiller
 c.backfill_days = 91
@@ -106,3 +104,6 @@ c.lock_tries = 100
 c.passive_update_timeout = 5000
 c.return_timeout = 60000
 c.brain_speed_ms = 200
+c.reducer_perf_report_min = 2
+c.reducer_perf_report_timeout = 30000
+
