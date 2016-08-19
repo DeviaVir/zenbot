@@ -41,6 +41,7 @@ module.exports = function container (get, set, clear) {
     // BEGIN DEFAULT TRADE LOGIC
     // default params
     function (tick, trigger, rs, cb) {
+      rs.agent = USER_AGENT
       rs.asset = 'BTC'
       rs.currency = 'USD'
       rs.rsi_period = '1h'
