@@ -51,7 +51,9 @@ module.exports = function container (get, set, clear) {
           setImmediate(getNext)
         }
         else {
-          get('logger').info('RSI', 'marked'.grey, num_marked, c.rsi_sizes.join(',') + ' ticks for RSI backfill'.grey)
+          if (num_marked >= c.rsi_backfill_min_report) {
+            get('logger').info('RSI', 'marked'.grey, num_marked, c.rsi_sizes.join(',') + ' ticks for RSI backfill'.grey)
+          }
           setTimeout(mapper, c.rsi_backfill_timeout)
         }
       })
