@@ -9,44 +9,55 @@
 - Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
-## Updates
-
-- [**3.2.3**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.3) (Latest)
-    - Fixed some performance issues with RSI backfiller. Updated `update.sh` to run `git stash` before and `git stash pop` after update, to avoid merge conflict when pulling. However you may have to resolve a conflict with your `config.js` after `update.sh` completes, this is normal when config defaults have been updated.
-- **3.2.2**
-    - Fixed a non-indexed query in Zenbrain. Please apply this update with `./update.sh`.
-- **3.2.1**
-    - Bugfix for techan.js performance patch
-- **3.2.0**
-    - Major logic update again. Please run `./update.sh` to apply this update. If you have errors after this update, try dropping your `zenbrain` DB and run `run.sh` again to start the map/reduce from raw data.
-    - Now using 1h RSI by default. Reporter chimes in every 5m. Trade signals should trigger roughly 2-3 times over a few days.
-    - Way better trend detection in `default_logic.js`, 83-day simulated ROI went from ~10% to 89%!
-    - Poloniex product update by @RDash21, Kraken product update by @grigio. Thanks!
-    - Logic update by @xangma. Thanks!
-    - Graph performance patch, submitted to techan.js project at https://github.com/andredumas/techan.js/issues/138
-- **3.1.2** - Relaxed backfill timeout. Backfill is slower to let reducer catch up. Reducer report interval -> 30s, Trade report interval -> 30s
-- **3.1.1** - Updated zenbrain version. Please run `./update.sh`.
-- **3.1.0**
-    - Major logic update. Much of the default trade logic reprogrammed.
-    - Moved default logic to `./default_logic.js`.
-    - RSI now backfills by default, reconfigured to 15m intervals.
-
 ## Description
 
-Zenbot is a lightweight, self-contained, artificially intelligent, extendable trading bot. Currently Zenbot is capable of:
+Zenbot is a lightweight, self-contained, realtime, artificially intelligent, extendable trading bot. Currently Zenbot is capable of:
 
 - High-frequency trading, day trading, week trading
 - Multiple asset support for Bitcoin, Ether, Litecoin (and more)
 - Multiple currency support for US Dollars, Euros, Chinese Yuan (and more)
 - Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
-- Realtime consuming and analysis of trade data into candlestick graphs
+- Realtime consuming and analysis of trade data
 - Simulating your trade strategy using the historical data
+- Outputting data as CSV, JSON, or candlestick graph
 
 ### Performance
 
 Current simulations on historical data from May - August 2016 show Zenbot 3.2.3 is capable of [**DOUBLING your investment**](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) in only 84 days, using default parameters.
 
 _Zenbot is a genius!_
+
+HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage done is your fault, not mine! **As with buying crypto currency in general, risk is involved and caution is essential. Crypto currency is an experiment, and so is Zenbot.**
+
+## Updates
+
+### Update Tips
+
+To update your Zenbot installation, use `./update.sh`. If you have merge conflicts after update, solve them, then run `./run.sh`. If you have runtime JavaScript errors after update, your database might be obsolete. Try dropping your `zenbrain` DB and run `run.sh` again to start with a clean state.
+
+### Update Log
+
+- [**3.2.4**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.4) (Latest)
+    - Minor reporting cleanup, added some docs. Minor update to Zenbrain.
+- **3.2.3**
+    - Fixed some performance issues with RSI backfiller. Updated `update.sh` to run `git stash` before and `git stash pop` after update, to avoid merge conflict when pulling. However you may have to resolve a conflict with your `config.js` after `update.sh` completes, this is normal when config defaults have been updated.
+- **3.2.2**
+    - Fixed a non-indexed query in Zenbrain.
+- **3.2.1**
+    - Bugfix for techan.js performance patch
+- **3.2.0**
+    - Major logic update again.
+    - Now using 1h RSI by default. Reporter chimes in every 5m. Trade signals should trigger roughly 2-3 times over a few days.
+    - Way better trend detection in `default_logic.js`, 83-day simulated ROI went from ~10% to 89%!
+    - Poloniex product update by @RDash21, Kraken product update by @grigio. Thanks!
+    - Logic update by @xangma. Thanks!
+    - Graph performance patch, submitted to techan.js project at https://github.com/andredumas/techan.js/issues/138
+- **3.1.2** - Relaxed backfill timeout. Backfill is slower to let reducer catch up. Reducer report interval -> 30s, Trade report interval -> 30s
+- **3.1.1** - Updated zenbrain version.
+- **3.1.0**
+    - Major logic update. Much of the default trade logic reprogrammed.
+    - Moved default logic to `./default_logic.js`.
+    - RSI now backfills by default, reconfigured to 15m intervals.
 
 ### Features
 
@@ -57,8 +68,6 @@ _Zenbot is a genius!_
 - Default support for other exchanges is ongoing.
 - Trade strategy is fully exposed in the config file. This allows you to have full control over the bot's actions and logic. For example, instead of trading on GDAX, you could trade on a different exchange or currency pair by implementing a few lines of JavaScript.
 - A live candlestick graph is provided via a built-in HTTP server.
-
-HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage done is your fault, not mine! **As with buying crypto currency in general, risk is involved and caution is essential. Crypto currency is an experiment, and so is Zenbot.**
 
 ## Screenshot
 
@@ -84,7 +93,7 @@ npm install
 
 ### 3. Edit `config.js` with API keys, database credentials, trade logic, etc.
 
-### 4. Run zenbot on the exchange:
+### 4. Run zenbot:
 
 ```
 ./run.sh
