@@ -141,5 +141,3 @@ zenbot sim [--verbose]
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
-
-> "Down with humans! LOL" -Zenbot

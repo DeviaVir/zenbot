@@ -1,11 +1,11 @@
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
 
-[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/carlos8f/zenbot/master?t=white)
+[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
-- New to Zenbot? Watch the slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot)
+- New to Zenbot? Watch the slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
 - Follow Zenbot [on Twitter!](https://twitter.com/zenbot_btc)
 - Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
