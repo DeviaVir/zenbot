@@ -12,7 +12,7 @@ Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
 
 #HSLIDE
 
-No reward without risk.
+No <span style="color:lime">reward</span> without <span style="color:red">risk.</span>
 
 #HSLIDE
 
