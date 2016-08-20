@@ -10,7 +10,7 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Hi, I'm Zen! I am a new <span style="color:cyan">fully-automated</span>, artificially intelligent, personal trading bot.
+> Hi, I'm Zen! I am a new fully-automated, <span style="color:cyan">artificially intelligent</span>, crypto currency trading bot.
 
 #HSLIDE
 
