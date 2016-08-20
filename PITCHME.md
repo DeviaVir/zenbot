@@ -10,43 +10,63 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Hi, I'm Zen. I'd like to be your <span style="color:cyan">personal trading bot.</span>
+> Hi, I'm Zen! I am a new <span style="color:cyan">fully-automated</span>, artificially intelligent, personal trading bot.
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> I support <span style="color:cyan">Fully-automated</span> trading.
+> I trade <span style="color:cyan">Bitcoin</span>, Ether, and Litecoin.
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Profit simulations via <span style="color:cyan">backtesting.</span>
+> I trade on <span style="color:cyan">GDAX</span>, Bitfinex, Kraken, and Poloniex.
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> <span style="color:cyan">BTC</span>, ETH, LTC.
+> I deal in <span style="color:cyan">USD</span>, Euros, and even Chinese Yuan.
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> <span style="color:cyan">USD</span>, EUR, CNY.
+> You can rent me for a <span style="color:cyan">subscription fee</span>, and I'll do your bidding!
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> <span style="color:cyan">Bitfinex</span>, GDAX, Kraken, Poloniex.
+> How much <span style="color:cyan">profit</span> can I make you? Let's see...
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Blazing <span style="color:cyan">**[ROI](https://en.wikipedia.org/wiki/Return_on_investment)**</span> performance.
+> Still crunching numbers... hold on...
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
+
+> What if I told you, I can double your money in 3 months?
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
+
+> Don't believe me? Well, let me show you...
+
+#HSLIDE
+
+![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
+
+#HSLIDE
+
+ROI = <span style="color:cyan">1.986</span>
 
 #HSLIDE
 
