@@ -35,18 +35,12 @@ Press **F** key to go fullscreen.
 - Multiple currency support for US Dollars, Euros, Chinese Yuan (and more)
 - Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
 
+#HSLIDE
+
 ## Pluggable trading:
 
 - Trading support for [GDAX](https://gdax.com/) is included
 - Trading support for other exchanges are a [work in progress](https://github.com/carlos8f/zenbot/issues)
-
-#HSLIDE
-
-## Zenbot loves to:
-
-- Realtime consume trade data
-- Simulate your trade strategy on historical data
-- Output data as CSV, JSON, or candlestick graph
 
 #HSLIDE
 
@@ -68,7 +62,8 @@ Press **F** key to go fullscreen.
 
 - Trade strategy is fully exposed in the config file.
 - This allows you to have full control over the bot's actions and logic.
-- For example, instead of trading on GDAX, you could trade on a different exchange or currency pair by implementing a few lines of JavaScript.
+
+#HSLIDE
 
 ## How can I visualize what the bot does?
 
@@ -85,13 +80,11 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-The simulation started with $1,000,
+## Data doesn't lie:
 
-iterated 12 weeks of data,
-
-#HSLIDE
-
-and ended with a balance of...
+- The simulation started with **$1,000**
+- iterated 12 weeks of data, May-August 2016
+- ended with a balance of...
 
 #HSLIDE
 
@@ -101,9 +94,13 @@ and ended with a balance of...
 
 ## Yes, it actually doubled the investment!
 
-# _"Zenbot, you're a genius!"_
+#HSLIDE
 
-> Yes I am!
+# Me: _"Zenbot, you're a genius!"_
+
+#HSLIDE
+
+> Zenbot: "Down with humans! LOL"
 
 #HSLIDE
 
