@@ -70,6 +70,18 @@ _***Dot-matrix printer sound***_
 
 #HSLIDE
 
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> It's true! I project a `1.986` ROI for the last 3 months of data!
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Subscribe to Zenbot today! Free 14-day trial! AOL Keyword ZENBOT
+
+#HSLIDE
+
 <span style="color:cyan">Pricing and Subscriptions</span>
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_pricing_jk.png)
