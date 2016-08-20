@@ -19,7 +19,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 - Multiple currency support for US Dollars, Euros, Chinese Yuan (and more)
 - Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
 - Realtime consuming and analysis of trade data
-- [Simulating your trade strategy](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) using the historical data
+- [Backtesting your trade strategy](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd)
 - Outputting data as [CSV](https://zenbot.s8f.org/data.csv), [JSON](https://gist.githubusercontent.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd/raw/d7d92115da305b686afbccec899f134c87d909f8/sim_result.json), or [candlestick graph](https://zenbot.s8f.org/)
 
 ### Performance
@@ -72,7 +72,7 @@ To update your Zenbot installation, use `./update.sh`. If you have merge conflic
 
 ## Screenshot
 
-In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product. The simulation iterated 12 weeks of data and ended with 198% balance, an unbelieveable 90% [ROI](https://en.wikipedia.org/wiki/Return_on_investment).
+In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product. The simulation iterated 3 months of data and ended with 198% balance, an unbelieveable 90% [ROI](https://en.wikipedia.org/wiki/Return_on_investment).
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
 
