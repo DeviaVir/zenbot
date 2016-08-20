@@ -119,7 +119,7 @@ Just add your <span style="color:cyan">API key and currency pair!</span>
 
 #HSLIDE
 
-Trade API support for other exchanges are a <span style="color:cyan">[work in progress](https://github.com/carlos8f/zenbot/issues)!</span>
+Trade API support for <span style="color:cyan">other exchanges</span> are a <span style="color:cyan">[work in progress](https://github.com/carlos8f/zenbot/issues)!</span>
 
 #HSLIDE
 
