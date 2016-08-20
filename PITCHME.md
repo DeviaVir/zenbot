@@ -1,6 +1,6 @@
 #HSLIDE
 
-Press **F** key to go fullscreen.
+Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 #HSLIDE
 
@@ -16,49 +16,49 @@ No <span style="color:lime">reward</span> without <span style="color:red">risk.<
 
 #HSLIDE
 
-Your own personal trading bot.
+Your own <span style="color:cyan">personal trading bot.</span>
 
 #HSLIDE
 
-Fully-automated trading.
+<span style="color:cyan">Fully-automated</span> trading.
 
 #HSLIDE
 
-Profit simulations via backtesting.
+Profit simulations via <span style="color:cyan">backtesting.</span>
 
 #HSLIDE
 
-BTC, ETH, LTC.
+<span style="color:cyan">BTC</span>, ETH, LTC.
 
 #HSLIDE
 
-USD, EUR, CNY.
+<span style="color:cyan">USD</span>, EUR, CNY.
 
 #HSLIDE
 
-Bitfinex, GDAX, Kraken, Poloniex.
+<span style="color:cyan">Bitfinex</span>, GDAX, Kraken, Poloniex.
 
 #HSLIDE
 
-Powered by [**Zenbrain**](https://github.com/carlos8f/zenbrain).
+Powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain).</span>
 
 #HSLIDE
 
-Blazing **[ROI](https://en.wikipedia.org/wiki/Return_on_investment)** performance.
+Blazing <span style="color:cyan">**[ROI](https://en.wikipedia.org/wiki/Return_on_investment)**</span> performance.
 
 #HSLIDE
 
-Runs on Linux or Mac.
+Runs on <span style="color:cyan">Linux or Mac.</span>
 
 [Node.js](https://nodejs.org) and [MongoDB](https://mongodb.com) required.
 
 #HSLIDE
 
-Simple setup.
+<span style="color:cyan">Simple</span> setup.
 
 #HSLIDE
 
-Sane defaults.
+<span style="color:cyan">Sane</span> defaults.
 
 #HSLIDE
 
@@ -71,23 +71,23 @@ npm install
 
 #HSLIDE
 
-Auto-trading support for [GDAX](https://gdax.com/) is included.
+<span style="color:cyan">Trade API</span> support for [GDAX](https://gdax.com/) is included.
 
-Just add your API key and currency pair!
-
-#HSLIDE
-
-Trading support for other exchanges are a [work in progress](https://github.com/carlos8f/zenbot/issues)!
+Just add your <span style="color:cyan">API key and currency pair!</span>
 
 #HSLIDE
 
-Trade strategy is fully exposed in the config file.
-
-This allows you to have full control over the bot's actions and logic.
+Trade API support for other exchanges are a <span style="color:cyan">[work in progress](https://github.com/carlos8f/zenbot/issues)!</span>
 
 #HSLIDE
 
-Run the simulator to test your strategy!
+Trade strategy is <span style="color:cyan">fully exposed</span> in the config file.
+
+This allows you to have <span style="color:cyan">full control</span> over the bot's actions and logic.
+
+#HSLIDE
+
+Run the simulator to <span style="color:cyan">test your strategy!</span>
 
 ```
 zenbot sim [--verbose]
@@ -95,10 +95,10 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
-- Sim started with **$1,000**
-- Iterated **12 weeks of data**, May - August 2016
-- Generated **80 virtual BTC/USD trades** on [GDAX](https://gdax.com) exchange
-- roughly 1 trade/day
+- Sim started with <span style="color:cyan">$1,000</span>
+- Iterated <span style="color:cyan">12 weeks of data</span>, May - August 2016
+- Generated <span style="color:cyan">80 virtual BTC/USD trades</span> on [GDAX](https://gdax.com) exchange
+- roughly <span style="color:cyan">1 trade/day</span>
 
 #HSLIDE
 
@@ -106,11 +106,11 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
-Ended with a balance of **$1,986.99**
+Ended with a balance of <span style="color:cyan">$1,986.99</span>
 
 #HSLIDE
 
-ROI = **1.986**
+ROI = <span style="color:cyan">1.986</span>
 
 #HSLIDE
 
@@ -120,74 +120,76 @@ ROI = **1.986**
 
 #HSLIDE
 
-Neural Networks are the future.
-
-Data **doesn't lie**.
+Neural Networks are the <span style="color:cyan">future.</span>
 
 #HSLIDE
 
-ANN's can be **mathematically and empirically verified**.
+Data <span style="color:cyan">doesn't lie.</span>
 
 #HSLIDE
 
-In various studies, **neural networks** significantly **outperform** traditional linear technical analysis.
+ANN's can be <span style="color:cyan">mathematically and empirically verified.</span>
 
 #HSLIDE
 
-The **Golden Age of AI** and crypto currency only comes once.
-
-**Enjoy it!**
+In various studies, <span style="color:cyan">neural networks</span> significantly <span style="color:cyan">outperform</span> traditional linear technical analysis.
 
 #HSLIDE
 
-Pricing and Subscriptions
+The <span style="color:cyan">Golden Age crypto currency</span> only comes once.
+
+<span style="color:cyan">Enjoy it!</span>
+
+#HSLIDE
+
+<span style="color:cyan">Pricing and Subscriptions</span>
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_pricing_jk.png)
 
 #HSLIDE
 
-j/k ;)
+j/k <span style="color:cyan">;)</span>
 
 #HSLIDE
 
 Be the ZENBOT MASTER
 
-free.
+<span style="color:cyan">free.</span>
 
 #HSLIDE
 
-- Zenbot `master` branch is deployed as my personal trading bot.
-- New features and bugfixes added daily!
-- Subject to break or change over time.
-- Please contribute via Pull Request!
+- Zenbot `master` branch is <span style="color:cyan">deployed</span> as my personal trading bot.
+- New <span style="color:cyan">features and bugfixes</span> added daily!
+- Subject to <span style="color:cyan">break</span> or change over time.
+- Please <span style="color:cyan">contribute via Pull Request!</span>
 
 #HSLIDE
 
 Where to go next?
 
-Star the Zenbot repo [on Github](https://github.com/carlos8f/zenbot)!
+Star the <span style="color:cyan">Zenbot repo</span> [on Github](https://github.com/carlos8f/zenbot)!
 
 <span style="color:grey">github.com/</span><span style="color:blue">carlos8f/</span><span style="color:cyan">zenbot</span>
 
 #HSLIDE
 
-Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
+<span style="color:cyan">Follow</span> Zenbot [on Twitter](https://twitter.com/zenbot_btc)
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_twitter_screenshot.png)
 
 #HSLIDE
 
-Check out Zenbot's [live feed](https://zenbot.s8f.org/) at <span style="color:lime">zenbot</span><span style="color:grey">.s8f.org/</span>
+Check out Zenbot's [live candlestick graph](https://zenbot.s8f.org/) at <span style="color:lime">zenbot</span><span style="color:grey">.s8f.org/</span>
 
-Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) <span style="color:grey">r/</span><span style="color:lime">Bitcoin</span>!
+Join the <span style="color:cyan">discussion</span> on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) <span style="color:grey">r/</span><span style="color:lime">Bitcoin</span>!
 
 #HSLIDE
 
-Zenbot is a **hobby/passion project**.
+Zenbot is a <span style="color:cyan">hobby/passion project.</span>
 
-Keep Zenbot alive!
+Keep Zenbot <span style="color:cyan">alive!</span>
 
-**Support Zenbot** development by donating Bitcoin to this QR code:
+Support Zenbot development by <span style="color:cyan">donating Bitcoin</span> to this QR code:
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
 
