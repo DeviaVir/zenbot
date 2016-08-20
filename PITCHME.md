@@ -137,26 +137,13 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
-- Sim started with <span style="color:cyan">$1,000</span>
-- Iterated <span style="color:cyan">12 weeks of data</span>, May - August 2016
-- Generated <span style="color:cyan">80 virtual BTC/USD trades</span> on [GDAX](https://gdax.com) exchange
-- roughly <span style="color:cyan">1 trade/day</span>
-
-#HSLIDE
-
-![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
-
-#HSLIDE
+Sim output as JSON:
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_json_screenshot.png)
 
 #HSLIDE
 
 Neural Networks are the <span style="color:cyan">future.</span>
-
-#HSLIDE
-
-Because data <span style="color:cyan">doesn't lie.</span>
 
 #HSLIDE
 
@@ -192,21 +179,19 @@ No <span style="color:lime">reward</span> without <span style="color:red">risk.<
 
 Where to go next?
 
-Star the <span style="color:cyan">Zenbot repo</span> [on Github](https://github.com/carlos8f/zenbot)!
-
-<span style="color:grey">github.com/</span><span style="color:blue">carlos8f/</span><span style="color:cyan">zenbot</span>
+<span style="color:grey">github.com/</span><span style="color:cyan">carlos8f/</span><span style="color:lime">zenbot</span>
 
 #HSLIDE
 
-<span style="color:cyan">Follow</span> Zenbot [on Twitter](https://twitter.com/zenbot_btc)
+See Zenbot demo at <span style="color:lime">zenbot</span><span style="color:grey">.s8f.org/</span>
+
+Join the <span style="color:cyan">discussion</span> on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) <span style="color:cyan">r/Bitcoin</span>
+
+#HSLIDE
+
+<span style="color:cyan">Follow</span> @zenbot_btc [on Twitter](https://twitter.com/zenbot_btc)
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_twitter_screenshot.png)
-
-#HSLIDE
-
-Check out Zenbot's [live candlestick graph](https://zenbot.s8f.org/) at <span style="color:lime">zenbot</span><span style="color:grey">.s8f.org/</span>
-
-Join the <span style="color:cyan">discussion</span> on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) <span style="color:grey">r/</span><span style="color:lime">Bitcoin</span>!
 
 #HSLIDE
 
