@@ -17,8 +17,8 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-- Multi-currency: trade <span style="color:lime">USD, EUR, GBP, CNY</span>
-- Multi-exchange: realtime <span style="color:lime">Kraken, Poloniex, and Bitfinex</span> tracking.
+- Multi-currency: trade **USD, EUR, GBP, CNY**
+- Multi-exchange: realtime **Kraken, Poloniex, and Bitfinex** tracking.
 - Blazing [ROI](https://en.wikipedia.org/wiki/Return_on_investment) performance
 
 #HSLIDE
@@ -99,15 +99,16 @@ zenbot sim [--verbose]
 
 ## Neural Networks are the future.
 
-- The data doesn't lie.
-- ANN's can be mathematically and empirically verified.
-- In various studies, **neural networks** significantly outperform traditional linear technical analysis.
+- The data **doesn't lie**.
+- ANN's can be **mathematically and empirically verified**.
+- In various studies, **neural networks** significantly **outperform** traditional linear technical analysis.
 
 #HSLIDE
 
-- ANN's are not just for science geeks anymore.
-- ANN's are just now becoming available for wide use in trading.
-- The Golden Age of AI and crypto currency only comes once. Enjoy it!
+- ANN's are **not just for geeks** anymore.
+- ANN's are **just now becoming available** for wide use in trading.
+- The **Golden Age of AI** and crypto currency only comes once.
+- **Enjoy it!**
 
 #HSLIDE
 
@@ -123,14 +124,14 @@ zenbot sim [--verbose]
 
 - Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
 - Check out Zenbot's [live feed](https://zenbot.s8f.org/)
-- Join the discussion on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
+- Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
-#VSLIDE
+#HSLIDE
 
 ## Donate
 
-- Zenbot is a hobby/passion project.
-- Support Zenbot by donating Bitcoin to this QR code:
+- Zenbot is a **hobby/passion project**.
+- **Support Zenbot** by donating Bitcoin to this QR code:
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
 
