@@ -177,15 +177,17 @@ The <span style="color:cyan">Golden Age</span> of crypto currency only comes onc
 - Zenbot `master` branch is <span style="color:cyan">deployed</span> as my personal trading bot.
 - New <span style="color:cyan">features and bugfixes</span> added daily!
 - Subject to <span style="color:cyan">break</span> or change over time.
-- Please <span style="color:cyan">contribute via Pull Request!</span>
+- Please <span style="color:cyan">contribute</span> via Pull Request and/or Bitcoin donation!
 
 #HSLIDE
+
+# DISCLAIMER
 
 Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
 
 #HSLIDE
 
-No <span style="color:lime">reward</span> without <span style="color:red">risk.</span>
+However, there's no <span style="color:lime">reward</span> without <span style="color:red">risk</span>!
 
 #HSLIDE
 
