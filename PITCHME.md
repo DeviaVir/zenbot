@@ -83,6 +83,26 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
+# data p0rn
+
+#HSLIDE
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_start_screenshot.png)
+
+#HSLIDE
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_screenshot.png)
+
+#HSLIDE
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_json_screenshot.png)
+
+#HSLIDE
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_csv_screenshot.png)
+
+#HSLIDE
+
 ## Neural Networks are the future.
 
 - The data **doesn't lie**.
@@ -109,7 +129,15 @@ zenbot sim [--verbose]
 ### Where to go next
 
 - Star the Zenbot repo [on Github](https://github.com/carlos8f/zenbot)
+
+#HSLIDE
+
 - Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_twitter_screenshot.png)
+
+#HSLIDE
+
 - Check out Zenbot's [live feed](https://zenbot.s8f.org/)
 - Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
