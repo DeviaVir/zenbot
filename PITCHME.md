@@ -197,7 +197,7 @@ Where to go next?
 
 #HSLIDE
 
-See Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:grey">.s8f.org/</span>
+See Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:cyan">.s8f.org/</span>
 
 Join the [discussion](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) on <span style="color:cyan">r/Bitcoin</span>
 
