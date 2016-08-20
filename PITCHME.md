@@ -21,13 +21,9 @@ Press **F** key to go fullscreen.
 - Multi-exchange: realtime tracking of **Bitfinex, GDAX, Kraken, Poloniex, more**
 - Blazing **[ROI](https://en.wikipedia.org/wiki/Return_on_investment)** performance!
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 USE ZENBOT AT YOUR OWN <span style="color:red">RISK.</span>
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
 
 #HSLIDE
 
@@ -35,15 +31,11 @@ That said,
 
 ### Running Zenbot is high <span style="color:red">risk</span>, high <span style="color:lime">reward</span>.
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 - Requires Linux or Mac, [Node.js](https://nodejs.org) and [MongoDB](https://mongodb.com)
 - Simple setup!
 - Sane defaults!
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
 
 #HSLIDE
 
@@ -56,15 +48,11 @@ npm install
 ./run.sh
 ```
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 - Auto-trading support for [GDAX](https://gdax.com/) is included.
 - Just add your API key and currency pair!
 - Trading support for other exchanges are a [work in progress](https://github.com/carlos8f/zenbot/issues)!
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
 
 #HSLIDE
 
@@ -76,8 +64,6 @@ npm install
 zenbot sim [--verbose]
 ```
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 ### Current sim results
@@ -86,20 +72,14 @@ zenbot sim [--verbose]
 - Iterated **12 weeks of data**, May - August 2016
 - Generated **80 virtual BTC/USD trades** on [GDAX](https://gdax.com) exchange
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 - ...and ended with a balance of **$1,986.99**
 - current ROI = **1.986**
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
 
 #HSLIDE
 
@@ -109,16 +89,12 @@ zenbot sim [--verbose]
 - ANN's can be **mathematically and empirically verified**.
 - In various studies, **neural networks** significantly **outperform** traditional linear technical analysis.
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 - ANN's are **not just for geeks** anymore.
 - ANN's are **just now becoming available** for wide use in trading.
 - The **Golden Age of AI** and crypto currency only comes once.
 - **Enjoy it!**
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
 
 #HSLIDE
 
@@ -127,8 +103,6 @@ zenbot sim [--verbose]
 - Zenbot is deployed as my personal trading bot.
 - Subject to break or change over time.
 - Please contribute via Pull Request!
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
 
 #HSLIDE
 
@@ -139,8 +113,6 @@ zenbot sim [--verbose]
 - Check out Zenbot's [live feed](https://zenbot.s8f.org/)
 - Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 ## Keep Zenbot alive!
@@ -150,12 +122,8 @@ zenbot sim [--verbose]
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
-
 #HSLIDE
 
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
-
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
