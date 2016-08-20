@@ -85,21 +85,7 @@ zenbot sim [--verbose]
 
 # data p0rn
 
-#HSLIDE
-
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_start_screenshot.png)
-
-#HSLIDE
-
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_screenshot.png)
-
-#HSLIDE
-
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_json_screenshot.png)
-
-#HSLIDE
-
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_sim_csv_screenshot.png)
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_json_screenshot.png)
 
 #HSLIDE
 
