@@ -78,7 +78,7 @@ _***Dot-matrix printer sound***_
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Subscribe to Zenbot today! Free 14-day trial! AOL Keyword ZENBOT
+> Subscribe to Zenbot today! Free <span style="color:cyan">14-day trial!</span> AOL Keyword ZENBOT
 
 #HSLIDE
 
