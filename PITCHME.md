@@ -115,7 +115,7 @@ npm install
 
 <span style="color:cyan">Trade API</span> support for [GDAX](https://gdax.com/) is included.
 
-Just add your <span style="color:cyan">API key and currency pair!</span>
+Just add your <span style="color:cyan">API key</span> and <span style="color:cyan">currency pair!</span>
 
 #HSLIDE
 
