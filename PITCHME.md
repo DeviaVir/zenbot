@@ -189,7 +189,7 @@ Join the [discussion](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcin
 
 #HSLIDE
 
-<span style="color:cyan">Follow</span> @zenbot_btc [on Twitter](https://twitter.com/zenbot_btc)
+Follow [@zenbot_btc](https://twitter.com/zenbot_btc) on Twitter!
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_twitter_screenshot.png)
 
