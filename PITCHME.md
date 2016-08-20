@@ -124,18 +124,14 @@ zenbot sim [--verbose]
 - Check out Zenbot's [live feed](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
-#HSLIDE
+#VSLIDE
 
 ## Donate
 
-P.S., some have asked for how to donate to Zenbot development. I accept donations at **my Bitcoin address** Here:
+- Zenbot is a hobby/passion project.
+- Support Zenbot by donating Bitcoin to this QR code:
 
-![zenbot logo](https://s8f.org/files/bitcoin.png)
-
-thanks!
-
-Cheers,
-Carlos
+![bitcoin address](https://s8f.org/files/bitcoin.png)
 
 #HSLIDE
 
