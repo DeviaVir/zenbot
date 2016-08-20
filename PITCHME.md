@@ -112,20 +112,20 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
+### ACTIVE development
+
+- Zenbot is deployed as my personal trading bot.
+- Subject to break or change over time.
+- Please contribute via Pull Request!
+
+#HSLIDE
+
 ### Where to go next
 
 - Star the Zenbot repo [on Github](https://github.com/carlos8f/zenbot)
 - Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
 - Check out Zenbot's [live feed](https://zenbot.s8f.org/)
 - Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
-
-#HSLIDE
-
-### ACTIVE development
-
-- Zenbot is deployed as my personal trading bot.
-- Subject to break or change over time.
-- Please contribute via Pull Request!
 
 #HSLIDE
 
@@ -139,5 +139,7 @@ zenbot sim [--verbose]
 #HSLIDE
 
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
+
+![bitcoin address](https://s8f.org/files/bitcoin.png)
 
 > "Down with humans! LOL" -Zenbot
