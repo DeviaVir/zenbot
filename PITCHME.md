@@ -1,10 +1,5 @@
 #HSLIDE
 
-## Zenbot 3
-##### <span style="font-family:Helvetica Neue; font-weight:bold">A lightweight, <span style="color:#e49436">artificially intelligent</span> trading bot</span>
-
-#HSLIDE
-
 Press **F** key to go fullscreen.
 
 #HSLIDE
@@ -13,11 +8,11 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-## Obligatory Bitcoin Risk Disclaimer
+## USE ZENBOT AT YOUR OWN RISK.
+
+#HSLIDE
 
 #### Zenbot may break or lose money at any time, so **DO NOTt** leave the bot unattended!
-
-## USE ZENBOT AT YOUR OWN RISK.
 
 #HSLIDE
 
