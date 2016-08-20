@@ -3,6 +3,7 @@
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
+- New to Zenbot? Watch the slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot)
 - Follow Zenbot [on Twitter!](https://twitter.com/zenbot_btc)
 - Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
