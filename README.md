@@ -207,6 +207,8 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 
 ![zenbot logo](https://s8f.org/files/bitcoin.png)
 
+![small logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo_sm.png)
+
 thanks!
 
 ## Discuss
