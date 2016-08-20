@@ -195,7 +195,7 @@ Follow [@zenbot_btc](https://twitter.com/zenbot_btc) on Twitter!
 
 #HSLIDE
 
-Zenbot is a <span style="color:cyan">hobby/passion project.</span>
+Zenbot is a <span style="color:cyan">hobby/passion</span> project.
 
 Keep Zenbot <span style="color:cyan">alive!</span>
 
@@ -204,6 +204,8 @@ Support Zenbot development by <span style="color:cyan">donating Bitcoin</span> t
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
 
 #HSLIDE
+
+thanks!
 
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
 
