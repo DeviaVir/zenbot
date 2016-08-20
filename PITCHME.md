@@ -124,11 +124,11 @@ Neural Networks are the <span style="color:cyan">future.</span>
 
 #HSLIDE
 
-Data <span style="color:cyan">doesn't lie.</span>
+Because data <span style="color:cyan">doesn't lie.</span>
 
 #HSLIDE
 
-ANN's can be <span style="color:cyan">mathematically and empirically verified.</span>
+ANN's can be <span style="color:cyan">mathematically</span> and <span style="color:cyan">empirically verified.</span>
 
 #HSLIDE
 
@@ -136,7 +136,7 @@ In various studies, <span style="color:cyan">neural networks</span> significantl
 
 #HSLIDE
 
-The <span style="color:cyan">Golden Age crypto currency</span> only comes once.
+The <span style="color:cyan">Golden Age</span> of crypto currency only comes once.
 
 <span style="color:cyan">Enjoy it!</span>
 
