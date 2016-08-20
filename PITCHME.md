@@ -8,43 +8,65 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 #HSLIDE
 
-Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Hi, I'm Zen. I'd like to be your <span style="color:cyan">personal trading bot.</span>
 
 #HSLIDE
 
-No <span style="color:lime">reward</span> without <span style="color:red">risk.</span>
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I support <span style="color:cyan">Fully-automated</span> trading.
 
 #HSLIDE
 
-Your own <span style="color:cyan">personal trading bot.</span>
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Profit simulations via <span style="color:cyan">backtesting.</span>
 
 #HSLIDE
 
-<span style="color:cyan">Fully-automated</span> trading.
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> <span style="color:cyan">BTC</span>, ETH, LTC.
 
 #HSLIDE
 
-Profit simulations via <span style="color:cyan">backtesting.</span>
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> <span style="color:cyan">USD</span>, EUR, CNY.
 
 #HSLIDE
 
-<span style="color:cyan">BTC</span>, ETH, LTC.
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> <span style="color:cyan">Bitfinex</span>, GDAX, Kraken, Poloniex.
 
 #HSLIDE
 
-<span style="color:cyan">USD</span>, EUR, CNY.
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Blazing <span style="color:cyan">**[ROI](https://en.wikipedia.org/wiki/Return_on_investment)**</span> performance.
 
 #HSLIDE
 
-<span style="color:cyan">Bitfinex</span>, GDAX, Kraken, Poloniex.
+<span style="color:cyan">Pricing and Subscriptions</span>
+
+![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_pricing_jk.png)
 
 #HSLIDE
 
-Powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain).</span>
+j/k <span style="color:cyan">;)</span>
 
 #HSLIDE
 
-Blazing <span style="color:cyan">**[ROI](https://en.wikipedia.org/wiki/Return_on_investment)**</span> performance.
+Be the ZENBOT MASTER
+
+<span style="color:cyan">free.</span>
+
+#HSLIDE
+
+Powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain)</span>, a new <span style="color:cyan">open source</span> neural network.
 
 #HSLIDE
 
@@ -142,27 +164,19 @@ The <span style="color:cyan">Golden Age</span> of crypto currency only comes onc
 
 #HSLIDE
 
-<span style="color:cyan">Pricing and Subscriptions</span>
-
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_pricing_jk.png)
-
-#HSLIDE
-
-j/k <span style="color:cyan">;)</span>
-
-#HSLIDE
-
-Be the ZENBOT MASTER
-
-<span style="color:cyan">free.</span>
-
-#HSLIDE
-
 - Zenbot is 100% free, MIT-licensed, open source code.
 - Zenbot `master` branch is <span style="color:cyan">deployed</span> as my personal trading bot.
 - New <span style="color:cyan">features and bugfixes</span> added daily!
 - Subject to <span style="color:cyan">break</span> or change over time.
 - Please <span style="color:cyan">contribute via Pull Request!</span>
+
+#HSLIDE
+
+Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
+
+#HSLIDE
+
+No <span style="color:lime">reward</span> without <span style="color:red">risk.</span>
 
 #HSLIDE
 
