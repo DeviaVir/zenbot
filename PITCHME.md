@@ -12,7 +12,9 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-#### Zenbot may break or lose money at any time, so **DO NOTt** leave the bot unattended!
+#### Zenbot may break or lose money at any time
+
+#### **DO NOT** leave the bot unattended!
 
 #HSLIDE
 
