@@ -17,9 +17,9 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-- Multi-currency: trade **USD, EUR, GBP, CNY**
-- Multi-exchange: realtime **Kraken, Poloniex, and Bitfinex** tracking.
-- Blazing [ROI](https://en.wikipedia.org/wiki/Return_on_investment) performance
+- Multi-currency: trade **USD, EUR, GBP, CNY, more**
+- Multi-exchange: realtime tracking of **Bitfinex, GDAX, Kraken, Poloniex, more**
+- Blazing **[ROI](https://en.wikipedia.org/wiki/Return_on_investment)** performance!
 
 #HSLIDE
 
@@ -34,39 +34,25 @@ That said,
 #HSLIDE
 
 - Requires Linux or Mac, [Node.js](https://nodejs.org) and [MongoDB](https://mongodb.com)
-- Clone the repo, `npm install`, and launch `./run.sh`!
+- Simple setup!
+- Sane defaults!
+
+#HSLIDE
+
+### Installing <span style="color:lime">Zenbot 3</span>
+
+```
+git clone https://github.com/carlos8f/zenbot.git
+cd zenbot
+npm install
+./run.sh
+```
 
 #HSLIDE
 
 - Auto-trading support for [GDAX](https://gdax.com/) is included.
 - Just add your API key and currency pair!
 - Trading support for other exchanges are a [work in progress](https://github.com/carlos8f/zenbot/issues)!
-
-#HSLIDE
-
-### Out of the box:
-
-- **Uses** [GDAX](https://gdax.com/) API
-- **Watches** BTC/USD
-- **Acts** at 1-minute increments (ticks)
-- **Computes** the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi)
-
-#HSLIDE
-
-- **Considers** [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) `>= 70` an upwards trend and [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) `<= 30` a downwards trend.
-- <span style="color:lime">Buys</span> during upwards trend, <span style="color:red">sells</span> during downwards trend.
-- **Trades** 95% of current balance, market price.
-
-#HSLIDE
-
-### And finally,
-
-- **Holds** for 100+ minutes after a trade.
-
-#HSLIDE
-
-- Tweak the JS to trade on [Bitfinex](https://bitfinex.com), or trade ETH, or what have you!
-- After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
 
 #HSLIDE
 
