@@ -72,7 +72,7 @@ _***Dot-matrix printer sound***_
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> It's true! I project a `1.986` ROI for the last 3 months of data!
+> It's true! I project a <span style="color:cyan">1.986 ROI</span> for the last 3 months of data!
 
 #HSLIDE
 
