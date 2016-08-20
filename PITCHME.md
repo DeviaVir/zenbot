@@ -8,9 +8,7 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-Introducing <span style="color:lime">Zenbot 3</span>
-
-### Zenbot Features
+# Introducing <span style="color:lime">Zenbot 3</span>
 
 - Fully-automated <span style="color:lime">BTC, ETH, LTC</span> trading
 - Under the hood, uses ["Zenbrain"](https://github.com/carlos8f), a purpose-built neural network
@@ -18,7 +16,7 @@ Introducing <span style="color:lime">Zenbot 3</span>
 
 #HSLIDE
 
-### Zenbot Features cont'd
+### Features cont'd
 
 - Multi-currency: trade <span style="color:lime">USD, EUR, GBP, CNY</span>
 - Multi-exchange: realtime <span style="color:lime">Kraken, Poloniex, and Bitfinex</span> tracking.
@@ -26,7 +24,7 @@ Introducing <span style="color:lime">Zenbot 3</span>
 
 #HSLIDE
 
-### Bitcoin (and altcoin) is high, risk, high reward.
+### High, <span style="color:red">risk</span>, high <span style="color:lime">reward</span>.
 
 #HSLIDE
 
