@@ -179,13 +179,13 @@ No <span style="color:lime">reward</span> without <span style="color:red">risk.<
 
 Where to go next?
 
-<span style="color:grey">github.com/</span><span style="color:cyan">carlos8f/</span><span style="color:lime">zenbot</span>
+<span style="color:grey">github.com/</span><span style="color:cyan">carlos8f/</span><span style="color:cyan">zenbot</span>
 
 #HSLIDE
 
-See Zenbot demo at <span style="color:lime">zenbot</span><span style="color:grey">.s8f.org/</span>
+See Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:grey">.s8f.org/</span>
 
-Join the <span style="color:cyan">discussion</span> on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) <span style="color:cyan">r/Bitcoin</span>
+Join the [discussion](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) on <span style="color:cyan">r/Bitcoin</span>
 
 #HSLIDE
 
