@@ -52,13 +52,13 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
 
-> What if I told you, I can double your money in 3 months?
+> What if I told you, I can <span style="color:cyan">double your money</span> in 3 months?
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
 
-> Don't believe me? Well, let me show you...
+> Don't believe me? Well, let me <span style="color:cyan">show you...</span>
 
 #HSLIDE
 
