@@ -50,23 +50,23 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 #HSLIDE
 
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
-
-> What if I told you, I can <span style="color:cyan">double your money</span> in 3 months?
+_***Dot-matrix printer sound***_
 
 #HSLIDE
 
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
-
-> Don't believe me? Well, let me <span style="color:cyan">show you...</span>
-
-#HSLIDE
+- Start Date = May 2016, BTC/USD, GDAX
+- Start Balance = <span style="color:cyan">$1,000</span>
+- End Date = August 2016
+- End Balance = <span style="color:cyan">$1,986</span>
+- ROI = <span style="color:cyan">1.986</span>
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
 
 #HSLIDE
 
-ROI = <span style="color:cyan">1.986</span>
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
+
+> What if I told you, I can <span style="color:cyan">double your money</span> in 3 months?
 
 #HSLIDE
 
@@ -147,16 +147,6 @@ zenbot sim [--verbose]
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
 
 #HSLIDE
-
-Ended with a balance of <span style="color:cyan">$1,986.99</span>
-
-#HSLIDE
-
-ROI = <span style="color:cyan">1.986</span>
-
-#HSLIDE
-
-# data p0rn
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_json_screenshot.png)
 
