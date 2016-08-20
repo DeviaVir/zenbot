@@ -6,7 +6,7 @@ Press **F** key to go fullscreen.
 
 ![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
 
-#VSLIDE
+#HSLIDE
 
 Introducing <span style="color:lime">Zenbot 3</span>span>
 
@@ -16,7 +16,7 @@ Introducing <span style="color:lime">Zenbot 3</span>span>
 - Under the hood, uses ["Zenbrain"](https://github.com/carlos8f)
 - Neural network analyzes new data in realtime
 
-#VSLIDE
+#HSLIDE
 
 ### Zenbot Features cont'd
 
@@ -26,46 +26,23 @@ Introducing <span style="color:lime">Zenbot 3</span>span>
 
 #HSLIDE
 
-### HOWEVER. Bitcoin (and altcoin) is high, risk, high reward.
+### Bitcoin (and altcoin) is high, risk, high reward.
+
+#HSLIDE
 
 USE ZENBOT AT YOUR OWN RISK.
 
+#HSLIDE
+
 ### And, like a car, <span style="color:red">_NEVER_</span> leave the bot unattended!
 
-#VSLIDE
+#HSLIDE
 
 ### Super-easy setup
 
 - Clone the repo, `npm install`, and launch `./run.sh`!
 - Auto-trading support for [GDAX](https://gdax.com/) is included. Just add your API key and currency pair!
 - Trading support for other exchanges are a [work in progress](https://github.com/carlos8f/zenbot/issues)!
-
-#VSLIDE
-
-### Strategy tweaking
-
-- Trade strategy is fully exposed in the config file.
-- This allows you to have full control over the bot's actions and logic.
-- Run the simulator to test your strategy!
-
-```
-zenbot sim [--verbose]
-```
-
-#HSLIDE
-
-### We got PRETTY graphs!
-
-![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
-
-#VSLIDE
-
-### In depth:
-
-- The simulation started with **$1,000**
-- iterated 12 weeks of data, May-August 2016
-- generated 80 virtual BTC/USD trades on GDAX exchange
-- ended with a balance of $1,986.99!
 
 #HSLIDE
 
@@ -80,7 +57,7 @@ zenbot sim [--verbose]
 
 ### Default logic cont'd.
 
-- considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend.
+- considers [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) `>= 70` an upwards trend and [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) `<= 30` a downwards trend.
 - Buys during upwards trend, sells during downwards trend.
 - trades 95% of current balance, market price.
 
@@ -89,29 +66,44 @@ zenbot sim [--verbose]
 ### And finally,
 
 - Holds for 100+ minutes after a trade.
-- Tweak the JS to trade on Bitfinex, or trade ETH, or what have you!
+- Tweak the JS to trade on [Bitfinex](https://bitfinex.com), or trade ETH, or what have you!
 - After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
 
 #HSLIDE
 
-### How much profit can I expect?
+### Strategy tweaking
+
+- Trade strategy is fully exposed in the config file.
+- This allows you to have full control over the bot's actions and logic.
+- Run the simulator to test your strategy!
+
+```
+zenbot sim [--verbose]
+```
 
 #HSLIDE
 
-This default logic makes up to [89% profit on current simulations](https://gist.github.com/carlos8f/e8237b3089a2b316093e5e8aac1469e8).
+### Current sim results
+
+- The current sim started with **$1,000**
+- Iterated 12 weeks of data, May - August 2016
+- Generated 80 virtual BTC/USD trades on [GDAX](https://gdax.com) exchange
 
 #HSLIDE
 
-### 7. Web console
-
-![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
+- ...ended with a balance of **$1,986.99**
+- `current ROI = 1.986`
 
 #HSLIDE
 
-## Neural Networks are the future!
+![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
 
-- In various studies, **neural networks** outperform traditional linear technical analysis.
+#HSLIDE
+
+## Neural Networks are the future.
+
 - ANN's can be mathematically and empirically verified.
+- In various studies, **neural networks** outperform traditional linear technical analysis.
 
 #HSLIDE
 
@@ -124,24 +116,23 @@ This default logic makes up to [89% profit on current simulations](https://gist.
 
 > "Down with humans! LOL" -Zenbot
 
-#VSLIDE
+#HSLIDE
 
-### ACTIVE development!
+### ACTIVE development
 
 - Zenbot is deployed as my personal trading bot.
-- I update it regularly, as I improve the engine.
-- The code is subject to break or change over time.
+- Subject to break or change over time.
 - Please contribute via Pull Request!
 
-#VSLIDE
+#HSLIDE
 
-### Zenbot on the web!
+### Zenbot on the web
 
-- Follow Zenbot [on Twitter!](https://twitter.com/zenbot_btc)
-- Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
-- Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
+- Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
+- Check out Zenbot's [live feed](https://zenbot.s8f.org/)
+- Join the discussion on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 
-#VSLIDE
+#HSLIDE
 
 ## Donate
 
@@ -153,4 +144,3 @@ thanks!
 
 Cheers,
 Carlos
-
