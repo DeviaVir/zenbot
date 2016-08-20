@@ -8,7 +8,7 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-# Introducing <span style="color:lime">Zenbot 3</span>
+# <span style="color:lime">Zenbot 3</span>
 
 - Fully-automated <span style="color:lime">BTC, ETH, LTC</span> trading
 - Under the hood, uses ["Zenbrain"](https://github.com/carlos8f), a purpose-built neural network
@@ -16,15 +16,9 @@ Press **F** key to go fullscreen.
 
 #HSLIDE
 
-### Features cont'd
-
 - Multi-currency: trade <span style="color:lime">USD, EUR, GBP, CNY</span>
 - Multi-exchange: realtime <span style="color:lime">Kraken, Poloniex, and Bitfinex</span> tracking.
 - Blazing [ROI](https://en.wikipedia.org/wiki/Return_on_investment) performance
-
-#HSLIDE
-
-### High, <span style="color:red">risk</span>, high <span style="color:lime">reward</span>.
 
 #HSLIDE
 
@@ -32,14 +26,17 @@ USE ZENBOT AT YOUR OWN <span style="color:red">RISK.</span>
 
 #HSLIDE
 
-### And, like a car, <span style="color:red">_NEVER_</span> leave the bot unattended!
+That said,
+
+### Running Zenbot is high <span style="color:red">risk</span>, high <span style="color:lime">reward</span>.
 
 #HSLIDE
 
 ### Super-easy setup
 
 - Clone the repo, `npm install`, and launch `./run.sh`!
-- Auto-trading support for [GDAX](https://gdax.com/) is included. Just add your API key and currency pair!
+- Auto-trading support for [GDAX](https://gdax.com/) is included.
+- Just add your API key and currency pair!
 - Trading support for other exchanges are a [work in progress](https://github.com/carlos8f/zenbot/issues)!
 
 #HSLIDE
