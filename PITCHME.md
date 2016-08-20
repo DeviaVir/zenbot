@@ -158,6 +158,7 @@ Be the ZENBOT MASTER
 
 #HSLIDE
 
+- Zenbot is 100% free, MIT-licensed, open source code.
 - Zenbot `master` branch is <span style="color:cyan">deployed</span> as my personal trading bot.
 - New <span style="color:cyan">features and bugfixes</span> added daily!
 - Subject to <span style="color:cyan">break</span> or change over time.
