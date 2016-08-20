@@ -12,7 +12,7 @@ Press **F** key to go fullscreen.
 
 - Fully-automated **BTC, ETH, LTC** trading bot
 - Fully open source, MIT-licensed
-- Under the hood, uses **Zenbrain**, a purpose-built **neural network**
+- Under the hood, uses [**Zenbrain**](https://github.com/carlos8f/zenbrain), a purpose-built **neural network**
 - Analyzes new trades in **realtime**
 
 #HSLIDE
