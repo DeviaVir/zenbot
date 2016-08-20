@@ -83,13 +83,13 @@ zenbot sim [--verbose]
 ### Current sim results
 
 - The current sim started with **$1,000**
-- Iterated 12 weeks of data, May - August 2016
-- Generated 80 virtual BTC/USD trades on [GDAX](https://gdax.com) exchange
+- Iterated **12 weeks of data**, May - August 2016
+- Generated **80 virtual BTC/USD trades** on [GDAX](https://gdax.com) exchange
 
 #HSLIDE
 
-- ...ended with a balance of **$1,986.99**
-- `current ROI = 1.986`
+- ...and ended with a balance of **$1,986.99**
+- current ROI = **1.986**
 
 #HSLIDE
 
@@ -112,6 +112,15 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
+### Where to go next
+
+- Star the Zenbot repo [on Github](https://github.com/carlos8f/zenbot)
+- Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
+- Check out Zenbot's [live feed](https://zenbot.s8f.org/)
+- Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
+
+#HSLIDE
+
 ### ACTIVE development
 
 - Zenbot is deployed as my personal trading bot.
@@ -120,18 +129,10 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
-### Zenbot on the web
-
-- Follow Zenbot [on Twitter](https://twitter.com/zenbot_btc)
-- Check out Zenbot's [live feed](https://zenbot.s8f.org/)
-- Join the **discussion** on [Reddit](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
-
-#HSLIDE
-
-## Donate
+## Keep Zenbot alive!
 
 - Zenbot is a **hobby/passion project**.
-- **Support Zenbot** by donating Bitcoin to this QR code:
+- **Support Zenbot** development by donating Bitcoin to this QR code:
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
 
