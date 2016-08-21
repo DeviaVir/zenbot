@@ -2,6 +2,7 @@ module.exports = {
   _ns: 'zenbrain',
   _maps: [
     require('./num_trades/_codemap'),
+    require('./balance/_codemap'),
     require('./price/_codemap'),
     require('./progress/_codemap'),
     require('./roi/_codemap'),
