@@ -7,6 +7,7 @@ master/plugins/gdax) as an example. Fork zenbot repo, add your exchange, and sub
 - To peak under the hood, check out [Zenbrain](https://github.com/carlos8f/zenbrain)!
 - Pull Requests for documentation, bug fixes, etc. are also appreciated.
 - We're in the process of setting up a [Gratipay team](https://gratipay.com/Zenbot-3/). Through this, it might be possible for you to get paid for working on Zenbot!
+- Zenbot is a hobby/passion project. Donations in BTC are appreciated! See the bottom of [README](https://github.com/carlos8f/zenbot/blob/master/README.md) for details.
 
 More info coming soon.
 
