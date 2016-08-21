@@ -112,6 +112,7 @@ module.exports = function container (get, set, clear) {
         rs.start_balance = rs.consolidated_balance
         sync_start_balance = false
       }
+      rs.roi = n(rs.consolidated_balance).divide(rs.start_balance).value()
       rs.ticks++
       if (tick.size !== rs.check_period) {
         return cb()
