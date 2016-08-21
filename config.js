@@ -93,7 +93,8 @@ c.reporter_cols = [
   "roi"
 ]
 c.reducer_report_interval = 30000
-c.trade_report_interval = 30000
+c.trade_reducer_log = false
+c.trade_reducer_log_interval = 30000
 c.min_log_trades = 2
 
 // backfiller
