@@ -32,6 +32,9 @@ c.enabled_plugins = [
   "server"
 ]
 
+// default selector for indicators, etc
+c.default_selector = "gdax.BTC-USD"
+
 // twitter stuff
 c.twitter_key = "" // create a twitter app, generate an access token, and add it here
 c.twitter_secret = ""
@@ -44,31 +47,40 @@ c.default_graph_limit = 500
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 // add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
 c.graph_selectors = [
-  "gdax.BTC-USD",
-  //"kraken.BTC-USD",
-  //"poloniex.BTC-USDT",
-  //"poloniex.LTC-BTC",
-  //"bitfinex.BTC-USD",
+  c.default_selector
 ]
 c.log_query_limit = 200
 c.tracking_scripts = ''
 
+// SMA indicator config
+c.sma_sizes = ['1h']
+c.sma_reporter_size = '1h'
+c.sma_reporter_selector = c.default_selector
+c.sma_query_limit = 20
+c.sma_periods = 10
+
 // RSI indicator config
 c.rsi_sizes = ['1h']
-c.rsi_reporter_selector = "gdax.BTC-USD"
+c.rsi_reporter_selector = c.default_selector
+c.rsi_reporter_size = '1h'
 c.rsi_query_limit = 20
 c.rsi_periods = 14
 c.rsi_backfill_timeout = 30000
 c.rsi_backfill_min_report = 2
+
+c.ansi_graph_width = 20
+c.ansi_graph_selector = c.default_selector
+c.ansi_graph_decay = 0.01
 
 // trade logic
 c.logic = require('./default_logic')
 
 // reporter
 c.reporter_sizes = ['5m']
-c.price_reporter_selector = "gdax.BTC-USD"
+c.price_reporter_selector = c.default_selector
 c.price_reporter_length = 9
 c.reporter_cols = [
+  "ansi_graph",
   "tick_id",
   "num_trades",
   //"timestamp",
@@ -76,6 +88,7 @@ c.reporter_cols = [
   //"volume",
   "price",
   "progress",
+  "sma",
   "balance",
   "roi"
 ]
