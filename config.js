@@ -76,6 +76,7 @@ c.reporter_cols = [
   //"volume",
   "price",
   "progress",
+  "balance",
   "roi"
 ]
 c.reducer_report_interval = 30000
