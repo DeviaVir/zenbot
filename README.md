@@ -140,6 +140,7 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 - **3.3.0**
     - Fees now calculated, default `price * size * 0.0025`.
+    - `rs.roi` now updated every tick.
     - ANSI graph, balance, ROI, and SMA indicators added.
     - Fix kraken naming by @grigio, Thanks!
     - Added [contributions guide](https://github.com/carlos8f/zenbot/blob/master/CONTRIBUTING.md).
