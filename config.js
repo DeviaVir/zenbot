@@ -76,7 +76,7 @@ c.ansi_graph_decay = 0.01
 c.logic = require('./default_logic')
 
 // reporter
-c.reporter_sizes = ['5m']
+c.reporter_sizes = ['1m']
 c.price_reporter_selector = c.default_selector
 c.price_reporter_length = 9
 c.reporter_cols = [
