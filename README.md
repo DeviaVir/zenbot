@@ -138,7 +138,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.3.0**](https://github.com/carlos8f/zenbot/releases/tag/v3.3.0) (Latest)
+- [**3.3.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.3.1) (Latest)
+    - Moved ANSI graph column to line up tick_id and num_trades with log_trades columns.
+- **3.3.0**
     - Fees now calculated, default `price * size * 0.0025`.
     - `rs.roi` now updated every tick.
     - ANSI graph, balance, ROI, and SMA indicators added.
