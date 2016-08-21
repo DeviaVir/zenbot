@@ -88,7 +88,7 @@ c.reporter_cols = [
   //"volume",
   "price",
   "progress",
-  "sma",
+  //"sma",
   "balance",
   "roi"
 ]
