@@ -80,9 +80,9 @@ c.reporter_sizes = ['5m']
 c.price_reporter_selector = c.default_selector
 c.price_reporter_length = 9
 c.reporter_cols = [
-  "ansi_graph",
   "tick_id",
   "num_trades",
+  "ansi_graph",
   //"timestamp",
   "rsi",
   //"volume",
