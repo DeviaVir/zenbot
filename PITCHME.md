@@ -8,97 +8,7 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 #HSLIDE
 
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> Hi, I'm Zen! I am a new fully-automated, <span style="color:cyan">artificially intelligent</span>, crypto currency trading bot.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> I trade <span style="color:cyan">Bitcoin</span>, Ether, and Litecoin.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> I trade on <span style="color:cyan">GDAX</span>, Bitfinex, Kraken, and Poloniex.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> I deal in <span style="color:cyan">USD</span>, Euros, and even Chinese Yuan.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> You can rent me for a <span style="color:cyan">subscription fee</span>, and I'll do your bidding!
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> How much <span style="color:cyan">profit</span> can I make you? Let's see...
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> Still crunching numbers... hold on...
-
-#HSLIDE
-
-_***Dot-matrix printer sound***_
-
-#HSLIDE
-
-- Start Date = May 2016, BTC/USD, GDAX
-- Start Balance = <span style="color:cyan">$1,000</span>
-- End Date = August 2016
-- End Balance = <span style="color:cyan">$1,986</span>
-- ROI = <span style="color:cyan">1.986</span>
-
-![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/what_if_i_told_you.png)
-
-> What if I told you, I can <span style="color:cyan">double your money</span> in 3 months?
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> It's true! I project a <span style="color:cyan">1.986 ROI</span> for the last 3 months of data!
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> Subscribe to Zenbot today! Free <span style="color:cyan">14-day trial!</span> AOL Keyword ZENBOT
-
-#HSLIDE
-
-<span style="color:cyan">Pricing and Subscriptions</span>
-
-![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_pricing_jk.png)
-
-#HSLIDE
-
-j/k <span style="color:cyan">;)</span>
-
-#HSLIDE
-
-Be the ZENBOT MASTER
-
-<span style="color:cyan">free.</span>
-
-#HSLIDE
-
-Powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain)</span>, a new <span style="color:cyan">open source</span> neural network.
+Zenbot 3 is powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain)</span>, a new <span style="color:cyan">open source</span> neural network.
 
 #HSLIDE
 
@@ -146,6 +56,57 @@ Run the simulator to <span style="color:cyan">test your strategy!</span>
 ```
 zenbot sim [--verbose]
 ```
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Hi, I'm Zen! I am a new fully-automated, <span style="color:cyan">artificially intelligent</span>, crypto currency trading bot.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I trade <span style="color:cyan">Bitcoin</span>, Ether, and Litecoin.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I trade on <span style="color:cyan">GDAX</span>, Bitfinex, Kraken, and Poloniex.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I deal in <span style="color:cyan">USD</span>, Euros, and even Chinese Yuan.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> How much <span style="color:cyan">profit</span> can I make you? Let's see...
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Still crunching numbers... hold on...
+
+#HSLIDE
+
+_***Dot-matrix printer sound***_
+
+#HSLIDE
+
+- Start Date = May 2016, BTC/USD, GDAX
+- Start Balance = <span style="color:cyan">$1,000</span>
+- End Date = August 2016
+- End Balance = <span style="color:cyan">$1,769</span>
+- ROI = <span style="color:cyan">1.769</span>
+
+#HSLIDE
+
+![screenshot](https://cloud.githubusercontent.com/assets/106763/17820631/94c99a20-6602-11e6-8175-39b71c6a085e.png)
 
 #HSLIDE
 

@@ -138,6 +138,12 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
+- **3.3.0**
+    - Fees now calculated, default `price * size * 0.0025`.
+    - ANSI graph, balance, ROI, and SMA indicators added.
+    - Fix kraken naming by @grigio, Thanks!
+    - Added [contributions guide](https://github.com/carlos8f/zenbot/blob/master/CONTRIBUTING.md).
+    - Updated slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
 - [**3.2.4**](https://github.com/carlos8f/zenbot/releases/tag/v3.2.4) (Latest)
     - Minor reporting cleanup, added some docs. Minor update to Zenbrain.
 - **3.2.3**
