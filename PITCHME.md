@@ -149,7 +149,7 @@ zenbot sim [--verbose]
 
 #HSLIDE
 
-Sim output as JSON:
+Sim output as <span style="color:cyan">JSON:</span>
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_json_screenshot.png)
 
