@@ -8,6 +8,16 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 #HSLIDE
 
+# DISCLAIMER
+
+Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
+
+#HSLIDE
+
+However, there's no <span style="color:lime">reward</span> without <span style="color:red">risk</span>!
+
+#HSLIDE
+
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
 > Hi, I'm Zen! I am a new fully-automated, <span style="color:cyan">artificially intelligent</span>, crypto currency trading bot.
@@ -111,29 +121,19 @@ _***Dot-matrix printer sound***_
 
 #HSLIDE
 
-- Zenbot is <span style="color:cyan">100% free</span>, MIT-licensed, open source code.
-- Zenbot `master` branch is <span style="color:cyan">deployed</span> as my personal trading bot.
-- New <span style="color:cyan">features and bugfixes</span> added daily!
-- Subject to <span style="color:cyan">break</span> or change over time.
-- Please <span style="color:cyan">contribute</span> via Pull Request and/or Bitcoin donation!
-
-#HSLIDE
-
-# DISCLAIMER
-
-Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
-
-#HSLIDE
-
-However, there's no <span style="color:lime">reward</span> without <span style="color:red">risk</span>!
-
-#HSLIDE
-
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
 The <span style="color:cyan">Golden Age</span> of crypto currency only comes once.
 
 <span style="color:cyan">Enjoy it!</span>
+
+#HSLIDE
+
+- Zenbot is <span style="color:cyan">100% free</span>, MIT-licensed, open source code.
+- Zenbot `master` branch is <span style="color:cyan">deployed</span> as my personal trading bot.
+- New <span style="color:cyan">features and bugfixes</span> added daily!
+- Subject to <span style="color:cyan">break</span> or change over time.
+- Please <span style="color:cyan">contribute</span> via Pull Request and/or Bitcoin donation!
 
 #HSLIDE
 
@@ -162,8 +162,6 @@ Keep Zenbot <span style="color:cyan">alive!</span>
 Support Zenbot development by <span style="color:cyan">donating Bitcoin</span> to this QR code:
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
-
-#HSLIDE
 
 #HSLIDE
 
