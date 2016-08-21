@@ -244,9 +244,9 @@ body {
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 40px;
     color: #aac;
     font-size: 1.2em;
 }
