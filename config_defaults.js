@@ -1,5 +1,10 @@
 var c = module.exports = {}
 
+// minimal possible plugin config
+c.enabled_plugins = [
+  "server"
+]
+
 // graph server
 c.default_graph_period = "1h"
 c.default_graph_limit = 500
