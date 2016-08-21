@@ -1,4 +1,4 @@
-var c = module.exports = {}
+var c = module.exports = require('./config_defaults')()
 
 // to enable,
 // copy this file to config.js
@@ -46,11 +46,3 @@ c.default_selector = "gdax.BTC-USD"
 
 // trade logic
 c.logic = require('./default_logic')
-
-// apply defaults
-var defs = require('./config_defaults')
-Object.keys(defs).forEach(function (k) {
-  if (typeof c[k] === 'undefined') {
-    c[k] = defs[k]
-  }
-})
