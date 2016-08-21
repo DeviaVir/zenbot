@@ -12,6 +12,7 @@ module.exports = function container (get, set, clear) {
   var get_timestamp = get('utils.get_timestamp')
   var CoinbaseExchange = require('coinbase-exchange')
   var client
+  var start = new Date().getTime()
   function onOrder (err, resp, order) {
     if (err) return get('logger').error('order err', err, resp, order, {feed: 'errors'})
     if (resp.statusCode !== 200) {
@@ -235,7 +236,7 @@ module.exports = function container (get, set, clear) {
           roi: rs.roi
         }
         trigger(trade)
-        if (get('command') === 'run' && c.gdax_key) {
+        if (get('command') === 'run' && c.gdax_key && tick.time > start) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),
