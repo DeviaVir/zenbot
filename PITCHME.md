@@ -93,7 +93,7 @@ npm install
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> I can <span style="color:cyan">backtest your strategy!</span> Check this out...
+> I can also <span style="color:cyan">backtest your strategy!</span> Check this out...
 
 #HSLIDE
 
@@ -123,9 +123,7 @@ _***Dot-matrix printer sound***_
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-The <span style="color:cyan">Golden Age</span> of crypto currency only comes once.
-
-<span style="color:cyan">Enjoy it!</span>
+> The <span style="color:cyan">Golden Age</span> of crypto currency only comes once. <span style="color:cyan">Enjoy it!</span>
 
 #HSLIDE
 
@@ -137,15 +135,13 @@ The <span style="color:cyan">Golden Age</span> of crypto currency only comes onc
 
 #HSLIDE
 
-Where to go next?
-
 <span style="color:grey">github.com/</span><span style="color:cyan">carlos8f/</span><span style="color:cyan">zenbot</span>
 
 #HSLIDE
 
-See Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:cyan">.s8f.org/</span>
+Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:cyan">.s8f.org/</span>
 
-Join the [discussion](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) on <span style="color:cyan">r/Bitcoin</span>
+[Discussion](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) on <span style="color:cyan">r/Bitcoin</span>
 
 #HSLIDE
 
@@ -156,8 +152,6 @@ Follow [@zenbot_btc](https://twitter.com/zenbot_btc) on Twitter!
 #HSLIDE
 
 Zenbot is a <span style="color:cyan">hobby/passion</span> project.
-
-Keep Zenbot <span style="color:cyan">alive!</span>
 
 Support Zenbot development by <span style="color:cyan">donating Bitcoin</span> to this QR code:
 
