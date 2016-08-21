@@ -92,6 +92,7 @@ c.reporter_cols = [
   "balance",
   "roi"
 ]
+c.trade_log = false
 c.reducer_report_interval = 30000
 c.trade_reducer_log = false
 c.trade_reducer_log_interval = 30000
