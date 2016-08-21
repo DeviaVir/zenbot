@@ -242,3 +242,16 @@ body {
     left: 20px;
     z-index: 3;
 }
+
+.footer {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    color: #aac;
+    font-size: 1.2em;
+}
+
+.footer a {
+    color: cyan;
+    text-decoration: none;
+}
