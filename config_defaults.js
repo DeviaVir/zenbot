@@ -7,7 +7,7 @@ c.enabled_plugins = [
 
 // graph server
 c.default_graph_period = "1h"
-c.default_graph_limit = 500
+c.default_graph_limit = 200
 c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
 // add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
 c.graph_selectors = [
