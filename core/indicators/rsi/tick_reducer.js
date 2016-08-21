@@ -6,7 +6,6 @@ var n = require('numbro')
 
 module.exports = function container (get, set, clear) {
   var c = get('config')
-  var start = new Date().getTime()
   var get_tick_str = get('utils.get_tick_str')
   var get_timestamp = get('utils.get_timestamp')
   var z = get('utils.zero_fill')
@@ -19,10 +18,6 @@ module.exports = function container (get, set, clear) {
     }
     // only process specific tick sizes
     if (c.rsi_sizes.indexOf(tick.size) === -1) return cb()
-    // abort if tick is historical and backfill flag not set
-    if (tick.time < start && !sub_tick.data.rsi_backfill) {
-      //console.error('no backfill flag', sub_tick.data)
-    }
     if (tick.time < start && !sub_tick.data.rsi_backfill) return cb()
     //console.error('computing RSI', tick.id)
     var bucket = tb(tick.time).resize(tick.size)
