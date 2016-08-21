@@ -8,56 +8,6 @@ Press **F** key to go <span style="color:cyan">fullscreen.</span>
 
 #HSLIDE
 
-Zenbot 3 is powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain)</span>, a new <span style="color:cyan">open source</span> neural network.
-
-#HSLIDE
-
-Runs on <span style="color:cyan">Linux or Mac.</span>
-
-[Node.js](https://nodejs.org) and [MongoDB](https://mongodb.com) required.
-
-#HSLIDE
-
-<span style="color:cyan">Simple</span> setup.
-
-#HSLIDE
-
-<span style="color:cyan">Sane</span> defaults.
-
-#HSLIDE
-
-```
-git clone https://github.com/carlos8f/zenbot.git
-cd zenbot
-npm install
-./run.sh
-```
-
-#HSLIDE
-
-<span style="color:cyan">Trade API</span> support for [GDAX](https://gdax.com/) is included.
-
-Just add your <span style="color:cyan">API key</span> and <span style="color:cyan">currency pair!</span>
-
-#HSLIDE
-
-Trade API support for <span style="color:cyan">other exchanges</span> are a <span style="color:cyan">[work in progress](https://github.com/carlos8f/zenbot/issues)!</span>
-
-#HSLIDE
-
-Trade strategy is <span style="color:cyan">fully exposed</span> in the config file.
-
-This allows you to have <span style="color:cyan">full control</span> over the bot's actions and logic.
-
-#HSLIDE
-
-Run the simulator to <span style="color:cyan">test your strategy!</span>
-
-```
-zenbot sim [--verbose]
-```
-#HSLIDE
-
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
 > Hi, I'm Zen! I am a new fully-automated, <span style="color:cyan">artificially intelligent</span>, crypto currency trading bot.
@@ -84,13 +34,56 @@ zenbot sim [--verbose]
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> How much <span style="color:cyan">profit</span> can I make you? Let's see...
+> I am powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain)</span>, a new <span style="color:cyan">open source</span> artificial neural network (ANN).
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Still crunching numbers... hold on...
+> In various studies, <span style="color:cyan">neural networks</span> significantly <span style="color:cyan">outperform</span> traditional linear technical analysis.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I run on <span style="color:cyan">Linux or Mac.</span> [Node.js](https://nodejs.org) and [MongoDB](https://mongodb.com) required.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Here's how easy it is!
+
+```
+git clone https://github.com/carlos8f/zenbot.git
+cd zenbot
+npm install
+./run.sh
+```
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I trade on [GDAX](https://gdax.com/) out of the box. Just add your <span style="color:cyan">API key</span> and <span style="color:cyan">currency pair!</span>
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Trade API support for <span style="color:cyan">other exchanges</span> are a <span style="color:cyan">[work in progress](https://github.com/carlos8f/zenbot/issues)!</span>
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Because my trade strategy is fully described in the config file, you have <span style="color:cyan">full control</span> over my logic and actions.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I can <span style="color:cyan">backtest your strategy!</span> Check this out...
 
 #HSLIDE
 
@@ -110,27 +103,11 @@ _***Dot-matrix printer sound***_
 
 #HSLIDE
 
-Sim output as <span style="color:cyan">JSON:</span>
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> Here's the output as <span style="color:cyan">JSON:</span>
 
 ![screenshot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_json_screenshot.png)
-
-#HSLIDE
-
-Neural Networks are the <span style="color:cyan">future.</span>
-
-#HSLIDE
-
-ANN's can be <span style="color:cyan">mathematically</span> and <span style="color:cyan">empirically verified.</span>
-
-#HSLIDE
-
-In various studies, <span style="color:cyan">neural networks</span> significantly <span style="color:cyan">outperform</span> traditional linear technical analysis.
-
-#HSLIDE
-
-The <span style="color:cyan">Golden Age</span> of crypto currency only comes once.
-
-<span style="color:cyan">Enjoy it!</span>
 
 #HSLIDE
 
@@ -149,6 +126,14 @@ Use Zenbot strictly AT YOUR OWN <span style="color:red">RISK.</span>
 #HSLIDE
 
 However, there's no <span style="color:lime">reward</span> without <span style="color:red">risk</span>!
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+The <span style="color:cyan">Golden Age</span> of crypto currency only comes once.
+
+<span style="color:cyan">Enjoy it!</span>
 
 #HSLIDE
 
@@ -180,8 +165,10 @@ Support Zenbot development by <span style="color:cyan">donating Bitcoin</span> t
 
 #HSLIDE
 
-thanks!
+#HSLIDE
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+thanks!
 
 ![bitcoin address](https://s8f.org/files/bitcoin.png)
