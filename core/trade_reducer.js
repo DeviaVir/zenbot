@@ -8,13 +8,15 @@ module.exports = function container (get, set, clear) {
   var tick_defaults = get('tick_defaults')
   setInterval(function () {
     if (trades_processed.length) {
-      log_trades('reducer', trades_processed)
+      if (c.trade_reducer_log) {
+        log_trades('reducer', trades_processed)
+      }
       trades_processed = []
     }
     else {
       //console.error('no trade processed')
     }
-  }, c.trade_report_interval)
+  }, c.trade_reducer_log_interval)
   return function thought_reducer (g, cb) {
     var tick = g.tick, thoughts = g.thoughts
     //get('logger').info('trade_reducer', g.bucket.id)
