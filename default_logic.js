@@ -52,14 +52,16 @@ module.exports = function container (get, set, clear) {
       rs.selector = 'data.trades.' + rs.exchange + '.' + rs.asset + '-' + rs.currency
       rs.hold_ticks = 100 // hold x check_period after trade
       rs.trade_pct = 0.95 // trade % of current balance
+      rs.fee_pct = 0.0025 // apply 0.25% taker fee
       rs.min_trade = 0.01
-      rs.start_balance = 1000
+      rs.sim_start_balance = 1000
       rs.min_roi_delta = -0.06 // accept a loss of up to 6%
       cb()
     },
     // sync balance if key is present and we're in the `run` command
     function (tick, trigger, rs, cb) {
       if (get('command') !== 'run' || !c.gdax_key) {
+        rs.start_balance = rs.sim_start_balance
         return cb()
       }
       if (!client) {
@@ -104,12 +106,15 @@ module.exports = function container (get, set, clear) {
         rs.balance[rs.currency] = n(rs.start_balance).divide(2).value()
         rs.balance[rs.asset] = n(rs.start_balance).divide(2).divide(rs.market_price).value()
       }
+      rs.consolidated_balance = n(rs.balance[rs.currency]).add(n(rs.balance[rs.asset]).multiply(rs.market_price)).value()
+      if (sync_start_balance) {
+        rs.start_balance = rs.consolidated_balance
+        sync_start_balance = false
+      }
       rs.ticks++
       if (tick.size !== rs.check_period) {
         return cb()
       }
-      // check price diff
-      rs.close = o(tick || {}, rs.selector + '.close')
       // get rsi
       rs.rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
       get('ticks').load(get('app_name') + ':' + rs.rsi_tick_id, function (err, rsi_tick) {
@@ -120,15 +125,11 @@ module.exports = function container (get, set, clear) {
           rs.rsi = rsi
         }
         // require minimum data
-        rs.close || (rs.close = o(rsi_tick || {}, rs.selector + '.close'))
         if (!rs.rsi) {
           get('logger').info('trader', ('no ' + rs.rsi_period + ' RSI for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
         }
         else if (rs.rsi.samples < c.rsi_periods) {
           get('logger').info('trader', (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
-        }
-        else if (!rs.close) {
-          get('logger').info('trader', ('no close price for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
         }
         else {
           if (rs.rsi.value >= rs.rsi_up) {
@@ -203,10 +204,6 @@ module.exports = function container (get, set, clear) {
         }
         // consolidate balance
         rs.new_end_balance = n(new_balance[rs.currency]).add(n(new_balance[rs.asset]).multiply(rs.market_price)).value()
-        if (sync_start_balance) {
-          rs.start_balance = rs.new_end_balance
-          sync_start_balance = false
-        }
         rs.new_roi = n(rs.new_end_balance).divide(rs.start_balance).value()
         rs.new_roi_delta = n(rs.new_roi).subtract(rs.roi || 0).value()
         if (rs.roi && rs.new_roi_delta < rs.min_roi_delta) {
@@ -220,8 +217,8 @@ module.exports = function container (get, set, clear) {
         rs.balance = new_balance
         rs.end_balance = rs.new_end_balance
         rs.roi = rs.new_roi
-        rs.trades || (rs.trades = 0)
-        rs.trades++
+        rs.num_trades || (rs.num_trades = 0)
+        rs.num_trades++
         var trade = {
           type: rs.op,
           asset: rs.asset,
