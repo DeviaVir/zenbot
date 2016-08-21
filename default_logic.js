@@ -202,6 +202,9 @@ module.exports = function container (get, set, clear) {
           get('logger').info('trader', ('unkown trend (' + rs.trend + ') aborting trade!').red, {feed: 'trader'})
           return cb()
         }
+        // fee calc
+        rs.fee = n(size).multiply(rs.market_price).multiply(rs.fee_pct).value()
+        new_balance[rs.currency] = n(new_balance[rs.currency]).subtract(rs.fee).value()
         // consolidate balance
         rs.new_end_balance = n(new_balance[rs.currency]).add(n(new_balance[rs.asset]).multiply(rs.market_price)).value()
         rs.new_roi = n(rs.new_end_balance).divide(rs.start_balance).value()
@@ -225,6 +228,7 @@ module.exports = function container (get, set, clear) {
           currency: rs.currency,
           exchange: rs.exchange,
           price: rs.market_price,
+          fee: rs.fee,
           market: true,
           size: size,
           rsi: rs.rsi.value,
