@@ -1,4 +1,4 @@
-var module.exports = function (c) {
+module.exports = function (c) {
   c || (c = {})
   // temporary fix.
   // add any plugins that provide commands.
