@@ -1,6 +1,7 @@
 var module.exports = function (c) {
   c || (c = {})
-  // minimal possible plugin config
+  // temporary fix.
+  // add any plugins that provide commands.
   c.enabled_plugins = [
     "server"
   ]
