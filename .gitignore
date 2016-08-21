@@ -9,3 +9,4 @@ dump
 conf/secret.json
 github.pub
 github
+config.js
