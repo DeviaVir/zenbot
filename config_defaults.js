@@ -1,14 +1,5 @@
 var c = module.exports = {}
 
-// add plugins you want to enable
-c.enabled_plugins = [
-  //"bitfinex",
-  "gdax",
-  //"kraken",
-  //"poloniex",
-  "server"
-]
-
 // graph server
 c.default_graph_period = "1h"
 c.default_graph_limit = 500
