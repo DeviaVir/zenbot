@@ -33,7 +33,6 @@ module.exports = function (c) {
     "tick_id",
     "num_trades",
     "ansi_graph",
-    //"timestamp",
     "rsi",
     //"volume",
     "price",
