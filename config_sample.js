@@ -2,7 +2,6 @@ var c = module.exports = require('./config_defaults')()
 
 // to run Zenbot 3,
 // copy this file to config.js
-// and edit
 // then ./run.sh
 
 c.gdax_key = '' // TO ENABLE BOT TRADING: set this to GDAX api key,
