@@ -71,6 +71,7 @@ module.exports = function container (get, set, clear) {
         // add timestamp for simulations
         if (c.reporter_cols.indexOf('timestamp') === -1) {
           c.reporter_cols.unshift('timestamp')
+          get('logger').info('trader', ('Simulated trading! No exchange client active.').yellow, {feed: 'trader'})
         }
         // change reporting interval for sims
         c.reporter_sizes = ['1h']
@@ -302,6 +303,10 @@ module.exports = function container (get, set, clear) {
           client[rs.op](params, function (err, resp, order) {
             onOrder(err, resp, order)
           })
+        }
+        else if (!rs.sim_warning) {
+          get('logger').info('trader', ('Simulated trade! No exchange client active.').yellow, {feed: 'trader'})
+          rs.sim_warning = true
         }
         if (rs.op === 'buy') {
           rs.last_buy_price = rs.market_price
