@@ -11,13 +11,11 @@ module.exports = function (c) {
   // SMA indicator config
   c.sma_sizes = ['1h']
   c.sma_reporter_size = '1h'
-  c.sma_reporter_selector = c.default_selector
   c.sma_query_limit = 20
   c.sma_periods = 10
 
   // RSI indicator config
   c.rsi_sizes = ['1h']
-  c.rsi_reporter_selector = c.default_selector
   c.rsi_reporter_size = '1h'
   c.rsi_query_limit = 20
   c.rsi_periods = 14
@@ -26,12 +24,10 @@ module.exports = function (c) {
   c.rsi_backfill_min_report = 2
 
   c.ansi_graph_width = 20
-  c.ansi_graph_selector = c.default_selector
   c.ansi_graph_decay = 0.01
 
   // reporter
   c.reporter_sizes = ['1m']
-  c.price_reporter_selector = c.default_selector
   c.price_reporter_length = 9
   c.reporter_cols = [
     "tick_id",
