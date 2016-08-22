@@ -290,8 +290,11 @@ module.exports = function container (get, set, clear) {
           size: size,
           rsi: rs.rsi.value,
           roi: rs.roi,
+          roi_delta: rs.new_roi_delta,
           performance: rs.performance,
-          waited: rs.waited
+          waited: rs.waited,
+          balance: new_balance,
+          end_balance: rs.new_end_balance
         }
         trigger(trade)
         if (client) {
