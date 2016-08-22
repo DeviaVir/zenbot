@@ -20,12 +20,12 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 - Multiple currency support for US Dollars, Euros, Chinese Yuan (and more)
 - Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
 - Realtime consuming and analysis of trade data
-- [Backtesting your trade strategy](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd)
-- Outputting data as [CSV](https://zenbot.s8f.org/data.csv), [JSON](https://gist.githubusercontent.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd/raw/d7d92115da305b686afbccec899f134c87d909f8/sim_result.json), or [candlestick graph](https://zenbot.s8f.org/)
+- [Backtesting your trade strategy](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960)
+- Outputting data as [CSV](https://zenbot.s8f.org/data.csv), [JSON](https://gist.githubusercontent.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960/raw/sim_result.json), or [candlestick graph](https://zenbot.s8f.org/)
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.2.3 [**DOUBLING its investment**](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) in only 12 weeks, using default parameters!
+Current simulations on historical data from May - August 2016 show Zenbot 3.4.1 making a [1.827 ROI](https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
@@ -111,7 +111,7 @@ zenbot sim [--verbose]
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `default_logic.js` for new trade strategies and check your results this way.
 
-Example simulation result: https://gist.github.com/carlos8f/54c7afd4c9300ad9ea9cbccb294faebd
+Example simulation result: https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960
 
 #### About the default trade logic in `default_logic.js`
 
