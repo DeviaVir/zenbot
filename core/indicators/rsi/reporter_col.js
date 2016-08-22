@@ -3,9 +3,9 @@ var o = require('object-get')
   , tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
-  var c = get('config')
   var z = get('utils.zero_fill')
   return function reporter_col (g, cb) {
+    var c = get('config')
     var tick = g.tick, rs = g.rs
     // get rsi
     var rsi_tick_id = tb(tick.time).resize(c.rsi_reporter_size).toString()

@@ -1,8 +1,9 @@
 var c = module.exports = require('./config_defaults')()
 
-// to enable,
+// to run Zenbot 3,
 // copy this file to config.js
 // and edit
+// then ./run.sh
 
 c.gdax_key = '' // TO ENABLE BOT TRADING: set this to GDAX api key,
 c.gdax_secret = '' // set this to GDAX api secret,
@@ -32,17 +33,22 @@ c.currencies = [
   "USDT",
   "BTC"
 ]
-// add plugins you want to enable
-c.enabled_plugins = [
+
+// watch these exchanges
+c.watch_exchanges = [
   //"bitfinex",
   "gdax",
   //"kraken",
-  //"poloniex",
-  "server"
+  //"poloniex"
 ]
 
 // default selector for indicators, etc
 c.default_selector = "gdax.BTC-USD"
+
+// add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
+c.graph_selectors = [
+  c.default_selector
+]
 
 // trade logic
 c.logic = require('./default_logic')

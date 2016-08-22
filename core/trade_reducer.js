@@ -3,21 +3,25 @@ var n = require('numbro')
 
 module.exports = function container (get, set, clear) {
   var trades_processed = []
-  var c = get('config')
   var log_trades = get('utils.log_trades')
   var tick_defaults = get('tick_defaults')
-  setInterval(function () {
-    if (trades_processed.length) {
-      if (c.trade_reducer_log) {
-        log_trades('reducer', trades_processed)
-      }
-      trades_processed = []
-    }
-    else {
-      //console.error('no trade processed')
-    }
-  }, c.trade_reducer_log_interval)
+  var first_run = false
   return function thought_reducer (g, cb) {
+    var c = get('config')
+    if (first_run) {
+      setInterval(function () {
+        if (trades_processed.length) {
+          if (c.trade_reducer_log) {
+            log_trades('reducer', trades_processed)
+          }
+          trades_processed = []
+        }
+        else {
+          //console.error('no trade processed')
+        }
+      }, c.trade_reducer_log_interval)
+      first_run = false
+    }
     var tick = g.tick, thoughts = g.thoughts
     //get('logger').info('trade_reducer', g.bucket.id)
     tick.data.trades || (tick.data.trades = {})
