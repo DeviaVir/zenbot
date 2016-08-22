@@ -3,7 +3,6 @@ var moment = require('moment')
   , o = require('object-get')
 
 module.exports = function container (get, set) {
-  var c = get('zenbrain:config')
   var format_currency = get('zenbrain:utils.format_currency')
   return get('controller')()
     .get('/sim_trades.csv', function (req, res, next) {
@@ -60,9 +59,10 @@ module.exports = function container (get, set) {
       })
     })
     .get('/data.csv', function (req, res, next) {
+      var c = get('zenbrain:config')
       res.setHeader('Content-Type', 'text/csv')
       res.write('Time,Open,High,Low,Close,Volume,Caption\n')
-      var selector = req.query.selector ? req.query.selector : c.graph_selectors[0]
+      var selector = req.query.selector ? req.query.selector : c.default_selector
       var exchange = selector.split('.')[0].toUpperCase()
       var query = {
         app: get('zenbrain:app_name'),

@@ -5,12 +5,12 @@ var n = require('numbro')
   , o = require('object-get')
 
 module.exports = function container (get, set, clear) {
-  var c = get('config')
   var get_tick_str = get('utils.get_tick_str')
   var get_timestamp = get('utils.get_timestamp')
   var z = get('utils.zero_fill')
   var start = new Date().getTime()
   return function tick_reducer (g, cb) {
+    var c = get('config')
     var options = get('options')
     var tick = g.tick, sub_tick = g.sub_tick
     if (sub_tick.data.rsi_backfill) {

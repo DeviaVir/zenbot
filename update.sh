@@ -1,6 +1,10 @@
 #!/bin/bash
 git stash
+RES=$?
 git pull
 npm install
 npm install zenbrain
-git stash pop
+if [ "$RES" -eq "0" ];
+then
+  git stash pop
+fi
