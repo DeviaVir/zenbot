@@ -104,7 +104,7 @@ module.exports = function container (get, set, clear) {
       rs.ticks || (rs.ticks = 0)
       rs.progress || (rs.progress = 0)
       if (!rs.market_price) {
-        get('logger').info('trader', (rs.rsi_period + ' no close price for tick ' + tick.id).red, {feed: 'trader'})
+        get('logger').info('trader', ('no close price for tick ' + tick.id).red, {feed: 'trader'})
         return cb()
       }
       if (!rs.balance) {
