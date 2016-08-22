@@ -1,16 +1,17 @@
 var first_run = true
 var last_balance_sig
 var sync_start_balance = false
+var assert = require('assert')
+var n = require('numbro')
+var tb = require('timebucket')
+var sig = require('sig')
+var CoinbaseExchange = require('coinbase-exchange')
 
 module.exports = function container (get, set, clear) {
   var c = get('config')
   var o = get('utils.object_get')
-  var n = require('numbro')
-  var tb = require('timebucket')
-  var sig = require('sig')
   var format_currency = get('utils.format_currency')
   var get_timestamp = get('utils.get_timestamp')
-  var CoinbaseExchange = require('coinbase-exchange')
   var client
   var start = new Date().getTime()
   function onOrder (err, resp, order) {
@@ -43,14 +44,16 @@ module.exports = function container (get, set, clear) {
     // default params
     function (tick, trigger, rs, cb) {
       rs.agent = USER_AGENT
-      rs.asset = 'BTC'
-      rs.currency = 'USD'
+      var sMatch = c.default_selector.match(/^([^\.]+)\.([^-]+)-([^-]+)$/)
+      assert(sMatch)
+      rs.exchange = sMatch[1]
+      rs.asset = sMatch[2]
+      rs.currency = sMatch[3]
       rs.rsi_period = '1h'
       rs.rsi_up = 70
       rs.rsi_down = 30
       rs.check_period = '1m'
-      rs.exchange = 'gdax'
-      rs.selector = 'data.trades.' + rs.exchange + '.' + rs.asset + '-' + rs.currency
+      rs.selector = 'data.trades.' + c.default_selector
       rs.hold_ticks = 100 // hold x check_period after trade
       rs.trade_pct = 0.95 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
