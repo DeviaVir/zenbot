@@ -7,7 +7,7 @@ module.exports = function container (get, set, clear) {
     var c = get('config')
     var tick = g.tick, rs = g.rs
     var sma = rs.sma
-    if (!sma) {
+    if (!sma || !rs.market_price) {
       g.cols.push(' '.repeat(c.ansi_graph_width))
       return cb()
     }
