@@ -142,6 +142,7 @@ When the server is running, and you have visited the `?secret` URL provided in t
     - Re-organized the config so `config.js` is git-ignored, so you should copy `config_sample.js` to `config.js`. `config_defaults.js` provides all options that you can override in `config.js`.
     - Many config variable changes, such as `c.watch_exchanges` instead of `c.enabled_plugins`, see `config_sample.js` for details.
     - Zenbrain updated.
+    - Development now happening in `develop` branch, master will be pushed to only on stable releases going forward.
 - **3.3.1**
     - Moved ANSI graph column to line up tick_id and num_trades with log_trades columns.
 - **3.3.0**
