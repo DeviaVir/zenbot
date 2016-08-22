@@ -9,6 +9,7 @@ module.exports = function container (get, set, clear) {
     set('@zenbrain:secret', secret)
     app.listen(function (err) {
       if (err) throw err
+      get('logger').info('server', USER_AGENT, 'booted!'.cyan)
       var port = get('motley:site.server').address().port
       get('logger').info('server', 'open'.grey, ('http://localhost:' + port + '/?secret=' + secret).yellow, 'to see a live graph.'.grey)
     })
