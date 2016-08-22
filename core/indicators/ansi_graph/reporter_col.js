@@ -2,9 +2,9 @@ var colors = require('colors')
   , n = require('numbro')
 
 module.exports = function container (get, set, clear) {
-  var c = get('config')
   var z = get('utils.zero_fill')
   return function reporter_col (g, cb) {
+    var c = get('config')
     var tick = g.tick, rs = g.rs
     var sma = rs.sma
     if (!sma) {

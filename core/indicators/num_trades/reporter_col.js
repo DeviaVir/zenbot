@@ -1,9 +1,9 @@
 var colors = require('colors')
 
 module.exports = function container (get, set, clear) {
-  var c = get('config')
   var z = get('utils.zero_fill')
   return function reporter_col (g, cb) {
+    var c = get('config')
     var d = g.tick.data.trades
     var keys = Object.keys(d)
     var num_trades = keys.reduce(function (prev, e) {

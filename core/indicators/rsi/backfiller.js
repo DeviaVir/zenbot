@@ -6,11 +6,11 @@ module.exports = function container (get, set, clear) {
   var map = get('map')
   var get_id = get('utils.get_id')
   var get_tick_str = get('utils.get_tick_str')
-  var c = get('config')
   var get_timestamp = get('utils.get_timestamp')
   var z = get('utils.zero_fill')
   var sigs = []
   return function mapper () {
+    var c = get('config')
     var options = get('options')
     if (!options.backfill) return
     var min_time, num_marked = 0

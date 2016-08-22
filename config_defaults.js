@@ -1,19 +1,10 @@
 module.exports = function (c) {
   c || (c = {})
-  // temporary fix.
-  // add any plugins that provide commands.
-  c.enabled_plugins = [
-    "server"
-  ]
 
   // graph server
   c.default_graph_period = "1h"
   c.default_graph_limit = 200
   c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000]
-  // add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
-  c.graph_selectors = [
-    c.default_selector
-  ]
   c.log_query_limit = 200
   c.tracking_scripts = ''
 
@@ -54,11 +45,11 @@ module.exports = function (c) {
     "balance",
     "roi"
   ]
-  c.trade_log = false
+  c.trade_log = true
   c.reducer_report_interval = 30000
-  c.trade_reducer_log = false
+  c.trade_reducer_log = true
   c.trade_reducer_log_interval = 30000
-  c.min_log_trades = 2
+  c.min_log_trades = 1
 
   // backfiller
   c.backfill_days = 91
