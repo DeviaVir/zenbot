@@ -11,7 +11,7 @@ module.exports = function container (get, set, clear) {
     var sma_tick_id = tb(tick.time).resize(c.sma_reporter_size).toString()
     get('ticks').load(get('app_name') + ':' + sma_tick_id, function (err, sma_tick) {
       if (err) return cb(err)
-      var sma = o(sma_tick || {}, 'data.trades.' + c.sma_reporter_selector + '.sma')
+      var sma = o(sma_tick || {}, 'data.trades.' + rs.selector + '.sma')
       if (sma) {
         var line = 'SMA:'.grey + format_currency(sma.value, rs.currency).grey
         g.cols.push(line)

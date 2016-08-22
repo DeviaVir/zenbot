@@ -11,7 +11,7 @@ module.exports = function container (get, set, clear) {
     var rsi_tick_id = tb(tick.time).resize(c.rsi_reporter_size).toString()
     get('ticks').load(get('app_name') + ':' + rsi_tick_id, function (err, rsi_tick) {
       if (err) return cb(err)
-      var rsi = o(rsi_tick || {}, 'data.trades.' + c.rsi_reporter_selector + '.rsi')
+      var rsi = o(rsi_tick || {}, rs.selector + '.rsi')
       if (rsi) {
         var line = 'RSI:'.grey + z(3, rsi.ansi)
         g.cols.push(line)
