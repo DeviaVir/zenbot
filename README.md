@@ -43,7 +43,7 @@ HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage do
 
 ## Screenshot
 
-In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product. The simulation iterated 3 months of data and ended with 198% balance, an unbelieveable 90% [ROI](https://en.wikipedia.org/wiki/Return_on_investment).
+In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product. The simulation iterated 3 months of data and ended with 182% balance, an unbelieveable 82% [ROI](https://en.wikipedia.org/wiki/Return_on_investment).
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17872578/8f13af10-6875-11e6-8284-d6863f9a1e1e.png)
 
