@@ -4,12 +4,12 @@ var request = require('micro-request')
 
 module.exports = function container (get, set, clear) {
   var x = get('exchanges.poloniex')
-  var c = get('config')
   var log_trades = get('utils.log_trades')
   var get_products = get('utils.get_products')
   var is_backfilled = get('utils.is_backfilled')
   var map = get('map')
   return function mapper () {
+    var c = get('config')
     var products = get_products(x)
     var options = get('options')
     if (!options.backfill || !products.length) return
