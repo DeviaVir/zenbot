@@ -17,22 +17,27 @@ module.exports = function container (get, set, clear) {
     rs.max_sma_diff = rs.max_sma_diff ? Math.max(rs.max_sma_diff, Math.abs(rs.sma_diff)) : rs.sma_diff
     var half = c.ansi_graph_width / 2
     var bar = ''
-    if (rs.sma_diff > 0) {
-      bar += ' '.repeat(half)
-      var stars = Math.min(Math.round((rs.sma_diff / rs.max_sma_diff) * half), half)
-      bar += '+'.repeat(stars).green.bgGreen
-      bar += ' '.repeat(half - stars)
+    try {
+      if (rs.sma_diff > 0) {
+        bar += ' '.repeat(half)
+        var stars = Math.min(Math.round((rs.sma_diff / rs.max_sma_diff) * half), half)
+        bar += '+'.repeat(stars).green.bgGreen
+        bar += ' '.repeat(half - stars)
+      }
+      else if (rs.sma_diff < 0) {
+        var stars = Math.min(Math.round((Math.abs(rs.sma_diff) / rs.max_sma_diff) * half), half)
+        bar += ' '.repeat(half - stars)
+        bar += '-'.repeat(stars).red.bgRed
+        bar += ' '.repeat(half)
+      }
+      else {
+        bar += ' '.repeat(half * 2)
+      }
+      rs.max_sma_diff = n(rs.max_sma_diff).subtract(n(rs.max_sma_diff).multiply(c.ansi_graph_decay)).value()
     }
-    else if (rs.sma_diff < 0) {
-      var stars = Math.min(Math.round((Math.abs(rs.sma_diff) / rs.max_sma_diff) * half), half)
-      bar += ' '.repeat(half - stars)
-      bar += '-'.repeat(stars).red.bgRed
-      bar += ' '.repeat(half)
+    catch (e) {
+      bar = ' '.repeat(c.ansi_graph_width)
     }
-    else {
-      bar += ' '.repeat(half * 2)
-    }
-    rs.max_sma_diff = n(rs.max_sma_diff).subtract(n(rs.max_sma_diff).multiply(c.ansi_graph_decay)).value()
     g.cols.push(bar)
     cb()
   }
