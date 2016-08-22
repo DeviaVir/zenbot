@@ -183,6 +183,10 @@ module.exports = function container (get, set, clear) {
     },
     // trigger trade signals
     function (tick, trigger, rs, cb) {
+      // for run command, don't trade unless this is a new tick
+      if (get('command') !== 'sim' && tick.time < start) {
+        return cb()
+      }
       // delay buying or selling, perhaps the trend intensifies
       if (rs.hold_ticks_active) {
         rs.hold_ticks_active--
@@ -289,7 +293,7 @@ module.exports = function container (get, set, clear) {
           waited: rs.waited
         }
         trigger(trade)
-        if (get('command') === 'run' && c.gdax_key && tick.time > start) {
+        if (client) {
           var params = {
             type: 'market',
             size: n(size).format('0.000000'),
