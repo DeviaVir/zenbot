@@ -58,10 +58,10 @@ module.exports = function container (get, set, clear) {
       rs.hold_ticks = 200 // hold x check_period after trade
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
-      rs.min_trade = 0.1
+      rs.min_trade = 0.08
       rs.sim_start_balance = 1000
       rs.min_buy_wait = 43200000 // wait half a day after action before buying
-      rs.min_sell_wait = 86400000 // wait a day after action before selling
+      rs.min_sell_wait = 43200000 // wait half a day after action before selling
       cb()
     },
     // sync balance if key is present and we're in the `run` command
@@ -267,12 +267,12 @@ module.exports = function container (get, set, clear) {
         if (rs.op === 'buy') {
           // % drop
           rs.performance = rs.last_sell_price ? n(rs.last_sell_price).subtract(rs.market_price).divide(rs.last_sell_price).value() : null
-          rs.wait = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
+          rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
         else {
           // % gain
           rs.performance = rs.last_buy_price ? n(rs.market_price).subtract(rs.last_buy_price).divide(rs.last_buy_price).value() : null
-          rs.wait = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
+          rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
         var trade = {
           type: rs.op,
@@ -286,7 +286,7 @@ module.exports = function container (get, set, clear) {
           rsi: rs.rsi.value,
           roi: rs.roi,
           performance: rs.performance,
-          wait: rs.wait
+          waited: rs.waited
         }
         trigger(trade)
         if (get('command') === 'run' && c.gdax_key && tick.time > start) {
