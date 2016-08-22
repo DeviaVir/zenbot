@@ -138,7 +138,10 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.4.0**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.0) (Latest)
+- [**3.4.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.1) (Latest)
+    - Slight re-code of `default_logic.js` to fix slipped ROI (1.1 -> 1.8)
+    - Added All Poloniex USDT pairs by @JFD3D, Thanks!
+- **3.4.0**
     - Re-organized the config so `config.js` is git-ignored, so you should copy `config_sample.js` to `config.js`. `config_defaults.js` provides all options that you can override in `config.js`.
     - Many config variable changes, such as `c.watch_exchanges` instead of `c.enabled_plugins`, see `config_sample.js` for details.
     - Zenbrain updated.
