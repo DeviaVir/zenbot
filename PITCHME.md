@@ -26,24 +26,6 @@ However, there's no <span style="color:lime">reward</span> without <span style="
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> I trade <span style="color:cyan">Bitcoin</span>, Ether, and Litecoin.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> I trade on <span style="color:cyan">GDAX</span>, Bitfinex, Kraken, and Poloniex.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
-> I deal in <span style="color:cyan">USD</span>, Euros, and even Chinese Yuan.
-
-#HSLIDE
-
-![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
-
 > I am powered by <span style="color:cyan">[**Zenbrain**](https://github.com/carlos8f/zenbrain)</span>, a new <span style="color:cyan">open source</span> artificial neural network (ANN).
 
 #HSLIDE
@@ -62,7 +44,7 @@ However, there's no <span style="color:lime">reward</span> without <span style="
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Here's how easy it is!
+> Here's how to install me!
 
 ```
 git clone https://github.com/carlos8f/zenbot.git
@@ -75,13 +57,19 @@ npm install
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> I trade on [GDAX](https://gdax.com/) out of the box. Just add your <span style="color:cyan">API key</span> and <span style="color:cyan">currency pair!</span>
+> I watch and analyze <span style="color:cyan">GDAX</span>, Bitfinex, Kraken, and Poloniex in realtime.
 
 #HSLIDE
 
 ![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
-> Trade API support for <span style="color:cyan">other exchanges</span> are a <span style="color:cyan">[work in progress](https://github.com/carlos8f/zenbot/issues)!</span>
+> I deal in <span style="color:cyan">Bitcoin</span>, Ether, Litecoin, USD, Euros, and even Chinese Yuan.
+
+#HSLIDE
+
+![zenbot](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+
+> I trade on [GDAX](https://gdax.com/) out of the box. Just add your <span style="color:cyan">API key</span> and <span style="color:cyan">currency pair!</span>
 
 #HSLIDE
 
@@ -139,7 +127,7 @@ _***Dot-matrix printer sound***_
 
 #HSLIDE
 
-Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:cyan">.s8f.org/</span>
+Zenbot demo at <span style="color:cyan">zenbot</span><span style="color:cyan">.s8f.org</span>
 
 [Discussion](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/) on <span style="color:cyan">r/Bitcoin</span>
 

@@ -3,15 +3,15 @@ var o = require('object-get')
   , tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
-  var c = get('config')
   var z = get('utils.zero_fill')
   var format_currency = get('utils.format_currency')
   return function reporter_col (g, cb) {
+    var c = get('config')
     var tick = g.tick, rs = g.rs
     var sma_tick_id = tb(tick.time).resize(c.sma_reporter_size).toString()
     get('ticks').load(get('app_name') + ':' + sma_tick_id, function (err, sma_tick) {
       if (err) return cb(err)
-      var sma = o(sma_tick || {}, 'data.trades.' + c.sma_reporter_selector + '.sma')
+      var sma = o(sma_tick || {}, 'data.trades.' + rs.selector + '.sma')
       if (sma) {
         var line = 'SMA:'.grey + format_currency(sma.value, rs.currency).grey
         g.cols.push(line)
