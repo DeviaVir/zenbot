@@ -22,6 +22,7 @@ module.exports = function (c) {
   c.rsi_query_limit = 20
   c.rsi_periods = 14
   c.rsi_backfill_timeout = 30000
+  c.rsi_backfill_report = false
   c.rsi_backfill_min_report = 2
 
   c.ansi_graph_width = 20
