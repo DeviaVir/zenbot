@@ -3,13 +3,13 @@ var n = require('numbro')
   , tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
-  var c = get('config')
   var get_timestamp = get('utils.get_timestamp')
   var get_tick_str = get('utils.get_tick_str')
   var app_name = get('app_name')
   var format_currency = get('utils.format_currency')
   var z = get('utils.zero_fill')
   return function log_trades (slug, trades) {
+    var c = get('config')
     if (!c.trade_log || trades.length < c.min_log_trades) return
     var rs = get('run_states')
     var vol = 0, buy_vol = 0, total_price = 0
