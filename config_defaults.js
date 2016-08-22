@@ -45,11 +45,11 @@ module.exports = function (c) {
     "balance",
     "roi"
   ]
-  c.trade_log = true
+  c.trade_log = false
   c.reducer_report_interval = 30000
-  c.trade_reducer_log = true
+  c.trade_reducer_log = false
   c.trade_reducer_log_interval = 30000
-  c.min_log_trades = 1
+  c.min_log_trades = 2
 
   // backfiller
   c.backfill_days = 91
