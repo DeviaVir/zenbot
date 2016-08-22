@@ -3,6 +3,87 @@
   "rest_url": "https://poloniex.com/public",
   "products": [
     {
+      "id":"USDT_BTC",
+      "asset":"BTC",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"BTC/USDT"
+    },
+    {
+      "id":"USDT_DASH",
+      "asset":"DASH",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"USDT/DASH"
+    },
+    {
+      "id":"USDT_ETC",
+      "asset":"ETC",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"USDT/ETC"
+    },
+    {
+      "id":"USDT_ETH",
+      "asset":"ETH",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.01,
+      "label":"USDT/ETH"
+    },
+    {
+      "id":"USDT_LTC",
+      "asset":"LTC",
+      "currency":"USD",
+      "min_size":0.01,
+      "max_size":10000,
+      "increment":0.01,
+      "label":"USDT/LTC"
+    },
+    {
+      "id":"USDT_NXT",
+      "asset":"NXT",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.01,
+      "label":"USDT/NXT"
+    },
+    {
+      "id":"USDT_STR",
+      "asset":"STR",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.01,
+      "label":"USDT/STR"
+    },
+    {
+      "id":"USDT_XMR",
+      "asset":"XMR",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.01,
+      "label":"USDT/XMR"
+    },
+    {
+      "id":"USDT_XRP",
+      "asset":"XRP",
+      "currency":"USDT",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.01,
+      "label":"USDT/XRP"
+    },
+    {
       "id":"BTC_1CR",
       "asset":"1CR",
       "currency":"BTC",
@@ -2084,15 +2165,6 @@
       "max_size":10000,
       "increment":0.01,
       "label":"BTC/USDE"
-    },
-    {
-      "id":"USDT_BTC",
-      "asset":"BTC",
-      "currency":"USDT",
-      "min_size":0.01,
-      "max_size":10000,
-      "increment":0.01,
-      "label":"BTC/USDT"
     },
     {
       "id":"BTC_UTC",
