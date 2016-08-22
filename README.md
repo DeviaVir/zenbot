@@ -97,6 +97,7 @@ zenbot
 
     -h, --help     output usage information
     -V, --version  output the version number
+    --config <path>  specify a path for config.js overrides
 ```
 
 The `./run.sh` script combines `launch map --backfill reduce run server`, so use the CLI to access the other commands.
