@@ -83,7 +83,7 @@ module.exports = function container (get, set, clear) {
         // add timestamp for simulations
         if (c.reporter_cols.indexOf('timestamp') === -1) {
           c.reporter_cols.unshift('timestamp')
-          get('logger').info('trader', ('Begin simulation for ' + rs.default_selector + '. --Zen').yellow, {feed: 'trader'})
+          get('logger').info('trader', ('Begin simulation for ' + c.default_selector + '. --Zen').yellow, {feed: 'trader'})
         }
         // change reporting interval for sims
         c.reporter_sizes = ['1h']
@@ -113,7 +113,7 @@ module.exports = function container (get, set, clear) {
         }
         var balance_sig = sig(rs.balance)
         if (balance_sig !== last_balance_sig) {
-          get('logger').info(rs.exchange, '"Starting REAL trading on ' + rs.default_selector + '! Hold on to your butts!" --Zen'.cyan, ' Balance:'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
+          get('logger').info(rs.exchange, '"Starting REAL trading on ' + c.default_selector + '! Hold on to your butts!" --Zen'.cyan, ' Balance:'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
           last_balance_sig = balance_sig
         }
         cb()
