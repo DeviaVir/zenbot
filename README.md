@@ -167,7 +167,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.6**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.6) (Latest)
+- [**3.5.7**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.7) (Latest)
+    - make use of rs.rsi for indicators (instead of querying for rsi tick), spacing for ETA.
+- **3.5.6**
     - Fix ANSI graph range.
 - **3.5.5**
     - ANSI graph now follows RSI instead of SMA.
