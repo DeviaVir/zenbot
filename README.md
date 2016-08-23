@@ -25,7 +25,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.4.1 making a [1.827 ROI](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960) in only 3 months, using default parameters!
+Current simulations on historical data from May - August 2016 show Zenbot 3.5.3 making a [1.364 ROI](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
@@ -43,7 +43,7 @@ HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage do
 
 ## Screenshot
 
-In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product. The simulation iterated 3 months of data and ended with 182% balance, an unbelieveable 82% [ROI](https://en.wikipedia.org/wiki/Return_on_investment).
+In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17872578/8f13af10-6875-11e6-8284-d6863f9a1e1e.png)
 
