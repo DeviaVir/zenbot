@@ -46,7 +46,9 @@ c.default_selector = "gdax.BTC-USD"
 
 // add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
 c.graph_selectors = [
-  c.default_selector
+  c.default_selector,
+  "gdax.ETH-BTC",
+  "gdax.ETH-USD"
 ]
 
 // trade logic
