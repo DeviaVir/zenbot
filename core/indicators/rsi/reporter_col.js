@@ -18,7 +18,7 @@ module.exports = function container (get, set, clear) {
         rs.rsi = rsi
       }
       else {
-        g.cols.push(z(10, 'RSI:n/a'.grey))
+        g.cols.push('RSI:n/a'.grey)
       }
       cb()
     })

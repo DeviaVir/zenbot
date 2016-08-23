@@ -28,7 +28,7 @@ module.exports = function (c) {
 
   // reporter
   c.reporter_sizes = ['1m']
-  c.price_reporter_length = 9
+  c.price_reporter_length = 12
   c.reporter_cols = [
     "tick_id",
     "num_trades",
