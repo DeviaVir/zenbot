@@ -23,7 +23,7 @@ module.exports = function container (get, set, clear) {
       console.error(order)
       return get('logger').error('non-200 status: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
     }
-    get('logger').info('gdax', ('order-id: ' + order.id).cyan, {data: {order: order}})
+    get('logger').info('gdax', c.default_selector.grey, ('order-id: ' + order.id).cyan, {data: {order: order}})
     function getStatus () {
       client.getOrder(order.id, function (err, resp, order) {
         if (err) return get('logger').error('getOrder err', err)
@@ -32,10 +32,10 @@ module.exports = function container (get, set, clear) {
           return get('logger').error('non-200 status from getOrder: ' + resp.statusCode, {data: {statusCode: resp.statusCode, body: order}})
         }
         if (order.status === 'done') {
-          return get('logger').info('gdax', ('order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
+          return get('logger').info('gdax', c.default_selector.grey, ('order ' + order.id + ' done: ' + order.done_reason).cyan, {data: {order: order}})
         }
         else {
-          get('logger').info('gdax', ('order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
+          get('logger').info('gdax', c.default_selector.grey, ('order ' + order.id + ' ' + order.status).cyan, {data: {order: order}})
           setTimeout(getStatus, 5000)
         }
       })
@@ -53,7 +53,7 @@ module.exports = function container (get, set, clear) {
       rs.asset = sMatch[2]
       rs.currency = sMatch[3]
       if (options.verbose && get('command') === 'run') {
-        get('logger').info(rs.exchange, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
+        get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
       rs.rsi_period = '1h'
       rs.rsi_up = 70
@@ -84,7 +84,7 @@ module.exports = function container (get, set, clear) {
         if (c.reporter_cols.indexOf('timestamp') === -1) {
           c.reporter_cols.unshift('timestamp')
           if (get('command') === 'run') {
-            get('logger').info('trader', ('No trader API key provided. Starting in advisor mode for ' + c.default_selector + '. --Zen').yellow, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, ('No trader API key provided. Starting in advisor mode. --Zen').yellow, {feed: 'trader'})
           }
         }
         if (get('command') === 'sim') {
@@ -117,7 +117,7 @@ module.exports = function container (get, set, clear) {
         }
         var balance_sig = sig(rs.balance)
         if (balance_sig !== last_balance_sig) {
-          get('logger').info(rs.exchange, '"Starting REAL trading on ' + c.default_selector + '! Hold on to your butts!" --Zen'.cyan, ' Balance:'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
+          get('logger').info('trader', c.default_selector.grey, '"Starting REAL trading! Hold on to your butts!" --Zen'.cyan, ' Balance:'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
           last_balance_sig = balance_sig
         }
         cb()
@@ -165,13 +165,13 @@ module.exports = function container (get, set, clear) {
         // require minimum data
         if (!rs.rsi) {
           if (!rs.rsi_warning) {
-            get('logger').info('trader', ('no ' + rs.rsi_period + ' RSI for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, ('no ' + rs.rsi_period + ' RSI for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
           }
           rs.rsi_warning = true
         }
         else if (rs.rsi.samples < c.rsi_periods) {
           if (!rs.rsi_warning) {
-            get('logger').info('trader', (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
           }
           rs.rsi_warning = true
         }
@@ -187,14 +187,12 @@ module.exports = function container (get, set, clear) {
           }
         }
         if (trend !== rs.trend) {
-          get('logger').info('trader', 'RSI:'.grey + rs.rsi.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
+          get('logger').info('trader', c.default_selector.grey, 'RSI:'.grey + rs.rsi.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
           delete rs.balance_warning
           delete rs.roi_warning
           delete rs.rsi_warning
           delete rs.delta_warning
           delete rs.buy_warning
-          delete rs.historical_warning
-          // delete rs.last_action_time
           delete rs.perf_warning
           delete rs.action_warning
           delete rs.trend_warning
@@ -211,19 +209,16 @@ module.exports = function container (get, set, clear) {
     function (tick, trigger, rs, cb) {
       // for run command, don't trade unless this is a new tick
       if (get('command') !== 'sim' && tick.time < start) {
-        if (!rs.historical_warning) {
-          get('logger').info('trader', ('skipping historical tick ' + tick.id).yellow, {feed: 'trader'})
-        }
-        rs.historical_warning = true
+        get('logger').info('trader', c.default_selector.grey, ('skipping historical tick ' + tick.id).yellow, {feed: 'trader'})
         return cb()
       }
       if (rs.trend && !rs.trend_warning) {
-        get('logger').info('trader', ('acting on trend: ' + rs.trend + '!').yellow, {feed: 'trader'})
+        get('logger').info('trader', c.default_selector.grey, ('acting on trend: ' + rs.trend + '!').yellow, {feed: 'trader'})
         if (!rs.balance) {
-          get('logger').info('trader', ('no balance to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+          get('logger').info('trader', c.default_selector.grey, ('no balance to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
         }
         if (!rs.market_price) {
-          get('logger').info('trader', ('no market_price to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+          get('logger').info('trader', c.default_selector.grey, ('no market_price to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
         }
         rs.trend_warning = true
       }
@@ -243,7 +238,7 @@ module.exports = function container (get, set, clear) {
           // SELL!
           if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_sell_wait) {
             if (!rs.sell_warning) {
-              get('logger').info('trader', ('too soon to sell after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
+              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
             }
             rs.sell_warning = true
             return cb()
@@ -252,7 +247,7 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.asset] = n(rs.balance[rs.asset]).subtract(size).value()
           rs.op = 'sell'
           if (!rs.action_warning) {
-            get('logger').info('trader', ('attempting to sell ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency) + ' ' + rs.currency).yellow, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, ('attempting to sell ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency) + ' ' + rs.currency).yellow, {feed: 'trader'})
           }
           rs.action_warning = true
         }
@@ -260,7 +255,7 @@ module.exports = function container (get, set, clear) {
           // BUY!
           if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_buy_wait) {
             if (!rs.buy_warning) {
-              get('logger').info('trader', ('too soon to buy after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_buy_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
+              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_buy_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
             }
             rs.buy_warning = true
             return cb()
@@ -269,19 +264,19 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.currency] = n(rs.balance[rs.currency]).subtract(n(size).multiply(rs.market_price)).value()
           rs.op = 'buy'
           if (!rs.action_warning) {
-            get('logger').info('trader', ('attempting to buy ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency) + ' ' + rs.currency).yellow, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, ('attempting to buy ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency) + ' ' + rs.currency).yellow, {feed: 'trader'})
           }
           rs.action_warning = true
         }
         else {
           // unknown trend
-          get('logger').info('trader', ('unkown trend (' + rs.trend + ') aborting trade!').red, {feed: 'trader'})
+          get('logger').info('trader', c.default_selector.grey, ('unkown trend (' + rs.trend + ') aborting trade!').red, {feed: 'trader'})
           return cb()
         }
         // min size
         if (!size || size < rs.min_trade) {
           if (!rs.balance_warning) {
-            get('logger').info('trader', 'trend: '.grey, rs.trend, ('not enough funds (' + (rs.op === 'sell' ? n(size).format('0.00000000') : format_currency(rs.balance[rs.currency], rs.currency)) + ' ' + (rs.op === 'sell' ? rs.asset : rs.currency) + ') to execute min. ' + rs.op + ' ' + rs.min_trade + ', aborting trade!').red, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, 'trend: '.grey, rs.trend, ('not enough funds (' + (rs.op === 'sell' ? n(size).format('0.00000000') : format_currency(rs.balance[rs.currency], rs.currency)) + ' ' + (rs.op === 'sell' ? rs.asset : rs.currency) + ') to execute min. ' + rs.op + ' ' + rs.min_trade + ', aborting trade!').red, {feed: 'trader'})
           }
           rs.balance_warning = true
           return cb()
@@ -293,15 +288,7 @@ module.exports = function container (get, set, clear) {
         rs.new_end_balance = n(new_balance[rs.currency]).add(n(new_balance[rs.asset]).multiply(rs.market_price)).value()
         rs.new_roi = n(rs.new_end_balance).divide(rs.start_balance).value()
         rs.new_roi_delta = n(rs.new_roi).subtract(rs.roi || 0).value()
-        /*
-        if (rs.roi && rs.new_roi_delta < rs.min_roi_delta) {
-          if (!rs.roi_warning) {
-            get('logger').info('trader', ('new ROI below delta threshold (' + n(rs.new_roi_delta).format('%0.000') + ' < ' + n(rs.min_roi_delta).format('%0.000') + ') aborting ' + rs.op + '!').red, {feed: 'trader'})
-          }
-          rs.roi_warning = true
-          return cb()
-        }
-        */
+
         if (rs.op === 'buy') {
           // % drop
           rs.performance = rs.last_sell_price ? n(rs.last_sell_price).subtract(rs.market_price).divide(rs.last_sell_price).value() : null
@@ -314,7 +301,7 @@ module.exports = function container (get, set, clear) {
         }
         if (rs.min_performance && rs.performance !== null && rs.performance < rs.min_performance) {
           if (!rs.perf_warning) {
-            get('logger').info('trader', ('aborting ' + rs.op + ' due to low perf. = ' + n(rs.performance).format('0.000')).red, {feed: 'trader'})
+            get('logger').info('trader', c.default_selector.grey, ('aborting ' + rs.op + ' due to low perf. = ' + n(rs.performance).format('0.000')).red, {feed: 'trader'})
           }
           rs.perf_warning = true
           return cb()
@@ -353,7 +340,7 @@ module.exports = function container (get, set, clear) {
           })
         }
         else if (!rs.sim_warning) {
-          get('logger').info('trader', ('Relax! This is a simulated trade! No real transaction will take place. --Zen').yellow, {feed: 'trader'})
+          get('logger').info('trader', c.default_selector.grey, ('Relax! This is a simulated trade! No real transaction will take place. --Zen').yellow, {feed: 'trader'})
           rs.sim_warning = true
         }
         if (rs.op === 'buy') {
