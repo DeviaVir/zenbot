@@ -167,7 +167,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.2**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.2) (Latest)
+- [**3.5.3**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.3) (Latest)
+    - Fixed `--config` usage with absolute path.
+- **3.5.2**
     - Re-organized some config vars, GDAX key now in `config.js` instead of `config_eth_btc.js` etc.
 - **3.5.1**
     - Bugfixes
