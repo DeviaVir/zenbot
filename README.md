@@ -139,9 +139,11 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.0](https://github.com/carlos8f/zenbot/releases/tag/v3.5.0) (Latest)
+- [**3.5.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.1) (Latest)
+    - Bugfixes
+- **3.5.0**
     - `run.sh` split into 3 scripts. Now you'll need to run `./reducer.sh`, `./server.sh`, and `./run-{asset}-{currency}.sh` in separate windows. Multiple currency pairs can be run in parallel as of Zenbot 3.5.0!
-- [**3.4.3**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.3) (Latest)
+- **3.4.3**
     - Fix sim URL not having selector in it
     - `min_trade` now controlled by `product.min_size`
 - **3.4.2**
