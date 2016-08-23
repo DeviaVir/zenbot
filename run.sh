@@ -1,2 +1,4 @@
 #!/bin/bash
-./zenbot launch map --backfill reduce run server --config config.js
+
+# run btc-usd by default
+./run-btc-usd.sh
