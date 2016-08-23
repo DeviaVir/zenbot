@@ -1,2 +1,2 @@
 #!/bin/bash
-./zenbot launch map --backfill reduce run --verbose server --config config.js
+./zenbot launch map --backfill reduce run server --config config.js
