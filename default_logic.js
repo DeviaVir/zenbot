@@ -83,7 +83,7 @@ module.exports = function container (get, set, clear) {
         // add timestamp for simulations
         if (c.reporter_cols.indexOf('timestamp') === -1) {
           c.reporter_cols.unshift('timestamp')
-          get('logger').info('trader', ('Begin simulation! No exchange client active. --Zen').yellow, {feed: 'trader'})
+          get('logger').info('trader', ('Begin simulation for ' + rs.default_selector + '. --Zen').yellow, {feed: 'trader'})
         }
         // change reporting interval for sims
         c.reporter_sizes = ['1h']
