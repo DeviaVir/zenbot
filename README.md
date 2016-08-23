@@ -69,7 +69,25 @@ npm install
 
 ### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
 
-### 4. Run zenbot:
+Note: add your GDAX key to `config.js` to enable real trading.
+
+### 4. Run zenbot (single-pair mode)
+
+The following will run Zenbot with the default BTC/USD pair only.
+
+```
+./run.sh
+```
+
+Here's how to run a different pair (example: ETH-BTC):
+
+```
+./zenbot launch map reduce run server --config config_eth_btc.js
+```
+
+### 4. Run zenbot (multi-pair mode)
+
+The following will run multiple currency pairs along with the reducer and server in separate processes.
 
 Required: reducer (for processing trade data):
 
@@ -84,8 +102,6 @@ Optional: server (for candlestick graphs and aggregated log):
 ```
 
 Required: one or more run scripts (watches trades of a given pair and performs trade actions on the exchange or simulation)
-
-Note: add your GDAX key to `config.js` to enable real trading.
 
 ```
 ./run-btc-usd.sh
@@ -170,6 +186,7 @@ When the server is running, and you have visited the `?secret` URL provided in t
 - [**3.5.8**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.7) (Latest)
     - Fix "skipping historical tick" (prevented bot from acting on trends) issue with Zenbrain update.
     - Fix ANSI graph range again.
+    - Added `run.sh` back to run the default pair BTC/USD and reducer/server.
 - **3.5.7**
     - make use of rs.rsi for indicators (instead of querying for rsi tick), spacing for ETA.
 - **3.5.6**
