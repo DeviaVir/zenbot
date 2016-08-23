@@ -69,7 +69,7 @@ module.exports = function (c) {
   c.lock_tries = 100
   c.passive_update_timeout = 5000
   c.return_timeout = 60000
-  c.brain_speed_ms = 200
+  c.brain_speed_ms = 5000
   c.reducer_perf_report_min = 2
   c.reducer_perf_report_timeout = 30000
   return c
