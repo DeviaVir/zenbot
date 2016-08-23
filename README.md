@@ -167,7 +167,10 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.7**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.7) (Latest)
+- [**3.5.8**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.7) (Latest)
+    - Fix "skipping historical tick" (prevented bot from acting on trends) issue with Zenbrain update.
+    - Fix ANSI graph range again.
+- **3.5.7**
     - make use of rs.rsi for indicators (instead of querying for rsi tick), spacing for ETA.
 - **3.5.6**
     - Fix ANSI graph range.
