@@ -52,7 +52,7 @@ module.exports = function container (get, set, clear) {
       rs.exchange = sMatch[1]
       rs.asset = sMatch[2]
       rs.currency = sMatch[3]
-      if (options.verbose) {
+      if (options.verbose && get('command') === 'run') {
         get('logger').info(rs.exchange, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
       rs.rsi_period = '1h'
@@ -145,10 +145,10 @@ module.exports = function container (get, set, clear) {
         sync_start_balance = false
       }
       rs.roi = n(rs.consolidated_balance).divide(rs.start_balance).value()
-      rs.ticks++
       if (tick.size !== rs.check_period) {
         return cb()
       }
+      rs.ticks++
       // get rsi
       rs.rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
       get('ticks').load(get('app_name') + ':' + rs.rsi_tick_id, function (err, rsi_tick) {
@@ -189,6 +189,9 @@ module.exports = function container (get, set, clear) {
           delete rs.rsi_warning
           delete rs.delta_warning
           delete rs.buy_warning
+          delete rs.historical_warning
+          delete rs.hold_warning
+          delete rs.size_warning
           //rs.hold_ticks_active = 0
         }
         rs.trend = trend
@@ -203,6 +206,10 @@ module.exports = function container (get, set, clear) {
     function (tick, trigger, rs, cb) {
       // for run command, don't trade unless this is a new tick
       if (get('command') !== 'sim' && tick.time < start) {
+        if (!rs.historical_warning) {
+          get('logger').info('trader', ('skipping historical tick ' + tick.id).yellow, {feed: 'trader'})
+        }
+        rs.historical_warning = true
         return cb()
       }
       // delay buying or selling, perhaps the trend intensifies
@@ -210,9 +217,23 @@ module.exports = function container (get, set, clear) {
         rs.hold_ticks_active--
       }
       if (rs.hold_ticks_active) {
+        if (!rs.hold_warning) {
+          get('logger').info('trader', ('holding now for ' + rs.hold_ticks_active + ' ticks...').yellow, {feed: 'trader'})
+        }
+        rs.hold_warning = true
         rs.progress = n(1).subtract(n(rs.hold_ticks_active).divide(rs.hold_ticks)).value()
         return cb()
       }
+      if (rs.trend && !rs.trend_warning) {
+        get('logger').info('trader', ('acting on trend: ' + rs.trend + '!').yellow, {feed: 'trader'})
+        if (!rs.balance) {
+          get('logger').info('trader', ('no balance to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+        }
+        if (!rs.market_price) {
+          get('logger').info('trader', ('no market_price to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+        }
+      }
+      rs.trend_warning = true
       rs.progress = 1
       if (rs.trend && rs.balance && rs.market_price) {
         var size, new_balance = {}
@@ -225,6 +246,10 @@ module.exports = function container (get, set, clear) {
           size = n(rs.balance[rs.currency]).divide(rs.market_price).value()
         }
         size = n(size || 0).multiply(rs.trade_pct).value()
+        if (!rs.size_warning) {
+          get('logger').info('trader', ('calculated trade size: ' + n(size).format('0.00000000') + ' ' + rs.asset).yellow, {feed: 'trader'})
+          rs.size_warning = true
+        }
         if (rs.trend === 'DOWN') {
           // SELL!
           if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_sell_wait) {
@@ -237,6 +262,9 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.currency] = n(rs.balance[rs.currency]).add(n(size).multiply(rs.market_price)).value()
           new_balance[rs.asset] = n(rs.balance[rs.asset]).subtract(size).value()
           rs.op = 'sell'
+          if (!rs.balance_warning) {
+            get('logger').info('trader', ('attempting to sell ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency)).yellow, {feed: 'trader'})
+          }
         }
         else if (rs.trend === 'UP') {
           // BUY!
@@ -250,6 +278,9 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.asset] = n(rs.balance[rs.asset]).add(size).value()
           new_balance[rs.currency] = n(rs.balance[rs.currency]).subtract(n(size).multiply(rs.market_price)).value()
           rs.op = 'buy'
+          if (!rs.balance_warning) {
+            get('logger').info('trader', ('attempting to buy ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency)).yellow, {feed: 'trader'})
+          }
         }
         else {
           // unknown trend
