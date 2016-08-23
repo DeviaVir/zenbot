@@ -12,26 +12,22 @@ module.exports = function container (get, set, clear) {
       g.cols.push(' '.repeat(c.ansi_graph_width))
       return cb()
     }
-    var sma_tick_id = tb(tick.time).resize(c.sma_reporter_size).toString()
-    get('ticks').load(get('app_name') + ':' + sma_tick_id, function (err, sma_tick) {
+    var rsi_tick_id = tb(tick.time).resize(c.rsi_reporter_size).toString()
+    get('ticks').load(get('app_name') + ':' + rsi_tick_id, function (err, rsi_tick) {
       if (err) return cb(err)
-      var sma = o(sma_tick || {}, rs.selector + '.sma')
-      if (sma) {
-        rs.sma_diff = n(rs.market_price)
-          .subtract(sma.value)
-          .value()
-        rs.max_sma_diff = rs.max_sma_diff ? Math.max(rs.max_sma_diff, Math.abs(rs.sma_diff)) : rs.sma_diff
+      var rsi = o(rsi_tick || {}, rs.selector + '.rsi')
+      if (rsi) {
         var half = c.ansi_graph_width / 2
         var bar = ''
         try {
-          if (rs.sma_diff > 0) {
+          if (rsi.value > 50) {
             bar += ' '.repeat(half)
-            var stars = Math.min(Math.round((rs.sma_diff / rs.max_sma_diff) * half), half)
+            var stars = Math.min(Math.round((rsi.value / 100) * half), half)
             bar += '+'.repeat(stars).green.bgGreen
             bar += ' '.repeat(half - stars)
           }
-          else if (rs.sma_diff < 0) {
-            var stars = Math.min(Math.round((Math.abs(rs.sma_diff) / rs.max_sma_diff) * half), half)
+          else if (rsi.value < 50) {
+            var stars = Math.min(Math.round(((100 - rsi.value) / 100) * half), half)
             bar += ' '.repeat(half - stars)
             bar += '-'.repeat(stars).red.bgRed
             bar += ' '.repeat(half)
