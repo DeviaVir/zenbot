@@ -139,13 +139,16 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.4.2**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.2) (Latest)
+- [**3.4.3**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.3) (Latest)
+    - Fix sim URL not having selector in it
+    - `min_trade` now controlled by `product.min_size`
+- **3.4.2**
     - Exit default logic if run command and historical tick
     - Add balance stats to trade actions
     - Add `--config` arg doc. You can switch to using a different config with `--config <path>`
     - Update gist links for newest simulation results.
     - Added `config_eth.js` example config for ETH trading.
-- [**3.4.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.1) (Latest)
+- **3.4.1**
     - Slight re-code of `default_logic.js` to fix slipped ROI (1.1 -> 1.8)
     - Added All Poloniex USDT pairs by @JFD3D, Thanks!
 - **3.4.0**
