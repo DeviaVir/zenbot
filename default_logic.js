@@ -58,7 +58,14 @@ module.exports = function container (get, set, clear) {
       rs.hold_ticks = 200 // hold x check_period after trade
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
-      rs.min_trade = 0.08
+      var products = get('exchanges.' + rs.exchange).products
+      products.forEach(function (product) {
+        if (product.asset === rs.asset && product.currency === rs.currency) {
+          rs.product = product
+        }
+      })
+      if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
+      rs.min_trade = rs.product.min_size
       rs.sim_start_balance = 1000
       rs.min_buy_wait = 43200000 // wait half a day after action before buying
       rs.min_sell_wait = 43200000 // wait half a day after action before selling
@@ -308,7 +315,7 @@ module.exports = function container (get, set, clear) {
           })
         }
         else if (!rs.sim_warning) {
-          get('logger').info('trader', ('Relax! That was a simulated trade! No real transaction took place. --Zen').yellow, {feed: 'trader'})
+          get('logger').info('trader', ('Relax! This is a simulated trade! No real transaction will take place. --Zen').yellow, {feed: 'trader'})
           rs.sim_warning = true
         }
         if (rs.op === 'buy') {
