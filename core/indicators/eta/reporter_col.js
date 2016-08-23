@@ -10,10 +10,10 @@ module.exports = function container (get, set, clear) {
     var c = get('config')
     var tick = g.tick, rs = g.rs
     if (rs.trend === 'DOWN' && rs.last_action_time && tick.time - rs.last_action_time > 0 && tick.time - rs.last_action_time <= rs.min_sell_wait) {
-      g.cols.push(('ETA2SELL: ' + z(8, get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value()), ' ')).grey)
+      g.cols.push(('ETA2SELL: ' + z(7, get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value()), ' ')).grey)
     }
     else if (rs.trend === 'UP' && rs.last_action_time && tick.time - rs.last_action_time > 0 && tick.time - rs.last_action_time <= rs.min_buy_wait) {
-      g.cols.push(('ETA2BUY: ' + z(8, get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value()), ' ')).grey)
+      g.cols.push(('ETA2BUY: ' + z(7, get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value()), ' ')).grey)
     }
     cb()
   }
