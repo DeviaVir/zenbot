@@ -183,9 +183,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.9**]
+- [**3.5.9**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.9) (Latest)
     - Add --backfill and --verbose to new run script.
-- [**3.5.8**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.7) (Latest)
+- **3.5.8**
     - Fix "skipping historical tick" (prevented bot from acting on trends) issue with Zenbrain update.
     - Fix ANSI graph range again.
     - Added `run.sh` back to run the default pair BTC/USD and reducer/server.
