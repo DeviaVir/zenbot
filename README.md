@@ -71,11 +71,39 @@ npm install
 
 ### 4. Run zenbot:
 
+Required: reducer (for processing trade data):
+
 ```
-./run.sh
+./reduce.sh
 ```
 
-### 5. Open the live graph URL provided in the console.
+Optional: server (for candlestick graphs and aggregated log):
+
+```
+./server.sh
+```
+
+Required: one or more run scripts (watches trades of a given pair and performs trade actions on the exchange or simulation)
+
+Note: add your GDAX key to `config.js` to enable real trading.
+
+```
+./run-btc-usd.sh
+```
+
+And/or to trade ETH,
+
+```
+./run-eth-usd.sh
+```
+
+And/or to trade ETH/BTC,
+
+```
+./run-eth-btc.sh
+```
+
+### 5. If running server, open the live graph URL provided in the console.
 
 To access the CLI,
 
@@ -104,7 +132,7 @@ The `./run.sh` script combines `launch map --backfill reduce run server`, so use
 
 ### 6. Simulation
 
-Once backfill has finished, run a simulation:
+Once backfill has finished (should collect about 84 days of data), run a simulation:
 
 ```
 ./zenbot sim [--verbose]
@@ -139,7 +167,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.1) (Latest)
+- [**3.5.2**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.2) (Latest)
+    - Re-organized some config vars, GDAX key now in `config.js` instead of `config_eth_btc.js` etc.
+- **3.5.1**
     - Bugfixes
 - **3.5.0**
     - `run.sh` split into 3 scripts. Now you'll need to run `./reducer.sh`, `./server.sh`, and `./run-{asset}-{currency}.sh` in separate windows. Multiple currency pairs can be run in parallel as of Zenbot 3.5.0!
