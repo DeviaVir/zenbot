@@ -13,6 +13,8 @@ module.exports = function container (get, set, clear) {
   var format_currency = get('utils.format_currency')
   var get_timestamp = get('utils.get_timestamp')
   var get_duration = get('utils.get_duration')
+  var get_tick_str = get('utils.get_tick_str')
+  var options = get('options')
   var client
   var start = new Date().getTime()
   function onOrder (err, resp, order) {
@@ -50,6 +52,9 @@ module.exports = function container (get, set, clear) {
       rs.exchange = sMatch[1]
       rs.asset = sMatch[2]
       rs.currency = sMatch[3]
+      if (options.verbose) {
+        get('logger').info(rs.exchange, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
+      }
       rs.rsi_period = '1h'
       rs.rsi_up = 70
       rs.rsi_down = 30
