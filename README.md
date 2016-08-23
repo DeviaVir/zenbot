@@ -183,7 +183,10 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.9**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.9) (Latest)
+- [**3.5.10**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.10) (Latest)
+    - Fix `run.sh` not starting server.
+    - Remove --verbose from new run script.
+- **3.5.9**
     - Add --backfill and --verbose to new run script.
 - **3.5.8**
     - Fix "skipping historical tick" (prevented bot from acting on trends) issue with Zenbrain update.
