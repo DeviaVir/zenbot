@@ -167,7 +167,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.3**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.3) (Latest)
+- [**3.5.4**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.4) (Latest)
+    - ETA indicator replaces progress, and removal of `hold_ticks` mechanism in favor of wait params in ms. More warnings in default_logic to show what's going on with the trader.
+- **3.5.3**
     - Fixed `--config` usage with absolute path.
 - **3.5.2**
     - Re-organized some config vars, GDAX key now in `config.js` instead of `config_eth_btc.js` etc.
