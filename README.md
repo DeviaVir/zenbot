@@ -167,7 +167,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.5**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.5) (Latest)
+- [**3.5.6**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.6) (Latest)
+    - Fix ANSI graph range.
+- **3.5.5**
     - ANSI graph now follows RSI instead of SMA.
 - **3.5.4**
     - ETA indicator replaces progress, and removal of `hold_ticks` mechanism in favor of wait params in ms. More warnings in default_logic to show what's going on with the trader.
