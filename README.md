@@ -73,7 +73,7 @@ Note: add your GDAX key to `config.js` to enable real trading.
 
 ### 4. Run zenbot (single-pair mode)
 
-The following will run Zenbot with the default BTC/USD pair only.
+The following command will run all Zenbot functionality, using the default BTC/USD pair.
 
 ```
 ./run.sh
@@ -82,7 +82,7 @@ The following will run Zenbot with the default BTC/USD pair only.
 Here's how to run a different pair (example: ETH-BTC):
 
 ```
-./zenbot launch map reduce run server --config config_eth_btc.js
+./zenbot launch map --backfill reduce run --verbose server --config config_eth_btc.js
 ```
 
 ### 4. Run zenbot (multi-pair mode)
@@ -183,6 +183,8 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
+- [**3.5.9**]
+    - Add --backfill and --verbose to new run script.
 - [**3.5.8**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.7) (Latest)
     - Fix "skipping historical tick" (prevented bot from acting on trends) issue with Zenbrain update.
     - Fix ANSI graph range again.
