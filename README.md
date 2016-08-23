@@ -67,7 +67,7 @@ cd zenbot
 npm install
 ```
 
-### 3. Edit `config.js` with API keys, database credentials, trade logic, etc.
+### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
 
 ### 4. Run zenbot:
 
