@@ -22,12 +22,12 @@ module.exports = function container (get, set, clear) {
         try {
           if (rsi.value > 50) {
             bar += ' '.repeat(half)
-            var stars = Math.min(Math.round((rsi.value / 100) * half), half)
+            var stars = Math.round(((rsi.value - 50) / 50) * half)
             bar += '+'.repeat(stars).green.bgGreen
             bar += ' '.repeat(half - stars)
           }
           else if (rsi.value < 50) {
-            var stars = Math.min(Math.round(((100 - rsi.value) / 100) * half), half)
+            var stars = Math.round(((50 - rsi.value) / 50) * half)
             bar += ' '.repeat(half - stars)
             bar += '-'.repeat(stars).red.bgRed
             bar += ' '.repeat(half)
