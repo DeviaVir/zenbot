@@ -87,8 +87,10 @@ module.exports = function container (get, set, clear) {
             get('logger').info('trader', ('No trader API key provided. Starting in advisor mode for ' + c.default_selector + '. --Zen').yellow, {feed: 'trader'})
           }
         }
-        // change reporting interval for sims
-        c.reporter_sizes = ['1h']
+        if (get('command') === 'sim') {
+          // change reporting interval for sims
+          c.reporter_sizes = ['1h']
+        }
         return cb()
       }
       if (!client) {
