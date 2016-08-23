@@ -80,9 +80,9 @@ npm install
 To access the CLI,
 
 ```
-zenbot
+./zenbot
 
-  Usage: zenbot [options] [command]
+  Usage: ./zenbot [options] [command]
 
   Commands:
 
@@ -107,7 +107,7 @@ The `./run.sh` script combines `launch map --backfill reduce run server`, so use
 Once backfill has finished, run a simulation:
 
 ```
-zenbot sim [--verbose]
+./zenbot sim [--verbose]
 ```
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `default_logic.js` for new trade strategies and check your results this way.
@@ -125,7 +125,7 @@ Example simulation result: https://gist.github.com/carlos8f/38a9dd292c7ce4d44258
 - trades 95% of current balance, market price
 - Holds for min. 100 minutes after a trade
 
-You can tweak the JS from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `zenbot sim` to check your strategy against historical trades.
+You can tweak the JS from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `./zenbot sim` to check your strategy against historical trades.
 
 Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days (12 weeks), to ensure input consistency.
 
@@ -139,6 +139,12 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
+- [**3.4.2**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.2) (Latest)
+    - Exit default logic if run command and historical tick
+    - Add balance stats to trade actions
+    - Add `--config` arg doc. You can switch to using a different config with `--config <path>`
+    - Update gist links for newest simulation results.
+    - Added `config_eth.js` example config for ETH trading.
 - [**3.4.1**](https://github.com/carlos8f/zenbot/releases/tag/v3.4.1) (Latest)
     - Slight re-code of `default_logic.js` to fix slipped ROI (1.1 -> 1.8)
     - Added All Poloniex USDT pairs by @JFD3D, Thanks!

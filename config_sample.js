@@ -41,7 +41,7 @@ c.watch_exchanges = [
   //"poloniex"
 ]
 
-// default selector for indicators, etc
+// selector for indicators, trading, etc
 c.default_selector = "gdax.BTC-USD"
 
 // add selectors in the format "{exchange-slug}.{asset}-{currency}" to graph them
