@@ -183,7 +183,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.10**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.10) (Latest)
+- [**3.5.11**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.11) (Latest)
+    - Fix 1m reporter not working in advisor mode.
+- **3.5.10**
     - Fix `run.sh` not starting server.
     - Remove --verbose from new run script.
 - **3.5.9**
