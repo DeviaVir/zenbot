@@ -121,7 +121,12 @@ module.exports = function container (get, set, clear) {
     },
     function (tick, trigger, rs, cb) {
       // note the last close price
-      rs.market_price = o(tick, rs.selector + '.close')
+      var market_price = o(tick, rs.selector + '.close')
+      // sometimes the tick won't have a close price for this selector.
+      // keep old close price in memory.
+      if (market_price) {
+        rs.market_price = market_price
+      }
       rs.ticks || (rs.ticks = 0)
       rs.progress || (rs.progress = 0)
       if (!rs.market_price) {
