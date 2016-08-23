@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
   return function reporter_col (g, cb) {
     var c = get('config')
     var balance = g.rs.consolidated_balance
-    var line = 'BAL:'.grey + (balance ? format_currency(balance, g.rs.currency).yellow : 'n/a'.grey)
+    var line = (c.default_selector + ' BAL:').grey + (balance ? format_currency(balance, g.rs.currency).yellow : 'n/a'.grey)
     g.cols.push(line)
     cb()
   }
