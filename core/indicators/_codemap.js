@@ -4,6 +4,7 @@ module.exports = {
     require('./ansi_graph/_codemap'),
     require('./num_trades/_codemap'),
     require('./balance/_codemap'),
+    require('./eta/_codemap'),
     require('./price/_codemap'),
     require('./progress/_codemap'),
     require('./roi/_codemap'),
