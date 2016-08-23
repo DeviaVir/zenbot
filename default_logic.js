@@ -252,7 +252,7 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.asset] = n(rs.balance[rs.asset]).subtract(size).value()
           rs.op = 'sell'
           if (!rs.action_warning) {
-            get('logger').info('trader', ('attempting to sell ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency)).yellow, {feed: 'trader'})
+            get('logger').info('trader', ('attempting to sell ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency) + ' ' + rs.currency).yellow, {feed: 'trader'})
           }
           rs.action_warning = true
         }
@@ -269,7 +269,7 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.currency] = n(rs.balance[rs.currency]).subtract(n(size).multiply(rs.market_price)).value()
           rs.op = 'buy'
           if (!rs.action_warning) {
-            get('logger').info('trader', ('attempting to buy ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency)).yellow, {feed: 'trader'})
+            get('logger').info('trader', ('attempting to buy ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency) + ' ' + rs.currency).yellow, {feed: 'trader'})
           }
           rs.action_warning = true
         }
