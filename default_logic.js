@@ -279,7 +279,7 @@ module.exports = function container (get, set, clear) {
         // min size
         if (!size || size < rs.min_trade) {
           if (!rs.balance_warning) {
-            get('logger').info('trader', 'trend: '.grey, rs.trend, ('not enough funds (' + (rs.op === 'sell' ? n(size).format('0.00000000') : format_currency(rs.balance[rs.currency], rs.currency)) + ' ' + rs.currency + ') to execute min. ' + rs.op + ' ' + rs.min_trade + ', aborting trade!').red, {feed: 'trader'})
+            get('logger').info('trader', 'trend: '.grey, rs.trend, ('not enough funds (' + (rs.op === 'sell' ? n(size).format('0.00000000') : format_currency(rs.balance[rs.currency], rs.currency)) + ' ' + (rs.op === 'sell' ? rs.asset : rs.currency) + ') to execute min. ' + rs.op + ' ' + rs.min_trade + ', aborting trade!').red, {feed: 'trader'})
           }
           rs.balance_warning = true
           return cb()
