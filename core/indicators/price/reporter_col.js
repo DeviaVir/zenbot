@@ -8,8 +8,10 @@ module.exports = function container (get, set, clear) {
   return function reporter_col (g, cb) {
     var c = get('config')
     var tick = g.tick, rs = g.rs
-    var line = 'CLOSE:'.grey + z(c.price_reporter_length, format_currency(rs.market_price, rs.currency)).yellow + ' ' + rs.currency.grey
-    g.cols.push(line)
+    if (rs.market_price) {
+      var line = 'CLOSE:'.grey + z(c.price_reporter_length, format_currency(rs.market_price, rs.currency)).yellow + ' ' + rs.currency.grey
+      g.cols.push(line)
+    }
     cb()
   }
 }
