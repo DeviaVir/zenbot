@@ -209,7 +209,7 @@ module.exports = function container (get, set, clear) {
     function (tick, trigger, rs, cb) {
       // for run command, don't trade unless this is a new tick
       if (get('command') !== 'sim' && tick.time < start) {
-        get('logger').info('trader', c.default_selector.grey, ('skipping historical tick ' + tick.id).yellow, {feed: 'trader'})
+        get('logger').info('trader', c.default_selector.grey, ('skipping historical tick ' + tick.id).grey, {feed: 'trader'})
         return cb()
       }
       if (rs.trend && !rs.trend_warning) {
