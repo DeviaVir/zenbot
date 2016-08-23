@@ -82,7 +82,7 @@ The following command will run all Zenbot functionality, using the default BTC/U
 Here's how to run a different pair (example: ETH-BTC):
 
 ```
-./zenbot launch map --backfill reduce run --verbose server --config config_eth_btc.js
+./zenbot launch map --backfill reduce run server --verbose --config config_eth_btc.js
 ```
 
 ### 4. Run zenbot (multi-pair mode)
