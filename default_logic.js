@@ -60,7 +60,6 @@ module.exports = function container (get, set, clear) {
       rs.rsi_down = 30
       rs.check_period = '1m'
       rs.selector = 'data.trades.' + c.default_selector
-      rs.hold_ticks = 200 // hold x check_period after trade
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
       var products = get('exchanges.' + rs.exchange).products
@@ -70,10 +69,11 @@ module.exports = function container (get, set, clear) {
         }
       })
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
-      rs.min_trade = rs.product.min_size
+      rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 1000
-      rs.min_buy_wait = 43200000 // wait half a day after action before buying
-      rs.min_sell_wait = 43200000 // wait half a day after action before selling
+      rs.min_buy_wait = 43200000 * 3 // wait in ms after action before buying
+      rs.min_sell_wait = 43200000 * 3 // wait in ms after action before selling
+      rs.min_performance = -0.06 // abort trades with lower performance score
       cb()
     },
     // sync balance if key is present and we're in the `run` command
@@ -190,9 +190,10 @@ module.exports = function container (get, set, clear) {
           delete rs.delta_warning
           delete rs.buy_warning
           delete rs.historical_warning
-          delete rs.hold_warning
-          delete rs.size_warning
-          //rs.hold_ticks_active = 0
+          // delete rs.last_action_time
+          delete rs.perf_warning
+          delete rs.action_warning
+          delete rs.trend_warning
         }
         rs.trend = trend
         cb()
@@ -212,18 +213,6 @@ module.exports = function container (get, set, clear) {
         rs.historical_warning = true
         return cb()
       }
-      // delay buying or selling, perhaps the trend intensifies
-      if (rs.hold_ticks_active) {
-        rs.hold_ticks_active--
-      }
-      if (rs.hold_ticks_active) {
-        if (!rs.hold_warning) {
-          get('logger').info('trader', ('holding now for ' + rs.hold_ticks_active + ' ticks...').yellow, {feed: 'trader'})
-        }
-        rs.hold_warning = true
-        rs.progress = n(1).subtract(n(rs.hold_ticks_active).divide(rs.hold_ticks)).value()
-        return cb()
-      }
       if (rs.trend && !rs.trend_warning) {
         get('logger').info('trader', ('acting on trend: ' + rs.trend + '!').yellow, {feed: 'trader'})
         if (!rs.balance) {
@@ -232,8 +221,8 @@ module.exports = function container (get, set, clear) {
         if (!rs.market_price) {
           get('logger').info('trader', ('no market_price to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
         }
+        rs.trend_warning = true
       }
-      rs.trend_warning = true
       rs.progress = 1
       if (rs.trend && rs.balance && rs.market_price) {
         var size, new_balance = {}
@@ -246,10 +235,6 @@ module.exports = function container (get, set, clear) {
           size = n(rs.balance[rs.currency]).divide(rs.market_price).value()
         }
         size = n(size || 0).multiply(rs.trade_pct).value()
-        if (!rs.size_warning) {
-          get('logger').info('trader', ('calculated trade size: ' + n(size).format('0.00000000') + ' ' + rs.asset).yellow, {feed: 'trader'})
-          rs.size_warning = true
-        }
         if (rs.trend === 'DOWN') {
           // SELL!
           if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_sell_wait) {
@@ -262,9 +247,10 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.currency] = n(rs.balance[rs.currency]).add(n(size).multiply(rs.market_price)).value()
           new_balance[rs.asset] = n(rs.balance[rs.asset]).subtract(size).value()
           rs.op = 'sell'
-          if (!rs.balance_warning) {
+          if (!rs.action_warning) {
             get('logger').info('trader', ('attempting to sell ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency)).yellow, {feed: 'trader'})
           }
+          rs.action_warning = true
         }
         else if (rs.trend === 'UP') {
           // BUY!
@@ -278,9 +264,10 @@ module.exports = function container (get, set, clear) {
           new_balance[rs.asset] = n(rs.balance[rs.asset]).add(size).value()
           new_balance[rs.currency] = n(rs.balance[rs.currency]).subtract(n(size).multiply(rs.market_price)).value()
           rs.op = 'buy'
-          if (!rs.balance_warning) {
+          if (!rs.action_warning) {
             get('logger').info('trader', ('attempting to buy ' + n(size).format('0.00000000') + ' ' + rs.asset + ' for ' + format_currency(n(size).multiply(rs.market_price).value(), rs.currency)).yellow, {feed: 'trader'})
           }
+          rs.action_warning = true
         }
         else {
           // unknown trend
@@ -290,7 +277,7 @@ module.exports = function container (get, set, clear) {
         // min size
         if (!size || size < rs.min_trade) {
           if (!rs.balance_warning) {
-            get('logger').info('trader', 'trend: '.grey, rs.trend, ('not enough balance (' + n(rs.balance[rs.asset]).format('0.000') + ' ' + rs.asset + ', ' + format_currency(rs.balance[rs.currency], rs.currency) + ' ' + rs.currency + ') to execute ' + rs.op + ', aborting trade!').red, {feed: 'trader'})
+            get('logger').info('trader', 'trend: '.grey, rs.trend, ('not enough funds (' + (rs.op === 'sell' ? n(size).format('0.00000000') : format_currency(rs.balance[rs.currency], rs.currency)) + ' ' + rs.currency + ') to execute min. ' + rs.op + ' ' + rs.min_trade + ', aborting trade!').red, {feed: 'trader'})
           }
           rs.balance_warning = true
           return cb()
@@ -311,12 +298,6 @@ module.exports = function container (get, set, clear) {
           return cb()
         }
         */
-        rs.hold_ticks_active = rs.hold_ticks + 1
-        rs.balance = new_balance
-        rs.end_balance = rs.new_end_balance
-        rs.roi = rs.new_roi
-        rs.num_trades || (rs.num_trades = 0)
-        rs.num_trades++
         if (rs.op === 'buy') {
           // % drop
           rs.performance = rs.last_sell_price ? n(rs.last_sell_price).subtract(rs.market_price).divide(rs.last_sell_price).value() : null
@@ -327,6 +308,18 @@ module.exports = function container (get, set, clear) {
           rs.performance = rs.last_buy_price ? n(rs.market_price).subtract(rs.last_buy_price).divide(rs.last_buy_price).value() : null
           rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
+        if (rs.min_performance && rs.performance !== null && rs.performance < rs.min_performance) {
+          if (!rs.perf_warning) {
+            get('logger').info('trader', ('aborting ' + rs.op + ' due to low perf. = ' + n(rs.performance).format('0.000')).red, {feed: 'trader'})
+          }
+          rs.perf_warning = true
+          return cb()
+        }
+        rs.balance = new_balance
+        rs.end_balance = rs.new_end_balance
+        rs.roi = rs.new_roi
+        rs.num_trades || (rs.num_trades = 0)
+        rs.num_trades++
         var trade = {
           type: rs.op,
           asset: rs.asset,

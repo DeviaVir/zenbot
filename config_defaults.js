@@ -36,7 +36,7 @@ module.exports = function (c) {
     "rsi",
     //"volume",
     "price",
-    "progress",
+    "eta",
     //"sma",
     "balance",
     "roi"
