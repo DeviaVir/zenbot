@@ -71,7 +71,7 @@ npm install
 npm link
 ```
 
-(optional) Install historical data for GDAX BTC/USD, BTC/ETH, and ETH/BTC. **This may overwrite data in your existing `ticks` collection, so be careful!**
+(optional) Install historical data for GDAX BTC/USD, ETH/BTC, and ETH/USD. **This may overwrite data in your existing `ticks` collection, so be careful!**
 
 ```
 wget https://s8f.org/dl/zenbrain.tar.gz
