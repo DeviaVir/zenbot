@@ -65,6 +65,8 @@ If you're still insistent on using Windows, you'll have to fork zenbot, fix it y
 git clone https://github.com/carlos8f/zenbot.git
 cd zenbot
 npm install
+# optional, installs the `zenbot` binary in /usr/local/bin:
+npm link
 ```
 
 ### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
