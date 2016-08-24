@@ -173,9 +173,8 @@ Example simulation result: https://gist.github.com/carlos8f/c600abb8b984eae31ff7
 #### About the default trade logic in `default_logic.js`
 
 - uses [GDAX](https://gdax.com/) API
-- watches BTC/USD
 - acts at 5 minute increments (ticks), but you can configure to act quicker or slower.
-- computes the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi)
+- computes the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) at each 5m tick
 - considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
 - trades 98% of current balance, market price
