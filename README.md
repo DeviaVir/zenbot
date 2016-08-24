@@ -25,7 +25,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.5.3 making a [1.364 ROI](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960) in only 3 months, using default parameters!
+Current simulations on historical data from May - August 2016 show Zenbot 3.5.3 making a [1.477 ROI](https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
@@ -47,7 +47,7 @@ In the screenshot below, the pink arrows represent the bot buying (up arrow) and
 
 ![screenshot](https://cloud.githubusercontent.com/assets/106763/17872578/8f13af10-6875-11e6-8284-d6863f9a1e1e.png)
 
-RAW data from simulation: https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960
+RAW data from simulation: https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68
 
 ## Quick-start
 
@@ -156,7 +156,7 @@ Once backfill has finished (should collect about 84 days of data), run a simulat
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `default_logic.js` for new trade strategies and check your results this way.
 
-Example simulation result: https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960
+Example simulation result: https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68
 
 #### About the default trade logic in `default_logic.js`
 
@@ -183,7 +183,10 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.11**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.11) (Latest)
+- [**3.5.12**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.12) (Latest)
+    - Tweaks to default trade params, ROI = 1.364 -> 1.477
+    - Misc warning text changes
+- **3.5.11**
     - Fix 1m reporter not working in advisor mode.
 - **3.5.10**
     - Fix `run.sh` not starting server.
