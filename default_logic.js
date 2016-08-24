@@ -124,6 +124,9 @@ module.exports = function container (get, set, clear) {
       })
     },
     function (tick, trigger, rs, cb) {
+      if (tick.size !== rs.check_period) {
+        return cb()
+      }
       // note the last close price
       var market_price = o(tick, rs.selector + '.close')
       // sometimes the tick won't have a close price for this selector.
@@ -149,9 +152,6 @@ module.exports = function container (get, set, clear) {
         sync_start_balance = false
       }
       rs.roi = n(rs.consolidated_balance).divide(rs.start_balance).value()
-      if (tick.size !== rs.check_period) {
-        return cb()
-      }
       rs.ticks++
       // get rsi
       rs.rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
@@ -207,6 +207,9 @@ module.exports = function container (get, set, clear) {
     },
     // trigger trade signals
     function (tick, trigger, rs, cb) {
+      if (tick.size !== rs.check_period) {
+        return cb()
+      }
       // for run command, don't trade unless this is a new tick
       if (get('command') !== 'sim' && tick.time < start) {
         get('logger').info('trader', c.default_selector.grey, ('skipping historical tick ' + tick.id).grey, {feed: 'trader'})
