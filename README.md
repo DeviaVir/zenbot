@@ -174,14 +174,14 @@ Example simulation result: https://gist.github.com/carlos8f/c600abb8b984eae31ff7
 
 - uses [GDAX](https://gdax.com/) API
 - watches BTC/USD
-- acts at 1m increments (ticks), but you can configure to act quicker or slower.
+- acts at 5 minute increments (ticks), but you can configure to act quicker or slower.
 - computes the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi)
 - considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
-- trades 95% of current balance, market price
-- Holds for min. 100 minutes after a trade
+- trades 98% of current balance, market price
+- Holds for min. 24 hours after a trade
 
-You can tweak the JS from there to use bitfinex, or trade ETH, or whatever. After tweaking `default_logic.js`, Use `./zenbot sim` to check your strategy against historical trades.
+You can tweak the JS from there to trade on Bitfinex, or whatever. After tweaking `default_logic.js`, Use `./zenbot sim [--verbose]` to check your strategy against historical trades.
 
 Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days (12 weeks), to ensure input consistency.
 
