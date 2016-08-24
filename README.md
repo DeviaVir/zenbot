@@ -69,6 +69,14 @@ npm install
 npm link
 ```
 
+(optional) Install historical data for GDAX BTC/USD, BTC/ETH, and ETH/BTC. **This may overwrite data in your existing `ticks` collection, so be careful!**
+
+```
+wget https://s8f.org/dl/zenbrain.tar.gz
+tar -xf zenbrain.tar.gz
+mongorestore
+```
+
 ### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
 
 Note: add your GDAX key to `config.js` to enable real trading.
