@@ -71,9 +71,9 @@ module.exports = function container (get, set, clear) {
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 1000
-      rs.min_buy_wait = 43200000 * 3 // wait in ms after action before buying
-      rs.min_sell_wait = 43200000 * 3 // wait in ms after action before selling
-      rs.min_performance = -0.06 // abort trades with lower performance score
+      rs.min_buy_wait = 86400000 * 1 // wait in ms after action before buying
+      rs.min_sell_wait = 86400000 * 1 // wait in ms after action before selling
+      rs.min_performance = -0.7 // abort trades with lower performance score
       cb()
     },
     // sync balance if key is present and we're in the `run` command
