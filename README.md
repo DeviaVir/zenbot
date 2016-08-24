@@ -92,7 +92,7 @@ The following will run multiple currency pairs along with the reducer and server
 Required: reducer (for processing trade data):
 
 ```
-./reduce.sh
+./reducer.sh
 ```
 
 Optional: server (for candlestick graphs and aggregated log):
