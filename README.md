@@ -193,7 +193,11 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.12**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.12) (Latest)
+- [**3.5.13**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.13) (Latest)
+    - Change `check_period` to 5m in trading engine
+    - ROI 1.477 -> 1.720
+    - Speed up sim by only processing 5m ticks
+- **3.5.12**
     - Tweaks to default trade params, ROI = 1.364 -> 1.477
     - Misc warning text changes
 - **3.5.11**
