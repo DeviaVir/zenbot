@@ -27,7 +27,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.5.13 making a [1.720 ROI](https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68) in only 3 months, using default parameters!
+Current simulations on historical data from May - August 2016 show Zenbot 3.5.13 making a [1.788 ROI](https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
