@@ -194,7 +194,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.13**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.13) (Latest)
+- [**3.5.14**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.13) (Latest)
+    - Fixed [#39](https://github.com/carlos8f/zenbot/issues/39) 404 for trades.csv
+- **3.5.13**
     - Change `check_period` to 5m in trading engine
     - ROI 1.477 -> 1.720
     - Speed up sim by only processing 5m ticks
