@@ -324,6 +324,14 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 
 ![zenbot logo](https://s8f.org/files/bitcoin.png)
 
+### Patreon
+
+Zenbot is on [Patreon!](https://patreon.com/user?u=3889129) Give some $ per month to support Zenbot 3 development.
+
+### GratiPay
+
+Zenbot is on [Grati-Pay!](https://gratipay.com/Zenbot-3/) Another way to give $ per month to support development.
+
 thanks!
 
 - - -
