@@ -3,7 +3,7 @@ var n = require('numbro')
   , assert = require('assert')
 
 module.exports = function container (get, set, clear) {
-  var tick_defaults = get('tick_defaults')
+  var exchange_defaults = get('exchange_defaults')
   return function tick_reducer (g, cb) {
     var tick = g.tick, sub_tick = g.sub_tick
     //get('logger').info('tick_reducer', tick.id)
@@ -14,7 +14,7 @@ module.exports = function container (get, set, clear) {
     Object.keys(s).forEach(function (e) {
       d[e] || (d[e] = {})
       Object.keys(s[e]).forEach(function (pair) {
-        d[e][pair] || (d[e][pair] = tick_defaults())
+        d[e][pair] || (d[e][pair] = exchange_defaults())
         var de = d[e][pair]
         var se = s[e][pair]
         de.volume = n(de.volume).add(se.volume).value()

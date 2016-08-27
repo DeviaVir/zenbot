@@ -4,7 +4,7 @@ var n = require('numbro')
 module.exports = function container (get, set, clear) {
   var trades_processed = []
   var log_trades = get('utils.log_trades')
-  var tick_defaults = get('tick_defaults')
+  var exchange_defaults = get('exchange_defaults')
   var first_run = false
   return function thought_reducer (g, cb) {
     var c = get('config')
@@ -35,7 +35,7 @@ module.exports = function container (get, set, clear) {
       var e = trade.exchange
       d[e] || (d[e] = {})
       var pair = trade.asset + '-' + trade.currency
-      d[e][pair] || (d[e][pair] = tick_defaults())
+      d[e][pair] || (d[e][pair] = exchange_defaults())
       var de = d[e][pair]
       de.volume = n(de.volume).add(trade.size).value()
       de.count++
