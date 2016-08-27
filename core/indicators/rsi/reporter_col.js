@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
     var c = get('config')
     var tick = g.tick, rs = g.rs
     if (rs.rsi) {
-      var line = 'RSI:'.grey + z(7, rs.rsi.ansi)
+      var line = 'RSI:'.grey + z(3, rs.rsi.ansi)
       g.cols.push(line)
     }
     else {

@@ -76,17 +76,6 @@ module.exports = function container (get, set, clear) {
             return prev + gain
           }, 0)
           var avg_gain = r.samples ? n(gain_sum).divide(r.samples).value() : 0
-          // that was the avg gain of the lookback, but we want the last avg gain
-          // if possible, to get smoothing effect.
-          var rsi_lookback = lookback.filter(function (tick) {
-            return !!o(tick, 'data.trades.' + e + '.' + pair)
-          }).map(function (tick) {
-            return o(tick, 'data.trades.' + e + '.' + pair + '.rsi')
-          })
-          var last_rsi = rsi_lookback.pop()
-          if (last_rsi && last_rsi.avg_gain) {
-            avg_gain = last_rsi.avg_gain
-          }
           last_close = 0
           var loss_sum = close_lookback.reduce(function (prev, curr) {
             if (!last_close) {
@@ -98,26 +87,28 @@ module.exports = function container (get, set, clear) {
             return prev + loss
           }, 0)
           var avg_loss = r.samples ? n(loss_sum).divide(r.samples).value() : 0
-          if (last_rsi && last_rsi.avg_loss) {
-            avg_loss = last_rsi.avg_loss
-          }
           var avg_gain_2 = n(avg_gain).multiply(c.rsi_periods - 1).add(current_gain).divide(c.rsi_periods).value()
           var avg_loss_2 = n(avg_loss).multiply(c.rsi_periods - 1).add(current_loss).divide(c.rsi_periods).value()
           if (avg_loss_2 === 0) {
             r.value = avg_gain_2 ? 100 : 50
           }
           else {
-            r.relative_strength = n(avg_gain_2).divide(avg_loss_2).value()
-            r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
+            var relative_strength = n(avg_gain_2).divide(avg_loss_2).value()
+            r.value = n(100).subtract(n(100).divide(n(1).add(relative_strength))).value()
           }
           //console.error(gain_sum, avg_gain, loss_sum, avg_loss, avg_gain_2, avg_loss_2, relative_strength)
-          r.samples = last_rsi ? last_rsi.samples + 1 : close_lookback.length
-          r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white'] + ('x' + r.samples).grey
+          r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+          r.samples++
           r.close_lookback = close_lookback
           r.current_gain = current_gain
           r.current_loss = current_loss
-          r.avg_gain = avg_gain_2
-          r.avg_loss = avg_loss_2
+          r.gain_sum = gain_sum
+          r.avg_gain = avg_gain
+          r.loss_sum = loss_sum
+          r.avg_loss = avg_loss
+          r.avg_gain_2 = avg_gain_2
+          r.avg_loss_2 = avg_loss_2
+          r.relative_strength = relative_strength || null
           if (r.samples >= c.rsi_periods) {
             //get('logger').info('RSI', z(12, get_tick_str(tick.id)), get_timestamp(tick.time).grey, r.ansi, ('x' + r.samples).grey)
             computations++
