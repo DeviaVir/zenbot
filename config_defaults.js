@@ -17,7 +17,7 @@ module.exports = function (c) {
   // RSI indicator config
   c.rsi_sizes = ['1h']
   c.rsi_reporter_size = '1h'
-  c.rsi_query_limit = 100
+  c.rsi_query_limit = 1000
   c.rsi_periods = 14
   c.rsi_backfill_timeout = 30000
   c.rsi_backfill_report = false

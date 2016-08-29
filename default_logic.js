@@ -125,15 +125,15 @@ module.exports = function container (get, set, clear) {
     },
     // record market price, balance, roi and stats
     function (tick, trigger, rs, cb) {
-      if (tick.size !== rs.check_period) {
-        return cb()
-      }
       // note the last close price
       var market_price = o(tick, rs.selector + '.close')
       // sometimes the tick won't have a close price for this selector.
       // keep old close price in memory.
       if (market_price) {
         rs.market_price = market_price
+      }
+      if (tick.size !== rs.check_period) {
+        return cb()
       }
       rs.ticks || (rs.ticks = 0)
       rs.progress || (rs.progress = 0)
@@ -156,15 +156,17 @@ module.exports = function container (get, set, clear) {
       rs.ticks++
       cb()
     },
-    // load rsi from tick if needed to start rsi calc
+    // calculate first rsi from ticks lookback
     function (tick, trigger, rs, cb) {
       var rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
-      if (rs.rsi_tick_id && rs.rsi_tick_id !== rsi_tick_id) {
+      if (rs.rsi && rs.rsi_tick_id && rs.rsi_tick_id !== rsi_tick_id) {
         // rsi period turnover. record last rsi for smoothing.
-        rs.last_rsi = rs.rsi ? JSON.parse(JSON.stringify(rs.rsi)) : null
+        rs.last_rsi = JSON.parse(JSON.stringify(rs.rsi))
+        rs.rsi.samples++
+        //console.error('last rsi', rs.last_rsi)
       }
       rs.rsi_tick_id = rsi_tick_id
-      if (!rs.market_price || rs.rsi) {
+      if (rs.first_rsi) {
         return cb()
       }
       // calculate first rsi
@@ -174,12 +176,12 @@ module.exports = function container (get, set, clear) {
       get('ticks').select({
         query: {
           app: get('app_name'),
-          size: c.rsi_period,
+          size: rs.rsi_period,
           time: {
-            $lt: bucket.toMilliseconds()
+            $lte: bucket.toMilliseconds()
           }
         },
-        limit: c.rsi_query_limit,
+        limit: 15,
         sort: {
           time: -1
         }
@@ -188,19 +190,85 @@ module.exports = function container (get, set, clear) {
         withLookback(lookback.reverse())
       })
       function withLookback (lookback) {
-      if (rsi && rsi.value && rsi.samples >= c.rsi_samples) {
-        // first rsi, calculated from prev 14 ticks
-        rs.rsi = rsi
-        console.error('first rsi', rs.rsi)
-      }
-      else {
-        // require minimum data
-        if (!rs.rsi_warning) {
-          get('logger').info('trader', c.default_selector.grey, ('no ' + rs.rsi_period + ' RSI for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
+        var r = {}
+        r.ansi = ''
+        var pair_lookback = lookback.filter(function (tick) {
+          return !!o(tick, rs.selector)
+        }).map(function (tick) {
+          return o(tick, rs.selector)
+        })
+        var init_lookback = pair_lookback.slice(0, c.rsi_periods + 1)
+        pair_lookback = pair_lookback.slice(c.rsi_periods + 1)
+        var de = init_lookback.shift()
+        r.samples = init_lookback.length
+        if (r.samples < c.rsi_periods) {
+          //get('logger').info('trader', c.default_selector.grey, ('not enough ' + rs.rsi_period + ' RSI lookback (' + r.samples + ') for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
+          return cb()
         }
-        rs.rsi_warning = true
+        r.close = de.close
+        r.last_close = init_lookback[r.samples - 1].close
+        r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
+        r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
+        var prev_close = 0
+        var gain_sum = init_lookback.reduce(function (prev, curr) {
+          if (!prev_close) {
+            prev_close = curr.close
+            return 0
+          }
+          var gain = curr.close > prev_close ? curr.close - prev_close : 0
+          prev_close = curr.close
+          return n(prev).add(gain).value()
+        }, 0)
+        var avg_gain = n(gain_sum).divide(r.samples).value()
+        prev_close = 0
+        var loss_sum = init_lookback.reduce(function (prev, curr) {
+          if (!prev_close) {
+            prev_close = curr.close
+            return 0
+          }
+          var loss = curr.close < prev_close ? prev_close - curr.close : 0
+          prev_close = curr.close
+          return n(prev).add(loss).value()
+        }, 0)
+        var avg_loss = n(loss_sum).divide(r.samples).value()
+        r.last_avg_gain = avg_gain
+        r.last_avg_loss = avg_loss
+        r.avg_gain = n(r.last_avg_gain).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
+        r.avg_loss = n(r.last_avg_loss).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
+        if (r.avg_loss === 0) {
+          r.value = r.avg_gain ? 100 : 50
+        }
+        else {
+          r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
+          r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
+        }
+        r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+        // first rsi, calculated from prev 14 ticks
+        rs.last_rsi = JSON.parse(JSON.stringify(r))
+        rs.rsi = r
+        rs.first_rsi = rs.last_rsi = JSON.parse(JSON.stringify(r))
+        pair_lookback.forEach(function (de, idx) {
+          r.last_close = r.close
+          r.close = de.close
+          r.samples++
+          r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
+          r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
+          r.last_avg_gain = r.avg_gain
+          r.last_avg_loss = r.avg_loss
+          r.avg_gain = n(r.last_avg_gain).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
+          r.avg_loss = n(r.last_avg_loss).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
+          if (r.avg_loss === 0) {
+            r.value = r.avg_gain ? 100 : 50
+          }
+          else {
+            r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
+            r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
+          }
+          r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+          rs.last_rsi = JSON.parse(JSON.stringify(r))
+        })
+        cb()
       }
-      cb()
     },
     // calculate the smoothed rsi if we have last_rsi
     function (tick, trigger, rs, cb) {
@@ -208,20 +276,23 @@ module.exports = function container (get, set, clear) {
         return cb()
       }
       var r = rs.rsi
-      r.current_gain = rs.market_price > rs.rsi.last_close ? n(rs.market_price).subtract(rs.rsi.last_close).value() : 0
-      r.current_loss = rs.market_price < rs.rsi.last_close ? n(rs.rsi.last_close).subtract(rs.market_price).value() : 0
-      r.avg_gain_2 = n(rs.last_rsi.avg_gain_2).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
-      r.avg_loss_2 = n(rs.last_rsi.avg_loss_2).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
-      if (r.avg_loss_2 === 0) {
-        r.value = r.avg_gain_2 ? 100 : 50
+      //console.error('market', rs.market_price, rs.rsi)
+      r.close = rs.market_price
+      r.last_close = rs.last_rsi.close
+      r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
+      r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
+      r.last_avg_gain = rs.last_rsi.avg_gain
+      r.last_avg_loss = rs.last_rsi.avg_loss
+      r.avg_gain = n(r.last_avg_gain).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
+      r.avg_loss = n(r.last_avg_loss).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
+      if (r.avg_loss === 0) {
+        r.value = r.avg_gain ? 100 : 50
       }
       else {
-        r.relative_strength = n(r.avg_gain_2).divide(r.avg_loss_2).value()
+        r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
         r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
       }
-      //console.error(gain_sum, avg_gain, loss_sum, avg_loss, avg_gain_2, avg_loss_2, relative_strength)
       r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
-      r.samples++
       cb()
     },
     // detect trends from rsi
@@ -233,7 +304,7 @@ module.exports = function container (get, set, clear) {
       }
       if (r.samples < c.rsi_periods) {
         if (!rs.rsi_warning) {
-          get('logger').info('trader', c.default_selector.grey, (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
+          // get('logger').info('trader', c.default_selector.grey, (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
         }
         rs.rsi_warning = true
       }
