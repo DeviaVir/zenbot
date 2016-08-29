@@ -74,6 +74,9 @@ module.exports = function container (get, set, clear) {
       rs.min_buy_wait = 86400000 * 1 // wait in ms after action before buying
       rs.min_sell_wait = 86400000 * 1 // wait in ms after action before selling
       rs.min_performance = -0.7 // abort trades with lower performance score
+      if (first_run) {
+        delete rs.real_trade_warning
+      }
       cb()
     },
     // sync balance if key is present and we're in the `run` command
@@ -117,7 +120,11 @@ module.exports = function container (get, set, clear) {
         }
         var balance_sig = sig(rs.balance)
         if (balance_sig !== last_balance_sig) {
-          get('logger').info('trader', c.default_selector.grey, '"Starting REAL trading! Hold on to your butts!" --Zen'.cyan, ' Balance:'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
+          get('logger').info('trader', c.default_selector.grey, 'New account balance:'.cyan, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'trader'})
+          if (!rs.real_trade_warning) {
+            get('logger').info('trader', c.default_selector.grey, '"Starting REAL trading! Hold on to your butts!" --Zen'.cyan, {feed: 'trader'})
+            rs.real_trade_warning = true
+          }
           last_balance_sig = balance_sig
         }
         cb()
