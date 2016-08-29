@@ -5,7 +5,7 @@ module.exports = {
   ],
   'action_handlers[]': require('./action_handler'),
   'reporters[]': require('./reporter'),
-  tick_defaults: require('./tick_defaults'),
+  exchange_defaults: require('./exchange_defaults'),
   'tick_reducers[]': require('./tick_reducer'),
   'thought_reducers[]': require('./trade_reducer'),
   reporter_cols: []
