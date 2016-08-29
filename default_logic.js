@@ -120,7 +120,7 @@ module.exports = function container (get, set, clear) {
         }
         var balance_sig = sig(rs.balance)
         if (balance_sig !== last_balance_sig) {
-          get('logger').info('trader', c.default_selector.grey, 'New account balance:'.cyan, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'trader'})
+          get('logger').info('trader', c.default_selector.grey, 'New account balance:'.cyan, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, format_currency(rs.balance[rs.currency], rs.currency).yellow, rs.currency.grey, {feed: 'trader'})
           if (!rs.real_trade_warning) {
             get('logger').info('trader', c.default_selector.grey, '"Starting REAL trading! Hold on to your butts!" --Zen'.cyan, {feed: 'trader'})
             rs.real_trade_warning = true
