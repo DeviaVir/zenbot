@@ -203,7 +203,7 @@ module.exports = function container (get, set, clear) {
         bucket.subtract(1)
         lookback.forEach(function (tick) {
           while (bucket.toMilliseconds() > tick.time) {
-            get('logger').info('trader', c.default_selector.grey, ('missing RSI tick: ' + get_timestamp(bucket.toMilliseconds()) + ', consider running `zenbot repair`').red)
+            get('logger').info('trader', c.default_selector.grey, ('missing RSI tick: ' + get_timestamp(bucket.toMilliseconds())).red)
             missing = true
             bucket.subtract(1)
           }
@@ -211,8 +211,10 @@ module.exports = function container (get, set, clear) {
           bucket.subtract(1)
         })
         if (missing) {
-          get('logger').info('trader', c.default_selector.grey, 'missing RSI data, refusing to trade.'.red)
-          process.exit()
+          if (!rs.missing_warning) {
+            get('logger').info('trader', c.default_selector.grey, 'missing RSI data, consider running `zenbot repair`'.red)
+          }
+          rs.missing_warning = true
         }
         if (!rs.rsi_complete_warning) {
           get('logger').info('trader', c.default_selector.grey, ('historical data OK! computing initial RSI from last ' + lookback.length + ' ' + rs.rsi_period + ' ticks').green)
