@@ -216,7 +216,7 @@ module.exports = function container (get, set, clear) {
           }
           rs.missing_warning = true
         }
-        if (!rs.rsi_complete_warning) {
+        if (!rs.missing_warning && !rs.rsi_complete_warning) {
           get('logger').info('trader', c.default_selector.grey, ('historical data OK! computing initial RSI from last ' + lookback.length + ' ' + rs.rsi_period + ' ticks').green)
           rs.rsi_complete_warning = true
         }
