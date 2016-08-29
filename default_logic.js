@@ -135,6 +135,7 @@ module.exports = function container (get, set, clear) {
       if (tick.size !== rs.check_period) {
         return cb()
       }
+      delete rs.lookback_warning
       rs.ticks || (rs.ticks = 0)
       rs.progress || (rs.progress = 0)
       if (!rs.market_price) {
@@ -166,51 +167,71 @@ module.exports = function container (get, set, clear) {
         //console.error('last rsi', rs.last_rsi)
       }
       rs.rsi_tick_id = rsi_tick_id
+      cb()
+    },
+    function (tick, trigger, rs, cb) {
       if (rs.first_rsi) {
         return cb()
       }
       // calculate first rsi
       //console.error('computing RSI', tick.id)
-      var bucket = tb(tick.time).resize(tick.size)
-      var d = tick.data.trades
-      get('ticks').select({
+      var bucket = tb(tick.time).resize(rs.rsi_period)
+      var params = {
         query: {
           app: get('app_name'),
           size: rs.rsi_period,
           time: {
-            $lte: bucket.toMilliseconds()
+            $lt: bucket.toMilliseconds()
           }
         },
-        limit: 15,
+        limit: c.rsi_query_limit,
         sort: {
           time: -1
         }
-      }, function (err, lookback) {
+      }
+      params.query[rs.selector] = {$exists: true}
+      get('ticks').select(params, function (err, lookback) {
         if (err) return cb(err)
+        var missing = false
+        if (lookback.length < c.rsi_periods) {
+          if (!rs.lookback_warning) {
+            get('logger').info('trader', ('need more historical data, only have ' + lookback.length + ' of ' + c.rsi_periods + ' ' + rs.rsi_period + ' ticks').yellow)
+          }
+          rs.lookback_warning = true
+          return cb()
+        }
+        bucket.subtract(1)
+        lookback.forEach(function (tick) {
+          while (bucket.toMilliseconds() > tick.time) {
+            get('logger').info('trader', ('missing RSI tick: ' + get_timestamp(bucket.toMilliseconds()) + ', consider running `zenbot repair`').red)
+            missing = true
+            bucket.subtract(1)
+          }
+          //get('logger').info('trader', 'RSI tick OK:'.grey, get_timestamp(bucket.toMilliseconds()).green)
+          bucket.subtract(1)
+        })
+        if (missing) {
+          get('logger').info('trader', 'missing RSI data, refusing to trade.'.red)
+          process.exit()
+        }
         withLookback(lookback.reverse())
       })
       function withLookback (lookback) {
+        var init_lookback = lookback.slice(0, c.rsi_periods + 1)
+        var smooth_lookback = lookback.slice(c.rsi_periods + 1)
+        var de = o(init_lookback.pop(), rs.selector)
         var r = {}
-        r.ansi = ''
-        var pair_lookback = lookback.filter(function (tick) {
-          return !!o(tick, rs.selector)
-        }).map(function (tick) {
-          return o(tick, rs.selector)
-        })
-        var init_lookback = pair_lookback.slice(0, c.rsi_periods + 1)
-        pair_lookback = pair_lookback.slice(c.rsi_periods + 1)
-        var de = init_lookback.shift()
         r.samples = init_lookback.length
         if (r.samples < c.rsi_periods) {
-          //get('logger').info('trader', c.default_selector.grey, ('not enough ' + rs.rsi_period + ' RSI lookback (' + r.samples + ') for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
           return cb()
         }
         r.close = de.close
-        r.last_close = init_lookback[r.samples - 1].close
+        r.last_close = o(init_lookback[r.samples - 1], rs.selector).close
         r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
         r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
         var prev_close = 0
         var gain_sum = init_lookback.reduce(function (prev, curr) {
+          curr = o(curr, rs.selector)
           if (!prev_close) {
             prev_close = curr.close
             return 0
@@ -222,6 +243,7 @@ module.exports = function container (get, set, clear) {
         var avg_gain = n(gain_sum).divide(r.samples).value()
         prev_close = 0
         var loss_sum = init_lookback.reduce(function (prev, curr) {
+          curr = o(curr, rs.selector)
           if (!prev_close) {
             prev_close = curr.close
             return 0
@@ -245,11 +267,12 @@ module.exports = function container (get, set, clear) {
         r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
         // first rsi, calculated from prev 14 ticks
         rs.last_rsi = JSON.parse(JSON.stringify(r))
+        //console.error('first rsi', r)
         rs.rsi = r
         rs.first_rsi = rs.last_rsi = JSON.parse(JSON.stringify(r))
-        pair_lookback.forEach(function (de, idx) {
+        smooth_lookback.forEach(function (de) {
           r.last_close = r.close
-          r.close = de.close
+          r.close = o(de, rs.selector).close
           r.samples++
           r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
           r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
@@ -266,6 +289,7 @@ module.exports = function container (get, set, clear) {
           }
           r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
           rs.last_rsi = JSON.parse(JSON.stringify(r))
+          //console.error('smooth', r.close, r.last_close, r.ansi)
         })
         cb()
       }
@@ -293,6 +317,8 @@ module.exports = function container (get, set, clear) {
         r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
       }
       r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+      //console.error('smooth 2', r.close, r.last_close, r.ansi)
+      //process.exit()
       cb()
     },
     // detect trends from rsi
