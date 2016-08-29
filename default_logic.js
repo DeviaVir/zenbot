@@ -219,7 +219,7 @@ module.exports = function container (get, set, clear) {
         })
         if (missing) {
           if (!rs.missing_warning) {
-            get('logger').info('trader', c.default_selector.grey, 'missing RSI data, consider running `zenbot repair`'.red)
+            get('logger').info('trader', c.default_selector.grey, 'missing tick data, RSI might be inaccurate. Try running `zenbot map --backfill` or wait for 3.6 for the new `zenbot repair` tool.'.red)
           }
           rs.missing_warning = true
         }
