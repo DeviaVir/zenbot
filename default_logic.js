@@ -56,10 +56,10 @@ module.exports = function container (get, set, clear) {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
       rs.rsi_query_limit = 100
-      rs.rsi_periods = 14
+      rs.rsi_periods = 5
       rs.rsi_period = '1h'
-      rs.rsi_up = 60
-      rs.rsi_down = 20
+      rs.rsi_up = 75
+      rs.rsi_down = 25
       rs.check_period = '5m'
       rs.selector = 'data.trades.' + c.default_selector
       rs.trade_pct = 0.98 // trade % of current balance
@@ -73,9 +73,9 @@ module.exports = function container (get, set, clear) {
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 1000
-      rs.min_buy_wait = 86400000 * 1 // wait in ms after action before buying
-      rs.min_sell_wait = 86400000 * 1 // wait in ms after action before selling
-      rs.min_performance = -0.7 // abort trades with lower performance score
+      rs.min_buy_wait = 86400000 * 0.7 // wait in ms after action before buying
+      rs.min_sell_wait = 86400000 * 0.7 // wait in ms after action before selling
+      rs.min_performance = -1 // abort trades with lower performance score
       if (first_run) {
         delete rs.real_trade_warning
       }
@@ -482,6 +482,12 @@ module.exports = function container (get, set, clear) {
           rs.perf_warning = true
           return cb()
         }
+        rs.performance_scores || (rs.performance_scores = [])
+        rs.performance_scores.push(rs.performance)
+        var performance_sum = rs.performance_scores.reduce(function (prev, curr) {
+          return prev + curr
+        }, 0)
+        rs.performance_avg = n(performance_sum).divide(rs.performance_scores.length).value()
         rs.balance = new_balance
         rs.end_balance = rs.new_end_balance
         rs.roi = rs.new_roi
