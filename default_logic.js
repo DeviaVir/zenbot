@@ -55,10 +55,12 @@ module.exports = function container (get, set, clear) {
       if (options.verbose && get('command') === 'run') {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
-      rs.rsi_period = '1h'
-      rs.rsi_up = 70
-      rs.rsi_down = 30
-      rs.check_period = '5m'
+      rs.rsi_query_limit = 100 // RSI initial value lookback
+      rs.rsi_periods = 26 // RSI smoothing factor
+      rs.rsi_period = '5m' // RSI tick size
+      rs.rsi_up = 65 // upper RSI threshold
+      rs.rsi_down = 28 // lower RSI threshold
+      rs.check_period = '1m' // speed to trigger actions at
       rs.selector = 'data.trades.' + c.default_selector
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
@@ -70,10 +72,13 @@ module.exports = function container (get, set, clear) {
       })
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
-      rs.sim_start_balance = 1000
-      rs.min_buy_wait = 86400000 * 1 // wait in ms after action before buying
-      rs.min_sell_wait = 86400000 * 1 // wait in ms after action before selling
-      rs.min_performance = -0.7 // abort trades with lower performance score
+      rs.sim_start_balance = 10000
+      rs.min_double_wait = 86400000 * 1 // wait in ms after action before doing same action
+      rs.min_reversal_wait = 86400000 * 0.75 // wait in ms after action before doing opposite action
+      rs.min_performance = -0.015 // abort trades with lower performance score
+      if (first_run) {
+        delete rs.real_trade_warning
+      }
       cb()
     },
     // sync balance if key is present and we're in the `run` command
@@ -117,16 +122,18 @@ module.exports = function container (get, set, clear) {
         }
         var balance_sig = sig(rs.balance)
         if (balance_sig !== last_balance_sig) {
-          get('logger').info('trader', c.default_selector.grey, '"Starting REAL trading! Hold on to your butts!" --Zen'.cyan, ' Balance:'.grey, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, n(rs.balance[rs.currency]).format('0.00').yellow, rs.currency.grey, {feed: 'exchange'})
+          get('logger').info('trader', c.default_selector.grey, 'New account balance:'.cyan, n(rs.balance[rs.asset]).format('0.000').white, rs.asset.grey, format_currency(rs.balance[rs.currency], rs.currency).yellow, rs.currency.grey, {feed: 'trader'})
+          if (!rs.real_trade_warning) {
+            get('logger').info('trader', c.default_selector.grey, '"Starting REAL trading! Hold on to your butts!" --Zen'.cyan, {feed: 'trader'})
+            rs.real_trade_warning = true
+          }
           last_balance_sig = balance_sig
         }
         cb()
       })
     },
+    // record market price, balance, roi and stats
     function (tick, trigger, rs, cb) {
-      if (tick.size !== rs.check_period) {
-        return cb()
-      }
       // note the last close price
       var market_price = o(tick, rs.selector + '.close')
       // sometimes the tick won't have a close price for this selector.
@@ -134,6 +141,10 @@ module.exports = function container (get, set, clear) {
       if (market_price) {
         rs.market_price = market_price
       }
+      if (tick.size !== rs.check_period) {
+        return cb()
+      }
+      delete rs.lookback_warning
       rs.ticks || (rs.ticks = 0)
       rs.progress || (rs.progress = 0)
       if (!rs.market_price) {
@@ -153,59 +164,221 @@ module.exports = function container (get, set, clear) {
       }
       rs.roi = n(rs.consolidated_balance).divide(rs.start_balance).value()
       rs.ticks++
-      // get rsi
-      rs.rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
-      get('ticks').load(get('app_name') + ':' + rs.rsi_tick_id, function (err, rsi_tick) {
+      cb()
+    },
+    // calculate first rsi from ticks lookback
+    function (tick, trigger, rs, cb) {
+      var rsi_tick_id = tb(tick.time).resize(rs.rsi_period).toString()
+      if (rs.rsi && rs.rsi_tick_id && rs.rsi_tick_id !== rsi_tick_id) {
+        // rsi period turnover. record last rsi for smoothing.
+        rs.last_rsi = JSON.parse(JSON.stringify(rs.rsi))
+        rs.rsi.samples++
+        //console.error('last rsi', rs.last_rsi)
+      }
+      rs.rsi_tick_id = rsi_tick_id
+      cb()
+    },
+    function (tick, trigger, rs, cb) {
+      if (rs.first_rsi) {
+        return cb()
+      }
+      // calculate first rsi
+      //console.error('computing RSI', tick.id)
+      var bucket = tb(tick.time).resize(rs.rsi_period)
+      var params = {
+        query: {
+          app: get('app_name'),
+          size: rs.rsi_period,
+          time: {
+            $lt: bucket.toMilliseconds()
+          }
+        },
+        limit: rs.rsi_query_limit,
+        sort: {
+          time: -1
+        }
+      }
+      params.query[rs.selector] = {$exists: true}
+      get('ticks').select(params, function (err, lookback) {
         if (err) return cb(err)
-        var rsi = o(rsi_tick || {}, rs.selector + '.rsi')
-        var trend
-        if (rsi) {
-          rs.rsi = rsi
-        }
-        // require minimum data
-        if (!rs.rsi) {
-          if (!rs.rsi_warning) {
-            get('logger').info('trader', c.default_selector.grey, ('no ' + rs.rsi_period + ' RSI for tick ' + rs.rsi_tick_id).red, {feed: 'trader'})
+        var missing = false
+        if (lookback.length < rs.rsi_periods) {
+          if (!rs.lookback_warning) {
+            get('logger').info('trader', c.default_selector.grey, ('need more historical data, only have ' + lookback.length + ' of ' + rs.rsi_periods + ' ' + rs.rsi_period + ' ticks').yellow)
           }
-          rs.rsi_warning = true
+          rs.lookback_warning = true
+          return cb()
         }
-        else if (rs.rsi.samples < c.rsi_periods) {
-          if (!rs.rsi_warning) {
-            get('logger').info('trader', c.default_selector.grey, (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
+        bucket.subtract(1)
+        lookback.forEach(function (tick) {
+          while (bucket.toMilliseconds() > tick.time) {
+            get('logger').info('trader', c.default_selector.grey, ('missing RSI tick: ' + get_timestamp(bucket.toMilliseconds())).red)
+            missing = true
+            bucket.subtract(1)
           }
-          rs.rsi_warning = true
+          //get('logger').info('trader', 'RSI tick OK:'.grey, get_timestamp(bucket.toMilliseconds()).green)
+          bucket.subtract(1)
+        })
+        if (missing) {
+          if (!rs.missing_warning) {
+            get('logger').info('trader', c.default_selector.grey, 'missing tick data, RSI might be inaccurate. Try running `zenbot map --backfill` or wait for 3.6 for the new `zenbot repair` tool.'.red)
+          }
+          rs.missing_warning = true
+        }
+        if (!rs.missing_warning && !rs.rsi_complete_warning) {
+          get('logger').info('trader', c.default_selector.grey, ('historical data OK! computing initial RSI from last ' + lookback.length + ' ' + rs.rsi_period + ' ticks').green)
+          rs.rsi_complete_warning = true
+        }
+        withLookback(lookback.reverse())
+      })
+      function withLookback (lookback) {
+        var init_lookback = lookback.slice(0, rs.rsi_periods + 1)
+        var smooth_lookback = lookback.slice(rs.rsi_periods + 1)
+        var de = o(init_lookback.pop(), rs.selector)
+        var r = {}
+        r.samples = init_lookback.length
+        if (r.samples < rs.rsi_periods) {
+          return cb()
+        }
+        r.close = de.close
+        r.last_close = o(init_lookback[r.samples - 1], rs.selector).close
+        r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
+        r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
+        var prev_close = 0
+        var gain_sum = init_lookback.reduce(function (prev, curr) {
+          curr = o(curr, rs.selector)
+          if (!prev_close) {
+            prev_close = curr.close
+            return 0
+          }
+          var gain = curr.close > prev_close ? curr.close - prev_close : 0
+          prev_close = curr.close
+          return n(prev).add(gain).value()
+        }, 0)
+        var avg_gain = n(gain_sum).divide(r.samples).value()
+        prev_close = 0
+        var loss_sum = init_lookback.reduce(function (prev, curr) {
+          curr = o(curr, rs.selector)
+          if (!prev_close) {
+            prev_close = curr.close
+            return 0
+          }
+          var loss = curr.close < prev_close ? prev_close - curr.close : 0
+          prev_close = curr.close
+          return n(prev).add(loss).value()
+        }, 0)
+        var avg_loss = n(loss_sum).divide(r.samples).value()
+        r.last_avg_gain = avg_gain
+        r.last_avg_loss = avg_loss
+        r.avg_gain = n(r.last_avg_gain).multiply(rs.rsi_periods - 1).add(r.current_gain).divide(rs.rsi_periods).value()
+        r.avg_loss = n(r.last_avg_loss).multiply(rs.rsi_periods - 1).add(r.current_loss).divide(rs.rsi_periods).value()
+        if (r.avg_loss === 0) {
+          r.value = r.avg_gain ? 100 : 50
         }
         else {
-          if (rs.rsi.value >= rs.rsi_up) {
-            trend = 'UP'
-          }
-          else if (rs.rsi.value <= rs.rsi_down) {
-            trend = 'DOWN'
+          r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
+          r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
+        }
+        r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+        // first rsi, calculated from prev 14 ticks
+        rs.last_rsi = JSON.parse(JSON.stringify(r))
+        //console.error('first rsi', r)
+        rs.rsi = r
+        rs.first_rsi = rs.last_rsi = JSON.parse(JSON.stringify(r))
+        smooth_lookback.forEach(function (de) {
+          r.last_close = r.close
+          r.close = o(de, rs.selector).close
+          r.samples++
+          r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
+          r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
+          r.last_avg_gain = r.avg_gain
+          r.last_avg_loss = r.avg_loss
+          r.avg_gain = n(r.last_avg_gain).multiply(rs.rsi_periods - 1).add(r.current_gain).divide(rs.rsi_periods).value()
+          r.avg_loss = n(r.last_avg_loss).multiply(rs.rsi_periods - 1).add(r.current_loss).divide(rs.rsi_periods).value()
+          if (r.avg_loss === 0) {
+            r.value = r.avg_gain ? 100 : 50
           }
           else {
-            trend = null
+            r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
+            r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
           }
-        }
-        if (trend !== rs.trend) {
-          get('logger').info('trader', c.default_selector.grey, 'RSI:'.grey + rs.rsi.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
-          delete rs.balance_warning
-          delete rs.roi_warning
-          delete rs.rsi_warning
-          delete rs.delta_warning
-          delete rs.buy_warning
-          delete rs.perf_warning
-          delete rs.action_warning
-          delete rs.trend_warning
-        }
-        rs.trend = trend
+          r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+          rs.last_rsi = JSON.parse(JSON.stringify(r))
+          //console.error('smooth', r.close, r.last_close, r.ansi)
+        })
         cb()
-      })
+      }
+    },
+    // calculate the smoothed rsi if we have last_rsi
+    function (tick, trigger, rs, cb) {
+      if (!rs.market_price || !rs.rsi || !rs.last_rsi) {
+        return cb()
+      }
+      var r = rs.rsi
+      //console.error('market', rs.market_price, rs.rsi)
+      r.close = rs.market_price
+      r.last_close = rs.last_rsi.close
+      r.current_gain = r.close > r.last_close ? n(r.close).subtract(r.last_close).value() : 0
+      r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
+      r.last_avg_gain = rs.last_rsi.avg_gain
+      r.last_avg_loss = rs.last_rsi.avg_loss
+      r.avg_gain = n(r.last_avg_gain).multiply(rs.rsi_periods - 1).add(r.current_gain).divide(rs.rsi_periods).value()
+      r.avg_loss = n(r.last_avg_loss).multiply(rs.rsi_periods - 1).add(r.current_loss).divide(rs.rsi_periods).value()
+      if (r.avg_loss === 0) {
+        r.value = r.avg_gain ? 100 : 50
+      }
+      else {
+        r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
+        r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
+      }
+      r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+      //console.error('smooth 2', r.close, r.last_close, r.ansi)
+      //process.exit()
+      cb()
+    },
+    // detect trends from rsi
+    function (tick, trigger, rs, cb) {
+      var trend
+      var r = rs.rsi
+      if (!r) {
+        return cb()
+      }
+      if (r.samples < rs.rsi_periods) {
+        if (!rs.rsi_warning) {
+          // get('logger').info('trader', c.default_selector.grey, (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
+        }
+        rs.rsi_warning = true
+      }
+      else {
+        if (r.value >= rs.rsi_up) {
+          trend = 'UP'
+        }
+        else if (r.value <= rs.rsi_down) {
+          trend = 'DOWN'
+        }
+        else {
+          trend = null
+        }
+      }
+      if (trend !== rs.trend) {
+        get('logger').info('trader', c.default_selector.grey, 'RSI:'.grey + r.ansi, ('trend: ' + rs.trend + ' -> ' + trend).yellow, {feed: 'trader'})
+        delete rs.balance_warning
+        delete rs.roi_warning
+        delete rs.rsi_warning
+        delete rs.delta_warning
+        delete rs.buy_warning
+        delete rs.perf_warning
+        delete rs.action_warning
+        delete rs.trend_warning
+      }
+      rs.trend = trend
+      cb()
     },
     // @todo MACD
     function (tick, trigger, rs, cb) {
       cb()
     },
-    // trigger trade signals
+    // trigger trade signals from trends
     function (tick, trigger, rs, cb) {
       if (tick.size !== rs.check_period) {
         return cb()
@@ -215,15 +388,15 @@ module.exports = function container (get, set, clear) {
         get('logger').info('trader', c.default_selector.grey, ('skipping historical tick ' + tick.id).grey, {feed: 'trader'})
         return cb()
       }
-      if (rs.trend && !rs.trend_warning) {
-        get('logger').info('trader', c.default_selector.grey, ('acting on trend: ' + rs.trend + '!').yellow, {feed: 'trader'})
-        if (!rs.balance) {
+      if (rs.trend) {
+        if (!rs.trend_warning && !rs.balance) {
           get('logger').info('trader', c.default_selector.grey, ('no balance to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+          rs.trend_warning = true
         }
-        if (!rs.market_price) {
+        else if (!rs.trend_warning && !rs.market_price) {
           get('logger').info('trader', c.default_selector.grey, ('no market_price to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+          rs.trend_warning = true
         }
-        rs.trend_warning = true
       }
       rs.progress = 1
       if (rs.trend && rs.balance && rs.market_price) {
@@ -239,9 +412,16 @@ module.exports = function container (get, set, clear) {
         size = n(size || 0).multiply(rs.trade_pct).value()
         if (rs.trend === 'DOWN') {
           // SELL!
-          if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_sell_wait) {
+          if (rs.last_sell_time && tick.time - rs.last_sell_time <= rs.min_double_wait) {
             if (!rs.sell_warning) {
-              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
+              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after sell! waiting ' + get_duration(n(rs.min_double_wait).subtract(n(tick.time).subtract(rs.last_sell_time)).multiply(1000).value())).red, {feed: 'trader'})
+            }
+            rs.sell_warning = true
+            return cb()
+          }
+          if (rs.last_buy_time && tick.time - rs.last_buy_time <= rs.min_reversal_wait) {
+            if (!rs.sell_warning) {
+              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after buy! waiting ' + get_duration(n(rs.min_reversal_wait).subtract(n(tick.time).subtract(rs.last_buy_time)).multiply(1000).value())).red, {feed: 'trader'})
             }
             rs.sell_warning = true
             return cb()
@@ -256,9 +436,16 @@ module.exports = function container (get, set, clear) {
         }
         else if (rs.trend === 'UP') {
           // BUY!
-          if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_buy_wait) {
+          if (rs.last_buy_time && tick.time - rs.last_buy_time <= rs.min_double_wait) {
             if (!rs.buy_warning) {
-              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_buy_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
+              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after buy! waiting ' + get_duration(n(rs.min_double_wait).subtract(n(tick.time).subtract(rs.last_buy_time)).multiply(1000).value())).red, {feed: 'trader'})
+            }
+            rs.buy_warning = true
+            return cb()
+          }
+          if (rs.last_sell_time && tick.time - rs.last_sell_time <= rs.min_reversal_wait) {
+            if (!rs.buy_warning) {
+              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after sell! waiting ' + get_duration(n(rs.min_reversal_wait).subtract(n(tick.time).subtract(rs.last_sell_time)).multiply(1000).value())).red, {feed: 'trader'})
             }
             rs.buy_warning = true
             return cb()
@@ -295,12 +482,10 @@ module.exports = function container (get, set, clear) {
         if (rs.op === 'buy') {
           // % drop
           rs.performance = rs.last_sell_price ? n(rs.last_sell_price).subtract(rs.market_price).divide(rs.last_sell_price).value() : null
-          rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
         else {
           // % gain
           rs.performance = rs.last_buy_price ? n(rs.market_price).subtract(rs.last_buy_price).divide(rs.last_buy_price).value() : null
-          rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
         if (rs.min_performance && rs.performance !== null && rs.performance < rs.min_performance) {
           if (!rs.perf_warning) {
@@ -309,6 +494,20 @@ module.exports = function container (get, set, clear) {
           rs.perf_warning = true
           return cb()
         }
+        if (rs.op === 'buy') {
+          rs.waited = rs.last_sell_time ? get_duration(n(tick.time).subtract(rs.last_sell_time).multiply(1000).value()) : null
+          rs.last_buy_time = tick.time
+        }
+        else {
+          rs.waited = rs.last_buy_time ? get_duration(n(tick.time).subtract(rs.last_buy_time).multiply(1000).value()) : null
+          rs.last_sell_time = tick.time
+        }
+        rs.performance_scores || (rs.performance_scores = [])
+        rs.performance_scores.push(rs.performance)
+        var performance_sum = rs.performance_scores.reduce(function (prev, curr) {
+          return prev + curr
+        }, 0)
+        rs.performance_avg = n(performance_sum).divide(rs.performance_scores.length).value()
         rs.balance = new_balance
         rs.end_balance = rs.new_end_balance
         rs.roi = rs.new_roi
@@ -352,7 +551,6 @@ module.exports = function container (get, set, clear) {
         else {
           rs.last_sell_price = rs.market_price
         }
-        rs.last_action_time = tick.time
         rs.last_op = rs.op
       }
       cb()

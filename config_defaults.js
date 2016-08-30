@@ -14,15 +14,6 @@ module.exports = function (c) {
   c.sma_query_limit = 20
   c.sma_periods = 10
 
-  // RSI indicator config
-  c.rsi_sizes = ['1h']
-  c.rsi_reporter_size = '1h'
-  c.rsi_query_limit = 100
-  c.rsi_periods = 14
-  c.rsi_backfill_timeout = 30000
-  c.rsi_backfill_report = false
-  c.rsi_backfill_min_report = 2
-
   c.ansi_graph_width = 20
   c.ansi_graph_decay = 0.01
 
