@@ -73,8 +73,8 @@ module.exports = function container (get, set, clear) {
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 1000
-      rs.min_buy_wait = 86400000 * 0.1 // wait in ms after action before buying
-      rs.min_sell_wait = 86400000 * 0.1 // wait in ms after action before selling
+      rs.min_double_wait = 86400000 * 1 // wait in ms after action before doing same action
+      rs.min_reversal_wait = 86400000 * 0.1 // wait in ms after action before doing opposite action
       rs.min_performance = -1 // abort trades with lower performance score
       if (first_run) {
         delete rs.real_trade_warning
@@ -412,9 +412,16 @@ module.exports = function container (get, set, clear) {
         size = n(size || 0).multiply(rs.trade_pct).value()
         if (rs.trend === 'DOWN') {
           // SELL!
-          if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_sell_wait) {
+          if (rs.last_sell_time && tick.time - rs.last_sell_time <= rs.min_double_wait) {
             if (!rs.sell_warning) {
-              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_sell_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
+              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after sell! waiting ' + get_duration(n(rs.min_double_wait).subtract(n(tick.time).subtract(rs.last_sell_time)).multiply(1000).value())).red, {feed: 'trader'})
+            }
+            rs.sell_warning = true
+            return cb()
+          }
+          if (rs.last_buy_time && tick.time - rs.last_buy_time <= rs.min_reversal_wait) {
+            if (!rs.sell_warning) {
+              get('logger').info('trader', c.default_selector.grey, ('too soon to sell after buy! waiting ' + get_duration(n(rs.min_reversal_wait).subtract(n(tick.time).subtract(rs.last_buy_time)).multiply(1000).value())).red, {feed: 'trader'})
             }
             rs.sell_warning = true
             return cb()
@@ -429,9 +436,16 @@ module.exports = function container (get, set, clear) {
         }
         else if (rs.trend === 'UP') {
           // BUY!
-          if (rs.last_action_time && tick.time - rs.last_action_time <= rs.min_buy_wait) {
+          if (rs.last_buy_time && tick.time - rs.last_buy_time <= rs.min_double_wait) {
             if (!rs.buy_warning) {
-              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after ' + rs.last_op + '! waiting ' + get_duration(n(rs.min_buy_wait).subtract(n(tick.time).subtract(rs.last_action_time)).multiply(1000).value())).red, {feed: 'trader'})
+              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after buy! waiting ' + get_duration(n(rs.min_double_wait).subtract(n(tick.time).subtract(rs.last_buy_time)).multiply(1000).value())).red, {feed: 'trader'})
+            }
+            rs.buy_warning = true
+            return cb()
+          }
+          if (rs.last_sell_time && tick.time - rs.last_sell_time <= rs.min_reversal_wait) {
+            if (!rs.buy_warning) {
+              get('logger').info('trader', c.default_selector.grey, ('too soon to buy after sell! waiting ' + get_duration(n(rs.min_reversal_wait).subtract(n(tick.time).subtract(rs.last_sell_time)).multiply(1000).value())).red, {feed: 'trader'})
             }
             rs.buy_warning = true
             return cb()
@@ -468,12 +482,10 @@ module.exports = function container (get, set, clear) {
         if (rs.op === 'buy') {
           // % drop
           rs.performance = rs.last_sell_price ? n(rs.last_sell_price).subtract(rs.market_price).divide(rs.last_sell_price).value() : null
-          rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
         else {
           // % gain
           rs.performance = rs.last_buy_price ? n(rs.market_price).subtract(rs.last_buy_price).divide(rs.last_buy_price).value() : null
-          rs.waited = rs.last_action_time ? get_duration(n(tick.time).subtract(rs.last_action_time).multiply(1000).value()) : null
         }
         if (rs.min_performance && rs.performance !== null && rs.performance < rs.min_performance) {
           if (!rs.perf_warning) {
@@ -481,6 +493,14 @@ module.exports = function container (get, set, clear) {
           }
           rs.perf_warning = true
           return cb()
+        }
+        if (rs.op === 'buy') {
+          rs.waited = rs.last_sell_time ? get_duration(n(tick.time).subtract(rs.last_sell_time).multiply(1000).value()) : null
+          rs.last_buy_time = tick.time
+        }
+        else {
+          rs.waited = rs.last_buy_time ? get_duration(n(tick.time).subtract(rs.last_buy_time).multiply(1000).value()) : null
+          rs.last_sell_time = tick.time
         }
         rs.performance_scores || (rs.performance_scores = [])
         rs.performance_scores.push(rs.performance)
@@ -531,7 +551,6 @@ module.exports = function container (get, set, clear) {
         else {
           rs.last_sell_price = rs.market_price
         }
-        rs.last_action_time = tick.time
         rs.last_op = rs.op
       }
       cb()
