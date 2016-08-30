@@ -56,7 +56,7 @@ module.exports = function container (get, set, clear) {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
       rs.rsi_query_limit = 100
-      rs.rsi_periods = 20
+      rs.rsi_periods = 14
       rs.rsi_period = '1h'
       rs.rsi_up = 60
       rs.rsi_down = 20
