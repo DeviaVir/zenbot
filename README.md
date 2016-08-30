@@ -27,7 +27,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.5.13 making a [1.788 ROI](https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68) in only 3 months, using default parameters!
+Current simulations on historical data from May - August 2016 show Zenbot 3.5.15 making a [1.531 ROI](https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
@@ -47,9 +47,9 @@ HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage do
 
 In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
 
-![screenshot](https://cloud.githubusercontent.com/assets/106763/17872578/8f13af10-6875-11e6-8284-d6863f9a1e1e.png)
+![screenshot](https://cloud.githubusercontent.com/assets/106763/18077269/4f5deefc-6e39-11e6-9e3e-6d4bba583c03.png)
 
-RAW data from simulation: https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68
+RAW data from simulation: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e
 
 ## Quick-start
 
@@ -168,7 +168,7 @@ Once backfill has finished (should collect about 84 days of data), run a simulat
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `default_logic.js` for new trade strategies and check your results this way.
 
-Example simulation result: https://gist.github.com/carlos8f/c600abb8b984eae31ff770aa2ee0ad68
+Example simulation result: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e
 
 #### About the default trade logic in `default_logic.js`
 
