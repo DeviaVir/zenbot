@@ -1,0 +1,68 @@
+server:
+  build: .
+  volumes:
+    - .:/app
+    - /app/node_modules
+  ports:
+    - "3013:3013"
+  links:
+    - mongodb
+    - reducer
+    - btc-usd
+    # - eth-usd # Uncomment for `eth-usd` support (also uncomment container below)
+    # - eth-btc # Uncomment for `eth-btc` support (also uncomment container below)
+  command: ./server.sh
+
+reducer:
+  build: .
+  volumes:
+    - .:/app
+    - /app/node_modules
+  links:
+    - mongodb
+  command: ./reducer.sh
+
+btc-usd:
+  build: .
+  volumes:
+    - .:/app
+    - /app/node_modules
+  links:
+    - mongodb
+  command: ./run-btc-usd.sh
+
+### Uncomment for `eth-usd` support
+# eth-usd:
+#   build: .
+#   volumes:
+#     - .:/app
+#     - /app/node_modules
+#   links:
+#     - mongodb
+#   command: ./run-eth-usd.sh
+### /Uncomment for `eth-usd` support
+
+### Uncomment for `eth-btc` support
+# eth-btc:
+#   build: .
+#   volumes:
+#     - .:/app
+#     - /app/node_modules
+#   links:
+#     - mongodb
+#   command: ./run-eth-btc.sh
+### /Uncomment for `eth-btc` support
+
+mongodb:
+  image: mongo:latest
+  ports:
+    - "27017:27017"
+  volumes_from:
+    - mongodb-data
+  command: mongod --smallfiles
+
+mongodb-data:
+  image: mongo:latest
+  volumes:
+    - ./data/db:/data/db
+  command: "true"
