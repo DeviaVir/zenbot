@@ -15,13 +15,13 @@ module.exports = function container (get, set, clear) {
         if (rs.rsi.value > 50) {
           bar += ' '.repeat(half)
           // RSI 90 is full +
-          var stars = Math.round(((rs.rsi.value - 50) / 40) * half)
+          var stars = rs.rsi.value > 100 ? half : Math.round(((rs.rsi.value - 50) / 50) * half)
           bar += '+'.repeat(stars).green.bgGreen
           bar += ' '.repeat(half - stars)
         }
         else if (rs.rsi.value < 50) {
           // RSI 10 is full -
-          var stars = Math.round(((50 - rs.rsi.value) / 40) * half)
+          var stars = rs.rsi.value < 0 ? half : Math.round(((50 - rs.rsi.value) / 50) * half)
           bar += ' '.repeat(half - stars)
           bar += '-'.repeat(stars).red.bgRed
           bar += ' '.repeat(half)
