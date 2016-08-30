@@ -73,8 +73,8 @@ module.exports = function container (get, set, clear) {
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 1000
-      rs.min_buy_wait = 86400000 * 0.7 // wait in ms after action before buying
-      rs.min_sell_wait = 86400000 * 0.7 // wait in ms after action before selling
+      rs.min_buy_wait = 86400000 * 0.1 // wait in ms after action before buying
+      rs.min_sell_wait = 86400000 * 0.1 // wait in ms after action before selling
       rs.min_performance = -1 // abort trades with lower performance score
       if (first_run) {
         delete rs.real_trade_warning
