@@ -55,12 +55,12 @@ module.exports = function container (get, set, clear) {
       if (options.verbose && get('command') === 'run') {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
-      rs.rsi_query_limit = 100
-      rs.rsi_periods = 10
-      rs.rsi_period = '6h'
-      rs.rsi_up = 60
-      rs.rsi_down = 40
-      rs.check_period = '1h'
+      rs.rsi_query_limit = 100 // RSI initial value lookback
+      rs.rsi_periods = 30 // RSI smoothing factor
+      rs.rsi_period = '5m' // RSI tick size
+      rs.rsi_up = 70 // upper RSI threshold
+      rs.rsi_down = 30 // lower RSI threshold
+      rs.check_period = '1m' // speed to trigger actions at
       rs.selector = 'data.trades.' + c.default_selector
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
