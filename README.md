@@ -57,7 +57,7 @@ RAW data from simulation: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1
 
 #### Windows - I don't support it.
 
-If you're having an error on Windows and you're about to give up, it's probably because Node.js is generally broken on Windows and you should try running on a Linux docker container or a Mac instead.
+If you're having an error on Windows and you're about to give up, it's probably because Node.js is generally broken on Windows and you should try running on a Linux docker container (look at step 7 and follow instructions for Windows) or a Mac instead.
 
 If you're still insistent on using Windows, you'll have to fork zenbot, fix it yourself, and I'll accept a Pull Request.
 
@@ -186,7 +186,20 @@ Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days
 
 Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
 
-### 7. Web console
+### 7. Docker
+
+Install Docker, Docker Compose, Docker Machine (if necessary) You can follow instructions at https://docs.docker.com/compose/install/
+
+After installation
+
+```
+git clone https://github.com/carlos8f/zenbot.git
+cd zenbot
+docker-compose build
+docker-compose up (-d if you don't want to see the log)
+```
+
+### 8. Web console
 
 When the server is running, and you have visited the `?secret` URL provided in the console, you can access an aggregated, live feed of log messages at `http://localhost:3013/logs`. Example:
 

@@ -1,7 +1,8 @@
 var c = module.exports = require('./config_defaults')()
 
 // mongo stuff
-c.mongo_url = "mongodb://localhost:27017/zenbrain" // change if your mongo server isn't local
+c.mongo_url = "mongodb://" + (process.env.MONGODB_PORT_27017_TCP_ADDR || "localhost") + ":27017/zenbrain" // change if your mongo server isn't local
+
 c.mongo_username = null // normally not needed
 c.mongo_password = null
 

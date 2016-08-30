@@ -11,3 +11,4 @@ github.pub
 github
 config.js
 config.patch
+data/*
