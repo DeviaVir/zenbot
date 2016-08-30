@@ -55,6 +55,8 @@ module.exports = function container (get, set, clear) {
       if (options.verbose && get('command') === 'run') {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
+      rs.rsi_query_limit = 100
+      rs.rsi_periods = 14
       rs.rsi_period = '1h'
       rs.rsi_up = 70
       rs.rsi_down = 30
@@ -191,7 +193,7 @@ module.exports = function container (get, set, clear) {
             $lt: bucket.toMilliseconds()
           }
         },
-        limit: c.rsi_query_limit,
+        limit: rs.rsi_query_limit,
         sort: {
           time: -1
         }
@@ -200,9 +202,9 @@ module.exports = function container (get, set, clear) {
       get('ticks').select(params, function (err, lookback) {
         if (err) return cb(err)
         var missing = false
-        if (lookback.length < c.rsi_periods) {
+        if (lookback.length < rs.rsi_periods) {
           if (!rs.lookback_warning) {
-            get('logger').info('trader', c.default_selector.grey, ('need more historical data, only have ' + lookback.length + ' of ' + c.rsi_periods + ' ' + rs.rsi_period + ' ticks').yellow)
+            get('logger').info('trader', c.default_selector.grey, ('need more historical data, only have ' + lookback.length + ' of ' + rs.rsi_periods + ' ' + rs.rsi_period + ' ticks').yellow)
           }
           rs.lookback_warning = true
           return cb()
@@ -230,12 +232,12 @@ module.exports = function container (get, set, clear) {
         withLookback(lookback.reverse())
       })
       function withLookback (lookback) {
-        var init_lookback = lookback.slice(0, c.rsi_periods + 1)
-        var smooth_lookback = lookback.slice(c.rsi_periods + 1)
+        var init_lookback = lookback.slice(0, rs.rsi_periods + 1)
+        var smooth_lookback = lookback.slice(rs.rsi_periods + 1)
         var de = o(init_lookback.pop(), rs.selector)
         var r = {}
         r.samples = init_lookback.length
-        if (r.samples < c.rsi_periods) {
+        if (r.samples < rs.rsi_periods) {
           return cb()
         }
         r.close = de.close
@@ -268,8 +270,8 @@ module.exports = function container (get, set, clear) {
         var avg_loss = n(loss_sum).divide(r.samples).value()
         r.last_avg_gain = avg_gain
         r.last_avg_loss = avg_loss
-        r.avg_gain = n(r.last_avg_gain).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
-        r.avg_loss = n(r.last_avg_loss).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
+        r.avg_gain = n(r.last_avg_gain).multiply(rs.rsi_periods - 1).add(r.current_gain).divide(rs.rsi_periods).value()
+        r.avg_loss = n(r.last_avg_loss).multiply(rs.rsi_periods - 1).add(r.current_loss).divide(rs.rsi_periods).value()
         if (r.avg_loss === 0) {
           r.value = r.avg_gain ? 100 : 50
         }
@@ -291,8 +293,8 @@ module.exports = function container (get, set, clear) {
           r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
           r.last_avg_gain = r.avg_gain
           r.last_avg_loss = r.avg_loss
-          r.avg_gain = n(r.last_avg_gain).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
-          r.avg_loss = n(r.last_avg_loss).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
+          r.avg_gain = n(r.last_avg_gain).multiply(rs.rsi_periods - 1).add(r.current_gain).divide(rs.rsi_periods).value()
+          r.avg_loss = n(r.last_avg_loss).multiply(rs.rsi_periods - 1).add(r.current_loss).divide(rs.rsi_periods).value()
           if (r.avg_loss === 0) {
             r.value = r.avg_gain ? 100 : 50
           }
@@ -320,8 +322,8 @@ module.exports = function container (get, set, clear) {
       r.current_loss = r.close < r.last_close ? n(r.last_close).subtract(r.close).value() : 0
       r.last_avg_gain = rs.last_rsi.avg_gain
       r.last_avg_loss = rs.last_rsi.avg_loss
-      r.avg_gain = n(r.last_avg_gain).multiply(c.rsi_periods - 1).add(r.current_gain).divide(c.rsi_periods).value()
-      r.avg_loss = n(r.last_avg_loss).multiply(c.rsi_periods - 1).add(r.current_loss).divide(c.rsi_periods).value()
+      r.avg_gain = n(r.last_avg_gain).multiply(rs.rsi_periods - 1).add(r.current_gain).divide(rs.rsi_periods).value()
+      r.avg_loss = n(r.last_avg_loss).multiply(rs.rsi_periods - 1).add(r.current_loss).divide(rs.rsi_periods).value()
       if (r.avg_loss === 0) {
         r.value = r.avg_gain ? 100 : 50
       }
@@ -341,7 +343,7 @@ module.exports = function container (get, set, clear) {
       if (!r) {
         return cb()
       }
-      if (r.samples < c.rsi_periods) {
+      if (r.samples < rs.rsi_periods) {
         if (!rs.rsi_warning) {
           // get('logger').info('trader', c.default_selector.grey, (rs.rsi_period + ' RSI: not enough samples for tick ' + rs.rsi_tick_id + ': ' + rs.rsi.samples).red, {feed: 'trader'})
         }
