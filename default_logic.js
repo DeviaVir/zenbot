@@ -56,11 +56,11 @@ module.exports = function container (get, set, clear) {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
       rs.rsi_query_limit = 100
-      rs.rsi_periods = 5
-      rs.rsi_period = '1h'
-      rs.rsi_up = 80
-      rs.rsi_down = 20
-      rs.check_period = '5m'
+      rs.rsi_periods = 10
+      rs.rsi_period = '6h'
+      rs.rsi_up = 60
+      rs.rsi_down = 40
+      rs.check_period = '1h'
       rs.selector = 'data.trades.' + c.default_selector
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
@@ -73,8 +73,8 @@ module.exports = function container (get, set, clear) {
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 1000
-      rs.min_double_wait = 86400000 * 1 // wait in ms after action before doing same action
-      rs.min_reversal_wait = 86400000 * 0.1 // wait in ms after action before doing opposite action
+      rs.min_double_wait = 86400000 * 0.5 // wait in ms after action before doing same action
+      rs.min_reversal_wait = 86400000 * 0.5 // wait in ms after action before doing opposite action
       rs.min_performance = -1 // abort trades with lower performance score
       if (first_run) {
         delete rs.real_trade_warning
@@ -388,15 +388,15 @@ module.exports = function container (get, set, clear) {
         get('logger').info('trader', c.default_selector.grey, ('skipping historical tick ' + tick.id).grey, {feed: 'trader'})
         return cb()
       }
-      if (rs.trend && !rs.trend_warning) {
-        get('logger').info('trader', c.default_selector.grey, ('acting on trend: ' + rs.trend + '!').yellow, {feed: 'trader'})
-        if (!rs.balance) {
+      if (rs.trend) {
+        if (!rs.trend_warning && !rs.balance) {
           get('logger').info('trader', c.default_selector.grey, ('no balance to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+          rs.trend_warning = true
         }
-        if (!rs.market_price) {
+        else if (!rs.trend_warning && !rs.market_price) {
           get('logger').info('trader', c.default_selector.grey, ('no market_price to act on trend: ' + rs.trend + '!').red, {feed: 'trader'})
+          rs.trend_warning = true
         }
-        rs.trend_warning = true
       }
       rs.progress = 1
       if (rs.trend && rs.balance && rs.market_price) {
