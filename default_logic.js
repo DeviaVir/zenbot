@@ -56,11 +56,11 @@ module.exports = function container (get, set, clear) {
         get('logger').info('trader', c.default_selector.grey, get_tick_str(tick.id), 'running logic'.grey, rs.asset.grey, rs.currency.grey, {feed: 'trader'})
       }
       rs.rsi_query_limit = 100 // RSI initial value lookback
-      rs.rsi_periods = 30 // RSI smoothing factor
+      rs.rsi_periods = 26 // RSI smoothing factor
       rs.rsi_period = '5m' // RSI tick size
-      rs.rsi_up = 70 // upper RSI threshold
-      rs.rsi_down = 30 // lower RSI threshold
-      rs.check_period = '1m' // speed to trigger actions at
+      rs.rsi_up = 65 // upper RSI threshold
+      rs.rsi_down = 28 // lower RSI threshold
+      rs.check_period = '5m' // speed to trigger actions at
       rs.selector = 'data.trades.' + c.default_selector
       rs.trade_pct = 0.98 // trade % of current balance
       rs.fee_pct = 0.0025 // apply 0.25% taker fee
@@ -72,9 +72,9 @@ module.exports = function container (get, set, clear) {
       })
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
-      rs.sim_start_balance = 1000
+      rs.sim_start_balance = 10000
       rs.min_double_wait = 86400000 * 2 // wait in ms after action before doing same action
-      rs.min_reversal_wait = 86400000 * 0.5 // wait in ms after action before doing opposite action
+      rs.min_reversal_wait = 86400000 * 0.75 // wait in ms after action before doing opposite action
       rs.min_performance = -1 // abort trades with lower performance score
       if (first_run) {
         delete rs.real_trade_warning
