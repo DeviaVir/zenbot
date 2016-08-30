@@ -207,7 +207,9 @@ When the server is running, and you have visited the `?secret` URL provided in t
 
 ### Update Log
 
-- [**3.5.15**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.15) (Latest)
+- [**3.5.16**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.15) (Latest)
+    - Added Docker support, thanks to @egorbenko, @grigio, and @BarnumD !
+- **3.5.15**
     - Fixed [RSI smoothing issue](https://github.com/carlos8f/zenbot/issues/53), now RSI is calculated on the run_state instead of the tick. Switched to using heavily smoothed 5m RSI in `default_logic.js`. RSI no longer needs to be backfilled, and is dynamically calculated after applying this update. Raised ROI 1.460 -> 1.531 from last update.
 - **3.5.14**
     - Fixed [#39](https://github.com/carlos8f/zenbot/issues/39) 404 for trades.csv
