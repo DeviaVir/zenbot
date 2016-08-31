@@ -53,15 +53,12 @@ RAW data from simulation: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1
 
 ## Quick-start
 
-### 1. Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/download-center)
+### 1. Requirements
 
-#### Windows - I don't support it.
+- Linux or Mac OSX (or [Docker](https://docker.com/), see Step 7)
+- [Node.js](https://nodejs.org/), and [MongoDB](https://www.mongodb.com/download-center).
 
-If you're having an error on Windows and you're about to give up, it's probably because Node.js is generally broken on Windows and you should try running on a Linux docker container (look at step 7 and follow instructions for Windows) or a Mac instead.
-
-If you're still insistent on using Windows, you'll have to fork zenbot, fix it yourself, and I'll accept a Pull Request.
-
-### 2. Install zenbot 3:
+### 2. Installation
 
 ```
 git clone https://github.com/carlos8f/zenbot.git
@@ -79,114 +76,62 @@ tar -xf zenbrain.tar.gz
 mongorestore
 ```
 
-### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
+### 3. Configuration
 
-Note: add your GDAX key to `config.js` to enable real trading.
+Copy `config_sample.js` to `config.js`.
 
-### 4. Run zenbot (single-pair mode)
+- No config changes are needed to run Zenbot in advisor mode.
+- Add your exchange API key to `config.js` if you want Zenbot to trade for you.
+- Full list of overridable variables can be found in `config_defaults.js`
+- You can create alternate config files and run Zenbot with `--config <path>` to use that config.
 
-The following command will run all Zenbot functionality, using the default BTC/USD pair.
+### 4. Choose exchange/currency
 
-```
-./run.sh
-```
+Next you need to choose an exchange and currency pair (the "selector") for Zenbot to track and/or trade on.
 
-Here's how to run a different pair (example: ETH-BTC):
-
-```
-./zenbot launch map --backfill reduce run server --config config_eth_btc.js
-```
-
-### 4. Run zenbot (multi-pair mode)
-
-The following will run multiple currency pairs along with the reducer and server in separate processes.
-
-Required: reducer (for processing trade data):
+To get a list of exchanges (and corresponding selectors) your Zenbot install supports, run:
 
 ```
-./reducer.sh
+zenbot info --exchanges
 ```
 
-Optional: server (for candlestick graphs and aggregated log):
+### 5. Run Zenbot
+
+For each selector you're interested in, run in your terminal:
 
 ```
-./server.sh
+zenbot run --selector <selector> [--trade]
 ```
 
-Required: one or more run scripts (watches trades of a given pair and performs trade actions on the exchange or simulation)
+By default Zenbot runs in "advisor mode", meaning it only gives you trading advice while watching the exchange. To enable real trades, add the `--trade` flag.
+
+### 6. (Optional) Run the HTTP server
+
+To gain access to a live candlestick graph, run:
 
 ```
-./run-btc-usd.sh
+zenbot server [--port <port>]
 ```
 
-And/or to trade ETH,
+Then open the live graph URL provided in the console. After you've visied the `?secret` URL provided in the console, you can also access an aggregated, live feed of log messages at [http://localhost:3013/logs](http://localhost:3013/logs). Example:
+
+![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
+
+### 7. (Optional) Backtesting
+
+Once the `run` command says "backfill has finished", (it should collect about 84 days of data), run a simulation:
 
 ```
-./run-eth-usd.sh
+./zenbot sim --selector <selector> [--start '<date>'] [--end '<date>'] [--verbose]
 ```
 
-And/or to trade ETH/BTC,
-
-```
-./run-eth-btc.sh
-```
-
-### 5. If running server, open the live graph URL provided in the console.
-
-To access the CLI,
-
-```
-./zenbot
-
-  Usage: ./zenbot [options] [command]
-
-  Commands:
-
-    server [options]            launch the server
-    launch [options] [cmds...]  launch multiple commands
-    map [options]               map
-    reduce [options]            reduce
-    run                         run
-    sim [options]               sim
-
-  Options:
-
-    -h, --help     output usage information
-    -V, --version  output the version number
-    --config <path>  specify a path for config.js overrides
-```
-
-The `./run.sh` script combines `launch map --backfill reduce run server`, so use the CLI to access the other commands.
-
-### 6. Simulation
-
-Once backfill has finished (should collect about 84 days of data), run a simulation:
-
-```
-./zenbot sim [--verbose]
-```
+`<date>` should be in the form: 'YYYY-MM-DD hh:mm:ss' (MySQL datestamp) in your machine's local timezone.
 
 Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `default_logic.js` for new trade strategies and check your results this way.
 
 Example simulation result: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e
 
-#### About the default trade logic in `default_logic.js`
-
-- uses [GDAX](https://gdax.com/) API
-- acts at 5 minute increments (ticks), but you can configure to act quicker or slower.
-- computes the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) at each 5m tick
-- considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend
-- Buys at the beginning of upwards trend, sells at the beginning of downwards trend
-- trades 98% of current balance, market price
-- Holds for min. 24 hours after a trade
-
-You can tweak the JS from there to trade on Bitfinex, or whatever. After tweaking `default_logic.js`, Use `./zenbot sim [--verbose]` to check your strategy against historical trades.
-
-Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days (12 weeks), to ensure input consistency.
-
-Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
-
-### 7. Docker
+### 8. (Optional) Run with Docker
 
 Install Docker, Docker Compose, Docker Machine (if necessary) You can follow instructions at https://docs.docker.com/compose/install/
 
@@ -199,13 +144,7 @@ docker-compose build
 docker-compose up (-d if you don't want to see the log)
 ```
 
-### 8. Web console
-
-When the server is running, and you have visited the `?secret` URL provided in the console, you can access an aggregated, live feed of log messages at `http://localhost:3013/logs`. Example:
-
-![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
-
-### Update Log
+## Update Log
 
 - [**3.5.16**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.15) (Latest)
     - Added Docker support, thanks to @egorbenko, @grigio, and @BarnumD !
@@ -298,6 +237,24 @@ When the server is running, and you have visited the `?secret` URL provided in t
 ### Update Tips
 
 To update your Zenbot installation, use `./update.sh`. If you have merge conflicts after update, solve them, then run `./run.sh`. If you have runtime JavaScript errors after update, your database might be obsolete. Try dropping your `zenbrain` DB and run `run.sh` again to start with a clean state.
+
+## Trade logic
+
+The actual trader logic is contained in `default_logic.js`. You can edit or copy this logic into whatever you'd like the bot to do. This will be abstracted and organized better in later versions of Zenbot.
+
+- uses [GDAX](https://gdax.com/) API
+- acts at 1 minute increments (ticks), but you can configure to act quicker or slower.
+- computes the latest [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) using a variable amount of smoothing
+- considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend
+- Buys at the beginning of upwards trend, sells at the beginning of downwards trend
+- trades 98% of current balance, market price
+- Holds for min. 24 hours after a trade
+
+After tweaking `default_logic.js`, Use `./zenbot sim --selector <selector> [--verbose]` to check your strategy against historical trades.
+
+Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days (12 weeks), to ensure input consistency.
+
+Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
 
 ## FAQ
 
