@@ -25,23 +25,13 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 - [Backtesting your trade strategy](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960)
 - Outputting data as [CSV](https://zenbot.s8f.org/data.csv), [JSON](https://gist.githubusercontent.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960/raw/sim_result.json), or [candlestick graph](https://zenbot.s8f.org/)
 
-### Performance
+## Performance
 
 Current simulations on historical data from May - August 2016 show Zenbot 3.5.15 making a [1.531 ROI](https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
 HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage done is your fault, not mine! **As with buying crypto currency in general, risk is involved and caution is essential. Crypto currency is an experiment, and so is Zenbot.**
-
-### Features
-
-- A powerful map/reduce system to live-process data at scale.
-- A plugin system to facilitate incremental support for any exchange, currency pair, trade strategy, or reporting medium.
-- Out of the box, Zenbot is an AI-powered trade advisor (gives you buy or sell signals while watching live data).
-- Default support for [GDAX](https://gdax.com/) is included, so if you have a GDAX account, enable bot trades by simply putting your GDAX API key in `config.js` and setting what currency pair to trade.
-- Default support for other exchanges is ongoing.
-- Trade strategy is fully exposed in the config file. This allows you to have full control over the bot's actions and logic. For example, instead of trading on GDAX, you could trade on a different exchange or currency pair by implementing a few lines of JavaScript.
-- A live candlestick graph is provided via a built-in HTTP server.
 
 ## Screenshot
 
