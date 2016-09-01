@@ -8,6 +8,7 @@
 **Notice: See the new sticky post: [Poll: What do you want to see in Zenbot 3.6?](https://github.com/carlos8f/zenbot/issues/41)**
 
 - New to Zenbot? Watch the slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
+- Join Zenbot [Discord Channel](https://discord.gg/7SVQzGu)
 - Follow Zenbot [on Twitter!](https://twitter.com/zenbot_btc)
 - Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
 - Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
