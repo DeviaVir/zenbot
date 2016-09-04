@@ -27,6 +27,7 @@
     "run-parallel": "^1.1.6",
     "run-parallel-limit": "^1.0.3",
     "sig": "^1.0.0",
+    "table": "^3.7.8",
     "timebucket": "^0.3.4",
     "twit": "^2.2.4",
     "zenbrain": "git+https://github.com/carlos8f/zenbrain.git#bbda526bb833d9b258d8e6d187c1d5789c4cead0",
