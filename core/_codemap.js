@@ -1,6 +1,8 @@
 module.exports = {
   _ns: 'zenbrain',
   _maps: [
+    require('./actions/_codemap'),
+    require('./commands/_codemap'),
     require('./indicators/_codemap')
   ],
   'action_handlers[]': require('./action_handler'),
