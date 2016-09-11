@@ -23,6 +23,15 @@
       "label":"ETH/USD"
     },
     {
+      "id":"LTC-USD",
+      "asset":"LTC",
+      "currency":"USD",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.01,
+      "label":"LTC/USD"
+    },
+    {
       "id":"BTC-GBP",
       "asset":"BTC",
       "currency":"GBP",
@@ -57,6 +66,15 @@
       "max_size":100000,
       "increment":0.00001,
       "label":"ETH/BTC"
+    },
+    {
+      "id":"LTC-BTC",
+      "asset":"LTC",
+      "currency":"BTC",
+      "min_size":0.01,
+      "max_size":100000,
+      "increment":0.00001,
+      "label":"LTC/BTC"
     }
   ]
 }
