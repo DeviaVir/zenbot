@@ -29,5 +29,5 @@ c.graph_selectors = [
   "poloniex.ETH-USDT"
 ]
 
-// trade logic
-c.logic = require('./default_logic')
+// trade logic is linked in the custom pair config files, see config_poloniex_BTC_USDT.js
+//c.logic = require('./default_logic')
