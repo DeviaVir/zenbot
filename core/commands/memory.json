@@ -1,0 +1,22 @@
+{
+  "name": "memory",
+  "description": "memory",
+  "action": "memory",
+  "options": [
+    {
+      "name": "create_pair",
+      "spec": "-c, --create_pair <string>",
+      "description": "Create pair for learner (THIS IS A TEST)"
+    },
+    {
+      "name": "showall",
+      "spec": "--showall",
+      "description": "Show All Memory (THIS IS A TEST)"
+    },
+    {
+      "name": "test",
+      "spec": "--test",
+      "description": "Show All Memory (THIS IS A TEST)"
+    }
+  ]
+}

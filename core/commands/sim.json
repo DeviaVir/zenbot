@@ -1,0 +1,82 @@
+{
+  "name": "sim",
+  "spec": "sim",
+  "description": "sim - If learner doesn't work copy ./core/actions/sim.js to ./node_modules/zenbrain/core/actions/sim.json and ./core/commands/sim.js to ./node_modules/zenbrain/core/commands/sim.json ",
+  "options": [
+    {
+      "name": "verbose",
+      "spec": "-v, --verbose",
+      "description": "full console output of the simulation"
+    },
+    {
+      "name": "start",
+      "spec": "-s, --start <time>",
+      "description": "start time of the learning simulations"
+    },
+    {
+      "name": "end",
+      "spec": "-e, --end <time>",
+      "description": "end time of the learning simulations"
+    },
+    {
+      "name": "learning",
+      "spec": "--learning",
+      "description": "used by learner, but you can also use this to simulate with learned params instead of default"
+    },
+    {
+      "name": "rsi_query_limit",
+      "spec": "--rsi_query_limit <int>",
+      "description": "rsi_query_limit for the learning simulations (default = 100)"
+    },
+    {
+      "name": "rsi_periods",
+      "spec": "--rsi_periods <int>",
+      "description": "RSI Periods for the learning simulations (default = 26)"
+    },
+    {
+      "name": "rsi_period",
+      "spec": "--rsi_period <string>",
+      "description": "RSI Period for the learning simulations (default  = '5m')"
+    },
+    {
+      "name": "rsi_up",
+      "spec": "--rsi_up <int>",
+      "description": "top RSI value for the learning simulations (default = 65)"
+    },
+    {
+      "name": "rsi_down",
+      "spec": "--rsi_down <int>",
+      "description": "bottom RSI value for the learning simulations (default = 28)"
+    },
+    {
+      "name": "check_period",
+      "spec": "--check_period <string>",
+      "description": "RSI check_period (default = '1m')"
+    },
+    {
+      "name": "trade_pct",
+      "spec": "--trade_pct <float>",
+      "description": "trade_pct - trade % of current balance (default = 0.98)"
+    },
+    {
+      "name": "min_trade",
+      "spec": "--min_trade <float>",
+      "description": "min_trade for the learning simulations (default = 0.01)"
+    },
+    {
+      "name": "min_double_wait",
+      "spec": "--min_double_wait <int>",
+      "description": "min_double_wait - of the learning simulations (default = 86400000 * 1)"
+    },
+    {
+      "name": "min_reversal_wait",
+      "spec": "--min_reversal_wait <int>",
+      "description": "start time of the learning simulations (default = 86400000 * 0.75)"
+    },
+    {
+      "name": "min_performance",
+      "spec": "-p, --min_performance <float>",
+      "description": "lowest acceptable performance value for the learning simulations (default = -0.015)"
+    }
+  ]
+}

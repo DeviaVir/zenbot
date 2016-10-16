@@ -1,0 +1,13 @@
+{
+  "name": "forget",
+  "spec": "forget",
+  "description": "forget memory",
+  "action": "forget",
+  "options": [
+    {
+      "name": "learned",
+      "spec": "--learned",
+      "description": "forget machine learning"
+    }
+  ]
+}
