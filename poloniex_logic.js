@@ -138,13 +138,13 @@ module.exports = function container (get, set, clear) {
       }
 
       if (first_run) {
-        if (!rs.last_learned) { 
-          get('logger').learn('learner', (('No learned params to load, using default settings.').yellow
-          get('logger').learn('learner', (('run ').yellow, ('./zenbot learn --config <config file for pair>').cyan, ('to fine tune RSI strategy for the given config file pair.').yellow
+        if (!rs.last_learned) {
+          get('logger').learn('learner', (('No learned params to load, using default settings.').yellow))
+          get('logger').learn('learner', (('run ').yellow, ('./zenbot learn --config <config file for pair>').cyan, ('to fine tune RSI strategy for the given config file pair.').yellow))
         }
-        else { 
-          get('logger').learn('learner', (('Using Learned Params for ').yellow + (c.default_selector).cyan)
-          syncLearned() 
+        else {
+          get('logger').learn('learner', (('Using Learned Params for ').yellow + (c.default_selector).cyan))
+          syncLearned()
         }
         delete rs.real_trade_warning
       }
