@@ -1,0 +1,14 @@
+{
+  "rsi_query_limit": 100,
+  "rsi_periods": 26,
+  "rsi_period": "5m",
+  "rsi_up": 65,
+  "rsi_down": 28,
+  "check_period": "1m",
+  "trade_pct": 0.98,
+  "min_trade": 0.010,
+  "min_double_wait": 86400000,
+  "min_reversal_wait": 64800000,
+  "min_performance": -0.15,
+  "min_performance_decay": 0.99999,
+}
