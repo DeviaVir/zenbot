@@ -134,7 +134,7 @@ module.exports = function container (get, set, clear) {
         rs.min_double_wait = 86400000 * 1 // wait in ms after action before doing same action
         rs.min_reversal_wait = 86400000 * 0.75 // wait in ms after action before doing opposite action
         rs.min_performance = -0.015 // abort trades with lower performance score
-        syncLearned()
+        //syncLearned()
       }
 
       if (first_run) {
