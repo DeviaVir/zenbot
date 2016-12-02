@@ -4,7 +4,9 @@ c.assets = [
   "ETH"
 ]
 c.currencies = [
-  "USD"
+  "USD",
+  "USDT",
+  "ETH"
 ]
 
 // selector for indicators, trading, etc
