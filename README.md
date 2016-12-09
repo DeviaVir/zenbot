@@ -5,14 +5,14 @@
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
-**Notice: See the new sticky post: [Poll: What do you want to see in Zenbot 3.6?](https://github.com/carlos8f/zenbot/issues/41)**
-
 - New to Zenbot? Watch the slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
-- Join Zenbot [Discord Channel](https://discord.gg/7SVQzGu)
-- Follow Zenbot [on Twitter!](https://twitter.com/zenbot_btc)
-- Check out Zenbot's [live feed!](https://zenbot.s8f.org/)
-- Join the discussion on [Reddit!](https://www.reddit.com/r/Bitcoin/comments/4xqo8q/announcing_zenbot_3_your_new_btcethltc_trading/)!
 - Want to contribute to Zenbot? Read the [contributions guide](https://github.com/carlos8f/zenbot/blob/master/CONTRIBUTING.md)
+
+## Current State of Development
+
+Currently Zenbot 3.x works great when set up properly, but setting it up can be **hard**. The configuration system is a bit confusing. To get it to support your exchange of choice sometimes it even involves writing JavaScript.
+
+I'm currently planning an **overhaul for 4.x** that will incorporate a UI, and make many things easier to understand and manage. Stay tuned!
 
 ## Description
 
@@ -28,7 +28,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 
 ### Performance
 
-Current simulations on historical data from May - August 2016 show Zenbot 3.5.15 making a [1.531 ROI](https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e) in only 3 months, using default parameters!
+Simulations on historical data from May - August 2016 show Zenbot 3.5.15 making a [1.531 ROI](https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e) in only 3 months, using default parameters!
 
 _Zenbot is a genius!_
 
@@ -341,14 +341,6 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
 
 ![zenbot logo](https://s8f.org/files/bitcoin.png)
-
-### Patreon
-
-Zenbot is on [Patreon!](https://patreon.com/user?u=3889129) Give some $ per month to support Zenbot 3 development.
-
-### GratiPay
-
-Zenbot is on [Grati-Pay!](https://gratipay.com/Zenbot-3/) Another way to give $ per month to support development.
 
 thanks!
 
