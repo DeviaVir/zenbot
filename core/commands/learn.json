@@ -1,0 +1,46 @@
+{
+  "name": "learn",
+  "spec": "learn",
+  "description": "run the machine learner",
+  "action": "learn",
+  "options": [
+    {
+      "name": "start",
+      "spec": "--start <time>",
+      "description": "start time of the learning simulations"
+    },
+    {
+      "name": "end",
+      "spec": "--end <time>",
+      "description": "end time of the learning simulations"
+    },
+    {
+      "name": "concurrency",
+      "spec": "-c, --concurrency <int>",
+      "description": "number of concurrent simulations"
+    },
+    {
+      "name": "selector_config",
+      "spec": "--selector_config <string>",
+      "description": "number of concurrent simulations"
+    },
+    {
+      "name": "reset_roi",
+      "spec": "--reset_roi",
+      "description": "Reset initial ROI"
+    },
+    {
+      "name": "useStopLoss",
+      "spec": "--useStopLoss <bool>",
+      "description": "should useStopLoss? (bool) (default = false)",
+      "default": "false"
+    },
+    {
+      "name": "useconfig",
+      "spec": "--useconfig",
+      "description": "useconfig"
+    }
+    
+
+  ]
+}
