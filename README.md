@@ -24,7 +24,7 @@ Zenbot is a lightweight, extendable, artificially intelligent trading bot. Curre
 - Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
 - Realtime consuming and analysis of trade data
 - [Backtesting your trade strategy](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960)
-- Outputting data as [CSV](https://zenbot.s8f.org/data.csv), [JSON](https://gist.githubusercontent.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960/raw/sim_result.json), or [candlestick graph](https://zenbot.s8f.org/)
+- Outputting data as CSV, [JSON](https://gist.githubusercontent.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960/raw/sim_result.json), or candlestick graph
 
 ### Performance
 
@@ -70,14 +70,6 @@ cd zenbot
 npm install
 # optional, installs the `zenbot` binary in /usr/local/bin:
 npm link
-```
-
-(optional) Install historical data for GDAX BTC/USD, ETH/BTC, and ETH/USD. **This may overwrite data in your existing `ticks` collection, so be careful!**
-
-```
-wget https://s8f.org/dl/zenbrain.tar.gz
-tar -xf zenbrain.tar.gz
-mongorestore
 ```
 
 ### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
@@ -339,8 +331,6 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 ### carlos8f's BTC
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
-
-![zenbot logo](https://s8f.org/files/bitcoin.png)
 
 thanks!
 
