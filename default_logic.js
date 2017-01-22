@@ -73,8 +73,8 @@ module.exports = function container (get, set, clear) {
       if (!rs.product) return cb(new Error('no product for ' + c.default_selector))
       rs.min_trade = n(rs.product.min_size).multiply(1).value()
       rs.sim_start_balance = 10000
-      rs.min_double_wait = 86400000 * 1 // wait in ms after action before doing same action
-      rs.min_reversal_wait = 86400000 * 0.75 // wait in ms after action before doing opposite action
+      rs.min_double_wait = 3600000 * 1 // wait in ms after action before doing same action
+      rs.min_reversal_wait = 3600000 * 0.75 // wait in ms after action before doing opposite action
       rs.min_performance = -0.015 // abort trades with lower performance score
       if (first_run) {
         delete rs.real_trade_warning
@@ -351,10 +351,10 @@ module.exports = function container (get, set, clear) {
       }
       else {
         if (r.value >= rs.rsi_up) {
-          trend = 'UP'
+          trend = 'DOWN'
         }
         else if (r.value <= rs.rsi_down) {
-          trend = 'DOWN'
+          trend = 'UP'
         }
         else {
           trend = null
