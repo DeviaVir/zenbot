@@ -4,7 +4,7 @@ module.exports = function (c) {
   // graph server
   c.default_graph_period = "1m"
   c.default_graph_limit = 10000
-  c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000, 5000, 10000, 20000, 50000]
+  c.graph_limits = [50, 100, 150, 200, 300, 500, 1000, 2000, 5000, 10000]
   c.log_query_limit = 200
   c.tracking_scripts = ''
 
