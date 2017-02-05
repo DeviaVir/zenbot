@@ -1,6 +1,7 @@
 {
   "name": "bitfinex",
   "rest_url": "https://api.bitfinex.com/v1",
+  "backfill_limit": 100,
   "products": [
     {
       "id":"btcusd",
