@@ -111,10 +111,10 @@ module.exports = function container (get, set, clear) {
         rs.balance = {}
         accounts.forEach(function (account) {
           if (account.currency === rs.currency) {
-            rs.balance[rs.currency] = n(account.balance).value()
+            rs.balance[rs.currency] = n(account.available).value()
           }
           else if (account.currency === rs.asset) {
-            rs.balance[rs.asset] = n(account.balance).value()
+            rs.balance[rs.asset] = n(account.available).value()
           }
         })
         if (first_run) {
