@@ -279,7 +279,7 @@ module.exports = function container (get, set, clear) {
           r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
           r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
         }
-        r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+        r.ansi = n(r.value).format('0')[r.value > rs.rsi_up ? 'green' : r.value < rs.rsi_down ? 'red' : 'white']
         // first rsi, calculated from prev 14 ticks
         rs.last_rsi = JSON.parse(JSON.stringify(r))
         //console.error('first rsi', r)
@@ -302,7 +302,7 @@ module.exports = function container (get, set, clear) {
             r.relative_strength = n(r.avg_gain).divide(r.avg_loss).value()
             r.value = n(100).subtract(n(100).divide(n(1).add(r.relative_strength))).value()
           }
-          r.ansi = n(r.value).format('0')[r.value > 70 ? 'green' : r.value < 30 ? 'red' : 'white']
+          r.ansi = n(r.value).format('0')[r.value > rs.rsi_up ? 'green' : r.value < rs.rsi_down ? 'red' : 'white']
           rs.last_rsi = JSON.parse(JSON.stringify(r))
           //console.error('smooth', r.close, r.last_close, r.ansi)
         })
