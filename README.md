@@ -24,6 +24,7 @@ zenbot extend
 ## add selectors to watch
 
 - a watch selector is in the form `<exchange>.<pair>`
+- you can list available selectors with `zenbot list-selectors`
 - do `watch` command for each selector you wish to record data for
 
 (example: `gdax.BTC-USD`)
