@@ -7,6 +7,7 @@ program._name = 'zenbot'
 
 var fs = require('fs')
   , path = require('path')
+  , boot = require('./boot')
 
 program
   .command('init')
@@ -20,7 +21,7 @@ program
       }
       fs.readFile(target + '.tpl', 'utf8', function (err, data) {
         if (err) throw err
-        fs.writeFile(target, data, function (err) {
+        fs.writeFile(target, data, {mode: 0o600}, function (err) {
           if (err) throw err
           console.log('wrote ' + target)
           console.log('edit this file with your mongodb details if needed.')
@@ -33,6 +34,13 @@ program
 program
   .command('status')
   .description('monitor system status')
+  .action(function () {
+    boot(function (err, zenbot) {
+      if (err) throw err
+      console.log('zenbot db loaded')
+      process.exit(0)
+    })
+  })
 
 var command = process.argv[2]
 if (!command) {

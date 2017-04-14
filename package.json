@@ -1,7 +1,8 @@
 {
-  "name": "zenbot_trader",
+  "name": "zenbot4",
   "version": "4.0.0",
   "description": "Cryptocurrency trading bot",
+  "main": "./index.js",
   "bin": {
     "zenbot": "./zenbot.sh"
   },
