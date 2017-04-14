@@ -1,18 +1,20 @@
 ## install
 
-installs `zenbot` command and core code.
+installs `zenbot` command and core code. the `init` command creates a starter config file `conf.js` (edit with mongodb details if needed)
 
 ```
 git clone https://github.com/carlos8f/zenbot.git
 cd zenbot
 npm install
 npm link
+zenbot init
+zenbot status
 ```
 
 ## add an exchange
 
 - adds supporting code for a given exchange (example: `gdax`)
-- do `zenbot extend` in each exchange code dir you wish to use
+- do `zenbot extend` in each exchange repo you wish to use
 
 ```
 git clone https://github.com/carlos8f/zenbot_gdax.git
