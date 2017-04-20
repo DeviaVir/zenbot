@@ -31,7 +31,14 @@ boot(function (err, zenbot) {
   commands.forEach(function (command) {
     command(program)
   })
-  if (!command_name) {
+  var command_found = false
+  try {
+    zenbot.get('zenbot:commands.' + command_name)
+    command_found = true
+  }
+  catch (e) {
+  }
+  if (!command_name || !command_found) {
     program.help()
   }
   program.parse(process.argv)
