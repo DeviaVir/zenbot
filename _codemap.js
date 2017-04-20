@@ -1,9 +1,9 @@
 module.exports = {
   _ns: 'zenbot',
   _maps: [
+    require('./commands/_codemap'),
     require('./db/_codemap')
   ],
-  'exchanges[]': [],
-  'mongodb': require('mongodb'),
-  'sosa_mongo': require('sosa_mongo')
+  'conf': null,
+  'exchanges[]': []
 }
