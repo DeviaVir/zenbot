@@ -4,11 +4,13 @@ module.exports = {
 
   'list[0]': '#commands.init',
   'list[10]': '#commands.extend',
-  'list[20]': '#commands.watch',
-  'list[30]': '#commands.watcher',
+  'list[20]': '#commands.list-selectors',
+  'list[30]': '#commands.watch',
+  'list[40]': '#commands.watcher',
 
   'init': require('./init'),
   'extend': require('./extend'),
+  'list-selectors': require('./list-selectors'),
   'watch': require('./watch'),
   'watcher': require('./watcher')
 }

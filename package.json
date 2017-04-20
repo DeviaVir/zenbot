@@ -11,6 +11,7 @@
     "commander": "^2.9.0",
     "mongodb": "^2.2.25",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
+    "run-parallel": "^1.1.6",
     "sosa_mongo": "^1.0.3",
     "timebucket": "^0.4.0"
   }
