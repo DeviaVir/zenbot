@@ -5,8 +5,31 @@ module.exports = function container (get, set, clear) {
     program
       .command('extend')
       .description('add supporting code')
-      .action(function () {
+      .option('-l, --list', 'list registered extensions')
+      .option('-d, --delete <id>', 'unregister an extension')
+      .action(function (cmd) {
         var extensions = get('db.extensions')
+        if (cmd.list) {
+          extensions.select(function (err, results) {
+            if (err) throw err
+            results.forEach(function (result) {
+              console.log()
+              console.log(result.id)
+              console.log('  path: ' + result.path)
+              console.log()
+            })
+            process.exit(0)
+          })
+          return
+        }
+        if (cmd.delete) {
+          extensions.destroy(cmd.delete, function (err) {
+            if (err) throw err
+            console.log('extension removed: ' + cmd.delete)
+            process.exit(0)
+          })
+          return
+        }
         var load_err
         var target = path.join(process.cwd(), '_codemap')
         try {
@@ -19,7 +42,7 @@ module.exports = function container (get, set, clear) {
           console.error('not a valid extension dir')
           process.exit(1)
         }
-        extensions.save({id: target, name: e._name}, function (err, ext) {
+        extensions.save({id: e._name, path: target}, function (err, ext) {
           if (err) throw err
           console.log('extension added: ' + e._name)
           process.exit(0)
