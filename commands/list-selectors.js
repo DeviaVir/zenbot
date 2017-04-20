@@ -7,14 +7,20 @@ module.exports = function container (get, set, clear) {
       .command('list-selectors')
       .description('list available selectors to watch')
       .action(function (cmd) {
-        get('lib.list-selectors')(function (err, selectors) {
+        get('db.selectors').select(function (err, watching) {
           if (err) throw err
-          console.log()
-          selectors.forEach(function (selector) {
-            console.log('  ' + selector)
+          var watch_list = watching.map(function (watched_selector) {
+            return watched_selector.id
           })
-          console.log()
-          process.exit(0)
+          get('lib.list-selectors')(function (err, selectors) {
+            if (err) throw err
+            console.log()
+            selectors.forEach(function (selector) {
+              console.log('  ' + selector + (watch_list.indexOf(selector) !== -1 ? ' (watching)' : ''))
+            })
+            console.log()
+            process.exit(0)
+          })
         })
       })
   }
