@@ -6,5 +6,5 @@ module.exports = {
     require('./lib/_codemap')
   ],
   'conf': null,
-  'exchanges[]': []
+  'exchanges.list': []
 }

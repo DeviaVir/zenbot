@@ -7,7 +7,7 @@ module.exports = function container (get, set, clear) {
       .description('add supporting code')
       .option('-l, --list', 'list registered extensions')
       .option('-d, --delete <id>', 'unregister an extension')
-      .action(function (cmd) {
+      .action(function (dir, cmd) {
         var extensions = get('db.extensions')
         if (cmd.list) {
           extensions.select(function (err, results) {
@@ -31,7 +31,7 @@ module.exports = function container (get, set, clear) {
           return
         }
         var load_err
-        var target = path.join(cmd.args[0] || process.cwd(), '_codemap')
+        var target = path.resolve(dir || process.cwd(), '_codemap')
         try {
           var e = require(target)
         }

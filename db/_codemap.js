@@ -3,5 +3,6 @@ module.exports = {
   _folder: 'db',
 
   'createCollection': require('./createCollection'),
-  'extensions': require('./extensions')
+  'extensions': require('./extensions'),
+  'selectors': require('./selectors')
 }
