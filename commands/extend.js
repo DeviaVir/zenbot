@@ -3,7 +3,7 @@ var path = require('path')
 module.exports = function container (get, set, clear) {
   return function (program) {
     program
-      .command('extend')
+      .command('extend [dir]')
       .description('add supporting code')
       .option('-l, --list', 'list registered extensions')
       .option('-d, --delete <id>', 'unregister an extension')
@@ -31,14 +31,14 @@ module.exports = function container (get, set, clear) {
           return
         }
         var load_err
-        var target = path.join(process.cwd(), '_codemap')
+        var target = path.join(cmd.args[0] || process.cwd(), '_codemap')
         try {
           var e = require(target)
         }
         catch (er) {
           load_err = er
         }
-        if (load_err || !e._name) {
+        if (load_err || e._ns !== 'zenbot' || !e._name) {
           console.error('not a valid extension dir')
           process.exit(1)
         }

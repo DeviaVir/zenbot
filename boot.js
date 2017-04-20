@@ -16,17 +16,30 @@ module.exports = function (cb) {
       return cb(err, zenbot)
     }
     zenbot.set('zenbot:db.mongo', db)
+    function withAuth () {
+      var extensions = zenbot.get('zenbot:db.extensions')
+      extensions.select(function (err, results) {
+        if (err) {
+          return cb(err, zenbot)
+        }
+        results.forEach(function (result) {
+          var ext = require(result.path)
+          zenbot.use(ext)
+        })
+        cb(null, zenbot)
+      })
+    }
     if (c.mongo_username) {
       db.authenticate(c.mongo_username, c.mongo_password, function (err, result) {
         if (err) {
           err.code = 'AUTH'
           return cb(err, zenbot)
         }
-        cb(null, zenbot)
+        withAuth()
       })
     }
     else {
-      cb(null, zenbot)
+      withAuth()
     }
   })
 }
