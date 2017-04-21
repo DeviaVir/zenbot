@@ -8,6 +8,12 @@ module.exports = function (cb) {
     err.code = 'CONF'
     return cb(err, zenbot)
   }
+  var defaults = require('./defaults')
+  Object.keys(defaults).forEach(function (k) {
+    if (typeof c[k] === 'undefined') {
+      c[k] = defaults[k]
+    }
+  })
   zenbot.set('@zenbot:conf', c)
   var u = 'mongodb://' + c.mongo_host + ':' + c.mongo_port + '/' + c.mongo_db
   require('mongodb').MongoClient.connect(u, function (err, db) {

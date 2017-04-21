@@ -11,6 +11,7 @@ module.exports = {
   'init': require('./init'),
   'extend': require('./extend'),
   'list-selectors': require('./list-selectors'),
+  'ls': '#commands.list-selectors',
   'watch': require('./watch'),
   'watcher': require('./watcher')
 }

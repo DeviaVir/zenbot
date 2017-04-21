@@ -4,5 +4,6 @@ module.exports = {
 
   'createCollection': require('./createCollection'),
   'extensions': require('./extensions'),
-  'selectors': require('./selectors')
+  'selectors': require('./selectors'),
+  'trades': require('./trades')
 }

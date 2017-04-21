@@ -5,6 +5,7 @@ module.exports = function container (get, set, clear) {
   return function (program) {
     program
       .command('list-selectors')
+      .alias('ls')
       .description('list available selectors to watch')
       .action(function (cmd) {
         get('db.selectors').select(function (err, watching) {
