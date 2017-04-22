@@ -4,6 +4,7 @@ module.exports = {
 
   'createCollection': require('./createCollection'),
   'extensions': require('./extensions'),
+  'resume_markers': require('./resume_markers'),
   'selectors': require('./selectors'),
   'trades': require('./trades')
 }
