@@ -1,6 +1,7 @@
 var tb = require('timebucket')
   , idgen = require('idgen')
   , n = require('numbro')
+  , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -35,7 +36,6 @@ module.exports = function container (get, set, clear) {
             to: null,
             oldest_time: null
           }
-          var saved = {}
           var trade_counter = 0
           var days_left = cmd.days + 1
           var target_time = new Date().getTime() - (86400000 * cmd.days)
@@ -61,47 +61,48 @@ module.exports = function container (get, set, clear) {
                   if (a.time < b.time) return 1
                   return 0
                 })
-                trades.forEach(function (trade) {
-                  saveTrade(trade)
-                })
-                var oldest_time = marker.oldest_time
-                markers.forEach(function (other_marker) {
-                  // if the oldest_cursor is within another marker's range, skip to the other marker's start point.
-                  if (marker.id !== other_marker.id && marker.from <= other_marker.to && marker.from > other_marker.from) {
-                    marker.from = other_marker.from
-                    marker.oldest_time = other_marker.oldest_time
+                var tasks = trades.map(function (trade) {
+                  return function (cb) {
+                    saveTrade(trade, cb)
                   }
                 })
-                if (oldest_time !== marker.oldest_time) {
-                  var diff = tb(oldest_time - marker.oldest_time).resize('1h').value
-                  console.log('\nskipping ' + diff + ' hrs of previously collected data')
-                }
-                resume_markers.save(marker, function (err) {
+                parallel(tasks, function (err) {
                   if (err) throw err
-                  trade_counter += trades.length
-                  var current_days_left = Math.ceil((marker.oldest_time - target_time) / 86400000)
-                  if (current_days_left >= 0 && current_days_left != days_left) {
-                    console.log('\n' + selector, 'saved', trade_counter, 'trades', current_days_left, 'days left')
-                    trade_counter = 0
-                    days_left = current_days_left
+                  var oldest_time = marker.oldest_time
+                  markers.forEach(function (other_marker) {
+                    // if the oldest_cursor is within another marker's range, skip to the other marker's start point.
+                    if (marker.id !== other_marker.id && marker.from <= other_marker.to && marker.from > other_marker.from) {
+                      marker.from = other_marker.from
+                      marker.oldest_time = other_marker.oldest_time
+                    }
+                  })
+                  if (oldest_time !== marker.oldest_time) {
+                    var diff = tb(oldest_time - marker.oldest_time).resize('1h').value
+                    console.log('\nskipping ' + diff + ' hrs of previously collected data')
                   }
-                  else {
-                    process.stdout.write('.')
-                  }
-                  if (marker.oldest_time <= target_time) {
-                    console.log('\ndownload complete!')
-                    integrityCheck()
-                    return
-                  }
-                  setImmediate(getNext)
+                  resume_markers.save(marker, function (err) {
+                    if (err) throw err
+                    trade_counter += trades.length
+                    var current_days_left = Math.ceil((marker.oldest_time - target_time) / 86400000)
+                    if (current_days_left >= 0 && current_days_left != days_left) {
+                      console.log('\n' + selector, 'saved', trade_counter, 'trades', current_days_left, 'days left')
+                      trade_counter = 0
+                      days_left = current_days_left
+                    }
+                    else {
+                      process.stdout.write('.')
+                    }
+                    if (marker.oldest_time <= target_time) {
+                      console.log('\ndownload complete!\n')
+                      process.exit(0)
+                    }
+                    setImmediate(getNext)
+                  })
                 })
               })
             }
-            function saveTrade (trade) {
+            function saveTrade (trade, cb) {
               trade.id = selector + '-' + String(trade.trade_id)
-              if (saved[trade.id]) {
-                console.error('warning: already saved ' + trade.id)
-              }
               trade.selector = selector
               var cursor = exchange.getCursor(trade)
               if (!marker.to) {
@@ -111,55 +112,7 @@ module.exports = function container (get, set, clear) {
               }
               marker.from = marker.from ? Math.min(marker.from, cursor) : cursor
               marker.oldest_time = marker.oldest_time ? Math.min(marker.oldest_time, trade.time) : trade.time
-              trades.save(trade, function (err) {
-                if (err) throw err
-                saved[trade.id] = true
-              })
-            }
-            function integrityCheck () {
-              console.log('\nchecking for gaps...')
-              console.log('data starts at ' + new Date(marker.oldest_time))
-              var cursor = target_time
-              var newest_time
-              var last_id
-              var trade_counter = 0
-              function checkNext () {
-                var opts = {query: {selector: selector, time: {$gte: cursor}}, order: {time: 1}, limit: 1000}
-                get('db.trades').select(opts, function (err, trades) {
-                  if (err) throw err
-                  var is_complete = false
-                  trades.forEach(function (trade) {
-                    if (is_complete) {
-                      return
-                    }
-                    trade_counter++
-                    newest_time = trade.time
-                    if (trade.trade_id == marker.to) {
-                      is_complete = true
-                    }
-                    var diff = trade.time - cursor
-                    if (diff > c.backfill_min_gap) {
-                      console.error('\nwarning: ' + tb(diff).resize('1m').value + 'm gap between', 'txns', last_id + '-' + trade.trade_id, new Date(cursor) + ' to ' + new Date(trade.time))
-                    }
-                    cursor = trade.time
-                    last_id = trade.trade_id
-                  })
-                  if (!trades.length) {
-                    console.error('error: no trades found?')
-                    process.exit(1)
-                  }
-                  if (is_complete) {
-                    console.log('\nbackfilled ' + n(trade_counter).format('0,0') + ' ' + selector + ' trades from ' + new Date(marker.oldest_time) + ' to ' + new Date(newest_time))
-                    var time_gap = newest_time - marker.oldest_time
-                    var per_min = trade_counter / (time_gap / 60000)
-                    console.log('trade avg speed: ' + n(per_min).format('0.00') + '/min')
-                    console.log('check complete.\n')
-                    process.exit(0)
-                  }
-                  setImmediate(checkNext)
-                })
-              }
-              checkNext()
+              trades.save(trade, cb)
             }
           })
         })
