@@ -34,7 +34,10 @@ module.exports = function container (get, set, clear) {
           trend: null,
           signal: null,
           start_position: 50,
-          buy_hold_start: null
+          buy_hold_start: null,
+          day_count: 0,
+          trade_count: 0,
+          last_day_id: null
         }
         var asset = selector.split('.')[1].split('-')[0]
         var currency = selector.split('.')[1].split('-')[1]
@@ -76,6 +79,7 @@ module.exports = function container (get, set, clear) {
               var buy_hold = s.lookback[0].close * s.buy_hold_start
               console.log('buy hold', n(buy_hold).format('$0.00').yellow)
               console.log('vs. buy hold', n((s.balance[currency] - buy_hold) / buy_hold).format('0.00%').yellow)
+              console.log(s.trade_count + ' trades over ' + s.day_count + ' days (avg ' + n(s.trade_count / s.day_count).format('0.0') + ' trades/day)')
               process.exit(0)
             }
             trades.sort(function (a, b) {
@@ -85,6 +89,11 @@ module.exports = function container (get, set, clear) {
             })
             trades.forEach(function (trade) {
               var period_id = tb(trade.time).resize(strategy.options.period).toString()
+              var day_id = tb(trade.time).resize('1d').toString()
+              if (s.last_day_id && day_id !== s.last_day_id) {
+                s.day_count++
+              }
+              s.last_day_id = day_id
               if (!s.last_period_id) {
                 initBuffer(trade)
                 s.last_period_id = period_id
@@ -177,6 +186,7 @@ module.exports = function container (get, set, clear) {
                         s.balance[currency] -= trade.price * size
                         action = 'bought'
                         s.signal = null
+                        s.trade_count++
                       }
                     }
                     else if (s.signal === 'sell') {
@@ -186,6 +196,7 @@ module.exports = function container (get, set, clear) {
                         s.balance[currency] += trade.price * size
                         action = 'sold'
                         s.signal = null
+                        s.trade_count++
                       }
                     }
                     process.stdout.write(moment(s.period_buffer.time).format('YYYY-MM-DD HH').grey)
