@@ -8,6 +8,7 @@ module.exports = {
   'list[30]': '#commands.watch',
   'list[40]': '#commands.watcher',
   'list[50]': '#commands.backfill',
+  'list[60]': '#commands.sim',
 
   'init': require('./init'),
   'extend': require('./extend'),
@@ -15,5 +16,6 @@ module.exports = {
   'ls': '#commands.list-selectors',
   'watch': require('./watch'),
   'watcher': require('./watcher'),
-  'backfill': require('./backfill')
+  'backfill': require('./backfill'),
+  'sim': require('./sim')
 }
