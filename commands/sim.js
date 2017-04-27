@@ -155,12 +155,6 @@ module.exports = function container (get, set, clear) {
                       s.signal = 'sell'
                       s.trend_rate = (s.lookback[0].trend_ema - s.period_buffer.trend_ema) / s.period_buffer.trend_ema * -100
                     }
-                    if (s.trend_rate >= 0 && s.trend_rate < 0.01) {
-                      s.trend = null
-                    }
-                    else if (s.trend_rate < 0 && s.trend_rate > -0.01) {
-                      s.trend = null
-                    }
                     if (s.signal === 'buy' && s.trend_rate >= 0.05) {
                       //s.signal = null
                     }
