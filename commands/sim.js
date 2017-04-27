@@ -158,7 +158,7 @@ module.exports = function container (get, set, clear) {
                     if (s.signal === 'buy' && s.trend_rate >= 0.05) {
                       //s.signal = null
                     }
-                    else if (s.signal === 'sell' && s.trend_rate <= -0.03) {
+                    else if (s.signal === 'sell' && s.trend_rate <= -0.02) {
                       s.signal = null
                     }
                     /*
