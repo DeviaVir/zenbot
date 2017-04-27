@@ -5,7 +5,8 @@ module.exports = {
     fee_pct: 0.25,
     trend_ema: 36,
     price_ema: 6,
-    start_capital: 1000
+    start_capital: 1000,
+    rsi_periods: 14
   }
 }
 
@@ -25,12 +26,12 @@ module.exports = {
 // 1479, 0.87%
 // 34 ema
 // 1459, -0.51%
-// 35 ema
-// 1494, 1.88%
+// 35 ema X
+// 1518, 3.49%
 // 36 ema X
 // 1537, 4.77%
 // 37 ema
-// 1472, 0.36%
+// 1487, 1.41%
 // 40 ema
 // 1421, -3.10%
 
@@ -61,4 +62,17 @@ module.exports = {
 // 36 ema X
 // 1164, -19.78%
 // 20 ema X
+
+
+
+// rsi strategy, 1h period
+//
+// 12 periods
+// 1185, -19.20%
+// 14 periods
+// 1344, -8.39%
+// 16 periods
+// 1299, -11.42%
+// 20 periods
+// 1053, -28.22%
 // 
