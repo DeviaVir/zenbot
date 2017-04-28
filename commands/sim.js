@@ -104,7 +104,7 @@ module.exports = function container (get, set, clear) {
               var code = 'var data = ' + JSON.stringify(data) + ';\n'
               code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
               var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
-              var out = tpl.replace('{{code}}', code)
+              var out = tpl.replace('{{code}}', code).replace('{{trend_ema_period}}', strategy.options.trend_ema || 36)
               var id = idgen(8)
               var out_target = 'sim_result_' + id + '.html'
               fs.writeFileSync(out_target, out)
