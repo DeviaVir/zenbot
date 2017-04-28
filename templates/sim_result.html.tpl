@@ -331,6 +331,10 @@ var withData = function (data, trades) {
               else return y(d.price);
           });
 
+  var ema2 = techan.plot.ema()
+    .xScale(x)
+    .yScale(y);
+
   var volume = techan.plot.volume()
           .accessor(candlestick.accessor())   // Set the accessor to a ohlc accessor so we get highlighted bars
           .xScale(x)
@@ -350,13 +354,6 @@ var withData = function (data, trades) {
   var ohlcAnnotation = techan.plot.axisannotation()
           .axis(yAxis)
           .format(d3.format(',.2f'))
-          .translate([x(1), 0]);
-
-  var closeAnnotation = techan.plot.axisannotation()
-          .axis(yAxis)
-          .accessor(candlestick.accessor())
-          .format(d3.format(',.2f'))
-          .width(40)
           .translate([x(1), 0]);
 
   var percentAxis = d3.axisLeft(yPercent)
@@ -436,6 +433,10 @@ var withData = function (data, trades) {
           .attr("clip-path", "url(#ohlcClip)");
 
   ohlcSelection.append("g")
+          .attr("class", "indicator ema ma-2")
+          .attr("clip-path", "url(#ohlcClip)");
+
+  ohlcSelection.append("g")
           .attr("class", "percent axis");
 
   ohlcSelection.append("g")
@@ -453,7 +454,6 @@ var withData = function (data, trades) {
 
   data = data.map(function (d) {
     d.date = new Date(d.time)
-    if (d.low < 100 || d.open < 100 || d.close < 100) console.log(d)
     return d
   })
   data.sort(function(a, b) { return d3.ascending(accessor.d(a), accessor.d(b)); });
@@ -475,11 +475,7 @@ var withData = function (data, trades) {
     return
   }
   svg.select("g.volume").datum(data)
-  ohlcSelection.append("g")
-      .attr("class", "close annotation up")
-      .datum([last])
-      .call(closeAnnotation);
-
+  svg.select("g.ema.ma-2").datum(techan.indicator.ema().period({{trend_ema_period}})(data)).call(ema2);
   svg.select("g.tradearrow").datum(trades).call(tradearrow);
 
   // Stash for zooming
@@ -498,7 +494,7 @@ var withData = function (data, trades) {
     svg.select("g.volume").call(volume);
     svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
     svg.select("g.tradearrow").call(tradearrow);
-    svg.select("g.close.annotation").call(closeAnnotation).call(zoom);
+    svg.select("g .ema.ma-2").call(ema2.refresh).call(zoom);
   }
 
   function zoomed() {
