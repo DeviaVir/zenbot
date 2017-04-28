@@ -4,6 +4,8 @@ var path = require('path')
   , z = require('zero-fill')
   , n = require('numbro')
   , colors = require('colors')
+  , fs = require('fs')
+  , idgen = require('idgen')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -37,7 +39,8 @@ module.exports = function container (get, set, clear) {
           buy_hold_start: null,
           day_count: 0,
           trade_count: 0,
-          last_day_id: null
+          last_day_id: null,
+          my_trades: []
         }
         var asset = selector.split('.')[1].split('-')[0]
         var currency = selector.split('.')[1].split('-')[1]
@@ -73,13 +76,39 @@ module.exports = function container (get, set, clear) {
           get('db.trades').select(opts, function (err, trades) {
             if (err) throw err
             if (!trades.length) {
-              s.balance[currency] += s.lookback[0].close * s.balance[asset]
+              var size = s.balance[asset]
+              s.balance[currency] += s.period_buffer.close * size
               s.balance[asset] = 0
+              s.my_trades.push({
+                time: s.period_buffer.time,
+                type: 'sell',
+                size: size,
+                price: s.period_buffer.close
+              })
+              s.lookback.unshift(s.period_buffer)
               console.log(s.balance)
               var buy_hold = s.lookback[0].close * s.buy_hold_start
               console.log('buy hold', n(buy_hold).format('$0.00').yellow)
               console.log('vs. buy hold', n((s.balance[currency] - buy_hold) / buy_hold).format('0.00%').yellow)
               console.log(s.trade_count + ' trades over ' + s.day_count + ' days (avg ' + n(s.trade_count / s.day_count).format('0.0') + ' trades/day)')
+              var data = s.lookback.map(function (period) {
+                return {
+                  time: period.time,
+                  open: period.open,
+                  high: period.high,
+                  low: period.low,
+                  close: period.close,
+                  volume: period.volume
+                }
+              })
+              var code = 'var data = ' + JSON.stringify(data) + ';\n'
+              code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
+              var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
+              var out = tpl.replace('{{code}}', code)
+              var id = idgen(8)
+              var out_target = 'sim_result_' + id + '.html'
+              fs.writeFileSync(out_target, out)
+              console.log('wrote', out_target)
               process.exit(0)
             }
             trades.sort(function (a, b) {
@@ -101,6 +130,12 @@ module.exports = function container (get, set, clear) {
                 s.buy_hold_start = s.balance[currency] / trade.price
                 s.balance[asset] = init_buy_size
                 s.balance[currency] -= init_buy_size * trade.price
+                s.my_trades.push({
+                  time: trade.time,
+                  type: 'buy',
+                  size: init_buy_size,
+                  price: trade.price
+                })
               }
               if (period_id !== s.last_period_id) {
                 if (s.lookback.length >= strategy.options.min_lookback) {
@@ -181,6 +216,12 @@ module.exports = function container (get, set, clear) {
                         action = 'bought'
                         s.signal = null
                         s.trade_count++
+                        s.my_trades.push({
+                          time: trade.time,
+                          type: 'buy',
+                          size: size,
+                          price: trade.price
+                        })
                       }
                     }
                     else if (s.signal === 'sell') {
@@ -191,6 +232,12 @@ module.exports = function container (get, set, clear) {
                         action = 'sold'
                         s.signal = null
                         s.trade_count++
+                        s.my_trades.push({
+                          time: trade.time,
+                          type: 'sell',
+                          size: size,
+                          price: trade.price
+                        })
                       }
                     }
                     process.stdout.write(moment(s.period_buffer.time).format('YYYY-MM-DD HH').grey)
@@ -214,7 +261,7 @@ module.exports = function container (get, set, clear) {
                 }
                 s.lookback.unshift(s.period_buffer)
                 if (s.lookback.length > strategy.options.min_lookback) {
-                  s.lookback.pop()
+                  //s.lookback.pop()
                 }
                 initBuffer(trade)
               }
