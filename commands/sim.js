@@ -34,7 +34,7 @@ module.exports = function container (get, set, clear) {
           cursor: null,
           lookback: [],
           last_period_id: null,
-          period_buffer: {},
+          period: {},
           trend: null,
           signal: null,
           start_position: 50,
@@ -49,7 +49,7 @@ module.exports = function container (get, set, clear) {
         s.balance[s.asset] = 0
 
         function initBuffer (trade) {
-          s.period_buffer = {
+          s.period = {
             time: tb(trade.time).resize(strategy.options.period).toMilliseconds(),
             open: trade.price,
             high: trade.price,
@@ -61,15 +61,15 @@ module.exports = function container (get, set, clear) {
 
         function exitSim () {
           var size = s.balance[s.asset]
-          s.balance[s.currency] += s.period_buffer.close * size
+          s.balance[s.currency] += s.period.close * size
           s.balance[s.asset] = 0
           s.my_trades.push({
-            time: s.period_buffer.time,
+            time: s.period.time,
             type: 'sell',
             size: size,
-            price: s.period_buffer.close
+            price: s.period.close
           })
-          s.lookback.unshift(s.period_buffer)
+          s.lookback.unshift(s.period)
           console.log(s.balance)
           var buy_hold = s.lookback[0].close * s.buy_hold_start
           console.log('buy hold', n(buy_hold).format('$0.00').yellow)
@@ -88,7 +88,7 @@ module.exports = function container (get, set, clear) {
           var code = 'var data = ' + JSON.stringify(data) + ';\n'
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
           var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
-          var out = tpl.replace('{{code}}', code).replace('{{trend_ema_period}}', strategy.options.trend_ema || 36)
+          var out = tpl.replace('{{code}}', code).replace('{{trend_ema_period}}', strategy.options.period.trend_ema || 36)
           var id = idgen(8)
           var out_target = 'sim_result_' + id + '.html'
           fs.writeFileSync(out_target, out)
@@ -97,14 +97,14 @@ module.exports = function container (get, set, clear) {
         }
 
         function onTrade (trade) {
-          s.period_buffer.high = Math.max(trade.price, s.period_buffer.high)
-          s.period_buffer.low = Math.min(trade.price, s.period_buffer.low)
-          s.period_buffer.close = trade.price
-          s.period_buffer.volume += trade.size
+          s.period.high = Math.max(trade.price, s.period.high)
+          s.period.low = Math.min(trade.price, s.period.low)
+          s.period.close = trade.price
+          s.period.volume += trade.size
           s.cursor = trade.time
         }
 
-        function onCandle () {
+        function generateEma () {
           ['trend_ema', 'price_ema'].forEach(function (k) {
             if (s.lookback.length >= strategy.options[k]) {
               var prev_ema = s.lookback[0][k]
@@ -116,9 +116,20 @@ module.exports = function container (get, set, clear) {
                 prev_ema = sum / strategy.options[k]
               }
               var multiplier = 2 / (strategy.options[k] + 1)
-              s.period_buffer[k] = (s.period_buffer.close - prev_ema) * multiplier + prev_ema
+              s.period[k] = (s.period.close - prev_ema) * multiplier + prev_ema
             }
           })
+          if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
+            if (s.period.trend_ema / s.lookback[0].trend_ema >= 1) {
+              s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
+            }
+            else {
+              s.period.trend_ema_rate = (s.lookback[0].trend_ema - s.period.trend_ema) / s.period.trend_ema * -100
+            }
+          }
+        }
+
+        function generateRsi () {
           if (s.lookback.length >= strategy.options.rsi_periods) {
             var avg_gain = s.lookback[0].avg_gain
             var avg_loss = s.lookback[0].avg_loss
@@ -137,98 +148,117 @@ module.exports = function container (get, set, clear) {
                 }
                 last_close = period.close
               })
-              s.period_buffer.avg_gain = gain_sum / strategy.options.rsi_periods
-              s.period_buffer.avg_loss = loss_sum / strategy.options.rsi_periods
+              s.period.avg_gain = gain_sum / strategy.options.rsi_periods
+              s.period.avg_loss = loss_sum / strategy.options.rsi_periods
             }
             else {
-              var current_gain = s.period_buffer.close - s.lookback[0].close
-              s.period_buffer.avg_gain = ((avg_gain * (strategy.options.rsi_periods - 1)) + (current_gain > 0 ? current_gain : 0)) / strategy.options.rsi_periods
-              var current_loss = s.lookback[0].close - s.period_buffer.close
-              s.period_buffer.avg_loss = ((avg_loss * (strategy.options.rsi_periods - 1)) + (current_loss > 0 ? current_loss : 0)) / strategy.options.rsi_periods
+              var current_gain = s.period.close - s.lookback[0].close
+              s.period.avg_gain = ((avg_gain * (strategy.options.rsi_periods - 1)) + (current_gain > 0 ? current_gain : 0)) / strategy.options.rsi_periods
+              var current_loss = s.lookback[0].close - s.period.close
+              s.period.avg_loss = ((avg_loss * (strategy.options.rsi_periods - 1)) + (current_loss > 0 ? current_loss : 0)) / strategy.options.rsi_periods
             }
-            var rs = s.period_buffer.avg_gain / s.period_buffer.avg_loss
-            s.period_buffer.rsi = Math.round(100 - (100 / (1 + rs)))
+            var rs = s.period.avg_gain / s.period.avg_loss
+            s.period.rsi = Math.round(100 - (100 / (1 + rs)))
           }
-          if (s.period_buffer.trend_ema && s.lookback[0].trend_ema) {
-            if (s.period_buffer.trend_ema / s.lookback[0].trend_ema >= 1) {
-              s.trend = 'up'
+        }
+
+        function emaSignal () {
+          if (s.period.trend_ema_rate && s.lookback[0] && s.lookback[0].trend_ema_rate) {
+            if (s.period.trend_ema_rate >= 0) {
+              s.period.trend = 'up'
               s.signal = 'buy'
-              s.trend_rate = (s.period_buffer.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
             }
             else {
-              s.trend = 'down'
+              s.period.trend = 'down'
               s.signal = 'sell'
-              s.trend_rate = (s.lookback[0].trend_ema - s.period_buffer.trend_ema) / s.period_buffer.trend_ema * -100
             }
-            if (s.signal === 'buy' && s.trend_rate >= 0.05) {
+            if (s.signal === 'buy' && s.period.trend_ema_rate >= 0.05) {
               //s.signal = null
             }
-            else if (s.signal === 'sell' && s.trend_rate <= -0.02) {
+            else if (s.signal === 'sell' && s.period.trend_ema_rate <= -0.02) {
               s.signal = null
             }
-            /*
-            if (s.period_buffer.rsi >= 70) {
-              s.signal = 'sell'
-            }
-            else if (s.period_buffer.rsi <= 30) {
-              s.signal = 'buy'
-            }
-            else {
-              s.signal = null
-            }
-            */
-            var action
-            if (s.signal === 'buy') {
-              var size = s.balance[s.currency] / s.period_buffer.close
-              if (size >= 0.01 && s.balance[s.currency] - (s.period_buffer.close * size) >= 0 && s.period_buffer.close > 100)  {
-                s.balance[s.asset] += size
-                s.balance[s.currency] -= s.period_buffer.close * size
-                action = 'bought'
-                s.signal = null
-                s.trade_count++
-                s.my_trades.push({
-                  time: s.period_buffer.time,
-                  type: 'buy',
-                  size: size,
-                  price: s.period_buffer.close
-                })
-              }
-            }
-            else if (s.signal === 'sell') {
-              var size = s.balance[s.asset]
-              if (size >= 0.01 && s.balance[s.asset] - size >= 0 && s.period_buffer.close > 100)  {
-                s.balance[s.asset] -= size
-                s.balance[s.currency] += s.period_buffer.close * size
-                action = 'sold'
-                s.signal = null
-                s.trade_count++
-                s.my_trades.push({
-                  time: s.period_buffer.time,
-                  type: 'sell',
-                  size: size,
-                  price: s.period_buffer.close
-                })
-              }
-            }
-            process.stdout.write(moment(s.period_buffer.time).format('YYYY-MM-DD HH').grey)
-            process.stdout.write(z(8, n(s.period_buffer.close).format('0.00'), ' ').white)
-            var diff = s.period_buffer.close - s.lookback[0].close
-            process.stdout.write(z(8, n(diff).format('0.00'), ' ')[diff >= 0 ? 'green' : 'red'])
-            process.stdout.write(z(6, s.trend || 'null', ' ')[s.trend ? s.trend === 'up' ? 'green' : 'red' : 'grey'])
-            process.stdout.write(z(9, n(s.trend_rate).format('0.0000'), ' ')[s.trend ? s.trend === 'up' ? 'green' : 'red' : 'grey'])
-            var rsi_color = 'grey'
-            if (s.period_buffer.rsi >= 70) rsi_color = 'green'
-            else if (s.period_buffer.rsi <= 30) rsi_color = 'red'
-            process.stdout.write(z(3, s.period_buffer.rsi, ' ')[rsi_color])
-            process.stdout.write(z(9, action || 'null', ' ')[action ? action === 'bought' ? 'green' : 'red' : 'grey'])
-            process.stdout.write(z(9, n(s.balance[s.asset]).format('0.0000'), ' ').white)
-            process.stdout.write(z(10, n(s.balance[s.currency]).format('$0.00'), ' ').yellow)
-            var consolidated = s.balance[s.currency] + (s.period_buffer.close * s.balance[s.asset])
-            var profit = (consolidated - strategy.options.start_capital) / strategy.options.start_capital
-            process.stdout.write(z(8, n(profit).format('0.00%'), ' ')[profit >= 0 ? 'green' : 'red'])
-            process.stdout.write('\n')
           }
-          s.lookback.unshift(s.period_buffer)
+        }
+
+        function executeSignal () {
+          if (s.signal === 'buy') {
+            var size = s.balance[s.currency] / s.period.close
+            if (size >= 0.01 && s.balance[s.currency] - (s.period.close * size) >= 0 && s.period.close > 100)  {
+              s.balance[s.asset] += size
+              s.balance[s.currency] -= s.period.close * size
+              s.action = 'bought'
+              s.signal = null
+              s.trade_count++
+              s.my_trades.push({
+                time: s.period.time,
+                type: 'buy',
+                size: size,
+                price: s.period.close
+              })
+            }
+          }
+          else if (s.signal === 'sell') {
+            var size = s.balance[s.asset]
+            if (size >= 0.01 && s.balance[s.asset] - size >= 0 && s.period.close > 100)  {
+              s.balance[s.asset] -= size
+              s.balance[s.currency] += s.period.close * size
+              s.action = 'sold'
+              s.signal = null
+              s.trade_count++
+              s.my_trades.push({
+                time: s.period.time,
+                type: 'sell',
+                size: size,
+                price: s.period.close
+              })
+            }
+          }
+        }
+
+        function generateReport () {
+          process.stdout.write(moment(s.period.time).format('YYYY-MM-DD HH').grey)
+          process.stdout.write(z(8, n(s.period.close).format('0.00'), ' ').white)
+          if (s.lookback[0]) {
+            var diff = s.period.close - s.lookback[0].close
+            process.stdout.write(z(8, n(diff).format('0.00'), ' ')[diff >= 0 ? 'green' : 'red'])
+          }
+          else {
+            process.stdout.write(z(8, '', ' '))
+          }
+          process.stdout.write(z(6, s.period.trend || 'null', ' ')[s.period.trend ? s.period.trend === 'up' ? 'green' : 'red' : 'grey'])
+          if (s.period.trend_ema_rate) {
+            process.stdout.write(z(8, n(s.period.trend_ema_rate).format('0.0000'), ' ')[s.period.trend ? s.period.trend === 'up' ? 'green' : 'red' : 'grey'])
+          }
+          else {
+            process.stdout.write(z(9, '', ' '))
+          }
+          if (s.period.rsi) {
+            var rsi_color = 'grey'
+            if (s.period.rsi >= 70) rsi_color = 'green'
+            else if (s.period.rsi <= 30) rsi_color = 'red'
+            process.stdout.write(z(3, s.period.rsi, ' ')[rsi_color])
+          }
+          else {
+            process.stdout.write(z(3, '', ' '))
+          }
+          process.stdout.write(z(9, s.action || 'null', ' ')[s.action ? s.action === 'bought' ? 'green' : 'red' : 'grey'])
+          process.stdout.write(z(9, n(s.balance[s.asset]).format('0.0000'), ' ').white)
+          process.stdout.write(z(10, n(s.balance[s.currency]).format('$0.00'), ' ').yellow)
+          var consolidated = s.balance[s.currency] + (s.period.close * s.balance[s.asset])
+          var profit = (consolidated - strategy.options.start_capital) / strategy.options.start_capital
+          process.stdout.write(z(8, n(profit).format('0.00%'), ' ')[profit >= 0 ? 'green' : 'red'])
+          process.stdout.write('\n')
+        }
+
+        function onCandle () {
+          generateEma()
+          generateRsi()
+          emaSignal()
+          executeSignal()
+          generateReport()
+          s.lookback.unshift(s.period)
+          s.action = null
         }
 
         function getNext () {
@@ -275,7 +305,7 @@ module.exports = function container (get, set, clear) {
               onTrade(trade)
               s.last_period_id = period_id
             })
-            getNext()
+            setImmediate(getNext)
           })
         }
 
