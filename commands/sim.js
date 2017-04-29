@@ -37,13 +37,14 @@ module.exports = function container (get, set, clear) {
           period: {},
           trend: null,
           signal: null,
+          acted_on_trend: false,
           start_position: 50,
           buy_hold_start: null,
           day_count: 0,
-          trade_count: 0,
           last_day: null,
           balance: {},
-          my_trades: []
+          my_trades: [],
+          last_buy_price: null
         }
         s.balance[s.currency] = strategy.options.start_capital
         s.balance[s.asset] = 0
@@ -55,7 +56,10 @@ module.exports = function container (get, set, clear) {
             high: trade.price,
             low: trade.price,
             close: trade.price,
-            volume: 0
+            volume: 0,
+            close_time: null,
+            trend_ema: null,
+            trend_ema_rate: null
           }
         }
 
@@ -74,7 +78,7 @@ module.exports = function container (get, set, clear) {
           var buy_hold = s.lookback[0].close * s.buy_hold_start
           console.log('buy hold', n(buy_hold).format('$0.00').yellow)
           console.log('vs. buy hold', n((s.balance[s.currency] - buy_hold) / buy_hold).format('0.00%').yellow)
-          console.log(s.trade_count + ' trades over ' + s.day_count + ' days (avg ' + n(s.trade_count / s.day_count).format('0.0') + ' trades/day)')
+          console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.0') + ' trades/day)')
           var data = s.lookback.map(function (period) {
             return {
               time: period.time,
@@ -101,24 +105,25 @@ module.exports = function container (get, set, clear) {
           s.period.low = Math.min(trade.price, s.period.low)
           s.period.close = trade.price
           s.period.volume += trade.size
+          s.period.close_time = trade.time
           s.cursor = trade.time
+          adjustBid(trade)
+          executeOrder(trade)
         }
 
         function generateEma () {
-          ['trend_ema', 'price_ema'].forEach(function (k) {
-            if (s.lookback.length >= strategy.options[k]) {
-              var prev_ema = s.lookback[0][k]
-              if (!prev_ema) {
-                var sum = 0
-                s.lookback.slice(0, strategy.options[k]).forEach(function (period) {
-                  sum += period.close
-                })
-                prev_ema = sum / strategy.options[k]
-              }
-              var multiplier = 2 / (strategy.options[k] + 1)
-              s.period[k] = (s.period.close - prev_ema) * multiplier + prev_ema
+          if (s.lookback.length >= strategy.options.trend_ema) {
+            var prev_ema = s.lookback[0].trend_ema
+            if (!prev_ema) {
+              var sum = 0
+              s.lookback.slice(0, strategy.options.trend_ema).forEach(function (period) {
+                sum += period.close
+              })
+              prev_ema = sum / strategy.options.trend_ema
             }
-          })
+            var multiplier = 2 / (strategy.options.trend_ema + 1)
+            s.period.trend_ema = (s.period.close - prev_ema) * multiplier + prev_ema
+          }
           if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
             if (s.period.trend_ema / s.lookback[0].trend_ema >= 1) {
               s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
@@ -165,58 +170,149 @@ module.exports = function container (get, set, clear) {
         function emaSignal () {
           if (s.period.trend_ema_rate && s.lookback[0] && s.lookback[0].trend_ema_rate) {
             if (s.period.trend_ema_rate >= 0) {
-              s.period.trend = 'up'
-              s.signal = 'buy'
+              if (s.trend !== 'up') {
+                s.acted_on_trend = false
+                delete s.sell_order
+              }
+              s.trend = 'up'
+              s.signal = s.acted_on_trend ? null : 'buy'
             }
             else {
-              s.period.trend = 'down'
-              s.signal = 'sell'
+              if (s.trend !== 'down') {
+                s.acted_on_trend = false
+              }
+              s.trend = 'down'
+              s.signal = s.period.trend_ema_rate > -0.02 && !s.acted_on_trend ? 'sell' : null
+              if (s.signal === 'sell') {
+                delete s.buy_order
+              }
             }
-            if (s.signal === 'buy' && s.period.trend_ema_rate >= 0.05) {
-              //s.signal = null
+          }
+        }
+
+        // @todo: market orders don't apply slippage, or adjust size to prevent overdraw.
+        function executeOrder (trade) {
+          var price, fee = 0
+          if (s.buy_order) {
+            if (s.buy_order.type === 'market' || trade.price < s.buy_order.price) {
+              price = s.buy_order.type === 'market' ? trade.price : s.buy_order.price
+              s.balance[s.asset] += s.buy_order.size
+              s.balance[s.currency] -= price * s.buy_order.size
+              if (s.buy_order.type === 'market') {
+                fee = (price * s.buy_order.size) * (strategy.options.fee_pct / 100)
+                s.balance[s.currency] -= fee
+              }
+              s.action = 'bought'
+              s.my_trades.push({
+                time: trade.time,
+                execution_time: trade.time - s.buy_order.orig_time,
+                type: 'buy',
+                market: s.buy_order.type === 'market',
+                size: s.buy_order.size,
+                price: price,
+                fee: fee
+              })
+              s.last_buy_price = price
+              delete s.buy_order
             }
-            else if (s.signal === 'sell' && s.period.trend_ema_rate <= -0.02) {
+          }
+          else if (s.sell_order) {
+            if (s.sell_order.type === 'market' || trade.price > s.sell_order.price) {
+              price = s.sell_order.type === 'market' ? trade.price : s.sell_order.price
+              s.balance[s.asset] -= s.sell_order.size
+              s.balance[s.currency] += price * s.sell_order.size
+              if (s.sell_order.type === 'market') {
+                fee = (price * s.sell_order.size) * (strategy.options.fee_pct / 100)
+                s.balance[s.currency] -= fee
+              }
+              s.action = 'sold'
               s.signal = null
+              s.my_trades.push({
+                time: trade.time,
+                execution_time: trade.time - s.sell_order.orig_time,
+                type: 'sell',
+                market: s.sell_order.type === 'market',
+                size: s.sell_order.size,
+                price: price,
+                fee: fee
+              })
+              delete s.sell_order
             }
           }
         }
 
         function executeSignal () {
+          var size, price
           if (s.signal === 'buy') {
-            var size = s.balance[s.currency] / s.period.close
-            if (size >= 0.01 && s.balance[s.currency] - (s.period.close * size) >= 0 && s.period.close > 100)  {
-              s.balance[s.asset] += size
-              s.balance[s.currency] -= s.period.close * size
-              s.action = 'bought'
-              s.signal = null
-              s.trade_count++
-              s.my_trades.push({
-                time: s.period.time,
-                type: 'buy',
+            size = s.balance[s.currency] / s.period.close
+            if (size >= 0.01)  {
+              price = s.period.close - (s.period.close * (strategy.options.markdown_pct / 100))
+              s.buy_order = {
                 size: size,
-                price: s.period.close
-              })
+                price: price,
+                type: 'limit',
+                time: s.period.close_time,
+                orig_time: s.period.close_time
+              }
             }
+            delete s.sell_order
+            s.acted_on_trend = true
           }
           else if (s.signal === 'sell') {
-            var size = s.balance[s.asset]
-            if (size >= 0.01 && s.balance[s.asset] - size >= 0 && s.period.close > 100)  {
-              s.balance[s.asset] -= size
-              s.balance[s.currency] += s.period.close * size
-              s.action = 'sold'
-              s.signal = null
-              s.trade_count++
-              s.my_trades.push({
-                time: s.period.time,
-                type: 'sell',
-                size: size,
-                price: s.period.close
-              })
+            size = s.balance[s.asset]
+            if (size >= 0.01)  {
+              price = s.period.close + (s.period.close * (strategy.options.markup_pct / 100))
+              var sell_loss = s.last_buy_price ? ((price / s.last_buy_price) * 100) - 100 : null
+              if (sell_loss !== null && sell_loss < strategy.options.max_sell_loss_pct) {
+                console.error('refusing to sell at', n(price).format('$0.00'), 'sell loss of', n(sell_loss / 100).format('0.00%'))
+              }
+              else {
+                s.sell_order = {
+                  size: size,
+                  price: price,
+                  type: 'limit',
+                  time: s.period.close_time,
+                  orig_time: s.period.close_time
+                }
+              }
+            }
+            delete s.buy_order
+            s.acted_on_trend = true
+          }
+        }
+
+        function adjustBid (trade) {
+          var price
+          if (strategy.options.bid_adjust_time && trade.price > 100) {
+            if (s.buy_order && trade.time - s.buy_order.time >= strategy.options.bid_adjust_time) {
+              price = trade.price - (trade.price * (strategy.options.markdown_pct / 100))
+              s.buy_order = {
+                size: s.buy_order.size,
+                price: price,
+                type: 'limit',
+                time: trade.time
+              }
+            }
+            else if (s.sell_order && trade.time - s.sell_order.time >= strategy.options.bid_adjust_time) {
+              price = trade.price + (trade.price * (strategy.options.markup_pct / 100))
+              var sell_loss = s.last_buy_price ? ((price / s.last_buy_price) * 100) - 100 : null
+              if (sell_loss !== null && sell_loss < strategy.options.max_sell_loss_pct) {
+                console.error('refusing to sell at', n(price).format('$0.00'), 'sell loss of', n(sell_loss / 100).format('0.00%'))
+                delete s.sell_order
+              }
+              else {
+                s.sell_order = {
+                  size: s.sell_order.size,
+                  price: price,
+                  type: 'limit',
+                  time: trade.time
+                }
+              }
             }
           }
         }
 
-        function generateReport () {
+        function candleReport () {
           process.stdout.write(moment(s.period.time).format('YYYY-MM-DD HH').grey)
           process.stdout.write(z(8, n(s.period.close).format('0.00'), ' ').white)
           if (s.lookback[0]) {
@@ -226,9 +322,9 @@ module.exports = function container (get, set, clear) {
           else {
             process.stdout.write(z(8, '', ' '))
           }
-          process.stdout.write(z(6, s.period.trend || 'null', ' ')[s.period.trend ? s.period.trend === 'up' ? 'green' : 'red' : 'grey'])
+          process.stdout.write(z(6, s.trend || 'null', ' ')[s.trend ? s.trend === 'up' ? 'green' : 'red' : 'grey'])
           if (s.period.trend_ema_rate) {
-            process.stdout.write(z(8, n(s.period.trend_ema_rate).format('0.0000'), ' ')[s.period.trend ? s.period.trend === 'up' ? 'green' : 'red' : 'grey'])
+            process.stdout.write(z(8, n(s.period.trend_ema_rate).format('0.0000'), ' ')[s.trend ? s.trend === 'up' ? 'green' : 'red' : 'grey'])
           }
           else {
             process.stdout.write(z(9, '', ' '))
@@ -241,6 +337,19 @@ module.exports = function container (get, set, clear) {
           }
           else {
             process.stdout.write(z(3, '', ' '))
+          }
+          process.stdout.write(z(9, s.signal || 'null', ' ')[s.signal ? s.signal === 'buy' ? 'green' : 'red' : 'grey'])
+          if (s.buy_order) {
+            process.stdout.write(z(9, 'buying', ' ').green)
+            process.stdout.write(z(8, n(s.buy_order.price).format('0.00'), ' ').green)
+          }
+          else if (s.sell_order) {
+            process.stdout.write(z(9, 'selling', ' ').red)
+            process.stdout.write(z(8, n(s.sell_order.price).format('0.00'), ' ').red)
+          }
+          else {
+            process.stdout.write(z(9, '', ' '))
+            process.stdout.write(z(9, '', ' '))
           }
           process.stdout.write(z(9, s.action || 'null', ' ')[s.action ? s.action === 'bought' ? 'green' : 'red' : 'grey'])
           process.stdout.write(z(9, n(s.balance[s.asset]).format('0.0000'), ' ').white)
@@ -256,7 +365,7 @@ module.exports = function container (get, set, clear) {
           generateRsi()
           emaSignal()
           executeSignal()
-          generateReport()
+          candleReport()
           s.lookback.unshift(s.period)
           s.action = null
         }
