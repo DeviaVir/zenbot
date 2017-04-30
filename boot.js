@@ -4,9 +4,7 @@ module.exports = function (cb) {
     var c = require('./conf')
   }
   catch (e) {
-    var err = new Error('conf error')
-    err.code = 'CONF'
-    return cb(err, zenbot)
+    c = {}
   }
   var defaults = require('./defaults')
   Object.keys(defaults).forEach(function (k) {
