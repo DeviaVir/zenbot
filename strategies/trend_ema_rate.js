@@ -48,7 +48,7 @@ module.exports = function container (get, set, clear) {
         cols.push(z(8, n(s.period.trend_ema_rate).format('0.0000'), ' ')[s.period.trend_ema_rate >= 0 ? 'green' : 'red'])
       }
       else {
-        cols.push('        ')
+        cols.push('         ')
       }
       return cols
     }
