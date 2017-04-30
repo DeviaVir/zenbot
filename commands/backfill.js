@@ -4,7 +4,7 @@ var tb = require('timebucket')
   , parallel = require('run-parallel')
 
 module.exports = function container (get, set, clear) {
-  var c = get('conf')
+  var c = get('conf') || {}
   return function (program) {
     program
       .command('backfill <selector>')
