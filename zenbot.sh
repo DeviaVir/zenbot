@@ -11,21 +11,8 @@ var fs = require('fs')
 
 boot(function (err, zenbot) {
   var command_name = process.argv[2]
-  if (err && command_name !== 'init') {
-    switch (err.code) {
-      case 'CONF':
-        console.error('error reading conf.js! please run `zenbot init`.')
-        break;
-      case 'CONNECT':
-        console.error('error connecting to mongodb! please ensure mongo is running and edit conf.js if needed.')
-        break;
-      case 'AUTH':
-        console.error('error authenticating to mongodb! please ensure the user/password is correct in conf.js.')
-        break;
-      default:
-        throw err
-    }
-    process.exit(1)
+  if (err) {
+    throw err
   }
   var commands = zenbot.get('zenbot:commands.list')
   commands.forEach(function (command) {

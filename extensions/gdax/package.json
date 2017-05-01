@@ -1,0 +1,8 @@
+{
+  "name": "zenbot_core_gdax",
+  "version": "0.0.0",
+  "description": "zenbot supporting code for GDAX",
+  "dependencies": {
+    "micro-request": "^666.0.10"
+  }
+}

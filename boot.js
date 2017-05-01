@@ -1,3 +1,6 @@
+var glob = require('glob')
+  , path = require('path')
+
 module.exports = function (cb) {
   var zenbot = require('./')()
   try {
@@ -6,44 +9,47 @@ module.exports = function (cb) {
   catch (e) {
     c = {}
   }
-  var defaults = require('./defaults')
+  var defaults = require('./conf-sample')
   Object.keys(defaults).forEach(function (k) {
     if (typeof c[k] === 'undefined') {
       c[k] = defaults[k]
     }
   })
   zenbot.set('@zenbot:conf', c)
+
+  function withMongo () {
+    glob('extensions/*', {cwd: __dirname, absolute: true}, function (err, results) {
+      if (err) return cb(err)
+      results.forEach(function (result) {
+        if (path.basename(result) === 'README.md') {
+          return
+        }
+        var ext = require(path.join(result, '_codemap'))
+        zenbot.use(ext)
+      })
+      cb(null, zenbot)
+    })
+  }
+
   var u = 'mongodb://' + c.mongo_host + ':' + c.mongo_port + '/' + c.mongo_db
   require('mongodb').MongoClient.connect(u, function (err, db) {
     if (err) {
-      err.code = 'CONNECT'
-      return cb(err, zenbot)
+      zenbot.set('zenbot:db.mongo', null)
+      console.error('warning: mongodb not accessible. some features (such as backfilling/simulation) may be disabled.')
+      return withMongo()
     }
     zenbot.set('zenbot:db.mongo', db)
-    function withAuth () {
-      var extensions = zenbot.get('zenbot:db.extensions')
-      extensions.select(function (err, results) {
-        if (err) {
-          return cb(err, zenbot)
-        }
-        results.forEach(function (result) {
-          var ext = require(result.path)
-          zenbot.use(ext)
-        })
-        cb(null, zenbot)
-      })
-    }
     if (c.mongo_username) {
       db.authenticate(c.mongo_username, c.mongo_password, function (err, result) {
         if (err) {
-          err.code = 'AUTH'
-          return cb(err, zenbot)
+          zenbot.set('zenbot:db.mongo', null)
+          console.error('warning: mongodb auth failed. some features (such as backfilling/simulation) may be disabled.')
         }
-        withAuth()
+        withMongo()
       })
     }
     else {
-      withAuth()
+      withMongo()
     }
   })
 }
