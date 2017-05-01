@@ -3,6 +3,8 @@ var z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
+    name: 'trend_ema_rate',
+
     getOptions: function () {
       this.option('period', 'period length', String, '1h')
       this.option('min_periods', 'min. number of history periods', Number, 36)

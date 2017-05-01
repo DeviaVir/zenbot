@@ -3,9 +3,9 @@ module.exports = {
   _maps: [
     require('./commands/_codemap'),
     require('./db/_codemap'),
-    require('./lib/_codemap'),
-    require('./strategies/_codemap')
+    require('./lib/_codemap')
   ],
-  'conf': null,
-  'exchanges.list': []
+  'conf': {},
+  'exchanges.list': [],
+  'strategies.list': []
 }

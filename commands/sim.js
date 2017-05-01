@@ -22,7 +22,7 @@ module.exports = function container (get, set, clear) {
       .option('--start_capital <amount>', 'amount of start capital in currency', Number, 1000, c.start_capital)
       .option('--markup_pct <pct>', '% to raise price above market for sell orders', Number, c.markup_pct)
       .option('--markdown_pct <pct>', '% to lower price below market for buy orders', Number, c.markdown_pct)
-      .option('--bid_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.bid_adjust_time)
+      .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
       .action(function (selector, cmd) {
         selector = get('lib.normalize-selector')(selector)
@@ -241,8 +241,8 @@ module.exports = function container (get, set, clear) {
 
         function adjustBid (trade) {
           var price
-          if (s.options.bid_adjust_time && trade.price > 100) {
-            if (s.buy_order && trade.time - s.buy_order.time >= s.options.bid_adjust_time) {
+          if (s.options.order_adjust_time && trade.price > 100) {
+            if (s.buy_order && trade.time - s.buy_order.time >= s.options.order_adjust_time) {
               price = trade.price - (trade.price * (s.options.markdown_pct / 100))
               s.buy_order = {
                 size: s.buy_order.size,
@@ -251,7 +251,7 @@ module.exports = function container (get, set, clear) {
                 time: trade.time
               }
             }
-            else if (s.sell_order && trade.time - s.sell_order.time >= s.options.bid_adjust_time) {
+            else if (s.sell_order && trade.time - s.sell_order.time >= s.options.order_adjust_time) {
               price = trade.price + (trade.price * (s.options.markup_pct / 100))
               var sell_loss = s.last_buy_price ? ((price / s.last_buy_price) * 100) - 100 : null
               if (sell_loss !== null && sell_loss < s.options.max_sell_loss_pct) {

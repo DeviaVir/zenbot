@@ -1,10 +1,10 @@
 module.exports = function container (get, set, clear) {
   return function (program) {
     program
-      .command('list-selectors')
-      .description('list available selectors')
+      .command('list-strategies')
+      .description('list available strategies')
       .action(function (cmd) {
-
+        
       })
   }
 }
