@@ -11,7 +11,15 @@ module.exports = function container (get, set, clear) {
         if (err) return cb(err)
         var products = []
         body.forEach(function (product) {
-          products.push(product.id)
+          products.push({
+            id: product.id,
+            asset: product.base_currency,
+            currency: product.quote_currency,
+            min_size: Number(product.base_min_size),
+            max_size: Number(product.base_max_size),
+            increment: Number(product.quote_increment),
+            label: product.display_name
+          })
         })
         cb(null, products)
       })
