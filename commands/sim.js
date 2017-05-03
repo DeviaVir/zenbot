@@ -111,10 +111,12 @@ module.exports = function container (get, set, clear) {
             price: s.period.close
           })
           s.lookback.unshift(s.period)
-          console.log('end balance', n(s.balance[s.currency]).format('$0.00').yellow)
+          var profit = (s.balance[s.currency] - s.options.start_capital) / s.options.start_capital
+          console.log('end balance', n(s.balance[s.currency]).format('$0.00').yellow + ' (' + n(profit).format('0.00%') + ')')
           var buy_hold = s.lookback[0].close * s.buy_hold_start
-          console.log('buy hold', n(buy_hold).format('$0.00').yellow)
-          console.log('vs. buy hold', n((s.balance[s.currency] - buy_hold) / buy_hold).format('0.00%').yellow)
+          var buy_hold_profit = (buy_hold - s.options.start_capital) / s.options.start_capital
+          console.log('buy hold', n(buy_hold).format('$0.00').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+          console.log('vs. buy hold', n(profit - buy_hold_profit).format('0.00%').yellow)
           console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.0') + ' trades/day)')
           var data = s.lookback.map(function (period) {
             return {
@@ -241,7 +243,7 @@ module.exports = function container (get, set, clear) {
 
         function adjustBid (trade) {
           var price
-          if (s.options.order_adjust_time && trade.price > 100) {
+          if (s.options.order_adjust_time) {
             if (s.buy_order && trade.time - s.buy_order.time >= s.options.order_adjust_time) {
               price = trade.price - (trade.price * (s.options.markdown_pct / 100))
               s.buy_order = {
