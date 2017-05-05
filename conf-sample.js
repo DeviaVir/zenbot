@@ -9,7 +9,7 @@ c.sell_stop_pct = 0
 // don't do sell stops below this % of bought price
 c.sell_stop_max_pct = 8
 // buy if price surges above this % of sold price (0 to disable)
-c.buy_stop_pct = 4
+c.buy_stop_pct = 0
 // enable trailing sell stop when reaching this % profit (0 to disable. note: in extreme bull markets, turn this off for max profit!)
 c.profit_stop_enable_pct = 5
 // maintain a trailing stop this % below the high-water mark of profit
