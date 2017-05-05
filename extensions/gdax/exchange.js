@@ -9,6 +9,12 @@ module.exports = function container (get, set, clear) {
     getProducts: function (cb) {
       request(rest_url + '/products', {headers: {'User-Agent': USER_AGENT}, timeout: c.request_timeout}, function (err, resp, body) {
         if (err) return cb(err)
+        if (resp.statusCode !== 200) {
+          var err = new Error('non-200 status: ' + resp.statusCode)
+          err.code = 'HTTP_STATUS'
+          err.body = body
+          return cb(err)
+        }
         var products = []
         body.forEach(function (product) {
           products.push({
@@ -37,9 +43,9 @@ module.exports = function container (get, set, clear) {
       request(uri, {headers: {'User-Agent': USER_AGENT}, timeout: c.request_timeout}, function (err, resp, body) {
         if (err) return cb(err)
         if (resp.statusCode !== 200 || toString.call(body) !== '[object Array]') {
-          console.error(body)
           var err = new Error('non-200 status: ' + resp.statusCode)
           err.code = 'HTTP_STATUS'
+          err.body = body
           return cb(err)
         }
         var trades = body.map(function (trade) {
