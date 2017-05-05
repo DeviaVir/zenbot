@@ -12,6 +12,7 @@
     "commander": "^2.9.0",
     "glob": "^7.1.1",
     "idgen": "^2.0.2",
+    "micro-request": "^666.0.10",
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
     "mongodb": "^2.2.25",
