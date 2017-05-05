@@ -222,7 +222,6 @@ module.exports = function container (get, set, clear) {
               }
               delete s.profit_stop
               delete s.profit_stop_high
-              s.acted_on_stop = false
             }
           }
           else if (s.sell_order) {
@@ -253,7 +252,6 @@ module.exports = function container (get, set, clear) {
               delete s.sell_stop
               delete s.profit_stop
               delete s.profit_stop_high
-              s.acted_on_stop = false
             }
           }
         }
@@ -437,6 +435,7 @@ module.exports = function container (get, set, clear) {
                 }
                 if (period_id !== s.last_period_id) {
                   strategy.onPeriod.call(ctx, s, function () {
+                    s.acted_on_stop = false
                     executeSignal()
                     writeReport()
                     s.lookback.unshift(s.period)
