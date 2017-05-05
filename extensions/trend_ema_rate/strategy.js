@@ -12,7 +12,7 @@ module.exports = function container (get, set, clear) {
       this.option('min_buy_rate', 'buy if trend ema rate over this float', Number, 0)
       this.option('max_buy_rate', 'avoid buy if trend ema rate over this float', Number, 10)
       this.option('min_sell_rate', 'sell if trend ema rate under this float', Number, 0)
-      this.option('max_sell_rate', 'avoid sell if trend ema rate under this float', Number, -0.02)
+      this.option('max_sell_rate', 'avoid sell if trend ema rate under this float', Number, -0.006)
     },
 
     onPeriod: function (s, cb) {

@@ -23,7 +23,12 @@ module.exports = function container (get, set, clear) {
       .option('--start_capital <amount>', 'amount of start capital in currency', Number, 1000, c.start_capital)
       .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
+      .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, c.sell_stop_pct)
+      .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, c.buy_stop_pct)
+      .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, c.profit_stop_enable_pct)
+      .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
+      .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, false)
       .action(function (selector, cmd) {
         var argv = minimist(process.argv)
         selector = get('lib.normalize-selector')(selector)
@@ -148,13 +153,41 @@ module.exports = function container (get, set, clear) {
           s.period.close = trade.price
           s.period.volume += trade.size
           s.period.close_time = trade.time
-          s.cursor = trade.time
-          adjustBid(trade)
-          executeOrder(trade)
+          s.cursor = trade.orig_time || trade.time
+          var stop_signal
           if (s.my_trades.length) {
             var last_trade = s.my_trades[s.my_trades.length - 1]
             s.last_trade_worth = last_trade.type === 'buy' ? (s.period.close / last_trade.price) - 1 : (last_trade.price / s.period.close) - 1
+            if (!s.acted_on_stop) {
+              if (last_trade.type === 'buy') {
+                if (s.sell_stop && s.period.close < s.sell_stop) {
+                  stop_signal = 'sell'
+                  console.log('sell stop triggered at ' + n(s.last_trade_worth).format('0.00%') + ' trade worth')
+                }
+                else if (s.options.profit_stop_enable_pct && s.last_trade_worth >= (s.options.profit_stop_enable_pct / 100)) {
+                  s.profit_stop_high = Math.max(s.profit_stop_high || s.period.close, s.period.close)
+                  s.profit_stop = s.profit_stop_high - (s.profit_stop_high * (s.options.profit_stop_pct / 100))
+                }
+                if (s.profit_stop && s.period.close < s.profit_stop) {
+                  stop_signal = 'sell'
+                  console.log('profit stop triggered at ' + n(s.last_trade_worth).format('0.00%') + ' trade worth')
+                }
+              }
+              else {
+                if (s.buy_stop && s.period.close > s.buy_stop) {
+                  stop_signal = 'buy'
+                  console.log('buy stop triggered at ' + n(s.last_trade_worth).format('0.00%') + ' trade worth')
+                }
+              }
+            }
           }
+          if (stop_signal) {
+            s.signal = stop_signal
+            s.acted_on_stop = true
+            executeSignal()
+          }
+          adjustBid(trade)
+          executeOrder(trade)
         }
 
         // @todo: market orders don't apply slippage, or adjust size to prevent overdraw.
@@ -181,6 +214,13 @@ module.exports = function container (get, set, clear) {
               })
               s.last_buy_price = price
               delete s.buy_order
+              delete s.buy_stop
+              if (s.options.sell_stop_pct) {
+                s.sell_stop = price - (price * (s.options.sell_stop_pct / 100))
+              }
+              delete s.profit_stop
+              delete s.profit_stop_high
+              s.acted_on_stop = false
             }
           }
           else if (s.sell_order) {
@@ -204,6 +244,13 @@ module.exports = function container (get, set, clear) {
                 fee: fee
               })
               delete s.sell_order
+              if (s.options.buy_stop_pct) {
+                s.buy_stop = price + (price * (s.options.buy_stop_pct / 100))
+              }
+              delete s.sell_stop
+              delete s.profit_stop
+              delete s.profit_stop_high
+              s.acted_on_stop = false
             }
           }
         }
@@ -332,11 +379,21 @@ module.exports = function container (get, set, clear) {
               selector: selector,
               time: {$lte: s.end}
             },
-            order: {time: 1},
+            sort: {time: 1},
             limit: 1000
           }
           if (s.cursor) {
-            opts.query.time['$gt'] = s.cursor
+            if (s.reversing) {
+              opts.query.time = {}
+              opts.query.time['$lt'] = s.cursor
+              if (s.start) {
+                opts.query.time['$gte'] = Number(s.start)
+              }
+              opts.sort = {time: -1}
+            }
+            else {
+              opts.query.time['$gt'] = s.cursor
+            }
           }
           else if (s.start) {
             opts.query.time['$gte'] = Number(s.start)
@@ -344,7 +401,18 @@ module.exports = function container (get, set, clear) {
           get('db.trades').select(opts, function (err, trades) {
             if (err) throw err
             if (!trades.length) {
+              if (s.options.symmetrical && !s.reversing) {
+                s.reversing = true
+                s.reverse_point = s.cursor
+                return getNext()
+              }
               exitSim()
+            }
+            if (s.options.symmetrical && s.reversing) {
+              trades.forEach(function (trade) {
+                trade.orig_time = trade.time
+                trade.time = s.reverse_point + (s.reverse_point - trade.time)
+              })
             }
             trades.sort(function (a, b) {
               if (a.time < b.time) return -1
