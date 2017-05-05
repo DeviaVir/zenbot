@@ -31,7 +31,5 @@ c.error_backoff = 30000
 c.start_capital = 1000
 // % to markup price for sell orders (normally overriden with --markup_pct)
 c.markup_pct = 0.01
-// % to markdown price for buy orders (normally overriden with --markdown_pct)
-c.markdown_pct = 0.01
 // ms to adjust non-filled order after
 c.order_adjust_time = 300000

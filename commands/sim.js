@@ -7,6 +7,7 @@ var path = require('path')
   , fs = require('fs')
   , idgen = require('idgen')
   , series = require('run-series')
+  , minimist = require('minimist')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -20,11 +21,11 @@ module.exports = function container (get, set, clear) {
       .option('--end <timestamp>', 'end at timestamp (milliseconds)')
       .option('--days <days>', 'start n days ago and end at latest data')
       .option('--start_capital <amount>', 'amount of start capital in currency', Number, 1000, c.start_capital)
-      .option('--markup_pct <pct>', '% to raise price above market for sell orders', Number, c.markup_pct)
-      .option('--markdown_pct <pct>', '% to lower price below market for buy orders', Number, c.markdown_pct)
+      .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
       .action(function (selector, cmd) {
+        var argv = minimist(process.argv)
         selector = get('lib.normalize-selector')(selector)
         try {
           var strategy = get('strategies.' + cmd.strategy)
@@ -65,8 +66,8 @@ module.exports = function container (get, set, clear) {
         // set up options augmented by strategy
         var ctx = {
           option: function (name, desc, type, def) {
-            if (typeof cmd[name] !== 'undefined') {
-              s.options[name] = cmd[name]
+            if (typeof argv[name] !== 'undefined') {
+              s.options[name] = argv[name]
             }
             else {
               s.options[name] = def
@@ -77,13 +78,15 @@ module.exports = function container (get, set, clear) {
           strategy.getOptions.call(ctx)
         }
         Object.keys(c).forEach(function (k) {
-          if (typeof cmd[k] !== 'undefined') {
-            s.options[k] = cmd[k]
+          if (k.indexOf('mongo_') !== -1) return
+          if (typeof argv[k] !== 'undefined') {
+            s.options[k] = argv[k]
           }
           else {
             s.options[k] = c[k]
           }
         })
+        console.log(s.options)
 
         s.balance[s.currency] = s.options.start_capital
         s.balance[s.asset] = 0
@@ -148,6 +151,10 @@ module.exports = function container (get, set, clear) {
           s.cursor = trade.time
           adjustBid(trade)
           executeOrder(trade)
+          if (s.my_trades.length) {
+            var last_trade = s.my_trades[s.my_trades.length - 1]
+            s.last_trade_worth = last_trade.type === 'buy' ? (s.period.close / last_trade.price) - 1 : (last_trade.price / s.period.close) - 1
+          }
         }
 
         // @todo: market orders don't apply slippage, or adjust size to prevent overdraw.
@@ -206,7 +213,7 @@ module.exports = function container (get, set, clear) {
           if (s.signal === 'buy') {
             size = s.balance[s.currency] / s.period.close
             if (size >= 0.01)  {
-              price = s.period.close - (s.period.close * (s.options.markdown_pct / 100))
+              price = s.period.close - (s.period.close * (s.options.markup_pct / 100))
               s.buy_order = {
                 size: size,
                 price: price,
@@ -245,7 +252,7 @@ module.exports = function container (get, set, clear) {
           var price
           if (s.options.order_adjust_time) {
             if (s.buy_order && trade.time - s.buy_order.time >= s.options.order_adjust_time) {
-              price = trade.price - (trade.price * (s.options.markdown_pct / 100))
+              price = trade.price - (trade.price * (s.options.markup_pct / 100))
               s.buy_order = {
                 size: s.buy_order.size,
                 price: price,
@@ -302,7 +309,15 @@ module.exports = function container (get, set, clear) {
             process.stdout.write(z(9, '', ' '))
             process.stdout.write(z(9, '', ' '))
           }
-          process.stdout.write(z(9, s.action || 'null', ' ')[s.action ? s.action === 'bought' ? 'green' : 'red' : 'grey'])
+          if (s.action) {
+            process.stdout.write(z(10, s.action, ' ')[s.action === 'bought' ? 'green' : 'red'])
+          }
+          else if (s.last_trade_worth) {
+            process.stdout.write(z(9, n(s.last_trade_worth).format('0.0000%'), ' ')[s.last_trade_worth > 0 ? 'green' : 'red'])
+          }
+          else {
+            process.stdout.write(z(10, '', ' '))
+          }
           process.stdout.write(z(9, n(s.balance[s.asset]).format('0.0000'), ' ').white)
           process.stdout.write(z(10, n(s.balance[s.currency]).format('$0.00'), ' ').yellow)
           var consolidated = s.balance[s.currency] + (s.period.close * s.balance[s.asset])
