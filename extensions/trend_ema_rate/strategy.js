@@ -18,12 +18,7 @@ module.exports = function container (get, set, clear) {
     onPeriod: function (s, cb) {
       get('lib.ema')(s, 'trend_ema', s.options.trend_ema)
       if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
-        if (s.period.trend_ema / s.lookback[0].trend_ema >= 1) {
-          s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
-        }
-        else {
-          s.period.trend_ema_rate = (s.lookback[0].trend_ema - s.period.trend_ema) / s.period.trend_ema * -100
-        }
+        s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
       }
       if (s.period.trend_ema_rate && s.lookback[0] && s.lookback[0].trend_ema_rate) {
         if (s.period.trend_ema_rate >= s.options.min_buy_rate) {
