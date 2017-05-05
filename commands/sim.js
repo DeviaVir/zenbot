@@ -363,7 +363,7 @@ module.exports = function container (get, set, clear) {
             process.stdout.write(z(10, s.action, ' ')[s.action === 'bought' ? 'green' : 'red'])
           }
           else if (s.last_trade_worth) {
-            process.stdout.write(z(9, n(s.last_trade_worth).format('0.0000%'), ' ')[s.last_trade_worth > 0 ? 'green' : 'red'])
+            process.stdout.write(z(9, n(s.last_trade_worth).format('0.00%'), ' ')[s.last_trade_worth > 0 ? 'green' : 'red'])
           }
           else {
             process.stdout.write(z(10, '', ' '))
