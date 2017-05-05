@@ -125,8 +125,8 @@ module.exports = function container (get, set, clear) {
           var buy_hold = s.lookback[0].close * s.buy_hold_start
           var buy_hold_profit = (buy_hold - s.options.start_capital) / s.options.start_capital
           console.log('buy hold', n(buy_hold).format('$0.00').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-          console.log('vs. buy hold', n(profit - buy_hold_profit).format('0.00%').yellow)
-          console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.0') + ' trades/day)')
+          console.log('vs. buy hold', n((s.balance[s.currency] - buy_hold) / buy_hold).format('0.00%').yellow)
+          console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
           var data = s.lookback.map(function (period) {
             return {
               time: period.time,
@@ -158,7 +158,7 @@ module.exports = function container (get, set, clear) {
           var stop_signal
           if (s.my_trades.length) {
             var last_trade = s.my_trades[s.my_trades.length - 1]
-            s.last_trade_worth = last_trade.type === 'buy' ? (s.period.close / last_trade.price) - 1 : (last_trade.price / s.period.close) - 1
+            s.last_trade_worth = last_trade.type === 'buy' ? (s.period.close - last_trade.price) / last_trade.price : (last_trade.price - s.period.close) / last_trade.price
             if (!s.acted_on_stop) {
               if (last_trade.type === 'buy') {
                 if (s.sell_stop && s.period.close < s.sell_stop && (!s.options.sell_stop_max_pct || (s.last_trade_worth * -100 < s.options.sell_stop_max_pct))) {
@@ -277,7 +277,7 @@ module.exports = function container (get, set, clear) {
             size = s.balance[s.asset]
             if (size >= 0.01)  {
               price = s.period.close + (s.period.close * (s.options.markup_pct / 100))
-              var sell_loss = s.last_buy_price ? (1 - (price / s.last_buy_price)) * 100 : null
+              var sell_loss = s.last_buy_price ? (price - s.last_buy_price) / s.last_buy_price * -100 : null
               if (s.options.max_sell_loss_pct && sell_loss > s.options.max_sell_loss_pct) {
                 console.error('refusing to sell at', n(price).format('$0.00'), 'sell loss of', n(sell_loss / 100).format('0.00%'))
               }
@@ -310,7 +310,7 @@ module.exports = function container (get, set, clear) {
             }
             else if (s.sell_order && trade.time - s.sell_order.time >= s.options.order_adjust_time) {
               price = trade.price + (trade.price * (s.options.markup_pct / 100))
-              var sell_loss = s.last_buy_price ? (1 - (price / s.last_buy_price)) * 100 : null
+              var sell_loss = s.last_buy_price ? (price - s.last_buy_price) / s.last_buy_price * -100 : null
               if (s.options.max_sell_loss_pct && sell_loss > s.options.max_sell_loss_pct) {
                 console.error('refusing to sell at', n(price).format('$0.00'), 'sell loss of', n(sell_loss / 100).format('0.00%'))
                 delete s.sell_order
