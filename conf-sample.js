@@ -5,9 +5,9 @@ var c = module.exports = {}
 // name of default trade strategy. list available with `zenbot list-strategies` and override with (--strategy)
 c.strategy = 'trend_ema_rate'
 // sell if price drops below this % of bought price
-c.sell_stop_pct = 4
+c.sell_stop_pct = 5
 // don't do sell stops below this % of bought price
-c.sell_stop_max_pct = 6
+c.sell_stop_max_pct = 7
 // buy if price surges above this % of sold price
 c.buy_stop_pct = 4
 // enable trailing sell stop when reaching this % profit
