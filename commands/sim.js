@@ -24,6 +24,7 @@ module.exports = function container (get, set, clear) {
       .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
       .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, c.sell_stop_pct)
+      .option('--sell_stop_max_pct <pct>', 'don\'t do sell stops below this % of bought price', Number, c.sell_stop_pct)
       .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, c.buy_stop_pct)
       .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, c.profit_stop_enable_pct)
       .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
@@ -160,7 +161,7 @@ module.exports = function container (get, set, clear) {
             s.last_trade_worth = last_trade.type === 'buy' ? (s.period.close / last_trade.price) - 1 : (last_trade.price / s.period.close) - 1
             if (!s.acted_on_stop) {
               if (last_trade.type === 'buy') {
-                if (s.sell_stop && s.period.close < s.sell_stop) {
+                if (s.sell_stop && s.period.close < s.sell_stop && (!s.options.sell_stop_max_pct || (s.last_trade_worth * -100 < s.options.sell_stop_max_pct))) {
                   stop_signal = 'sell'
                   console.log('sell stop triggered at ' + n(s.last_trade_worth).format('0.00%') + ' trade worth')
                 }
@@ -215,7 +216,8 @@ module.exports = function container (get, set, clear) {
               s.last_buy_price = price
               delete s.buy_order
               delete s.buy_stop
-              if (s.options.sell_stop_pct) {
+              delete s.sell_stop
+              if (!s.acted_on_stop && s.options.sell_stop_pct) {
                 s.sell_stop = price - (price * (s.options.sell_stop_pct / 100))
               }
               delete s.profit_stop
@@ -244,7 +246,8 @@ module.exports = function container (get, set, clear) {
                 fee: fee
               })
               delete s.sell_order
-              if (s.options.buy_stop_pct) {
+              delete s.buy_stop
+              if (!s.acted_on_stop && s.options.buy_stop_pct) {
                 s.buy_stop = price + (price * (s.options.buy_stop_pct / 100))
               }
               delete s.sell_stop
@@ -276,8 +279,8 @@ module.exports = function container (get, set, clear) {
             size = s.balance[s.asset]
             if (size >= 0.01)  {
               price = s.period.close + (s.period.close * (s.options.markup_pct / 100))
-              var sell_loss = s.last_buy_price ? ((price / s.last_buy_price) * 100) - 100 : null
-              if (sell_loss !== null && sell_loss < s.options.max_sell_loss_pct) {
+              var sell_loss = s.last_buy_price ? (1 - (price / s.last_buy_price)) * 100 : null
+              if (s.options.max_sell_loss_pct && sell_loss > s.options.max_sell_loss_pct) {
                 console.error('refusing to sell at', n(price).format('$0.00'), 'sell loss of', n(sell_loss / 100).format('0.00%'))
               }
               else {
@@ -309,8 +312,8 @@ module.exports = function container (get, set, clear) {
             }
             else if (s.sell_order && trade.time - s.sell_order.time >= s.options.order_adjust_time) {
               price = trade.price + (trade.price * (s.options.markup_pct / 100))
-              var sell_loss = s.last_buy_price ? ((price / s.last_buy_price) * 100) - 100 : null
-              if (sell_loss !== null && sell_loss < s.options.max_sell_loss_pct) {
+              var sell_loss = s.last_buy_price ? (1 - (price / s.last_buy_price)) * 100 : null
+              if (s.options.max_sell_loss_pct && sell_loss > s.options.max_sell_loss_pct) {
                 console.error('refusing to sell at', n(price).format('$0.00'), 'sell loss of', n(sell_loss / 100).format('0.00%'))
                 delete s.sell_order
               }
