@@ -92,7 +92,6 @@ module.exports = function container (get, set, clear) {
             s.options[k] = c[k]
           }
         })
-        console.log(s.options)
 
         s.balance[s.currency] = s.options.start_capital
         s.balance[s.asset] = 0
@@ -120,6 +119,7 @@ module.exports = function container (get, set, clear) {
             price: s.period.close
           })
           s.lookback.unshift(s.period)
+          console.log(s.options)
           var profit = (s.balance[s.currency] - s.options.start_capital) / s.options.start_capital
           console.log('end balance', n(s.balance[s.currency]).format('$0.00').yellow + ' (' + n(profit).format('0.00%') + ')')
           var buy_hold = s.lookback[0].close * s.buy_hold_start
