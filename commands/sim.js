@@ -17,6 +17,8 @@ module.exports = function container (get, set, clear) {
       .option('--days <days>', 'start n days ago and end at latest data')
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, c.asset_capital)
+      .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
+      .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, c.sell_pct)
       .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
       .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, c.sell_stop_pct)
@@ -26,6 +28,7 @@ module.exports = function container (get, set, clear) {
       .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
       .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
+      .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
         var so = s.options
