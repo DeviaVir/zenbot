@@ -13,4 +13,4 @@ config.js
 config.patch
 data/*
 conf.js
-sim_result_*
+sim_result*

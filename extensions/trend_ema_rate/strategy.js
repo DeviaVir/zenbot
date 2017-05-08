@@ -7,7 +7,7 @@ module.exports = function container (get, set, clear) {
 
     getOptions: function () {
       this.option('period', 'period length', String, '1h')
-      this.option('min_periods', 'min. number of history periods', Number, 36)
+      this.option('min_periods', 'min. number of history periods', Number, 37)
       this.option('trend_ema', 'number of periods for trend ema', Number, 36)
       this.option('min_buy_rate', 'buy if trend ema rate over this float', Number, 0)
       this.option('max_buy_rate', 'avoid buy if trend ema rate over this float', Number, 10)

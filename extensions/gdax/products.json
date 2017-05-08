@@ -1,0 +1,65 @@
+[
+  {
+    "id": "BTC-GBP",
+    "asset": "BTC",
+    "currency": "GBP",
+    "min_size": 0.01,
+    "max_size": 10000,
+    "increment": 0.01,
+    "label": "BTC/GBP"
+  },
+  {
+    "id": "BTC-USD",
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": 0.01,
+    "max_size": 10000,
+    "increment": 0.01,
+    "label": "BTC/USD"
+  },
+  {
+    "id": "ETH-USD",
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": 0.01,
+    "max_size": 1000000,
+    "increment": 0.01,
+    "label": "ETH/USD"
+  },
+  {
+    "id": "LTC-USD",
+    "asset": "LTC",
+    "currency": "USD",
+    "min_size": 0.01,
+    "max_size": 1000000,
+    "increment": 0.01,
+    "label": "LTC/USD"
+  },
+  {
+    "id": "ETH-BTC",
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": 0.01,
+    "max_size": 1000000,
+    "increment": 0.00001,
+    "label": "ETH/BTC"
+  },
+  {
+    "id": "LTC-BTC",
+    "asset": "LTC",
+    "currency": "BTC",
+    "min_size": 0.01,
+    "max_size": 1000000,
+    "increment": 0.00001,
+    "label": "LTC/BTC"
+  },
+  {
+    "id": "BTC-EUR",
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": 0.01,
+    "max_size": 10000,
+    "increment": 0.01,
+    "label": "BTC/EUR"
+  }
+]
