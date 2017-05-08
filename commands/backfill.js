@@ -20,7 +20,7 @@ module.exports = function container (get, set, clear) {
           process.exit(1)
         }
         var trades = get('db.trades')
-        get('db.mongo').collection('trades').ensureIndex({time: 1})
+        get('db.mongo').collection('trades').ensureIndex({selector: 1, time: 1})
         var resume_markers = get('db.resume_markers')
         get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
         var marker = {

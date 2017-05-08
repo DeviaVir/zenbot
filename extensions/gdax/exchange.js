@@ -6,29 +6,8 @@ module.exports = function container (get, set, clear) {
   return {
     name: 'gdax',
 
-    getProducts: function (cb) {
-      request(rest_url + '/products', {headers: {'User-Agent': USER_AGENT}, timeout: c.request_timeout}, function (err, resp, body) {
-        if (err) return cb(err)
-        if (resp.statusCode !== 200) {
-          var err = new Error('non-200 status: ' + resp.statusCode)
-          err.code = 'HTTP_STATUS'
-          err.body = body
-          return cb(err)
-        }
-        var products = []
-        body.forEach(function (product) {
-          products.push({
-            id: product.id,
-            asset: product.base_currency,
-            currency: product.quote_currency,
-            min_size: Number(product.base_min_size),
-            max_size: Number(product.base_max_size),
-            increment: Number(product.quote_increment),
-            label: product.display_name
-          })
-        })
-        cb(null, products)
-      })
+    getProducts: function () {
+      return require('./products.json')
     },
 
     getTrades: function (opts, cb) {
