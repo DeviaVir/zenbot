@@ -7,11 +7,11 @@ module.exports = function container (get, set, clear) {
   var c = get('conf') || {}
   return function (program) {
     program
-      .command('backfill <selector>')
+      .command('backfill [selector]')
       .description('download historical trades for analysis')
       .option('-d, --days <days>', 'number of days to acquire (default: ' + c.backfill_days + ')', Number, c.backfill_days)
       .action(function (selector, cmd) {
-        selector = get('lib.normalize-selector')(selector)
+        selector = get('lib.normalize-selector')(selector || c.selector)
         var exchange_id = selector.split('.')[0]
         var product_id = selector.split('.')[1]
         var exchange = get('exchanges.' + exchange_id)

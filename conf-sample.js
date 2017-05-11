@@ -2,7 +2,9 @@ var c = module.exports = {}
 
 // COMMONLY TWEAKED VARIABLES:
 
-// name of default trade strategy. list available with `zenbot list-strategies` and override with (--strategy)
+// default selector. only used if omitting [selector] argument from a command.
+c.selector = 'gdax.BTC-USD'
+// name of default trade strategy
 c.strategy = 'trend_ema_rate'
 // sell if price drops below this % of bought price (0 to disable)
 c.sell_stop_pct = 4
@@ -12,14 +14,16 @@ c.buy_stop_pct = 0
 c.profit_stop_enable_pct = 5
 // maintain a trailing stop this % below the high-water mark of profit
 c.profit_stop_pct = 3
-// avoid selling at a loss below this pct (override with --max_sell_loss_pct)
+// avoid selling at a loss below this pct
 c.max_sell_loss_pct = 25
+// avoid trading at a slippage above this pct
+c.max_slippage_pct = 2
 // buy with this % of currency balance
-c.buy_pct = 100
+c.buy_pct = 98
 // sell with this % of asset balance
-c.sell_pct = 100
-// % to mark up or down price for orders (normally overriden with --markup_pct)
-c.markup_pct = 0.05
+c.sell_pct = 98
+// % to mark up or down price for orders
+c.markup_pct = 0
 
 // LESS-COMMONLY TWEAKED VARAIBLES:
 
@@ -39,10 +43,12 @@ c.poll_trades = 10000
 c.request_timeout = 10000
 // ms to retry failed requests after
 c.error_backoff = 30000
-// amount of currency to start simulations with (normally overriden with --currency_capital)
+// amount of currency to start simulations with
 c.currency_capital = 1000
-// amount of asset to start simulations with (normally overriden with --asset_capital)
+// amount of asset to start simulations with
 c.asset_capital = 0
+// ms to poll order status
+c.order_poll_time = 5000
 // ms to adjust non-filled order after
 c.order_adjust_time = 30000
 // for sim, reverse time at the end of the graph, normalizing buy/hold to 0
