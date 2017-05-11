@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
   var c = get('conf')
   return function (program) {
     program
-      .command('sim <selector>')
+      .command('sim [selector]')
       .allowUnknownOption()
       .description('run a simulation on backfilled data')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
@@ -26,6 +26,7 @@ module.exports = function container (get, set, clear) {
       .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, c.profit_stop_enable_pct)
       .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
+      .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .action(function (selector, cmd) {
@@ -44,7 +45,7 @@ module.exports = function container (get, set, clear) {
         if (so.days) {
           so.start = d.subtract(so.days).toMilliseconds()
         }
-        so.selector = get('lib.normalize-selector')(selector)
+        so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'sim'
         var engine = get('lib.engine')(s)
         if (!so.min_periods) so.min_periods = 1

@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
   var c = get('conf')
   return function (program) {
     program
-      .command('trade <selector>')
+      .command('trade [selector]')
       .allowUnknownOption()
       .description('run trading bot against live market data')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
@@ -25,10 +25,11 @@ module.exports = function container (get, set, clear) {
       .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, c.profit_stop_enable_pct)
       .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
+      .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
       .action(function (selector, cmd) {
-        selector = get('lib.normalize-selector')(selector)
+        selector = get('lib.normalize-selector')(selector || c.selector)
         var exchange_id = selector.split('.')[0]
         var product_id = selector.split('.')[1]
         var exchange = get('exchanges.' + exchange_id)
@@ -44,7 +45,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
-        so.selector = get('lib.normalize-selector')(selector)
+        so.selector = selector
         so.mode = 'paper'
         var engine = get('lib.engine')(s)
 
