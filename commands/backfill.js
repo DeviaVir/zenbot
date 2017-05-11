@@ -42,7 +42,7 @@ module.exports = function container (get, set, clear) {
               if (err) {
                 console.error('err backfilling selector: ' + selector)
                 console.error(err)
-                if (err.code === 'ETIMEDOUT') {
+                if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND') {
                   console.error('retrying...')
                   setImmediate(getNext)
                   return

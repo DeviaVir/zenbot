@@ -46,7 +46,7 @@ module.exports = function container (get, set, clear) {
           }
         })
         so.selector = selector
-        so.mode = 'paper'
+        so.mode = so.paper ? 'paper' : 'live'
         var engine = get('lib.engine')(s)
 
         var db_cursor, trade_cursor
@@ -80,7 +80,15 @@ module.exports = function container (get, set, clear) {
               if (err) throw err
               if (!trades.length) {
                 console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
-                return setInterval(forwardScan, c.poll_trades)
+                engine.syncBalance(function (err) {
+                  if (err) {
+                    if (err.desc) console.error(err.desc)
+                    if (err.body) console.error(err.body)
+                    throw err
+                  }
+                  setInterval(forwardScan, c.poll_trades)
+                })
+                return
               }
               engine.update(trades, true, function (err) {
                 if (err) throw err
@@ -100,7 +108,7 @@ module.exports = function container (get, set, clear) {
             if (err) {
               console.error('\nerr trading selector: ' + so.selector)
               console.error(err)
-              if (err.code === 'ETIMEDOUT') {
+              if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND') {
                 console.error('retrying...')
                 return
               }
