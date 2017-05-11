@@ -31,7 +31,7 @@ module.exports = function container (get, set, clear) {
           }
           s.trend_duration++
           s.trend = 'down'
-          s.signal = (s.period.trend_ema_rate >= s.options.sell_rate && s.trend_duration <= s.options.max_sell_duration) && !s.acted_on_trend ? 'sell' : null
+          s.signal = ((!s.options.sell_rate || s.period.trend_ema_rate >= s.options.sell_rate) && s.trend_duration <= s.options.max_sell_duration) && !s.acted_on_trend ? 'sell' : null
         }
       }
       cb()
