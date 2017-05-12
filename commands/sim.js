@@ -3,6 +3,7 @@ var tb = require('timebucket')
   , n = require('numbro')
   , fs = require('fs')
   , path = require('path')
+  , moment = require('moment')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -12,9 +13,9 @@ module.exports = function container (get, set, clear) {
       .allowUnknownOption()
       .description('run a simulation on backfilled data')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
-      .option('--start <timestamp>', 'start at timestamp (milliseconds)')
-      .option('--end <timestamp>', 'end at timestamp (milliseconds)')
-      .option('--days <days>', 'start n days ago and end at latest data')
+      .option('--start <timestamp>', 'start at timestamp')
+      .option('--end <timestamp>', 'end at timestamp')
+      .option('--days <days>', 'set duration by day count')
       .option('--currency_capital <amount>', 'amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'amount of start capital in asset', Number, c.asset_capital)
       .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
@@ -39,19 +40,33 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
-        var d = tb('1d')
-        if (!so.end) {
-          so.end = d.toMilliseconds()
+        if (so.start) {
+          so.start = moment(so.start).valueOf()
+          if (so.days) {
+            so.end = tb(so.start).resize('1d').add(so.days).toMilliseconds()
+          }
         }
-        if (so.days) {
-          so.start = d.subtract(so.days).toMilliseconds()
+        if (so.end) {
+          so.end = moment(so.end).valueOf()
+          if (so.days) {
+            so.start = tb(so.end).resize('1d').subtract(so.days).toMilliseconds()
+          }
+        }
+        if (!so.start && so.days) {
+          var d = tb('1d')
+          if (!so.end) {
+            so.end = d.toMilliseconds()
+          }
+          if (so.days) {
+            so.start = d.subtract(so.days).toMilliseconds()
+          }
         }
         so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'sim'
         var engine = get('lib.engine')(s)
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
-        var query_start = so.start ? d.resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
+        var query_start = so.start ? tb(so.start).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
 
         function exitSim () {
           console.log(so)
