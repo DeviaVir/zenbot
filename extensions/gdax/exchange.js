@@ -79,9 +79,11 @@ module.exports = function container (get, set, clear) {
         body.forEach(function (account) {
           if (account.currency === opts.currency) {
             balance.currency = account.balance
+            balance.currency_hold = account.hold
           }
           else if (account.currency === opts.asset) {
             balance.asset = account.balance
+            balance.asset_hold = account.hold
           }
         })
         cb(null, balance)
