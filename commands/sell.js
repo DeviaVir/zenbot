@@ -31,6 +31,9 @@ module.exports = function container (get, set, clear) {
             if (err.body) console.error(err.body)
             throw err
           }
+          if (!order) {
+            console.error('not enough asset balance to sell!')
+          }
           process.exit()
         })
       })
