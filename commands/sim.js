@@ -64,12 +64,10 @@ module.exports = function container (get, set, clear) {
           s.lookback.unshift(s.period)
           var profit = (s.balance.currency - s.start_capital) / s.start_capital
           console.log('end balance', n(s.balance.currency).format('0.00').yellow + ' (' + n(profit).format('0.00%') + ')')
-          if (s.lookback[0]) {
-            var buy_hold = s.lookback[0].close * (s.start_capital / s.lookback[s.lookback.length - 1].open)
-            var buy_hold_profit = (buy_hold - s.start_capital) / s.start_capital
-            console.log('buy hold', n(buy_hold).format('0.00').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-            console.log('vs. buy hold', n((s.balance.currency - buy_hold) / buy_hold).format('0.00%').yellow)
-          }
+          var buy_hold = s.period.close * (s.start_capital / s.start_price)
+          var buy_hold_profit = (buy_hold - s.start_capital) / s.start_capital
+          console.log('buy hold', n(buy_hold).format('0.00').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+          console.log('vs. buy hold', n((s.balance.currency - buy_hold) / buy_hold).format('0.00%').yellow)
           console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
           var data = s.lookback.map(function (period) {
             return {
