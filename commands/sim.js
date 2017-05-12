@@ -29,6 +29,7 @@ module.exports = function container (get, set, clear) {
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
+      .option('--stats', 'print order stats', Boolean, c.stats)
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
         var so = s.options

@@ -24,6 +24,8 @@ c.buy_pct = 98
 c.sell_pct = 98
 // % to mark up or down price for orders
 c.markup_pct = 0
+// print order stats
+c.stats = true
 
 // LESS-COMMONLY TWEAKED VARAIBLES:
 
