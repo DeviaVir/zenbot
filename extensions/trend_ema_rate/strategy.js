@@ -13,10 +13,15 @@ module.exports = function container (get, set, clear) {
       this.option('max_sell_duration', 'avoid sell if trend duration over this number', Number, 4)
     },
 
-    onPeriod: function (s, cb) {
+    calculate: function (s) {
       get('lib.ema')(s, 'trend_ema', s.options.trend_ema)
       if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
         s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
+      }
+    },
+
+    onPeriod: function (s, cb) {
+      if (typeof s.period.trend_ema_rate === 'number') {
         if (s.period.trend_ema_rate >= 0) {
           if (s.trend !== 'up') {
             s.acted_on_trend = false
