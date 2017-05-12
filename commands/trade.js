@@ -28,6 +28,7 @@ module.exports = function container (get, set, clear) {
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
+      .option('--stats', 'print order stats', Boolean, c.stats)
       .action(function (selector, cmd) {
         selector = get('lib.normalize-selector')(selector || c.selector)
         var exchange_id = selector.split('.')[0]
