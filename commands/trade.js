@@ -51,7 +51,7 @@ module.exports = function container (get, set, clear) {
         var engine = get('lib.engine')(s)
 
         var db_cursor, trade_cursor
-        var query_start = tb().resize(so.period).subtract(so.min_periods).toMilliseconds()
+        var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()
         var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
         var trades_per_min = 0
 
