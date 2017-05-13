@@ -24,8 +24,6 @@ c.buy_pct = 98
 c.sell_pct = 98
 // % to mark up or down price for orders
 c.markup_pct = 0
-// print order stats
-c.stats = true
 
 // LESS-COMMONLY TWEAKED VARAIBLES:
 
@@ -57,3 +55,5 @@ c.order_adjust_time = 30000
 c.symmetrical = false
 // number of periods to calculate RSI at
 c.rsi_periods = 14
+// ms to wait for settlement (after an order cancel) when funds are still on hold
+c.wait_for_settlement = 5000
