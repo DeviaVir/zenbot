@@ -38,11 +38,7 @@ c.backfill_days = 90
 // fee assessed for market-type orders. (note: zenbot normally attempts to use limit-type orders to avoid fees)
 c.fee_pct = 0.25
 // ms to poll new trades at
-c.poll_trades = 10000
-// ms to allow http requests to complete
-c.request_timeout = 10000
-// ms to retry failed requests after
-c.error_backoff = 30000
+c.poll_trades = 30000
 // amount of currency to start simulations with
 c.currency_capital = 1000
 // amount of asset to start simulations with
@@ -57,3 +53,5 @@ c.symmetrical = false
 c.rsi_periods = 14
 // ms to wait for settlement (after an order cancel) when funds are still on hold
 c.wait_for_settlement = 5000
+// period to record balances for stats
+c.balance_snapshot_period = '1h'

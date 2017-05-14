@@ -5,6 +5,7 @@ var tb = require('timebucket')
   , path = require('path')
   , spawn = require('child_process').spawn
   , moment = require('moment')
+  , crypto = require('crypto')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -31,6 +32,7 @@ module.exports = function container (get, set, clear) {
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
       .option('--disable_stats', 'disable printing order stats')
       .option('--wait_for_settlement <ms>', 'ms to wait for settlement (after an order cancel) when funds are still on hold', Number, c.wait_for_settlement)
+      .option('--reset_profit', 'start new profit calculation from 0')
       .action(function (selector, cmd) {
         selector = get('lib.normalize-selector')(selector || c.selector)
         var exchange_id = selector.split('.')[0]
@@ -57,6 +59,9 @@ module.exports = function container (get, set, clear) {
         var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()
         var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
         var trades_per_min = 0
+        var session = null
+        var sessions = get('db.sessions')
+        var balances = get('db.balances')
 
         console.log('fetching pre-roll data:')
         var backfiller = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), ['backfill', so.selector, '--days', days])
@@ -90,7 +95,25 @@ module.exports = function container (get, set, clear) {
                     if (err.body) console.error(err.body)
                     throw err
                   }
-                  setInterval(forwardScan, c.poll_trades)
+                  session = {
+                    id: crypto.randomBytes(4).toString('hex'),
+                    selector: selector,
+                    started: new Date().getTime(),
+                    mode: so.mode,
+                    options: so
+                  }
+                  sessions.select({query: {selector: selector}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
+                    if (err) throw err
+                    var prev_session = prev_sessions[0]
+                    if (prev_session && !cmd.reset_profit) {
+                      if (so.mode === 'paper' || (prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency) && prev_session.orig_capital && prev_session.orig_price) {
+                        s.orig_capital = session.orig_capital = prev_session.orig_capital
+                        s.orig_price = session.orig_price = prev_session.orig_price
+                      }
+                    }
+                    forwardScan()
+                    setInterval(forwardScan, c.poll_trades)
+                  })
                 })
                 return
               }
@@ -108,6 +131,64 @@ module.exports = function container (get, set, clear) {
 
         var prev_timeout = null
         function forwardScan () {
+          function saveSession () {
+            engine.syncBalance(function (err) {
+              if (err) {
+                console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error syncing balance')
+                if (err.desc) console.error(err.desc)
+                if (err.body) console.error(err.body)
+                console.error(err)
+              }
+              session.updated = new Date().getTime()
+              session.balance = s.balance
+              session.start_capital = s.start_capital
+              session.start_price = s.start_price
+              session.num_trades = s.my_trades.length
+              if (!session.orig_capital) session.orig_capital = s.start_capital
+              if (!session.orig_price) session.orig_price = s.start_price
+              if (s.period) {
+                session.price = s.period.close
+                var d = tb().resize(c.balance_snapshot_period)
+                var b = {
+                  id: selector + '-' + d.toString(),
+                  selector: selector,
+                  time: d.toMilliseconds(),
+                  currency: s.balance.currency,
+                  asset: s.balance.asset,
+                  price: s.period.close,
+                  start_capital: session.orig_capital,
+                  start_price: session.orig_price,
+                }
+                b.consolidated = n(s.balance.asset).multiply(s.period.close).add(s.balance.currency).value()
+                b.profit = (b.consolidated - session.orig_capital) / session.orig_capital
+                b.buy_hold = s.period.close * (session.orig_capital / session.orig_price)
+                b.buy_hold_profit = (b.buy_hold - session.orig_capital) / session.orig_capital
+                b.vs_buy_hold = (b.consolidated - b.buy_hold) / b.buy_hold
+                if (so.mode === 'live') {
+                  balances.save(b, function (err) {
+                    if (err) {
+                      console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving balance')
+                      console.error(err)
+                    }
+                  })
+                }
+                session.balance = b
+              }
+              else {
+                session.balance = {
+                  currency: s.balance.currency,
+                  asset: s.balance.asset
+                }
+              }
+              sessions.save(session, function (err) {
+                if (err) {
+                  console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving session')
+                  console.error(err)
+                }
+                engine.writeReport(true)
+              })
+            })
+          }
           var opts = {product_id: product_id, from: trade_cursor}
           exchange.getTrades(opts, function (err, trades) {
             if (err) {
@@ -134,12 +215,15 @@ module.exports = function container (get, set, clear) {
                 trade_cursor = Math.max(this_cursor, trade_cursor)
               })
               engine.update(trades, function (err) {
-                if (err) throw err
-                engine.writeReport(true)
+                if (err) {
+                  console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving session')
+                  console.error(err)
+                }
+                saveSession()
               })
             }
             else {
-              engine.writeReport(true)
+              saveSession()
             }
           })
         }
