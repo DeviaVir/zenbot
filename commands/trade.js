@@ -4,6 +4,7 @@ var tb = require('timebucket')
   , fs = require('fs')
   , path = require('path')
   , spawn = require('child_process').spawn
+  , moment = require('moment')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -105,19 +106,23 @@ module.exports = function container (get, set, clear) {
           getNext()
         })
 
+        var prev_timeout = null
         function forwardScan () {
           var opts = {product_id: product_id, from: trade_cursor}
           exchange.getTrades(opts, function (err, trades) {
             if (err) {
-              console.error('\nerr trading selector: ' + so.selector)
-              console.error(err)
               if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND') {
-                console.error('retrying...')
+                if (prev_timeout) {
+                  console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - getTrades request timed out. retrying...')
+                }
+                prev_timeout = true
                 return
               }
+              console.error(err)
               console.error('aborting!')
               process.exit(1)
             }
+            prev_timeout = null
             if (trades.length) {
               trades.sort(function (a, b) {
                 if (a.time > b.time) return -1
