@@ -73,6 +73,10 @@ module.exports = function container (get, set, clear) {
           to: null,
           oldest_time: null
         }
+        var lookback_size = 0
+        var my_trades_size = 0
+        var my_trades = get('db.my_trades')
+        var periods = get('db.periods')
 
         console.log('fetching pre-roll data:')
         var backfiller = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), ['backfill', so.selector, '--days', days])
@@ -122,6 +126,7 @@ module.exports = function container (get, set, clear) {
                         s.orig_price = session.orig_price = prev_session.orig_price
                       }
                     }
+                    lookback_size = s.lookback.length
                     forwardScan()
                     setInterval(forwardScan, c.poll_trades)
                   })
@@ -237,6 +242,41 @@ module.exports = function container (get, set, clear) {
                     console.error(err)
                   }
                 })
+                if (s.my_trades.length > my_trades_size) {
+                  s.my_trades.slice(my_trades_size).forEach(function (my_trade) {
+                    my_trade.id = crypto.randomBytes(4).toString('hex')
+                    my_trade.selector = selector
+                    my_trade.session_id = session.id
+                    my_trade.mode = so.mode
+                    my_trades.save(my_trade, function (err) {
+                      if (err) {
+                        console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving my_trade')
+                        console.error(err)
+                      }
+                    })
+                  })
+                  my_trades_size = s.my_trades.length
+                }
+                function savePeriod (period) {
+                  if (!period.id) {
+                    period.id = crypto.randomBytes(4).toString('hex')
+                    period.selector = selector
+                    period.session_id = session.id
+                  }
+                  periods.save(period, function (err) {
+                    if (err) {
+                      console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving my_trade')
+                      console.error(err)
+                    }
+                  })
+                }
+                if (s.lookback.length > lookback_size) {
+                  savePeriod(s.lookback[0])
+                  lookback_size = s.lookback.length
+                }
+                if (s.period) {
+                  savePeriod(s.period)
+                }
                 saveSession()
               })
             }
