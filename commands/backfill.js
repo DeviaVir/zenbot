@@ -1,7 +1,7 @@
 var tb = require('timebucket')
-  , idgen = require('idgen')
   , n = require('numbro')
   , parallel = require('run-parallel')
+  , crypto = require('crypto')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf') || {}
@@ -24,7 +24,7 @@ module.exports = function container (get, set, clear) {
         var resume_markers = get('db.resume_markers')
         get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
         var marker = {
-          id: idgen(),
+          id: crypto.randomBytes(4).toString('hex'),
           selector: selector,
           from: null,
           to: null,
