@@ -62,6 +62,17 @@ module.exports = function container (get, set, clear) {
         var session = null
         var sessions = get('db.sessions')
         var balances = get('db.balances')
+        var trades = get('db.trades')
+        get('db.mongo').collection('trades').ensureIndex({selector: 1, time: 1})
+        var resume_markers = get('db.resume_markers')
+        get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
+        var marker = {
+          id: crypto.randomBytes(4).toString('hex'),
+          selector: selector,
+          from: null,
+          to: null,
+          oldest_time: null
+        }
 
         console.log('fetching pre-roll data:')
         var backfiller = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), ['backfill', so.selector, '--days', days])
@@ -213,12 +224,19 @@ module.exports = function container (get, set, clear) {
               trades.forEach(function (trade) {
                 var this_cursor = exchange.getCursor(trade)
                 trade_cursor = Math.max(this_cursor, trade_cursor)
+                saveTrade(trade)
               })
               engine.update(trades, function (err) {
                 if (err) {
                   console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving session')
                   console.error(err)
                 }
+                resume_markers.save(marker, function (err) {
+                  if (err) {
+                    console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving marker')
+                    console.error(err)
+                  }
+                })
                 saveSession()
               })
             }
@@ -226,6 +244,23 @@ module.exports = function container (get, set, clear) {
               saveSession()
             }
           })
+          function saveTrade (trade) {
+            trade.id = selector + '-' + String(trade.trade_id)
+            trade.selector = selector
+            if (!marker.from) {
+              marker.from = trade_cursor
+              marker.oldest_time = trade.time
+              marker.newest_time = trade.time
+            }
+            marker.to = marker.to ? Math.max(marker.to, trade_cursor) : trade_cursor
+            marker.newest_time = Math.max(marker.newest_time, trade.time)
+            trades.save(trade, function (err) {
+              if (err) {
+                console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving trade')
+                console.error(err)
+              }
+            })
+          }
         }
       })
   }
