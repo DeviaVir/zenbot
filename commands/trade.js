@@ -208,7 +208,7 @@ module.exports = function container (get, set, clear) {
           var opts = {product_id: product_id, from: trade_cursor}
           exchange.getTrades(opts, function (err, trades) {
             if (err) {
-              if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND') {
+              if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND' || err.code === 'ECONNRESET') {
                 if (prev_timeout) {
                   console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - getTrades request timed out. retrying...')
                 }
