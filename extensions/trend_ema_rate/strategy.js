@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
       this.option('period', 'period length', String, '1h')
       this.option('min_periods', 'min. number of history periods', Number, 36)
       this.option('trend_ema', 'number of periods for trend ema', Number, 34)
-      this.option('sell_rate', 'sell if trend ema rate between 0 and this negative float', Number, -0.01)
+      this.option('sell_rate', 'sell if trend ema rate between 0 and this negative float', Number, 0)
       this.option('max_sell_duration', 'avoid sell if trend duration over this number', Number, 8)
     },
 
@@ -29,7 +29,7 @@ module.exports = function container (get, set, clear) {
           }
           s.trend_duration++
           s.trend = 'up'
-          s.signal = s.trend_duration >= 1 && !s.acted_on_trend ? 'buy' : null
+          s.signal = !s.acted_on_trend ? 'buy' : null
         }
         else {
           if (s.trend !== 'down') {

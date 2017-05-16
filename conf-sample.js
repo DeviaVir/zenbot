@@ -19,9 +19,9 @@ c.max_sell_loss_pct = 25
 // avoid trading at a slippage above this pct
 c.max_slippage_pct = 2
 // buy with this % of currency balance
-c.buy_pct = 98
+c.buy_pct = 99
 // sell with this % of asset balance
-c.sell_pct = 98
+c.sell_pct = 99
 // % to mark up or down price for orders
 c.markup_pct = 0
 
