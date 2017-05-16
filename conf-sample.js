@@ -5,7 +5,7 @@ var c = module.exports = {}
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'gdax.BTC-USD'
 // name of default trade strategy
-c.strategy = 'trend_ema_rate'
+c.strategy = 'trend_ema'
 // sell if price drops below this % of bought price (0 to disable)
 c.sell_stop_pct = 4
 // buy if price surges above this % of sold price (0 to disable)
