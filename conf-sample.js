@@ -7,7 +7,7 @@ c.selector = 'gdax.BTC-USD'
 // name of default trade strategy
 c.strategy = 'trend_ema'
 // sell if price drops below this % of bought price (0 to disable)
-c.sell_stop_pct = 4
+c.sell_stop_pct = 0
 // buy if price surges above this % of sold price (0 to disable)
 c.buy_stop_pct = 0
 // enable trailing sell stop when reaching this % profit (0 to disable. note: in extreme bull markets, turn this off for max profit!)
