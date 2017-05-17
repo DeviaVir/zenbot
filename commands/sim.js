@@ -42,13 +42,13 @@ module.exports = function container (get, set, clear) {
         })
         if (so.start) {
           so.start = moment(so.start).valueOf()
-          if (so.days) {
+          if (so.days && !so.end) {
             so.end = tb(so.start).resize('1d').add(so.days).toMilliseconds()
           }
         }
         if (so.end) {
           so.end = moment(so.end).valueOf()
-          if (so.days) {
+          if (so.days && !so.start) {
             so.start = tb(so.end).resize('1d').subtract(so.days).toMilliseconds()
           }
         }
