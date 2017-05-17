@@ -33,8 +33,8 @@ c.mongo_port = 27017
 c.mongo_db = 'zenbot4'
 c.mongo_username = null
 c.mongo_password = null
-// default # days for backfill command
-c.backfill_days = 90
+// default # days for backfill and sim commands
+c.days = 90
 // fee assessed for market-type orders. (note: zenbot normally attempts to use limit-type orders to avoid fees)
 c.fee_pct = 0.25
 // ms to poll new trades at

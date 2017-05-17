@@ -15,7 +15,7 @@ module.exports = function container (get, set, clear) {
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--start <timestamp>', 'start at timestamp')
       .option('--end <timestamp>', 'end at timestamp')
-      .option('--days <days>', 'set duration by day count')
+      .option('--days <days>', 'set duration by day count', Number, c.days)
       .option('--currency_capital <amount>', 'amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'amount of start capital in asset', Number, c.asset_capital)
       .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
@@ -57,9 +57,7 @@ module.exports = function container (get, set, clear) {
           if (!so.end) {
             so.end = d.toMilliseconds()
           }
-          if (so.days) {
-            so.start = d.subtract(so.days).toMilliseconds()
-          }
+          so.start = d.subtract(so.days).toMilliseconds()
         }
         so.stats = !!cmd.enable_stats
         so.selector = get('lib.normalize-selector')(selector || c.selector)
