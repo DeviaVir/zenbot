@@ -353,6 +353,7 @@ var withData = function (data, trades) {
 
   var ohlcAnnotation = techan.plot.axisannotation()
           .axis(yAxis)
+          .orient('right')
           .format(d3.format(',.2f'))
           .translate([x(1), 0]);
 
