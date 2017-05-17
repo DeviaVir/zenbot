@@ -1,8 +1,0 @@
-{
-  "name": "zenbot_gdax",
-  "version": "0.0.0",
-  "description": "zenbot supporting code for GDAX",
-  "dependencies": {
-    "gdax": "^0.4.2"
-  }
-}
