@@ -16,6 +16,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
     "mongodb": "^2.2.25",
+    "number-abbreviate": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
     "run-parallel": "^1.1.6",
     "run-series": "^1.1.4",
