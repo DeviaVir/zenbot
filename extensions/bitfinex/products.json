@@ -1,0 +1,116 @@
+[
+  {
+    "id": "btcusd",
+    "min_size": 0.01,
+    "max_size": 2000,
+    "increment": 0.01
+  },
+  {
+    "id": "ltcusd",
+    "min_size": 0.1,
+    "max_size": 5000,
+    "increment": 0.1
+  },
+  {
+    "id": "ltcbtc",
+    "min_size": 0.1,
+    "max_size": 5000,
+    "increment": 0.1
+  },
+  {
+    "id": "ethusd",
+    "min_size": 0.1,
+    "max_size": 5000,
+    "increment": 0.1
+  },
+  {
+    "id": "ethbtc",
+    "min_size": 0.1,
+    "max_size": 5000,
+    "increment": 0.1
+  },
+  {
+    "id": "etcbtc",
+    "min_size": 0.1,
+    "max_size": 100000,
+    "increment": 0.1
+  },
+  {
+    "id": "etcusd",
+    "min_size": 0.1,
+    "max_size": 100000,
+    "increment": 0.1
+  },
+  {
+    "id": "rrtusd",
+    "min_size": 0.1,
+    "max_size": 100000,
+    "increment": 0.1
+  },
+  {
+    "id": "rrtbtc",
+    "min_size": 0.1,
+    "max_size": 100000,
+    "increment": 0.1
+  },
+  {
+    "id": "zecusd",
+    "min_size": 0.0001,
+    "max_size": 20000,
+    "increment": 0.0001
+  },
+  {
+    "id": "zecbtc",
+    "min_size": 0.0001,
+    "max_size": 20000,
+    "increment": 0.0001
+  },
+  {
+    "id": "xmrusd",
+    "min_size": 0.1,
+    "max_size": 5000,
+    "increment": 0.1
+  },
+  {
+    "id": "xmrbtc",
+    "min_size": 0.1,
+    "max_size": 5000,
+    "increment": 0.1
+  },
+  {
+    "id": "dshusd",
+    "min_size": 0.01,
+    "max_size": 5000,
+    "increment": 0.01
+  },
+  {
+    "id": "dshbtc",
+    "min_size": 0.01,
+    "max_size": 5000,
+    "increment": 0.01
+  },
+  {
+    "id": "bccbtc",
+    "min_size": 0.01,
+    "max_size": 2000,
+    "increment": 0.01
+  },
+  {
+    "id": "bcubtc",
+    "min_size": 0.01,
+    "max_size": 2000,
+    "increment": 0.01
+  },
+  {
+    "id": "bccusd",
+    "min_size": 0.01,
+    "max_size": 2000,
+    "increment": 0.01
+  },
+  {
+    "id": "bcuusd",
+    "min_size": 0.01,
+    "max_size": 2000,
+    "increment": 0.01
+  }
+]
