@@ -32,6 +32,7 @@ module.exports = function container (get, set, clear) {
           newest_time: null
         }
         var trade_counter = 0
+        var day_trade_counter = 0
         var days_left = cmd.days + 1
         var target_time, start_time
         var mode = exchange.historyScan
@@ -147,10 +148,11 @@ module.exports = function container (get, set, clear) {
                 resume_markers.save(marker, function (err) {
                   if (err) throw err
                   trade_counter += trades.length
+                  day_trade_counter += trades.length
                   var current_days_left = Math.ceil((mode === 'backward' ? marker.oldest_time - target_time : target_time - marker.newest_time) / 86400000)
                   if (current_days_left >= 0 && current_days_left != days_left) {
-                    console.log('\n' + selector, 'saved', trade_counter, 'trades', current_days_left, 'days left')
-                    trade_counter = 0
+                    console.log('\n' + selector, 'saved', day_trade_counter, 'trades', current_days_left, 'days left')
+                    day_trade_counter = 0
                     days_left = current_days_left
                   }
                   else {
