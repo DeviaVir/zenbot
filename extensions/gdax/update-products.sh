@@ -12,12 +12,11 @@ request('https://api.gdax.com/products', {headers: {'User-Agent': 'zenbot/4'}}, 
   var products = []
   body.forEach(function (product) {
     products.push({
-      id: product.id,
       asset: product.base_currency,
       currency: product.quote_currency,
-      min_size: Number(product.base_min_size),
-      max_size: Number(product.base_max_size),
-      increment: Number(product.quote_increment),
+      min_size: product.base_min_size,
+      max_size: product.base_max_size,
+      increment: product.quote_increment,
       label: product.display_name
     })
   })

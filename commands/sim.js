@@ -54,9 +54,6 @@ module.exports = function container (get, set, clear) {
         }
         if (!so.start && so.days) {
           var d = tb('1d')
-          if (!so.end) {
-            so.end = d.toMilliseconds()
-          }
           so.start = d.subtract(so.days).toMilliseconds()
         }
         so.stats = !!cmd.enable_stats
@@ -73,15 +70,19 @@ module.exports = function container (get, set, clear) {
             console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
             process.exit(1)
           }
-          s.balance.currency += s.period.close * s.balance.asset
+          s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           s.balance.asset = 0
           s.lookback.unshift(s.period)
-          var profit = (s.balance.currency - s.start_capital) / s.start_capital
-          console.log('end balance', n(s.balance.currency).format('0.00').yellow + ' (' + n(profit).format('0.00%') + ')')
-          var buy_hold = s.period.close * (s.start_capital / s.start_price)
-          var buy_hold_profit = (buy_hold - s.start_capital) / s.start_capital
-          console.log('buy hold', n(buy_hold).format('0.00').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-          console.log('vs. buy hold', n((s.balance.currency - buy_hold) / buy_hold).format('0.00%').yellow)
+          var profit = n(s.balance.currency).subtract(s.start_capital).divide(s.start_capital)
+          console.log('end balance', n(s.balance.currency).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+          //console.log('start_capital', s.start_capital)
+          //console.log('start_price', n(s.start_price).format('0.00000000'))
+          //console.log('close', n(s.period.close).format('0.00000000'))
+          var buy_hold = n(s.period.close).multiply(n(s.start_capital).divide(s.start_price))
+          //console.log('buy hold', buy_hold.format('0.00000000'))
+          var buy_hold_profit = n(buy_hold).subtract(s.start_capital).divide(s.start_capital)
+          console.log('buy hold', buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+          console.log('vs. buy hold', n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
           var data = s.lookback.map(function (period) {
             return {
@@ -106,11 +107,13 @@ module.exports = function container (get, set, clear) {
         function getNext () {
           var opts = {
             query: {
-              selector: so.selector,
-              time: {$lte: so.end}
+              selector: so.selector
             },
             sort: {time: 1},
             limit: 1000
+          }
+          if (so.end) {
+            opts.query.time = {$lte: so.end}
           }
           if (cursor) {
             if (reversing) {
@@ -122,10 +125,12 @@ module.exports = function container (get, set, clear) {
               opts.sort = {time: -1}
             }
             else {
+              if (!opts.query.time) opts.query.time = {}
               opts.query.time['$gt'] = cursor
             }
           }
           else if (query_start) {
+            if (!opts.query.time) opts.query.time = {}
             opts.query.time['$gte'] = query_start
           }
           get('db.trades').select(opts, function (err, trades) {

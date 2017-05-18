@@ -17,7 +17,7 @@ c.profit_stop_pct = 1
 // avoid selling at a loss below this pct
 c.max_sell_loss_pct = 25
 // avoid trading at a slippage above this pct
-c.max_slippage_pct = 2
+c.max_slippage_pct = 5
 // buy with this % of currency balance
 c.buy_pct = 99
 // sell with this % of asset balance
@@ -35,8 +35,6 @@ c.mongo_username = null
 c.mongo_password = null
 // default # days for backfill and sim commands
 c.days = 90
-// fee assessed for market-type orders. (note: zenbot normally attempts to use limit-type orders to avoid fees)
-c.fee_pct = 0.25
 // ms to poll new trades at
 c.poll_trades = 30000
 // amount of currency to start simulations with
