@@ -354,7 +354,7 @@ var withData = function (data, trades) {
   var ohlcAnnotation = techan.plot.axisannotation()
           .axis(yAxis)
           .orient('right')
-          .format(d3.format(',.2f'))
+          .format(d3.format(',.8f'))
           .translate([x(1), 0]);
 
   var percentAxis = d3.axisLeft(yPercent)

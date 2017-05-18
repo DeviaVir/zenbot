@@ -16,15 +16,21 @@ module.exports = function container (get, set, clear) {
     }
   })
 
+  var public_client, authed_client
+
   function publicClient (product_id) {
-    return new Gdax.PublicClient(product_id, c.gdax.apiURI)
+    if (!public_client) public_client = new Gdax.PublicClient(product_id, c.gdax.apiURI)
+    return public_client
   }
 
   function authedClient () {
-    if (c.gdax.key && c.gdax.key !== 'YOUR-API-KEY') {
-      return new Gdax.AuthenticatedClient(c.gdax.key, c.gdax.b64secret, c.gdax.passphrase, c.gdax.apiURI)
+    if (!authed_client) {
+      if (!c.gdax.key || c.gdax.key === 'YOUR-API-KEY') {
+        throw new Error('please configure your GDAX credentials in ' + path.resolve(__dirname, 'conf.js'))
+      }
+      authed_client = new Gdax.AuthenticatedClient(c.gdax.key, c.gdax.b64secret, c.gdax.passphrase, c.gdax.apiURI)
     }
-    throw new Error('please configure your GDAX credentials in ' + path.resolve(__dirname, 'conf.js'))
+    return authed_client
   }
 
   function statusErr (resp, body) {
@@ -38,6 +44,8 @@ module.exports = function container (get, set, clear) {
 
   return {
     name: 'gdax',
+    historyScan: 'backward',
+    makerFee: 0,
 
     getProducts: function () {
       return require('./products.json')
@@ -102,15 +110,6 @@ module.exports = function container (get, set, clear) {
     cancelOrder: function (opts, cb) {
       var client = authedClient()
       client.cancelOrder(opts.order_id, function (err, resp, body) {
-        if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
-        cb()
-      })
-    },
-
-    cancelOrders: function (opts, cb) {
-      var client = authedClient()
-      client.cancelAllOrders(opts, function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
         if (err) return cb(err)
         cb()
