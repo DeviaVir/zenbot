@@ -31,9 +31,8 @@ module.exports = function container (get, set, clear) {
         var engine = get('lib.engine')(s)
         engine.executeSignal('buy', function (err, order) {
           if (err) {
-            if (err.desc) console.error(err.desc)
-            if (err.body) console.error(err.body)
-            throw err
+            console.error(err)
+            process.exit(1)
           }
           if (!order) {
             console.error('not enough currency balance to buy!')
