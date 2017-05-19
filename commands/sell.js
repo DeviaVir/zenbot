@@ -46,7 +46,7 @@ module.exports = function container (get, set, clear) {
               if (err) {
                 throw err
               }
-              console.log('order status: '.grey + s.api_order.status.green + ', ask: '.grey + n(s.api_order.price).format('0.00').yellow + ', '.grey + n(s.api_order.price).subtract(quote.ask).format('0.00').red + ' above best ask, '.grey + n(s.api_order.filled_size).divide(s.api_order.size).format('0.00%').green + ' filled'.grey)
+              console.log('order status: '.grey + s.api_order.status.green + ', ask: '.grey + n(s.api_order.price).format('0.00000000').yellow + ', '.grey + n(s.api_order.price).subtract(quote.ask).format('0.00000000').red + ' above best ask, '.grey + n(s.api_order.filled_size).divide(s.api_order.size).format('0.0%').green + ' filled'.grey)
             })
           }
           else {
