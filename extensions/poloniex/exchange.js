@@ -135,8 +135,8 @@ module.exports = function container (get, set, clear) {
         if (!quote) return cb(new Error('no quote for ' + product_id))
         if (quote.isFrozen == '1') return cb(new Error('product ' + product_id + ' is frozen'))
         cb(null, {
-          bid: tick.highestBid,
-          ask: tick.lowestAsk,
+          bid: quote.highestBid,
+          ask: quote.lowestAsk,
         })
       })
     },
@@ -179,7 +179,7 @@ module.exports = function container (get, set, clear) {
           return cb(null, order)
         }
         client.returnOrderTrades(opts.order_id, function (err, body) {
-          if (err) return cb(null, order)
+          if (err || body.error) return cb(null, order)
           order.filled_size = '0'
           body.forEach(function (trade) {
             order.filled_size = n(order.filled_size).add(trade.amount).format('0.00000000')
