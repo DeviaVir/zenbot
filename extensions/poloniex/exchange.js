@@ -48,13 +48,8 @@ module.exports = function container (get, set, clear) {
       postOnly: opts.post_only === false ? '0' : '1'
     }
     client._private(type, params, function (err, result) {
-      if (!err && result.error) {
-        err = new Error('unable to ' + type)
-        err.body = result
-      }
-      if (err) return cb(err)
       var order = {
-        id: result.orderNumber,
+        id: result ? result.orderNumber : null,
         status: 'open',
         price: opts.price,
         size: opts.size,
@@ -62,6 +57,16 @@ module.exports = function container (get, set, clear) {
         created_at: new Date().getTime(),
         filled_size: '0'
       }
+      if (result && result.error === 'Unable to place post-only order at this price.') {
+        order.status = 'rejected'
+        order.reject_reason = 'post only'
+        return cb(null, order)
+      }
+      if (!err && result.error) {
+        err = new Error('unable to ' + type)
+        err.body = result
+      }
+      if (err) return cb(err)
       orders['~' + result.orderNumber] = order
       cb(null, order)
     })
