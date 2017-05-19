@@ -16,10 +16,10 @@ module.exports = function container (get, set, clear) {
     }
   })
 
-  function publicClient (product_id) {
-    return new BFX.APIRest(product_id)
+  function publicClient () {
+    return new BFX.APIRest()
   }
-//
+
   function authedClient () {
     if (c.bitfinex.key && c.bitfinex.key !== 'YOUR-API-KEY') {
       return new BFX.APIRest(c.bitfinex.key, c.bitfinex.secret)
@@ -46,14 +46,15 @@ module.exports = function container (get, set, clear) {
     getTrades: function (opts, cb) {
       var client = publicClient(opts.product_id)
       var args = {}
-      if (opts.from) {
+/*      if (opts.from) {
         // move cursor into the future
         args.before = opts.from
       }
       else if (opts.to) {
         // move cursor into the past
         args.after = opts.to
-      }
+      }*/
+console.log(args, opts)
       client.trades(args, function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
         if (err) return cb(err)
@@ -66,6 +67,7 @@ module.exports = function container (get, set, clear) {
             side: trade.type
           }
         })
+console.log(trades)        
         cb(null, trades)
       })
     },
@@ -82,17 +84,17 @@ module.exports = function container (get, set, clear) {
     getBalance: function (opts, cb) {
       var client = authedClient()
       client.wallet_balances(function (err, resp, body) {
-        if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+//        if (!err) err = statusErr(resp, body)
+//       if (err) return cb(err)
         var balance = {asset: 0, currency: 0}
-        body.forEach(function (account) {
-          if (account.currency === opts.currency) {
+        body.filter(function (body) { return body.type === c.wallet }).forEach(function (account) {
+          if (account.currency.toLowerCase() === opts.currency) {
             balance.currency = account.amount
-//            balance.currency_hold = account.available
+            balance.currency_hold = (account.amount - acount.available)
           }
-          else if (account.currency === opts.asset) {
+          else if (account.currency.toLowerCase() === opts.asset) {
             balance.asset = account.amount
-//            balance.asset_hold = account.available
+            balance.asset_hold = (account.amount - acount.available)
           }
         })
         cb(null, balance)
@@ -125,7 +127,7 @@ module.exports = function container (get, set, clear) {
         cb()
       })
     },
-
+/*
     buy: function (opts, cb) {
       var client = authedClient()
       if (typeof opts.post_only === 'undefined') {
@@ -137,17 +139,51 @@ module.exports = function container (get, set, clear) {
         cb(null, body)
       })
     },
+*/
+buy: function (opts, cb) {
+      var client = authedClient()
+      if (typeof opts.type === 'undefined' ) {
+        opts.type = limit
+        }
+      if (opts.type === 'exchange limit') {
+        var limit_price = opts.price // Fix me
+        //  GDAX client.buy(opts, function (err, resp, body) {
+        client.new_order(opts.product_id, opts.size, opts.price, 'buy', opts.type, function (err, resp, body) {
+          if (!err) err = statusErr(resp, body)
+          if (err) return cb(err)
+          cb(null, body)
+        })
+      } else {
+        //  GDAX client.buy(opts, function (err, resp, body) { 
+        client.new_order(opts.product_id, opts.size, '1', 'bitfinex', 'buy', 'exchange market', false, function (err, resp, body) {
+          if (!err) err = statusErr(resp, body)
+          if (err) return cb(err)
+          cb(null, body)
+        })
+      }
+    },
+
 
     sell: function (opts, cb) {
       var client = authedClient()
-      if (typeof opts.post_only === 'undefined') {
-        opts.post_only = true
+      if (typeof opts.type === 'undefined') {
+        opts.type = limit
       }
-      client.new_order(opts, function (err, resp, body) {
+      if (opts.type === 'exchange limit') {
+        var limit_price = opts.price // Fix me
+        //  GDAX client.buy(opts, function (err, resp, body) {
+        client.new_order(opts.product_id, opts.size, opts.price, 'buy', opts.type, function (err, resp, body) {
+          if (!err) err = statusErr(resp, body)
+          if (err) return cb(err)
+          cb(null, body)
+        })
+      } else {
+      client.new_order(opts.product_id, opts.size, '1', 'bitfinex', 'sell', 'exchange market', false, function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
         if (err) return cb(err)
         cb(null, body)
       })
+      }
     },
 
     getOrder: function (opts, cb) {
