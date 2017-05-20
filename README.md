@@ -5,7 +5,7 @@
 
 ## Description
 
-Zenbot is a lightweight, extendable command-line based cryptocurrency trading bot using Node.js and MongoDB. It features:
+Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
 - Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
 - Full support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com), work on further exchange support is ongoing.
@@ -15,7 +15,7 @@ Zenbot is a lightweight, extendable command-line based cryptocurrency trading bo
 - Configurable sell stops, buy stops, and (trailing) profit stops
 - Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 10/day with 15m period
 
-### Disclaimer
+## Disclaimer
 
 - Zenbot is NOT a sure-fire profit machine. Use it AT YOUR OWN RISK.
 - Crypto-currency is still an experiment, and therefore so is Zenbot. Meaning, both may fail at any time.
@@ -129,7 +129,7 @@ zenbot list-strategies
 - By default the sim will start with 1000 units of currency. Override with `--currency_capital` and `--asset_capital`.
 - Open `sim_result.html` in your browser to see a candlestick graph with trades.
 
-## Screenshot and example result
+#### Screenshot and example result
 
 Zenbot outputs an HTML graph of each simulation result. In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
 
@@ -242,6 +242,7 @@ From left to right:
 - considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
 - Can be prone to "whipsaws" when the EMA rate oscillates around 0.
+- The bot will always try to avoid trade fees, by using post-only orders and thus being a market "maker" instead of a "taker". Some exchanges will, however, not offer maker discounts.
 
 ### Option tweaking tips
 
@@ -250,6 +251,29 @@ From left to right:
 - In a bull market, `--sell_rate=-0.01` and `--max_sell_duration=8` can give the price a chance to recover before selling. If there is a sudden dive in price, it's assumed it will recover and sell is delayed. Compensate for the risk by using `--sell_stop_pct=5`.
 - In a bull market with regular price dives and recoveries, `--oversold_rsi=25` will try to buy when the price dives.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9%.
+
+## Manual trade tools
+
+Zenbot's order execution engine can also be used for manual trades. Benefits include:
+
+- Avoids market-order fees by using a short-term limit order
+- Can automatically determine order size from account balance
+- Adjusts order every 30s (if needed) to ensure quick execution
+- If an order is partially filled, attempts to re-order with remaining size
+
+The command to buy is:
+
+```
+zenbot buy <selector> [--size=<size>]
+```
+
+For example, to use your remaining USD balance in GDAX to buy Bitcoin:
+
+```
+zenbot buy gdax.BTC-USD
+```
+
+(and replace "buy" with "sell" to sell)
 
 ## TODO
 
