@@ -1,3 +1,5 @@
+var colors = require('colors')
+
 module.exports = function container (get, set, clear) {
   return function (program) {
     program
@@ -15,7 +17,7 @@ module.exports = function container (get, set, clear) {
             return 0
           })
           products.forEach(function (p) {
-            console.log('  ' + x.name + '.' + p.asset + '-' + p.currency)
+            console.log('  ' + x.name.cyan + '.'.grey + p.asset.green + '-'.grey + p.currency.cyan + (p.label ? ('   (' + p.label + ')').grey : ''))
           })
           console.log()
         })
