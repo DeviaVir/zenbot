@@ -3,6 +3,7 @@ module.exports = {
   _folder: 'commands',
 
   'list-selectors': require('./list-selectors'),
+  'list-strategies': require('./list-strategies'),
   'backfill': require('./backfill'),
   'sim': require('./sim'),
   'trade': require('./trade'),
@@ -10,6 +11,7 @@ module.exports = {
   'sell': require('./sell'),
 
   'list[20]': '#commands.list-selectors',
+  'list[30]': '#commands.list-strategies',
   'list[50]': '#commands.backfill',
   'list[60]': '#commands.sim',
   'list[70]': '#commands.trade',
