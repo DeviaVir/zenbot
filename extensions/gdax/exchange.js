@@ -3,18 +3,6 @@ var Gdax = require('gdax')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
-  var defs = require('./conf-sample')
-  try {
-    c.gdax = require('./conf')
-  }
-  catch (e) {
-    c.gdax = {}
-  }
-  Object.keys(defs).forEach(function (k) {
-    if (typeof c.gdax[k] === 'undefined') {
-      c.gdax[k] = defs[k]
-    }
-  })
 
   var public_client, authed_client
 

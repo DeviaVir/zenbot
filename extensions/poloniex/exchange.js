@@ -6,18 +6,6 @@ var Poloniex = require('poloniex.js')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
-  var defs = require('./conf-sample')
-  try {
-    c.poloniex = require('./conf')
-  }
-  catch (e) {
-    c.poloniex = {}
-  }
-  Object.keys(defs).forEach(function (k) {
-    if (typeof c.poloniex[k] === 'undefined') {
-      c.poloniex[k] = defs[k]
-    }
-  })
 
   var public_client, authed_client
 
