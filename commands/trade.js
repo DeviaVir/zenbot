@@ -31,7 +31,6 @@ module.exports = function container (get, set, clear) {
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
       .option('--disable_stats', 'disable printing order stats')
-      .option('--wait_for_settlement <ms>', 'ms to wait for settlement (after an order cancel) when funds are still on hold', Number, c.wait_for_settlement)
       .option('--reset_profit', 'start new profit calculation from 0')
       .action(function (selector, cmd) {
         selector = get('lib.normalize-selector')(selector || c.selector)
