@@ -7,7 +7,7 @@
 
 Zenbot is a lightweight, extendable cryptocurrency trading bot. It features:
 
-- Fully-automated technical-analysis-based trading approach
+- Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
 - Full out-of-the-box support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com)
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
@@ -17,22 +17,11 @@ Zenbot is a lightweight, extendable cryptocurrency trading bot. It features:
 
 ### Disclaimer
 
-- BE AWARE that Zenbot is not a sure-fire profit machine.
+- BE AWARE that Zenbot is NOT a sure-fire profit machine.
 - Running a bot, and trading in general requires careful study of the risks and parameters involved.
 - Once you hook up Zenbot to a live exchange, the damage done is your fault, not mine!
 - Crypto-currency is still an experiment, and therefore so is Zenbot. Meaning, both may fail at any time.
 - Often times the default trade parameters will underperform vs. a buy-hold strategy, so run some simulations and find the optimal parameters for your chosen exchange/pair before going "all-in".
-
-## Screenshot
-
-Zenbot outputs an HTML graph of each simulation result. In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
-
-![screenshot](https://cloud.githubusercontent.com/assets/106763/25983930/7e5f9436-369c-11e7-971b-ba2916442eea.png)
-
-Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making a 195% ROI! In spite of a buy/hold strategy returning a respectable 83.44%, Zenbot has considerable potential for beating buy/holders.
-
-- Note that this example used tweaked settings to achieve optimal return: `--enable_profit_stop_pct=10`, `--profit_stop_pct=4`, `trend_ema=36`, and `--sell_rate=-0.006`. Default parameters yielded around 65% ROI.
-- RAW data from simulation: https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4
 
 ## Quick-start
 
@@ -138,19 +127,26 @@ For additional options related to the strategy, use:
 zenbot list-strategies
 ```
 
-At the end of your simulation, you'll see something like:
-
-```
-end balance 2621.45651320 (162.15%)
-buy hold 1866.90203832 (86.69%)
-vs. buy hold 40.42%
-90 trades over 92 days (avg 0.98 trades/day)
-wrote sim_result.html
-```
-
 - By default the sim will start with 1000 units of currency. Override with `--currency_capital` and `--asset_capital`.
-- Here we can see the bot's ROI of 162% beat the buy/hold strategy by a lot!
 - Open `sim_result.html` in your browser to see a candlestick graph with trades.
+
+## Screenshot and example result
+
+Zenbot outputs an HTML graph of each simulation result. In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
+
+![screenshot](https://cloud.githubusercontent.com/assets/106763/25983930/7e5f9436-369c-11e7-971b-ba2916442eea.png)
+
+```
+end balance 2954.50 (195.45%)
+buy hold 1834.44 (83.44%)
+vs. buy hold 61.06%
+110 trades over 91 days (avg 1.21 trades/day)
+```
+
+Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making 195% ROI! In spite of a buy/hold strategy returning a respectable 83.44%, Zenbot has considerable potential for beating buy/holders.
+
+- Note that this example used tweaked settings to achieve optimal return: `--enable_profit_stop_pct=10`, `--profit_stop_pct=4`, `trend_ema=36`, and `--sell_rate=-0.006`. Default parameters yielded around 65% ROI.
+- [Raw data](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) from simulation
 
 ### 4. Run zenbot
 
