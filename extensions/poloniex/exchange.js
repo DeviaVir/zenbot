@@ -101,6 +101,11 @@ module.exports = function container (get, set, clear) {
 
       client._public('returnTradeHistory', args, function (err, body) {
         if (err) return cb(err)
+        if (!body || !body.map) {
+          console.error('\nbad response for getTrades()')
+          console.error(body)
+          return cb(null, [])
+        }
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.tradeID,
