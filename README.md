@@ -48,7 +48,10 @@ Create your configuration file by copying `conf-sample.js` to `conf.js`:
 cp conf-sample.js conf.js
 ```
 
-View and edit `conf.js`. It's possible to use zenbot in "paper trading" mode without making any changes. You must add your exchange API keys to enable real trading however.
+- View and edit `conf.js`.
+- It's possible to use zenbot in "paper trading" mode without making any changes.
+- You must add your exchange API keys to enable real trading however.
+- API keys do NOT need deposit/withdrawl permissions.
 
 If using Docker, skip to section "Docker" below.
 
@@ -264,7 +267,7 @@ Zenbot's order execution engine can also be used for manual trades. Benefits inc
 The command to buy is:
 
 ```
-zenbot buy <selector> [--size=<size>]
+zenbot buy <selector> [--size=<size>] [--pct=<pct>]
 ```
 
 For example, to use your remaining USD balance in GDAX to buy Bitcoin:
@@ -273,7 +276,11 @@ For example, to use your remaining USD balance in GDAX to buy Bitcoin:
 zenbot buy gdax.BTC-USD
 ```
 
-(and replace "buy" with "sell" to sell)
+Or to sell 10% of your BTC,
+
+```
+zenbot sell gdax.BTC-USD --pct=10
+```
 
 ## TODO
 
