@@ -1,328 +1,291 @@
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_3_logo.png)
-
-[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/4.x/assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
-- New to Zenbot? Watch the slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
-- Want to contribute to Zenbot? Read the [contributions guide](https://github.com/carlos8f/zenbot/blob/master/CONTRIBUTING.md)
-
-## Current State of Development
-
-Currently Zenbot 3.x works great when set up properly, but setting it up can be **hard**. The configuration system is a bit confusing. To get it to support your exchange of choice sometimes it even involves writing JavaScript.
-
-I'm currently planning an **overhaul for 4.x** that will incorporate a UI, and make many things easier to understand and manage. Stay tuned!
-
 ## Description
 
-Zenbot is a lightweight, extendable, artificially intelligent trading bot. Currently Zenbot is capable of:
+Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
-- High-frequency trading, day trading, week trading
-- Multiple asset support for Bitcoin, Ether, Litecoin (and more)
-- Multiple currency support for US Dollars, Euros, Chinese Yuan (and more)
-- Multiple exchange support for Bitfinex, GDAX, Kraken, Poloniex (and more)
-- Realtime consuming and analysis of trade data
-- [Backtesting your trade strategy](https://gist.github.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960)
-- Outputting data as CSV, [JSON](https://gist.githubusercontent.com/carlos8f/38a9dd292c7ce4d4425803e9548f7960/raw/sim_result.json), or candlestick graph
+- Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
+- Full support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com), work on further exchange support is ongoing.
+- Plugin architecture for implementing exchange support, or writing new strategies
+- Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
+- "Paper" trading mode, operates on a simulated balance while watching the live market
+- Configurable sell stops, buy stops, and (trailing) profit stops
+- Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 10/day with 15m period
 
-### Performance
+## Disclaimer
 
-Simulations on historical data from May - August 2016 show Zenbot 3.5.15 making a [1.531 ROI](https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e) in only 3 months, using default parameters!
-
-_Zenbot is a genius!_
-
-HOWEVER. BE AWARE that once you hook up Zenbot to a live exchange, the damage done is your fault, not mine! **As with buying crypto currency in general, risk is involved and caution is essential. Crypto currency is an experiment, and so is Zenbot.**
-
-### Features
-
-- A powerful map/reduce system to live-process data at scale.
-- A plugin system to facilitate incremental support for any exchange, currency pair, trade strategy, or reporting medium.
-- Out of the box, Zenbot is an AI-powered trade advisor (gives you buy or sell signals while watching live data).
-- Default support for [GDAX](https://gdax.com/) is included, so if you have a GDAX account, enable bot trades by simply putting your GDAX API key in `config.js` and setting what currency pair to trade.
-- Default support for other exchanges is ongoing.
-- Trade strategy is fully exposed in the config file. This allows you to have full control over the bot's actions and logic. For example, instead of trading on GDAX, you could trade on a different exchange or currency pair by implementing a few lines of JavaScript.
-- A live candlestick graph is provided via a built-in HTTP server.
-
-## Screenshot
-
-In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
-
-![screenshot](https://cloud.githubusercontent.com/assets/106763/18077269/4f5deefc-6e39-11e6-9e3e-6d4bba583c03.png)
-
-RAW data from simulation: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e
+- Zenbot is NOT a sure-fire profit machine. Use it AT YOUR OWN RISK.
+- Crypto-currency is still an experiment, and therefore so is Zenbot. Meaning, both may fail at any time.
+- Running a bot, and trading in general requires careful study of the risks and parameters involved.
+- Often times the default trade parameters will underperform vs. a buy-hold strategy, so run some simulations and find the optimal parameters for your chosen exchange/pair before going "all-in".
 
 ## Quick-start
 
-### 1. Requirements: [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/download-center)
+### 1. Requirements: Linux or OSX or Docker, [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
 
-#### Windows - I don't support it.
+### 2. Install zenbot 4:
 
-If you're having an error on Windows and you're about to give up, it's probably because Node.js is generally broken on Windows and you should try running on a Linux docker container (look at step 7 and follow instructions for Windows) or a Mac instead.
-
-If you're still insistent on using Windows, you'll have to fork zenbot, fix it yourself, and I'll accept a Pull Request.
-
-### 2. Install zenbot 3:
+Run in your console,
 
 ```
 git clone https://github.com/carlos8f/zenbot.git
+```
+
+Or, without git,
+
+```
+wget https://github.com/carlos8f/zenbot/archive/master.tar.gz
+tar -xf zenbot-master.tar.gz
+mv zenbot-master zenbot
+```
+
+Create your configuration file by copying `conf-sample.js` to `conf.js`:
+
+```
+cp conf-sample.js conf.js
+```
+
+- View and edit `conf.js`.
+- It's possible to use zenbot in "paper trading" mode without making any changes.
+- You must add your exchange API keys to enable real trading however.
+- API keys do NOT need deposit/withdrawl permissions.
+
+If using Docker, skip to section "Docker" below.
+
+Install dependencies:
+
+```
 cd zenbot
 npm install
-# optional, installs the `zenbot` binary in /usr/local/bin:
+# optional, installs the `zenbot.sh` binary in /usr/local/bin:
 npm link
 ```
 
-### 3. Copy `config_sample.js` to `config.js` and edit with API keys, database credentials, trade logic, etc.
+### Docker
 
-Note: add your GDAX key to `config.js` to enable real trading.
+To run Zenbot under Docker, install Docker, Docker Compose, Docker Machine (if necessary) You can follow instructions at https://docs.docker.com/compose/install/
 
-### 4. Run zenbot (single-pair mode)
-
-The following command will run all Zenbot functionality, using the default BTC/USD pair.
+After installing (step 2 above),
 
 ```
-./run.sh
-```
-
-Here's how to run a different pair (example: ETH-BTC):
-
-```
-./zenbot launch map --backfill reduce run server --config config_eth_btc.js
-```
-
-### 4. Run zenbot (multi-pair mode)
-
-The following will run multiple currency pairs along with the reducer and server in separate processes.
-
-Required: reducer (for processing trade data):
-
-```
-./reducer.sh
-```
-
-Optional: server (for candlestick graphs and aggregated log):
-
-```
-./server.sh
-```
-
-Required: one or more run scripts (watches trades of a given pair and performs trade actions on the exchange or simulation)
-
-```
-./run-btc-usd.sh
-```
-
-And/or to trade ETH,
-
-```
-./run-eth-usd.sh
-```
-
-And/or to trade ETH/BTC,
-
-```
-./run-eth-btc.sh
-```
-
-### 5. If running server, open the live graph URL provided in the console.
-
-To access the CLI,
-
-```
-./zenbot
-
-  Usage: ./zenbot [options] [command]
-
-  Commands:
-
-    server [options]            launch the server
-    launch [options] [cmds...]  launch multiple commands
-    map [options]               map
-    reduce [options]            reduce
-    run                         run
-    sim [options]               sim
-
-  Options:
-
-    -h, --help     output usage information
-    -V, --version  output the version number
-    --config <path>  specify a path for config.js overrides
-```
-
-The `./run.sh` script combines `launch map --backfill reduce run server`, so use the CLI to access the other commands.
-
-### 6. Simulation
-
-Once backfill has finished (should collect about 84 days of data), run a simulation:
-
-```
-./zenbot sim [--verbose]
-```
-
-Zenbot will return you a list of virtual trades, and an ROI figure. Open the URL provided in the console (while running the server) to see the virtual trades plotted on a candlestick graph. Tweak `default_logic.js` for new trade strategies and check your results this way.
-
-Example simulation result: https://gist.github.com/carlos8f/afcc18ba0e1f422b1f3b1f67a3b05c8e
-
-#### About the default trade logic in `default_logic.js`
-
-- uses [GDAX](https://gdax.com/) API
-- acts at 5 minute increments (ticks), but you can configure to act quicker or slower.
-- computes the latest 14-hour [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) at each 5m tick
-- considers `RSI >= 70` an upwards trend and `RSI <= 30` a downwards trend
-- Buys at the beginning of upwards trend, sells at the beginning of downwards trend
-- trades 98% of current balance, market price
-- Holds for min. 24 hours after a trade
-
-You can tweak the JS from there to trade on Bitfinex, or whatever. After tweaking `default_logic.js`, Use `./zenbot sim [--verbose]` to check your strategy against historical trades.
-
-Note that simulations always end on Wednesday 5pm PST, and run for a max 84 days (12 weeks), to ensure input consistency.
-
-Auto-learn support and more exchange support will come soon. Will accept PR's :) With the 3.x plugin architecture, external plugins are possible too (published as their own repo/module).
-
-### 7. Docker
-
-Install Docker, Docker Compose, Docker Machine (if necessary) You can follow instructions at https://docs.docker.com/compose/install/
-
-After installation
-
-```
-git clone https://github.com/carlos8f/zenbot.git
 cd zenbot
 docker-compose build
 docker-compose up (-d if you don't want to see the log)
 ```
 
-### 8. Web console
+### Vocab: selectors
 
-When the server is running, and you have visited the `?secret` URL provided in the console, you can access an aggregated, live feed of log messages at `http://localhost:3013/logs`. Example:
+A "selector" is a short identifier that tells Zenbot which exchange and currency pair to act on. Use the form `{exchange_slug}.{asset}-{currency}`. A complete list of selectors your Zenbot install supports can be found with:
 
-![screenshot](https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/zenbot_web_logs.png)
+```
+zenbot list-selectors
 
-### Update Log
+gdax:
+  gdax.BTC-EUR   (BTC/EUR)
+  gdax.BTC-GBP   (BTC/GBP)
+  gdax.BTC-USD   (BTC/USD)
+  gdax.ETH-BTC   (ETH/BTC)
+  gdax.ETH-USD   (ETH/USD)
+  gdax.LTC-BTC   (LTC/BTC)
+  gdax.LTC-USD   (LTC/USD)
 
-- [**3.5.16**](https://github.com/carlos8f/zenbot/releases/tag/v3.5.15) (Latest)
-    - Added Docker support, thanks to @egorbenko, @grigio, and @BarnumD !
-- **3.5.15**
-    - Fixed [RSI smoothing issue](https://github.com/carlos8f/zenbot/issues/53), now RSI is calculated on the run_state instead of the tick. Switched to using heavily smoothed 5m RSI in `default_logic.js`. RSI no longer needs to be backfilled, and is dynamically calculated after applying this update. Raised ROI 1.460 -> 1.531 from last update.
-- **3.5.14**
-    - Fixed [#39](https://github.com/carlos8f/zenbot/issues/39) 404 for trades.csv
-- **3.5.13**
-    - Change `check_period` to 5m in trading engine
-    - ROI 1.477 -> 1.720
-    - Speed up sim by only processing 5m ticks
-- **3.5.12**
-    - Tweaks to default trade params, ROI = 1.364 -> 1.477
-    - Misc warning text changes
-- **3.5.11**
-    - Fix 1m reporter not working in advisor mode.
-- **3.5.10**
-    - Fix `run.sh` not starting server.
-    - Remove --verbose from new run script.
-- **3.5.9**
-    - Add --backfill and --verbose to new run script.
-- **3.5.8**
-    - Fix "skipping historical tick" (prevented bot from acting on trends) issue with Zenbrain update.
-    - Fix ANSI graph range again.
-    - Added `run.sh` back to run the default pair BTC/USD and reducer/server.
-- **3.5.7**
-    - make use of rs.rsi for indicators (instead of querying for rsi tick), spacing for ETA.
-- **3.5.6**
-    - Fix ANSI graph range.
-- **3.5.5**
-    - ANSI graph now follows RSI instead of SMA.
-- **3.5.4**
-    - ETA indicator replaces progress, and removal of `hold_ticks` mechanism in favor of wait params in ms. More warnings in default_logic to show what's going on with the trader.
-- **3.5.3**
-    - Fixed `--config` usage with absolute path.
-- **3.5.2**
-    - Re-organized some config vars, GDAX key now in `config.js` instead of `config_eth_btc.js` etc.
-- **3.5.1**
-    - Bugfixes
-- **3.5.0**
-    - `run.sh` split into 3 scripts. Now you'll need to run `./reducer.sh`, `./server.sh`, and `./run-{asset}-{currency}.sh` in separate windows. Multiple currency pairs can be run in parallel as of Zenbot 3.5.0!
-- **3.4.3**
-    - Fix sim URL not having selector in it
-    - `min_trade` now controlled by `product.min_size`
-- **3.4.2**
-    - Exit default logic if run command and historical tick
-    - Add balance stats to trade actions
-    - Add `--config` arg doc. You can switch to using a different config with `--config <path>`
-    - Update gist links for newest simulation results.
-    - Added `config_eth.js` example config for ETH trading.
-- **3.4.1**
-    - Slight re-code of `default_logic.js` to fix slipped ROI (1.1 -> 1.8)
-    - Added All Poloniex USDT pairs by @JFD3D, Thanks!
-- **3.4.0**
-    - Re-organized the config so `config.js` is git-ignored, so you should copy `config_sample.js` to `config.js`. `config_defaults.js` provides all options that you can override in `config.js`.
-    - Many config variable changes, such as `c.watch_exchanges` instead of `c.enabled_plugins`, see `config_sample.js` for details.
-    - Zenbrain updated.
-    - Development now happening in `develop` branch, master will be pushed to only on stable releases going forward.
-- **3.3.1**
-    - Moved ANSI graph column to line up tick_id and num_trades with log_trades columns.
-- **3.3.0**
-    - Fees now calculated, default `price * size * 0.0025`.
-    - `rs.roi` now updated every tick.
-    - ANSI graph, balance, ROI, and SMA indicators added.
-    - Fix kraken naming by @grigio, Thanks!
-    - Added [contributions guide](https://github.com/carlos8f/zenbot/blob/master/CONTRIBUTING.md).
-    - Updated slideshow: [Introducing Zenbot 3](https://gitpitch.com/carlos8f/zenbot/master?t=moon)
-- **3.2.4**
-    - Minor reporting cleanup, added some docs. Minor update to Zenbrain.
-- **3.2.3**
-    - Fixed some performance issues with RSI backfiller. Updated `update.sh` to run `git stash` before and `git stash pop` after update, to avoid merge conflict when pulling. However you may have to resolve a conflict with your `config.js` after `update.sh` completes, this is normal when config defaults have been updated.
-- **3.2.2**
-    - Fixed a non-indexed query in Zenbrain.
-- **3.2.1**
-    - Bugfix for techan.js performance patch
-- **3.2.0**
-    - Major logic update again.
-    - Now using 1h RSI by default. Reporter chimes in every 5m. Trade signals should trigger roughly 2-3 times over a few days.
-    - Way better trend detection in `default_logic.js`, 83-day simulated ROI went from ~10% to 89%!
-    - Poloniex product update by @RDash21, Kraken product update by @grigio. Thanks!
-    - Logic update by @xangma. Thanks!
-    - Graph performance patch, submitted to techan.js project at https://github.com/andredumas/techan.js/issues/138
-- **3.1.2** - Relaxed backfill timeout. Backfill is slower to let reducer catch up. Reducer report interval -> 30s, Trade report interval -> 30s
-- **3.1.1** - Updated zenbrain version.
-- **3.1.0**
-    - Major logic update. Much of the default trade logic reprogrammed.
-    - Moved default logic to `./default_logic.js`.
-    - RSI now backfills by default, reconfigured to 15m intervals.
+poloniex:
+  poloniex.AMP-BTC   (Synereo AMP/BTC)
+  poloniex.ARDR-BTC   (Ardor/BTC)
+  poloniex.BCN-BTC   (Bytecoin/BTC)
+  poloniex.BCN-XMR   (Bytecoin/XMR)
+  poloniex.BCY-BTC   (BitCrystals/BTC)
 
-### Update Tips
+...etc
+```
 
-To update your Zenbot installation, use `./update.sh`. If you have merge conflicts after update, solve them, then run `./run.sh`. If you have runtime JavaScript errors after update, your database might be obsolete. Try dropping your `zenbrain` DB and run `run.sh` again to start with a clean state.
+### 3. (optional) Run simulations for your chosen selector
 
-## FAQ
+To backfill data (provided that your chosen exchange supports it), use:
 
-### Can I use zenbot with [X] exchange?
+```
+zenbot backfill <selector> --days <days>
+```
 
-Yes! As long as that exchange has a public API, you can find a plugin (or write one) to interact with that exchange. I accept pull requests if you want to contribute [X] exchange support.
+After you've backfilled, you can run a simulation:
 
-### Why open source?
+```
+zenbot sim <selector> [options]
+```
 
-There is a general lack of open source bots, especially ones with AI. Since I learned how to code by reverse engineering, I publish code so others can do the same, and by doing so I'm saying thanks to Satoshi, Torvalds, djb, et. al for devoting their lives to open source. It might be against my "selfish interest" but in the end it's best for everyone. Plus, I still own the copyright.
+For a list of options for the `sim` command, use:
 
-### Were there any incidents when the bot's trade made a loss?
+```
+zenbot sim --help
 
-I have seen losses in the simulator, so it's possible. It only takes a few minutes of machine learning to gain a comfortable (albeit virtual) profit margin though. If the bot starts losing money, you can always step in and manual trade or shut the bot down to prevent more loss.
+```
 
-### Based on what criteria does the bot decide to close a trade?
+For additional options related to the strategy, use:
 
-zenbot always trades with the "market" flag, i.e. the order never goes on the books, and the trade goes through with whatever price the last system trade was at. This way, zenbot never needs to cancel orders or compare prices.
+```
+zenbot list-strategies
+```
 
-### What does [bot] not enough currency to buy! mean?
+- By default the sim will start with 1000 units of currency. Override with `--currency_capital` and `--asset_capital`.
+- Open `sim_result.html` in your browser to see a candlestick graph with trades.
 
-It means the bot tried to buy, but had not enough USD balance to do that. The volume counter resets anyway. If you feel comfortable investing, you can deposit USD in your account and zenbot will use that the next time the trade signal triggers.
+#### Screenshot and example result
 
-## Reading assignment: Systematic trading using neural networks
+Zenbot outputs an HTML graph of each simulation result. In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
 
-In mathematical terms, Artificial neural networks (ANNs) are universal function approximators, meaning that given the right data and configured correctly, they can capture and model any input-output relationships. This removes the need for human interpretation of charts to determine entry/exit signals.
+![screenshot](https://cloud.githubusercontent.com/assets/106763/25983930/7e5f9436-369c-11e7-971b-ba2916442eea.png)
 
-As ANNs are essentially non-linear statistical models, their accuracy and prediction capabilities can be both mathematically and empirically tested. In various studies, authors have claimed that neural networks used for generating trading signals given various technical and fundamental inputs have significantly outperformed buy-hold strategies as well as traditional linear technical analysis methods when combined with rule-based expert systems.
+```
+end balance 2954.50 (195.45%)
+buy hold 1834.44 (83.44%)
+vs. buy hold 61.06%
+110 trades over 91 days (avg 1.21 trades/day)
+```
 
-While the advanced mathematical nature of such adaptive systems has kept neural networks for financial analysis mostly within academic research circles, in recent years more user friendly neural network software has made the technology more accessible to traders.
+Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making 195% ROI! In spite of a buy/hold strategy returning a respectable 83.44%, Zenbot has considerable potential for beating buy/holders.
 
-Source: [Wikipedia](https://en.wikipedia.org/wiki/Technical_analysis#Systematic_trading)
+- Note that this example used tweaked settings to achieve optimal return: `--enable_profit_stop_pct=10`, `--profit_stop_pct=4`, `trend_ema=36`, and `--sell_rate=-0.006`. Default parameters yielded around 65% ROI.
+- [Raw data](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) from simulation
+
+### 4. Run zenbot
+
+The following command will launch the bot, and if you haven't touched `c.default_selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
+
+```
+zenbot trade [--paper]
+```
+
+Use the `--paper` flag to only perform simulated trades while watching the market.
+
+Here's how to run a different selector (example: ETH-BTC on Poloniex):
+
+```
+./zenbot trade poloniex.eth-btc
+```
+
+For a full list of options for the `trade` command, use:
+
+```
+zenbot trade --help
+
+  Usage: trade [options] [selector]
+
+  run trading bot against live market data
+
+  Options:
+
+    -h, --help                      output usage information
+    --strategy <name>               strategy to use
+    --paper                         use paper trading mode (no real trades will take place)
+    --currency_capital <amount>     for paper trading, amount of start capital in currency
+    --asset_capital <amount>        for paper trading, amount of start capital in asset
+    --buy_pct <pct>                 buy with this % of currency balance
+    --sell_pct <pct>                sell with this % of asset balance
+    --markup_pct <pct>              % to mark up or down ask/bid price
+    --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
+    --sell_stop_pct <pct>           sell if price drops below this % of bought price
+    --buy_stop_pct <pct>            buy if price surges above this % of sold price
+    --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
+    --profit_stop_pct <pct>         maintain a trailing stop this % below the high-water mark of profit
+    --max_sell_loss_pct <pct>       avoid selling at a loss pct under this float
+    --max_slippage_pct <pct>        avoid selling at a slippage pct above this float
+    --rsi_periods <periods>         number of periods to calculate RSI at
+    --poll_trades <ms>              poll new trades at this interval in ms
+    --disable_stats                 disable printing order stats
+    --reset_profit                  start new profit calculation from 0
+
+```
+
+and also:
+
+```
+zenbot list-strategies
+
+trend_ema (default)
+  description:
+    Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
+  options:
+    --period=<value>  period length (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 36)
+    --trend_ema=<value>  number of periods for trend EMA (default: 34)
+    --buy_rate=<value>  buy if trend ema rate between 0 and this positive float (default: 0)
+    --sell_rate=<value>  sell if trend ema rate between 0 and this negative float (default: 0)
+    --max_buy_duration=<value>  avoid buy if trend duration over this number (default: 1)
+    --max_sell_duration=<value>  avoid sell if trend duration over this number (default: 1)
+    --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
+    --oversold_rsi=<value>  buy when RSI reaches this value (default: 0)
+```
+
+### Reading the console output
+
+![console](https://rawgit.com/carlos8f/zenbot/4.x/assets/console.png)
+
+From left to right:
+
+- Timestamp in local time (grey, blue when showing "live" stats)
+- Asset price in currency (yellow)
+- Percent change of price since last period (red/green)
+- Volume in asset since last period (grey)
+- [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) ANSI graph (red/green)
+- `trend_ema_rate` (red/green, explained below)
+- Current signal or action, including `buy`, `sell`, `buying`, `selling`, `bought`, `sold` and `last_trade_worth` (percent change in the trend direction since last buy/sell)
+- Account balance (asset)
+- Account balance (currency)
+- Profit or loss percent (can be reset with `--reset_profit`)
+- Gain or loss vs. buy/hold strategy
+
+### About the default strategy
+
+- The default strategy is called `trade_ema` and resides at `./extensions/trade_ema`.
+- defaults to using a 1h period, but you can override this with adding e.g. `--period=15m` to the `sim` or `trade` commands.
+- computes the 34-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
+- considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
+- Buys at the beginning of upwards trend, sells at the beginning of downwards trend
+- Can be prone to "whipsaws" when the EMA rate oscillates around 0.
+- The bot will always try to avoid trade fees, by using post-only orders and thus being a market "maker" instead of a "taker". Some exchanges will, however, not offer maker discounts.
+
+### Option tweaking tips
+
+- Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=15m` or `--trend_ema=25` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema`.
+- Sometimes it's tempting to tell the bot trade very often. Try to resist this urge, and go for quality over quantity, since each trade comes with a decent amount of slippage and whipsaw risk.
+- In a bull market, `--sell_rate=-0.01` and `--max_sell_duration=8` can give the price a chance to recover before selling. If there is a sudden dive in price, it's assumed it will recover and sell is delayed. Compensate for the risk by using `--sell_stop_pct=5`.
+- In a bull market with regular price dives and recoveries, `--oversold_rsi=25` will try to buy when the price dives.
+- In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9%.
+
+## Manual trade tools
+
+Zenbot's order execution engine can also be used for manual trades. Benefits include:
+
+- Avoids market-order fees by using a short-term limit order
+- Can automatically determine order size from account balance
+- Adjusts order every 30s (if needed) to ensure quick execution
+- If an order is partially filled, attempts to re-order with remaining size
+
+The command to buy is:
+
+```
+zenbot buy <selector> [--size=<size>] [--pct=<pct>]
+```
+
+For example, to use your remaining USD balance in GDAX to buy Bitcoin:
+
+```
+zenbot buy gdax.BTC-USD
+```
+
+Or to sell 10% of your BTC,
+
+```
+zenbot sell gdax.BTC-USD --pct=10
+```
+
+## TODO
+
+- more exchange support
+- web UI with graphs and logs
 
 ## Donate
 
@@ -332,14 +295,14 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
 
-thanks!
+Thanks!
 
 - - -
 
 ### License: MIT
 
-- Copyright (C) 2016 Carlos Rodriguez (http://s8f.org/)
-- Copyright (C) 2016 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
+- Copyright (C) 2017 Carlos Rodriguez
+- Copyright (C) 2017 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal
