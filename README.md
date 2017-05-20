@@ -5,7 +5,7 @@
 
 ## Description
 
-Zenbot is a lightweight, extendable cryptocurrency trading bot. It features:
+Zenbot is a lightweight, extendable command-line based cryptocurrency trading bot using Node.js and MongoDB. It features:
 
 - Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
 - Full support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com), work on further exchange support is ongoing.
