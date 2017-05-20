@@ -1,4 +1,4 @@
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/4.x/logo.png)
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/4.x/assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
@@ -221,6 +221,24 @@ trend_ema (default)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 0)
 ```
 
+### Reading the console output
+
+[console](https://rawgit.com/carlos8f/zenbot/4.x/assets/console.png)
+
+From left to right:
+
+- Timestamp in local time (grey, blue when showing "live" stats)
+- Asset price in currency (yellow)
+- Percent change of price since last period (red/green)
+- Volume in asset since last period (grey)
+- [RSI](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:relative_strength_index_rsi) ANSI graph (red/green)
+- `trend_ema_rate` (red/green, explained below)
+- Current signal or action, including `buy`, `sell`, `buying`, `selling`, `bought`, `sold` and `last_trade_worth` (percent change in the trend direction since last buy/sell)
+- Account balance (asset)
+- Account balance (currency)
+- Profit or loss percent (can be reset with `--reset_profit`)
+- Gain or loss vs. buy/hold strategy
+
 ### About the default strategy
 
 - The default strategy is called `trade_ema` and resides at `./extensions/trade_ema`.
@@ -237,6 +255,11 @@ trend_ema (default)
 - In a bull market, `--sell_rate=-0.01` and `--max_sell_duration=8` can give the price a chance to recover before selling. If there is a sudden dive in price, it's assumed it will recover and sell is delayed. Compensate for the risk by using `--sell_stop_pct=5`.
 - In a bull market with regular price dives and recoveries, `--oversold_rsi=25` will try to buy when the price dives.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9%.
+
+## TODO
+
+- more exchange support
+- web UI with graphs and logs
 
 ## Donate
 
