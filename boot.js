@@ -31,7 +31,7 @@ module.exports = function (cb) {
     })
   }
 
-  var u = 'mongodb://' + c.mongo_host + ':' + c.mongo_port + '/' + c.mongo_db
+  var u = 'mongodb://' + c.mongo.host + ':' + c.mongo.port + '/' + c.mongo.db
   require('mongodb').MongoClient.connect(u, function (err, db) {
     if (err) {
       zenbot.set('zenbot:db.mongo', null)
@@ -39,8 +39,8 @@ module.exports = function (cb) {
       return withMongo()
     }
     zenbot.set('zenbot:db.mongo', db)
-    if (c.mongo_username) {
-      db.authenticate(c.mongo_username, c.mongo_password, function (err, result) {
+    if (c.mongo.username) {
+      db.authenticate(c.mongo.username, c.mongo.password, function (err, result) {
         if (err) {
           zenbot.set('zenbot:db.mongo', null)
           console.error('warning: mongodb auth failed. some features (such as backfilling/simulation) may be disabled.')
