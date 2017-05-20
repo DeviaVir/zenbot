@@ -1,116 +1,170 @@
 [
   {
-    "id": "btcusd",
+    "asset": "BTC",
+    "currency": "USD",
     "min_size": 0.01,
     "max_size": 2000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "BTC/USD"
   },
   {
-    "id": "ltcusd",
+    "asset": "LTC",
+    "currency": "USD",
     "min_size": 0.1,
     "max_size": 5000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "LTC/USD"
   },
   {
-    "id": "ltcbtc",
+    "asset": "LTC",
+    "currency": "BTC",
     "min_size": 0.1,
     "max_size": 5000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "LTC/BTC"
   },
   {
-    "id": "ethusd",
+    "asset": "ETH",
+    "currency": "USD",
     "min_size": 0.1,
     "max_size": 5000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "ETH/USD"
   },
   {
-    "id": "ethbtc",
+    "asset": "ETH",
+    "currency": "BTC",
     "min_size": 0.1,
     "max_size": 5000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "ETH/BTC"
   },
   {
-    "id": "etcbtc",
+    "asset": "ETC",
+    "currency": "BTC",
     "min_size": 0.1,
     "max_size": 100000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "ETC/BTC"
   },
   {
-    "id": "etcusd",
+    "asset": "ETC",
+    "currency": "USD",
     "min_size": 0.1,
     "max_size": 100000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "ETC/USD"
   },
   {
-    "id": "rrtusd",
+    "asset": "RRT",
+    "currency": "USD",
     "min_size": 0.1,
     "max_size": 100000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "RRT/USD"
   },
   {
-    "id": "rrtbtc",
+    "asset": "RRT",
+    "currency": "BTC",
     "min_size": 0.1,
     "max_size": 100000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "RRT/BTC"
   },
   {
-    "id": "zecusd",
+    "asset": "ZEC",
+    "currency": "USD",
     "min_size": 0.0001,
     "max_size": 20000,
-    "increment": 0.0001
+    "increment": 0.0001,
+    "label": "ZEC/USD"
   },
   {
-    "id": "zecbtc",
+    "asset": "ZEC",
+    "currency": "BTC",
     "min_size": 0.0001,
     "max_size": 20000,
-    "increment": 0.0001
+    "increment": 0.0001,
+    "label": "ZEC/BTC"
   },
   {
-    "id": "xmrusd",
+    "asset": "XMR",
+    "currency": "USD",
     "min_size": 0.1,
     "max_size": 5000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "XMR/USD"
   },
   {
-    "id": "xmrbtc",
+    "asset": "XMR",
+    "currency": "BTC",
     "min_size": 0.1,
     "max_size": 5000,
-    "increment": 0.1
+    "increment": 0.1,
+    "label": "XMR/BTC"
   },
   {
-    "id": "dshusd",
+    "asset": "DSH",
+    "currency": "USD",
     "min_size": 0.01,
     "max_size": 5000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "DSH/USD"
   },
   {
-    "id": "dshbtc",
+    "asset": "DSH",
+    "currency": "BTC",
     "min_size": 0.01,
     "max_size": 5000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "DSH/BTC"
   },
   {
-    "id": "bccbtc",
+    "asset": "BCC",
+    "currency": "BTC",
     "min_size": 0.01,
     "max_size": 2000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "BCC/BTC"
   },
   {
-    "id": "bcubtc",
+    "asset": "BCU",
+    "currency": "BTC",
     "min_size": 0.01,
     "max_size": 2000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "BCU/BTC"
   },
   {
-    "id": "bccusd",
+    "asset": "BCC",
+    "currency": "USD",
     "min_size": 0.01,
     "max_size": 2000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "BCC/USD"
   },
   {
-    "id": "bcuusd",
+    "asset": "BCU",
+    "currency": "USD",
     "min_size": 0.01,
     "max_size": 2000,
-    "increment": 0.01
+    "increment": 0.01,
+    "label": "BCU/USD"
+  },
+  {
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": 0.1,
+    "max_size": 200000,
+    "increment": 0.1,
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "XRP",
+    "currency": "BTC",
+    "min_size": 0.1,
+    "max_size": 200000,
+    "increment": 0.1,
+    "label": "XRP/BTC"
   }
 ]
