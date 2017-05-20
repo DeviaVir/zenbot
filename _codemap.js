@@ -1,8 +1,11 @@
 module.exports = {
   _ns: 'zenbot',
   _maps: [
-    require('./core/_codemap'),
-    require('./plugins/_codemap'),
-    require('./utils/_codemap')
-  ]
+    require('./commands/_codemap'),
+    require('./db/_codemap'),
+    require('./lib/_codemap')
+  ],
+  'conf': {},
+  'exchanges.list': [],
+  'strategies.list': []
 }
