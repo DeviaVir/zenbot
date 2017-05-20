@@ -1,8 +1,0 @@
-{
-  "name": "zenbot_bitfinex",
-  "version": "0.0.0",
-  "description": "zenbot supporting code for Bitfinex",
-  "dependencies": {
-    "bitfinex-api-node": "^0.2.9"
-  }
-}
