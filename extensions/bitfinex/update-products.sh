@@ -12,13 +12,13 @@ request('https://api.bitfinex.com/v1/symbols_details', {headers: {'User-Agent': 
   var products = []
   body.forEach(function (product) {
     products.push({
-      id: product.pair,
-//      asset: product.base_currency,
-//      currency: product.quote_currency,
+//     id: product.pair,
+      asset: product.pair.substring(0, 3).toUpperCase(),
+      currency: product.pair.substring(3, 6).toUpperCase(),
       min_size: Number(product.minimum_order_size),
       max_size: Number(product.maximum_order_size),
       increment: Number(product.minimum_order_size),
-//      label: product.display_name
+      label: product.pair.substring(0, 3).toUpperCase() + '/' + product.pair.substring(3, 6).toUpperCase()
     })
   })
   var target = require('path').resolve(__dirname, 'products.json')
