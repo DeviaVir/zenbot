@@ -8,7 +8,7 @@
 Zenbot is a lightweight, extendable cryptocurrency trading bot. It features:
 
 - Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
-- Full out-of-the-box support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com)
+- Full support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com), work on further exchange support is ongoing.
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
 - "Paper" trading mode, operates on a simulated balance while watching the live market
@@ -17,10 +17,9 @@ Zenbot is a lightweight, extendable cryptocurrency trading bot. It features:
 
 ### Disclaimer
 
-- BE AWARE that Zenbot is NOT a sure-fire profit machine.
-- Running a bot, and trading in general requires careful study of the risks and parameters involved.
-- Once you hook up Zenbot to a live exchange, the damage done is your fault, not mine!
+- Zenbot is NOT a sure-fire profit machine. Use it AT YOUR OWN RISK.
 - Crypto-currency is still an experiment, and therefore so is Zenbot. Meaning, both may fail at any time.
+- Running a bot, and trading in general requires careful study of the risks and parameters involved.
 - Often times the default trade parameters will underperform vs. a buy-hold strategy, so run some simulations and find the optimal parameters for your chosen exchange/pair before going "all-in".
 
 ## Quick-start
@@ -219,7 +218,7 @@ trend_ema (default)
 
 ### Reading the console output
 
-[console](https://rawgit.com/carlos8f/zenbot/4.x/assets/console.png)
+![console](https://rawgit.com/carlos8f/zenbot/4.x/assets/console.png)
 
 From left to right:
 
