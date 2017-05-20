@@ -239,7 +239,7 @@ From left to right:
 
 ### About the default strategy
 
-- The default strategy is called `trade_ema` and resides at `./extensions/trade_ema`.
+- The default strategy is called `trend_ema` and resides at `./extensions/trend_ema`.
 - defaults to using a 1h period, but you can override this with adding e.g. `--period=15m` to the `sim` or `trade` commands.
 - computes the 34-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
 - considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
