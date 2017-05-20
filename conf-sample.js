@@ -49,7 +49,9 @@ c.order_adjust_time = 30000
 c.symmetrical = false
 // number of periods to calculate RSI at
 c.rsi_periods = 14
-// ms to wait for settlement (after an order cancel) when funds are still on hold
+// ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 5000
+// ms to wait for settlement (after a funds on hold error)
+c.wait_more_for_settlement = 60000
 // period to record balances for stats
 c.balance_snapshot_period = '1h'
