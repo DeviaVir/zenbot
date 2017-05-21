@@ -211,10 +211,11 @@ trend_ema (default)
     --period=<value>  period length (default: 1h)
     --min_periods=<value>  min. number of history periods (default: 36)
     --trend_ema=<value>  number of periods for trend EMA (default: 34)
-    --buy_rate=<value>  buy if trend ema rate between 0 and this positive float (default: 0)
-    --sell_rate=<value>  sell if trend ema rate between 0 and this negative float (default: 0)
-    --max_buy_duration=<value>  avoid buy if trend duration over this number (default: 1)
-    --max_sell_duration=<value>  avoid sell if trend duration over this number (default: 1)
+    --buy_rate=<value>  buy if trend EMA rate between neutral_rate and this positive float (default: 0)
+    --sell_rate=<value>  sell if trend EMA rate between neutral_rate * -1 and this negative float (default: 0)
+    --neutral_rate=<value>  avoid signals when trend EMA rate is under this absolute value (default: auto)
+    --max_buy_duration=<value>  avoid buy if trend duration over this number (default: 0)
+    --max_sell_duration=<value>  avoid sell if trend duration over this number (default: 0)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 0)
 ```
@@ -240,11 +241,12 @@ From left to right:
 ### About the default strategy
 
 - The default strategy is called `trend_ema` and resides at `./extensions/trend_ema`.
-- defaults to using a 1h period, but you can override this with adding e.g. `--period=15m` to the `sim` or `trade` commands.
-- computes the 34-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
-- considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
+- Defaults to using a 1h period, but you can override this with adding e.g. `--period=15m` to the `sim` or `trade` commands.
+- Computes the 34-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
+- Considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
+- Filters out low values (whipsaws) by `neutral_rate`, which when set to `auto`, uses the standard deviation of the `trend_ema_rate` as a variable noise filter.
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
-- Can be prone to "whipsaws" when the EMA rate oscillates around 0.
+- If `oversold_rsi` is set, tries to buy when the RSI dips below that value, and then starts to recover (a counterpart to `--profit_stop_enable_pct`, which sells when a percent of profit is reached, and then dips)
 - The bot will always try to avoid trade fees, by using post-only orders and thus being a market "maker" instead of a "taker". Some exchanges will, however, not offer maker discounts.
 
 ### Option tweaking tips
@@ -254,6 +256,7 @@ From left to right:
 - In a bull market, `--sell_rate=-0.01` and `--max_sell_duration=8` can give the price a chance to recover before selling. If there is a sudden dive in price, it's assumed it will recover and sell is delayed. Compensate for the risk by using `--sell_stop_pct=5`.
 - In a bull market with regular price dives and recoveries, `--oversold_rsi=25` will try to buy when the price dives.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9%.
+- as of v4.0.2, `--neutral_rate=auto` is on by default, which [proved in simulations](https://gist.github.com/carlos8f/429443d7d6b90c7daa1eb986ac7aa8cf) to be effective at preventing weak (whipsaw) signals. However, sometimes `--neutral_rate=0` works better for low volatility, such as BTC-USD at 1h.
 
 ## Manual trade tools
 
@@ -281,6 +284,17 @@ Or to sell 10% of your BTC,
 ```
 zenbot sell gdax.BTC-USD --pct=10
 ```
+
+## Update Log
+
+- [v4.0.2](https://github.com/carlos8f/zenbot/releases/tag/v4.0.2) (Latest)
+    - minor overhaul to trend_ema strat - added whipsaw filtering via std. deviation (`--neutral_rate=auto`)
+    - trim preroll of sim result graph
+- v4.0.1
+    - Added .dockerignore (thanks [@sulphur](https://github.com/sulphur))
+    - fix crashing on mongo timeout during backfill
+    - fix gaps in poloniex backfill
+    - default backfill days 90 -> 14
 
 ## TODO
 
