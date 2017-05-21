@@ -61,7 +61,7 @@ c.markup_pct = 0
 // Misc options:
 
 // default # days for backfill and sim commands
-c.days = 90
+c.days = 14
 // ms to poll new trades at
 c.poll_trades = 30000
 // amount of currency to start simulations with
