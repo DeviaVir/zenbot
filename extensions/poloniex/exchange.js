@@ -41,7 +41,7 @@ module.exports = function container (get, set, clear) {
 
   var exchange = {
     name: 'poloniex',
-    historyScan: 'forward',
+    historyScan: 'backward',
     makerFee: 0.15,
 
     getProducts: function () {
@@ -63,6 +63,10 @@ module.exports = function container (get, set, clear) {
       if (args.start && !args.end) {
         // add 24 hours
         args.end = args.start + 86400
+      }
+      else if (args.end && !args.start) {
+        // subtract 24 hours
+        args.start = args.end - 86400
       }
 
       client._public('returnTradeHistory', args, function (err, body) {
