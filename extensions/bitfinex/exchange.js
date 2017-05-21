@@ -101,45 +101,26 @@ module.exports = function container (get, set, clear) {
       })
     },
 
-    buy: function (opts, cb) {
+     buy: function (opts, cb) {
       var client = authedClient()
-      if (typeof opts.type === 'undefined' ) {
-        opts.type = limit
-        }
-      if (opts.type === 'exchange limit') {
-        var limit_price = opts.price
-        var pair = joinProduct(opts.product_id)
-        client.new_order(pair, opts.size, opts.price, 'buy', opts.type, function (err, body) {
-          if (err) return cb(err)
-          cb(null, body)
-        })
-      } else {
-         client.new_order(pair, opts.size, '1', 'bitfinex', 'buy', 'exchange market', false, function (err, body) {
-          if (err) return cb(err)
-          cb(null, body)
-        })
-      }
-    },
-
-
-    sell: function (opts, cb) {
-      var client = authedClient()
-      if (typeof opts.type === 'undefined') {
-        opts.type = limit
-      }
-      if (opts.type === 'exchange limit') {
-        var limit_price = opts.price
-        var pair = joinProduct(opts.product_id)
-        client.new_order(pair, opts.size, opts.price, 'buy', opts.type, function (err, body) {
-          if (err) return cb(err)
-          cb(null, body)
-        })
-      } else {
-      client.new_order(pair, opts.size, '1', 'bitfinex', 'sell', 'exchange market', false, function (err, body) {
+      var pair = joinProduct(opts.product_id)
+      var amount = opts.size.toFixed(6)
+      var price = opts.price.toFixed(6)
+      client.new_order(pair, amount, price, 'buy', 'exchange limit', false, function (err, body) {
         if (err) return cb(err)
         cb(null, body)
       })
-      }
+    },
+
+    sell: function (opts, cb) {
+      var client = authedClient()
+      var pair = joinProduct(opts.product_id)
+      var amount = opts.size.toFixed(6)
+      var price = opts.price.toFixed(6)
+      client.new_order(pair, amount, price, 'sell', 'exchange limit', false, function (err, body) {
+        if (err) return cb(err)
+        cb(null, body)
+      })
     },
 
     getOrder: function (opts, cb) {
