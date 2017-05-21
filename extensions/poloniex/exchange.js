@@ -135,8 +135,11 @@ module.exports = function container (get, set, clear) {
           return retry('cancelOrder', args)
         }
         if (!err && !result.success) {
-          err = new Error('unable to cancel order')
-          err.body = result
+          // sometimes the order gets cancelled on the server side for some reason and we get this. ignore that case...
+          if (result.error !== 'Invalid order number, or you are not the person who placed the order.') {
+            err = new Error('unable to cancel order')
+            err.body = result
+          }
         }
         cb(err)
       })
@@ -167,6 +170,11 @@ module.exports = function container (get, set, clear) {
         if (result && result.error === 'Unable to place post-only order at this price.') {
           order.status = 'rejected'
           order.reject_reason = 'post only'
+          return cb(null, order)
+        }
+        else if (result && result.error && result.error.match(/^Not enough/)) {
+          order.status = 'rejected'
+          order.reject_reason = 'balance'
           return cb(null, order)
         }
         if (!err && result.error) {
