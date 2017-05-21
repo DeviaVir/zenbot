@@ -79,7 +79,6 @@ module.exports = function container (get, set, clear) {
     getQuote: function (opts, cb) {
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
-      console.log(opts.product_id, pair)
       client.ticker(pair, function (err, body) {
         if (err) return cb(err)
         cb(null, {bid: body.bid, ask: body.ask})
