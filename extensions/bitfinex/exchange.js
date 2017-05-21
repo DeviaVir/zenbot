@@ -118,11 +118,11 @@ module.exports = function container (get, set, clear) {
         var accounts = _(body).filter(function (body) { return body.type === c.bitfinex.wallet }).forEach(function (account) {
           if (account.currency === opts.currency) {
             balance.currency = account.amount
-            balance.currency_hold = (account.amount - acount.available)
+            balance.currency_hold = (account.amount - account.available)
           }
           else if (account.currency === opts.asset) {
             balance.asset = account.amount
-            balance.asset_hold = (account.amount - acount.available)
+            balance.asset_hold = (account.amount - account.available)
           }
         })
         cb(null, balance)
