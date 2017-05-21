@@ -89,8 +89,13 @@ module.exports = function container (get, set, clear) {
       else {
         cols.push('         ')
       }
-      if (typeof s.period.trend_ema_stddev === 'number') {
-        cols.push(z(8, n(s.period.trend_ema_stddev).format('0.0000'), ' ').grey)
+      if (s.options.neutral_rate) {
+        if (typeof s.period.trend_ema_stddev === 'number') {
+          cols.push(z(8, n(s.period.trend_ema_stddev).format('0.0000'), ' ').grey)
+        }
+        else {
+          cols.push('         ')
+        }
       }
       return cols
     }
