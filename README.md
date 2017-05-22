@@ -330,6 +330,8 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
 
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_sqare.png)
+
 Thanks!
 
 - - -
