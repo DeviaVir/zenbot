@@ -2,7 +2,7 @@ var c = module.exports = {}
 
 // mongo configuration
 c.mongo = {}
-c.mongo.host = 'localhost'
+c.mongo.host = process.env.MONGODB_PORT_27017_TCP_ADDR || 'localhost'
 c.mongo.port = 27017
 c.mongo.db = 'zenbot4'
 c.mongo.username = null
