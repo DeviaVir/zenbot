@@ -5,7 +5,7 @@
 
 ## New! Chat with other Zenbot users
 
-[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/logo.png)](https://discord.gg/ZdAd2gP)
+[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
 
 Zenbot has a Discord chat again! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
 
