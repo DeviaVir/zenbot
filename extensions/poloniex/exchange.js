@@ -205,23 +205,29 @@ module.exports = function container (get, set, clear) {
       }
       client._private('returnOpenOrders', params, function (err, body) {
         if (err) return cb(err)
-        if (typeof body === 'string') {
+        if (typeof body === 'string' || !body) {
           return retry('getOrder', args)
         }
         var active = false
-        body.forEach(function (api_order) {
-          if (api_order.orderNumber == opts.order_id) active = true
-        })
+        if (!body.forEach) {
+          console.error('\nreturnOpenOrders odd result:')
+          console.error(body)
+        }
+        else {
+          body.forEach(function (api_order) {
+            if (api_order.orderNumber == opts.order_id) active = true
+          })
+        }
         if (!active) {
           order.status = 'done'
           order.done_at = new Date().getTime()
           return cb(null, order)
         }
         client.returnOrderTrades(opts.order_id, function (err, body) {
-          if (typeof body === 'string') {
+          if (typeof body === 'string' || !body) {
             return retry('getOrder', args)
           }
-          if (err || body.error) return cb(null, order)
+          if (err || body.error || !body.forEach) return cb(null, order)
           order.filled_size = '0'
           body.forEach(function (trade) {
             order.filled_size = n(order.filled_size).add(trade.amount).format('0.00000000')
