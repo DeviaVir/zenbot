@@ -37,7 +37,7 @@ module.exports = function container (get, set, clear) {
           s.options.neutral_rate = s.period.trend_ema_stddev
         }
       }
-      if (typeof s.period.oversold_rsi === 'number') {
+      if (!s.in_preroll && typeof s.period.oversold_rsi === 'number') {
         if (s.period.oversold_rsi <= s.options.oversold_rsi && !s.oversold) {
           s.oversold = true
           console.log(('\noversold at ' + s.period.oversold_rsi + ' RSI, preparing to buy\n').cyan)
