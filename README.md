@@ -1,7 +1,13 @@
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/4.x/assets/logo.png)
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
+
+## New! Chat with other Zenbot users
+
+[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/logo.png)](https://discord.gg/ZdAd2gP)
+
+Zenbot has a Discord chat again! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
 
 ## Description
 
@@ -222,7 +228,7 @@ trend_ema (default)
 
 ### Reading the console output
 
-![console](https://rawgit.com/carlos8f/zenbot/4.x/assets/console.png)
+![console](https://rawgit.com/carlos8f/zenbot/master/assets/console.png)
 
 From left to right:
 
