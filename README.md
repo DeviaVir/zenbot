@@ -293,7 +293,19 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## Update Log
 
-- [v4.0.2](https://github.com/carlos8f/zenbot/releases/tag/v4.0.2) (Latest)
+- [v4.0.3](https://github.com/carlos8f/zenbot/releases/tag/v4.0.3) (Latest)
+    - fix for docker mongo host error
+    - link for new Discord chat!
+    - fix polo crash on getOrder weird result
+    - fix oversold_rsi trigger while in preroll
+    - fix polo "not enough..." errors
+    - fancy colors for price report
+    - display product id in report
+    - fix poloniex backfill batches too big, mongo timeouts
+    - fix cursorTo() crash on some node installs
+    - memDump for debugging order failures
+    - fix column spacing on progress report
+- v4.0.2
     - minor overhaul to trend_ema strat - added whipsaw filtering via std. deviation (`--neutral_rate=auto`)
     - trim preroll of sim result graph
 - v4.0.1
@@ -304,8 +316,11 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## TODO
 
+- review PR for Bitfinex
 - more exchange support
 - web UI with graphs and logs
+- "reaper" to automatically trim trades collection to a certain day length
+- "lite mode" for trader, an option to run without MongoDB
 
 ## Donate
 
