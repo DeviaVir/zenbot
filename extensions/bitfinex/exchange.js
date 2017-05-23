@@ -93,14 +93,6 @@ module.exports = function container (get, set, clear) {
       })
     },
 
-    cancelOrders: function (opts, cb) {
-      var client = authedClient()
-      client.cancel_all_orders(opts, function (err, body) {
-        if (err) return cb(err)
-        cb()
-      })
-    },
-
     buy: function (opts, cb) {
       var client = authedClient()
         if (typeof opts.type === 'undefined') {
