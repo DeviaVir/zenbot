@@ -85,8 +85,8 @@ docker-compose up (-d if you don't want to see the log)
 If you wish to run commands (e.g. backfills, list-selectors), you can run this separate command after a successful `docker-compose up -d`:
 
 ```
-docker run --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh list-selectors
-docker run --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh backfill <selector> --days <days>
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh list-selectors
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh backfill <selector> --days <days>
 ```
 
 ### Vocab: selectors
