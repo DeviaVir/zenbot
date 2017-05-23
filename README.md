@@ -82,6 +82,13 @@ docker-compose build
 docker-compose up (-d if you don't want to see the log)
 ```
 
+If you wish to run commands (e.g. backfills, list-selectors), you can run this separate command after a successful `docker-compose up -d`:
+
+```
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh list-selectors
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh backfill <selector> --days <days>
+```
+
 ### Vocab: selectors
 
 A "selector" is a short identifier that tells Zenbot which exchange and currency pair to act on. Use the form `{exchange_slug}.{asset}-{currency}`. A complete list of selectors your Zenbot install supports can be found with:
