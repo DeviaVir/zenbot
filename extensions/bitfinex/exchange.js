@@ -101,28 +101,32 @@ module.exports = function container (get, set, clear) {
       })
     },
 
-     buy: function (opts, cb) {
+    buy: function (opts, cb) {
       var client = authedClient()
+        if (typeof opts.type === 'undefined') {
+          opts.type = 'exchange limit'
+        }
       var pair = joinProduct(opts.product_id)
-      var amount = opts.size.toFixed(6)
-      var price = opts.price.toFixed(6)
-      client.new_order(pair, amount, price, 'buy', 'exchange limit', false, function (err, body) {
+      client.new_order(pair, opts.size, opts.price, 'bitfinex', 'buy', opts.type, false, function (err, body) {
         if (err) return cb(err)
         cb(null, body)
       })
+//          console.log(pair, opts)
     },
-
+    
     sell: function (opts, cb) {
       var client = authedClient()
+        if (typeof opts.type === 'undefined') {
+          opts.type = 'exchange limit'
+        }
       var pair = joinProduct(opts.product_id)
-      var amount = opts.size.toFixed(6)
-      var price = opts.price.toFixed(6)
-      client.new_order(pair, amount, price, 'sell', 'exchange limit', false, function (err, body) {
+      client.new_order(pair, opts.size, opts.price, 'bitfinex', 'sell', opts.type, false, function (err, body) {
         if (err) return cb(err)
         cb(null, body)
       })
+//          console.log(pair, opts)
     },
-
+    
     getOrder: function (opts, cb) {
       var client = authedClient()
       client.order_status(opts.order_id, function (err, body) {
