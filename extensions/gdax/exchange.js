@@ -13,8 +13,8 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.gdax.key || c.gdax.key === 'YOUR-API-KEY') {
-        throw new Error('please configure your GDAX credentials in ' + path.resolve(__dirname, 'conf.js'))
+      if (!c.gdax || !c.gdax.key || c.gdax.key === 'YOUR-API-KEY') {
+        throw new Error('please configure your GDAX credentials in conf.js')
       }
       authed_client = new Gdax.AuthenticatedClient(c.gdax.key, c.gdax.b64secret, c.gdax.passphrase, c.gdax.apiURI)
     }
