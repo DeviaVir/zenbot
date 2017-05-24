@@ -14,7 +14,7 @@ request('https://poloniex.com/public?command=returnCurrencies', {headers: {'User
     products.push({
       asset: asset,
       currency: currency,
-      min_size: '0.0001',
+      min_total: '0.0001',
       max_size: null,
       increment: '0.00000001',
       label: body[asset].name + '/' + currency
