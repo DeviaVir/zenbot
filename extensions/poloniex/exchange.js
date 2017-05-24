@@ -16,8 +16,8 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
-        throw new Error('please configure your Poloniex credentials in ' + path.resolve(__dirname, 'conf.js'))
+      if (!c.poloniex || !c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
+        throw new Error('please configure your Poloniex credentials in conf.js')
       }
       authed_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
     }
