@@ -300,7 +300,14 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## Update Log
 
-- [v4.0.3](https://github.com/carlos8f/zenbot/releases/tag/v4.0.3) (Latest)
+- [v4.0.4](https://github.com/carlos8f/zenbot/releases/tag/v4.0.4) (Latest)
+    - debugging for polo odd results
+    - sim: simplify and correct makerFee assessment
+    - fix conf path in API credentials errors
+    - fix order total under 0.0001 error on polo
+    - Docker: extend README slightly (thanks [@DeviaVir](https://github.com/deviavir) and [@egorbenko](https://github.com/egorbenko))
+    - docker-compose: do not expose mongodb by default! (thanks [@DeviaVir](https://github.com/deviavir))
+- v4.0.3
     - fix for docker mongo host error
     - link for new Discord chat!
     - fix polo crash on getOrder weird result
