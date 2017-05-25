@@ -74,6 +74,11 @@ module.exports = function container (get, set, clear) {
         if (typeof body === 'string') {
           return retry('getTrades', func_args)
         }
+        if (!body.map) {
+          console.error('\getTrades odd result:')
+          console.error(body)
+          return retry('getTrades', func_args)
+        }
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.tradeID,
@@ -96,6 +101,11 @@ module.exports = function container (get, set, clear) {
         if (typeof body === 'string') {
           return retry('getBalance', args)
         }
+        if (body.error) {
+          console.error('\ggetBalance error:')
+          console.error(body)
+          return retry('getBalance', args)
+        }
         if (body[opts.currency]) {
           balance.currency = n(body[opts.currency].available).add(body[opts.currency].onOrders).format('0.00000000')
           balance.currency_hold = body[opts.currency].onOrders
@@ -115,6 +125,11 @@ module.exports = function container (get, set, clear) {
       client.getTicker(function (err, body) {
         if (err) return cb(err)
         if (typeof body === 'string') {
+          return retry('getQuote', args)
+        }
+        if (body.error) {
+          console.error('\ggetQuote error:')
+          console.error(body)
           return retry('getQuote', args)
         }
         var quote = body[product_id]
