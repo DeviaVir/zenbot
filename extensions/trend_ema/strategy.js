@@ -21,7 +21,7 @@ module.exports = function container (get, set, clear) {
         // sync RSI display with oversold RSI periods
         s.options.rsi_periods = s.options.oversold_rsi_periods
         get('lib.rsi')(s, 'oversold_rsi', s.options.oversold_rsi_periods)
-        if (s.period.oversold_rsi <= s.options.oversold_rsi && !s.oversold) {
+        if (!s.in_preroll && s.period.oversold_rsi <= s.options.oversold_rsi && !s.oversold) {
           s.oversold = true
           if (s.options.mode === 'sim') console.log(('\noversold at ' + s.period.oversold_rsi + ' RSI, preparing to buy\n').cyan)
         }
