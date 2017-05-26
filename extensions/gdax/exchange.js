@@ -110,6 +110,13 @@ module.exports = function container (get, set, clear) {
         opts.post_only = true
       }
       client.buy(opts, function (err, resp, body) {
+        if (body && body.message === 'Insufficient funds') {
+          var order = {
+            status: 'rejected',
+            reject_reason: 'balance'
+          }
+          return cb(null, order)
+        }
         if (!err) err = statusErr(resp, body)
         if (err) return cb(err)
         cb(null, body)
@@ -122,6 +129,13 @@ module.exports = function container (get, set, clear) {
         opts.post_only = true
       }
       client.sell(opts, function (err, resp, body) {
+        if (body && body.message === 'Insufficient funds') {
+          var order = {
+            status: 'rejected',
+            reject_reason: 'balance'
+          }
+          return cb(null, order)
+        }
         if (!err) err = statusErr(resp, body)
         if (err) return cb(err)
         cb(null, body)
