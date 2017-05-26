@@ -78,10 +78,17 @@ module.exports = function container (get, set, clear) {
           color = 'red'
         }
         cols.push(z(8, n(s.period.trend_ema_rate).format('0.0000'), ' ')[color])
-        cols.push(z(8, n(s.period.trend_ema_stddev).format('0.0000'), ' ').grey)
+        if (s.period.trend_ema_stddev) {
+          cols.push(z(8, n(s.period.trend_ema_stddev).format('0.0000'), ' ').grey)
+        }
       }
       else {
-        cols.push('                  ')
+        if (s.period.trend_ema_stddev) {
+          cols.push('                  ')
+        }
+        else {
+          cols.push('         ')
+        }
       }
       return cols
     }
