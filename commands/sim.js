@@ -141,7 +141,12 @@ module.exports = function container (get, set, clear) {
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
             .replace('{{output}}', html_output)
             .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
-          var out_target = 'sim_result.html'
+
+          if (so.filename){
+            var out_target = so.filename
+          } else {
+            var out_target = 'static/sim_result.html'
+          }
           fs.writeFileSync(out_target, out)
           console.log('wrote', out_target)
           process.exit(0)
