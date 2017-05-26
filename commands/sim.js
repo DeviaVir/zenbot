@@ -4,6 +4,7 @@ var tb = require('timebucket')
   , fs = require('fs')
   , path = require('path')
   , moment = require('moment')
+  , colors = require('colors')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -66,25 +67,62 @@ module.exports = function container (get, set, clear) {
         var query_start = so.start ? tb(so.start).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
 
         function exitSim () {
-          console.log(so)
           if (!s.period) {
             console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
             process.exit(1)
           }
+          var option_keys = Object.keys(so)
+          var output_lines = []
+          option_keys.sort(function (a, b) {
+            if (a < b) return -1
+            return 1
+          })
+          var options = {}
+          option_keys.forEach(function (k) {
+            options[k] = so[k]
+          })
+          var options_json = JSON.stringify(options, null, 2)
+          output_lines.push(options_json)
           s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           s.balance.asset = 0
           s.lookback.unshift(s.period)
           var profit = n(s.balance.currency).subtract(s.start_capital).divide(s.start_capital)
-          console.log('end balance', n(s.balance.currency).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+          output_lines.push('end balance: ' + n(s.balance.currency).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
           //console.log('start_capital', s.start_capital)
           //console.log('start_price', n(s.start_price).format('0.00000000'))
           //console.log('close', n(s.period.close).format('0.00000000'))
           var buy_hold = n(s.period.close).multiply(n(s.start_capital).divide(s.start_price))
           //console.log('buy hold', buy_hold.format('0.00000000'))
           var buy_hold_profit = n(buy_hold).subtract(s.start_capital).divide(s.start_capital)
-          console.log('buy hold', buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-          console.log('vs. buy hold', n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
-          console.log(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+          output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
+          output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          var last_buy, last_sell
+          var losses = 0
+          s.my_trades.forEach(function (trade) {
+            if (trade.type === 'buy') {
+              if (last_sell && trade.price > last_sell) {
+                losses++
+              }
+              last_buy = trade.price
+            }
+            else {
+              if (last_buy && trade.price < last_buy) {
+                losses++
+              }
+              last_sell = trade.price
+            }
+          })
+          if (s.my_trades.length) {
+            output_lines.push('win/loss: ' + (s.my_trades.length - losses) + '/' + losses)
+            output_lines.push('error rate: ' + n(losses).divide(s.my_trades.length).format('0.00%').yellow)
+          }
+          output_lines.forEach(function (line) {
+            console.log(line)
+          })
+          var html_output = output_lines.map(function (line) {
+            return colors.stripColors(line)
+          }).join('\n')
           var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
             return {
               time: period.time,
@@ -98,12 +136,12 @@ module.exports = function container (get, set, clear) {
           var code = 'var data = ' + JSON.stringify(data) + ';\n'
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
           var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
-          var out = tpl.replace('{{code}}', code).replace('{{trend_ema_period}}', so.trend_ema || 36)
-          if (so.filename){
-            var out_target = so.filename
-          } else {
-            var out_target = 'static/sim_result.html'
-          }
+          var out = tpl
+            .replace('{{code}}', code)
+            .replace('{{trend_ema_period}}', so.trend_ema || 36)
+            .replace('{{output}}', html_output)
+            .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+          var out_target = 'sim_result.html'
           fs.writeFileSync(out_target, out)
           console.log('wrote', out_target)
           process.exit(0)
