@@ -13,6 +13,7 @@ module.exports = function container (get, set, clear) {
       .allowUnknownOption()
       .description('run a simulation on backfilled data')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
+      .option('--filename <filename>', 'filename for the result output (ex: result.html)', String, c.filename)
       .option('--start <timestamp>', 'start at timestamp')
       .option('--end <timestamp>', 'end at timestamp')
       .option('--days <days>', 'set duration by day count', Number, c.days)
@@ -98,7 +99,11 @@ module.exports = function container (get, set, clear) {
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
           var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
           var out = tpl.replace('{{code}}', code).replace('{{trend_ema_period}}', so.trend_ema || 36)
-          var out_target = 'sim_result.html'
+          if (so.filename){
+            var out_target = so.filename
+          } else {
+            var out_target = 'static/sim_result.html'
+          }
           fs.writeFileSync(out_target, out)
           console.log('wrote', out_target)
           process.exit(0)
