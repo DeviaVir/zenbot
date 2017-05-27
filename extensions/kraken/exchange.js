@@ -90,7 +90,7 @@ module.exports = function container(get, set, clear) {
           asset: 0,
           currency: 0
         };
-        if (error || data.error.length) {
+        if (err || data.error.length) {
           console.error('\ggetBalance error:')
           console.error(data)
           return retry('getBalance', args)
@@ -111,9 +111,9 @@ module.exports = function container(get, set, clear) {
     getQuote: function (opts, cb) {
       var args = [].slice.call(arguments);
       var client = publicClient();
-
+      var pair = joinProduct(opts.product_id)
       client.api('Ticker', {
-        pair: joinProduct(opts.product_id)
+        pair: pair
       }, function (error, data) {
         if (error || data.error.length) {
           console.error('\ggetQuote error:')
@@ -121,8 +121,8 @@ module.exports = function container(get, set, clear) {
           return retry('getQuote', args)
         }
         cb(null, {
-          bid: data.result[opts.pair].b[0],
-          ask: data.result[opts.pair].a[0],
+          bid: data.result[pair].b[0],
+          ask: data.result[pair].a[0],
         })
       });
     },
@@ -205,7 +205,7 @@ module.exports = function container(get, set, clear) {
         if(!orderData) {
           return cb('Order not found');
         }
-        
+
         var order = {
           id: orderData.refid,
           status: orderData.status,
