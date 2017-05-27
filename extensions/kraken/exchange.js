@@ -39,7 +39,7 @@ module.exports = function container(get, set, clear) {
 
   var exchange = {
     name: 'kraken',
-    historyScan: 'backward',
+    historyScan: 'forward',
     makerFee: 0.16,
 
     getProducts: function () {
@@ -70,7 +70,7 @@ module.exports = function container(get, set, clear) {
           if (!opts.to || (parseFloat(opts.to) >= parseFloat(trade[2]))) {
             trades.push({
               trade_id: trade[2] + trade[1] + trade[0],
-              time: moment.utc(trade[2]).valueOf(),
+              time: moment.unix(trade[2]).valueOf(),
               size: parseFloat(trade[1]),
               price: parseFloat(trade[0]),
               side: trade[3] == 'b' ? 'buy' : 'sell'
