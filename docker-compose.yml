@@ -6,6 +6,7 @@ server:
   links:
     - mongodb
   command: ./zenbot.sh trade
+  restart: always
 
 mongodb:
   image: mongo:latest
