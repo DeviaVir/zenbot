@@ -87,7 +87,6 @@ module.exports = function container(get, set, clear) {
       var args = [].slice.call(arguments);
       var client = authedClient();
       client.api('Balance', null, function (error, data) {
-        console.log(data);
         var balance = {
           asset: 0,
           currency: 0
