@@ -87,6 +87,7 @@ module.exports = function container(get, set, clear) {
       var args = [].slice.call(arguments);
       var client = authedClient();
       client.api('Balance', null, function (error, data) {
+        console.log(data);
         var balance = {
           asset: 0,
           currency: 0
@@ -101,10 +102,12 @@ module.exports = function container(get, set, clear) {
           return cb(data.error.join(','));
         }
         if (data.result[opts.currency]) {
-          balance.currency = n(data.result[opts.currency]).format('0.00000000')
+          balance.currency = n(data.result[opts.currency]).format('0.00000000'),
+          balance.currency_hold = 0
         }
         if (data.result[opts.asset]) {
-          balance.asset = n(data.result[opts.asset]).format('0.00000000')
+          balance.asset = n(data.result[opts.asset]).format('0.00000000'),
+          balance.asset_hold = 0
         }
         cb(null, balance);
       });
@@ -172,7 +175,7 @@ module.exports = function container(get, set, clear) {
           id: data.result ? data.result.txid[0] : null,
           status: 'open',
           price: opts.price,
-          size: opts.volume,
+          size: opts.size,
           post_only: !!opts.post_only,
           created_at: new Date().getTime(),
           filled_size: '0'
@@ -220,7 +223,7 @@ module.exports = function container(get, set, clear) {
           status: orderData.status,
           price: orderData.price,
           size: orderData.vol,
-          post_only: orderData.oflags.match(/post/),
+          post_only: !!orderData.oflags.match(/post/),
           created_at: orderData.opentm,
           filled_size: parseFloat(orderData.vol) - parseFloat(orderData.vol_exec)
         };
