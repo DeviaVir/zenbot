@@ -5,12 +5,14 @@ var KrakenClient = require('kraken-api'),
   colors = require('colors')
 
 module.exports = function container(get, set, clear) {
-  var c = get('conf')
+  var c = get('conf');
 
-  var public_client, authed_client
+  var public_client, authed_client;
 
   function publicClient() {
-    if (!public_client) public_client = new KrakenClient()
+    if (!public_client) {
+      public_client = new KrakenClient();
+    }
     return public_client;
   }
 
@@ -19,22 +21,22 @@ module.exports = function container(get, set, clear) {
       if (!c.kraken || !c.kraken.key || c.kraken.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Kraken credentials in conf.js')
       }
-      authed_client = new KrakenClient(c.kraken.key, c.kraken.secret)
+      authed_client = new KrakenClient(c.kraken.key, c.kraken.secret);
     }
     return authed_client;
   }
 
   function joinProduct(product_id) {
-    return product_id.split('-')[0] + product_id.split('-')[1]
+    return product_id.split('-')[0] + product_id.split('-')[1];
   }
 
   function retry(method, args) {
     if (method !== 'getTrades') {
-      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 10s').red)
+      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 10s').red);
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, 10000);
   }
 
   var exchange = {
@@ -43,11 +45,11 @@ module.exports = function container(get, set, clear) {
     makerFee: 0.16,
 
     getProducts: function () {
-      return require('./products.json')
+      return require('./products.json');
     },
 
     getTrades: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+      var func_args = [].slice.call(arguments);
       var client = publicClient();
       var args = {
         pair: joinProduct(opts.product_id)
@@ -61,7 +63,7 @@ module.exports = function container(get, set, clear) {
           return retry('getTrades', func_args)
         }
         if (data.error.length) {
-          return cb(err);
+          return cb(data.error.join(','));
         }
 
         var trades = [];
@@ -82,73 +84,75 @@ module.exports = function container(get, set, clear) {
     },
 
     getBalance: function (opts, cb) {
-      var args = [].slice.call(arguments)
-      var client = authedClient()
+      var args = [].slice.call(arguments);
+      var client = authedClient();
       client.api('Balance', null, function (err, data) {
-
         var balance = {
           asset: 0,
           currency: 0
         };
-        if (err || data.error.length) {
-          console.error('\ggetBalance error:')
-          console.error(data)
+
+        if (err) {
+          console.error(('\ngetBalance error:').red);
+          console.error((err).red);
           return retry('getBalance', args)
         }
-
+        if (data.error.length) {
+          return cb(data.error.join(','));
+        }
         if (data.result[opts.currency]) {
           balance.currency = n(data.result[opts.currency]).format('0.00000000')
         }
         if (data.result[opts.asset]) {
           balance.asset = n(data.result[opts.asset]).format('0.00000000')
         }
-
         cb(null, balance);
-
       });
     },
 
     getQuote: function (opts, cb) {
       var args = [].slice.call(arguments);
       var client = publicClient();
-      var pair = joinProduct(opts.product_id)
+      var pair = joinProduct(opts.product_id);
       client.api('Ticker', {
         pair: pair
       }, function (error, data) {
-        if (error || data.error.length) {
-          console.error('\ggetQuote error:')
-          console.error(data)
-          return retry('getQuote', args)
+        if (error) {
+          console.error(('\ngetQuote error:').red);
+          console.error((error).red);
+          return retry('getQuote', args);
+        }
+        if (data.error.length) {
+          return cb(data.error.join(','));
         }
         cb(null, {
           bid: data.result[pair].b[0],
           ask: data.result[pair].a[0],
-        })
+        });
       });
     },
 
     cancelOrder: function (opts, cb) {
-      var args = [].slice.call(arguments)
+      var args = [].slice.call(arguments);
       var client = authedClient();
       client.api('CancelOrder', {
         txid: opts.order_id
       }, function (error, data) {
         if (error) {
-          console.error('\cancelOrder error:')
-          console.error(data)
+          console.error(('\ncancelOrder error:').red);
+          console.error((error).red);
           return retry('cancelOrder', args)
         }
         if (data.error.length) {
-          error = new Error('unable to cancel order')
-          error.body = data.error
+          return cb(data.error.join(','));
         }
-        cb(error)
+        cb(null);
       });
     },
 
     trade: function (type, opts, cb) {
-      var args = [].slice.call(arguments)
-      var client = authedClient()
+      var args = [].slice.call(arguments);
+      var client = authedClient();
       var params = {
         pair: joinProduct(opts.product_id),
         type: type,
@@ -171,38 +175,40 @@ module.exports = function container(get, set, clear) {
           filled_size: '0'
         };
         if (data.error.length) {
-          order.status = 'rejected'
+          order.status = 'rejected';
           order.reject_reason = data.error.join(',');
           return cb(null, order);
         }
-        cb(null, order)
+        cb(null, order);
       })
     },
 
     buy: function (opts, cb) {
-      exchange.trade('buy', opts, cb)
+      exchange.trade('buy', opts, cb);
     },
 
     sell: function (opts, cb) {
-      exchange.trade('sell', opts, cb)
+      exchange.trade('sell', opts, cb);
     },
 
     getOrder: function (opts, cb) {
-      var args = [].slice.call(arguments)
-      var client = authedClient()
+      var args = [].slice.call(arguments);
+      var client = authedClient();
       var params = {
         txid: opts.order_id
       }
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
+          console.error(('\ngetOrder error:').red);
+          console.error((error).red);
           return retry('getOrder', args);
         }
         if (data.error.length) {
-          return cb('\nQueryOrders result:');
+          return cb(data.error.join(','));
         }
         var orderData = data.result[params.txid];
 
-        if(!orderData) {
+        if (!orderData) {
           return cb('Order not found');
         }
 
@@ -222,8 +228,8 @@ module.exports = function container(get, set, clear) {
 
     // return the property used for range querying.
     getCursor: function (trade) {
-      return Math.floor((trade.time || trade) / 1000)
+      return Math.floor((trade.time || trade) / 1000);
     }
   }
-  return exchange
+  return exchange;
 }
