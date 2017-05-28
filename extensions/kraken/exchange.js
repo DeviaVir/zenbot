@@ -86,15 +86,15 @@ module.exports = function container(get, set, clear) {
     getBalance: function (opts, cb) {
       var args = [].slice.call(arguments);
       var client = authedClient();
-      client.api('Balance', null, function (err, data) {
+      client.api('Balance', null, function (error, data) {
         var balance = {
           asset: 0,
           currency: 0
         };
 
-        if (err) {
+        if (error) {
           console.error(('\ngetBalance error:').red);
-          console.error((err).red);
+          console.error(error);
           return retry('getBalance', args)
         }
         if (data.error.length) {
@@ -119,7 +119,7 @@ module.exports = function container(get, set, clear) {
       }, function (error, data) {
         if (error) {
           console.error(('\ngetQuote error:').red);
-          console.error((error).red);
+          console.error(error);
           return retry('getQuote', args);
         }
         if (data.error.length) {
@@ -140,7 +140,7 @@ module.exports = function container(get, set, clear) {
       }, function (error, data) {
         if (error) {
           console.error(('\ncancelOrder error:').red);
-          console.error((error).red);
+          console.error(error);
           return retry('cancelOrder', args)
         }
         if (data.error.length) {
@@ -156,13 +156,16 @@ module.exports = function container(get, set, clear) {
       var params = {
         pair: joinProduct(opts.product_id),
         type: type,
-        orderType: 'limit',
+        ordertype: 'limit',
         price: opts.price,
         volume: opts.size,
+        trading_agreement: c.kraken.tosagree,
         oflags: opts.post_only === true ? 'post' : undefined
       }
-      client.api('AddOrder', params, function (err, data) {
-        if (err) {
+      client.api('AddOrder', params, function (error, data) {
+        if (error) {
+          console.error(('\nAddOrder error:').red);
+          console.error(error);
           return retry('trade', args);
         }
         var order = {
@@ -200,7 +203,7 @@ module.exports = function container(get, set, clear) {
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
           console.error(('\ngetOrder error:').red);
-          console.error((error).red);
+          console.error(error);
           return retry('getOrder', args);
         }
         if (data.error.length) {
