@@ -32,6 +32,7 @@ module.exports = function container (get, set, clear) {
       .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .option('--enable_stats', 'enable printing order stats')
+      .option('--verbose', 'print status lines on every period')
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
         var so = s.options
@@ -58,6 +59,7 @@ module.exports = function container (get, set, clear) {
           so.start = d.subtract(so.days).toMilliseconds()
         }
         so.stats = !!cmd.enable_stats
+        so.verbose = !!cmd.verbose
         so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'sim'
         var engine = get('lib.engine')(s)
@@ -66,6 +68,7 @@ module.exports = function container (get, set, clear) {
         var query_start = so.start ? tb(so.start).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
 
         function exitSim () {
+          console.log()
           if (!s.period) {
             console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
             process.exit(1)
