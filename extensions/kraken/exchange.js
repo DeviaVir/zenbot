@@ -30,15 +30,6 @@ module.exports = function container(get, set, clear) {
     return product_id.split('-')[0] + product_id.split('-')[1];
   }
 
-  function retry(method, args) {
-    if (method !== 'getTrades') {
-      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 10s').red);
-    }
-    setTimeout(function () {
-      exchange[method].apply(exchange, args)
-    }, 10000);
-  }
-
   var exchange = {
     name: 'kraken',
     historyScan: 'forward',
@@ -60,7 +51,8 @@ module.exports = function container(get, set, clear) {
 
       client.api('Trades', args, function (error, data) {
         if (error) {
-          return retry('getTrades', func_args)
+          console.error(('\nTrades error:').red);
+          console.error(error)
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -95,7 +87,6 @@ module.exports = function container(get, set, clear) {
         if (error) {
           console.error(('\ngetBalance error:').red);
           console.error(error);
-          return retry('getBalance', args)
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -122,7 +113,6 @@ module.exports = function container(get, set, clear) {
         if (error) {
           console.error(('\ngetQuote error:').red);
           console.error(error);
-          return retry('getQuote', args);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -143,7 +133,6 @@ module.exports = function container(get, set, clear) {
         if (error) {
           console.error(('\ncancelOrder error:').red);
           console.error(error);
-          return retry('cancelOrder', args)
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -168,7 +157,6 @@ module.exports = function container(get, set, clear) {
         if (error) {
           console.error(('\nAddOrder error:').red);
           console.error(error);
-          return retry('trade', args);
         }
         var order = {
           id: data.result ? data.result.txid[0] : null,
@@ -206,7 +194,6 @@ module.exports = function container(get, set, clear) {
         if (error) {
           console.error(('\ngetOrder error:').red);
           console.error(error);
-          return retry('getOrder', args);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
