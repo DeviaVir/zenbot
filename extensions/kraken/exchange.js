@@ -32,11 +32,11 @@ module.exports = function container(get, set, clear) {
 
   function retry(method, args) {
     if (method !== 'getTrades') {
-      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 10s').red);
+      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 2.5s').red);
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 10000);
+    }, 2500);
   }
 
   var exchange = {
@@ -60,7 +60,8 @@ module.exports = function container(get, set, clear) {
 
       client.api('Trades', args, function (error, data) {
         if (error) {
-          return retry('getTrades', func_args)
+          console.error(('\nTrades error:').red);
+          console.error(error)
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -93,9 +94,9 @@ module.exports = function container(get, set, clear) {
         };
 
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('getBalance', args) }
           console.error(('\ngetBalance error:').red);
           console.error(error);
-          return retry('getBalance', args)
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -120,9 +121,9 @@ module.exports = function container(get, set, clear) {
         pair: pair
       }, function (error, data) {
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('getQuote', args) }
           console.error(('\ngetQuote error:').red);
           console.error(error);
-          return retry('getQuote', args);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -141,9 +142,9 @@ module.exports = function container(get, set, clear) {
         txid: opts.order_id
       }, function (error, data) {
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('cancelOrder', args) }
           console.error(('\ncancelOrder error:').red);
           console.error(error);
-          return retry('cancelOrder', args)
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -168,7 +169,6 @@ module.exports = function container(get, set, clear) {
         if (error) {
           console.error(('\nAddOrder error:').red);
           console.error(error);
-          return retry('trade', args);
         }
         var order = {
           id: data.result ? data.result.txid[0] : null,
@@ -204,9 +204,9 @@ module.exports = function container(get, set, clear) {
       }
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('getOrder', args) }
           console.error(('\ngetOrder error:').red);
           console.error(error);
-          return retry('getOrder', args);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -223,9 +223,15 @@ module.exports = function container(get, set, clear) {
           price: orderData.price,
           size: orderData.vol,
           post_only: !!orderData.oflags.match(/post/),
-          created_at: orderData.opentm,
+          created_at: orderData.opentm * 1000,
           filled_size: parseFloat(orderData.vol) - parseFloat(orderData.vol_exec)
         };
+
+        if (orderData.status === 'closed') {
+          order.status = 'done'
+          order.done_at = new Date().getTime()
+          return cb(null, order)
+        }
 
         cb(null, order);
       })
