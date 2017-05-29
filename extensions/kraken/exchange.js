@@ -30,6 +30,15 @@ module.exports = function container(get, set, clear) {
     return product_id.split('-')[0] + product_id.split('-')[1];
   }
 
+  function retry(method, args) {
+    if (method !== 'getTrades') {
+      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 2.5s').red);
+    }
+    setTimeout(function () {
+      exchange[method].apply(exchange, args)
+    }, 2500);
+  }
+
   var exchange = {
     name: 'kraken',
     historyScan: 'forward',
@@ -85,6 +94,7 @@ module.exports = function container(get, set, clear) {
         };
 
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('getBalance', args) }
           console.error(('\ngetBalance error:').red);
           console.error(error);
         }
@@ -111,6 +121,7 @@ module.exports = function container(get, set, clear) {
         pair: pair
       }, function (error, data) {
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('getQuote', args) }
           console.error(('\ngetQuote error:').red);
           console.error(error);
         }
@@ -131,6 +142,7 @@ module.exports = function container(get, set, clear) {
         txid: opts.order_id
       }, function (error, data) {
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('cancelOrder', args) }
           console.error(('\ncancelOrder error:').red);
           console.error(error);
         }
@@ -192,6 +204,7 @@ module.exports = function container(get, set, clear) {
       }
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
+          if (error.message.code === 'ETIMEDOUT') { return retry('getOrder', args) }
           console.error(('\ngetOrder error:').red);
           console.error(error);
         }
@@ -210,9 +223,15 @@ module.exports = function container(get, set, clear) {
           price: orderData.price,
           size: orderData.vol,
           post_only: !!orderData.oflags.match(/post/),
-          created_at: orderData.opentm,
+          created_at: orderData.opentm * 1000,
           filled_size: parseFloat(orderData.vol) - parseFloat(orderData.vol_exec)
         };
+
+        if (orderData.status === 'closed') {
+          order.status = 'done'
+          order.done_at = new Date().getTime()
+          return cb(null, order)
+        }
 
         cb(null, order);
       })
