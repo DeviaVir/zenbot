@@ -8,7 +8,7 @@ module.exports = function container(get, set, clear) {
   var c = get('conf');
 
   var public_client, authed_client;
-  var recoverableErrors = ['ESOCKETTIMEDOUT', 'ETIMEDOUT', 'ECONNRESET', 'ECONNREFUSED'];
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce)/);
 
   function publicClient() {
     if (!public_client) {
@@ -62,7 +62,8 @@ module.exports = function container(get, set, clear) {
       client.api('Trades', args, function (error, data) {
         if (error) {
           console.error(('\nTrades error:').red);
-          console.error(error)
+          console.error(error);
+          return cb(null, []);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -95,20 +96,23 @@ module.exports = function container(get, set, clear) {
         };
 
         if (error) {
-          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('getBalance', args) }
+          if (error.message.match(recoverableErrors)) {
+            return retry('getBalance', args)
+          }
           console.error(('\ngetBalance error:').red);
           console.error(error);
+          return cb(error);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
         }
         if (data.result[opts.currency]) {
           balance.currency = n(data.result[opts.currency]).format('0.00000000'),
-          balance.currency_hold = 0
+            balance.currency_hold = 0
         }
         if (data.result[opts.asset]) {
           balance.asset = n(data.result[opts.asset]).format('0.00000000'),
-          balance.asset_hold = 0
+            balance.asset_hold = 0
         }
         cb(null, balance);
       });
@@ -122,9 +126,12 @@ module.exports = function container(get, set, clear) {
         pair: pair
       }, function (error, data) {
         if (error) {
-          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('getQuote', args) }
+          if (error.message.match(recoverableErrors)) {
+            return retry('getQuote', args)
+          }
           console.error(('\ngetQuote error:').red);
           console.error(error);
+          return cb(error);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -143,9 +150,12 @@ module.exports = function container(get, set, clear) {
         txid: opts.order_id
       }, function (error, data) {
         if (error) {
-          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('cancelOrder', args) }
+          if (error.message.match(recoverableErrors)) {
+            return retry('cancelOrder', args)
+          }
           console.error(('\ncancelOrder error:').red);
           console.error(error);
+          return cb(error);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
@@ -167,7 +177,9 @@ module.exports = function container(get, set, clear) {
         oflags: opts.post_only === true ? 'post' : undefined
       }
       client.api('AddOrder', params, function (error, data) {
-        if (error && recoverableErrors.indexOf(error.code) >= 0) { return cb(error) }
+        if (error && error.message.match(recoverableErrors)) {
+          return retry('trade', args);
+        }
 
         var order = {
           id: data && data.result ? data.result.txid[0] : null,
@@ -187,10 +199,14 @@ module.exports = function container(get, set, clear) {
           } else if (error.message.length) {
             console.error(('\nUnhandeld AddOrder error:').red);
             console.error(error);
-
+            order.status = 'rejected';
+            order.reject_reason = error.message;
+            return cb(null, order);
+          } else if (data.error.length) {
+            console.error(('\nUnhandeld AddOrder error:').red);
+            console.error(data.error);
             order.status = 'rejected';
             order.reject_reason = data.error.join(',');
-            return cb(null, order);
           }
         }
 
@@ -214,9 +230,12 @@ module.exports = function container(get, set, clear) {
       }
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
-          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('getOrder', args) }
+          if (error.message.match(recoverableErrors)) {
+            return retry('getOrder', args)
+          }
           console.error(('\ngetOrder error:').red);
           console.error(error);
+          return cb(error);
         }
         if (data.error.length) {
           return cb(data.error.join(','));
