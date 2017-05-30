@@ -8,6 +8,7 @@ module.exports = function container(get, set, clear) {
   var c = get('conf');
 
   var public_client, authed_client;
+  var recoverableErrors = ['ESOCKETTIMEDOUT', 'ETIMEDOUT', 'ECONNRESET', 'ECONNREFUSED'];
 
   function publicClient() {
     if (!public_client) {
@@ -94,7 +95,7 @@ module.exports = function container(get, set, clear) {
         };
 
         if (error) {
-          if (error.message.code === 'ETIMEDOUT') { return retry('getBalance', args) }
+          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('getBalance', args) }
           console.error(('\ngetBalance error:').red);
           console.error(error);
         }
@@ -121,7 +122,7 @@ module.exports = function container(get, set, clear) {
         pair: pair
       }, function (error, data) {
         if (error) {
-          if (error.message.code === 'ETIMEDOUT') { return retry('getQuote', args) }
+          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('getQuote', args) }
           console.error(('\ngetQuote error:').red);
           console.error(error);
         }
@@ -142,7 +143,7 @@ module.exports = function container(get, set, clear) {
         txid: opts.order_id
       }, function (error, data) {
         if (error) {
-          if (error.message.code === 'ETIMEDOUT') { return retry('cancelOrder', args) }
+          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('cancelOrder', args) }
           console.error(('\ncancelOrder error:').red);
           console.error(error);
         }
@@ -166,12 +167,10 @@ module.exports = function container(get, set, clear) {
         oflags: opts.post_only === true ? 'post' : undefined
       }
       client.api('AddOrder', params, function (error, data) {
-        if (error) {
-          console.error(('\nAddOrder error:').red);
-          console.error(error);
-        }
+        if (error && recoverableErrors.indexOf(error.code) >= 0) { return cb(error) }
+
         var order = {
-          id: data.result ? data.result.txid[0] : null,
+          id: data && data.result ? data.result.txid[0] : null,
           status: 'open',
           price: opts.price,
           size: opts.size,
@@ -179,11 +178,22 @@ module.exports = function container(get, set, clear) {
           created_at: new Date().getTime(),
           filled_size: '0'
         };
-        if (data.error.length) {
-          order.status = 'rejected';
-          order.reject_reason = data.error.join(',');
-          return cb(null, order);
+
+        if (error) {
+          if (error.message.match(/Order:Insufficient funds$/)) {
+            order.status = 'rejected'
+            order.reject_reason = 'balance'
+            return cb(null, order)
+          } else if (error.message.length) {
+            console.error(('\nUnhandeld AddOrder error:').red);
+            console.error(error);
+
+            order.status = 'rejected';
+            order.reject_reason = data.error.join(',');
+            return cb(null, order);
+          }
         }
+
         cb(null, order);
       })
     },
@@ -204,7 +214,7 @@ module.exports = function container(get, set, clear) {
       }
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
-          if (error.message.code === 'ETIMEDOUT') { return retry('getOrder', args) }
+          if (recoverableErrors.indexOf(error.code) >= 0) { return retry('getOrder', args) }
           console.error(('\ngetOrder error:').red);
           console.error(error);
         }
