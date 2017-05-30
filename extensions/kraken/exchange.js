@@ -8,7 +8,7 @@ module.exports = function container(get, set, clear) {
   var c = get('conf');
 
   var public_client, authed_client;
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce)/);
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded)/);
 
   function publicClient() {
     if (!public_client) {
