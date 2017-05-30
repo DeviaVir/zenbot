@@ -8,7 +8,7 @@ module.exports = function container(get, set, clear) {
   var c = get('conf');
 
   var public_client, authed_client;
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce)/);
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded)/);
 
   function publicClient() {
     if (!public_client) {
@@ -31,13 +31,11 @@ module.exports = function container(get, set, clear) {
     return product_id.split('-')[0] + product_id.split('-')[1];
   }
 
-  function retry(method, args) {
-    if (method !== 'getTrades') {
-      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 2.5s').red);
-    }
+  function retry(method, args, timeout) {
+    console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 6s').red);
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 2500);
+    }, 6000);
   }
 
   var exchange = {
