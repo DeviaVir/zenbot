@@ -31,9 +31,9 @@ module.exports = function container(get, set, clear) {
     return product_id.split('-')[0] + product_id.split('-')[1];
   }
 
-  function retry(method, args) {
+  function retry(method, args, error) {
     if (method !== 'getTrades') {
-      console.error(('\nKraken API is down! unable to call ' + method + ', retrying in 2.5s').red);
+      console.error(('\nKraken API is down! unable to call ' + method + ' (' + error + '), retrying in 2.5s').red);
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
@@ -97,7 +97,7 @@ module.exports = function container(get, set, clear) {
 
         if (error) {
           if (error.message.match(recoverableErrors)) {
-            return retry('getBalance', args)
+            return retry('getBalance', args, error)
           }
           console.error(('\ngetBalance error:').red);
           console.error(error);
@@ -127,7 +127,7 @@ module.exports = function container(get, set, clear) {
       }, function (error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
-            return retry('getQuote', args)
+            return retry('getQuote', args, error)
           }
           console.error(('\ngetQuote error:').red);
           console.error(error);
@@ -151,7 +151,7 @@ module.exports = function container(get, set, clear) {
       }, function (error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
-            return retry('cancelOrder', args)
+            return retry('cancelOrder', args, error)
           }
           console.error(('\ncancelOrder error:').red);
           console.error(error);
@@ -178,7 +178,7 @@ module.exports = function container(get, set, clear) {
       }
       client.api('AddOrder', params, function (error, data) {
         if (error && error.message.match(recoverableErrors)) {
-          return retry('trade', args);
+          return retry('trade', args, error);
         }
 
         var order = {
@@ -231,7 +231,7 @@ module.exports = function container(get, set, clear) {
       client.api('QueryOrders', params, function (error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
-            return retry('getOrder', args)
+            return retry('getOrder', args, error)
           }
           console.error(('\ngetOrder error:').red);
           console.error(error);
