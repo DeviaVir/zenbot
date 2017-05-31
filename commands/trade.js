@@ -212,11 +212,18 @@ module.exports = function container (get, set, clear) {
                   console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - getTrades request timed out. retrying...')
                 }
                 prev_timeout = true
-                return
               }
-              console.error(err)
-              console.error('aborting!')
-              process.exit(1)
+              else if (err.code === 'HTTP_STATUS') {
+                if (prev_timeout) {
+                  console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - getTrades request failed: ' + err.message + '. retrying...')
+                }
+                prev_timeout = true
+              }
+              else {
+                console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - getTrades request failed. retrying...')
+                console.error(err)
+              }
+              return
             }
             prev_timeout = null
             if (trades.length) {

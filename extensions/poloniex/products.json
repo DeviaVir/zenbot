@@ -5,7 +5,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Synereo AMP/BTC"
+    "label": "Synereo AMP/Bitcoin"
   },
   {
     "asset": "ARDR",
@@ -13,7 +13,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ardor/BTC"
+    "label": "Ardor/Bitcoin"
   },
   {
     "asset": "BCN",
@@ -21,7 +21,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bytecoin/BTC"
+    "label": "Bytecoin/Bitcoin"
   },
   {
     "asset": "BCN",
@@ -29,7 +29,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bytecoin/XMR"
+    "label": "Bytecoin/Monero"
   },
   {
     "asset": "BCY",
@@ -37,7 +37,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BitCrystals/BTC"
+    "label": "BitCrystals/Bitcoin"
   },
   {
     "asset": "BELA",
@@ -45,7 +45,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Belacoin/BTC"
+    "label": "Belacoin/Bitcoin"
   },
   {
     "asset": "BLK",
@@ -53,7 +53,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BlackCoin/BTC"
+    "label": "BlackCoin/Bitcoin"
   },
   {
     "asset": "BLK",
@@ -61,15 +61,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BlackCoin/XMR"
-  },
-  {
-    "asset": "BTC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Bitcoin/BTC"
+    "label": "BlackCoin/Monero"
   },
   {
     "asset": "BTC",
@@ -77,7 +69,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitcoin/USDT"
+    "label": "Bitcoin/Tether USD"
   },
   {
     "asset": "BTCD",
@@ -85,7 +77,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BitcoinDark/BTC"
+    "label": "BitcoinDark/Bitcoin"
   },
   {
     "asset": "BTCD",
@@ -93,15 +85,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BitcoinDark/XMR"
-  },
-  {
-    "asset": "BTCD",
-    "currency": "USDT",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "BitcoinDark/USDT"
+    "label": "BitcoinDark/Monero"
   },
   {
     "asset": "BTM",
@@ -109,7 +93,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitmark/BTC"
+    "label": "Bitmark/Bitcoin"
   },
   {
     "asset": "BTS",
@@ -117,7 +101,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BitShares/BTC"
+    "label": "BitShares/Bitcoin"
   },
   {
     "asset": "BURST",
@@ -125,7 +109,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Burst/BTC"
+    "label": "Burst/Bitcoin"
   },
   {
     "asset": "CLAM",
@@ -133,7 +117,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "CLAMS/BTC"
+    "label": "CLAMS/Bitcoin"
   },
   {
     "asset": "DASH",
@@ -141,15 +125,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Dash/BTC"
-  },
-  {
-    "asset": "DASH",
-    "currency": "XMR",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Dash/XMR"
+    "label": "Dash/Bitcoin"
   },
   {
     "asset": "DASH",
@@ -157,7 +133,15 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Dash/USDT"
+    "label": "Dash/Tether USD"
+  },
+  {
+    "asset": "DASH",
+    "currency": "XMR",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Dash/Monero"
   },
   {
     "asset": "DCR",
@@ -165,7 +149,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Decred/BTC"
+    "label": "Decred/Bitcoin"
   },
   {
     "asset": "DGB",
@@ -173,7 +157,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "DigiByte/BTC"
+    "label": "DigiByte/Bitcoin"
   },
   {
     "asset": "DOGE",
@@ -181,7 +165,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Dogecoin/BTC"
+    "label": "Dogecoin/Bitcoin"
   },
   {
     "asset": "EMC2",
@@ -189,7 +173,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Einsteinium/BTC"
+    "label": "Einsteinium/Bitcoin"
   },
   {
     "asset": "ETC",
@@ -197,7 +181,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ethereum Classic/BTC"
+    "label": "Ethereum Classic/Bitcoin"
   },
   {
     "asset": "ETC",
@@ -205,7 +189,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ethereum Classic/ETH"
+    "label": "Ethereum Classic/Ethereum"
   },
   {
     "asset": "ETC",
@@ -213,7 +197,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ethereum Classic/USDT"
+    "label": "Ethereum Classic/Tether USD"
   },
   {
     "asset": "ETH",
@@ -221,7 +205,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ethereum/BTC"
+    "label": "Ethereum/Bitcoin"
   },
   {
     "asset": "ETH",
@@ -229,7 +213,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ethereum/USDT"
+    "label": "Ethereum/Tether USD"
   },
   {
     "asset": "EXP",
@@ -237,7 +221,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Expanse/BTC"
+    "label": "Expanse/Bitcoin"
   },
   {
     "asset": "FCT",
@@ -245,7 +229,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Factom/BTC"
+    "label": "Factom/Bitcoin"
   },
   {
     "asset": "FLDC",
@@ -253,7 +237,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "FoldingCoin/BTC"
+    "label": "FoldingCoin/Bitcoin"
   },
   {
     "asset": "FLO",
@@ -261,7 +245,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Florincoin/BTC"
+    "label": "Florincoin/Bitcoin"
   },
   {
     "asset": "GAME",
@@ -269,7 +253,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "GameCredits/BTC"
+    "label": "GameCredits/Bitcoin"
   },
   {
     "asset": "GNO",
@@ -277,7 +261,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Gnosis/BTC"
+    "label": "Gnosis/Bitcoin"
   },
   {
     "asset": "GNO",
@@ -285,7 +269,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Gnosis/ETH"
+    "label": "Gnosis/Ethereum"
   },
   {
     "asset": "GNT",
@@ -293,7 +277,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Golem/BTC"
+    "label": "Golem/Bitcoin"
   },
   {
     "asset": "GNT",
@@ -301,7 +285,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Golem/ETH"
+    "label": "Golem/Ethereum"
   },
   {
     "asset": "GRC",
@@ -309,7 +293,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Gridcoin Research/BTC"
+    "label": "Gridcoin Research/Bitcoin"
   },
   {
     "asset": "HUC",
@@ -317,7 +301,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Huntercoin/BTC"
+    "label": "Huntercoin/Bitcoin"
   },
   {
     "asset": "LBC",
@@ -325,7 +309,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "LBRY Credits/BTC"
+    "label": "LBRY Credits/Bitcoin"
   },
   {
     "asset": "LSK",
@@ -333,7 +317,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Lisk/BTC"
+    "label": "Lisk/Bitcoin"
   },
   {
     "asset": "LSK",
@@ -341,7 +325,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Lisk/ETH"
+    "label": "Lisk/Ethereum"
   },
   {
     "asset": "LTC",
@@ -349,15 +333,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Litecoin/BTC"
-  },
-  {
-    "asset": "LTC",
-    "currency": "XMR",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Litecoin/XMR"
+    "label": "Litecoin/Bitcoin"
   },
   {
     "asset": "LTC",
@@ -365,7 +341,15 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Litecoin/USDT"
+    "label": "Litecoin/Tether USD"
+  },
+  {
+    "asset": "LTC",
+    "currency": "XMR",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Litecoin/Monero"
   },
   {
     "asset": "MAID",
@@ -373,7 +357,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "MaidSafeCoin/BTC"
+    "label": "MaidSafeCoin/Bitcoin"
   },
   {
     "asset": "MAID",
@@ -381,7 +365,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "MaidSafeCoin/XMR"
+    "label": "MaidSafeCoin/Monero"
   },
   {
     "asset": "NAUT",
@@ -389,7 +373,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Nautiluscoin/BTC"
+    "label": "Nautiluscoin/Bitcoin"
   },
   {
     "asset": "NAV",
@@ -397,7 +381,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "NAVCoin/BTC"
+    "label": "NAVCoin/Bitcoin"
   },
   {
     "asset": "NEOS",
@@ -405,7 +389,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Neoscoin/BTC"
+    "label": "Neoscoin/Bitcoin"
   },
   {
     "asset": "NMC",
@@ -413,7 +397,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Namecoin/BTC"
+    "label": "Namecoin/Bitcoin"
   },
   {
     "asset": "NOTE",
@@ -421,7 +405,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "DNotes/BTC"
+    "label": "DNotes/Bitcoin"
   },
   {
     "asset": "NXC",
@@ -429,7 +413,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Nexium/BTC"
+    "label": "Nexium/Bitcoin"
   },
   {
     "asset": "NXT",
@@ -437,15 +421,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "NXT/BTC"
-  },
-  {
-    "asset": "NXT",
-    "currency": "XMR",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "NXT/XMR"
+    "label": "NXT/Bitcoin"
   },
   {
     "asset": "NXT",
@@ -453,7 +429,15 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "NXT/USDT"
+    "label": "NXT/Tether USD"
+  },
+  {
+    "asset": "NXT",
+    "currency": "XMR",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "NXT/Monero"
   },
   {
     "asset": "OMNI",
@@ -461,7 +445,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Omni/BTC"
+    "label": "Omni/Bitcoin"
   },
   {
     "asset": "PASC",
@@ -469,7 +453,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "PascalCoin/BTC"
+    "label": "PascalCoin/Bitcoin"
   },
   {
     "asset": "PINK",
@@ -477,7 +461,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Pinkcoin/BTC"
+    "label": "Pinkcoin/Bitcoin"
   },
   {
     "asset": "POT",
@@ -485,7 +469,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "PotCoin/BTC"
+    "label": "PotCoin/Bitcoin"
   },
   {
     "asset": "PPC",
@@ -493,7 +477,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Peercoin/BTC"
+    "label": "Peercoin/Bitcoin"
   },
   {
     "asset": "RADS",
@@ -501,7 +485,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Radium/BTC"
+    "label": "Radium/Bitcoin"
   },
   {
     "asset": "REP",
@@ -509,7 +493,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Augur/BTC"
+    "label": "Augur/Bitcoin"
   },
   {
     "asset": "REP",
@@ -517,7 +501,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Augur/ETH"
+    "label": "Augur/Ethereum"
   },
   {
     "asset": "REP",
@@ -525,7 +509,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Augur/USDT"
+    "label": "Augur/Tether USD"
   },
   {
     "asset": "RIC",
@@ -533,7 +517,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Riecoin/BTC"
+    "label": "Riecoin/Bitcoin"
   },
   {
     "asset": "SBD",
@@ -541,7 +525,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Steem Dollars/BTC"
+    "label": "Steem Dollars/Bitcoin"
   },
   {
     "asset": "SC",
@@ -549,7 +533,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Siacoin/BTC"
+    "label": "Siacoin/Bitcoin"
   },
   {
     "asset": "SJCX",
@@ -557,7 +541,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Storjcoin X/BTC"
+    "label": "Storjcoin X/Bitcoin"
   },
   {
     "asset": "STEEM",
@@ -565,7 +549,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "STEEM/BTC"
+    "label": "STEEM/Bitcoin"
   },
   {
     "asset": "STEEM",
@@ -573,7 +557,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "STEEM/ETH"
+    "label": "STEEM/Ethereum"
   },
   {
     "asset": "STR",
@@ -581,7 +565,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Stellar/BTC"
+    "label": "Stellar/Bitcoin"
   },
   {
     "asset": "STR",
@@ -589,7 +573,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Stellar/USDT"
+    "label": "Stellar/Tether USD"
   },
   {
     "asset": "STRAT",
@@ -597,15 +581,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Stratis/BTC"
-  },
-  {
-    "asset": "STRAT",
-    "currency": "USDT",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Stratis/USDT"
+    "label": "Stratis/Bitcoin"
   },
   {
     "asset": "SYS",
@@ -613,15 +589,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Syscoin/BTC"
-  },
-  {
-    "asset": "USDT",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Tether USD/BTC"
+    "label": "Syscoin/Bitcoin"
   },
   {
     "asset": "VIA",
@@ -629,7 +597,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Viacoin/BTC"
+    "label": "Viacoin/Bitcoin"
   },
   {
     "asset": "VRC",
@@ -637,7 +605,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "VeriCoin/BTC"
+    "label": "VeriCoin/Bitcoin"
   },
   {
     "asset": "VTC",
@@ -645,7 +613,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Vertcoin/BTC"
+    "label": "Vertcoin/Bitcoin"
   },
   {
     "asset": "XBC",
@@ -653,7 +621,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "BitcoinPlus/BTC"
+    "label": "BitcoinPlus/Bitcoin"
   },
   {
     "asset": "XCP",
@@ -661,7 +629,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Counterparty/BTC"
+    "label": "Counterparty/Bitcoin"
   },
   {
     "asset": "XEM",
@@ -669,7 +637,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "NEM/BTC"
+    "label": "NEM/Bitcoin"
   },
   {
     "asset": "XMR",
@@ -677,7 +645,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Monero/BTC"
+    "label": "Monero/Bitcoin"
   },
   {
     "asset": "XMR",
@@ -685,7 +653,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Monero/USDT"
+    "label": "Monero/Tether USD"
   },
   {
     "asset": "XPM",
@@ -693,7 +661,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Primecoin/BTC"
+    "label": "Primecoin/Bitcoin"
   },
   {
     "asset": "XRP",
@@ -701,7 +669,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/BTC"
+    "label": "Ripple/Bitcoin"
   },
   {
     "asset": "XRP",
@@ -709,7 +677,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/USDT"
+    "label": "Ripple/Tether USD"
   },
   {
     "asset": "XVC",
@@ -717,7 +685,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Vcash/BTC"
+    "label": "Vcash/Bitcoin"
   },
   {
     "asset": "ZEC",
@@ -725,7 +693,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Zcash/BTC"
+    "label": "Zcash/Bitcoin"
   },
   {
     "asset": "ZEC",
@@ -733,15 +701,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Zcash/ETH"
-  },
-  {
-    "asset": "ZEC",
-    "currency": "XMR",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Zcash/XMR"
+    "label": "Zcash/Ethereum"
   },
   {
     "asset": "ZEC",
@@ -749,6 +709,14 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Zcash/USDT"
+    "label": "Zcash/Tether USD"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "XMR",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Zcash/Monero"
   }
 ]
