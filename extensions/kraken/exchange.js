@@ -32,10 +32,16 @@ module.exports = function container(get, set, clear) {
   }
 
   function retry(method, args, error) {
-    console.error(('\nKraken API is down! unable to call ' + method + ' (' + error + '), retrying in 2.5s').red);
+    if (error.message.match(/API:Rate limit exceeded/)) {
+      var timeout = 10000;
+    } else {
+      var timeout = 2500;
+    }
+
+    console.error(('\nKraken API error - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').red);
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 2500);
+    }, timeout);
   }
 
   var exchange = {
@@ -58,6 +64,9 @@ module.exports = function container(get, set, clear) {
       }
 
       client.api('Trades', args, function (error, data) {
+        if (error && error.message.match(recoverableErrors)) {
+          return retry('getTrades', func_args, error);
+        }
         if (error) {
           console.error(('\nTrades error:').red);
           console.error(error);
