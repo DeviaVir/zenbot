@@ -2,7 +2,7 @@
   {
     "asset": "DASH",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/EUR"
@@ -10,7 +10,7 @@
   {
     "asset": "DASH",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/USD"
@@ -18,7 +18,7 @@
   {
     "asset": "DASH",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/XBT"
@@ -26,7 +26,7 @@
   {
     "asset": "GNO",
     "currency": "XETH",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "GNO/ETH"
@@ -34,7 +34,7 @@
   {
     "asset": "GNO",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "GNO/EUR"
@@ -42,7 +42,7 @@
   {
     "asset": "GNO",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "GNO/USD"
@@ -50,7 +50,7 @@
   {
     "asset": "GNO",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "GNO/XBT"
@@ -58,7 +58,7 @@
   {
     "asset": "USDT",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "USDT/USD"
@@ -66,7 +66,7 @@
   {
     "asset": "XETC",
     "currency": "XETH",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETC/ETH"
@@ -74,7 +74,7 @@
   {
     "asset": "XETC",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETC/XBT"
@@ -82,7 +82,7 @@
   {
     "asset": "XETC",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETC/EUR"
@@ -90,7 +90,7 @@
   {
     "asset": "XETC",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETC/USD"
@@ -98,7 +98,7 @@
   {
     "asset": "XETH",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/XBT"
@@ -106,7 +106,7 @@
   {
     "asset": "XETH",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/XBT"
@@ -114,7 +114,7 @@
   {
     "asset": "XETH",
     "currency": "ZCAD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/CAD"
@@ -122,7 +122,7 @@
   {
     "asset": "XETH",
     "currency": "ZCAD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/CAD"
@@ -130,7 +130,7 @@
   {
     "asset": "XETH",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/EUR"
@@ -138,7 +138,7 @@
   {
     "asset": "XETH",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/EUR"
@@ -146,7 +146,7 @@
   {
     "asset": "XETH",
     "currency": "ZGBP",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/GBP"
@@ -154,7 +154,7 @@
   {
     "asset": "XETH",
     "currency": "ZGBP",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/GBP"
@@ -162,7 +162,7 @@
   {
     "asset": "XETH",
     "currency": "ZJPY",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/JPY"
@@ -170,7 +170,7 @@
   {
     "asset": "XETH",
     "currency": "ZJPY",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/JPY"
@@ -178,7 +178,7 @@
   {
     "asset": "XETH",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/USD"
@@ -186,7 +186,7 @@
   {
     "asset": "XETH",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ETH/USD"
@@ -194,7 +194,7 @@
   {
     "asset": "XICN",
     "currency": "XETH",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ICN/ETH"
@@ -202,7 +202,7 @@
   {
     "asset": "XICN",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ICN/XBT"
@@ -210,7 +210,7 @@
   {
     "asset": "XLTC",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "LTC/XBT"
@@ -218,7 +218,7 @@
   {
     "asset": "XLTC",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "LTC/EUR"
@@ -226,7 +226,7 @@
   {
     "asset": "XLTC",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "LTC/USD"
@@ -234,7 +234,7 @@
   {
     "asset": "XMLN",
     "currency": "XETH",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "MLN/ETH"
@@ -242,7 +242,7 @@
   {
     "asset": "XMLN",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "MLN/XBT"
@@ -250,7 +250,7 @@
   {
     "asset": "XREP",
     "currency": "XETH",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "REP/ETH"
@@ -258,7 +258,7 @@
   {
     "asset": "XREP",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "REP/XBT"
@@ -266,7 +266,7 @@
   {
     "asset": "XREP",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "REP/EUR"
@@ -274,7 +274,7 @@
   {
     "asset": "XREP",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "REP/USD"
@@ -282,7 +282,7 @@
   {
     "asset": "XXBT",
     "currency": "ZCAD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/CAD"
@@ -290,7 +290,7 @@
   {
     "asset": "XXBT",
     "currency": "ZCAD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/CAD"
@@ -298,7 +298,7 @@
   {
     "asset": "XXBT",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/EUR"
@@ -306,7 +306,7 @@
   {
     "asset": "XXBT",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/EUR"
@@ -314,7 +314,7 @@
   {
     "asset": "XXBT",
     "currency": "ZGBP",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/GBP"
@@ -322,7 +322,7 @@
   {
     "asset": "XXBT",
     "currency": "ZGBP",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/GBP"
@@ -330,7 +330,7 @@
   {
     "asset": "XXBT",
     "currency": "ZJPY",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/JPY"
@@ -338,7 +338,7 @@
   {
     "asset": "XXBT",
     "currency": "ZJPY",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/JPY"
@@ -346,7 +346,7 @@
   {
     "asset": "XXBT",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/USD"
@@ -354,7 +354,7 @@
   {
     "asset": "XXBT",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XBT/USD"
@@ -362,7 +362,7 @@
   {
     "asset": "XXDG",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XDG/XBT"
@@ -370,7 +370,7 @@
   {
     "asset": "XXLM",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XLM/XBT"
@@ -378,7 +378,7 @@
   {
     "asset": "XXLM",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XLM/EUR"
@@ -386,7 +386,7 @@
   {
     "asset": "XXLM",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XLM/USD"
@@ -394,7 +394,7 @@
   {
     "asset": "XXMR",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XMR/XBT"
@@ -402,7 +402,7 @@
   {
     "asset": "XXMR",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XMR/EUR"
@@ -410,7 +410,7 @@
   {
     "asset": "XXMR",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XMR/USD"
@@ -418,7 +418,7 @@
   {
     "asset": "XXRP",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XRP/XBT"
@@ -426,7 +426,7 @@
   {
     "asset": "XXRP",
     "currency": "ZCAD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XRP/CAD"
@@ -434,7 +434,7 @@
   {
     "asset": "XXRP",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XRP/EUR"
@@ -442,7 +442,7 @@
   {
     "asset": "XXRP",
     "currency": "ZJPY",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XRP/JPY"
@@ -450,7 +450,7 @@
   {
     "asset": "XXRP",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "XRP/USD"
@@ -458,7 +458,7 @@
   {
     "asset": "XZEC",
     "currency": "XXBT",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ZEC/XBT"
@@ -466,7 +466,7 @@
   {
     "asset": "XZEC",
     "currency": "ZEUR",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ZEC/EUR"
@@ -474,7 +474,7 @@
   {
     "asset": "XZEC",
     "currency": "ZUSD",
-    "min_total": "0.0001",
+    "min_total": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "ZEC/USD"
