@@ -44,6 +44,8 @@ module.exports = function container(get, set, clear) {
     }, timeout);
   }
 
+  var orders = {}
+
   var exchange = {
     name: 'kraken',
     historyScan: 'forward',
@@ -217,6 +219,7 @@ module.exports = function container(get, set, clear) {
           }
         }
 
+        orders['~' + data.result.txid[0]] = order
         cb(null, order);
       })
     },
@@ -231,6 +234,8 @@ module.exports = function container(get, set, clear) {
 
     getOrder: function (opts, cb) {
       var args = [].slice.call(arguments);
+      var order = orders['~' + opts.order_id]
+      if (!order) return cb(new Error('order not found in cache'))
       var client = authedClient();
       var params = {
         txid: opts.order_id
@@ -253,19 +258,10 @@ module.exports = function container(get, set, clear) {
           return cb('Order not found');
         }
 
-        var order = {
-          id: orderData.refid,
-          status: orderData.status,
-          price: orderData.price,
-          size: orderData.vol,
-          post_only: !!orderData.oflags.match(/post/),
-          created_at: orderData.opentm * 1000,
-          filled_size: parseFloat(orderData.vol) - parseFloat(orderData.vol_exec)
-        };
-
         if (orderData.status === 'closed') {
           order.status = 'done'
           order.done_at = new Date().getTime()
+          order.filled_size = parseFloat(orderData.vol) - parseFloat(orderData.vol_exec)
           return cb(null, order)
         }
 
