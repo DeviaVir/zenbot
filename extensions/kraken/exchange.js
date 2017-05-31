@@ -32,9 +32,7 @@ module.exports = function container(get, set, clear) {
   }
 
   function retry(method, args, error) {
-    if (method !== 'getTrades') {
-      console.error(('\nKraken API is down! unable to call ' + method + ' (' + error + '), retrying in 2.5s').red);
-    }
+    console.error(('\nKraken API is down! unable to call ' + method + ' (' + error + '), retrying in 2.5s').red);
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, 2500);
