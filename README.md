@@ -9,6 +9,18 @@
 
 Zenbot has a Discord chat again! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
 
+## Known Issues and current status
+
+Currently (11 days after being released), Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
+
+- Many people are reporting [losses in live trading](https://github.com/carlos8f/zenbot/issues/189) even if the simulation results and/or paper trading is positive.
+- This is my highest priority right now, since an unprofitable bot is not worth much, but please understand that reliably making profit is hard, and so is making a realistic simulator.
+- The losses may be due to the default strategy not working well in sideways (non-trending) market conditions, slippage during limit order execution, or both. Currently I would recommend against using Zenbot on a market that is non-trending or trending generally downwards.
+- The limit-order strategy that Zenbot uses to avoid taker fees, is prone to race conditions and delays. A mode for using market-type orders will probably need to be made, which may make frequent-trade strategies less viable due to fees, but more reliable execution overall.
+- An upcoming feature will allow Zenbot to use a limited amount of your balance, which will help with experimenting with live trading, but mitigating the possible losses from the issues above.
+
+Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
+
 ## Description
 
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
@@ -332,10 +344,17 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## TODO
 
+- determine and fix what is causing live trading to underperform vs. paper trading/simulations
+- improve order execution speed, possibly by using market-type orders (incurring taker fees)
+- support for limiting the amount of balance Zenbot can use for trading
+- fix partial filled orders sometimes not getting recognized, due to race conditions
+- tool to generate graph and stats from live or paper trading sessions
+- save sim data to db, for front-end UI
+- make error output compact, no stack trace
 - review PR for Bitfinex
 - more exchange support
 - web UI with graphs and logs
-- "reaper" to automatically trim trades collection to a certain day length
+- "reaper" to automatically prune trades collection to a certain day length
 - "lite mode" for trader, an option to run without MongoDB
 
 ## Donate
