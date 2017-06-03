@@ -14,6 +14,7 @@ module.exports = function container (get, set, clear) {
       .allowUnknownOption()
       .description('run a simulation on backfilled data')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
+      .option('--filename <filename>', 'filename for the result output (ex: result.html)', String, c.filename)
       .option('--start <timestamp>', 'start at timestamp')
       .option('--end <timestamp>', 'end at timestamp')
       .option('--days <days>', 'set duration by day count', Number, c.days)
@@ -143,7 +144,8 @@ module.exports = function container (get, set, clear) {
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
             .replace('{{output}}', html_output)
             .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
-          var out_target = 'sim_result.html'
+
+          var out_target = so.filename || 'sim_result.html'
           fs.writeFileSync(out_target, out)
           console.log('wrote', out_target)
           process.exit(0)
