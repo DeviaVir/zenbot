@@ -26,6 +26,13 @@ c.poloniex = {}
 c.poloniex.key = 'YOUR-API-KEY'
 c.poloniex.secret = 'YOUR-SECRET'
 
+// to enable Kraken trading, enter your API credentials:
+c.kraken = {}
+c.kraken.key = 'YOUR-API-KEY'
+c.kraken.secret = 'YOUR-SECRET'
+// Please read API TOS on https://www.kraken.com/u/settings/api
+c.kraken.tosagree = 'disagree'
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
