@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var KrakenClient = require('kraken-api');
-var kraken = new KrakenClient();
+var KrakenClient = require('kraken-api')
+var kraken = new KrakenClient()
 
-var mapping;
-var products = [];
+var mapping
+var products = []
 
 function addProduct(base, quote, altname) {
     products.push({
@@ -17,30 +17,30 @@ function addProduct(base, quote, altname) {
 }
 
 function getPair(name) {
-    return mapping[name].altname;
-};
+    return mapping[name].altname
+}
 
 kraken.api('Assets', null, function (error, data) {
     if (error) {
-        console.log(error);
-        process.exit(1);
+        console.log(error)
+        process.exit(1)
     } else {
 
-        mapping = data.result;
+        mapping = data.result
 
         kraken.api('AssetPairs', null, function (error, data) {
             if (error) {
-                console.log(error);
-                process.exit(1);
+                console.log(error)
+                process.exit(1)
             } else {
                 Object.keys(data.result).forEach(function (result) {
-                    addProduct(data.result[result].base, data.result[result].quote, data.result[result].altname);
-                });
+                    addProduct(data.result[result].base, data.result[result].quote, data.result[result].altname)
+                })
                 var target = require('path').resolve(__dirname, 'products.json')
                 require('fs').writeFileSync(target, JSON.stringify(products, null, 2))
                 console.log('wrote', target)
                 process.exit()
             }
-        });
+        })
     }
-});
+})
