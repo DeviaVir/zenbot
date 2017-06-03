@@ -50,7 +50,7 @@ module.exports = function container(get, set, clear) {
     name: 'kraken',
     historyScan: 'forward',
     makerFee: 0.16,
-    // The limit for the public API is not document, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
+    // The limit for the public API is not documented, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
     backfillRateLimit: 1750,
 
     getProducts: function () {
