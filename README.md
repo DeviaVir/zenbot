@@ -230,6 +230,20 @@ and also:
 ```
 zenbot list-strategies
 
+macd
+  description:
+    Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).
+  options:
+    --period=<value>  period length (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
+    --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -260,7 +274,7 @@ From left to right:
 - Profit or loss percent (can be reset with `--reset_profit`)
 - Gain or loss vs. buy/hold strategy
 
-### About the default strategy
+### About the ema_trend strategy (default)
 
 - The default strategy is called `trend_ema` and resides at `./extensions/trend_ema`.
 - Defaults to using a 20m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
@@ -270,6 +284,14 @@ From left to right:
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
 - If `oversold_rsi` is set, tries to buy when the RSI dips below that value, and then starts to recover (a counterpart to `--profit_stop_enable_pct`, which sells when a percent of profit is reached, and then dips)
 - The bot will always try to avoid trade fees, by using post-only orders and thus being a market "maker" instead of a "taker". Some exchanges will, however, not offer maker discounts.
+
+### About the macd strategy
+
+The moving average convergence divergence calculation is a lagging indicator, used to follow trends. 
+
+- Can be very effective for trading periods of 1h, with a shorter period like 15m it seems too erratic and the Moving Averages are kind of lost.
+- It's not firing multiple 'buy' or 'sold' signals, only one per trend, which seems to lead to a better quality trading scheme.
+- Especially when the bot will enter in the middle of a trend, it avoids buying unless it's the beginning of the trend.
 
 ### Option tweaking tips
 
