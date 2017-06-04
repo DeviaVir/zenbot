@@ -167,7 +167,11 @@ module.exports = function container (get, set, clear) {
                       console.log('\ndownload complete!\n')
                       process.exit(0)
                     }
-                    setImmediate(getNext)
+                    if (exchange.backfillRateLimit) {
+                      setTimeout(getNext, exchange.backfillRateLimit)
+                    } else {
+                      setImmediate(getNext)
+                    }
                   })
                 })
               }
