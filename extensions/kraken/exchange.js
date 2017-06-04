@@ -38,7 +38,7 @@ module.exports = function container(get, set, clear) {
       var timeout = 2500
     }
 
-    console.error(('\nKraken API error - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').red)
+    console.warn(('\nKraken API warning - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').yellow)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, timeout)
@@ -50,6 +50,8 @@ module.exports = function container(get, set, clear) {
     name: 'kraken',
     historyScan: 'forward',
     makerFee: 0.16,
+    // The limit for the public API is not documented, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
+    backfillRateLimit: 1750,
 
     getProducts: function () {
       return require('./products.json')
