@@ -1,0 +1,234 @@
+Zenbot exchange API
+-----------------------------
+This document is written to help developers implement new extensions for Zenbot.
+
+It is reverse engineered from inspecting the Zenbot files and the GDAX extension and is not a definitive guide for developing an extension.
+
+Any contribution that makes this document better is certainly welcome.
+ 
+The document is an attempt to describe the interface functions used for communication with an exchange and a few helper functions. Each function has a set of calling parameters and return values and statuses
+
+The input parameters are packed in the "opts" object, and the results from invoking the function are returned in an object.
+
+Error handling
+-------------------
+
+**Non recoverable errors** should be handled by the actual extension function. A typical error is "Page not found", which most likely is caused by a malformed URL. Such errors should return a descriptive message and force a program exit.
+
+**Recoverable errors** affecting trades should be handled by zenbot, while others could be handled in the extension layer. This needs to be clarified.
+
+Some named errors are already handled by the main program (see getTrades below). These are:
+```
+  'ETIMEDOUT', // possibly recoverable 
+  'ENOTFOUND', // not recoverable (404?)
+  'ECONNRESET' // possibly recoverable
+```
+Zenbot may have some GDAX-specific code. In particular that pertains to return values from exchange functions. Return values in general should be handled in a exchange agnostic and standardized way to make it easiest possible to write extensions.
+
+Some variables in the "exchange" object are worth mentioning
+-----------------------------------------------------------------------------------
+```
+  name: 'some_exchange_name'
+  historyScan: 'forward', 'backward' or false
+  makerFee: fee_from_exchange (numeric)
+  backfillRateLimit: some_value_fitting_exchange_policy or 0
+```
+The functions
+------------------
+
+```javascript
+funcion publicClient ()
+```
+Function for connecting to the exchange for public requests
+Called from:
+- extension/*/exchange.js
+
+Returns a "client" object for use in exchange public access functions.
+
+```javascript
+function authedClient ()
+```
+Function for connecting and authenticating private requests
+Called from:
+- extension/*/exchange.js
+
+The function gets parameters from conf.js in the c object
+In particular these are:
+```
+  c.<exchange>.key
+  c.<exchange>.secret
+```
+For specific exchanges also:
+```
+  c.bitstamp.client_id
+  c.gdax.passphrase
+```
+The functionm returns a "client" object for use in exchange authenticated access functions
+
+```javascript
+function statusErr (resp, body)
+```
+Helper function for returning conformant error messages
+Called from:
+- extension/*/exchange.js
+
+```javascript
+getTrades: function (opts, cb)
+```
+Public function for getting history and trade data from the exchange
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/commands/backfill.js
+- https://github.com/carlos8f/zenbot/blob/master/commands/trade.js
+
+Input:
+```
+  opts.product_id
+  opts.from
+  opts.to
+```
+Return:
+```
+  trades.length
+  (array of?) { 
+    trade_id: some_id
+    time: 'transaction_time',
+    size: trade_size,
+    price: trade_prize,
+    side : 'buy' or 'sell'
+  }
+```
+Expected error codes if error:
+```
+  err.code
+ 
+  'ETIMEDOUT', // possibly recoverable 
+  'ENOTFOUND', // not recoverable
+  'ECONNRESET' // possibly recoverable
+```
+```javascript
+getBalance: function (opts, cb)
+```
+Function for getting wallet getBalances from the exchange
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
+
+Input:
+```
+  opts.currency
+  opts.asset
+```
+Return:
+```
+  balance.asset 
+  balance.asset_hold
+  balance.currency
+  balance.currency_hold
+```
+Comment:
+Asset vs asset_hold and currency vs currency_hold is kind of mysterious to me. 
+For most exchanges I would just return something similar to available_asset and available_currency
+For exchanges that returns some other values, I would do the calculation on the extension layer
+and not leave it to engine.js, because available_asset and available_currency are only interesting
+values from a buy/sell view, IMHO. If someone knows better, please clarify
+
+```javascript
+getQuote: function (opts, cb)
+```
+Public function for getting ticker data from the exchange
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
+- https://github.com/carlos8f/zenbot/blob/master/commands/buyjs
+- https://github.com/carlos8f/zenbot/blob/master/commands/sell.js
+
+Input:
+``` 
+  opts.product_id
+```
+Return:
+``` 
+  {bid: value_of_bid, ask: value_of_ask}
+```
+```javascript
+cancelOrder: function (opts, cb)
+```
+Obviously a function for canceling an placed order
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
+
+Input:
+```
+  opts.order_id
+```
+```javascript
+buy: function (opts, cb)
+```
+The function for buying
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
+
+Input:
+``` 
+  opts.price
+  opts.size
+```
+Returns:
+```
+
+```
+
+```javascript
+sell: function (opts, cb)
+```
+
+The function for selling
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
+
+Input:
+``` 
+  opts.price
+  opts.size
+```
+Returns:
+```
+
+```
+
+```javascript
+getOrder: function (opts, cb)
+```
+
+Function to get data from a placed order
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
+
+Input: 
+```
+  opts.order_id
+  opts.product_id
+```
+Returns:
+```
+  order.status
+``` 
+Expected values: 'done', 'rejected'
+  If 'rejected' order.reject_reason = some_reason ('post only')
+Is '*post only*' spesific for GDAX?
+Comment: Needs some clarifying
+
+```javascript
+getCursor: function (trade)
+```
+Function to get details from an executed trade
+Called from:
+- https://github.com/carlos8f/zenbot/blob/master/commands/backfill.js
+- https://github.com/carlos8f/zenbot/blob/master/commands/trade.js
+
+Input:
+```
+  trade.trade_id
+```
+Return:
+```
+  trade.trade_id
+```
