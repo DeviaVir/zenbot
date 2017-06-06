@@ -103,7 +103,10 @@ module.exports = function container (get, set, clear) {
               if (err) throw err
               if (!trades.length) {
                 console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
-                engine.syncBalance(function (err) {
+                if (so.mode === 'paper') {
+                  console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')
+                }
+		engine.syncBalance(function (err) {
                   if (err) {
                     if (err.desc) console.error(err.desc)
                     if (err.body) console.error(err.body)
