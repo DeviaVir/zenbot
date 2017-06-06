@@ -18,14 +18,12 @@ module.exports = function (cb) {
   zenbot.set('@zenbot:conf', c)
 
   function withMongo () {
-    glob('extensions/*', {cwd: __dirname, absolute: true}, function (err, results) {
+    //searches all directorys in {workingdir}/extensions/ for files called '_codemap.js'
+    glob('extensions/**/_codemap.js', {cwd: __dirname, absolute: true}, function (err, results) {
       if (err) return cb(err)
       results.forEach(function (result) {
-        if (path.basename(result) === 'README.md') {
-          return
-        }
-        var ext = require(path.join(result, '_codemap'))
-        zenbot.use(ext)
+        var ext = require(result) //load the _codemap for the extension
+        zenbot.use(ext)           //load the extension into zenbot
       })
       cb(null, zenbot)
     })
