@@ -16,6 +16,7 @@ module.exports = function container (get, set, clear) {
       .description('run trading bot against live market data')
       .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
+      .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, c.asset_capital)
@@ -62,6 +63,11 @@ module.exports = function container (get, set, clear) {
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
+
+        var order_types = ['maker', 'taker']
+        if (!so.order_type in order_types) {
+          so.order_type = 'maker'
+        }
 
         var db_cursor, trade_cursor
         var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()

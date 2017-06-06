@@ -49,6 +49,7 @@ module.exports = function container (get, set, clear) {
     name: 'gdax',
     historyScan: 'backward',
     makerFee: 0,
+    takerFee: 0.3,
 
     getProducts: function () {
       return require('./products.json')
@@ -129,6 +130,11 @@ module.exports = function container (get, set, clear) {
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
+      if (opts.order_type === 'taker') {
+        delete opts.price
+        opts.type = 'market'
+      }
+      delete opts.order_type
       client.buy(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
           var order = {
@@ -150,6 +156,11 @@ module.exports = function container (get, set, clear) {
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
+      if (opts.order_type === 'taker') {
+        delete opts.price
+        opts.type = 'market'
+      }
+      delete opts.order_type
       client.sell(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
           var order = {
