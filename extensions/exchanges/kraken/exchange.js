@@ -50,6 +50,7 @@ module.exports = function container(get, set, clear) {
     name: 'kraken',
     historyScan: 'forward',
     makerFee: 0.16,
+    takerFee: 0.26,
     // The limit for the public API is not documented, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
     backfillRateLimit: 1750,
 
@@ -181,7 +182,7 @@ module.exports = function container(get, set, clear) {
       var params = {
         pair: joinProduct(opts.product_id),
         type: type,
-        ordertype: 'limit',
+        ordertype: opts.order_type,
         price: opts.price,
         volume: opts.size,
         trading_agreement: c.kraken.tosagree,
