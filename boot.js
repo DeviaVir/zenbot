@@ -31,7 +31,7 @@ module.exports = function (cb) {
     })
   }
 
-  var u = 'mongodb://' + c.mongo.host + ':' + c.mongo.port + '/' + c.mongo.db
+  var u = 'mongodb://' + c.mongo.host + ':' + c.mongo.port + '/' + c.mongo.db + (c.mongo.replicaSet ? '?replicaSet=' + c.mongo.replicaSet : '')
   require('mongodb').MongoClient.connect(u, function (err, db) {
     if (err) {
       zenbot.set('zenbot:db.mongo', null)
