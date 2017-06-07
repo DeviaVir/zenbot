@@ -11,3 +11,7 @@ github.pub
 github
 config.js
 config.patch
+data/*
+conf.js
+sim_result*
+*_test
