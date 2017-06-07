@@ -14,6 +14,7 @@ module.exports = function container (get, set, clear) {
       .command('trade [selector]')
       .allowUnknownOption()
       .description('run trading bot against live market data')
+      .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
@@ -54,6 +55,12 @@ module.exports = function container (get, set, clear) {
         so.stats = !cmd.disable_stats
         so.selector = selector
         so.mode = so.paper ? 'paper' : 'live'
+        if (cmd.conf) {
+          var overrides = require(path.resolve(process.cwd(), cmd.conf))
+          Object.keys(overrides).forEach(function (k) {
+            so[k] = overrides[k]
+          })
+        }
         var engine = get('lib.engine')(s)
 
         var db_cursor, trade_cursor
