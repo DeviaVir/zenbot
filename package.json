@@ -13,6 +13,7 @@
     "gdax": "^0.4.2",
     "glob": "^7.1.1",
     "idgen": "^2.0.2",
+    "kraken-api": "^0.1.7",
     "micro-request": "^666.0.10",
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
