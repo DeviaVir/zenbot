@@ -204,6 +204,7 @@ zenbot trade --help
   Options:
 
     -h, --help                      output usage information
+    --conf <path>                   path to optional conf overrides file
     --strategy <name>               strategy to use
     --paper                         use paper trading mode (no real trades will take place)
     --currency_capital <amount>     for paper trading, amount of start capital in currency
@@ -222,6 +223,7 @@ zenbot trade --help
     --poll_trades <ms>              poll new trades at this interval in ms
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
+    --debug                         output detailed debug info
 
 ```
 
@@ -254,6 +256,29 @@ trend_ema (default)
     --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 25)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 30)
+```
+
+### Conf/argument override files
+
+To run `trade` or `sim` commands with a pre-defined set of options, use:
+
+```
+zenbot trade --conf <path>
+```
+
+Where `<path>` points to a JS file that exports an object hash that overrides any conf or argument variables. For example, this file will run gdax.ETH-USD with options specific for that market:
+
+```
+var c = module.exports = {}
+
+// ETH settings
+c.selector = 'gdax.ETH-USD'
+c.period = '10m'
+c.trend_ema = 20
+c.neutral_rate = 0.1
+c.oversold_rsi_periods = 20
+c.max_slippage_pct = 10
+c.order_adjust_time = 10000
 ```
 
 ### Reading the console output

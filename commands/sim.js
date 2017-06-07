@@ -13,6 +13,7 @@ module.exports = function container (get, set, clear) {
       .command('sim [selector]')
       .allowUnknownOption()
       .description('run a simulation on backfilled data')
+      .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--filename <filename>', 'filename for the result output (ex: result.html)', String, c.filename)
       .option('--start <timestamp>', 'start at timestamp')
@@ -63,6 +64,12 @@ module.exports = function container (get, set, clear) {
         so.verbose = !!cmd.verbose
         so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'sim'
+        if (cmd.conf) {
+          var overrides = require(path.resolve(process.cwd(), cmd.conf))
+          Object.keys(overrides).forEach(function (k) {
+            so[k] = overrides[k]
+          })
+        }
         var engine = get('lib.engine')(s)
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
