@@ -71,8 +71,6 @@ c.max_sell_loss_pct = 25
 c.order_poll_time = 5000
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 5000
-// ms to wait for settlement (after a funds on hold error)
-c.wait_more_for_settlement = 60000
 // % to mark up or down price for orders
 c.markup_pct = 0
 
