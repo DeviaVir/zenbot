@@ -205,6 +205,7 @@ zenbot trade --help
 
     -h, --help                      output usage information
     --strategy <name>               strategy to use
+    --order_type <type>             order type to use (maker/taker)
     --paper                         use paper trading mode (no real trades will take place)
     --currency_capital <amount>     for paper trading, amount of start capital in currency
     --asset_capital <amount>        for paper trading, amount of start capital in asset
@@ -300,6 +301,7 @@ The moving average convergence divergence calculation is a lagging indicator, us
 - `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss of the price continues to fall.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However in strong, long uptrends this option may end up causing a sell too early.
 - As of v4.0.5, the `--neutral_rate=auto` filter is disabled, which is currently producing better results with the new default 20m period. Some coins may benefit from `--neutral_rate=auto` though, try simulating with and without it.
+- For Kraken and GDAX you may wish to use `--order_type="taker"`, this uses market orders instead of limit orders. You usually pay a higher fee, but you can be sure that your order is filled instantly. This means that the sim will more closely match your live trading. Please note that GDAX does not charge maker fees (limit orders), so you will need to choose between not paying fees and running the risk orders do not get filled on time, or paying somewhat high % of fees and making sure your orders are always filled on time.
 
 ## Manual trade tools
 

@@ -34,6 +34,7 @@ module.exports = function container (get, set, clear) {
     name: 'gdax',
     historyScan: 'backward',
     makerFee: 0,
+    takerFee: 0.3,
 
     getProducts: function () {
       return require('./products.json')
