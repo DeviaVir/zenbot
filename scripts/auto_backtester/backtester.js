@@ -70,6 +70,11 @@ let runCommand = (strategy, cb) => {
   console.log(`[ ${countArr.length}/${strategies.length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
+    if (code) {
+      console.error(command)
+      console.error(stderr)
+      return cb(null, null)
+    }
     cb(null, processOutput(stdout));
   });
 };
@@ -138,6 +143,9 @@ console.log(`\nBacktesting [${strategies.length}] iterations...\n`);
 
 parallel(tasks, PARALLEL_LIMIT, (err, results) => {
   console.log("\nBacktesting complete, saving results...");
+  results = results.filter(function (r) {
+    return !!r
+  })
   results.sort((a,b) => (a.roi < b.roi) ? 1 : ((b.roi < a.roi) ? -1 : 0));
   let fileName = `backtesting_${Math.round(+new Date()/1000)}.csv`;
   let csv = json2csv({
