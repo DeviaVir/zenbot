@@ -17,22 +17,23 @@ let json2csv  = require('json2csv');
 let roundp    = require('round-precision');
 let fs        = require('fs');
 
-let VERSION = 'Zenbot 4.04 Backtester v0.1';
+let VERSION = 'Zenbot 4.04 Backtester v0.2';
 
-let PARALLEL_LIMIT = 8;
+let PARALLEL_LIMIT = require('os').cpus().length;
 
-let TREND_EMA_MIN = 11;
-let TREND_EMA_MAX = 11;
+let TREND_EMA_MIN = 10;
+let TREND_EMA_MAX = 30;
 
-let OVERSOLD_RSI_MIN = 20;
+let OVERSOLD_RSI_MIN = 30;
 let OVERSOLD_RSI_MAX = 30;
 
-let OVERSOLD_RSI_PERIODS_MIN = 6;
-let OVERSOLD_RSI_PERIODS_MAX = 8;
+let OVERSOLD_RSI_PERIODS_MIN = 20;
+let OVERSOLD_RSI_PERIODS_MAX = 20;
 
-let NEUTRAL_RATE_MIN = 25;
-let NEUTRAL_RATE_MAX = 25;
+let NEUTRAL_RATE_MIN = 10;
+let NEUTRAL_RATE_MAX = 10;
 
+let NEUTRAL_RATE_AUTO = false
 
 let countArr = [];
 
@@ -98,8 +99,8 @@ let processOutput = output => {
   return {
     params:             rawParams.replace(/[\r\n]/g, ''),
     endBalance:         parseFloat(endBalance),
-    wins:               parseInt(wins),
-    losses:             parseInt(losses),
+    wins:               wins,
+    losses:             losses,
     errorRate:          parseFloat(errorRate),
     trendEma:           params.trend_ema,
     oversoldRsi:        params.oversold_rsi,
@@ -108,7 +109,7 @@ let processOutput = output => {
     days:               days,
     period:             params.period,
     roi:                roi,
-    wlRatio:            roundp(wins / losses, 3),
+    wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     frequency:          roundp((wins + losses) / days, 3)
   };
 };
@@ -117,7 +118,7 @@ let strategies = objectProduct({
   trend_ema: range(TREND_EMA_MIN, TREND_EMA_MAX),
   oversold_rsi: range(OVERSOLD_RSI_MIN, OVERSOLD_RSI_MAX),
   oversold_rsi_periods: range(OVERSOLD_RSI_PERIODS_MIN, OVERSOLD_RSI_PERIODS_MAX),
-  neutral_rate: new Array('auto').concat(range(NEUTRAL_RATE_MIN, NEUTRAL_RATE_MAX).map(r => r / 100))
+  neutral_rate: (NEUTRAL_RATE_AUTO ? new Array('auto') : []).concat(range(NEUTRAL_RATE_MIN, NEUTRAL_RATE_MAX).map(r => r / 100))
 });
 
 let tasks = strategies.map(strategy => {
