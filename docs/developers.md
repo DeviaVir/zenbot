@@ -37,7 +37,8 @@ Zenbot may have some GDAX-specific code. In particular that pertains to return v
 ```
   name: 'some_exchange_name'
   historyScan: 'forward', 'backward' or false
-  makerFee: fee_from_exchange (numeric)
+  makerFee: exchange_maker_fee (numeric) // Set by a function if the exchange supports it 
+  takerFee: exchange_taker_fee (numeric) // Else set with a constant
   backfillRateLimit: some_value_fitting_exchange_policy or 0
 ```
 ## Functions
