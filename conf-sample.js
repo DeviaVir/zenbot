@@ -35,6 +35,15 @@ c.kraken.secret = 'YOUR-SECRET'
 // Please read API TOS on https://www.kraken.com/u/settings/api
 c.kraken.tosagree = 'disagree'
 
+// to enable Bittrex trading, enter your API credentials:
+c.bittrex = {}
+c.bittrex.key = 'YOUR-API-KEY'
+c.bittrex.secret = 'YOUR-SECRET'
+// make sure to give your API key access to only: "Trade Limit" and "Read Info",
+// please note that this might change in the future.
+// please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
+
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
@@ -62,8 +71,6 @@ c.max_sell_loss_pct = 25
 c.order_poll_time = 5000
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 5000
-// ms to wait for settlement (after a funds on hold error)
-c.wait_more_for_settlement = 60000
 // % to mark up or down price for orders
 c.markup_pct = 0
 
