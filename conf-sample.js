@@ -7,6 +7,8 @@ c.mongo.port = 27017
 c.mongo.db = 'zenbot4'
 c.mongo.username = null
 c.mongo.password = null
+// when using mongodb replication, i.e. when running a mongodb cluster, you can define your replication set here; when you are not using replication (most of the users), just set it to `null` (default).
+c.mongo.replicaSet = null
 
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'gdax.BTC-USD'
@@ -25,6 +27,13 @@ c.gdax.passphrase = 'YOUR-PASSPHRASE'
 c.poloniex = {}
 c.poloniex.key = 'YOUR-API-KEY'
 c.poloniex.secret = 'YOUR-SECRET'
+
+// to enable Kraken trading, enter your API credentials:
+c.kraken = {}
+c.kraken.key = 'YOUR-API-KEY'
+c.kraken.secret = 'YOUR-SECRET'
+// Please read API TOS on https://www.kraken.com/u/settings/api
+c.kraken.tosagree = 'disagree'
 
 // Optional stop-order triggers:
 
