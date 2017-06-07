@@ -366,6 +366,7 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## TODO
 
+- cancel pending orders on SIGINT
 - determine and fix what is causing live trading to underperform vs. paper trading/simulations
 - improve order execution speed, possibly by using market-type orders (incurring taker fees)
 - support for limiting the amount of balance Zenbot can use for trading
