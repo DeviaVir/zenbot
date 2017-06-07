@@ -113,7 +113,7 @@ module.exports = function container (get, set, clear) {
                 console.error('\nerror: getTrades() returned duplicate results')
                 console.error(opts)
                 console.error(last_batch_opts)
-                process.exit(1)
+                process.exit(0)
               }
               last_batch_id = trades[0].trade_id
               var tasks = trades.map(function (trade) {

@@ -35,6 +35,15 @@ c.kraken.secret = 'YOUR-SECRET'
 // Please read API TOS on https://www.kraken.com/u/settings/api
 c.kraken.tosagree = 'disagree'
 
+// to enable Bittrex trading, enter your API credentials:
+c.bittrex = {}
+c.bittrex.key = 'YOUR-API-KEY'
+c.bittrex.secret = 'YOUR-SECRET'
+// make sure to give your API key access to only: "Trade Limit" and "Read Info",
+// please note that this might change in the future.
+// please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
+
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
