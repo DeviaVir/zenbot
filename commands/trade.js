@@ -32,6 +32,7 @@ module.exports = function container (get, set, clear) {
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
       .option('--disable_stats', 'disable printing order stats')
       .option('--reset_profit', 'start new profit calculation from 0')
+      .option('--verbose', 'output detailed info')
       .action(function (selector, cmd) {
         selector = get('lib.normalize-selector')(selector || c.selector)
         var exchange_id = selector.split('.')[0]
@@ -49,6 +50,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+        so.verbose = cmd.verbose
         so.stats = !cmd.disable_stats
         so.selector = selector
         so.mode = so.paper ? 'paper' : 'live'
