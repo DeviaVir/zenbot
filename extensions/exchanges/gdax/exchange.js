@@ -1,5 +1,7 @@
 var Gdax = require('gdax')
   , path = require('path')
+  , colors = require('colors')
+  , numbro = require('numbro')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -30,7 +32,20 @@ module.exports = function container (get, set, clear) {
     }
   }
 
-  return {
+  function retry (method, args, err) {
+    if (method !== 'getTrades') {
+      console.error(('\nGDAX API is down! unable to call ' + method + ', retrying in 10s').red)
+      if (err) console.error(err)
+      console.error(args.slice(0, -1))
+    }
+    setTimeout(function () {
+      exchange[method].apply(exchange, args)
+    }, 10000)
+  }
+
+  var orders = {}
+
+  var exchange = {
     name: 'gdax',
     historyScan: 'backward',
     makerFee: 0,
@@ -40,6 +55,7 @@ module.exports = function container (get, set, clear) {
     },
 
     getTrades: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = publicClient(opts.product_id)
       var args = {}
       if (opts.from) {
@@ -52,7 +68,7 @@ module.exports = function container (get, set, clear) {
       }
       client.getProductTrades(args, function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (err) return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.trade_id,
@@ -67,10 +83,11 @@ module.exports = function container (get, set, clear) {
     },
 
     getBalance: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.getAccounts(function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (err) return retry('getBalance', func_args, err)
         var balance = {asset: 0, currency: 0}
         body.forEach(function (account) {
           if (account.currency === opts.currency) {
@@ -87,24 +104,27 @@ module.exports = function container (get, set, clear) {
     },
 
     getQuote: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = publicClient(opts.product_id)
       client.getProductTicker(function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (err) return retry('getQuote', func_args, err)
         cb(null, {bid: body.bid, ask: body.ask})
       })
     },
 
     cancelOrder: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancelOrder(opts.order_id, function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (err) return retry('cancelOrder', func_args, err)
         cb()
       })
     },
 
     buy: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
@@ -118,12 +138,14 @@ module.exports = function container (get, set, clear) {
           return cb(null, order)
         }
         if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (err) return retry('buy', func_args, err)
+        orders['~' + body.id] = body
         cb(null, body)
       })
     },
 
     sell: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
@@ -137,16 +159,24 @@ module.exports = function container (get, set, clear) {
           return cb(null, order)
         }
         if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (err) return retry('sell', func_args, err)
+        orders['~' + body.id] = body
         cb(null, body)
       })
     },
 
     getOrder: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.getOrder(opts.order_id, function (err, resp, body) {
-        if (!err) err = statusErr(resp, body)
-        if (err) return cb(err)
+        if (!err && resp.statusCode !== 404) err = statusErr(resp, body)
+        if (err) return retry('getOrder', func_args, err)
+        if (resp.statusCode === 404) {
+          // order was cancelled. recall from cache
+          body = orders['~' + opts.order_id]
+          body.status = 'done'
+          body.done_reason = 'canceled'
+        }
         cb(null, body)
       })
     },
@@ -156,4 +186,5 @@ module.exports = function container (get, set, clear) {
       return trade.trade_id
     }
   }
+  return exchange
 }
