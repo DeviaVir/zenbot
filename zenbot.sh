@@ -25,7 +25,7 @@ boot(function (err, zenbot) {
   }
   catch (e) {
   }
-  if (!command_name || !command_found) {
+  if (!command_name || !command_found && (!process.argv[2] || !process.argv[2].match(/^-V|--version$/))) {
     program.help()
   }
   program.parse(process.argv)

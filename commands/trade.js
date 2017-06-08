@@ -14,6 +14,7 @@ module.exports = function container (get, set, clear) {
       .command('trade [selector]')
       .allowUnknownOption()
       .description('run trading bot against live market data')
+      .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
@@ -22,6 +23,7 @@ module.exports = function container (get, set, clear) {
       .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, c.sell_pct)
       .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
+      .option('--order_poll_time <ms>', 'poll order status on this interval', Number, c.order_poll_time)
       .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, c.sell_stop_pct)
       .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, c.buy_stop_pct)
       .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, c.profit_stop_enable_pct)
@@ -32,15 +34,8 @@ module.exports = function container (get, set, clear) {
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
       .option('--disable_stats', 'disable printing order stats')
       .option('--reset_profit', 'start new profit calculation from 0')
+      .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
-        selector = get('lib.normalize-selector')(selector || c.selector)
-        var exchange_id = selector.split('.')[0]
-        var product_id = selector.split('.')[1]
-        var exchange = get('exchanges.' + exchange_id)
-        if (!exchange) {
-          console.error('cannot trade ' + selector + ': exchange not implemented')
-          process.exit(1)
-        }
         var s = {options: minimist(process.argv)}
         var so = s.options
         delete so._
@@ -49,9 +44,23 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+        so.debug = cmd.debug
         so.stats = !cmd.disable_stats
-        so.selector = selector
         so.mode = so.paper ? 'paper' : 'live'
+        if (cmd.conf) {
+          var overrides = require(path.resolve(process.cwd(), cmd.conf))
+          Object.keys(overrides).forEach(function (k) {
+            so[k] = overrides[k]
+          })
+        }
+        so.selector = get('lib.normalize-selector')(so.selector || selector || c.selector)
+        var exchange_id = so.selector.split('.')[0]
+        var product_id = so.selector.split('.')[1]
+        var exchange = get('exchanges.' + exchange_id)
+        if (!exchange) {
+          console.error('cannot trade ' + so.selector + ': exchange not implemented')
+          process.exit(1)
+        }
         var engine = get('lib.engine')(s)
 
         var db_cursor, trade_cursor
@@ -67,7 +76,7 @@ module.exports = function container (get, set, clear) {
         get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
         var marker = {
           id: crypto.randomBytes(4).toString('hex'),
-          selector: selector,
+          selector: so.selector,
           from: null,
           to: null,
           oldest_time: null
@@ -103,6 +112,9 @@ module.exports = function container (get, set, clear) {
               if (err) throw err
               if (!trades.length) {
                 console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
+                if (so.mode === 'paper') {
+                  console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')
+                }
                 engine.syncBalance(function (err) {
                   if (err) {
                     if (err.desc) console.error(err.desc)
@@ -111,12 +123,12 @@ module.exports = function container (get, set, clear) {
                   }
                   session = {
                     id: crypto.randomBytes(4).toString('hex'),
-                    selector: selector,
+                    selector: so.selector,
                     started: new Date().getTime(),
                     mode: so.mode,
                     options: so
                   }
-                  sessions.select({query: {selector: selector}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
+                  sessions.select({query: {selector: so.selector}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
@@ -166,7 +178,7 @@ module.exports = function container (get, set, clear) {
                 var d = tb().resize(c.balance_snapshot_period)
                 var b = {
                   id: selector + '-' + d.toString(),
-                  selector: selector,
+                  selector: so.selector,
                   time: d.toMilliseconds(),
                   currency: s.balance.currency,
                   asset: s.balance.asset,
@@ -251,7 +263,7 @@ module.exports = function container (get, set, clear) {
                 if (s.my_trades.length > my_trades_size) {
                   s.my_trades.slice(my_trades_size).forEach(function (my_trade) {
                     my_trade.id = crypto.randomBytes(4).toString('hex')
-                    my_trade.selector = selector
+                    my_trade.selector = so.selector
                     my_trade.session_id = session.id
                     my_trade.mode = so.mode
                     my_trades.save(my_trade, function (err) {
@@ -266,7 +278,7 @@ module.exports = function container (get, set, clear) {
                 function savePeriod (period) {
                   if (!period.id) {
                     period.id = crypto.randomBytes(4).toString('hex')
-                    period.selector = selector
+                    period.selector = so.selector
                     period.session_id = session.id
                   }
                   periods.save(period, function (err) {
@@ -291,8 +303,8 @@ module.exports = function container (get, set, clear) {
             }
           })
           function saveTrade (trade) {
-            trade.id = selector + '-' + String(trade.trade_id)
-            trade.selector = selector
+            trade.id = so.selector + '-' + String(trade.trade_id)
+            trade.selector = so.selector
             if (!marker.from) {
               marker.from = trade_cursor
               marker.oldest_time = trade.time
