@@ -7,7 +7,7 @@ module.exports = function container (get, set, clear) {
     description: 'Parabolic SAR',
 
     getOptions: function () {
-      this.option('period', 'period length', String, '5m')
+      this.option('period', 'period length', String, '1m')
       this.option('min_periods', 'min. number of history periods', Number, 52)
       this.option('sar_af', 'acceleration factor for parabolic SAR', Number, 0.025)
       this.option('sar_max_af', 'max acceleration factor for parabolic SAR', Number, 0.55)
