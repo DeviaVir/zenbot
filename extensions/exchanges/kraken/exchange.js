@@ -38,7 +38,10 @@ module.exports = function container(get, set, clear) {
       var timeout = 2500
     }
 
-    console.warn(('\nKraken API warning - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').yellow)
+    // silence common timeout errors
+    if (error.code !== 'ETIMEDOUT') {
+      console.warn(('\nKraken API warning - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').yellow)
+    }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, timeout)
