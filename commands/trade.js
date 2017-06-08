@@ -313,7 +313,8 @@ module.exports = function container (get, set, clear) {
             marker.to = marker.to ? Math.max(marker.to, trade_cursor) : trade_cursor
             marker.newest_time = Math.max(marker.newest_time, trade.time)
             trades.save(trade, function (err) {
-              if (err) {
+              // ignore duplicate key errors
+              if (err && err.code !== 11000) {
                 console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving trade')
                 console.error(err)
               }
