@@ -4,7 +4,7 @@ var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'sar',
-    description: 'Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.',
+    description: 'Parabolic SAR',
 
     getOptions: function () {
       this.option('period', 'period length', String, '5m')
