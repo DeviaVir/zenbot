@@ -78,15 +78,7 @@ module.exports = function container (get, set, clear) {
     onReport: function (s) {
       var cols = []
       if (typeof s.sar === 'number') {
-        if (s.trend === 'up') {
-          cols.push(z(8, n(s.sar).subtract(s.period.close).divide(s.period.close).format('0.00%'), ' ').green)
-        }
-        else {
-          cols.push(z(8, n(s.sar).subtract(s.period.close).divide(s.period.close).format('0.00%'), ' ').red)
-        }
-      }
-      else {
-        cols.push('                  ')
+        cols.push(z(8, n(s.sar).subtract(s.period.close).divide(s.period.close).format('0.00%'), ' ').grey)
       }
       return cols
     }
