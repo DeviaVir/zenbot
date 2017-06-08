@@ -96,17 +96,17 @@ module.exports = function container (get, set, clear) {
           s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           s.balance.asset = 0
           s.lookback.unshift(s.period)
-          var profit = n(s.balance.currency).subtract(s.start_capital).divide(s.start_capital)
+          var profit = s.start_capital ? n(s.balance.currency).subtract(s.start_capital).divide(s.start_capital) : n(0)
           output_lines.push('end balance: ' + n(s.balance.currency).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
           //console.log('start_capital', s.start_capital)
           //console.log('start_price', n(s.start_price).format('0.00000000'))
           //console.log('close', n(s.period.close).format('0.00000000'))
-          var buy_hold = n(s.period.close).multiply(n(s.start_capital).divide(s.start_price))
+          var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(s.balance.currency)
           //console.log('buy hold', buy_hold.format('0.00000000'))
-          var buy_hold_profit = n(buy_hold).subtract(s.start_capital).divide(s.start_capital)
+          var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
           output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
-          output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + (s.day_count ? n(s.my_trades.length / s.day_count).format('0.00') : 0) + ' trades/day)')
           var last_buy, last_sell
           var losses = 0
           s.my_trades.forEach(function (trade) {
