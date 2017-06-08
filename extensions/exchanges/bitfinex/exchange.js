@@ -15,7 +15,7 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-    if (!c.bitfinex.key || c.bitfinex.key === 'YOUR-API-KEY') {
+    if (!c.bitfinex || !c.bitfinex.key || c.bitfinex.key === 'YOUR-API-KEY') {
       throw new Error('please configure your Bitfinex credentials in ' + path.resolve(__dirname, 'conf.js'))
     }
     authed_client = new BFX(c.bitfinex.key, c.bitfinex.secret, {version: 1}).rest
@@ -41,6 +41,7 @@ module.exports = function container (get, set, clear) {
     name: 'bitfinex',
   //    historyScan: 'backward',
     makerFee: 0.1,
+    takerFee: 0.2,
 
     getProducts: function () {
       return require('./products.json')
@@ -107,12 +108,15 @@ module.exports = function container (get, set, clear) {
     buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (c.bitfinex.wallet === 'exchange' && typeof opts.type === 'undefined') {
+      if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'maker') {
         opts.type = 'exchange limit'
       }
-      else if (c.bitfinex.wallet === 'trading' && typeof opts.type === 'undefined') {
-        opts.type = 'limit'
+      else if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'taker') {
+        opts.type = 'exchange market'
       }
+      if (typeof opts.post_only === 'undefined') {
+         opts.post_only = true
+       }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
@@ -155,12 +159,15 @@ module.exports = function container (get, set, clear) {
     sell: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (c.bitfinex.wallet === 'exchange' && typeof opts.type === 'undefined') {
+      if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'maker') {
         opts.type = 'exchange limit'
       }
-      else if (c.bitfinex.wallet === 'trading' && typeof opts.type === 'undefined') {
-        opts.type = 'limit'
+      else if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'taker') {
+        opts.type = 'exchange market'
       }
+      if (typeof opts.post_only === 'undefined') {
+         opts.post_only = true
+       }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
