@@ -43,6 +43,12 @@ c.bittrex.secret = 'YOUR-SECRET'
 // please note that this might change in the future.
 // please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
 
+// to enable Bitfinex trading, enter your API credentials:
+c.bitfinex = {}
+c.bitfinex.key = 'YOUR-API-KEY'
+c.bitfinex.secret = 'YOUR-SECRET'
+// May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
+c.bitfinex.wallet = 'exchange'
 
 // Optional stop-order triggers:
 
