@@ -30,11 +30,13 @@ Paper trading is more optimistic than live trading.
 Therefore, if a simulation does not yield good results, odds are that neither will paper trading or (by extension) live trading.
 
 
+
 ## Is Docker necessary when installing Zenbot?
 
 No, Docker is often not necessary to run Zenbot. It is often simpler to run Zenbot on a Linux machine (Ubuntu, CentOS, etc.) without Docker.
 
 If running Zenbot on Windows, Docker may be needed.
+
 
 
 ## Why does Zenbot only use Limit orders?
@@ -44,9 +46,11 @@ On most exchanges, Limit orders result in lower fees than Market orders. For ins
 Check your exchange for fees.
 
 
+
 ## Will Zenbot ever support Market orders?
 
 The option to trade using Market orders may be added in the future.
+
 
 
 ## Is there a community to get involved with Zenbot?
