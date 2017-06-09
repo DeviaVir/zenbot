@@ -27,6 +27,7 @@ c.gdax.passphrase = 'YOUR-PASSPHRASE'
 c.poloniex = {}
 c.poloniex.key = 'YOUR-API-KEY'
 c.poloniex.secret = 'YOUR-SECRET'
+// please note: poloniex does not support market orders via the API
 
 // to enable Kraken trading, enter your API credentials:
 c.kraken = {}
@@ -79,6 +80,8 @@ c.order_poll_time = 5000
 c.wait_for_settlement = 5000
 // % to mark up or down price for orders
 c.markup_pct = 0
+// become a market taker (high fees) or a market maker (low fees)
+c.order_type = 'maker'
 
 // Misc options:
 
