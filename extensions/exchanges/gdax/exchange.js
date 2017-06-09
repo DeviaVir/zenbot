@@ -117,7 +117,7 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancelOrder(opts.order_id, function (err, resp, body) {
-        if (body && body.message === 'Order already done') return cb()
+        if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
         if (!err) err = statusErr(resp, body)
         if (err) return retry('cancelOrder', func_args, err)
         cb()
