@@ -13,7 +13,7 @@ Thanks!
 * [Why does Zenbot only use Limit orders?](#limit)
 * [Will Zenbot ever support Market orders?](#market-orders)
 * [Is there a community to get involved with Zenbot?](#community)
-*[Why do I keep getting a this "Nonce" error?](#error-1)
+* [Why do I keep getting a this "Nonce" error?](#error-1)
 
 
 **Will I make money with Zenbot?** <a name="money"></a>
