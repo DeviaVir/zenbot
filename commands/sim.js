@@ -15,6 +15,7 @@ module.exports = function container (get, set, clear) {
       .description('run a simulation on backfilled data')
       .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
+      .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--filename <filename>', 'filename for the result output (ex: result.html)', String, c.filename)
       .option('--start <timestamp>', 'start at timestamp')
       .option('--end <timestamp>', 'end at timestamp')
