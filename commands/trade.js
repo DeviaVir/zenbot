@@ -188,7 +188,7 @@ module.exports = function container (get, set, clear) {
                 session.price = s.period.close
                 var d = tb().resize(c.balance_snapshot_period)
                 var b = {
-                  id: selector + '-' + d.toString(),
+                  id: so.selector + '-' + d.toString(),
                   selector: so.selector,
                   time: d.toMilliseconds(),
                   currency: s.balance.currency,
