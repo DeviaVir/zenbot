@@ -8,6 +8,7 @@ from deap import creator
 from deap.tools import selTournament, cxTwoPoint, mutGaussian, initRepeat, Statistics, History, HallOfFame
 import matplotlib.pyplot as plt
 runid=random.randint(1000,9999)
+
 def initialize():
     return 50 + (random.random() - 0.5) * 50
 
@@ -26,15 +27,20 @@ class CmdIndividual(list):
         self.cmdline = ""
         return super(CmdIndividual, self).__init__(*args, **kwargs)
 
+creator.create("FitnessMax", base.Fitness, weights=(1,))
+creator.create("Individual", CmdIndividual, fitness=creator.FitnessMax)
 
-def evolve(evaluate, length_of_individual, cxpb=0.3, mutpb=0.9, ngen=100):
+def evolve(evaluate, length_of_individual, cxpb=0.3, mutpb=0.9, ngen=50):
     toolbox = base.Toolbox()
-    toolbox.register('select', partial(selTournament, tournsize=15))
+    try:
+        from scoop import futures
+        toolbox.register("map", futures.map)
+        print("Running Multicore")
+    except ImportError:
+        print("No scoop, running single core")
+    toolbox.register('select', partial(selTournament, tournsize=5))
     toolbox.register('mate', cxTwoPoint)
     toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.9))
-    creator.create("FitnessMax", base.Fitness, weights=(1,))
-
-    creator.create("Individual", CmdIndividual, fitness=creator.FitnessMax)
     toolbox.register("individual", initRepeat, creator.Individual, initialize, n=length_of_individual)
 
     toolbox.register('evaluate', evaluate)

@@ -2,3 +2,4 @@ deap
 numpy
 networkx
 matplotlib
+scoop
