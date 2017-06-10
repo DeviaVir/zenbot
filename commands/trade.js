@@ -20,6 +20,7 @@ module.exports = function container (get, set, clear) {
       .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, c.asset_capital)
+      .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, c.avg_slippage_pct)
       .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
       .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, c.sell_pct)
       .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
