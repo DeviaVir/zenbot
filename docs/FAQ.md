@@ -6,12 +6,15 @@ If you have a question that is not answered here, feel free to ask in the Discor
 
 Thanks!
 
+
+### Contents
+
 * [Will I make money with Zenbot?](#money)
 * [Is Docker necessary when installing Zenbot?](#docker)
 * [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
 * [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
-* [Why does Zenbot only use Limit orders?](#limit)
-* [Will Zenbot ever support Market orders?](#market-orders)
+* [Does Zenbot use Limit orders or Market orders?](#limit-market-orders)
+* [Why does Zenbot use Limit orders by default?](#limit-orders)
 * [Is there a community to get involved with Zenbot?](#community)
 * [Why do I keep getting a this "Nonce" error?](#error-1)
 
@@ -36,9 +39,10 @@ If running Zenbot on Windows, Docker may be needed.
 
 Simulations and paper trading almost always give overly optimistic results compared to live trading. This is because simulations and paper trading both make assumptions about when/if an order is filled.
 
-Because Zenbot currently only supports Limit orders (which often lessen fees), there tends to be much more slippage (the difference between when the bot decides to buy and when it actually buys) in live trading. Due to this, live trading is almost always worse than sims and paper trading.
+Because Zenbot defaults to using Limit orders (which often lessen fees), there tends to be much more slippage (the difference between when the bot decides to buy and when it actually buys) in live trading. Due to this, live trading is almost always worse than sims and paper trading.
 
 Also, remember that past results do not guarantee future returns.
+
 
 
 **Why should I use simulations or paper trading if they do not reflect live trading?** <a name="why-sim"></a>
@@ -49,17 +53,17 @@ Therefore, if a simulation does not yield good results, odds are that neither wi
 
 
 
-**Why does Zenbot only use Limit orders?** <a name="limit"></a>
+**Does Zenbot use Limit orders or Market orders?** <a name="limit-market-orders"></a>
+
+By default, Zenbot will use Limit orders, but support for Market orders has been added. 
+
+
+
+**Why does Zenbot use Limit orders by default?** <a name="limit-orders"></a>
 
 On most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
 
 Check your exchange for fees.
-
-
-
-**Will Zenbot ever support Market orders?** <a name="market-orders"></a>
-
-The option to trade using Market orders may be added in the future.
 
 
 
@@ -76,4 +80,4 @@ There is also a shared Google Doc spreadsheet containing community sim results a
 
 **Why do I keep getting this "Nonce" error? How do I solve it?** <a name="error-1"></a>
 
-*Answer coming soon*
+This error may occur when multiple instances of Zenbot are used with the same API key. To avoid this, use a different API key for each concurrent instance of Zenbot.
