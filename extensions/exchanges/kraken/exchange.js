@@ -188,7 +188,7 @@ module.exports = function container(get, set, clear) {
         ordertype: (opts.order_type === 'maker' ? 'limit' : 'market'),
         volume: opts.size,
         trading_agreement: c.kraken.tosagree,
-        oflags: opts.post_only === true ? 'post' : undefined
+        oflags: opts.post_only === true && opts.order_type === 'maker' ? 'post' : undefined
       }
       if ('price' in opts) {
         params.price = opts.price
@@ -203,7 +203,7 @@ module.exports = function container(get, set, clear) {
           status: 'open',
           price: opts.price,
           size: opts.size,
-          post_only: !!opts.post_only,
+          post_only: (opts.order_type === 'maker' ? !!opts.post_only : false),
           created_at: new Date().getTime(),
           filled_size: '0'
         }
