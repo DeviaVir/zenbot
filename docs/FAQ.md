@@ -2,7 +2,7 @@
 
 Here are a few questions that have been asked often as well as answers from the community.
 
-If you have a question that is not answered here, feel free to ask in the Discord chat and suggest it to be placed here.
+If you have a question that is not answered here, feel free to ask in the [Discord](#community) chat and suggest it to be placed here.
 
 Thanks!
 
@@ -14,14 +14,16 @@ Thanks!
 * [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
 * [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
 * [Does Zenbot use Limit orders or Market orders?](#limit-market-orders)
-* [Why does Zenbot use Limit orders by default?](#limit-orders)
 * [Is there a community to get involved with Zenbot?](#community)
+* [Can I install Zenbot on Windows?](#windows)
+* [How do I update Zenbot?](#update)
 * [Why do I keep getting a this "Nonce" error?](#error-1)
+
 
 
 **Will I make money with Zenbot?** <a name="money"></a>
 
-That depends… a lot. Different configurations and strategies will yield different results.
+That depends… Different configurations and strategies will yield different results.
 
 The current default config and parameters will likely lose you money, so proceed with caution. Try running simulations and paper trading first to see how the bot acts (see warning below).
 
@@ -53,15 +55,9 @@ Therefore, if a simulation does not yield good results, odds are that neither wi
 
 
 
-**Does Zenbot use Limit orders or Market orders?** <a name="limit-market-orders"></a>
-
-By default, Zenbot will use Limit orders, but support for Market orders has been added. 
-
-
-
 **Why does Zenbot use Limit orders by default?** <a name="limit-orders"></a>
 
-On most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
+On most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there is no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
 
 Check your exchange for fees.
 
@@ -76,8 +72,54 @@ Of course! Check out our Discord channel:
 There is also a shared Google Doc spreadsheet containing community sim results and variable descriptions:
 [Click here for the Google Sheet](https://docs.google.com/spreadsheets/d/1WjFKRUY4KpkdIJiA3RVvKqiyNkMe9xtgLSfYESFXk1g/edit#gid=70204991).
 
+
+
+**Can I install Zenbot on Windows?** <a name="windows"></a>
+
+Yes, Zenbot can be installed on Windows, although it is recommended that Linux or macOS is used instead.
+
+To install Zenbot on Windows:
+
+1. Install the "Bash on Windows subsystem" (see https://msdn.microsoft.com/en-us/commandline/wsl/about for more information)
+
+> Note: This will change soon, seeing that Microsoft decided to have Ubuntu, Fedora and OpenSUSE available. They will also drop the requirement for requiring dev mode enabled on windows soon. Source: https://blogs.msdn.microsoft.com/commandline/2017/05/11/new-distros-coming-to-bashwsl-via-windows-store/ and https://blogs.msdn.microsoft.com/commandline/2017/06/08/developer-mode-no-longer-required-for-windows-subsystem-for-linux/
+
+2. Open the terminal window, your disks will now be mounted under `/mnt/*`. So for example navigate to your directory (example: `cd /mnt/c/zenbot`)
+
+3. Install node (`curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -; sudo apt-get install nodejs`)
+
+4. Run zenbot as you would otherwise
+
+
+
+**How do I update Zenbot?** <a name="update"></a>
+
+Without Docker:
+
+```
+git pull
+npm install
+./zenbot.sh trade --paper
+```
+
+
+With Docker:
+
+'```
+git pull
+docker-compose down
+docker rmi zenbot_server
+docker-compose build
+docker-compose up -d
+```
+
+
+
+
 ### Errors
 
 **Why do I keep getting this "Nonce" error? How do I solve it?** <a name="error-1"></a>
 
 This error may occur when multiple instances of Zenbot are used with the same API key. To avoid this, use a different API key for each concurrent instance of Zenbot.
+
+This could also occur if the Zenbot server's time is not correct. Using NTP will keep the time current and help avoid this error.
