@@ -210,10 +210,12 @@ zenbot trade --help
     --paper                         use paper trading mode (no real trades will take place)
     --currency_capital <amount>     for paper trading, amount of start capital in currency
     --asset_capital <amount>        for paper trading, amount of start capital in asset
+    --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
     --buy_pct <pct>                 buy with this % of currency balance
     --sell_pct <pct>                sell with this % of asset balance
     --markup_pct <pct>              % to mark up or down ask/bid price
     --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
+    --order_poll_time <ms>          poll order status on this interval
     --sell_stop_pct <pct>           sell if price drops below this % of bought price
     --buy_stop_pct <pct>            buy if price surges above this % of sold price
     --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
