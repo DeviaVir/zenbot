@@ -23,6 +23,7 @@ def evaluate_zen(ind, TRAIN_COMMAND, VALIDATION_COMMAND):
             best = fitness[0]
             print("On validation: ")
             print(runzen(' '.join([VALIDATION_COMMAND] + params)))
+            ind.cmdline = ' '.join([VALIDATION_COMMAND] + params)
     except subprocess.CalledProcessError:
         print("\nillegal config")
         fitness = (-1000,)

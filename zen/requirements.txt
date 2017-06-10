@@ -1,1 +1,4 @@
 deap
+numpy
+networkx
+matplotlib
