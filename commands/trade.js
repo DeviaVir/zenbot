@@ -38,7 +38,8 @@ module.exports = function container (get, set, clear) {
       .option('--reset_profit', 'start new profit calculation from 0')
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
-        var s = {options: minimist(process.argv)}
+        var raw_opts = minimist(process.argv)
+        var s = {options: JSON.parse(JSON.stringify(raw_opts))}
         var so = s.options
         delete so._
         Object.keys(c).forEach(function (k) {
@@ -139,9 +140,12 @@ module.exports = function container (get, set, clear) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
-                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !cmd.currency_capital && !cmd.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                         s.orig_capital = session.orig_capital = prev_session.orig_capital
                         s.orig_price = session.orig_price = prev_session.orig_price
+                        if (so.mode === 'paper') {
+                          s.balance = prev_session.balance
+                        }
                       }
                     }
                     lookback_size = s.lookback.length
