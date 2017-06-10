@@ -247,6 +247,15 @@ macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+sar
+  description:
+    Parabolic SAR
+  options:
+    --period=<value>  period length (default: 1m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --sar_af=<value>  acceleration factor for parabolic SAR (default: 0.025)
+    --sar_max_af=<value>  max acceleration factor for parabolic SAR (default: 0.55)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -318,6 +327,14 @@ The moving average convergence divergence calculation is a lagging indicator, us
 - Can be very effective for trading periods of 1h, with a shorter period like 15m it seems too erratic and the Moving Averages are kind of lost.
 - It's not firing multiple 'buy' or 'sold' signals, only one per trend, which seems to lead to a better quality trading scheme.
 - Especially when the bot will enter in the middle of a trend, it avoids buying unless it's the beginning of the trend.
+
+### About the sar strategy
+
+Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:parabolic_sar) indicator to trade when SAR trend reverses.
+
+- Most effective with short period (default is 1m), which means it generates 150-200 trades/day, so only usable on GDAX (with 0% maker fee) at the moment.
+- Sim/paper results are better than live results, since slippage is not modelled accurately yet.
+- Tested live, [results here](https://github.com/carlos8f/zenbot/pull/246#issuecomment-307528347)
 
 ### Option tweaking tips
 
