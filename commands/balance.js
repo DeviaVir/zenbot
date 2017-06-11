@@ -29,10 +29,13 @@ module.exports = function container (get, set, clear) {
         so.debug = cmd.debug
         function balance () {
           s.exchange.getBalance(s, function (err, balance) {
-            if (err) return cb(err)
-            var bal = s.product_id + ' Asset: ' + balance.asset + ' Currency: ' + balance.currency
-            console.log(bal)
-            process.exit()
+            if (err) throw err
+            s.exchange.getQuote(s, function (err, quote) {
+              if (err) throw err
+              var bal = s.product_id + ' Asset: ' + balance.asset + ' Currency: ' + balance.currency + ' Total: ' + n(balance.asset).multiply(quote.ask).add(balance.currency).value()
+              console.log(bal)
+              process.exit()
+            })
           })
         }
         balance()
