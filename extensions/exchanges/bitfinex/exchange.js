@@ -108,10 +108,10 @@ module.exports = function container (get, set, clear) {
     buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'maker') {
+      if (typeof opts.type === 'undefined' && typeof opts.order_type === 'maker') {
         opts.type = 'exchange limit'
       }
-      else if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'taker') {
+      else if (typeof opts.type === 'undefined' && typeof opts.order_type === 'taker') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
@@ -145,7 +145,7 @@ module.exports = function container (get, set, clear) {
           created_at: new Date().getTime(),
           filled_size: '0'
         }
-        if (err && err.match(/Error: Invalid order: not enough exchange balance$/)) {
+        if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
           reject_reason: 'balance'
           return cb(null, order)
@@ -159,10 +159,10 @@ module.exports = function container (get, set, clear) {
     sell: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'maker') {
+      if (typeof opts.type === 'undefined' && typeof opts.order_type === 'maker') {
         opts.type = 'exchange limit'
       }
-      else if (c.bitfinex.wallet === 'exchange' && typeof opts.order_type === 'taker') {
+      else if (typeof opts.type === 'undefined' && typeof opts.order_type === 'taker') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
@@ -196,7 +196,7 @@ module.exports = function container (get, set, clear) {
           created_at: new Date().getTime(),
           filled_size: '0'
         }
-        if (err && err.match(/Error: Invalid order: not enough exchange balance$/)) {
+        if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
           reject_reason: 'balance'
           return cb(null, order)
