@@ -1,6 +1,6 @@
 {
   "name": "zenbot4",
-  "version": "4.0.2",
+  "version": "4.0.5",
   "description": "Cryptocurrency trading bot",
   "main": "./index.js",
   "bin": {
@@ -13,10 +13,13 @@
     "gdax": "^0.4.2",
     "glob": "^7.1.1",
     "idgen": "^2.0.2",
+    "kraken-api": "^0.1.7",
+    "bitfinex-api-node": "^1.0.1",
     "micro-request": "^666.0.10",
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
     "mongodb": "^2.2.25",
+    "node.bittrex.api": "^0.2.5",
     "number-abbreviate": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
     "poloniex.js": "0.0.7",

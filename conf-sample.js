@@ -2,11 +2,13 @@ var c = module.exports = {}
 
 // mongo configuration
 c.mongo = {}
-c.mongo.host = 'localhost'
+c.mongo.host = process.env.MONGODB_PORT_27017_TCP_ADDR || 'localhost'
 c.mongo.port = 27017
 c.mongo.db = 'zenbot4'
 c.mongo.username = null
 c.mongo.password = null
+// when using mongodb replication, i.e. when running a mongodb cluster, you can define your replication set here; when you are not using replication (most of the users), just set it to `null` (default).
+c.mongo.replicaSet = null
 
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'gdax.BTC-USD'
@@ -25,6 +27,29 @@ c.gdax.passphrase = 'YOUR-PASSPHRASE'
 c.poloniex = {}
 c.poloniex.key = 'YOUR-API-KEY'
 c.poloniex.secret = 'YOUR-SECRET'
+// please note: poloniex does not support market orders via the API
+
+// to enable Kraken trading, enter your API credentials:
+c.kraken = {}
+c.kraken.key = 'YOUR-API-KEY'
+c.kraken.secret = 'YOUR-SECRET'
+// Please read API TOS on https://www.kraken.com/u/settings/api
+c.kraken.tosagree = 'disagree'
+
+// to enable Bittrex trading, enter your API credentials:
+c.bittrex = {}
+c.bittrex.key = 'YOUR-API-KEY'
+c.bittrex.secret = 'YOUR-SECRET'
+// make sure to give your API key access to only: "Trade Limit" and "Read Info",
+// please note that this might change in the future.
+// please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
+
+// to enable Bitfinex trading, enter your API credentials:
+c.bitfinex = {}
+c.bitfinex.key = 'YOUR-API-KEY'
+c.bitfinex.secret = 'YOUR-SECRET'
+// May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
+c.bitfinex.wallet = 'exchange'
 
 // Optional stop-order triggers:
 
@@ -53,10 +78,10 @@ c.max_sell_loss_pct = 25
 c.order_poll_time = 5000
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 5000
-// ms to wait for settlement (after a funds on hold error)
-c.wait_more_for_settlement = 60000
 // % to mark up or down price for orders
 c.markup_pct = 0
+// become a market taker (high fees) or a market maker (low fees)
+c.order_type = 'maker'
 
 // Misc options:
 
@@ -74,3 +99,5 @@ c.symmetrical = false
 c.rsi_periods = 14
 // period to record balances for stats
 c.balance_snapshot_period = '15m'
+// avg. amount of slippage to apply to sim trades
+c.avg_slippage_pct = 0.045

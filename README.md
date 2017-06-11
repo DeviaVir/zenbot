@@ -1,25 +1,44 @@
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/4.x/assets/logo.png)
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
+
+## New! Chat with other Zenbot users
+
+[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
+
+Zenbot has a Discord chat again! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
+
+## Known Issues and current status
+
+Currently (11 days after being released), Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
+
+- Many people are reporting [losses in live trading](https://github.com/carlos8f/zenbot/issues/189) even if the simulation results and/or paper trading is positive.
+- This is my highest priority right now, since an unprofitable bot is not worth much, but please understand that reliably making profit is hard, and so is making a realistic simulator.
+- The losses may be due to the default strategy not working well in sideways (non-trending) market conditions, slippage during limit order execution, or both. Currently I would recommend against using Zenbot on a market that is non-trending or trending generally downwards.
+- The limit-order strategy that Zenbot uses to avoid taker fees, is prone to race conditions and delays. A mode for using market-type orders will probably need to be made, which may make frequent-trade strategies less viable due to fees, but more reliable execution overall.
+- An upcoming feature will allow Zenbot to use a limited amount of your balance, which will help with experimenting with live trading, but mitigating the possible losses from the issues above.
+
+Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
 
 ## Description
 
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
 - Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
-- Full support for [GDAX](https://gdax.com/) and [Poloniex](https://poloniex.com), work on further exchange support is ongoing.
+- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com), [Kraken](https://kraken.com/) and [Bittrex](https://bittrex.com/), work on further exchange support is ongoing.
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
 - "Paper" trading mode, operates on a simulated balance while watching the live market
 - Configurable sell stops, buy stops, and (trailing) profit stops
-- Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 10/day with 15m period
+- Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 15-50/day with 5m period
 
 ## Disclaimer
 
 - Zenbot is NOT a sure-fire profit machine. Use it AT YOUR OWN RISK.
 - Crypto-currency is still an experiment, and therefore so is Zenbot. Meaning, both may fail at any time.
-- Running a bot, and trading in general requires careful study of the risks and parameters involved.
+- Running a bot, and trading in general requires careful study of the risks and parameters involved. A wrong setting can cause you a major loss.
+- Never leave the bot un-monitored for long periods of time. Zenbot doesn't know when to stop, so be prepared to stop it if too much loss occurs.
 - Often times the default trade parameters will underperform vs. a buy-hold strategy, so run some simulations and find the optimal parameters for your chosen exchange/pair before going "all-in".
 
 ## Quick-start
@@ -74,6 +93,13 @@ After installing (step 2 above),
 cd zenbot
 docker-compose build
 docker-compose up (-d if you don't want to see the log)
+```
+
+If you wish to run commands (e.g. backfills, list-selectors), you can run this separate command after a successful `docker-compose up -d`:
+
+```
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh list-selectors
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh backfill <selector> --days <days>
 ```
 
 ### Vocab: selectors
@@ -178,14 +204,18 @@ zenbot trade --help
   Options:
 
     -h, --help                      output usage information
+    --conf <path>                   path to optional conf overrides file
     --strategy <name>               strategy to use
+    --order_type <type>             order type to use (maker/taker)
     --paper                         use paper trading mode (no real trades will take place)
     --currency_capital <amount>     for paper trading, amount of start capital in currency
     --asset_capital <amount>        for paper trading, amount of start capital in asset
+    --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
     --buy_pct <pct>                 buy with this % of currency balance
     --sell_pct <pct>                sell with this % of asset balance
     --markup_pct <pct>              % to mark up or down ask/bid price
     --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
+    --order_poll_time <ms>          poll order status on this interval
     --sell_stop_pct <pct>           sell if price drops below this % of bought price
     --buy_stop_pct <pct>            buy if price surges above this % of sold price
     --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
@@ -196,6 +226,7 @@ zenbot trade --help
     --poll_trades <ms>              poll new trades at this interval in ms
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
+    --debug                         output detailed debug info
 
 ```
 
@@ -204,25 +235,67 @@ and also:
 ```
 zenbot list-strategies
 
+macd
+  description:
+    Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).
+  options:
+    --period=<value>  period length (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
+    --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+sar
+  description:
+    Parabolic SAR
+  options:
+    --period=<value>  period length (default: 1m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --sar_af=<value>  acceleration factor for parabolic SAR (default: 0.025)
+    --sar_max_af=<value>  max acceleration factor for parabolic SAR (default: 0.55)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
   options:
-    --period=<value>  period length (default: 1h)
-    --min_periods=<value>  min. number of history periods (default: 36)
-    --trend_ema=<value>  number of periods for trend EMA (default: 34)
-    --buy_rate=<value>  buy if trend EMA rate between neutral_rate and this positive float (default: 0)
-    --sell_rate=<value>  sell if trend EMA rate between neutral_rate * -1 and this negative float (default: 0)
-    --neutral_rate=<value>  avoid signals when trend EMA rate is under this absolute value (default: auto)
-    --max_buy_duration=<value>  avoid buy if trend duration over this number (default: 0)
-    --max_sell_duration=<value>  avoid sell if trend duration over this number (default: 0)
-    --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
-    --oversold_rsi=<value>  buy when RSI reaches this value (default: 0)
+    --period=<value>  period length (default: 10m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --trend_ema=<value>  number of periods for trend EMA (default: 20)
+    --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
+    --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 20)
+    --oversold_rsi=<value>  buy when RSI reaches this value (default: 30)
+```
+
+### Conf/argument override files
+
+To run `trade` or `sim` commands with a pre-defined set of options, use:
+
+```
+zenbot trade --conf <path>
+```
+
+Where `<path>` points to a JS file that exports an object hash that overrides any conf or argument variables. For example, this file will run gdax.ETH-USD with options specific for that market:
+
+```
+var c = module.exports = {}
+
+// ETH settings
+c.selector = 'gdax.ETH-USD'
+c.period = '10m'
+c.trend_ema = 20
+c.neutral_rate = 0.1
+c.oversold_rsi_periods = 20
+c.max_slippage_pct = 10
+c.order_adjust_time = 10000
 ```
 
 ### Reading the console output
 
-![console](https://rawgit.com/carlos8f/zenbot/4.x/assets/console.png)
+![console](https://rawgit.com/carlos8f/zenbot/master/assets/console.png)
 
 From left to right:
 
@@ -238,25 +311,41 @@ From left to right:
 - Profit or loss percent (can be reset with `--reset_profit`)
 - Gain or loss vs. buy/hold strategy
 
-### About the default strategy
+### About the ema_trend strategy (default)
 
-- The default strategy is called `trend_ema` and resides at `./extensions/trend_ema`.
-- Defaults to using a 1h period, but you can override this with adding e.g. `--period=15m` to the `sim` or `trade` commands.
-- Computes the 34-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
+- The default strategy is called `trend_ema` and resides at `./extensions/strategies/trend_ema`.
+- Defaults to using a 10m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
+- Computes the 20-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
 - Considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
 - Filters out low values (whipsaws) by `neutral_rate`, which when set to `auto`, uses the standard deviation of the `trend_ema_rate` as a variable noise filter.
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
 - If `oversold_rsi` is set, tries to buy when the RSI dips below that value, and then starts to recover (a counterpart to `--profit_stop_enable_pct`, which sells when a percent of profit is reached, and then dips)
 - The bot will always try to avoid trade fees, by using post-only orders and thus being a market "maker" instead of a "taker". Some exchanges will, however, not offer maker discounts.
 
+### About the macd strategy
+
+The moving average convergence divergence calculation is a lagging indicator, used to follow trends. 
+
+- Can be very effective for trading periods of 1h, with a shorter period like 15m it seems too erratic and the Moving Averages are kind of lost.
+- It's not firing multiple 'buy' or 'sold' signals, only one per trend, which seems to lead to a better quality trading scheme.
+- Especially when the bot will enter in the middle of a trend, it avoids buying unless it's the beginning of the trend.
+
+### About the sar strategy
+
+Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:parabolic_sar) indicator to trade when SAR trend reverses.
+
+- Most effective with short period (default is 1m), which means it generates 150-200 trades/day, so only usable on GDAX (with 0% maker fee) at the moment.
+- Sim/paper results are better than live results, since slippage is not modelled accurately yet.
+- Tested live, [results here](https://github.com/carlos8f/zenbot/pull/246#issuecomment-307528347)
+
 ### Option tweaking tips
 
-- Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=15m` or `--trend_ema=25` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema`.
+- Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=5m` or `--trend_ema=15` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema` or increasing `neutral_rate`.
 - Sometimes it's tempting to tell the bot trade very often. Try to resist this urge, and go for quality over quantity, since each trade comes with a decent amount of slippage and whipsaw risk.
-- In a bull market, `--sell_rate=-0.01` and `--max_sell_duration=8` can give the price a chance to recover before selling. If there is a sudden dive in price, it's assumed it will recover and sell is delayed. Compensate for the risk by using `--sell_stop_pct=5`.
-- In a bull market with regular price dives and recoveries, `--oversold_rsi=25` will try to buy when the price dives.
-- In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9%.
-- as of v4.0.2, `--neutral_rate=auto` is on by default, which [proved in simulations](https://gist.github.com/carlos8f/429443d7d6b90c7daa1eb986ac7aa8cf) to be effective at preventing weak (whipsaw) signals. However, sometimes `--neutral_rate=0` works better for low volatility, such as BTC-USD at 1h.
+- `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss of the price continues to fall.
+- In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However in strong, long uptrends this option may end up causing a sell too early.
+- As of v4.0.5, the `--neutral_rate=auto` filter is disabled, which is currently producing better results with the new default 10m period. Some coins may benefit from `--neutral_rate=auto` though, try simulating with and without it.
+- For Kraken and GDAX you may wish to use `--order_type="taker"`, this uses market orders instead of limit orders. You usually pay a higher fee, but you can be sure that your order is filled instantly. This means that the sim will more closely match your live trading. Please note that GDAX does not charge maker fees (limit orders), so you will need to choose between not paying fees and running the risk orders do not get filled on time, or paying somewhat high % of fees and making sure your orders are always filled on time.
 
 ## Manual trade tools
 
@@ -287,7 +376,32 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## Update Log
 
-- [v4.0.2](https://github.com/carlos8f/zenbot/releases/tag/v4.0.2) (Latest)
+- [v4.0.5](https://github.com/carlos8f/zenbot/releases/tag/v4.0.5) (Latest)
+    - handle insufficient funds errors from gdax
+    - new trend_ema defaults adjusted for latest btc movements: 20m period, neutral_rate=0
+    - include more data in sim output
+    - remove rarely useful trend_ema options
+    - avoid abort in trader on failed getTrades()
+- v4.0.4
+    - debugging for polo odd results
+    - sim: simplify and correct makerFee assessment
+    - fix conf path in API credentials errors
+    - fix order total under 0.0001 error on polo
+    - Docker: extend README slightly (thanks [@DeviaVir](https://github.com/deviavir) and [@egorbenko](https://github.com/egorbenko))
+    - docker-compose: do not expose mongodb by default! (thanks [@DeviaVir](https://github.com/deviavir))
+- v4.0.3
+    - fix for docker mongo host error
+    - link for new Discord chat!
+    - fix polo crash on getOrder weird result
+    - fix oversold_rsi trigger while in preroll
+    - fix polo "not enough..." errors
+    - fancy colors for price report
+    - display product id in report
+    - fix poloniex backfill batches too big, mongo timeouts
+    - fix cursorTo() crash on some node installs
+    - memDump for debugging order failures
+    - fix column spacing on progress report
+- v4.0.2
     - minor overhaul to trend_ema strat - added whipsaw filtering via std. deviation (`--neutral_rate=auto`)
     - trim preroll of sim result graph
 - v4.0.1
@@ -298,8 +412,19 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## TODO
 
+- cancel pending orders on SIGINT
+- determine and fix what is causing live trading to underperform vs. paper trading/simulations
+- improve order execution speed, possibly by using market-type orders (incurring taker fees)
+- support for limiting the amount of balance Zenbot can use for trading
+- fix partial filled orders sometimes not getting recognized, due to race conditions
+- tool to generate graph and stats from live or paper trading sessions
+- save sim data to db, for front-end UI
+- make error output compact, no stack trace
+- review PR for Bitfinex
 - more exchange support
 - web UI with graphs and logs
+- "reaper" to automatically prune trades collection to a certain day length
+- "lite mode" for trader, an option to run without MongoDB
 
 ## Donate
 
@@ -308,6 +433,8 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 ### carlos8f's BTC
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
+
+![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
 
 Thanks!
 

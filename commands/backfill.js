@@ -113,7 +113,7 @@ module.exports = function container (get, set, clear) {
                 console.error('\nerror: getTrades() returned duplicate results')
                 console.error(opts)
                 console.error(last_batch_opts)
-                process.exit(1)
+                process.exit(0)
               }
               last_batch_id = trades[0].trade_id
               var tasks = trades.map(function (trade) {
@@ -167,7 +167,11 @@ module.exports = function container (get, set, clear) {
                       console.log('\ndownload complete!\n')
                       process.exit(0)
                     }
-                    setImmediate(getNext)
+                    if (exchange.backfillRateLimit) {
+                      setTimeout(getNext, exchange.backfillRateLimit)
+                    } else {
+                      setImmediate(getNext)
+                    }
                   })
                 })
               }

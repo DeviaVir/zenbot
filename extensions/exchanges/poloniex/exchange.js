@@ -16,8 +16,8 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
-        throw new Error('please configure your Poloniex credentials in ' + path.resolve(__dirname, 'conf.js'))
+      if (!c.poloniex || !c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
+        throw new Error('please configure your Poloniex credentials in conf.js')
       }
       authed_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
     }
@@ -43,6 +43,7 @@ module.exports = function container (get, set, clear) {
     name: 'poloniex',
     historyScan: 'backward',
     makerFee: 0.15,
+    takerFee: 0.25,
 
     getProducts: function () {
       return require('./products.json')
@@ -74,6 +75,11 @@ module.exports = function container (get, set, clear) {
         if (typeof body === 'string') {
           return retry('getTrades', func_args)
         }
+        if (!body.map) {
+          console.error('\getTrades odd result:')
+          console.error(body)
+          return retry('getTrades', func_args)
+        }
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.tradeID,
@@ -96,6 +102,11 @@ module.exports = function container (get, set, clear) {
         if (typeof body === 'string') {
           return retry('getBalance', args)
         }
+        if (body.error) {
+          console.error('\ggetBalance error:')
+          console.error(body)
+          return retry('getBalance', args)
+        }
         if (body[opts.currency]) {
           balance.currency = n(body[opts.currency].available).add(body[opts.currency].onOrders).format('0.00000000')
           balance.currency_hold = body[opts.currency].onOrders
@@ -115,6 +126,11 @@ module.exports = function container (get, set, clear) {
       client.getTicker(function (err, body) {
         if (err) return cb(err)
         if (typeof body === 'string') {
+          return retry('getQuote', args)
+        }
+        if (body.error) {
+          console.error('\ggetQuote error:')
+          console.error(body)
           return retry('getQuote', args)
         }
         var quote = body[product_id]
@@ -205,23 +221,29 @@ module.exports = function container (get, set, clear) {
       }
       client._private('returnOpenOrders', params, function (err, body) {
         if (err) return cb(err)
-        if (typeof body === 'string') {
+        if (typeof body === 'string' || !body) {
           return retry('getOrder', args)
         }
         var active = false
-        body.forEach(function (api_order) {
-          if (api_order.orderNumber == opts.order_id) active = true
-        })
+        if (!body.forEach) {
+          console.error('\nreturnOpenOrders odd result:')
+          console.error(body)
+        }
+        else {
+          body.forEach(function (api_order) {
+            if (api_order.orderNumber == opts.order_id) active = true
+          })
+        }
         if (!active) {
           order.status = 'done'
           order.done_at = new Date().getTime()
           return cb(null, order)
         }
         client.returnOrderTrades(opts.order_id, function (err, body) {
-          if (typeof body === 'string') {
+          if (typeof body === 'string' || !body) {
             return retry('getOrder', args)
           }
-          if (err || body.error) return cb(null, order)
+          if (err || body.error || !body.forEach) return cb(null, order)
           order.filled_size = '0'
           body.forEach(function (trade) {
             order.filled_size = n(order.filled_size).add(trade.amount).format('0.00000000')

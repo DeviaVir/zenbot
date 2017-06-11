@@ -12,8 +12,9 @@ module.exports = function container (get, set, clear) {
       .option('--pct <pct>', 'sell with this % of currency balance', Number, c.sell_pct)
       .option('--size <size>', 'sell specific size of currency')
       .option('--markup_pct <pct>', '% to mark up ask price', Number, c.markup_pct)
-      .option('--order_adjust_time <ms>', 'adjust bid on this interval to keep order competitive', Number, c.order_adjust_time)
+      .option('--order_adjust_time <ms>', 'adjust ask on this interval to keep order competitive', Number, c.order_adjust_time)
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
+      .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
         var so = s.options
@@ -23,6 +24,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+        so.debug = cmd.debug
         so.sell_pct = cmd.pct
         so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'live'
