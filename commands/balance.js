@@ -32,7 +32,7 @@ module.exports = function container (get, set, clear) {
             if (err) throw err
             s.exchange.getQuote(s, function (err, quote) {
               if (err) throw err
-              var bal = s.product_id + ' Asset: ' + balance.asset + ' Currency: ' + balance.currency + ' Total: ' + n(balance.asset).multiply(quote.ask).add(balance.currency).value()
+              var bal = (s.product_id + ' Asset: ').grey + balance.asset.white + ' Currency: '.grey + balance.currency.yellow + ' Total: '.grey + n(balance.asset).multiply(quote.ask).add(balance.currency).value().toString().yellow
               console.log(bal)
               process.exit()
             })
