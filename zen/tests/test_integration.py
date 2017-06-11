@@ -6,7 +6,7 @@ from mock import patch, MagicMock
 from main import main
 
 def myoutput(cmdline):
-    # print(cmdline)
+    print(cmdline)
     if random.random()<0.9:
         return str(random.random())
     else:

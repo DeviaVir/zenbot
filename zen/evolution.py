@@ -61,13 +61,13 @@ def ownSelect(individuals, k, tournsize):
     return chosen
 
 
-def evolve(evaluate, length_of_individual, cxpb=0.3, mutpb=0.1, ngen=150):
+def evolve(evaluate, length_of_individual, cxpb=0.1, mutpb=0.1, ngen=1000):
     toolbox = base.Toolbox()
     from scoop import futures
     toolbox.register("map", futures.map)
     toolbox.register('select', partial(selTournament, tournsize=int(popsize * selectivity)))
     toolbox.register('mate', cxTwoPoint)
-    toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.5))
+    toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.1))
     toolbox.register("individual", initRepeat, creator.Individual, initialize, n=length_of_individual)
 
     toolbox.register('evaluate', evaluate)
@@ -101,7 +101,7 @@ def algorithm(toolbox, cxpb, mutpb, ngen, stats, history):
     for ind, fit in zip(population, fitnesses):
         ind.fitness.values = fit[0]
         ind.cmdline=fit[1]
-    hof = ObjectiveFunctionHallOfFame(maxsize=3)
+    hof = ObjectiveFunctionHallOfFame(maxsize=15)
     log_stuff(0, history, hof, population, stats, toolbox)
     for g in range(1, ngen + 1):
         # Select the next generation individuals
