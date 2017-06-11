@@ -26,3 +26,5 @@ partitions=3
 popsize=100
 selectivity = 0.43
 runid=random.randint(1000,9999)
+SIGMA = 20
+INDPB  = 0.3

@@ -6,9 +6,9 @@ import networkx as networkx
 import numpy
 from deap import base
 from deap import creator
-from deap.tools import selTournament, cxTwoPoint, mutGaussian, initRepeat, Statistics, History
+from deap.tools import cxTwoPoint, mutGaussian, initRepeat, Statistics, History
 
-from conf import partitions, runid, popsize, selectivity
+from conf import partitions, runid, popsize, selectivity, SIGMA, INDPB
 from halloffame import ObjectiveFunctionHallOfFame
 from objective_function import obj
 
@@ -61,13 +61,13 @@ def ownSelect(individuals, k, tournsize):
     return chosen
 
 
-def evolve(evaluate, length_of_individual, cxpb=0.1, mutpb=0.1, ngen=1000):
+def evolve(evaluate, length_of_individual, cxpb=0.5, mutpb=0.5, ngen=1000):
     toolbox = base.Toolbox()
     from scoop import futures
     toolbox.register("map", futures.map)
     toolbox.register('select', partial(ownSelect, tournsize=int(popsize * selectivity)))
     toolbox.register('mate', cxTwoPoint)
-    toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.1))
+    toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=SIGMA, indpb=INDPB))
     toolbox.register("individual", initRepeat, creator.Individual, initialize, n=length_of_individual)
 
     toolbox.register('evaluate', evaluate)
