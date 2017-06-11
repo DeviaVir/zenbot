@@ -79,9 +79,10 @@ def algorithm(toolbox, cxpb, mutpb, ngen, stats, history):
         # Apply crossover on the offspring
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < cxpb:
-                toolbox.mate(child1, child2)
-                del child1.fitness.values
-                del child2.fitness.values
+                if not child1.fitness==child2.fitness:
+                    toolbox.mate(child1, child2)
+                    del child1.fitness.values
+                    del child2.fitness.values
 
         # Apply mutation on the offspring
         for mutant in offspring:
