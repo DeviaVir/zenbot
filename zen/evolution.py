@@ -59,6 +59,7 @@ def draw(history, toolbox):
     graph = networkx.DiGraph(history.genealogy_tree)
     graph = graph.reverse()     # Make the grah top-down
     colors = [toolbox.evaluate(history.genealogy_history[i])[0] for i in graph]
+    colors = [x for x in colors if x != -1000]
     positions = networkx.drawing.nx_agraph.graphviz_layout(graph, prog="dot")
 
     networkx.draw(graph, positions, node_color=colors,ax=ax.add_subplot(111),figsize=(30,30),node_size=150)
