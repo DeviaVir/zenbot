@@ -203,9 +203,12 @@ module.exports = function container(get, set, clear) {
           status: 'open',
           price: opts.price,
           size: opts.size,
-          post_only: (opts.order_type === 'maker' ? !!opts.post_only : false),
           created_at: new Date().getTime(),
           filled_size: '0'
+        }
+
+        if (opts.order_type === 'maker') {
+          order.post_only = !!opts.post_only
         }
 
         if (error) {
