@@ -206,13 +206,16 @@ zenbot trade --help
     -h, --help                      output usage information
     --conf <path>                   path to optional conf overrides file
     --strategy <name>               strategy to use
+    --order_type <type>             order type to use (maker/taker)
     --paper                         use paper trading mode (no real trades will take place)
     --currency_capital <amount>     for paper trading, amount of start capital in currency
     --asset_capital <amount>        for paper trading, amount of start capital in asset
+    --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
     --buy_pct <pct>                 buy with this % of currency balance
     --sell_pct <pct>                sell with this % of asset balance
     --markup_pct <pct>              % to mark up or down ask/bid price
     --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
+    --order_poll_time <ms>          poll order status on this interval
     --sell_stop_pct <pct>           sell if price drops below this % of bought price
     --buy_stop_pct <pct>            buy if price surges above this % of sold price
     --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
@@ -245,6 +248,15 @@ macd
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+sar
+  description:
+    Parabolic SAR
+  options:
+    --period=<value>  period length (default: 1m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --sar_af=<value>  acceleration factor for parabolic SAR (default: 0.025)
+    --sar_max_af=<value>  max acceleration factor for parabolic SAR (default: 0.55)
 
 trend_ema (default)
   description:
@@ -318,6 +330,14 @@ The moving average convergence divergence calculation is a lagging indicator, us
 - It's not firing multiple 'buy' or 'sold' signals, only one per trend, which seems to lead to a better quality trading scheme.
 - Especially when the bot will enter in the middle of a trend, it avoids buying unless it's the beginning of the trend.
 
+### About the sar strategy
+
+Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:parabolic_sar) indicator to trade when SAR trend reverses.
+
+- Most effective with short period (default is 1m), which means it generates 150-200 trades/day, so only usable on GDAX (with 0% maker fee) at the moment.
+- Sim/paper results are better than live results, since slippage is not modelled accurately yet.
+- Tested live, [results here](https://github.com/carlos8f/zenbot/pull/246#issuecomment-307528347)
+
 ### Option tweaking tips
 
 - Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=5m` or `--trend_ema=15` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema` or increasing `neutral_rate`.
@@ -325,6 +345,7 @@ The moving average convergence divergence calculation is a lagging indicator, us
 - `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss of the price continues to fall.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However in strong, long uptrends this option may end up causing a sell too early.
 - As of v4.0.5, the `--neutral_rate=auto` filter is disabled, which is currently producing better results with the new default 10m period. Some coins may benefit from `--neutral_rate=auto` though, try simulating with and without it.
+- For Kraken and GDAX you may wish to use `--order_type="taker"`, this uses market orders instead of limit orders. You usually pay a higher fee, but you can be sure that your order is filled instantly. This means that the sim will more closely match your live trading. Please note that GDAX does not charge maker fees (limit orders), so you will need to choose between not paying fees and running the risk orders do not get filled on time, or paying somewhat high % of fees and making sure your orders are always filled on time.
 
 ## Manual trade tools
 

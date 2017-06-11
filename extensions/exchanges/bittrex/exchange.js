@@ -217,18 +217,18 @@ module.exports = function container(get, set, clear) {
       }
 
       if (type === 'buy') {
-        if (opts.order_type === 'limit') {
+        if (opts.order_type === 'maker') {
           bittrex_authed.buylimit(params, fn)
         }
-        if (opts.order_type === 'market') {
+        if (opts.order_type === 'taker') {
           bittrex_authed.buymarket(params, fn)
         }
       } 
       if (type === 'sell') {
-        if (opts.order_type === 'limit') {
+        if (opts.order_type === 'maker') {
           bittrex_authed.selllimit(params, fn)
         }
-        if (opts.order_type === 'market') {
+        if (opts.order_type === 'taker') {
           bittrex_authed.sellmarket(params, fn)
         }
       }
