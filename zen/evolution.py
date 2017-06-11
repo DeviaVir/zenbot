@@ -65,7 +65,7 @@ def evolve(evaluate, length_of_individual, cxpb=0.1, mutpb=0.1, ngen=1000):
     toolbox = base.Toolbox()
     from scoop import futures
     toolbox.register("map", futures.map)
-    toolbox.register('select', partial(selTournament, tournsize=int(popsize * selectivity)))
+    toolbox.register('select', partial(ownSelect, tournsize=int(popsize * selectivity)))
     toolbox.register('mate', cxTwoPoint)
     toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.1))
     toolbox.register("individual", initRepeat, creator.Individual, initialize, n=length_of_individual)
