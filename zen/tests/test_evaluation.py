@@ -1,15 +1,13 @@
 from mock import patch, MagicMock
 
-from evaluation import evaluate_zen
+from evaluation import evaluate_zen, time_params
 from evolution import CmdIndividual
 
 
-def test_evaluate_zen_best():
-    with patch('evaluation.runzen',MagicMock(return_value='5')) as cmd:
-        res=evaluate_zen(CmdIndividual([1,2,3]),'asd','bsd')
-        assert res == (5.0,)
-        cmd.assert_called_with('bsd --sell_rate=0.03 --period=2m --sell_stop_pct=1.0')
-def test_evaluate_zen_not_best():
+def test_evaluate_zen():
     with patch('evaluation.runzen',MagicMock(return_value='-1001')) as cmd:
-        res=evaluate_zen([1,2,3],'asd','bsd')
-        cmd.assert_called_with('asd --sell_rate=0.03 --period=2m --sell_stop_pct=1.0')
+        res=evaluate_zen(CmdIndividual([1,2,3]),'asd',10)
+        cmd.assert_called_with('/app/zenbot.sh sim asd   --start=2017-06-08 --end=2017-06-11 --sell_rate=0.03 --period=2m --sell_stop_pct=1.0')
+def test_time_params():
+    res= time_params(120,4)
+    assert res ==[' --start=2017-02-11 --end=2017-03-13', ' --start=2017-03-13 --end=2017-04-12', ' --start=2017-04-12 --end=2017-05-12', ' --start=2017-05-12 --end=2017-06-11']

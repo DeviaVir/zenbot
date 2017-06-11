@@ -1,3 +1,6 @@
+import random
+
+
 def pct(x):
     return x / 100.0
 
@@ -19,3 +22,7 @@ args = {
     'profit_stop_pct':float,
     'sell_rate':pct,
 }
+partitions=3
+popsize=50
+selectivity = 0.43
+runid=random.randint(1000,9999)
