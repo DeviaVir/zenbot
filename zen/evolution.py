@@ -30,7 +30,7 @@ class CmdIndividual(list):
 creator.create("FitnessMax", base.Fitness, weights=(1,))
 creator.create("Individual", CmdIndividual, fitness=creator.FitnessMax)
 
-def evolve(evaluate, length_of_individual, cxpb=0.3, mutpb=0.9, ngen=50):
+def evolve(evaluate, length_of_individual, cxpb=0.3, mutpb=0.1, ngen=150):
     toolbox = base.Toolbox()
     try:
         from scoop import futures
@@ -40,7 +40,7 @@ def evolve(evaluate, length_of_individual, cxpb=0.3, mutpb=0.9, ngen=50):
         print("No scoop, running single core")
     toolbox.register('select', partial(selTournament, tournsize=5))
     toolbox.register('mate', cxTwoPoint)
-    toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.9))
+    toolbox.register('mutate', partial(mutGaussian, mu=0, sigma=20, indpb=0.5))
     toolbox.register("individual", initRepeat, creator.Individual, initialize, n=length_of_individual)
 
     toolbox.register('evaluate', evaluate)
