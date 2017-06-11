@@ -105,7 +105,7 @@ npm install
 
 With Docker:
 
-'```
+```
 git pull
 docker-compose down
 docker rmi zenbot_server
