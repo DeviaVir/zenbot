@@ -54,9 +54,11 @@ module.exports = function container (get, set, clear) {
             s.sar_ep = s.period.low
             s.sar_af = s.options.sar_af
           }
-          else if (s.period.low < s.sar_ep && s.sar_af < s.options.sar_max_af) {
+          else if (s.period.low < s.sar_ep) {
             s.sar_ep = s.period.low
-            s.sar_af += s.options.sar_af
+            if (s.sar_af < s.options.sar_max_af) {
+              s.sar_af += s.options.sar_af
+            }
           }
         }
         else if (s.trend === 'up') {
@@ -66,9 +68,11 @@ module.exports = function container (get, set, clear) {
             s.sar_ep = s.period.high
             s.sar_af = s.options.sar_af
           }
-          else if (s.period.high > s.sar_ep && s.sar_af < s.options.sar_max_af) {
+          else if (s.period.high > s.sar_ep) {
             s.sar_ep = s.period.high
-            s.sar_af += s.options.sar_af
+            if (s.sar_af < s.options.sar_max_af) {
+              s.sar_af += s.options.sar_af
+            }
           }
         }
       }
