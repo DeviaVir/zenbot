@@ -66,6 +66,7 @@ module.exports = function container (get, set, clear) {
             var opts = {product_id: product_id}
             if (mode === 'backward') {
               opts.to = marker.from
+              // bitfinex v2 api required timestamp
               if (exchange_id === 'bitfinex' && !marker.from){
                  opts.to = new Date().getTime()
               }
@@ -76,6 +77,7 @@ module.exports = function container (get, set, clear) {
             }
             last_batch_opts = opts
             var tradeFunc = 'getTrades'
+            // for bitfinex v2 api for support historical api 
             if (exchange_id === 'bitfinex'){
               tradeFunc = 'getTrades2'
             }
