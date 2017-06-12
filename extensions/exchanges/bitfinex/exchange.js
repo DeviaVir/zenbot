@@ -22,7 +22,8 @@ module.exports = function container (get, set, clear) {
   }
   return authed_client
   }
-
+  
+  // v2 instance
   function publicClient2 () {
     if (!public_client2) public_client2 = new BFX(null,null, {version: 2, transform:true}).rest
     return public_client2
@@ -32,12 +33,13 @@ module.exports = function container (get, set, clear) {
     return product_id.split('-')[0] + '' + product_id.split('-')[1]
   }
 
+  // symbol for v2 
   function joinProduct2 (product_id) {
     return 't' + product_id.split('-')[0] + '' + product_id.split('-')[1]
   }
 
   function retry (method, args) {
-    if (method !== 'getTrades') {
+    if (method !== 'getTrades' &&  method !== 'getTrades2') {
       console.error(('\nBitfinex API is down! unable to call ' + method + ', retrying in 10s').red)
     }
     setTimeout(function () {
@@ -88,25 +90,29 @@ module.exports = function container (get, set, clear) {
       var symbol = joinProduct2(opts.product_id)
       var args = {}
       args.sort = 1
+      // v2 limit is 1000
       args.limit = 1000
       if (opts.from) {
+        // initial value is null
         args.start = opts.from
       }
       if (opts.to) {
+        // started point
         args.end = opts.to
       }
       if (args.start && !args.end) {
-        // add 2 hours
+        // add 500000ms because limit is 1000
         args.end = args.start + 500000
       }
       else if (args.end && !args.start) {
-        // subtract 2 hours
+        // used mainly on backward mode
+        // subtract 500000ms because limit is 1000
         args.start = args.end - 500000
       }
       var query = encodeQueryData(args)
                                                         
       client.makePublicRequest('trades/'+symbol+'/hist/?'+query, function (err, body) {
-      if (err) return retry('getTrades', func_args, err)
+      if (err) return retry('getTrades2', func_args, err)
         var trades = body.map(function(trade) {
           return {
             trade_id: trade.ID,
