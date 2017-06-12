@@ -186,7 +186,7 @@ module.exports = function container(get, set, clear) {
       var params = {
         pair: joinProduct(opts.product_id),
         type: type,
-        ordertype: (opts.order_type === 'maker' ? 'limit' : 'market'),
+        ordertype: (opts.order_type === 'taker' ? 'market' : 'limit'),
         volume: opts.size,
         trading_agreement: c.kraken.tosagree
       }
