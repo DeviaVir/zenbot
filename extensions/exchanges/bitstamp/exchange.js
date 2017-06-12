@@ -20,7 +20,7 @@ var wsOpts = {
 // before the first call for a trade
 // As zenbot dont returns the currency pair
 // before the first trade is requested
-// it ha ben neccessary to get it from 
+// it has been neccessary to get it from 
 // the command line arguments
 args.forEach(function(value) {
   if (value.match(/bitstamp|BITSTAMP/)) {
@@ -68,64 +68,63 @@ module.exports = function container (get, set, clear) {
     throw new Error('\nPlease configure your Bitstamp credentials in ' + path.resolve(__dirname, 'conf.js'))
   }
 
-//***************************************************
-//
-//  The websocket functions
-//
-var BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52'
+  //***************************************************
+  //
+  //  The websocket functions
+  //
+  var BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52'
 
-var Bitstamp_WS = function(opts) {
-  if (opts) {
-    this.opts = opts
+  var Bitstamp_WS = function(opts) {
+    if (opts) {
+      this.opts = opts
+    } else {
+      this.opts = {
+        encrypted: true,
+      }  
+    }
+
+    this.client = new Pusher(BITSTAMP_PUSHER_KEY, {
+      encrypted: this.opts.encrypted
+      //encrypted: true
+    })
+
+    // bitstamp publishes all data over just 2 channels
+    // make sure we only subscribe to each channel once
+    this.bound = {
+      trade: false,
+      data: false
+    }
+
+    this.subscribe()
   }
-  else {
-    this.opts = {
-      encrypted: true,
+
+  var util = require('util')
+  var EventEmitter = require('events').EventEmitter
+  util.inherits(Bitstamp_WS, EventEmitter)
+
+
+  Bitstamp_WS.prototype.subscribe = function() {
+  //console.log('wsOpts ==> ', wsOpts)
+    if (wsOpts.pairOk) {
+      this.client.subscribe(wsOpts.trades.channel)
+      this.client.bind(wsOpts.trades.evType, this.broadcast(wsOpts.trades.evType))
+      this.client.subscribe(wsOpts.quotes.channel)
+      this.client.bind(wsOpts.quotes.evType, this.broadcast(wsOpts.quotes.evType))
     }
   }
 
-  this.client = new Pusher(BITSTAMP_PUSHER_KEY, {
-      encrypted: this.opts.encrypted
-      //encrypted: true
-  })
+  Bitstamp_WS.prototype.broadcast = function(name) {
+    if(this.bound[name])
+      return function noop() {}
+    this.bound[name] = true
 
-  // bitstamp publishes all data over just 2 channels
-  // make sure we only subscribe to each channel once
-  this.bound = {
-    trade: false,
-    data: false
+    return function(e) {
+      this.emit(name, e)
+    }.bind(this)
   }
-
-  this.subscribe()
-}
-
-var util = require('util')
-var EventEmitter = require('events').EventEmitter
-util.inherits(Bitstamp_WS, EventEmitter)
-
-
-Bitstamp_WS.prototype.subscribe = function() {
-//console.log('wsOpts ==> ', wsOpts)
-  if (wsOpts.pairOk) {
-    this.client.subscribe(wsOpts.trades.channel)
-    this.client.bind(wsOpts.trades.evType, this.broadcast(wsOpts.trades.evType))
-    this.client.subscribe(wsOpts.quotes.channel)
-    this.client.bind(wsOpts.quotes.evType, this.broadcast(wsOpts.quotes.evType))
-  }
-}
-
-Bitstamp_WS.prototype.broadcast = function(name) {
-  if(this.bound[name])
-    return function noop() {}
-  this.bound[name] = true
-
-  return function(e) {
-    this.emit(name, e)
-  }.bind(this)
-}
   // Placeholders
-  wsquotes = {bid: 0, ask: 0}
-  wstrades =
+  var wsquotes = {bid: 0, ask: 0}
+  var wstrades =
   [
     {
       trade_id: 0,
@@ -136,36 +135,35 @@ Bitstamp_WS.prototype.broadcast = function(name) {
     } 
   ]
 
-var wsTrades = new Bitstamp_WS({
-  channel: wsOpts.trades.channel,
-  evType: 'trade'
-})
-
-var wsQuotes = new Bitstamp_WS({
-  channel: wsOpts.quotes.channel,
-  evType: 'data'
-})
-
-wsTrades.on('data', function(data) {
-  wsquotes = {
-    bid: data.bids[0][0],
-    ask: data.asks[0][0]
-  }
-})
-
-wsQuotes.on('trade', function(data) {
-  wstrades.push( {
-    trade_id: data.id,
-    time: Number(data.timestamp) * 1000,
-    size: data.amount,
-    price: data.price,
-    side: data.type === 0 ? 'buy' : 'sell'
+  var wsTrades = new Bitstamp_WS({
+    channel: wsOpts.trades.channel,
+    evType: 'trade'
   })
-  if (wstrades.length > 30) wstrades.splice(0,10)
-//  console.log('trades: ',wstrades)
-})
 
-//***************************************************
+  var wsQuotes = new Bitstamp_WS({
+    channel: wsOpts.quotes.channel,
+    evType: 'data'
+  })
+
+  wsTrades.on('data', function(data) {
+    wsquotes = {
+      bid: data.bids[0][0],
+      ask: data.asks[0][0]
+    }
+  })
+
+  wsQuotes.on('trade', function(data) {
+    wstrades.push( {
+      trade_id: data.id,
+      time: Number(data.timestamp) * 1000,
+      size: data.amount,
+      price: data.price,
+      side: data.type === 0 ? 'buy' : 'sell'
+    })
+    if (wstrades.length > 30) wstrades.splice(0,10)
+  })
+
+  //***************************************************
 
   function statusErr (err, body) {
     if (typeof body === 'undefined') {
@@ -253,7 +251,7 @@ wsQuotes.on('trade', function(data) {
       client.balance(null, function (err, body) {
         body = statusErr(err,body)
         var balance = {asset: 0, currency: 0}
-	balance.currency = body[opts.currency.toLowerCase() + '_available']
+        balance.currency = body[opts.currency.toLowerCase() + '_available']
         balance.asset = body[opts.asset.toLowerCase() + '_available']
 	balance.currency_hold = 0
 	balance.asset_hold = 0
@@ -282,7 +280,7 @@ wsQuotes.on('trade', function(data) {
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
       if (typeof opts.order_type === 'undefined' ) {
 	opts.order_type = 'maker'
-	}
+      }
       if (opts.order_type === 'maker') {
 	// Fix maker?
         client.buy(currencyPair, opts.size, opts.price, false, function (err, body) {
@@ -331,3 +329,4 @@ wsQuotes.on('trade', function(data) {
   }
   return exchange
 }
+
