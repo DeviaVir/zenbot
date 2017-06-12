@@ -9,7 +9,6 @@ module.exports = function container (get, set, clear) {
       .command('balance [selector]')
       .allowUnknownOption()
       .description('get asset and currency balance from the exchange')
-      //.option('--all', 'output all balances')
       .option('-c, --calculate_currency <calculate_currency>', 'show the full balance in another currency')
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
@@ -56,7 +55,6 @@ module.exports = function container (get, set, clear) {
             })
           })
         }
-
         balance()
       })
   }
