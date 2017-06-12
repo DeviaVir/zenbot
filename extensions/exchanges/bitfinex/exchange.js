@@ -169,8 +169,8 @@ module.exports = function container (get, set, clear) {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
-         opts.post_only = true
-       }
+        opts.post_only = true
+      }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
@@ -223,8 +223,8 @@ module.exports = function container (get, set, clear) {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
-         opts.post_only = true
-       }
+        opts.post_only = true
+      }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
