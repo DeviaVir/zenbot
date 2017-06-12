@@ -67,7 +67,7 @@ module.exports = function container (get, set, clear) {
         var engine = get('lib.engine')(s)
 
         var order_types = ['maker', 'taker']
-        if (!so.order_type in order_types) {
+        if (!so.order_type in order_types || !so.order_type) {
           so.order_type = 'maker'
         }
 
