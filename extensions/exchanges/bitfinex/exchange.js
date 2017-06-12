@@ -74,12 +74,12 @@ module.exports = function container (get, set, clear) {
         var balance = {asset: 0, currency: 0}
         var accounts = _(body).filter(function (body) { return body.type === c.bitfinex.wallet }).forEach(function (account) {
           if (account.currency.toUpperCase() === opts.currency) {
-            balance.currency = account.amount
-            balance.currency_hold = (account.amount - account.available)
+            balance.currency = n(account.amount).format('0.00000000')
+            balance.currency_hold = n(account.amount).subtract(account.available).format('0.00000000')
           }
           else if (account.currency.toUpperCase() === opts.asset) {
-            balance.asset = account.amount
-            balance.asset_hold = (account.amount - account.available)
+            balance.asset = n(account.amount).format('0.00000000')
+            balance.asset_hold = n(account.amount).subtract(account.available).format('0.00000000')
           }
         })
         cb(null, balance)
@@ -108,15 +108,15 @@ module.exports = function container (get, set, clear) {
     buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (typeof opts.type === 'undefined' && typeof opts.order_type === 'maker') {
+      if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
       }
-      else if (typeof opts.type === 'undefined' && typeof opts.order_type === 'taker') {
+      else if (c.order_type === 'taker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
-         opts.post_only = true
-       }
+        opts.post_only = true
+      }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
@@ -136,14 +136,17 @@ module.exports = function container (get, set, clear) {
         is_postonly
       }
       client.make_request('order/new', params, function (err, body) {
-        var order = {
-          id: body && body.is_live === true ? body.id : null,
-          status: 'open',
-          price: opts.price,
-          size: opts.size,
-          post_only: !!opts.post_only,
-          created_at: new Date().getTime(),
-          filled_size: '0'
+        if (body.is_live === true) {
+          var order = {
+            id: body.id,
+            status: 'open',
+            price: opts.price,
+            size: opts.size,
+            post_only: !!opts.post_only,
+            created_at: new Date().getTime(),
+            filled_size: '0',
+            ordertype: c.order_type
+          }
         }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
@@ -159,15 +162,15 @@ module.exports = function container (get, set, clear) {
     sell: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (typeof opts.type === 'undefined' && typeof opts.order_type === 'maker') {
+      if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
       }
-      else if (typeof opts.type === 'undefined' && typeof opts.order_type === 'taker') {
+      else if (c.order_type === 'taker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
-         opts.post_only = true
-       }
+        opts.post_only = true
+      }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
@@ -187,14 +190,17 @@ module.exports = function container (get, set, clear) {
         is_postonly
       }
       client.make_request('order/new', params, function (err, body) {
-        var order = {
-          id: body && body.is_live === true ? body.id : null,
-          status: 'open',
-          price: opts.price,
-          size: opts.size,
-          post_only: !!opts.post_only,
-          created_at: new Date().getTime(),
-          filled_size: '0'
+        if (body.is_live === true) {
+          var order = {
+            id: body.id,
+            status: 'open',
+            price: opts.price,
+            size: opts.size,
+            post_only: !!opts.post_only,
+            created_at: new Date().getTime(),
+            filled_size: '0',
+            ordertype: opts.order_type
+          }
         }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'

@@ -21,7 +21,10 @@ module.exports = function container(get, set, clear) {
 
   bittrex_authed.options({
     'apikey' : c.bittrex.key.trim(),
-    'apisecret' : c.bittrex.secret.trim()
+    'apisecret' : c.bittrex.secret.trim(),
+    'stream': false,
+    'cleartext': false,
+    'verbose': false
   })
 
   function joinProduct(product_id) {
@@ -116,13 +119,25 @@ module.exports = function container(get, set, clear) {
         }
         Object.keys(data.result).forEach(function (i) {
           var _balance = data.result[i]
-          if (_balance['Currency'] === opts.currency.toUpperCase()) {
-            balance.currency = n(_balance.Available).format('0.00000000'),
-              balance.currency_hold = 0
-          }
-          if (_balance['Currency'] === opts.asset.toUpperCase()) {
-            balance.asset = n(_balance.Available).format('0.00000000'),
-              balance.asset_hold = 0
+          // yes, currency and asset are turned around on purpose, their API is weird
+          if(opts.last_signal === 'buy') {
+            if (_balance['Currency'] === opts.currency.toUpperCase()) {
+              balance.currency = n(_balance.Available).format('0.00000000'),
+                balance.currency_hold = 0
+            }
+            if (_balance['Currency'] === opts.asset.toUpperCase()) {
+              balance.asset = n(_balance.Available).format('0.00000000'),
+                balance.asset_hold = 0
+            }
+          } else {
+            if (_balance['Currency'] === opts.currency.toUpperCase()) {
+              balance.asset = n(_balance.Available).format('0.00000000'),
+                balance.asset_hold = 0
+            }
+            if (_balance['Currency'] === opts.asset.toUpperCase()) {
+              balance.currency = n(_balance.Available).format('0.00000000'),
+                balance.currency_hold = 0
+            }
           }
         })
         cb(null, balance)
@@ -183,8 +198,8 @@ module.exports = function container(get, set, clear) {
         rate: opts.price
       }
 
-      if(!'order_type' in opts) {
-        opts.order_type = 'limit'
+      if(!'order_type' in opts || !opts.order_type) {
+        opts.order_type = 'maker'
       }
 
       var fn = function(data) {
