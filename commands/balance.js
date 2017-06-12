@@ -1,6 +1,7 @@
 var minimist = require('minimist')
   , n = require('numbro')
   , colors = require('colors')
+  , moment = require('moment')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -33,7 +34,8 @@ module.exports = function container (get, set, clear) {
             if (err) return cb(err)
             s.exchange.getQuote(s, function (err, quote) {
               if (err) throw err
-              var bal = (s.product_id + ' Asset: ').grey + balance.asset.white + ' Currency: '.grey + balance.currency.yellow + ' Total: '.grey + n(balance.asset).multiply(quote.ask).add(balance.currency).value().toString().yellow
+              var bal = moment().format('YYYY-MM-DD HH:mm:ss').bgBlue
+              bal += ' ' + (s.product_id + ' Asset: ').grey + balance.asset.white + ' Currency: '.grey + balance.currency.yellow + ' Total: '.grey + n(balance.asset).multiply(quote.ask).add(balance.currency).value().toString().yellow
               console.log(bal)
 
               if (so.calculate_currency) {
@@ -45,7 +47,6 @@ module.exports = function container (get, set, clear) {
                     var asset_total = balance.asset * asset_quote.bid
                     var currency_total = balance.currency * currency_quote.bid
                     console.log((so.calculate_currency + ': ').grey + (asset_total + currency_total))
-
                     process.exit()
                   })
                 })
