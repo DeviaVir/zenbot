@@ -53,6 +53,7 @@ module.exports = function container (get, set, clear) {
             s.signal = 'buy'
             s.sar_ep = s.period.low
             s.sar_af = s.options.sar_af
+            s.sar = Math.min(s.lookback[0].low, s.period.low, s.sar + (s.sar_af * (s.sar_ep - s.sar)))
           }
           else if (s.period.low < s.sar_ep) {
             s.sar_ep = s.period.low
@@ -67,6 +68,7 @@ module.exports = function container (get, set, clear) {
             s.signal = 'sell'
             s.sar_ep = s.period.high
             s.sar_af = s.options.sar_af
+            s.sar = Math.max(s.lookback[0].high, s.period.high, s.sar - (s.sar_af * (s.sar - s.sar_ep)))
           }
           else if (s.period.high > s.sar_ep) {
             s.sar_ep = s.period.high
