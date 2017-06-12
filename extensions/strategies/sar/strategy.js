@@ -75,6 +75,9 @@ module.exports = function container (get, set, clear) {
             }
           }
         }
+        if (!s.my_trades.length) {
+          s.signal = s.trend === 'up' ? 'buy' : 'sell'
+        }
       }
       cb()
     },
