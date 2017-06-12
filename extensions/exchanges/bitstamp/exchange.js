@@ -195,6 +195,10 @@ wsQuotes.on('trade', function(data) {
   }
 
   var exchange = {
+    name: 'bitstamp',
+    historyScan: false,
+    makerFee: 0.25,
+    takerFee: 0.25,
 
     getProducts: function (opts) {
       return require('./products.json')
@@ -276,11 +280,11 @@ wsQuotes.on('trade', function(data) {
     buy: function (opts, cb) {
       var client = authedClient()
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
-      if (typeof opts.type === 'undefined' ) {
-	opts.ordertype = 'limit'
+      if (typeof opts.order_type === 'undefined' ) {
+	opts.order_type = 'maker'
 	}
-      if (opts.ordertype === 'limit') {
-	// Fix limit_price?
+      if (opts.order_type === 'maker') {
+	// Fix maker?
         client.buy(currencyPair, opts.size, opts.price, false, function (err, body) {
           body = statusErr(err,body)
           cb(null, body)
@@ -296,10 +300,10 @@ wsQuotes.on('trade', function(data) {
     sell: function (opts, cb) {
       var client = authedClient()
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
-      if (typeof opts.ordertype === 'undefined' ) {
-	opts.ordertype = 'limit'
+      if (typeof opts.order_type === 'undefined' ) {
+	opts.order_type = 'maker'
       }
-      if (opts.ordertype === 'limit') {
+      if (opts.order_type === 'maker') {
         client.sell(currencyPair, opts.size, opts.price, false, function (err, body) {
           body = statusErr(err,body)
           cb(null, body)
