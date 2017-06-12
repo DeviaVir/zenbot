@@ -6,7 +6,7 @@ var _ = require('lodash')
 module.exports = function container (get, set, clear) {
   var c = get('conf')
 
-  var public_client, authed_client
+  var public_client, public_client2, authed_client
 
   function publicClient () {
     if (!public_client) public_client = new BFX(null,null, {version: 1}).rest
@@ -24,8 +24,8 @@ module.exports = function container (get, set, clear) {
   }
 
   function publicClient2 () {
-    if (!public_client) public_client = new BFX(null,null, {version: 2, transform:true}).rest
-    return public_client
+    if (!public_client2) public_client2 = new BFX(null,null, {version: 2, transform:true}).rest
+    return public_client2
   }
  
   function joinProduct (product_id) {
