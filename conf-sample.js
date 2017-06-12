@@ -52,6 +52,7 @@ c.bitfinex.secret = 'YOUR-SECRET'
 c.bitfinex.wallet = 'exchange'
 
 // to enable Bitfinex trading, enter your API credentials:
+c.bitstamp = {}
 c.bitstamp.key = 'YOUR-API-KEY'
 c.bitstamp.secret = 'YOUR-SECRET'
 // A client ID is required on Bitstamp
