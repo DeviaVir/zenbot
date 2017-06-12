@@ -65,7 +65,7 @@ module.exports = function container (get, set, clear) {
     if (c.bitstamp.key && c.bitstamp.key !== 'YOUR-API-KEY') {
       return new Bitstamp(c.bitstamp.key, c.bitstamp.secret, c.bitstamp.client_id)
     }
-    throw new Error('please configure your Bitstamp credentials in ' + path.resolve(__dirname, 'conf.js'))
+    throw new Error('\nPlease configure your Bitstamp credentials in ' + path.resolve(__dirname, 'conf.js'))
   }
 
 //***************************************************
@@ -176,7 +176,7 @@ wsQuotes.on('trade', function(data) {
       return ret
     } else { 
       if (body.error) {
-        var ret = new Error('Error: ' + body.error) 
+        var ret = new Error('\nError: ' + body.error) 
         return ret
       } else {
         return body 
@@ -187,11 +187,11 @@ wsQuotes.on('trade', function(data) {
   function retry (method, args) {
     var to = args.wait
     if (method !== 'getTrades') {
-      console.error(('\nBitstamp API is not answering! unable to call ' + method + ',OB retrying...').red)
+      console.error(('\nBitstamp API is not answering! unable to call ' + method + ',OB retrying in ' + args.wait + 's').red)
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, args.wait)
+    }, args.wait * 1000)
   }
 
   var exchange = {
@@ -215,7 +215,7 @@ wsQuotes.on('trade', function(data) {
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
 
       var args = {
-        wait: 2000,
+        wait: 2,   // Seconds
         product_id: wsOpts.currencyPair
       }
 
@@ -237,7 +237,7 @@ wsQuotes.on('trade', function(data) {
 
     getQuote: function (opts, cb) {
       var args = {
-        wait: 2000,
+        wait: 2,   // Seconds
         currencyPair: wsOpts.currencyPair
       }
       if (typeof wsquotes.bid == undefined) return retry('getQuote', args )
