@@ -32,5 +32,8 @@
     "sosa_mongo": "^1.0.3",
     "timebucket": "^0.4.0",
     "zero-fill": "^2.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0"
   }
 }
