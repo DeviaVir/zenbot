@@ -26,7 +26,7 @@ def evaluate_zen(ind, instrument, days):
         ind.cmdline = ' '.join([BASE_COMMAND]+[periods[0]] + params)
     except subprocess.CalledProcessError:
         print("\nillegal config")
-        fitness = [-1000 for _ in periods]
+        fitness = [-100 for _ in periods]
     sys.stdout.write('.')
     sys.stdout.flush()
     return tuple(fitness),' '.join([BASE_COMMAND] + params)
