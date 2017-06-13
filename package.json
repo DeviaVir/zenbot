@@ -27,6 +27,8 @@
     "run-series": "^1.1.4",
     "sosa_mongo": "^1.0.3",
     "timebucket": "^0.4.0",
-    "zero-fill": "^2.2.3"
+    "zero-fill": "^2.2.3",
+    "convnetjs": "^0.3.0",
+    "jsonfile": "^3.0.0"
   }
 }
