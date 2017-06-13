@@ -2,4 +2,4 @@ import math
 
 
 def obj(ind):
-    return min(ind.fitness.values)
+    return math.log(sum(math.exp(f) for f in ind.fitness.values))
