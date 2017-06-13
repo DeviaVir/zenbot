@@ -7,10 +7,10 @@ module.exports = function container (get, set, clear) {
     description: 'Parabolic SAR',
 
     getOptions: function () {
-      this.option('period', 'period length', String, '1m')
+      this.option('period', 'period length', String, '2m')
       this.option('min_periods', 'min. number of history periods', Number, 52)
-      this.option('sar_af', 'acceleration factor for parabolic SAR', Number, 0.025)
-      this.option('sar_max_af', 'max acceleration factor for parabolic SAR', Number, 0.55)
+      this.option('sar_af', 'acceleration factor for parabolic SAR', Number, 0.015)
+      this.option('sar_max_af', 'max acceleration factor for parabolic SAR', Number, 0.3)
     },
 
     calculate: function (s) {
@@ -48,28 +48,37 @@ module.exports = function container (get, set, clear) {
           s.sar = Math.max(s.lookback[1].high, s.lookback[0].high, s.sar - (s.sar_af * (s.sar - s.sar_ep)))
         }
         if (s.trend === 'down') {
-          if (s.period.high >= s.sar) {
+          if (s.period.high >= s.sar && s.period.close > s.lookback[0].close) {
             s.trend = 'up'
             s.signal = 'buy'
             s.sar_ep = s.period.low
             s.sar_af = s.options.sar_af
+            s.sar = Math.min(s.lookback[0].low, s.period.low, s.sar + (s.sar_af * (s.sar_ep - s.sar)))
           }
-          else if (s.period.low < s.sar_ep && s.sar_af < s.options.sar_max_af) {
+          else if (s.period.low < s.sar_ep) {
             s.sar_ep = s.period.low
-            s.sar_af += s.options.sar_af
+            if (s.sar_af < s.options.sar_max_af) {
+              s.sar_af += s.options.sar_af
+            }
           }
         }
         else if (s.trend === 'up') {
-          if (s.period.low <= s.sar) {
+          if (s.period.low <= s.sar && s.period.close < s.lookback[0].close) {
             s.trend = 'down'
             s.signal = 'sell'
             s.sar_ep = s.period.high
             s.sar_af = s.options.sar_af
+            s.sar = Math.max(s.lookback[0].high, s.period.high, s.sar - (s.sar_af * (s.sar - s.sar_ep)))
           }
-          else if (s.period.high > s.sar_ep && s.sar_af < s.options.sar_max_af) {
+          else if (s.period.high > s.sar_ep) {
             s.sar_ep = s.period.high
-            s.sar_af += s.options.sar_af
+            if (s.sar_af < s.options.sar_max_af) {
+              s.sar_af += s.options.sar_af
+            }
           }
+        }
+        if (!s.my_trades.length) {
+          s.signal = s.trend === 'up' ? 'buy' : 'sell'
         }
       }
       cb()
