@@ -99,3 +99,5 @@ c.symmetrical = false
 c.rsi_periods = 14
 // period to record balances for stats
 c.balance_snapshot_period = '15m'
+// avg. amount of slippage to apply to sim trades
+c.avg_slippage_pct = 0.045

@@ -6,11 +6,13 @@ var Gdax = require('gdax')
 module.exports = function container (get, set, clear) {
   var c = get('conf')
 
-  var public_client, authed_client
+  var public_client = {}, authed_client
 
   function publicClient (product_id) {
-    if (!public_client) public_client = new Gdax.PublicClient(product_id, c.gdax.apiURI)
-    return public_client
+    if (!public_client[product_id]) {
+      public_client[product_id] = new Gdax.PublicClient(product_id, c.gdax.apiURI)
+    }
+    return public_client[product_id]
   }
 
   function authedClient () {
