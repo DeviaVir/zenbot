@@ -3,3 +3,4 @@ numpy
 networkx
 matplotlib
 scoop
+names

@@ -1,6 +1,6 @@
 from mock import MagicMock
 
-from objective_function import obj
+from evolution.objective_function import obj
 
 
 def test_obj():

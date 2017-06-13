@@ -1,1 +1,3 @@
-{}
+{
+  "test_evolution.py::test_evolve": true
+}

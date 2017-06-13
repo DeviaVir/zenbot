@@ -1,5 +1,5 @@
 from conf import runid
-from objective_function import obj
+from evolution.objective_function import obj
 
 
 class ObjectiveFunctionHallOfFame(object):
@@ -19,7 +19,7 @@ class ObjectiveFunctionHallOfFame(object):
 
     def __repr__(self):
         header = ["Current Hall of Fame:"]
-        report = ["%s %s %s " % (ind.cmdline, ind.fitness.values, obj(ind)) for ind in self.inner]
+        report = ["%s %s %s " % (ind.cmdline, list(ind.fitness.values), ind.name) for ind in self.inner]
         return "\n".join(header + report)
 
     def persist(self):

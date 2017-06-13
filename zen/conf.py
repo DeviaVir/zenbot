@@ -23,8 +23,10 @@ args = {
     'sell_rate':pct,
 }
 partitions=3
-popsize=100
+popsize=8
 selectivity = 0.43
 runid=random.randint(1000,9999)
-SIGMA = 20
-INDPB  = 0.3
+sigma = 20
+indpb  = 0.3
+mutpb = 0.3
+cxpb = 0.3
