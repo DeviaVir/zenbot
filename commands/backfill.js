@@ -66,13 +66,22 @@ module.exports = function container (get, set, clear) {
             var opts = {product_id: product_id}
             if (mode === 'backward') {
               opts.to = marker.from
+              // bitfinex v2 api required timestamp
+              if (exchange_id === 'bitfinex' && !marker.from){
+                 opts.to = new Date().getTime()
+              }
             }
             else {
               if (marker.to) opts.from = marker.to + 1
               else opts.from = exchange.getCursor(start_time)
             }
             last_batch_opts = opts
-            exchange.getTrades(opts, function (err, trades) {
+            var tradeFunc = 'getTrades'
+            // for bitfinex v2 api for support historical api 
+            if (exchange_id === 'bitfinex'){
+              tradeFunc = 'getTrades2'
+            }
+            exchange[tradeFunc](opts, function (err, trades) {
               if (err) {
                 console.error('err backfilling selector: ' + selector)
                 console.error(err)
