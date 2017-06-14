@@ -266,8 +266,8 @@ trend_ema (default)
     --min_periods=<value>  min. number of history periods (default: 52)
     --trend_ema=<value>  number of periods for trend EMA (default: 20)
     --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
-    --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 20)
-    --oversold_rsi=<value>  buy when RSI reaches this value (default: 30)
+    --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
+    --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
 ```
 
 ### Conf/argument override files
