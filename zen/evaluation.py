@@ -89,7 +89,7 @@ class Andividual(Individual):
     def params(self):
         def format(key, value):
             if isinstance(value, float):
-                return f'--{key}={value:.2f}'
+                return f'--{key}={value:.4f}'
             else:
                 return f'--{key}={value}'
 
@@ -120,7 +120,9 @@ class Andividual(Individual):
             res = float(value)
         elif 'threshold' in param:
             res = float(value)
-        elif '_af' in param:
+        elif 'sar_af' == param:
+            res = value/1000.0
+        elif 'sar_max_af' == param:
             res = pct(value)
         else:
             raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py",'red'))

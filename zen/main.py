@@ -12,7 +12,7 @@ def main(instrument,days,partitions,strategy='trend_ema'):
     Andividual.mate = cxTwoPoint
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
     Individual = partial(Andividual,strategy=strategy,instrument=instrument)
-    res = evolve(evaluate, Individual)
+    res = evolve(evaluate, Individual,popsize)
     return res
 
 
