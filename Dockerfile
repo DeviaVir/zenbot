@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:boron
 
 ADD . /app
 WORKDIR /app
