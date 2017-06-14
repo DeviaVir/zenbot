@@ -2,9 +2,10 @@ import networkx as networkx
 import numpy
 from deap.tools import Statistics
 from matplotlib import pyplot as plt
+from termcolor import colored
 
 from conf import runid
-from evolution.objective_function import obj
+from objective_function import soft_maximum_worst_case
 
 
 def draw(history, toolbox):
@@ -14,7 +15,7 @@ def draw(history, toolbox):
     graph = networkx.DiGraph(history.genealogy_tree)
     graph = graph.reverse()  # Make the grah top-down
     colors_inds = (history.genealogy_history[i] for i in graph)
-    colors = [obj(ind) if ind.fitness.valid else -10 for ind in colors_inds]
+    colors = [soft_maximum_worst_case(ind) if ind.fitness.valid else -10 for ind in colors_inds]
 
     positions = networkx.drawing.nx_agraph.graphviz_layout(graph, prog="dot")
 
@@ -23,16 +24,16 @@ def draw(history, toolbox):
 
 
 def log_stuff(g, history, hof, population, stats, toolbox):
-    draw(history, toolbox)
+    # draw(history, toolbox)
     record = stats.compile(population)
     hof.update(population)
     hof.persist()
-    print('\nGeneration %s %s ' % (g, record))
-    print(hof)
+    print(colored(f'\nGeneration {g} {record}','green') )
+    # print(hof)
 
 
 def statsa():
-    stats = Statistics(key=lambda ind: obj(ind))
+    stats = Statistics(key=lambda ind: soft_maximum_worst_case(ind))
     stats.register("avg", numpy.mean)
     stats.register("std", numpy.std)
     stats.register("min", numpy.min)

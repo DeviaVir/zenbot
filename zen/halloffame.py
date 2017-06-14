@@ -1,15 +1,16 @@
+from operator import attrgetter
+
 from conf import runid
-from evolution.objective_function import obj
 
 
 class ObjectiveFunctionHallOfFame(object):
     def __init__(self, maxsize=30):
-        self.inner = []
+        self.inner = set()
         self.maxsize = maxsize
 
     def update(self, newpop):
-        self.inner = self.inner + [ind for ind in newpop if not any(ind == oldind for oldind in self.inner)]
-        self.inner = sorted(self.inner, key=obj, reverse=True)[:self.maxsize]
+        self.inner = self.inner.union(newpop)
+        self.inner = set(sorted(self.inner, key=attrgetter('objective'), reverse=True)[:self.maxsize])
 
     def __iter__(self):
         return iter(self.inner)
@@ -19,7 +20,7 @@ class ObjectiveFunctionHallOfFame(object):
 
     def __repr__(self):
         header = ["Current Hall of Fame:"]
-        report = ["%s %s %s " % (ind.cmdline, list(ind.fitness.values), ind.name) for ind in self.inner]
+        report = [f"{ind}" for ind in sorted(self.inner, key=attrgetter('objective'), reverse=True)]
         return "\n".join(header + report)
 
     def persist(self):

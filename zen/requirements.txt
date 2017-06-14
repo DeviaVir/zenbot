@@ -4,3 +4,5 @@ networkx
 matplotlib
 scoop
 names
+fabric3
+termcolor

@@ -1,53 +1,156 @@
 import datetime
 import os
+import random
 import shlex
 import subprocess
-
-from conf import args, partitions
-
 import sys
+
+from termcolor import colored
+
+from conf import partitions
+from evolution.individual import Individual
+from objective_function import soft_maximum_worst_case
 
 Y_M_D = "%Y-%m-%d"
 
 
+def pct(x):
+    return x / 100.0
 
 
-def evaluate_zen(ind, instrument, days):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} '.format(instrument=instrument)
-    periods =time_params(days, partitions)
-    kwargs = {param: fun(val) for (param, fun), val in zip(args.items(), ind)}
-    params = ['--' + key + '=' + str(value) for key, value in kwargs.items()]
+def minutes(x):
+    return str(int(x)) + 'm'
+
+
+def runzen(cmdline):
+    with open(os.devnull, 'w') as devnull:
+        a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
+    profit = a.split(b'}')[-1].splitlines()[3].split(b': ')[-1][:-1]
+    trades = parse_trades(a.split(b'}')[-1].splitlines()[4])
+    return profit, trades
+
+
+def evaluate_zen(ind, days):
+    periods = time_params(days, partitions)
     try:
-        fitness=[]
+        fitness = []
         for period in periods:
-            cmd = ' '.join([BASE_COMMAND] +[period]+ params)
+            cmd = ' '.join([ind.cmdline, period])
             output = runzen(cmd)
-            fitness.append(float(output))
-        ind.cmdline = ' '.join([BASE_COMMAND]+[periods[0]] + params)
+            fitness.append(float(output[0]) if float(output[1]) > 0.5 else -100)
     except subprocess.CalledProcessError:
-        print("\nillegal config")
         fitness = [-100 for _ in periods]
     sys.stdout.write('.')
     sys.stdout.flush()
-    return tuple(fitness),' '.join([BASE_COMMAND] + params)
+    return tuple(fitness)
 
 
 def time_params(days, partitions):
     now = datetime.datetime.now()
     delta = datetime.timedelta(days=days)
     splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
+
     def startend(start, end):
         return ' --start={start} --end={end}'.format(start=start.strftime(Y_M_D), end=end.strftime(Y_M_D))
+
     return [startend(start, end) for start, end in zip(splits, splits[1:])]
 
 
-def runzen(cmdline):
-    with open(os.devnull, 'w') as devnull:
-        a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
-    output = a.split('}')[-1].splitlines()[3].split(": ")[-1][:-1]
-    return output
+class Andividual(Individual):
+    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy={strategy}'
+
+    def __init__(self, *args, strategy, instrument, **kwargs):
+        super(Andividual, self).__init__(*args, **kwargs)
+        self.args = args_for_strategy(strategy)
+        self.instrument = instrument
+        self.strategy = strategy
+        for _ in self.args:
+            self.append(50 + (random.random() - 0.5) * 100)
+
+    def __repr__(self):
+        return colored(f"{self.cmdline}  {super(Andividual, self).__repr__()}",'grey')
+
+    @property
+    def objective(self):
+        return soft_maximum_worst_case(self)
+
+    def compress(self):
+        res = dict(zip(self.args, self))
+        period = res['period']
+        del res['period']
+        normalized = {param: self.normalize(value, period) if 'period' in param or param == 'trend_ema' else value for
+                      param, value in
+                      res.items()}
+        normalized['period'] = period
+        output = dict(self.convert(param, value) for param, value in normalized.items())
+        return output.items()
+
+    @property
+    def params(self):
+        def format(key, value):
+            if isinstance(value, float):
+                return f'--{key}={value:.2f}'
+            else:
+                return f'--{key}={value}'
+
+        params = [format(key, value) for key, value in self.compress()]
+        return params
+
+    @property
+    def cmdline(self):
+        base = self.BASE_COMMAND.format(instrument=self.instrument, strategy=self.strategy)
+        result = ' '.join([base] + self.params)
+        return result
+
+    def normalize(self, value, period):
+        return (value / period)
+
+    def convert(self, param, value):
+        if param == 'period':
+            res = minutes(value)
+        elif param == 'trend_ema':
+            res = int(value * 5)
+        elif 'period' in param:
+            res = int(value * 5)
+        elif 'pct' in param:
+            res = pct(value)
+        elif 'rate' in param:
+            res = pct(value)
+        elif 'rsi' in param:
+            res = float(value)
+        elif 'threshold' in param:
+            res = float(value)
+        elif '_af' in param:
+            res = pct(value)
+        else:
+            raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py",'red'))
+        return param, res
 
 
-def backfill( INSTRUMENT, TOTAL_DAYS):
+def parse_trades(stuff):
+    """
+    >>> parse_trades("1 trades over 17 days (avg 0.06 trades/day)")
+    '0.06'
+    :param stuff:
+    :return:
+    """
+    return stuff.split(b'avg')[-1].strip().split()[0]
+
+
+def backfill(INSTRUMENT, TOTAL_DAYS):
     cmdline = '/app/zenbot.sh backfill {instrument} --days={days}'.format(days=TOTAL_DAYS, instrument=INSTRUMENT)
     subprocess.check_output(shlex.split(cmdline))
+
+
+def args_for_strategy(strat):
+    available = subprocess.check_output(shlex.split('/app/zenbot.sh list-strategies'))
+    strats = [strat.strip() for strat in available.split(b'\n\n')]
+    groups = [group.splitlines() for group in strats]
+    output = {split[0].split()[0]: split[1:] for split in groups if split}
+    result = {strategy: [line.strip().strip(b'-').split(b'=')[0] for line in lines if b'--' in line] for strategy, lines
+              in
+              output.items()}
+    result = {key.decode(): [p.decode() for p in val] for key, val in result.items()}
+    result = {key: [p for p in val if not p == 'min_periods'] for key, val in result.items()}
+
+    return result[strat]
