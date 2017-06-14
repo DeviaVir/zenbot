@@ -26,7 +26,7 @@ module.exports = function container (get, set, clear) {
   function joinProduct (product_id) {
     return product_id.split('-')[0] + '' + product_id.split('-')[1]
   }
-
+/* Tested for one week. Did not see any reason to use this function. Otherwise it breaks something...
   function retry (method, args) {
     if (method !== 'getTrades') {
       console.error(('\nBitfinex API is down! unable to call ' + method + ', retrying in 10s').red)
@@ -35,7 +35,7 @@ module.exports = function container (get, set, clear) {
       exchange[method].apply(exchange, args)
     }, 10000)
   }
-
+*/
   var orders = {}
   var exchange = {
     name: 'bitfinex',
@@ -48,11 +48,12 @@ module.exports = function container (get, set, clear) {
     },
 
     getTrades: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var client = publicClient()
       var args = joinProduct(opts.product_id)
       client.trades(args, function (err, body) {
-        if (err) return retry('getTrades', func_args, err)
+//        if (err) return retry('getTrades', func_args, err)
+if (err) return(err)
         var trades = body.map(function(trade) {
           return {
             trade_id: trade.tid,
@@ -67,10 +68,11 @@ module.exports = function container (get, set, clear) {
     },
 
     getBalance: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.wallet_balances(function (err, body) {
-        if (err) return retry('getBalance', func_args, err)
+//        if (err) return retry('getBalance', func_args, err)
+        if (err) return(err)
         var balance = {asset: 0, currency: 0}
         var accounts = _(body).filter(function (body) { return body.type === c.bitfinex.wallet }).forEach(function (account) {
           if (account.currency.toUpperCase() === opts.currency) {
@@ -87,26 +89,28 @@ module.exports = function container (get, set, clear) {
     },
 
     getQuote: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.ticker(pair, function (err, body) {
-        if (err) return retry('getQuote', func_args, err)
+//        if (err) return retry('getQuote', func_args, err)
+if (err) return(err)
         cb(null, { bid : body.bid, ask : body.ask })
       })
     },
 
     cancelOrder: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
-        if (err) return retry('cancelOrder', func_args, err)
+//        if (err) return retry('cancelOrder', func_args, err)
+if (err) return(err)
         cb()
       })
     },
 
     buy: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var client = authedClient()
       if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
@@ -136,9 +140,10 @@ module.exports = function container (get, set, clear) {
         is_postonly
       }
       client.make_request('order/new', params, function (err, body) {
-        if (body.is_live === true) {
+                console.log(body)
+//        if (body && body.is_live === true) {
           var order = {
-            id: body.id,
+            id: body && body.is_live === true ? body.order_id : null,
             status: 'open',
             price: opts.price,
             size: opts.size,
@@ -147,20 +152,21 @@ module.exports = function container (get, set, clear) {
             filled_size: '0',
             ordertype: c.order_type
           }
-        }
+//        }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
           reject_reason: 'balance'
           return cb(null, order)
         }
-        if (err) return retry('buy', func_args, err)
+  //      if (err) return retry('buy', func_args, err)
+  if (err) return(err)
         orders['~' + body.id] = order
         cb(null, order)
       })
     },
 
     sell: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var client = authedClient()
       if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
@@ -190,39 +196,47 @@ module.exports = function container (get, set, clear) {
         is_postonly
       }
       client.make_request('order/new', params, function (err, body) {
-        if (body.is_live === true) {
-          var order = {
-            id: body.id,
-            status: 'open',
-            price: opts.price,
-            size: opts.size,
-            post_only: !!opts.post_only,
-            created_at: new Date().getTime(),
-            filled_size: '0',
-            ordertype: opts.order_type
-          }
+//        if (body && body.is_live === true) {
+        var order = {
+          id: body && body.is_live === true ? body.order_id : null,
+          status: 'open',
+          price: opts.price,
+          size: opts.size,
+          post_only: !!opts.post_only,
+          created_at: new Date().getTime(),
+          filled_size: '0',
+          ordertype: c.order_type
         }
+//        }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
           reject_reason: 'balance'
           return cb(null, order)
         }
-        if (err) return retry('sell', func_args, err)
+//        if (err) return retry('sell', func_args, err)
+if (err) return(err)
         orders['~' + body.id] = order
         cb(null, order)
       })
     },
 
     getOrder: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+//      var func_args = [].slice.call(arguments)
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.order_status(opts.order_id, function (err, body) {
-        if (err) return retry('getOrder', func_args, err)
+//        if (err) return retry('getOrder', func_args, err)
+if (err) return(err)
         if (!body.id) {
           return cb('Order not found')
         }
         if (body.is_cancelled  === true && body.is_live === false) {
+          order.status = 'rejected'
+          order.reject_reason = 'post only'
+          order.done_at = new Date().getTime()
+          return cb(null, order)
+        }
+        if (body.is_cancelled  === true && err.toString('Postonly Canceled')) {
           order.status = 'rejected'
           order.reject_reason = 'post only'
           order.done_at = new Date().getTime()
