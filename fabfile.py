@@ -12,7 +12,7 @@ def sim(instrument, days, popsize, strategy):
                       timestamp=datetime.datetime.now().strftime('%Y-%m-%d-%H-%M'))
         cmd = "cd zen && python -m scoop main.py {instrument} {days} {popsize} {strategy}".format(**params)
         total = '(nohup docker-compose exec -T server bash -c "{cmd}" > {instrument}_{strategy}_{days}_{popsize}_{timestamp}.out 2>&1 &) && sleep 1'.format(
-            cmd=cmd, **paramsn)
+            cmd=cmd, **params)
         print(total)
         run(total)
 
@@ -24,12 +24,14 @@ def remote(cmd,logfile):
         print(total)
         run(total)
 
-def backfill(TOTAL_DAYS):
+def backfill_remote(TOTAL_DAYS):
     products = ['gdax.BTC-EUR','gdax.BTC-USD','gdax.BTC-GBP']+['gdax.ETH-BTC','poloniex.ETH-BTC']
     for instrument in products:
         cmd = '/app/zenbot.sh backfill {instrument} --days {days}'.format(days=TOTAL_DAYS, instrument=instrument)
-        print(cmd)
-        cmdline = 'nohup {cmd}  >backfill_{instrument}.out &'.format(cmd=cmd,instrument=instrument)
-        local(cmdline)
+        remote(cmd,'backfill_'+instrument)
+def backfill_local(TOTAL_DAYS):
+    products = ['gdax.BTC-EUR','gdax.BTC-USD','gdax.BTC-GBP']+['gdax.ETH-BTC','poloniex.ETH-BTC']
+    for instrument in products:
+        cmd = '/app/zenbot.sh backfill {instrument} --days {days}'.format(days=TOTAL_DAYS, instrument=instrument)
+        local(cmd)
 
-    local('tail -f backfill*')
