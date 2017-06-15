@@ -1,9 +1,9 @@
-from evaluation import  args_for_strategy
+from evaluation import  args_for_strategy, parse_selectors
 from unittest.mock import patch
 
 
 def test_parse_strategies():
-    asd = '''
+    asd = b'''
 macd
   description:
     Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).
@@ -43,3 +43,28 @@ trend_ema (default)
 
     with patch('evaluation.subprocess.check_output',lambda *x,**y: asd):
         assert args_for_strategy('sar') == ['period', 'min_periods', 'sar_af', 'sar_max_af']
+
+
+
+
+def test_parse_selectors_BTC_ETH():
+    a=b'''bitfinex:
+  bitfinex.DSH-USD   (DSH/USD)
+  bitfinex.ETH-BTC   (ETH/BTC)
+  something.XETH-ZBTC   (ETH/BTC)
+  bitfinex.XMR-USD   (XMR/USD)
+'''
+    with patch('evaluation.subprocess.check_output',lambda *x,**y: a):
+        res = parse_selectors('ETH-BTC')
+        assert res ==['bitfinex.ETH-BTC','something.XETH-ZBTC']
+def test_parse_selectors_currency():
+    a=b'''bitfinex:
+  bitfinex.BTC-USD   (BTC/USD)
+  bitfinex.BTC-EUR   (BTC/EUR)
+  bitfinex.BTC-GBP   (BTC/GBP)
+  something.XBTC-ZJPY   (BTC/JPY)
+  bitfinex.XMR-USD   (XMR/USD)
+'''
+    with patch('evaluation.subprocess.check_output',lambda *x,**y: a):
+        res = parse_selectors('BTC-CUR')
+        assert res ==['bitfinex.BTC-USD','bitfinex.BTC-EUR','bitfinex.BTC-GBP','something.XBTC-ZJPY']

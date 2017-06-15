@@ -62,13 +62,17 @@ class Andividual(Individual):
     def __init__(self, *args, strategy, instrument, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(strategy)
-        self.instrument = instrument
+        self.instruments = parse_selectors(instrument)
         self.strategy = strategy
         for _ in self.args:
             self.append(50 + (random.random() - 0.5) * 100)
 
     def __repr__(self):
-        return colored(f"{self.cmdline}  {super(Andividual, self).__repr__()}",'grey')
+        return colored(f"{self.cmdline}  {super(Andividual, self).__repr__()}", 'grey')
+
+    @property
+    def instrument(self):
+        return random.choice(self.instruments)
 
     @property
     def objective(self):
@@ -100,6 +104,7 @@ class Andividual(Individual):
     def cmdline(self):
         base = self.BASE_COMMAND.format(instrument=self.instrument, strategy=self.strategy)
         result = ' '.join([base] + self.params)
+        print(result)
         return result
 
     def normalize(self, value, period):
@@ -121,11 +126,11 @@ class Andividual(Individual):
         elif 'threshold' in param:
             res = pct(value)
         elif 'sar_af' == param:
-            res = value/1000.0
+            res = value / 1000.0
         elif 'sar_max_af' == param:
             res = pct(value)
         else:
-            raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py",'red'))
+            raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py", 'red'))
         return param, res
 
 
@@ -137,11 +142,6 @@ def parse_trades(stuff):
     :return:
     """
     return stuff.split(b'avg')[-1].strip().split()[0]
-
-
-def backfill(INSTRUMENT, TOTAL_DAYS):
-    cmdline = '/app/zenbot.sh backfill {instrument} --days {days}'.format(days=TOTAL_DAYS, instrument=INSTRUMENT)
-    subprocess.check_output(shlex.split(cmdline))
 
 
 def args_for_strategy(strat):
@@ -156,3 +156,14 @@ def args_for_strategy(strat):
     result = {key: [p for p in val if not p == 'min_periods'] for key, val in result.items()}
 
     return result[strat]
+
+
+def parse_selectors(product):
+    currencies = ['USD', 'EUR', 'GBP']
+    real_stuff = [f'gdax.BTC-{currency}' for currency in currencies]
+    imaginary_stuff = ['poloniex.ETH-BTC','gdax.ETH-BTC']
+    if "BTC-CUR" in product:
+        return real_stuff
+    elif 'ETH-BTC' in product:
+        return imaginary_stuff
+    raise ValueError("Please specify either ETH-BTC or BTC-CUR")
