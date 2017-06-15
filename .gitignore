@@ -18,3 +18,7 @@ conf-*
 sim_result*
 *_test
 backtesting_*
+
+.ipynb_checkpoints
+data.csv
+value_net.json

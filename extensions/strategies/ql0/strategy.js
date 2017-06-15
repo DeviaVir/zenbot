@@ -2,7 +2,6 @@ var z = require('zero-fill')
   , n = require('numbro')
   , deepqlearn = require('../../../node_modules/convnetjs/build/deepqlearn.js')
   , convnetjs = require('convnetjs')
-  , reinforce = require('reinforcenode')
   , fs = require('fs')
 
 module.exports = function container (get, set, clear) {
@@ -42,6 +41,7 @@ module.exports = function container (get, set, clear) {
 
 
       this.option('hold', 'Hold', Number, 0)
+      this.option('model', 'Path to pre-trained model', String, null)
       this.option('order_finished', 'Indicator whether the order was finished', Boolean, true)
       this.option('last_action', 'Indicator whether the order was finished', String, null)
 
@@ -55,7 +55,7 @@ module.exports = function container (get, set, clear) {
       this.option('holding_currency', 'Holding currency indicator', Boolean, false)
       this.option('holding_assets', 'Holding assets indicator', Boolean, false)
       this.option('saved_since_ticker', 'Incremental ticker since last save', Number, 0)
-      this.option('save_every_x', 'Save every x tick', Number, 100)
+      this.option('save_every_x', 'Save every x tick', Number, 1000)
 
       //this.option('floor_coef', 'floor coefficient', Number, 0.75)
       //this.option('moon_coef', 'moon coefficient', Number, 1.05)
@@ -74,6 +74,15 @@ module.exports = function container (get, set, clear) {
 
 
     initialize: function(s){
+
+      function loadnet(brain, file) {
+        var dataNet = fs.readFileSync('value_net.json', 'utf8')
+        var j = JSON.parse(dataNet);
+        s.options.brain.value_net.fromJSON(j);
+        brain.learning = false; // stop learning
+      }
+
+
       // Your initialization goes here
       periodInMinutes = this.getPeriodInMinutes(s.options.period)
 
@@ -81,17 +90,24 @@ module.exports = function container (get, set, clear) {
       var layer_defs = [];
 
       //q-learning settings
-      var num_inputs = 27     //21
-      var num_actions = 2     // 3 possible actions (buy, sell, hold)
+      var num_inputs = 26
+      var num_actions = 3     // 3 possible actions (buy, sell, hold)
       var temporal_window = 1 // amount of temporal memory. 0 = agent lives in-the-moment :)
       var network_size = num_inputs*temporal_window + num_actions*temporal_window + num_inputs
 
+     layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
+     layer_defs.push({type:'fc', num_neurons: 200, activation:'relu'});
+     layer_defs.push({type:'fc', num_neurons: 100, activation:'relu'});
+     layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
+     layer_defs.push({type:'regression', num_neurons: num_actions});
 
+
+/*
       layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:network_size});
       layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
       layer_defs.push({type:'fc', num_neurons: 50, activation:'relu'});
       layer_defs.push({type:'regression', num_neurons: num_actions});
-
+*/
       // options for the Temporal Difference learner that trains the above net
       // by backpropping the temporal difference learning rule.
       var tdtrainer_options = {learning_rate:0.001, momentum:0.0, batch_size:64, l2_decay:0.01};
@@ -103,18 +119,21 @@ module.exports = function container (get, set, clear) {
       // number of examples in experience replay memory before we begin learning
       opt.start_learn_threshold = 1000;
       // gamma is a crucial parameter that controls how much plan-ahead the agent does. In [0,1]
-      opt.gamma = 0.7;
+      opt.gamma = 0.8;
       opt.learning_steps_total = 200000;
       // how many steps of the above to perform only random actions (in the beginning)?
       opt.learning_steps_burnin = 3000;
       opt.epsilon_min = 0.05;
-      opt.epsilon_test_time = 0.05;
+      opt.epsilon_test_time = 0.01;
       opt.layer_defs = layer_defs;
       opt.tdtrainer_options = tdtrainer_options;
 
       //s.brain = new deepqlearn.Brain(num_inputs, num_actions, opt)
       s.options.brain = new deepqlearn.Brain(num_inputs, num_actions, opt)
 
+      if(s.options.model){
+        loadnet(s.options.brain, s.options.model)
+      }
       /*
       let env = {};
       env.getNumStates = function() { return num_inputs; }
@@ -247,10 +266,10 @@ module.exports = function container (get, set, clear) {
         var profit = total_currency - s.options.previous_profit
         // TODO we can add also change from previous run
         s.options.previous_profit = total_currency
+        var binary_profit = profit > 0 ? 1 : 0
 
         console.log('\nprevious_profit: ', s.options.previous_profit, ', current_profit: ', profit, ', action:', s.action, ' last_signal: ', s.last_signal)
 
-        var binary_profit = profit > 0 ? 1 : 0
         return binary_profit
 
         // calculate profit
@@ -282,21 +301,8 @@ module.exports = function container (get, set, clear) {
       }
 
 
-      function loadnet(brain) {
-        fs.readFile('value_net.json', 'utf8', function (err,data) {
-          if (err) {
-            return console.log(err);
-          }
-          //console.log(data);
-          var j = JSON.parse(t);
-          brain.value_net.fromJSON(j);
-          //stoplearn(); // also stop learning
-          //gonormal();
-        });
-      }
-
       function addCustomStates(s, states){
-        /*var currentState = 0
+        var currentState = 0
         if(!s.action)
           currentState = 0
         else if (s.action === 'bought')
@@ -304,8 +310,8 @@ module.exports = function container (get, set, clear) {
         else if (s.action === 'sold')
           currentState = 2
 
-        states.push(currentState)
-        */
+        //states.push(currentState)
+
         states.push(s.in_preroll)
       }
 
@@ -363,16 +369,23 @@ module.exports = function container (get, set, clear) {
         savePeriodValues(s)
 
         // ***** Predict next state
-        //ar action = s.options.agent.act(states)
+        // var action = s.options.agent.act(states)
         var action = s.options.brain.forward(states);
         //console.log('signal:', action)
+/*
+        if(action === 0)
+          s.signal = null
+        else if (action === 1)
+          s.signal = 'buy'
+        else if (action === 2)
+          s.signal = 'sell'
+*/
 
         if(action === 0)
-          //s.signal = null
-        //else if (action === 1)
           s.signal = 'buy'
         else if (action === 1)
           s.signal = 'sell'
+
 
         console.log('\nsetting new action:', s.signal)
 

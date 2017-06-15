@@ -1,0 +1,3 @@
+[submodule "extensions/strategies/bumblebee"]
+	path = extensions/strategies/bumblebee
+	url = git@github.com:mkarpis/bumblebee.git

@@ -33,6 +33,6 @@
     "timebucket": "^0.4.0",
     "zero-fill": "^2.2.3",
     "convnetjs": "^0.3.0",
-    "reinforcenode": "^1.0.1"
+    "talib": "^1.0.1"
   }
 }
