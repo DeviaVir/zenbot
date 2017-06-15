@@ -51,13 +51,13 @@ def time_params(days, partitions):
     splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
 
     def startend(start, end):
-        return ' --start={start} --end={end}'.format(start=start.strftime(Y_M_D), end=end.strftime(Y_M_D))
+        return ' --start {start} --end {end}'.format(start=start.strftime(Y_M_D), end=end.strftime(Y_M_D))
 
     return [startend(start, end) for start, end in zip(splits, splits[1:])]
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy={strategy}'
+    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy}'
 
     def __init__(self, *args, strategy, instrument, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
@@ -89,9 +89,9 @@ class Andividual(Individual):
     def params(self):
         def format(key, value):
             if isinstance(value, float):
-                return f'--{key}={value:.4f}'
+                return f'--{key} {value:.4f}'
             else:
-                return f'--{key}={value}'
+                return f'--{key} {value}'
 
         params = [format(key, value) for key, value in self.compress()]
         return params
@@ -119,7 +119,7 @@ class Andividual(Individual):
         elif 'rsi' in param:
             res = float(value)
         elif 'threshold' in param:
-            res = float(value)
+            res = pct(value)
         elif 'sar_af' == param:
             res = value/1000.0
         elif 'sar_max_af' == param:
@@ -140,7 +140,7 @@ def parse_trades(stuff):
 
 
 def backfill(INSTRUMENT, TOTAL_DAYS):
-    cmdline = '/app/zenbot.sh backfill {instrument} --days={days}'.format(days=TOTAL_DAYS, instrument=INSTRUMENT)
+    cmdline = '/app/zenbot.sh backfill {instrument} --days {days}'.format(days=TOTAL_DAYS, instrument=INSTRUMENT)
     subprocess.check_output(shlex.split(cmdline))
 
 
