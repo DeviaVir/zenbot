@@ -104,7 +104,6 @@ class Andividual(Individual):
     def cmdline(self):
         base = self.BASE_COMMAND.format(instrument=self.instrument, strategy=self.strategy)
         result = ' '.join([base] + self.params)
-        print(result)
         return result
 
     def normalize(self, value, period):

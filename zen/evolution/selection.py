@@ -14,7 +14,7 @@ def harsh_winter(population: List[Individual], popsize: int) -> List[Individual]
     elitist_fraction = int(popsize * 0.2)
     elites = set(sorted(population, key=attrgetter('objective'), reverse=True)[:elitist_fraction])
     print(f"{len(elites)} Elites will survive, they're currently the strongest:")
-    for elite in elites:
+    for elite in sorted(elites,reverse=True):
         print(elite)
 
     specialist_fraction = int(popsize * 0.4 / partitions)
