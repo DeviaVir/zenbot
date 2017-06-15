@@ -4,6 +4,7 @@ import random
 import shlex
 import subprocess
 import sys
+from typing import List
 
 from termcolor import colored
 
@@ -30,7 +31,7 @@ def runzen(cmdline):
     return profit, trades
 
 
-def evaluate_zen(ind, days):
+def evaluate_zen(ind:Individual, days:int):
     periods = time_params(days, partitions)
     try:
         fitness = []
@@ -45,7 +46,7 @@ def evaluate_zen(ind, days):
     return tuple(fitness)
 
 
-def time_params(days, partitions):
+def time_params(days:int, partitions:int)->List[str]:
     now = datetime.datetime.now()
     delta = datetime.timedelta(days=days)
     splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
@@ -57,9 +58,9 @@ def time_params(days, partitions):
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy}'
+    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.4'
 
-    def __init__(self, *args, strategy, instrument, **kwargs):
+    def __init__(self, *args, strategy:str, instrument:str, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(strategy)
         self.instruments = parse_selectors(instrument)
@@ -90,7 +91,7 @@ class Andividual(Individual):
         return output.items()
 
     @property
-    def params(self):
+    def params(self)->List[str]:
         def format(key, value):
             if isinstance(value, float):
                 return f'--{key} {value:.4f}'
@@ -101,12 +102,12 @@ class Andividual(Individual):
         return params
 
     @property
-    def cmdline(self):
+    def cmdline(self) ->str:
         base = self.BASE_COMMAND.format(instrument=self.instrument, strategy=self.strategy)
         result = ' '.join([base] + self.params)
         return result
 
-    def normalize(self, value, period):
+    def normalize(self, value:float, period:int):
         return (value / period)
 
     def convert(self, param, value):
