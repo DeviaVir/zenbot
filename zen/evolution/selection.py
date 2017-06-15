@@ -30,7 +30,7 @@ def harsh_winter(population: List[Individual], popsize: int) -> List[Individual]
     print(f"Some other have fought their way through:")
     for r in rest[:5]:
         print(r)
-        print(colored('...','grey'))
+    print(colored('...','grey'))
     population = list(survivors) + rest
     return population
 
