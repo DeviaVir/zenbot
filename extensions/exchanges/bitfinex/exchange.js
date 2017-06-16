@@ -67,19 +67,18 @@ module.exports = function container (get, set, clear) {
     },
 
     getBalance: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.wallet_balances(function (err, body) {
-        if (err) return retry('getBalance', func_args, err)
+        if (err) return(err)
         var balance = {asset: 0, currency: 0}
         var accounts = _(body).filter(function (body) { return body.type === c.bitfinex.wallet }).forEach(function (account) {
           if (account.currency.toUpperCase() === opts.currency) {
-            balance.currency = account.amount
-            balance.currency_hold = (account.amount - account.available)
+            balance.currency = n(account.amount).format('0.00000000')
+            balance.currency_hold = n(account.amount).subtract(account.available).format('0.00000000')
           }
           else if (account.currency.toUpperCase() === opts.asset) {
-            balance.asset = account.amount
-            balance.asset_hold = (account.amount - account.available)
+            balance.asset = n(account.amount).format('0.00000000')
+            balance.asset_hold = n(account.amount).subtract(account.available).format('0.00000000')
           }
         })
         cb(null, balance)
@@ -97,26 +96,24 @@ module.exports = function container (get, set, clear) {
     },
 
     cancelOrder: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
-        if (err) return retry('cancelOrder', func_args, err)
+        if (err) return(err)
         cb()
       })
     },
 
     buy: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (typeof opts.type === 'undefined' && typeof opts.order_type === 'maker') {
+      if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
       }
-      else if (typeof opts.type === 'undefined' && typeof opts.order_type === 'taker') {
+      else if (c.order_type === 'taker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
-         opts.post_only = true
-       }
+        opts.post_only = true
+      }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
@@ -136,38 +133,38 @@ module.exports = function container (get, set, clear) {
         is_postonly
       }
       client.make_request('order/new', params, function (err, body) {
-        var order = {
-          id: body && body.is_live === true ? body.id : null,
-          status: 'open',
-          price: opts.price,
-          size: opts.size,
-          post_only: !!opts.post_only,
-          created_at: new Date().getTime(),
-          filled_size: '0'
-        }
+          var order = {
+            id: body && body.is_live === true ? body.order_id : null,
+            status: 'open',
+            price: opts.price,
+            size: opts.size,
+            post_only: !!opts.post_only,
+            created_at: new Date().getTime(),
+            filled_size: '0',
+            ordertype: c.order_type
+          }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
           reject_reason: 'balance'
           return cb(null, order)
         }
-        if (err) return retry('buy', func_args, err)
+        if (err) return(err)
         orders['~' + body.id] = order
         cb(null, order)
       })
     },
 
     sell: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if (typeof opts.type === 'undefined' && typeof opts.order_type === 'maker') {
+      if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
       }
-      else if (typeof opts.type === 'undefined' && typeof opts.order_type === 'taker') {
+      else if (c.order_type === 'taker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
-         opts.post_only = true
-       }
+        opts.post_only = true
+      }
       var symbol = joinProduct(opts.product_id)
       var amount = opts.size
       var price = opts.price
@@ -188,35 +185,40 @@ module.exports = function container (get, set, clear) {
       }
       client.make_request('order/new', params, function (err, body) {
         var order = {
-          id: body && body.is_live === true ? body.id : null,
+          id: body && body.is_live === true ? body.order_id : null,
           status: 'open',
           price: opts.price,
           size: opts.size,
           post_only: !!opts.post_only,
           created_at: new Date().getTime(),
-          filled_size: '0'
+          filled_size: '0',
+          ordertype: c.order_type
         }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
           reject_reason: 'balance'
           return cb(null, order)
         }
-        if (err) return retry('sell', func_args, err)
+        if (err) return(err)
         orders['~' + body.id] = order
         cb(null, order)
       })
     },
 
     getOrder: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
       var order = orders['~' + opts.order_id]
       var client = authedClient()
-      client.order_status(opts.order_id, function (err, body) {
-        if (err) return retry('getOrder', func_args, err)
+      client.order_status(opts.order_id, function (err, body) {if (err) return(err)
         if (!body.id) {
           return cb('Order not found')
         }
         if (body.is_cancelled  === true && body.is_live === false) {
+          order.status = 'rejected'
+          order.reject_reason = 'post only'
+          order.done_at = new Date().getTime()
+          return cb(null, order)
+        }
+        if (body.is_cancelled  === true && err.toString('Postonly Canceled')) {
           order.status = 'rejected'
           order.reject_reason = 'post only'
           order.done_at = new Date().getTime()
