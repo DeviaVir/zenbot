@@ -34,6 +34,7 @@
     "zero-fill": "^2.2.3",
     "convnetjs": "^0.3.0",
     "talib": "^1.0.1",
-    "regression": "^1.4.0"
+    "regression": "^1.4.0",
+    "stats-lite": "^2.0.4"
   }
 }
