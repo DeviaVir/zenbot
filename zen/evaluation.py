@@ -110,6 +110,8 @@ class Andividual(Individual):
     def convert(self, param, value):
         if param == 'period':
             res = minutes(value)
+        elif param == 'min_periods':
+            res = int(value * 30)
         elif param == 'trend_ema':
             res = int(value * 5)
         elif 'period' in param:

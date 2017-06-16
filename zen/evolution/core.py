@@ -33,18 +33,22 @@ def evaluate(population, toolbox):
 
 
 def breed(population):
+    print(colored(f"It's breeding season, we're expecting new members of the tribe.",'blue'))
     offspring = []
     while len(offspring) < len(population) * cxpb:
         parent1, parent2 = random.sample(population, 2)
         child1, child2 = parent1 + parent2
         offspring.append(child1)
         offspring.append(child2)
+    print(colored(len(offspring),'green')+colored(f" children have been born.",'blue'))
     return offspring
 
 
 def mutate(population):
+    print(colored(f"Radiation and toxic waste is causing mutations in the population...",'blue'))
     mutants = []
     for individual in population:
         if random.random() < mutpb:
             mutants.append(~individual)
+    print(colored(len(mutants),'green')+colored(f" individuals have mutated.",'blue'))
     return mutants

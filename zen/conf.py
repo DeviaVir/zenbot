@@ -3,7 +3,7 @@ import random
 
 
 
-partitions=3
+partitions=2
 selectivity = 0.2
 
 runid=random.randint(1000,9999)

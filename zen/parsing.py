@@ -21,6 +21,5 @@ def args_for_strategy(strat):
               in
               output.items()}
     result = {key.decode(): [p.decode() for p in val] for key, val in result.items()}
-    result = {key: [p for p in val if not p == 'min_periods'] for key, val in result.items()}
 
     return result[strat]
