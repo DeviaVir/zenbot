@@ -1,7 +1,10 @@
+import random
+
 from deap.base import Toolbox
 from deap.tools import History, Statistics
 from termcolor import colored
 
+from conf import cxpb, mutpb
 from .utils import log_stuff
 
 
@@ -28,3 +31,21 @@ def evaluate(population, toolbox):
     fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
     for ind, fit in zip(invalid_ind, fitnesses):
         ind.fitness.values = fit
+
+
+def breed(population):
+    offspring = []
+    while len(offspring) < len(population) * cxpb:
+        parent1, parent2 = random.sample(population, 2)
+        child1, child2 = parent1 + parent2
+        offspring.append(child1)
+        offspring.append(child2)
+    return offspring
+
+
+def mutate(population):
+    mutants = []
+    for individual in population:
+        if random.random() < mutpb:
+            mutants.append(~individual)
+    return mutants

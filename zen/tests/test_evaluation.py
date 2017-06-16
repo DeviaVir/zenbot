@@ -1,4 +1,5 @@
-from evaluation import  args_for_strategy, parse_selectors
+from evaluation import fuzz_product
+from parsing import args_for_strategy
 from unittest.mock import patch
 
 

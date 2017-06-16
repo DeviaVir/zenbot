@@ -9,8 +9,10 @@ from typing import List
 from termcolor import colored
 
 from conf import partitions
+from constants import Product, Selector
 from evolution.individual import Individual
 from objective_function import soft_maximum_worst_case
+from parsing import parse_trades, args_for_strategy
 
 Y_M_D = "%Y-%m-%d"
 
@@ -31,7 +33,7 @@ def runzen(cmdline):
     return profit, trades
 
 
-def evaluate_zen(ind:Individual, days:int):
+def evaluate_zen(ind: Individual, days: int):
     periods = time_params(days, partitions)
     try:
         fitness = []
@@ -46,24 +48,20 @@ def evaluate_zen(ind:Individual, days:int):
     return tuple(fitness)
 
 
-def time_params(days:int, partitions:int)->List[str]:
-    now = datetime.datetime.now()
+def time_params(days: int, partitions: int) -> List[str]:
+    now = datetime.date.today()
     delta = datetime.timedelta(days=days)
     splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
-
-    def startend(start, end):
-        return ' --start {start} --end {end}'.format(start=start.strftime(Y_M_D), end=end.strftime(Y_M_D))
-
-    return [startend(start, end) for start, end in zip(splits, splits[1:])]
+    return [f' --start {start)} --end {end}' for start, end in zip(splits, splits[1:])]
 
 
 class Andividual(Individual):
     BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.4'
 
-    def __init__(self, *args, strategy:str, instrument:str, **kwargs):
+    def __init__(self, *args, strategy: str, instrument: str, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(strategy)
-        self.instruments = parse_selectors(instrument)
+        self.instruments = fuzz_product(instrument)
         self.strategy = strategy
         for _ in self.args:
             self.append(50 + (random.random() - 0.5) * 100)
@@ -91,7 +89,7 @@ class Andividual(Individual):
         return output.items()
 
     @property
-    def params(self)->List[str]:
+    def params(self) -> List[str]:
         def format(key, value):
             if isinstance(value, float):
                 return f'--{key} {value:.4f}'
@@ -102,12 +100,12 @@ class Andividual(Individual):
         return params
 
     @property
-    def cmdline(self) ->str:
+    def cmdline(self) -> str:
         base = self.BASE_COMMAND.format(instrument=self.instrument, strategy=self.strategy)
         result = ' '.join([base] + self.params)
         return result
 
-    def normalize(self, value:float, period:int):
+    def normalize(self, value: float, period: int):
         return (value / period)
 
     def convert(self, param, value):
@@ -134,36 +132,11 @@ class Andividual(Individual):
         return param, res
 
 
-def parse_trades(stuff):
-    """
-    >>> parse_trades("1 trades over 17 days (avg 0.06 trades/day)")
-    '0.06'
-    :param stuff:
-    :return:
-    """
-    return stuff.split(b'avg')[-1].strip().split()[0]
-
-
-def args_for_strategy(strat):
-    available = subprocess.check_output(shlex.split('/app/zenbot.sh list-strategies'))
-    strats = [strat.strip() for strat in available.split(b'\n\n')]
-    groups = [group.splitlines() for group in strats]
-    output = {split[0].split()[0]: split[1:] for split in groups if split}
-    result = {strategy: [line.strip().strip(b'-').split(b'=')[0] for line in lines if b'--' in line] for strategy, lines
-              in
-              output.items()}
-    result = {key.decode(): [p.decode() for p in val] for key, val in result.items()}
-    result = {key: [p for p in val if not p == 'min_periods'] for key, val in result.items()}
-
-    return result[strat]
-
-
-def parse_selectors(product):
-    currencies = ['USD', 'EUR', 'GBP']
-    real_stuff = [f'gdax.BTC-{currency}' for currency in currencies]
-    imaginary_stuff = ['poloniex.ETH-BTC','gdax.ETH-BTC']
-    if "BTC-CUR" in product:
-        return real_stuff
-    elif 'ETH-BTC' in product:
-        return imaginary_stuff
-    raise ValueError("Please specify either ETH-BTC or BTC-CUR")
+def fuzz_product(product: Product) -> List[Selector]:
+    """ We want to run against multiple selectors for a product to reduce sampling error.
+    >>>fuzz_product('USD')"""
+    selectors = {
+        'BTC-CUR': ['gdax.BTC-USD', 'gdax.BTC-EUR', 'gdax.BTC-GBP'],
+        'ETH-BTC': ['poloniex.ETH-BTC', 'gdax.ETH-BTC']
+    }
+    return selectors[product]

@@ -2,7 +2,6 @@ from copy import deepcopy, copy
 
 import names
 from deap.base import Fitness
-from termcolor import colored
 
 from conf import partitions
 
@@ -18,12 +17,14 @@ class Individual(list):
     @property
     def objective(self):
         return sum(self)
+
     def __repr__(self):
         return f"{list(self.fitness.values)} {self.objective} {self.name}"
+
     def __init__(self, *args, **kwargs):
         self.name = names.get_full_name()
         self.fitness = FitnessMax()
-        res = super(Individual, self).__init__(*args, **kwargs)
+        super(Individual, self).__init__(*args, **kwargs)
 
     def __deepcopy__(self, memodict={}):
         obj = copy(self)
@@ -48,7 +49,7 @@ class Individual(list):
         return child1, child2
 
     def __invert__(self):
-        mutant = self.__class__.mutate(deepcopy(self))[0] #DON'T THINK ABOUT REMOVING THE ZERO
+        mutant = self.__class__.mutate(deepcopy(self))[0]  # DON'T THINK ABOUT REMOVING THE ZERO
         if False:
             print(f"\nMutating: with {self.__class__.mutate}")
             print(self)
