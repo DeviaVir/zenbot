@@ -14,7 +14,6 @@ from evolution.individual import Individual
 from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
 
-Y_M_D = "%Y-%m-%d"
 
 
 def pct(x):
@@ -52,7 +51,7 @@ def time_params(days: int, partitions: int) -> List[str]:
     now = datetime.date.today()
     delta = datetime.timedelta(days=days)
     splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
-    return [f' --start {start)} --end {end}' for start, end in zip(splits, splits[1:])]
+    return [f' --start {start} --end {end}' for start, end in zip(splits, splits[1:])]
 
 
 class Andividual(Individual):
