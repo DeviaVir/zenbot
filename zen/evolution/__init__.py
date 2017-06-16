@@ -14,7 +14,7 @@ def evolve(evaluate, Individual, popsize=10):
 
     toolbox = base.Toolbox()
     toolbox.register("map", futures.map)
-    toolbox.register('select', partial(harsh_winter,popsize=popsize))
+    toolbox.register('select', partial(harsh_winter,count=popsize))
     toolbox.register('breed', breed)
     toolbox.register('mutate', mutate)
     toolbox.register("individual", Individual)
