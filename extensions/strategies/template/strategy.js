@@ -4,7 +4,7 @@ var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'template-strategy',
-    description: 'Your awsome strategy description'
+    description: 'Your awsome strategy description',
 
 
     getOptions: function () {
@@ -21,6 +21,7 @@ module.exports = function container (get, set, clear) {
     initialize: function(s){
       // Your initialization goes here..
 
+      s.options.initialized = true
     },
 
 
