@@ -5,7 +5,7 @@ from typing import List, Iterable
 from termcolor import colored
 
 from conf import selectivity, partitions
-from evolution.individual import Individual
+from evolution.individual_base import Individual
 
 
 def harsh_winter(population: List[Individual], count: int) -> List[Individual]:

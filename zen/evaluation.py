@@ -10,7 +10,7 @@ from termcolor import colored
 
 from conf import partitions
 from constants import Product, Selector
-from evolution.individual import Individual
+from evolution.individual_base import Individual
 from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
 
