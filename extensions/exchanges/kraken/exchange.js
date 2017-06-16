@@ -9,6 +9,7 @@ module.exports = function container(get, set, clear) {
 
   var public_client, authed_client
   var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded)/)
+  var silencedRecoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT)/)
 
   function publicClient() {
     if (!public_client) {
@@ -39,7 +40,7 @@ module.exports = function container(get, set, clear) {
     }
 
     // silence common timeout errors
-    if (error.code !== 'ETIMEDOUT') {
+    if (!error.message.match(recoverableErrors)) {
       console.warn(('\nKraken API warning - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').yellow)
     }
     setTimeout(function () {
@@ -53,6 +54,7 @@ module.exports = function container(get, set, clear) {
     name: 'kraken',
     historyScan: 'forward',
     makerFee: 0.16,
+    takerFee: 0.26,
     // The limit for the public API is not documented, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
     backfillRateLimit: 1750,
 
@@ -184,11 +186,15 @@ module.exports = function container(get, set, clear) {
       var params = {
         pair: joinProduct(opts.product_id),
         type: type,
-        ordertype: 'limit',
-        price: opts.price,
+        ordertype: (opts.order_type === 'taker' ? 'market' : 'limit'),
         volume: opts.size,
-        trading_agreement: c.kraken.tosagree,
-        oflags: opts.post_only === true ? 'post' : undefined
+        trading_agreement: c.kraken.tosagree
+      }
+      if (opts.post_only === true && opts.order_type === 'limit') {
+        params.oflags = 'post'
+      }
+      if ('price' in opts) {
+        params.price = opts.price
       }
       client.api('AddOrder', params, function (error, data) {
         if (error && error.message.match(recoverableErrors)) {
@@ -200,9 +206,12 @@ module.exports = function container(get, set, clear) {
           status: 'open',
           price: opts.price,
           size: opts.size,
-          post_only: !!opts.post_only,
           created_at: new Date().getTime(),
           filled_size: '0'
+        }
+
+        if (opts.order_type === 'maker') {
+          order.post_only = !!opts.post_only
         }
 
         if (error) {

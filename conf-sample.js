@@ -27,6 +27,7 @@ c.gdax.passphrase = 'YOUR-PASSPHRASE'
 c.poloniex = {}
 c.poloniex.key = 'YOUR-API-KEY'
 c.poloniex.secret = 'YOUR-SECRET'
+// please note: poloniex does not support market orders via the API
 
 // to enable Kraken trading, enter your API credentials:
 c.kraken = {}
@@ -43,6 +44,12 @@ c.bittrex.secret = 'YOUR-SECRET'
 // please note that this might change in the future.
 // please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
 
+// to enable Bitfinex trading, enter your API credentials:
+c.bitfinex = {}
+c.bitfinex.key = 'YOUR-API-KEY'
+c.bitfinex.secret = 'YOUR-SECRET'
+// May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
+c.bitfinex.wallet = 'exchange'
 
 // Optional stop-order triggers:
 
@@ -73,6 +80,8 @@ c.order_poll_time = 5000
 c.wait_for_settlement = 5000
 // % to mark up or down price for orders
 c.markup_pct = 0
+// become a market taker (high fees) or a market maker (low fees)
+c.order_type = 'maker'
 
 // Misc options:
 
@@ -90,3 +99,5 @@ c.symmetrical = false
 c.rsi_periods = 14
 // period to record balances for stats
 c.balance_snapshot_period = '15m'
+// avg. amount of slippage to apply to sim trades
+c.avg_slippage_pct = 0.045

@@ -43,6 +43,7 @@ module.exports = function container (get, set, clear) {
     name: 'poloniex',
     historyScan: 'backward',
     makerFee: 0.15,
+    takerFee: 0.25,
 
     getProducts: function () {
       return require('./products.json')

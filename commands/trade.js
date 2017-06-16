@@ -16,9 +16,11 @@ module.exports = function container (get, set, clear) {
       .description('run trading bot against live market data')
       .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
+      .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, c.asset_capital)
+      .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, c.avg_slippage_pct)
       .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
       .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, c.sell_pct)
       .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
@@ -36,7 +38,8 @@ module.exports = function container (get, set, clear) {
       .option('--reset_profit', 'start new profit calculation from 0')
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
-        var s = {options: minimist(process.argv)}
+        var raw_opts = minimist(process.argv)
+        var s = {options: JSON.parse(JSON.stringify(raw_opts))}
         var so = s.options
         delete so._
         Object.keys(c).forEach(function (k) {
@@ -62,6 +65,11 @@ module.exports = function container (get, set, clear) {
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
+
+        var order_types = ['maker', 'taker']
+        if (!so.order_type in order_types || !so.order_type) {
+          so.order_type = 'maker'
+        }
 
         var db_cursor, trade_cursor
         var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()
@@ -132,9 +140,12 @@ module.exports = function container (get, set, clear) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
-                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !cmd.currency_capital && !cmd.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                         s.orig_capital = session.orig_capital = prev_session.orig_capital
                         s.orig_price = session.orig_price = prev_session.orig_price
+                        if (so.mode === 'paper') {
+                          s.balance = prev_session.balance
+                        }
                       }
                     }
                     lookback_size = s.lookback.length
@@ -177,7 +188,7 @@ module.exports = function container (get, set, clear) {
                 session.price = s.period.close
                 var d = tb().resize(c.balance_snapshot_period)
                 var b = {
-                  id: selector + '-' + d.toString(),
+                  id: so.selector + '-' + d.toString(),
                   selector: so.selector,
                   time: d.toMilliseconds(),
                   currency: s.balance.currency,

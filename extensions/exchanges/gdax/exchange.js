@@ -6,11 +6,13 @@ var Gdax = require('gdax')
 module.exports = function container (get, set, clear) {
   var c = get('conf')
 
-  var public_client, authed_client
+  var public_client = {}, authed_client
 
   function publicClient (product_id) {
-    if (!public_client) public_client = new Gdax.PublicClient(product_id, c.gdax.apiURI)
-    return public_client
+    if (!public_client[product_id]) {
+      public_client[product_id] = new Gdax.PublicClient(product_id, c.gdax.apiURI)
+    }
+    return public_client[product_id]
   }
 
   function authedClient () {
@@ -49,6 +51,7 @@ module.exports = function container (get, set, clear) {
     name: 'gdax',
     historyScan: 'backward',
     makerFee: 0,
+    takerFee: 0.3,
 
     getProducts: function () {
       return require('./products.json')
@@ -130,6 +133,11 @@ module.exports = function container (get, set, clear) {
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
+      if (opts.order_type === 'taker') {
+        delete opts.price
+        opts.type = 'market'
+      }
+      delete opts.order_type
       client.buy(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
           var order = {
@@ -151,6 +159,11 @@ module.exports = function container (get, set, clear) {
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
+      if (opts.order_type === 'taker') {
+        delete opts.price
+        opts.type = 'market'
+      }
+      delete opts.order_type
       client.sell(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
           var order = {

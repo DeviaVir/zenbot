@@ -10,6 +10,7 @@ module.exports = function container (get, set, clear) {
       .allowUnknownOption()
       .description('execute a sell order to the exchange')
       .option('--pct <pct>', 'sell with this % of currency balance', Number, c.sell_pct)
+      .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--size <size>', 'sell specific size of currency')
       .option('--markup_pct <pct>', '% to mark up ask price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust ask on this interval to keep order competitive', Number, c.order_adjust_time)
@@ -27,6 +28,10 @@ module.exports = function container (get, set, clear) {
         so.debug = cmd.debug
         so.sell_pct = cmd.pct
         so.selector = get('lib.normalize-selector')(selector || c.selector)
+        var order_types = ['maker', 'taker']
+        if (!so.order_type in order_types || !so.order_type) {
+          so.order_type = 'maker'
+        }
         so.mode = 'live'
         so.strategy = c.strategy
         so.stats = true
