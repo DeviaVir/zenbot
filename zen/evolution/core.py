@@ -1,6 +1,5 @@
 import random
 
-from deap.base import Toolbox
 from deap.tools import History, Statistics
 from termcolor import colored
 

@@ -3,11 +3,9 @@ from functools import partial
 from deap import base
 from deap.tools import History
 
-from evolution.breeding import breed
 from evolution.core import algorithm, breed, mutate
-from evolution.mutation import mutate
 from halloffame import ObjectiveFunctionHallOfFame
-from .selection import ownSelect, harsh_winter
+from .selection import harsh_winter
 from .utils import statsa
 from scoop import futures
 
