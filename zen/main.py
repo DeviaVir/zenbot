@@ -36,7 +36,7 @@ if __name__ == '__main__':
         strategy = sys.argv[4]
     except:
         strategy = 'trend_ema'
-    print(colored("MAKE SURE YOU RUN fab backfill:<days>", 'red'))
+    print(colored("MAKE SURE YOU RUN fab backfill_local:<days>", 'red'))
     print(colored("otherwise it's all crap", 'red'))
     res = main(INSTRUMENT, TOTAL_DAYS, popsize, strategy)
     print(res)
