@@ -7,10 +7,10 @@ module.exports = function container (get, set, clear) {
     description: 'Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.',
 
     getOptions: function () {
-      this.option('period', 'period length', String, '10m')
+      this.option('period', 'period length', String, '2m')
       this.option('min_periods', 'min. number of history periods', Number, 52)
-      this.option('trend_ema', 'number of periods for trend EMA', Number, 20)
-      this.option('neutral_rate', 'avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter)', Number, 0.06)
+      this.option('trend_ema', 'number of periods for trend EMA', Number, 14)
+      this.option('neutral_rate', 'avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter)', Number, 'auto')
       this.option('oversold_rsi_periods', 'number of periods for oversold RSI', Number, 14)
       this.option('oversold_rsi', 'buy when RSI reaches this value', Number, 10)
     },
