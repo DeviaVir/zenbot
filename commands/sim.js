@@ -95,6 +95,12 @@ module.exports = function container (get, set, clear) {
           })
           var options_json = JSON.stringify(options, null, 2)
           output_lines.push(options_json)
+          s.my_trades.push({
+            price: s.period.close,
+            size: s.balance.asset,
+            type: 'sell',
+            time: s.period.time
+          })
           s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           s.balance.asset = 0
           s.lookback.unshift(s.period)
@@ -108,26 +114,23 @@ module.exports = function container (get, set, clear) {
           var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
           output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
-          output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + (s.day_count ? n(s.my_trades.length / s.day_count).format('0.00') : 0) + ' trades/day)')
-          var last_buy, last_sell
-          var losses = 0
+          output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          var last_buy
+          var losses = 0, sells = 0
           s.my_trades.forEach(function (trade) {
             if (trade.type === 'buy') {
-              if (last_sell && trade.price > last_sell) {
-                losses++
-              }
               last_buy = trade.price
             }
             else {
               if (last_buy && trade.price < last_buy) {
                 losses++
               }
-              last_sell = trade.price
+              sells++
             }
           })
           if (s.my_trades.length) {
-            output_lines.push('win/loss: ' + (s.my_trades.length - losses) + '/' + losses)
-            output_lines.push('error rate: ' + n(losses).divide(s.my_trades.length).format('0.00%').yellow)
+            output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
+            output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
           }
           output_lines.forEach(function (line) {
             console.log(line)
