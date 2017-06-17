@@ -4,7 +4,7 @@ import random
 
 
 partitions=2
-selectivity = 0.2
+selectivity = 0.5
 
 runid=random.randint(1000,9999)
 sigma = 20

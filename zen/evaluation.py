@@ -55,7 +55,7 @@ def time_params(days: int, partitions: int) -> List[str]:
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.4'
+    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33'
 
     def __init__(self, *args, strategy: str, instrument: str, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
