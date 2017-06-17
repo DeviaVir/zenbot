@@ -262,10 +262,10 @@ trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
   options:
-    --period=<value>  period length (default: 10m)
+    --period=<value>  period length (default: 2m)
     --min_periods=<value>  min. number of history periods (default: 52)
-    --trend_ema=<value>  number of periods for trend EMA (default: 20)
-    --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: 0.06)
+    --trend_ema=<value>  number of periods for trend EMA (default: 14)
+    --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: auto)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
 ```
@@ -283,7 +283,7 @@ Where `<path>` points to a JS file that exports an object hash that overrides an
 ```
 var c = module.exports = {}
 
-// ETH settings
+// ETH settings (note: this is just an example, not necessarily recommended)
 c.selector = 'gdax.ETH-USD'
 c.period = '10m'
 c.trend_ema = 20
@@ -314,8 +314,8 @@ From left to right:
 ### About the ema_trend strategy (default)
 
 - The default strategy is called `trend_ema` and resides at `./extensions/strategies/trend_ema`.
-- Defaults to using a 10m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
-- Computes the 20-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
+- Defaults to using a 2m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
+- Computes the 14-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
 - Considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
 - Filters out low values (whipsaws) by `neutral_rate`, which when set to `auto`, uses the standard deviation of the `trend_ema_rate` as a variable noise filter.
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
@@ -344,7 +344,6 @@ Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:te
 - Sometimes it's tempting to tell the bot trade very often. Try to resist this urge, and go for quality over quantity, since each trade comes with a decent amount of slippage and whipsaw risk.
 - `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss of the price continues to fall.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However in strong, long uptrends this option may end up causing a sell too early.
-- As of v4.0.5, the `--neutral_rate=auto` filter is disabled, which is currently producing better results with the new default 10m period. Some coins may benefit from `--neutral_rate=auto` though, try simulating with and without it.
 - For Kraken and GDAX you may wish to use `--order_type="taker"`, this uses market orders instead of limit orders. You usually pay a higher fee, but you can be sure that your order is filled instantly. This means that the sim will more closely match your live trading. Please note that GDAX does not charge maker fees (limit orders), so you will need to choose between not paying fees and running the risk orders do not get filled on time, or paying somewhat high % of fees and making sure your orders are always filled on time.
 
 ## Manual trade tools
