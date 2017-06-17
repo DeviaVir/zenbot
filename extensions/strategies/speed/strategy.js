@@ -4,7 +4,7 @@ var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'speed',
-    description: 'Trade when % change from last N periods reaches a dynamic threshold.',
+    description: 'Trade when % change from last N periods is higher than average.',
 
     getOptions: function () {
       this.option('period', 'period length', String, '1m')
