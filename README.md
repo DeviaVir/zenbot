@@ -258,6 +258,15 @@ sar
     --sar_af=<value>  acceleration factor for parabolic SAR (default: 0.025)
     --sar_max_af=<value>  max acceleration factor for parabolic SAR (default: 0.55)
 
+speed
+  description:
+    Trade when % change from last N periods is higher than average.
+  options:
+    --period=<value>  period length (default: 1m)
+    --min_periods=<value>  min. number of history periods (default: 3000)
+    --baseline_periods=<value>  lookback periods for volatility baseline (default: 3000)
+    --trigger_factor=<value>  multiply with volatility baseline EMA to get trigger value (default: 1.6)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -313,7 +322,8 @@ From left to right:
 
 ### About the ema_trend strategy (default)
 
-- The default strategy is called `trend_ema` and resides at `./extensions/strategies/trend_ema`.
+- Attempts to follow general, broad trends, ignoring small price jumps
+- Being an EMA-based strategy, signals can be late and highs and lows aren't very well captured
 - Defaults to using a 10m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
 - Computes the 20-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
 - Considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
@@ -334,9 +344,18 @@ The moving average convergence divergence calculation is a lagging indicator, us
 
 Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:parabolic_sar) indicator to trade when SAR trend reverses.
 
-- Most effective with short period (default is 1m), which means it generates 150-200 trades/day, so only usable on GDAX (with 0% maker fee) at the moment.
-- Sim/paper results are better than live results, since slippage is not modelled accurately yet.
+- Tends to generate earlier signals than EMA-based strategies, resulting in better capture of highs and lows, and better protection against quick price drops.
+- Does not perform well in sideways (non-trending) markets, generating more whipsaws than EMA-based strategies.
+- Most effective with short period (default is 2m), which means it generates 50-100 trades/day, so only usable on GDAX (with 0% maker fee) at the moment.
 - Tested live, [results here](https://github.com/carlos8f/zenbot/pull/246#issuecomment-307528347)
+
+### About the speed strategy
+
+Trade when % change from last two 1m periods is higher than average.
+
+- Like the sar strategy, this generates early signals and is effective in volatile markets and for price drop protection.
+- Trades less frequently when volatility drops, resulting in better performance in sideways markets than sar.
+- Its weakness is that sometimes it misses signals from gradually developing trends.
 
 ### Option tweaking tips
 
