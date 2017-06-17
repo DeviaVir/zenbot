@@ -353,9 +353,10 @@ Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:te
 
 Trade when % change from last two 1m periods is higher than average.
 
-- Like the sar strategy, this generates early signals and is effective in volatile markets and for price drop protection.
-- Trades less frequently when volatility drops, resulting in better performance in sideways markets than sar.
-- Its weakness is that sometimes it misses signals from gradually developing trends.
+**This strategy is experimental and has WILDLY varying sim results. NOT RECOMMENDED.**
+
+- Like the sar strategy, this generates early signals and can be effective in volatile markets and for sudden price drop protection.
+- Its weakness is that it performs very poorly in low-volatility situations and misses signals from gradually developing trends.
 
 ### Option tweaking tips
 
