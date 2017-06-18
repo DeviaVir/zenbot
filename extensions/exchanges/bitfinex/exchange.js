@@ -105,10 +105,10 @@ module.exports = function container (get, set, clear) {
 
     buy: function (opts, cb) {
       var client = authedClient()
-      if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
+      if (opts.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
       }
-      else if (c.order_type === 'taker' && typeof opts.type === 'undefined') {
+      else if (opts.order_type === 'taker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
@@ -141,7 +141,7 @@ module.exports = function container (get, set, clear) {
             post_only: !!opts.post_only,
             created_at: new Date().getTime(),
             filled_size: '0',
-            ordertype: c.order_type
+            ordertype: opts.order_type
           }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
@@ -156,10 +156,10 @@ module.exports = function container (get, set, clear) {
 
     sell: function (opts, cb) {
       var client = authedClient()
-      if (c.order_type === 'maker' && typeof opts.type === 'undefined') {
+      if (opts.order_type === 'maker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange limit'
       }
-      else if (c.order_type === 'taker' && typeof opts.type === 'undefined') {
+      else if (opts.order_type === 'taker' && typeof opts.type === 'undefined') {
         opts.type = 'exchange market'
       }
       if (typeof opts.post_only === 'undefined') {
@@ -192,7 +192,7 @@ module.exports = function container (get, set, clear) {
           post_only: !!opts.post_only,
           created_at: new Date().getTime(),
           filled_size: '0',
-          ordertype: c.order_type
+          ordertype: opts.order_type
         }
         if (err && err.toString('Error: Invalid order: not enough exchange balance')) {
           status: 'rejected'
