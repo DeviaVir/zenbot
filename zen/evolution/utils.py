@@ -20,7 +20,7 @@ def draw(history, toolbox):
     positions = networkx.drawing.nx_agraph.graphviz_layout(graph, prog="dot")
 
     networkx.draw(graph, positions, node_color=colors, ax=ax.add_subplot(111), figsize=(30, 30), node_size=150)
-    ax.savefig('logs/history/{runid}.png'.format(runid=runid))
+    ax.savefig('../logs/history/{runid}.png'.format(runid=runid))
 
 
 def log_stuff(g, history, hof, population, stats, toolbox):

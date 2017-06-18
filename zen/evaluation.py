@@ -55,7 +55,7 @@ def time_params(days: int, partitions: int) -> List[str]:
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33'
+    BASE_COMMAND = '../zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.4'
 
     def __init__(self, *args, strategy: str, instrument: str, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
@@ -138,6 +138,6 @@ def fuzz_product(product: Product) -> List[Selector]:
     >>>fuzz_product('USD')"""
     selectors = {
         'BTC-CUR': ['gdax.BTC-USD', 'gdax.BTC-EUR', 'gdax.BTC-GBP'],
-        'ETH-BTC': ['poloniex.ETH-BTC', 'gdax.ETH-BTC']
+        'ETH-BTC': ['gdax.ETH-BTC']
     }
     return selectors[product]

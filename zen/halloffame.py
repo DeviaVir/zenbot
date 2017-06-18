@@ -24,5 +24,5 @@ class ObjectiveFunctionHallOfFame(object):
         return "\n".join(header + report)
 
     def persist(self):
-        with open('logs/hof/{runid}.txt'.format(runid=runid), 'w') as f:
+        with open('./logs/hof/{runid}.txt'.format(runid=runid), 'w') as f:
             f.write(str(self))
