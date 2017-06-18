@@ -157,7 +157,7 @@ module.exports = function container (get, set, clear) {
             .replace('{{output}}', html_output)
             .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
 
-          var out_target = so.filename || 'sim_result.html'
+          var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
           fs.writeFileSync(out_target, out)
           console.log('wrote', out_target)
           process.exit(0)
