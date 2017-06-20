@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
     getOptions: function () {
       this.option('period', 'period length', String, '2m')
       this.option('min_periods', 'min. number of history periods', Number, 52)
-      this.option('trend_ema', 'number of periods for trend EMA', Number, 14)
+      this.option('trend_ema', 'number of periods for trend EMA', Number, 26)
       this.option('neutral_rate', 'avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter)', Number, 'auto')
       this.option('oversold_rsi_periods', 'number of periods for oversold RSI', Number, 14)
       this.option('oversold_rsi', 'buy when RSI reaches this value', Number, 10)
@@ -30,7 +30,7 @@ module.exports = function container (get, set, clear) {
         s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
       }
       if (s.options.neutral_rate === 'auto') {
-        get('lib.stddev')(s, 'trend_ema_stddev', Math.floor(s.options.trend_ema / 2), 'trend_ema_rate')
+        get('lib.stddev')(s, 'trend_ema_stddev', 10, 'trend_ema_rate')
       }
       else {
         s.period.trend_ema_stddev = s.options.neutral_rate

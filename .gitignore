@@ -22,3 +22,11 @@ backtesting_*
 .ipynb_checkpoints
 data.csv
 value_net.json
+
+extensions/strategies/bumblebee
+
+zen/logs/hof/
+
+zen/evolution/__pycache__/
+
+zen/__pycache__/

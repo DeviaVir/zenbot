@@ -31,7 +31,6 @@ def runzen(cmdline):
     trades = parse_trades(a.split(b'}')[-1].splitlines()[4])
     return profit, trades
 
-
 def evaluate_zen(ind: Individual, days: int):
     periods = time_params(days, partitions)
     try:
