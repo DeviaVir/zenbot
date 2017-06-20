@@ -10,14 +10,14 @@ from evolution.individual_base import Individual
 
 def harsh_winter(population: List[Individual], count: int) -> List[Individual]:
     """ Selects `popsize` many individuals from the current population."""
+    population = [ind for ind in population if not all(f == -100 for f in ind.fitness.values)]
     elitist_count = int(count * 0.2)
     specialist_count = int(count * 0.4 / partitions)
 
     elites = select_elites(population, elitist_count)
     specialists = select_specialists(population, specialist_count)
     survivors = elites.union(specialists)
-    difference = set(population).difference(survivors)
-    rest = select_rest(difference, count - len(survivors))
+    rest = select_rest(population, count - len(survivors))
 
     population = list(survivors) + rest
     log_stuff(elites, rest, specialists)
