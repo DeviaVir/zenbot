@@ -22,6 +22,7 @@ module.exports = function container (get, set, clear) {
     },
 
     onPeriod: function (s, cb) {
+      if (s.in_preroll) return cb()
       if (typeof s.period.rsi === 'number') {
         if (s.trend !== 'oversold' && s.trend !== 'long' && s.period.rsi <= s.options.oversold_rsi) {
           s.rsi_low = s.period.rsi
