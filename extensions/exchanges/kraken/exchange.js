@@ -190,7 +190,7 @@ module.exports = function container(get, set, clear) {
         volume: opts.size,
         trading_agreement: c.kraken.tosagree
       }
-      if (opts.post_only === true && opts.order_type === 'limit') {
+      if (opts.post_only === true && params.ordertype === 'limit') {
         params.oflags = 'post'
       }
       if ('price' in opts) {
