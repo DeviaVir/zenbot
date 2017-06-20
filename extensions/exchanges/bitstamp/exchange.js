@@ -1,9 +1,7 @@
 var Bitstamp = require('bitstamp')
-  , minimist = require('minimist')
   , path = require('path')
-  , colors = require('colors')
-  , numbro = require('numbro')
   , Pusher = require('pusher-js/node')
+  , colors = require('colors')
 
 var args = process.argv
 
@@ -20,22 +18,22 @@ var wsOpts = {
 // before the first call for a trade
 // As zenbot dont returns the currency pair
 // before the first trade is requested
-// it has been neccessary to get it from 
+// it has been neccessary to get it from
 // the command line arguments
 args.forEach(function(value) {
-  if (value.match(/bitstamp|BITSTAMP/)) {
-      var p = value.split('.')[1]
-      var prod = p.split('-')[0] + p.split('-')[1]
-      var pair = prod.toLowerCase()
-      if (!wsOpts.pairOk) {
-        if (pair !== 'btcusd') {
-          wsOpts.trades.channel = 'live_trades_' + pair
-          wsOpts.quotes.channel = 'order_book_' + pair
-        }
-        wsOpts.currencyPair = pair
-        wsOpts.pairOk = true
+  if (value.toLowerCase().match(/bitstamp/)) {
+    var p = value.split('.')[1]
+    var prod = p.split('-')[0] + p.split('-')[1]
+    var pair = prod.toLowerCase()
+    if (!wsOpts.pairOk) {
+      if (pair !== 'btcusd') {
+        wsOpts.trades.channel = 'live_trades_' + pair
+        wsOpts.quotes.channel = 'order_book_' + pair
       }
-   }
+      wsOpts.currencyPair = pair
+      wsOpts.pairOk = true
+    }
+  }
 })
 
 function joinProduct (product_id) {
@@ -44,9 +42,7 @@ function joinProduct (product_id) {
 
 
 module.exports = function container (get, set, clear) {
-
   var c = get('conf')
-  var defs = require('./conf-sample')
 
   try {
     c.bitstamp = require('./conf')
@@ -54,13 +50,7 @@ module.exports = function container (get, set, clear) {
   catch (e) {
     c.bitstamp = {}
   }
-  Object.keys(defs).forEach(function (k) {
-    if (typeof c.bitstamp[k] === 'undefined') {
-      c.bitstamp[k] = defs[k]
-    }
-  })
 
-  //console.log(c.bitstamp)
   function authedClient () {
     if (c.bitstamp.key && c.bitstamp.key !== 'YOUR-API-KEY') {
       return new Bitstamp(c.bitstamp.key, c.bitstamp.secret, c.bitstamp.client_id)
@@ -68,7 +58,6 @@ module.exports = function container (get, set, clear) {
     throw new Error('\nPlease configure your Bitstamp credentials in ' + path.resolve(__dirname, 'conf.js'))
   }
 
-  //***************************************************
   //
   //  The websocket functions
   //
@@ -80,7 +69,7 @@ module.exports = function container (get, set, clear) {
     } else {
       this.opts = {
         encrypted: true,
-      }  
+      }
     }
 
     this.client = new Pusher(BITSTAMP_PUSHER_KEY, {
@@ -132,7 +121,7 @@ module.exports = function container (get, set, clear) {
       size: 0,
       price: 0,
       side: ''
-    } 
+    }
   ]
 
   var wsTrades = new Bitstamp_WS({
@@ -170,14 +159,12 @@ module.exports = function container (get, set, clear) {
       var ret = {}
       var res = err.toString().split(':',2)
       ret.status = res[1]
-      var ret = new Error(ret.status )
-      return ret
-    } else { 
+      return new Error(ret.status)
+    } else {
       if (body.error) {
-        var ret = new Error('\nError: ' + body.error) 
-        return ret
+        return new Error('\nError: ' + body.error)
       } else {
-        return body 
+        return body
       }
     }
   }
@@ -185,11 +172,11 @@ module.exports = function container (get, set, clear) {
   function retry (method, args) {
     var to = args.wait
     if (method !== 'getTrades') {
-      console.error(('\nBitstamp API is not answering! unable to call ' + method + ',OB retrying in ' + args.wait + 's').red)
+      console.error(('\nBitstamp API is not answering! unable to call ' + method + ',OB retrying in ' + to + 's').red)
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, args.wait * 1000)
+    }, to * 1000)
   }
 
   var exchange = {
@@ -198,20 +185,18 @@ module.exports = function container (get, set, clear) {
     makerFee: 0.25,
     takerFee: 0.25,
 
-    getProducts: function (opts) {
+    getProducts: function () {
       return require('./products.json')
     },
 
     //-----------------------------------------------------
-    // Public API functions 
+    // Public API functions
     // getQuote() and getTrades are using Bitstamp websockets
     // The data is not done by calling the interface function,
     // but rather pulled from the "wstrades" and "wsquotes" JSOM objects
     // Those objects are populated by the websockets event handlers
 
     getTrades: function (opts, cb) {
-      var currencyPair = joinProduct(opts.product_id).toLowerCase()
-
       var args = {
         wait: 2,   // Seconds
         product_id: wsOpts.currencyPair
@@ -224,7 +209,7 @@ module.exports = function container (get, set, clear) {
         args.after = opts.to
       }
 
-      if (typeof wstrades.time == undefined) return retry('getTrades', args)
+      if (typeof wstrades.time == undefined) return retry('getTrades', args)
       var t = wstrades
       var trades = t.map(function (trade) {
         return (trade)
@@ -238,7 +223,7 @@ module.exports = function container (get, set, clear) {
         wait: 2,   // Seconds
         currencyPair: wsOpts.currencyPair
       }
-      if (typeof wsquotes.bid == undefined) return retry('getQuote', args )
+      if (typeof wsquotes.bid == undefined) return retry('getQuote', args )
       cb(null, wsquotes)
     },
 
@@ -248,13 +233,13 @@ module.exports = function container (get, set, clear) {
 
     getBalance: function (opts, cb) {
       var client = authedClient()
-      client.balance(null, function (err, body) {
+      client.balance(null, function (err, body) {
         body = statusErr(err,body)
         var balance = {asset: 0, currency: 0}
         balance.currency = body[opts.currency.toLowerCase() + '_available']
         balance.asset = body[opts.asset.toLowerCase() + '_available']
-	balance.currency_hold = 0
-	balance.asset_hold = 0
+        balance.currency_hold = 0
+        balance.asset_hold = 0
         cb(null, balance)
       })
     },
@@ -279,10 +264,10 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
       if (typeof opts.order_type === 'undefined' ) {
-	opts.order_type = 'maker'
+        opts.order_type = 'maker'
       }
       if (opts.order_type === 'maker') {
-	// Fix maker?
+        // Fix maker?
         client.buy(currencyPair, opts.size, opts.price, false, function (err, body) {
           body = statusErr(err,body)
           cb(null, body)
@@ -299,7 +284,7 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
       if (typeof opts.order_type === 'undefined' ) {
-	opts.order_type = 'maker'
+        opts.order_type = 'maker'
       }
       if (opts.order_type === 'maker') {
         client.sell(currencyPair, opts.size, opts.price, false, function (err, body) {
@@ -329,4 +314,3 @@ module.exports = function container (get, set, clear) {
   }
   return exchange
 }
-
