@@ -273,7 +273,7 @@ trend_ema (default)
   options:
     --period=<value>  period length (default: 2m)
     --min_periods=<value>  min. number of history periods (default: 52)
-    --trend_ema=<value>  number of periods for trend EMA (default: 14)
+    --trend_ema=<value>  number of periods for trend EMA (default: 26)
     --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: auto)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
@@ -324,7 +324,7 @@ From left to right:
 
 - The default strategy is called `trend_ema` and resides at `./extensions/strategies/trend_ema`.
 - Defaults to using a 2m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
-- Computes the 14-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
+- Computes the 26-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
 - Considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
 - Filters out low values (whipsaws) by `neutral_rate`, which when set to `auto`, uses the standard deviation of the `trend_ema_rate` as a variable noise filter.
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
