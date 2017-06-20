@@ -15,7 +15,6 @@ from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
 
 
-
 def pct(x):
     return x / 100.0
 
@@ -29,28 +28,7 @@ def runzen(cmdline):
         a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
     profit = a.split(b'}')[-1].splitlines()[3].split(b': ')[-1][:-1]
     trades = parse_trades(a.split(b'}')[-1].splitlines()[4])
-    return profit, trades
-
-def evaluate_zen(ind: Individual, days: int):
-    periods = time_params(days, partitions)
-    try:
-        fitness = []
-        for period in periods:
-            cmd = ' '.join([ind.cmdline, period])
-            output = runzen(cmd)
-            fitness.append(float(output[0]) if float(output[1]) > 0.5 else -100)
-    except subprocess.CalledProcessError:
-        fitness = [-100 for _ in periods]
-    sys.stdout.write('.')
-    sys.stdout.flush()
-    return tuple(fitness)
-
-
-def time_params(days: int, partitions: int) -> List[str]:
-    now = datetime.date.today()
-    delta = datetime.timedelta(days=days)
-    splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
-    return [f' --start {start} --end {end}' for start, end in zip(splits, splits[1:])]
+    return float(profit), float(trades)
 
 
 class Andividual(Individual):
@@ -140,3 +118,26 @@ def fuzz_product(product: Product) -> List[Selector]:
         'ETH-BTC': ['gdax.ETH-BTC']
     }
     return selectors[product]
+
+
+def evaluate_zen(ind: Andividual, days: int):
+    periods = time_params(days, partitions)
+    try:
+        fitness = []
+        for period in periods:
+            cmd = ' '.join([ind.cmdline, period])
+            output = runzen(cmd)
+            fitness.append(output[0])
+        sys.stdout.write('.')
+    except subprocess.CalledProcessError:
+        fitness = [-100 for _ in periods]
+        sys.stdout.write('x')
+    sys.stdout.flush()
+    return tuple(fitness)
+
+
+def time_params(days: int, partitions: int) -> List[str]:
+    now = datetime.date.today()
+    delta = datetime.timedelta(days=days)
+    splits = [now - delta / partitions * i for i in range(partitions + 1)][::-1]
+    return [f' --start {start} --end {end}' for start, end in zip(splits, splits[1:])]
