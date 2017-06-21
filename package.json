@@ -7,7 +7,7 @@
     "zenbot": "./zenbot.sh"
   },
   "dependencies": {
-		"autobahn": "^17.5.2",
+    "autobahn": "^17.5.2",
     "bitfinex-api-node": "^1.0.1",
     "bitstamp": "^1.0.1",
     "bl": "^1.2.1",

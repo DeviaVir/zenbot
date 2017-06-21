@@ -155,7 +155,7 @@ module.exports = function container (get, set, clear) {
       price: data.price,
       side: data.type === 0 ? 'buy' : 'sell'
     })
-		if (wstrades.length > 30) wstrades.splice(0,10)
+    if (wstrades.length > 30) wstrades.splice(0,10)
   })
 
   //***************************************************
@@ -165,7 +165,6 @@ module.exports = function container (get, set, clear) {
       var ret = {}
       var res = err.toString().split(':',2)
       ret.status = res[1]
-//console.log('statusErr:\n', ret)
       return new Error(ret.status)
     } else {
       if (body.error) {
@@ -179,7 +178,7 @@ module.exports = function container (get, set, clear) {
   function retry (method, args) {
     var to = args.wait
     if (method !== 'getTrades') {
-      console.error(('\nBitstamp API is not answering! unable to call ' + method + ',OB retrying in ' + to + 's').red)
+      console.error(('\nBitstamp API is not answering! unable to call ' + method + ', retrying in ' + to + 's').red)
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
@@ -249,15 +248,14 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
         body = statusErr(err,body)
-	if (body.status === 'error') {
-	  return retry('cancelOrder', func_args, err)
-	}
+        if (body.status === 'error') {
+	        return retry('cancelOrder', func_args, err)
+        }
         cb()
       })
     },
 
     trade: function (type,opts, cb) {
-//console.log('Trade ' + type + ' options:\n',opts)
       var client = authedClient()
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
       if (typeof opts.order_type === 'undefined' ) {
@@ -265,33 +263,32 @@ module.exports = function container (get, set, clear) {
       }
       // Bitstamp has no "post only" trade type
       opts.post_only = false
-//opts.order_type = 'taker'
       if (opts.order_type === 'maker') {
         client.tradeDaily(type, currencyPair, opts.size, opts.price, function (err, body) {
           body = statusErr(err,body)
-	  if (body.status === 'error') {
-	    var order = { status: 'rejected', reject_reason: 'balance' }
+          if (body.status === 'error') {
+            var order = { status: 'rejected', reject_reason: 'balance' }
             return cb(null, order)
-	  } else { 
-	    // Statuses:
-	    // 'In Queue', 'Open', 'Finished'
-	    body.status = 'done'
-	  }
+          } else { 
+            // Statuses:
+            // 'In Queue', 'Open', 'Finished'
+            body.status = 'done'
+          }
           orders['~' + body.id] = body
           cb(null, body)
         })
-      } else {
+      } else { // order_type = taker
         client.tradeMarket(type, currencyPair, opts.size, function (err, body) {
           body = statusErr(err,body)
-	  if (body.status === 'error') {
-	    var order = { status: 'rejected', reject_reason: 'balance' }
+          if (body.status === 'error') {
+            var order = { status: 'rejected', reject_reason: 'balance' }
             return cb(null, order)
-	  } else { 
-	    body.status = 'done'
-	  }
+          } else { 
+	          body.status = 'done'
+          }
           orders['~' + body.id] = body
           cb(null, body)
-	})
+        })
       }
     },
 
@@ -308,11 +305,11 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.order_status(opts.order_id, function (err, body) {
         body = statusErr(err,body)
-	if (body.status === 'error') {
-	  body = orders['~' + opts.order_id]
-	  body.status = 'done'
-	  body.done_reason = 'canceled'
-	} 
+        if (body.status === 'error') {
+          body = orders['~' + opts.order_id]
+          body.status = 'done'
+          body.done_reason = 'canceled'
+        } 
         cb(null, body)
       })
     },

@@ -32,9 +32,9 @@ module.exports = function container (get, set, clear) {
         if (!so.order_type in order_types || !so.order_type) {
           so.order_type = 'maker'
         } else {
-	  so.order_type = so.taker ? 'taker' : 'maker'
-	  so.order_type === 'taker' ? delete so.taker : delete so.maker
-	}
+          so.order_type = so.taker ? 'taker' : 'maker'
+	        so.order_type === 'taker' ? delete so.taker : delete so.maker
+	      }
         s.options.order_type = so.order_type
         so.mode = 'live'
         so.strategy = c.strategy
