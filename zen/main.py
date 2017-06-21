@@ -15,10 +15,10 @@ def main(instrument, days, popsize, strategy='trend_ema'):
     print(colored("Starting evolution....", 'blue'))
     evaluate = partial(evaluate_zen, days=days)
     print(blue("Evaluating ")+green(popsize)+blue(" individuals over ") + green(days) + blue(' days in ') + green(partitions) + blue(' partitions.'))
-    Andividual.instruments = selectors['instrument']
+    Andividual.instruments = selectors[instrument]
     Andividual.mate = cxTwoPoint
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
-    Individual = partial(Andividual, strategy=strategy, instrument=instrument)
+    Individual = partial(Andividual, strategy=strategy)
     print(colored(f"Mating function is ", 'blue') + colored(Andividual.mate, 'green'))
     print(colored(f"Mutating function is ", 'blue') + colored(Andividual.mutate, 'green'))
     res = evolve(evaluate, Individual, popsize)
