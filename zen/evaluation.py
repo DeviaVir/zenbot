@@ -9,7 +9,6 @@ from typing import List
 from termcolor import colored
 
 from conf import partitions
-from constants import Product, Selector
 from evolution.individual_base import Individual
 from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
@@ -32,12 +31,11 @@ def runzen(cmdline):
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33'
-
-    def __init__(self, *args, strategy: str, instrument: str, **kwargs):
+    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33 --filename temp.html'
+    instruments = []
+    def __init__(self, *args, strategy: str, **kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(strategy)
-        self.instruments = fuzz_product(instrument)
         self.strategy = strategy
         for _ in self.args:
             self.append(50 + (random.random() - 0.5) * 100)
@@ -68,7 +66,7 @@ class Andividual(Individual):
     def params(self) -> List[str]:
         def format(key, value):
             if isinstance(value, float):
-                return f'--{key} {value:.4f}'
+                return f'--{key} {value:.6f}'
             else:
                 return f'--{key} {value}'
 
@@ -86,13 +84,13 @@ class Andividual(Individual):
 
     def convert(self, param, value):
         if param == 'period':
-            res = minutes(value)
+            res = minutes(int(value/2))
         elif param == 'min_periods':
-            res = int(value * 30)
+            res = int(value * 20)
         elif param == 'trend_ema':
-            res = int(value * 5)
+            res = int(value*15 )
         elif 'period' in param:
-            res = int(value * 5)
+            res = int(value *10)
         elif 'pct' in param:
             res = pct(value)
         elif 'rate' in param:
@@ -100,7 +98,7 @@ class Andividual(Individual):
         elif 'rsi' in param:
             res = float(value)
         elif 'threshold' in param:
-            res = pct(value)
+            res = value/100000.0
         elif 'sar_af' == param:
             res = value / 1000.0
         elif 'sar_max_af' == param:
@@ -110,14 +108,6 @@ class Andividual(Individual):
         return param, res
 
 
-def fuzz_product(product: Product) -> List[Selector]:
-    """ We want to run against multiple selectors for a product to reduce sampling error.
-    >>>fuzz_product('USD')"""
-    selectors = {
-        'BTC-CUR': ['gdax.BTC-USD', 'gdax.BTC-EUR', 'gdax.BTC-GBP'],
-        'ETH-BTC': ['gdax.ETH-BTC']
-    }
-    return selectors[product]
 
 
 def evaluate_zen(ind: Andividual, days: int):
@@ -126,8 +116,10 @@ def evaluate_zen(ind: Andividual, days: int):
         fitness = []
         for period in periods:
             cmd = ' '.join([ind.cmdline, period])
-            output = runzen(cmd)
-            fitness.append(output[0])
+            f,t = runzen(cmd)
+            fitness.append(f)
+            if t==0:
+                raise subprocess.CalledProcessError(-1,'TooFewTrades')
         sys.stdout.write('.')
     except subprocess.CalledProcessError:
         fitness = [-100 for _ in periods]
