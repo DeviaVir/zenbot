@@ -249,6 +249,19 @@ macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+rsi
+  description:
+    Attempts to buy low and sell high by tracking RSI high-water readings.
+  options:
+    --period=<value>  period length (default: 2m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --rsi_periods=<value>  number of RSI periods
+    --oversold_rsi=<value>  buy when RSI reaches or drops below this value (default: 30)
+    --overbought_rsi=<value>  sell when RSI reaches or goes above this value (default: 82)
+    --rsi_recover=<value>  allow RSI to recover this many points before buying (default: 3)
+    --rsi_drop=<value>  allow RSI to fall this many points before selling (default: 0)
+    --rsi_dividend=<value>  sell when RSI reaches high-water reading divided by this value (default: 2)
+
 sar
   description:
     Parabolic SAR
@@ -273,7 +286,7 @@ trend_ema (default)
   options:
     --period=<value>  period length (default: 2m)
     --min_periods=<value>  min. number of history periods (default: 52)
-    --trend_ema=<value>  number of periods for trend EMA (default: 14)
+    --trend_ema=<value>  number of periods for trend EMA (default: 26)
     --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: auto)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
@@ -324,7 +337,7 @@ From left to right:
 
 - The default strategy is called `trend_ema` and resides at `./extensions/strategies/trend_ema`.
 - Defaults to using a 2m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
-- Computes the 14-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
+- Computes the 26-period EMA of the current price, and calculates the percent change from the last period's EMA to get the `trend_ema_rate`
 - Considers `trend_ema_rate >= 0` an upwards trend and `trend_ema_rate < 0` a downwards trend
 - Filters out low values (whipsaws) by `neutral_rate`, which when set to `auto`, uses the standard deviation of the `trend_ema_rate` as a variable noise filter.
 - Buys at the beginning of upwards trend, sells at the beginning of downwards trend
@@ -338,6 +351,14 @@ The moving average convergence divergence calculation is a lagging indicator, us
 - Can be very effective for trading periods of 1h, with a shorter period like 15m it seems too erratic and the Moving Averages are kind of lost.
 - It's not firing multiple 'buy' or 'sold' signals, only one per trend, which seems to lead to a better quality trading scheme.
 - Especially when the bot will enter in the middle of a trend, it avoids buying unless it's the beginning of the trend.
+
+### About the rsi strategy
+
+Attempts to buy low and sell high by tracking RSI high-water readings.
+
+- Effective in sideways markets or markets that tend to recover after price drops.
+- Risky to use in bear markets, since the algorithm depends on price recovery.
+- If the other strategies are losing you money, this strategy may perform better, since it basically "reverses the signals" and anticipates a reversal instead of expecting the trend to continue.
 
 ### About the sar strategy
 
