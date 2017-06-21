@@ -19,7 +19,7 @@ var wsOpts = {
 // As zenbot dont returns the currency pair
 // before the first trade is requested
 // it has been neccessary to get it from
-// the command line arguments
+// t:he command line arguments
 args.forEach(function(value) {
   if (value.toLowerCase().match(/bitstamp/)) {
     var p = value.split('.')[1]
@@ -43,13 +43,6 @@ function joinProduct (product_id) {
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
-
-  try {
-    c.bitstamp = require('./conf')
-  }
-  catch (e) {
-    c.bitstamp = {}
-  }
 
   function authedClient () {
     if (c.bitstamp.key && c.bitstamp.key !== 'YOUR-API-KEY') {
@@ -87,6 +80,20 @@ module.exports = function container (get, set, clear) {
     this.subscribe()
   }
 
+  Bitstamp.prototype.tradeDaily = function(direction, market, amount, price, callback) {
+    this._post(market, direction, callback, {
+      amount: amount,
+      price: price,
+      daily_order: true
+    });
+  }
+
+  Bitstamp.prototype.tradeMarket = function(direction, market, amount, callback) {
+    this._post(market, direction + '/market', callback, {
+      amount: amount,
+    });
+  }
+
   var util = require('util')
   var EventEmitter = require('events').EventEmitter
   util.inherits(Bitstamp_WS, EventEmitter)
@@ -106,7 +113,6 @@ module.exports = function container (get, set, clear) {
     if(this.bound[name])
       return function noop() {}
     this.bound[name] = true
-
     return function(e) {
       this.emit(name, e)
     }.bind(this)
@@ -134,14 +140,14 @@ module.exports = function container (get, set, clear) {
     evType: 'data'
   })
 
-  wsTrades.on('data', function(data) {
+  wsQuotes.on('data', function(data) {
     wsquotes = {
       bid: data.bids[0][0],
       ask: data.asks[0][0]
     }
   })
 
-  wsQuotes.on('trade', function(data) {
+  wsTrades.on('trade', function(data) {
     wstrades.push( {
       trade_id: data.id,
       time: Number(data.timestamp) * 1000,
@@ -149,7 +155,7 @@ module.exports = function container (get, set, clear) {
       price: data.price,
       side: data.type === 0 ? 'buy' : 'sell'
     })
-    if (wstrades.length > 30) wstrades.splice(0,10)
+		if (wstrades.length > 30) wstrades.splice(0,10)
   })
 
   //***************************************************
@@ -159,6 +165,7 @@ module.exports = function container (get, set, clear) {
       var ret = {}
       var res = err.toString().split(':',2)
       ret.status = res[1]
+//console.log('statusErr:\n', ret)
       return new Error(ret.status)
     } else {
       if (body.error) {
@@ -179,6 +186,8 @@ module.exports = function container (get, set, clear) {
     }, to * 1000)
   }
 
+  var orders = {}
+
   var exchange = {
     name: 'bitstamp',
     historyScan: false,
@@ -191,7 +200,7 @@ module.exports = function container (get, set, clear) {
 
     //-----------------------------------------------------
     // Public API functions
-    // getQuote() and getTrades are using Bitstamp websockets
+    // getQuote() and getTrades() are using Bitstamp websockets
     // The data is not done by calling the interface function,
     // but rather pulled from the "wstrades" and "wsquotes" JSOM objects
     // Those objects are populated by the websockets event handlers
@@ -201,20 +210,11 @@ module.exports = function container (get, set, clear) {
         wait: 2,   // Seconds
         product_id: wsOpts.currencyPair
       }
-
-      if (opts.from) {
-        args.before = opts.from
-      }
-      else if (opts.to) {
-        args.after = opts.to
-      }
-
       if (typeof wstrades.time == undefined) return retry('getTrades', args)
       var t = wstrades
       var trades = t.map(function (trade) {
         return (trade)
       })
-
       cb(null, trades)
     },
 
@@ -245,64 +245,74 @@ module.exports = function container (get, set, clear) {
     },
 
     cancelOrder: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
         body = statusErr(err,body)
+	if (body.status === 'error') {
+	  return retry('cancelOrder', func_args, err)
+	}
         cb()
       })
     },
 
-    cancelOrders: function (opts, cb) {
+    trade: function (type,opts, cb) {
+//console.log('Trade ' + type + ' options:\n',opts)
       var client = authedClient()
-      client.cancel_all_orders(function (err, body) {
-        body = statusErr(err,body)
-        cb()
-      })
+      var currencyPair = joinProduct(opts.product_id).toLowerCase()
+      if (typeof opts.order_type === 'undefined' ) {
+        opts.order_type = 'maker'
+      }
+      // Bitstamp has no "post only" trade type
+      opts.post_only = false
+//opts.order_type = 'taker'
+      if (opts.order_type === 'maker') {
+        client.tradeDaily(type, currencyPair, opts.size, opts.price, function (err, body) {
+          body = statusErr(err,body)
+	  if (body.status === 'error') {
+	    var order = { status: 'rejected', reject_reason: 'balance' }
+            return cb(null, order)
+	  } else { 
+	    // Statuses:
+	    // 'In Queue', 'Open', 'Finished'
+	    body.status = 'done'
+	  }
+          orders['~' + body.id] = body
+          cb(null, body)
+        })
+      } else {
+        client.tradeMarket(type, currencyPair, opts.size, function (err, body) {
+          body = statusErr(err,body)
+	  if (body.status === 'error') {
+	    var order = { status: 'rejected', reject_reason: 'balance' }
+            return cb(null, order)
+	  } else { 
+	    body.status = 'done'
+	  }
+          orders['~' + body.id] = body
+          cb(null, body)
+	})
+      }
     },
 
     buy: function (opts, cb) {
-      var client = authedClient()
-      var currencyPair = joinProduct(opts.product_id).toLowerCase()
-      if (typeof opts.order_type === 'undefined' ) {
-        opts.order_type = 'maker'
-      }
-      if (opts.order_type === 'maker') {
-        // Fix maker?
-        client.buy(currencyPair, opts.size, opts.price, false, function (err, body) {
-          body = statusErr(err,body)
-          cb(null, body)
-        })
-      } else {
-        client.buyMarket(currencyPair, opts.size, function (err, body) {
-          body = statusErr(err,body)
-          cb(null, body)
-        })
-      }
+      exchange.trade('buy', opts, cb)
     },
 
     sell: function (opts, cb) {
-      var client = authedClient()
-      var currencyPair = joinProduct(opts.product_id).toLowerCase()
-      if (typeof opts.order_type === 'undefined' ) {
-        opts.order_type = 'maker'
-      }
-      if (opts.order_type === 'maker') {
-        client.sell(currencyPair, opts.size, opts.price, false, function (err, body) {
-          body = statusErr(err,body)
-          cb(null, body)
-        })
-      } else {
-        client.sellMarket(currencyPair, opts.size, function (err, body) {
-          body = statusErr(err,body)
-          cb(null, body)
-        })
-      }
+      exchange.trade('sell', opts, cb)
     },
 
     getOrder: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.getOrder(opts.order_id, function (err, body) {
+      client.order_status(opts.order_id, function (err, body) {
         body = statusErr(err,body)
+	if (body.status === 'error') {
+	  body = orders['~' + opts.order_id]
+	  body.status = 'done'
+	  body.done_reason = 'canceled'
+	} 
         cb(null, body)
       })
     },
