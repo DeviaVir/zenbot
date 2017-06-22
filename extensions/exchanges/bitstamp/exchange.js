@@ -100,7 +100,6 @@ module.exports = function container (get, set, clear) {
 
 
   Bitstamp_WS.prototype.subscribe = function() {
-  //console.log('wsOpts ==> ', wsOpts)
     if (wsOpts.pairOk) {
       this.client.subscribe(wsOpts.trades.channel)
       this.client.bind(wsOpts.trades.evType, this.broadcast(wsOpts.trades.evType))
@@ -159,6 +158,12 @@ module.exports = function container (get, set, clear) {
   })
 
   //***************************************************
+	
+  function beep (c) {
+    for (var i = 0; i < c; i++) {
+      process.stdout.write("\007")
+    }
+  }
 
   function statusErr (err, body) {
     if (typeof body === 'undefined') {
@@ -185,6 +190,7 @@ module.exports = function container (get, set, clear) {
     }, to * 1000)
   }
 
+	var lastBalance = {asset: 0, currency: 0}
   var orders = {}
 
   var exchange = {
@@ -231,14 +237,28 @@ module.exports = function container (get, set, clear) {
     //
 
     getBalance: function (opts, cb) {
+			var args = {
+							currency: opts.currency.toLowerCase(),
+							asset: opts.asset.toLowerCase(),
+							wait: 10
+			  }
       var client = authedClient()
       client.balance(null, function (err, body) {
         body = statusErr(err,body)
+        if (body.status === 'error') {
+	        return retry('getBalance', args)
+        }
         var balance = {asset: 0, currency: 0}
         balance.currency = body[opts.currency.toLowerCase() + '_available']
         balance.asset = body[opts.asset.toLowerCase() + '_available']
         balance.currency_hold = 0
         balance.asset_hold = 0
+				if (typeof balance.asset == undefined || typeof balance.currency == undefined ) {
+          console.log('Communication delay, fallback to previous balance')
+					balance = lastBalance
+				} else {
+					lastBalance = balance
+				}
         cb(null, balance)
       })
     },
