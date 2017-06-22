@@ -23,7 +23,7 @@ def draw(history, toolbox):
     ax.savefig('logs/history/{runid}.png'.format(runid=runid))
 
 
-def log_stuff(g, history, hof, population, stats, toolbox):
+def log_stuff(g, history, hof, population, stats):
     # draw(history, toolbox)
     record = stats.compile(population)
     hof.update(population)

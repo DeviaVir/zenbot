@@ -2,6 +2,7 @@ import sys
 from functools import partial
 
 from deap.tools import cxTwoPoint, mutGaussian
+from scoop import shared
 from termcolor import colored
 
 from conf import indpb, sigma, partitions, selectors
@@ -18,10 +19,10 @@ def main(instrument, days, popsize, strategy='trend_ema'):
     Andividual.instruments = selectors[instrument]
     Andividual.mate = cxTwoPoint
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
-    Individual = partial(Andividual, strategy=strategy)
+    Andividual.strategy = strategy
     print(colored(f"Mating function is ", 'blue') + colored(Andividual.mate, 'green'))
     print(colored(f"Mutating function is ", 'blue') + colored(Andividual.mutate, 'green'))
-    res = evolve(evaluate, Individual, popsize)
+    res = evolve(evaluate, Andividual, popsize)
     return res
 
 

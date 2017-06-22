@@ -7,34 +7,34 @@ from conf import cxpb, mutpb
 from .utils import log_stuff
 
 
-def algorithm(toolbox, stats: Statistics, history: History, hof, popsize: int):
+def algorithm(individual,popsize,map,evaluate,select,breed,mutate,stats,history,hof):
     # Create initial Population and evaluate it
     population = set()
     print(colored(f"Sampling an initial valid population, this may take a while...", 'blue'))
     while len(population) < popsize:
         print(colored(f"Currently {len(population)} valid individuals", 'blue'))
-        would_be = [toolbox.individual() for _ in range(popsize)]
-        evaluate(would_be, toolbox)
+        would_be = [individual() for _ in range(popsize)]
+        evaluate_group(would_be,map,evaluate)
         population = population | set(would_be)
     # Commence evolution
     for g in range(0, 1000):
-        log_stuff(g, history, hof, population, stats, toolbox)
+        log_stuff(g, history, hof, population, stats)
         print(colored(f"It's breeding season, we're expecting new members of the tribe...", 'blue'))
-        offspring = toolbox.breed(population)
+        offspring = breed(population)
         print(colored(f"Radiation and toxic waste are causing mutations in the population...", 'blue'))
-        mutants = toolbox.mutate(population)
+        mutants = mutate(population)
         print(colored(f"Summer is here, evaluating our new arrivals...", 'blue'))
-        evaluate(offspring + mutants, toolbox)
-        survivors = toolbox.select(set(offspring) | set(mutants) | population)
+        evaluate_group(offspring + mutants, map,evaluate)
+        survivors = select(set(offspring) | set(mutants) | population)
         population = survivors
 
     return hof
 
 
-def evaluate(population, toolbox):
+def evaluate_group(population, map, evaluate):
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
     print(' ' * len(invalid_ind) + '|')
-    fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+    fitnesses = map(evaluate, [ind.cmdline for ind in invalid_ind])
     for ind, fit in zip(invalid_ind, fitnesses):
         ind.fitness.values = fit
 

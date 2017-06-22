@@ -32,11 +32,9 @@ def runzen(cmdline):
 
 class Andividual(Individual):
     BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33 --filename temp.html'
-    instruments = []
-    def __init__(self, *args, strategy: str, **kwargs):
+    def __init__(self, *args,**kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
-        self.args = args_for_strategy(strategy)
-        self.strategy = strategy
+        self.args = args_for_strategy(self.strategy)
         for _ in self.args:
             self.append(50 + (random.random() - 0.5) * 100)
 
@@ -110,12 +108,12 @@ class Andividual(Individual):
 
 
 
-def evaluate_zen(ind: Andividual, days: int):
+def evaluate_zen(cmdline:str, days: int):
     periods = time_params(days, partitions)
     try:
         fitness = []
         for period in periods:
-            cmd = ' '.join([ind.cmdline, period])
+            cmd = ' '.join([cmdline, period])
             f,t = runzen(cmd)
             fitness.append(f)
             if t==0:
