@@ -32,8 +32,6 @@ class Individual(list):
         obj.name = names.get_full_name()
         return obj
 
-    def __eq__(self, other):
-        return other.name == self.name
 
     def __add__(self, other):
         child1, child2 = self.__class__.mate(deepcopy(self), deepcopy(other))
@@ -56,6 +54,7 @@ class Individual(list):
             print(mutant)
         del mutant.fitness.values
         return mutant
-
+    def __eq__(self, other):
+        return hash(self)==hash(other)
     def __hash__(self):
-        return hash(self.name)
+        return hash(tuple(self.fitness.values))
