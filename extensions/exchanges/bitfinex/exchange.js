@@ -139,7 +139,7 @@ module.exports = function container (get, set, clear) {
         opts.post_only = true
       }
       var symbol = joinProduct(opts.product_id)
-      var amount = opts.size
+      var amount = opts.size.toPrecision(5)
       var price = opts.price
       var exchange = 'bitfinex'
       var side = 'buy'
@@ -148,7 +148,7 @@ module.exports = function container (get, set, clear) {
       var is_postonly = opts.post_only
       var params = {
         symbol,
-        amount.toPrecision(5),
+        amount,
         price,
         exchange,
         side,
@@ -190,7 +190,7 @@ module.exports = function container (get, set, clear) {
         opts.post_only = true
       }
       var symbol = joinProduct(opts.product_id)
-      var amount = opts.size
+      var amount = opts.size.toPrecision(5)
       var price = opts.price
       var exchange = 'bitfinex'
       var side = 'sell'
@@ -199,7 +199,7 @@ module.exports = function container (get, set, clear) {
       var is_postonly = opts.post_only
       var params = {
         symbol,
-        amount.toPrecision(5),
+        amount,
         price,
         exchange,
         side,
