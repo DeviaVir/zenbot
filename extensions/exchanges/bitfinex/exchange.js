@@ -148,7 +148,7 @@ module.exports = function container (get, set, clear) {
       var is_postonly = opts.post_only
       var params = {
         symbol,
-        amount,
+        amount.toPrecision(5),
         price,
         exchange,
         side,
@@ -199,7 +199,7 @@ module.exports = function container (get, set, clear) {
       var is_postonly = opts.post_only
       var params = {
         symbol,
-        amount,
+        amount.toPrecision(5),
         price,
         exchange,
         side,
