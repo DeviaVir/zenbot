@@ -260,7 +260,7 @@ rsi
     --overbought_rsi=<value>  sell when RSI reaches or goes above this value (default: 82)
     --rsi_recover=<value>  allow RSI to recover this many points before buying (default: 3)
     --rsi_drop=<value>  allow RSI to fall this many points before selling (default: 0)
-    --rsi_dividend=<value>  sell when RSI reaches high-water reading divided by this value (default: 2)
+    --rsi_divisor=<value>  sell when RSI reaches high-water reading divided by this value (default: 2)
 
 sar
   description:
