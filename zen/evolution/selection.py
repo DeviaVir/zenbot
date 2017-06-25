@@ -9,7 +9,7 @@ from evolution.individual_base import Individual
 
 
 def harsh_winter(population: Set[Individual], count: int) -> Set[Individual]:
-    """ Selects `popsize` many individuals from the current population."""
+    # Selects `popsize` many individuals from the current population.
     elitist_count = int(count * 0.3)
     specialist_count = int(count * 0.4 / partitions)
     elites = select_elites(population, elitist_count)
@@ -47,6 +47,6 @@ def log_stuff(elites, rest: Set, specialists):
     for specialist in specialists:
         print(specialist)
     print(f"Some other have fought their way through:")
-    for r in random.sample(rest, len(rest) // 5):
+    for r in random.sample(rest, 3):
         print(r)
     print(colored('...', 'grey'))
