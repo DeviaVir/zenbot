@@ -104,15 +104,20 @@ c.avg_slippage_pct = 0.045
 
 //xmpp configs
 
-c.xmpp = require('simple-xmpp');
+c.xmppon=0  // 0 xmpp disabled; 1 xmpp enabled (credentials should be correct)
 
-c.xmpp.connect({
+if (c.xmppon) {
+
+  c.xmpp = require('simple-xmpp');
+
+  c.xmpp.connect({
                 jid                    : 'trader@domain.com', //xmpp account trader bot
                 password               : 'Password',          //xmpp password
                 host                   : 'domain.com',        //xmpp domain
                 port                   : 5222                 //xmpp port
-});
+  });
 
-c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
+  c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
+}
 //end xmpp configs
 
