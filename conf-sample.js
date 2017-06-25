@@ -101,3 +101,18 @@ c.rsi_periods = 14
 c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
+
+//xmpp configs
+
+c.xmpp = require('simple-xmpp');
+
+c.xmpp.connect({
+                jid                    : 'trader@domain.com', //xmpp account trader bot
+                password               : 'Password',          //xmpp password
+                host                   : 'domain.com',        //xmpp domain
+                port                   : 5222                 //xmpp port
+});
+
+c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
+//end xmpp configs
+
