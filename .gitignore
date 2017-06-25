@@ -30,3 +30,5 @@ zen/logs/hof/
 zen/evolution/__pycache__/
 
 zen/__pycache__/
+
+zen/temp\.html

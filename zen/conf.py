@@ -1,7 +1,7 @@
 import random
 
-
-
+# zenbot dir, ex. "app/zenbot" for docker ".." for linux envinronment
+path = '..'
 
 selectors = {
     'BTC-CUR': ['gdax.BTC-USD', 'gdax.BTC-EUR', 'gdax.BTC-GBP'],

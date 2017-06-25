@@ -1,6 +1,6 @@
 from operator import attrgetter
 
-from conf import runid
+from conf import runid, path
 
 
 class ObjectiveFunctionHallOfFame(object):
@@ -24,5 +24,5 @@ class ObjectiveFunctionHallOfFame(object):
         return "\n".join(header + report)
 
     def persist(self):
-        with open('./logs/hof/{runid}.txt'.format(runid=runid), 'w') as f:
+        with open('{path}/zen/logs/hof/{runid}.txt'.format(path=path, runid=runid), 'w') as f:
             f.write(str(self))

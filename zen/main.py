@@ -5,7 +5,7 @@ from deap.tools import cxTwoPoint, mutGaussian
 from scoop import shared
 from termcolor import colored
 
-from conf import indpb, sigma, partitions, selectors
+from conf import indpb, sigma, partitions, selectors, path
 from evaluation import evaluate_zen, Andividual
 from evolution import evolve
 blue = partial(lambda text, color: colored(str(text), color), color='blue')
@@ -16,6 +16,7 @@ def main(instrument, days, popsize, strategy='trend_ema'):
     print(colored("Starting evolution....", 'blue'))
     evaluate = partial(evaluate_zen, days=days)
     print(blue("Evaluating ")+green(popsize)+blue(" individuals over ") + green(days) + blue(' days in ') + green(partitions) + blue(' partitions.'))
+    Andividual.path = path
     Andividual.instruments = selectors[instrument]
     Andividual.mate = cxTwoPoint
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
