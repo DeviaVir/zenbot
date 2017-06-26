@@ -34,7 +34,9 @@ kraken.api('Assets', null, function (error, data) {
                 process.exit(1)
             } else {
                 Object.keys(data.result).forEach(function (result) {
-                    addProduct(data.result[result].base, data.result[result].quote, data.result[result].altname)
+                    if(!result.match('\.d')) {
+                        addProduct(data.result[result].base, data.result[result].quote, data.result[result].altname)
+                    }
                 })
                 var target = require('path').resolve(__dirname, 'products.json')
                 require('fs').writeFileSync(target, JSON.stringify(products, null, 2))
