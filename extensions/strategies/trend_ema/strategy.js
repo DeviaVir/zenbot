@@ -53,7 +53,7 @@ module.exports = function container (get, set, clear) {
             s.acted_on_trend = false
           }
           s.trend = 'up'
-          s.signal = !s.acted_on_trend ? 'buy' : null
+          s.signal = !s.acted_on_trend ? 'sell' : null
           s.cancel_down = false
         }
         else if (!s.cancel_down && s.period.trend_ema_rate < (s.period.trend_ema_stddev * -1)) {
@@ -61,7 +61,7 @@ module.exports = function container (get, set, clear) {
             s.acted_on_trend = false
           }
           s.trend = 'down'
-          s.signal = !s.acted_on_trend ? 'sell' : null
+          s.signal = !s.acted_on_trend ? 'buy' : null
         }
       }
       cb()
