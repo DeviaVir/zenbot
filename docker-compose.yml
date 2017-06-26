@@ -17,5 +17,5 @@ mongodb:
 mongodb-data:
   image: mongo:latest
   volumes:
-    - ./data/db:/data/db
+    - /data/db
   command: "true"
