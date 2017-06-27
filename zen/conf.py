@@ -1,8 +1,11 @@
 import random
 
-# zenbot dir, ex. "app/zenbot" for docker ".." for linux envinronment
-path = '..'
-
+# zenbot dir, ex. "/app/zenbot" for docker "/full/path/of/zenbot/dir" for linux envinronment
+path = '/home/gecko/zenbot'
+# name of python executable
+pyexc = 'python3.6'
+# Autobackfill interval in seconds, min 600 secs -> 10 mins
+bkfint = 30
 selectors = {
     'BTC-CUR': ['gdax.BTC-USD', 'gdax.BTC-EUR', 'gdax.BTC-GBP'],
     'ETH-BTC': ['gdax.ETH-BTC'],
