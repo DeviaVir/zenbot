@@ -3,26 +3,26 @@ from functools import partial
 
 from deap.tools import cxTwoPoint, mutGaussian
 from scoop import shared
-from termcolor import colored
+from blessings import Terminal
 
 from conf import indpb, sigma, partitions, selectors, path
 from evaluation import evaluate_zen, Andividual
 from evolution import evolve
-blue = partial(lambda text, color: colored(str(text), color), color='blue')
-green = partial(lambda text, color: colored(str(text), color), color='green')
 
+term = Terminal()
 
 def main(instrument, days, popsize, strategy='trend_ema'):
-    print(colored("Starting evolution....", 'blue'))
+    print(term.blue("Starting evolution...."))
     evaluate = partial(evaluate_zen, days=days)
-    print(blue("Evaluating ")+green(popsize)+blue(" individuals over ") + green(days) + blue(' days in ') + green(partitions) + blue(' partitions.'))
+    print(term.blue("Evaluating ") + term.green(str(popsize)) + term.blue(" individuals over ")
+    + term.green(str(days)) + term.blue(" days in ") + term.green(str(partitions)) + term.blue(" partitions."))
     Andividual.path = path
     Andividual.instruments = selectors[instrument]
     Andividual.mate = cxTwoPoint
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
     Andividual.strategy = strategy
-    print(colored(f"Mating function is ", 'blue') + colored(Andividual.mate, 'green'))
-    print(colored(f"Mutating function is ", 'blue') + colored(Andividual.mutate, 'green'))
+    print(term.blue("Mating function is ") + term.green(str(Andividual.mate)))
+    print(term.blue("Mutating function is ") + term.green(str(Andividual.mutate)))
     res = evolve(evaluate, Andividual, popsize)
     return res
 
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         strategy = sys.argv[4]
     except:
         strategy = 'trend_ema'
-    print(colored("MAKE SURE YOU RUN fab backfill_local:<days>", 'red'))
-    print(colored("otherwise it's all crap", 'red'))
+    print(term.red("MAKE SURE YOU RUN fab backfill_local:<days>"))
+    print(term.red("otherwise it's all crap"))
     res = main(INSTRUMENT, TOTAL_DAYS, popsize, strategy)
     print(res)

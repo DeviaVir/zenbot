@@ -2,11 +2,12 @@ import networkx as networkx
 import numpy
 from deap.tools import Statistics
 from matplotlib import pyplot as plt
-from termcolor import colored
+from blessings import Terminal
 
 from conf import runid, path
 from objective_function import soft_maximum_worst_case
 
+term = Terminal()
 
 def draw(history, toolbox):
     ax = plt.figure()
@@ -28,7 +29,7 @@ def log_stuff(g, history, hof, population, stats):
     record = stats.compile(population)
     hof.update(population)
     hof.persist()
-    print(colored(f'\nGeneration {g} {record}','green') )
+    print(term.green(f'\nGeneration {g} {record}'))
     # print(hof)
 
 

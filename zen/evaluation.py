@@ -6,13 +6,15 @@ import subprocess
 import sys
 from typing import List
 
-from termcolor import colored
+from blessings import Terminal
 
 from conf import partitions, path
 from evolution.individual_base import Individual
 from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
 
+term = Terminal()
+term.grey = term.color(8)
 
 def pct(x):
     return x / 100.0
@@ -39,7 +41,7 @@ class Andividual(Individual):
             self.append(50 + (random.random() - 0.5) * 100)
 
     def __repr__(self):
-        return colored(f"{self.cmdline}  {super(Andividual, self).__repr__()}", 'grey')
+        return term.grey(f"{self.cmdline} {super(Andividual, self).__repr__()}")
 
     @property
     def instrument(self):
@@ -102,7 +104,7 @@ class Andividual(Individual):
         elif 'sar_max_af' == param:
             res = pct(value)
         else:
-            raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py", 'red'))
+            raise ValueError(term.red(f"I don't understand {param} please add it to evaluation.py"))
         return param, res
 
 
