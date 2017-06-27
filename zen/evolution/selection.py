@@ -1,9 +1,7 @@
 import random
 from operator import attrgetter
 from typing import Iterable, Set
-
 from blessings import Terminal
-
 from conf import partitions
 from evolution.individual_base import Individual
 
@@ -44,11 +42,11 @@ def log_stuff(elites, rest: Set, specialists):
     print(term.blue("\n\nWinter has come, weeding out the unworthy."))
     print(f"{len(elites)} Elites will survive, they're currently the strongest:")
     for elite in sorted(elites, key=attrgetter('objective'), reverse=True):
-        print(elite)
+        print(term.grey(str(elite)))
     print(f"{len(specialists)} Specialists will survive, they're the best in their domain:")
     for specialist in specialists:
-        print(specialist)
+        print(term.grey(str(specialist)))
     print(f"Some other have fought their way through:")
     for r in random.sample(rest, 3):
-        print(r)
+        print(term.grey(str(r)))
     print(term.grey("..."))

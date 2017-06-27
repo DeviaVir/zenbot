@@ -31,7 +31,6 @@ def algorithm(individual,popsize,map,evaluate,select,breed,mutate,stats,history,
 
     return hof
 
-
 def evaluate_group(population, map, evaluate):
     invalid_ind = [ind for ind in population if not ind.fitness.valid]
     print(' ' * len(invalid_ind) + '|')

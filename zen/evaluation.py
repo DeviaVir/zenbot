@@ -14,7 +14,6 @@ from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
 
 term = Terminal()
-term.grey = term.color(8)
 
 def pct(x):
     return x / 100.0
@@ -41,7 +40,7 @@ class Andividual(Individual):
             self.append(50 + (random.random() - 0.5) * 100)
 
     def __repr__(self):
-        return term.grey(f"{self.cmdline} {super(Andividual, self).__repr__()}")
+        return f"{self.cmdline} {super(Andividual, self).__repr__()}"
 
     @property
     def instrument(self):
