@@ -6,14 +6,13 @@ import subprocess
 import sys
 from typing import List
 
-from blessings import Terminal
+from termcolor import colored
 
-from conf import partitions, path
+from conf import partitions
 from evolution.individual_base import Individual
 from objective_function import soft_maximum_worst_case
 from parsing import parse_trades, args_for_strategy
 
-term = Terminal()
 
 def pct(x):
     return x / 100.0
@@ -32,7 +31,7 @@ def runzen(cmdline):
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '{path}/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33 --filename temp.html'
+    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33 --filename temp.html'
     def __init__(self, *args,**kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(self.strategy)
@@ -40,7 +39,7 @@ class Andividual(Individual):
             self.append(50 + (random.random() - 0.5) * 100)
 
     def __repr__(self):
-        return f"{self.cmdline} {super(Andividual, self).__repr__()}"
+        return colored(f"{self.cmdline}  {super(Andividual, self).__repr__()}", 'grey')
 
     @property
     def instrument(self):
@@ -74,7 +73,7 @@ class Andividual(Individual):
 
     @property
     def cmdline(self) -> str:
-        base = self.BASE_COMMAND.format(path=self.path, instrument=self.instrument, strategy=self.strategy)
+        base = self.BASE_COMMAND.format(instrument=self.instrument, strategy=self.strategy)
         result = ' '.join([base] + self.params)
         return result
 
@@ -103,7 +102,7 @@ class Andividual(Individual):
         elif 'sar_max_af' == param:
             res = pct(value)
         else:
-            raise ValueError(term.red(f"I don't understand {param} please add it to evaluation.py"))
+            raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py", 'red'))
         return param, res
 
 

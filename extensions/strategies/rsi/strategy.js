@@ -14,7 +14,7 @@ module.exports = function container (get, set, clear) {
       this.option('overbought_rsi', 'sell when RSI reaches or goes above this value', Number, 82)
       this.option('rsi_recover', 'allow RSI to recover this many points before buying', Number, 3)
       this.option('rsi_drop', 'allow RSI to fall this many points before selling', Number, 0)
-      this.option('rsi_divisor', 'sell when RSI reaches high-water reading divided by this value', Number, 2)
+      this.option('rsi_dividend', 'sell when RSI reaches high-water reading divided by this value', Number, 2)
     },
 
     calculate: function (s) {
@@ -38,7 +38,7 @@ module.exports = function container (get, set, clear) {
         }
         if (s.trend === 'long') {
           s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
-          if (s.period.rsi <= s.rsi_high / s.options.rsi_divisor) {
+          if (s.period.rsi <= s.rsi_high / s.options.rsi_dividend) {
             s.trend = 'short'
             s.signal = 'sell'
           }

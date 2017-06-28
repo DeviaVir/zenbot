@@ -1,6 +1,6 @@
 import shlex
 import subprocess
-from conf import path
+
 
 def parse_trades(stuff):
     """
@@ -13,7 +13,7 @@ def parse_trades(stuff):
 
 
 def args_for_strategy(strat):
-    available = subprocess.check_output(shlex.split('{path}/zenbot.sh list-strategies'.format(path=path)))
+    available = subprocess.check_output(shlex.split('/app/zenbot.sh list-strategies'))
     strats = [strat.strip() for strat in available.split(b'\n\n')]
     groups = [group.splitlines() for group in strats]
     output = {split[0].split()[0]: split[1:] for split in groups if split}
