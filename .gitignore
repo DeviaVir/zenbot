@@ -24,9 +24,8 @@ data.csv
 value_net.json
 
 extensions/strategies/bumblebee
-
-zen/logs/hof/
-
+zen/logs/history/*.png
+zen/logs/hof/*.txt
 zen/evolution/__pycache__/
 
 zen/__pycache__/
