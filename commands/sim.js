@@ -6,6 +6,7 @@ var tb = require('timebucket')
   , moment = require('moment')
   , colors = require('colors')
 
+
 module.exports = function container (get, set, clear) {
   var c = get('conf')
   return function (program) {
@@ -76,6 +77,7 @@ module.exports = function container (get, set, clear) {
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
         var query_start = so.start ? tb(so.start).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
+
 
         function exitSim () {
           console.log()
@@ -162,6 +164,7 @@ module.exports = function container (get, set, clear) {
           console.log('wrote', out_target)
           process.exit(0)
         }
+
 
         function getNext () {
           var opts = {
