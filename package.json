@@ -32,11 +32,7 @@
     "semver": "^5.3.0",
     "sosa_mongo": "^1.0.3",
     "timebucket": "^0.4.0",
-    "zero-fill": "^2.2.3",
-    "convnetjs": "^0.3.0",
-    "talib": "^1.0.1",
-    "regression": "^1.4.0",
-    "stats-lite": "^2.0.4"
+    "zero-fill": "^2.2.3"
   },
   "devDependencies": {
     "eslint": "^4.0.0"

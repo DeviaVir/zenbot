@@ -2,12 +2,11 @@ import networkx as networkx
 import numpy
 from deap.tools import Statistics
 from matplotlib import pyplot as plt
-from blessings import Terminal
+from termcolor import colored
 
-from conf import runid, path
+from conf import runid
 from objective_function import soft_maximum_worst_case
 
-term = Terminal()
 
 def draw(history, toolbox):
     ax = plt.figure()
@@ -21,7 +20,7 @@ def draw(history, toolbox):
     positions = networkx.drawing.nx_agraph.graphviz_layout(graph, prog="dot")
 
     networkx.draw(graph, positions, node_color=colors, ax=ax.add_subplot(111), figsize=(30, 30), node_size=150)
-    ax.savefig('{path}/zen/logs/history/{runid}.png'.format(path=path, runid=runid))
+    ax.savefig('logs/history/{runid}.png'.format(runid=runid))
 
 
 def log_stuff(g, history, hof, population, stats):
@@ -29,7 +28,7 @@ def log_stuff(g, history, hof, population, stats):
     record = stats.compile(population)
     hof.update(population)
     hof.persist()
-    print(term.green(f'\nGeneration {g} {record}'))
+    print(colored(f'\nGeneration {g} {record}','green') )
     # print(hof)
 
 

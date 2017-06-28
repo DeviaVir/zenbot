@@ -1,15 +1,15 @@
 import random
 from operator import attrgetter
 from typing import Iterable, Set
-from blessings import Terminal
+
+from termcolor import colored
+
 from conf import partitions
 from evolution.individual_base import Individual
 
-term = Terminal()
-term.grey = term.color(8)
 
 def harsh_winter(population: Set[Individual], count: int) -> Set[Individual]:
-    # Selects `popsize` many individuals from the current population.
+    """ Selects `popsize` many individuals from the current population."""
     elitist_count = int(count * 0.3)
     specialist_count = int(count * 0.4 / partitions)
     elites = select_elites(population, elitist_count)
@@ -39,14 +39,14 @@ def select_specialists(individuals: Iterable[Individual], count: int):
 
 
 def log_stuff(elites, rest: Set, specialists):
-    print(term.blue("\n\nWinter has come, weeding out the unworthy."))
+    print(colored("\n\nWinter has come, weeding out the unworthy.", 'blue'))
     print(f"{len(elites)} Elites will survive, they're currently the strongest:")
     for elite in sorted(elites, key=attrgetter('objective'), reverse=True):
-        print(term.grey(str(elite)))
+        print(elite)
     print(f"{len(specialists)} Specialists will survive, they're the best in their domain:")
     for specialist in specialists:
-        print(term.grey(str(specialist)))
+        print(specialist)
     print(f"Some other have fought their way through:")
-    for r in random.sample(rest, 3):
-        print(term.grey(str(r)))
-    print(term.grey("..."))
+    for r in random.sample(rest, len(rest) // 5):
+        print(r)
+    print(colored('...', 'grey'))
