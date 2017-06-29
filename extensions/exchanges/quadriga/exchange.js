@@ -126,7 +126,6 @@ module.exports = function container(get, set, clear) {
           ask: quote.ask
         }
 
-	console.log(quote)
         cb(null, r)
       })
     },
@@ -169,8 +168,6 @@ module.exports = function container(get, set, clear) {
 
         if (err) return cb(err)
 	if (body.error) return cb(body.error.message)
-
-	console.log(body)
 	
 	if (opts.order_type === 'taker') {
 	  order.status = 'done'
