@@ -29,13 +29,18 @@ module.exports = function container(get, set, clear) {
     return (product_id.split('-')[0] + '_' + product_id.split('-')[1]).toLowerCase()
   }
 
-  function retry(method, args) {
+  function retry(method, args, error) {
+    if (error.code === 200) {
+      console.error(('\QuadrigaCX API rate limit exceeded! unable to call ' + method + ', aborting').red)
+      return;
+    }
+    
     if (method !== 'getTrades') {
-      console.error(('\QuadrigaCX API is down! unable to call ' + method + ', retrying in 10s').red)
+      console.error(('\QuadrigaCX API is down! unable to call ' + method + ', retrying in 30s').red)
     }
     setTimeout(function() {
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, 30000)
   }
 
   var orders = {}
@@ -64,9 +69,8 @@ module.exports = function container(get, set, clear) {
           shownWarnings = true;
         }
 
-        if (err) {
-          return retry('getTrades', func_args, err)
-        }
+        if (err) return retry('getTrades', func_args, err)
+	if (trades.error) return retry('getTrades', func_args, trades.error)
 
         var trades = trades.map(function(trade) {
           return {
@@ -85,9 +89,8 @@ module.exports = function container(get, set, clear) {
     getBalance: function(opts, cb) {
       var client = authedClient()
       client.api('balance', function(err, wallet) {
-        if (err) {
-          return retry('getBalance', err)
-        }
+	if (err) return retry('getBalance', null, err)
+	if (wallet.error) return retry('getBalance', null, wallet.error)
 
         var currency = opts.currency.toLowerCase()
         var asset = opts.asset.toLowerCase()
@@ -115,27 +118,29 @@ module.exports = function container(get, set, clear) {
 
       var client = publicClient()
       client.api('ticker', params, function(err, quote) {
-        if (err) {
-          return retry('getQuote', func_args, err)
-        }
+        if (err) return retry('getQuote', func_args, err)
+	if (quote.error) return retry('getQuote', func_args, quote.error)
 
         var r = {
           bid: quote.bid,
           ask: quote.ask
         }
 
+	console.log(quote)
         cb(null, r)
       })
     },
 
     cancelOrder: function(opts, cb) {
+      var func_args = [].slice.call(arguments)
       var params = {
         id: opts.order_id
       }
 
       var client = authedClient()
       client.api('cancel_order', params, function(err, body) {
-        if (err) return (err)
+        if (err) return retry('cancelOrder', func_args, err)
+	if (body.error) return retry('cancelOrder', func_args, body.error)
         cb()
       })
     },
@@ -150,8 +155,6 @@ module.exports = function container(get, set, clear) {
         params.price = n(opts.price).format('0.00')
       }
 
-      console.log(params)
-
       var client = authedClient()
       client.api('buy', params, function(err, body) {
         var order = {
@@ -164,11 +167,8 @@ module.exports = function container(get, set, clear) {
           ordertype: opts.order_type
         }
 
-        if (err) {
-          status: 'rejected'
-          reject_reason: 'balance'
-          return cb(null, order)
-        }
+        if (err) return cb(err)
+	if (body.error) return cb(body.error.message)
 
 	console.log(body)
 	
@@ -206,7 +206,7 @@ module.exports = function container(get, set, clear) {
       }
 
       if (opts.order_type === 'maker' && typeof opts.type === 'undefined') {
-        params.price = opts.price
+        params.price = n(opts.price).format('0.00')
       }
 
       var client = authedClient()
@@ -221,11 +221,8 @@ module.exports = function container(get, set, clear) {
           ordertype: opts.order_type
         }
 
-        if (err) {
-          status: 'rejected'
-          reject_reason: 'balance'
-          return cb(null, order)
-        }
+	if (err) return cb(err)
+	if (body.error) return cb(body.error.message)
 
 	if (opts.order_type === 'taker') {
 	  order.status = 'done'
@@ -262,9 +259,9 @@ module.exports = function container(get, set, clear) {
       
       var client = authedClient()
       client.api('lookup_order', params, function(err, body) {
-        if (err) return (err)
+        if (err) return cb(err)
+	if (body.error) return cb(body.error.message)
 
-	console.log(body)
         if (body.status === 2) {
           order.status = 'done'
           order.done_at = new Date().getTime()
