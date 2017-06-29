@@ -146,14 +146,16 @@ module.exports = function container(get, set, clear) {
         book: joinProduct(opts.product_id)
       }
 
-      if (opts.order_type === 'maker' && typeof opts.type === 'undefined') {
-        params.price = opts.price
+      if (opts.order_type === 'maker') {
+        params.price = n(opts.price).format('0.00')
       }
+
+      console.log(params)
 
       var client = authedClient()
       client.api('buy', params, function(err, body) {
         var order = {
-          id: body.id,
+	  id: null,
           status: 'open',
           price: opts.price,
           size: opts.size,
@@ -168,6 +170,30 @@ module.exports = function container(get, set, clear) {
           return cb(null, order)
         }
 
+	console.log(body)
+	
+	if (opts.order_type === 'taker') {
+	  order.status = 'done'
+	  order.done_at = new Date().getTime();
+
+	  if (body.orders_matched) {
+	    var asset_total = 0
+	    var price_total = 0.0
+	    var order_count = body.orders_matched.length
+	    for (var idx = 0; idx < order_count; idx++) {
+	      asset_total = asset_total + body.orders_matched[idx].amount
+	      price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
+	    }
+
+	    order.price = price_total / asset_total
+	    order.size = asset_total
+	  } else {
+	    order.price = body.price
+	    order.size = body.amount
+	  }
+	}
+	
+	order.id = body.id
         orders['~' + body.id] = order
         cb(null, order)
       })
@@ -186,7 +212,7 @@ module.exports = function container(get, set, clear) {
       var client = authedClient()
       client.api('sell', params, function(err, body) {
         var order = {
-          id: body && body.is_live === true ? body.order_id : null,
+          id: null,
           status: 'open',
           price: opts.price,
           size: opts.size,
@@ -201,6 +227,28 @@ module.exports = function container(get, set, clear) {
           return cb(null, order)
         }
 
+	if (opts.order_type === 'taker') {
+	  order.status = 'done'
+	  order.done_at = new Date().getTime();
+
+	  if (body.orders_matched) {
+	    var asset_total = 0
+	    var price_total = 0.0
+	    var order_count = body.orders_matched.length
+	    for (var idx = 0; idx < order_count; idx++) {
+	      asset_total = asset_total + body.orders_matched[idx].amount
+	      price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
+	    }
+
+	    order.price = price_total / asset_total
+	    order.size = asset_total
+	  } else {
+	    order.price = body.price
+	    order.size = body.amount
+	  }
+	}
+
+	order.id = body.id
         orders['~' + body.id] = order
         cb(null, order)
       })
@@ -208,17 +256,19 @@ module.exports = function container(get, set, clear) {
 
     getOrder: function(opts, cb) {
       var order = orders['~' + opts.order_id]
-
+      var params = {
+	id: opts.order_id
+      }
+      
       var client = authedClient()
-      client.api('lookup_order', function(err, body) {
+      client.api('lookup_order', params, function(err, body) {
         if (err) return (err)
-        if (!body.id) {
-          return cb('Order not found')
-        }
+
+	console.log(body)
         if (body.status === 2) {
           order.status = 'done'
           order.done_at = new Date().getTime()
-          order.filled_size = body.amount
+          order.filled_size = body.amount	  
           return cb(null, order)
         }
         cb(null, order)
