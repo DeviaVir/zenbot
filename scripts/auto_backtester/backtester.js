@@ -94,6 +94,8 @@ let runCommand = (strategy, cb) => {
 let processOutput = output => {
   let jsonRegexp    = /(\{[\s\S]*?\})\send balance/g;
   let endBalRegexp  = /end balance: (\d+\.\d+) \(/g;
+  let buyHoldRegexp  = /buy hold: (\d+\.\d+) \(/g;
+  let vsBuyHoldRegexp  = /vs. buy hold: (-?\d+\.\d+)%/g;
   let wlRegexp      = /win\/loss: (\d+)\/(\d+)/g;
   let errRegexp     = /error rate: (.*)%/g;
 
@@ -102,6 +104,8 @@ let processOutput = output => {
   let rawParams     = jsonRegexp.exec(output2)[1];
   let params        = JSON.parse(rawParams);
   let endBalance    = endBalRegexp.exec(output2)[1];
+  let buyHold       = buyHoldRegexp.exec(output2)[1];
+  let vsBuyHold     = vsBuyHoldRegexp.exec(output2)[1];
   let wlMatch       = wlRegexp.exec(output2);
   let wins          = parseInt(wlMatch[1]);
   let losses        = parseInt(wlMatch[2]);
@@ -222,8 +226,8 @@ parallel(tasks, PARALLEL_LIMIT, (err, results) => {
   })
   results.sort((a,b) => (a.roi < b.roi) ? 1 : ((b.roi < a.roi) ? -1 : 0));
   let fileName = `backtesting_${Math.round(+new Date()/1000)}.csv`;
-  let filedsGeneral = ['roi', 'errorRate', 'wlRatio', 'frequency', 'endBalance', 'wins', 'losses', 'period', 'days'];
-  let filedNamesGeneral = ['ROI (%)', 'Error Rate (%)', 'Win/Loss Ratio', '# Trades/Day', 'Ending Balance ($)', '# Wins', '# Losses', 'Period', '# Days'];
+  let filedsGeneral = ['roi', 'vsBuyHold', 'errorRate', 'wlRatio', 'frequency', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'days'];
+  let filedNamesGeneral = ['ROI (%)', 'VS Buy Hold (%)', 'Error Rate (%)', 'Win/Loss Ratio', '# Trades/Day', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', '# Days'];
   let fields = {
     macd: filedsGeneral.concat([ 'emaShortPeriod', 'emaLongPeriod', 'signalPeriod', 'upTrendThreshold', 'downTrendThreshold', 'overboughtRsiPeriods', 'overboughtRsi', 'params']),
     rsi: filedsGeneral.concat(['rsiPeriods', 'oversoldRsi', 'overboughtRsi', 'rsiRecover', 'rsiDrop', 'rsiDivsor', 'params']),
