@@ -57,10 +57,10 @@ module.exports = function container (get, set, clear) {
           }
         }
       }
-
-			// Hold
-		  //s.signal = null
-		  cb()
+      
+      // Hold
+      //s.signal = null
+      cb()
     },
     onReport: function (s) {
       var cols = []
