@@ -10,6 +10,11 @@ c.mongo.password = null
 // when using mongodb replication, i.e. when running a mongodb cluster, you can define your replication set here; when you are not using replication (most of the users), just set it to `null` (default).
 c.mongo.replicaSet = null
 
+// Default ports for the Zentalk concept, one for the *zentalk* program
+// and one for the **zenout** program
+c.talk_port = 3010
+c.command_port = 3011
+
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'gdax.BTC-USD'
 // name of default trade strategy
