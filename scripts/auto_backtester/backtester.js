@@ -66,7 +66,7 @@ let objectProduct = obj => {
 
 let runCommand = (strategy, cb) => {
   countArr.push(1);
-  let command = `zenbot sim ${simArgs} --trend_ema=${strategy.trend_ema} --oversold_rsi=${strategy.oversold_rsi} --oversold_rsi_periods=${strategy.oversold_rsi_periods} --neutral_rate=${strategy.neutral_rate}`;
+  let command = `node zenbot sim ${simArgs} --trend_ema=${strategy.trend_ema} --oversold_rsi=${strategy.oversold_rsi} --oversold_rsi_periods=${strategy.oversold_rsi_periods} --neutral_rate=${strategy.neutral_rate}`;
   console.log(`[ ${countArr.length}/${strategies.length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
