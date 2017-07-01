@@ -34,7 +34,7 @@ module.exports = function container(get, set, clear) {
       console.error(('\QuadrigaCX API rate limit exceeded! unable to call ' + method + ', aborting').red)
       return;
     }
-    
+
     if (method !== 'getTrades') {
       console.error(('\QuadrigaCX API is down! unable to call ' + method + ', retrying in 30s').red)
     }
@@ -70,7 +70,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if (err) return retry('getTrades', func_args, err)
-	if (trades.error) return retry('getTrades', func_args, trades.error)
+        if (trades.error) return retry('getTrades', func_args, trades.error)
 
         var trades = trades.map(function(trade) {
           return {
@@ -89,8 +89,8 @@ module.exports = function container(get, set, clear) {
     getBalance: function(opts, cb) {
       var client = authedClient()
       client.api('balance', function(err, wallet) {
-	if (err) return retry('getBalance', null, err)
-	if (wallet.error) return retry('getBalance', null, wallet.error)
+        if (err) return retry('getBalance', null, err)
+        if (wallet.error) return retry('getBalance', null, wallet.error)
 
         var currency = opts.currency.toLowerCase()
         var asset = opts.asset.toLowerCase()
@@ -119,7 +119,7 @@ module.exports = function container(get, set, clear) {
       var client = publicClient()
       client.api('ticker', params, function(err, quote) {
         if (err) return retry('getQuote', func_args, err)
-	if (quote.error) return retry('getQuote', func_args, quote.error)
+        if (quote.error) return retry('getQuote', func_args, quote.error)
 
         var r = {
           bid: quote.bid,
@@ -139,7 +139,7 @@ module.exports = function container(get, set, clear) {
       var client = authedClient()
       client.api('cancel_order', params, function(err, body) {
         if (err) return retry('cancelOrder', func_args, err)
-	if (body.error) return retry('cancelOrder', func_args, body.error)
+        if (body.error) return retry('cancelOrder', func_args, body.error)
         cb()
       })
     },
@@ -157,7 +157,7 @@ module.exports = function container(get, set, clear) {
       var client = authedClient()
       client.api('buy', params, function(err, body) {
         var order = {
-	  id: null,
+          id: null,
           status: 'open',
           price: opts.price,
           size: opts.size,
@@ -167,30 +167,30 @@ module.exports = function container(get, set, clear) {
         }
 
         if (err) return cb(err)
-	if (body.error) return cb(body.error.message)
-	
-	if (opts.order_type === 'taker') {
-	  order.status = 'done'
-	  order.done_at = new Date().getTime();
+        if (body.error) return cb(body.error.message)
 
-	  if (body.orders_matched) {
-	    var asset_total = 0
-	    var price_total = 0.0
-	    var order_count = body.orders_matched.length
-	    for (var idx = 0; idx < order_count; idx++) {
-	      asset_total = asset_total + body.orders_matched[idx].amount
-	      price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
-	    }
+        if (opts.order_type === 'taker') {
+          order.status = 'done'
+          order.done_at = new Date().getTime();
 
-	    order.price = price_total / asset_total
-	    order.size = asset_total
-	  } else {
-	    order.price = body.price
-	    order.size = body.amount
-	  }
-	}
-	
-	order.id = body.id
+          if (body.orders_matched) {
+            var asset_total = 0
+            var price_total = 0.0
+            var order_count = body.orders_matched.length
+            for (var idx = 0; idx < order_count; idx++) {
+              asset_total = asset_total + body.orders_matched[idx].amount
+              price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
+            }
+
+            order.price = price_total / asset_total
+            order.size = asset_total
+          } else {
+            order.price = body.price
+            order.size = body.amount
+          }
+        }
+
+        order.id = body.id
         orders['~' + body.id] = order
         cb(null, order)
       })
@@ -218,31 +218,31 @@ module.exports = function container(get, set, clear) {
           ordertype: opts.order_type
         }
 
-	if (err) return cb(err)
-	if (body.error) return cb(body.error.message)
+        if (err) return cb(err)
+        if (body.error) return cb(body.error.message)
 
-	if (opts.order_type === 'taker') {
-	  order.status = 'done'
-	  order.done_at = new Date().getTime();
+        if (opts.order_type === 'taker') {
+          order.status = 'done'
+          order.done_at = new Date().getTime();
 
-	  if (body.orders_matched) {
-	    var asset_total = 0
-	    var price_total = 0.0
-	    var order_count = body.orders_matched.length
-	    for (var idx = 0; idx < order_count; idx++) {
-	      asset_total = asset_total + body.orders_matched[idx].amount
-	      price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
-	    }
+          if (body.orders_matched) {
+            var asset_total = 0
+            var price_total = 0.0
+            var order_count = body.orders_matched.length
+            for (var idx = 0; idx < order_count; idx++) {
+              asset_total = asset_total + body.orders_matched[idx].amount
+              price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
+            }
 
-	    order.price = price_total / asset_total
-	    order.size = asset_total
-	  } else {
-	    order.price = body.price
-	    order.size = body.amount
-	  }
-	}
+            order.price = price_total / asset_total
+            order.size = asset_total
+          } else {
+            order.price = body.price
+            order.size = body.amount
+          }
+        }
 
-	order.id = body.id
+        order.id = body.id
         orders['~' + body.id] = order
         cb(null, order)
       })
@@ -251,18 +251,18 @@ module.exports = function container(get, set, clear) {
     getOrder: function(opts, cb) {
       var order = orders['~' + opts.order_id]
       var params = {
-	id: opts.order_id
+        id: opts.order_id
       }
-      
+
       var client = authedClient()
       client.api('lookup_order', params, function(err, body) {
         if (err) return cb(err)
-	if (body.error) return cb(body.error.message)
+        if (body.error) return cb(body.error.message)
 
         if (body.status === 2) {
           order.status = 'done'
           order.done_at = new Date().getTime()
-          order.filled_size = body.amount	  
+          order.filled_size = body.amount
           return cb(null, order)
         }
         cb(null, order)
