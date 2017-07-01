@@ -12,8 +12,6 @@ mongodb:
   image: mongo:latest
   volumes_from:
     - mongodb-data
-  volumes:
-    - ./data/archive:/archive
   command: mongod --smallfiles
 
 mongodb-data:
