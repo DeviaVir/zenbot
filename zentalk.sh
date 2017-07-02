@@ -166,6 +166,8 @@ if (program.listen && program.connect) {
 
     options.headers = headers
     var ws = new WebSocket(connectUrl, options)
+    var key = ws._req._headers['sec-websocket-key']
+console.log('Client ID: ', key)
 
     ws.on('open', function open() {
       wsConsole.print(Console.Types.Control, 'connected (press CTRL+C to quit)', Console.Colors.Green)
