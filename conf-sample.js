@@ -10,6 +10,11 @@ c.mongo.password = null
 // when using mongodb replication, i.e. when running a mongodb cluster, you can define your replication set here; when you are not using replication (most of the users), just set it to `null` (default).
 c.mongo.replicaSet = null
 
+// TCP ports used bu the Zentalk concept, 
+// The program grabs the two first available ports from a specified range of ports,
+// one for the *zentalk* program and one for the **zenout** program
+c.talker_port_range = {min: 3000, max:3020,retrieve:2}
+
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'gdax.BTC-USD'
 // name of default trade strategy
@@ -50,6 +55,13 @@ c.bitfinex.key = 'YOUR-API-KEY'
 c.bitfinex.secret = 'YOUR-SECRET'
 // May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
 c.bitfinex.wallet = 'exchange'
+
+// to enable Bitfinex trading, enter your API credentials:
+c.bitstamp = {}
+c.bitstamp.key = 'YOUR-API-KEY'
+c.bitstamp.secret = 'YOUR-SECRET'
+// A client ID is required on Bitstamp
+c.bitstamp.client_id = 'YOUR-CLIENT-ID'
 
 // Optional stop-order triggers:
 

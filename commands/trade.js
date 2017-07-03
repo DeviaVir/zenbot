@@ -36,6 +36,8 @@ module.exports = function container (get, set, clear) {
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
       .option('--disable_stats', 'disable printing order stats')
       .option('--reset_profit', 'start new profit calculation from 0')
+      .option('--talk_port <port>', 'TCP port for receiving messages', Number, c.talk_port)
+      .option('--command_port <port>', 'TCP port to talk through', Number, c.command_port)
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
         var raw_opts = minimist(process.argv)
@@ -64,13 +66,13 @@ module.exports = function container (get, set, clear) {
           console.error('cannot trade ' + so.selector + ': exchange not implemented')
           process.exit(1)
         }
+
         var engine = get('lib.engine')(s)
 
         var order_types = ['maker', 'taker']
         if (!so.order_type in order_types || !so.order_type) {
           so.order_type = 'maker'
         }
-
         var db_cursor, trade_cursor
         var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()
         var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
@@ -93,7 +95,6 @@ module.exports = function container (get, set, clear) {
         var my_trades_size = 0
         var my_trades = get('db.my_trades')
         var periods = get('db.periods')
-
         console.log('fetching pre-roll data:')
         var backfiller = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), ['backfill', so.selector, '--days', days])
         backfiller.stdout.pipe(process.stdout)
@@ -119,7 +120,7 @@ module.exports = function container (get, set, clear) {
             get('db.trades').select(opts, function (err, trades) {
               if (err) throw err
               if (!trades.length) {
-                console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
+                console.log('---------------------------- STARTING '+ so.mode.toUpperCase() + ' TRADING WITH "' + so.order_type + '" ORDERS ----------------------------')
                 if (so.mode === 'paper') {
                   console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')
                 }

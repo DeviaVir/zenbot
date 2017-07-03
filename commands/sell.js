@@ -31,7 +31,11 @@ module.exports = function container (get, set, clear) {
         var order_types = ['maker', 'taker']
         if (!so.order_type in order_types || !so.order_type) {
           so.order_type = 'maker'
-        }
+        } else {
+	        so.order_type = so.taker ? 'taker' : 'maker'
+	        so.order_type === 'taker' ? delete so.taker : delete so.maker
+	      }
+        s.options.order_type = so.order_type
         so.mode = 'live'
         so.strategy = c.strategy
         so.stats = true
@@ -56,7 +60,7 @@ module.exports = function container (get, set, clear) {
             })
           }
           else {
-            console.log('placing order...')
+            console.log('placing ' + so.order_type + ' sell order...')
           }
         }
         setInterval(checkOrder, c.order_poll_time)

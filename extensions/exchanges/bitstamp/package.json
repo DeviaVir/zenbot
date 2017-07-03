@@ -1,0 +1,9 @@
+{
+  "name": "zenbot_bitstamp",
+  "version": "0.0.0",
+  "description": "zenbot supporting code for Bitstamp",
+  "dependencies": {
+    "bitstamp": "^1.0.1",
+    "pusher-js": "^4.1.0"
+  }
+}
