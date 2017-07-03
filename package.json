@@ -27,6 +27,7 @@
     "number-abbreviate": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
     "poloniex.js": "0.0.7",
+    "quadrigacx": "0.0.7",
     "run-parallel": "^1.1.6",
     "run-series": "^1.1.4",
     "semver": "^5.3.0",
