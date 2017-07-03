@@ -22,8 +22,6 @@ Thanks!
 
 
 
-
-
 **Will I make money with Zenbot?** <a name="money"></a>
 
 That depends… Different configurations and strategies will yield different results.
@@ -61,10 +59,11 @@ Therefore, if a simulation does not yield good results, odds are that neither wi
 
 After installation, you lauch Zenbot via command line.
 Example:
-zenbot sim --days=14 or zenbot sim --days 14 
-zenbot backfill gdax.ETH-BTC
-
-[You can generate a command with this google spreadsheet](https://docs.google.com/spreadsheets/d/1sl0AKv_1cMPyhJMZ9WRFA2UQhKHJaZJlt2aXdYbsheE/edit?usp=sharing).
+```
+./zenbot.sh backfill gdax.ETH-BTC
+./zenbot.sh sim gdax.ETH-BTC --days=14 or zenbot sim --days 14 
+```
+[You can generate a command with this google spreadsheet](https://docs.google.com/spreadsheets/d/1HECEHW-I9Evve_FQV3LT_IWGV6FU34tHif9TEouKtfg/edit?usp=sharing).
 Do not hesitate to copy this file to your Google drive or download it as an Excel file, as everybody can modify it simultaneously.
 
 
