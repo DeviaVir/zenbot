@@ -179,7 +179,7 @@ module.exports = function container(get, set, clear) {
             var order_count = body.orders_matched.length
             for (var idx = 0; idx < order_count; idx++) {
               asset_total = asset_total + body.orders_matched[idx].amount
-              price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
+              price_total = price_total + (body.orders_matched[idx].amount * body.orders_matched[idx].price)
             }
 
             order.price = price_total / asset_total
@@ -231,7 +231,7 @@ module.exports = function container(get, set, clear) {
             var order_count = body.orders_matched.length
             for (var idx = 0; idx < order_count; idx++) {
               asset_total = asset_total + body.orders_matched[idx].amount
-              price_total = price_total + (body.orders_matched[idx].amount * body.orfers_matched[idx].price)
+              price_total = price_total + (body.orders_matched[idx].amount * body.orders_matched[idx].price)
             }
 
             order.price = price_total / asset_total
