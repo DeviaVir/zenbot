@@ -51,6 +51,17 @@ c.bitfinex.secret = 'YOUR-SECRET'
 // May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
 c.bitfinex.wallet = 'exchange'
 
+// to enable QuadrigaCX tranding, enter your API credentials:
+c.quadriga = {}
+c.quadriga.key = 'YOUR-API-KEY';
+
+// this is the manual secret key entered by editing the API access
+// and NOT the md5 hash you see in the summary
+c.quadriga.secret = 'YOUR-SECRET';
+
+// replace with the client id used at login, as a string, not number
+c.quadriga.client_id = 'YOUR-CLIENT-ID';
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
@@ -66,9 +77,9 @@ c.profit_stop_pct = 1
 
 // avoid trading at a slippage above this pct
 c.max_slippage_pct = 5
-// buy with this % of currency balance
+// buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100) 
 c.buy_pct = 99
-// sell with this % of asset balance
+// sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
 c.sell_pct = 99
 // ms to adjust non-filled order after
 c.order_adjust_time = 30000
