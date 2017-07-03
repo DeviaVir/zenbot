@@ -13,6 +13,7 @@ Thanks!
 * [Is Docker necessary when installing Zenbot?](#docker)
 * [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
 * [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
+* [How do I launch Zenbot?](#commands)
 * [Does Zenbot use Limit orders or Market orders?](#limit-market-orders)
 * [Is there a community to get involved with Zenbot?](#community)
 * [Can I install Zenbot on Windows?](#windows)
@@ -54,8 +55,19 @@ Paper trading is more optimistic than live trading.
 Therefore, if a simulation does not yield good results, odds are that neither will paper trading or (by extension) live trading.
 
 
+**How do I launch Zenbot?** <a name="commands"></a>
 
-**Why does Zenbot use Limit orders by default?** <a name="limit-orders"></a>
+After installation, you lauch Zenbot via command line.
+Example:
+```
+./zenbot.sh backfill gdax.ETH-BTC
+./zenbot.sh sim gdax.ETH-BTC --days=14 or zenbot sim --days 14 
+```
+[You can generate a command with this google spreadsheet](https://docs.google.com/spreadsheets/d/1HECEHW-I9Evve_FQV3LT_IWGV6FU34tHif9TEouKtfg/edit?usp=sharing).
+Do not hesitate to copy this file to your Google drive or download it as an Excel file, as everybody can modify it simultaneously.
+
+
+**Why does Zenbot use Limit orders by default?** <a name="limit-market-orders"></a>
 
 On most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there is no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
 
