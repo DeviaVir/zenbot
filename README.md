@@ -203,11 +203,11 @@ zenbot trade --help
 
   Options:
 
-    -h, --help                      output usage information
     --conf <path>                   path to optional conf overrides file
     --strategy <name>               strategy to use
     --order_type <type>             order type to use (maker/taker)
     --paper                         use paper trading mode (no real trades will take place)
+    --manual                        watch price and account balance, but do not perform trades automatically
     --currency_capital <amount>     for paper trading, amount of start capital in currency
     --asset_capital <amount>        for paper trading, amount of start capital in asset
     --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
@@ -227,7 +227,7 @@ zenbot trade --help
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
     --debug                         output detailed debug info
-
+    -h, --help                      output usage information
 ```
 
 and also:
