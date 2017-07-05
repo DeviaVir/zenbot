@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . /app
 
-CMD [ "./zenbot.sh", "trade" ]
+CMD [ "./zenbot.sh", "trade", "--paper" ]
