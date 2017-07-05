@@ -1,5 +1,6 @@
 var QuadrigaCX = require('quadrigacx'),
   path = require('path'),
+  moment = require('moment'),
   colors = require('colors'),
   n = require('numbro')
 
@@ -75,7 +76,7 @@ module.exports = function container(get, set, clear) {
         var trades = trades.map(function(trade) {
           return {
             trade_id: trade.tid,
-            time: trade.date,
+            time: moment.unix(trade.date).valueOf(),
             size: trade.amount,
             price: trade.price,
             side: trade.side
