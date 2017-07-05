@@ -21,6 +21,34 @@
     "label": "DASH/XBT"
   },
   {
+    "asset": "EOS",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/ETH"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/EUR"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/XBT"
+  },
+  {
     "asset": "GNO",
     "currency": "XETH",
     "min_size": "0.01",
