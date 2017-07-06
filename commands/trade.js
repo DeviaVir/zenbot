@@ -172,6 +172,10 @@ module.exports = function container (get, set, clear) {
                         delete s.buy_order
                         delete s.sell_order
                       }
+                      else if ((key === 'm' || key === 'M') && !info.ctrl) {
+                        so.manual = !so.manual
+                        console.log('\nmanual mode: ' + (so.manual ? 'ON' : 'OFF') + '\n')
+                      }
                       else if (info.name === 'c' && info.ctrl) {
                         // @todo: cancel open orders before exit
                         console.log()

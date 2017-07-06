@@ -300,6 +300,7 @@ While the `trade` command is running, Zenbot will respond to these keypress comm
 
 - Pressing `b` will trigger a buy, `s` for sell, and `B` and `C` for market (taker) orders.
 - Pressing `c` or `C` will cancel any active orders.
+- Pressing `m` or `M` will toggle manual mode (`--manual`)
 
 These commands can be used to override what the bot is doing. Or, while running with the `--manual` flag, this allows you to make all the trade decisions yourself.
 
