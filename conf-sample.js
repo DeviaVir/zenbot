@@ -82,7 +82,7 @@ c.buy_pct = 99
 // sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
 c.sell_pct = 99
 // ms to adjust non-filled order after
-c.order_adjust_time = 30000
+c.order_adjust_time = 5000
 // avoid selling at a loss below this pct
 c.max_sell_loss_pct = 25
 // ms to poll order status
