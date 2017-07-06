@@ -6,6 +6,7 @@ var tb = require('timebucket')
   , spawn = require('child_process').spawn
   , moment = require('moment')
   , crypto = require('crypto')
+  , readline = require('readline')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -152,6 +153,31 @@ module.exports = function container (get, set, clear) {
                     lookback_size = s.lookback.length
                     forwardScan()
                     setInterval(forwardScan, c.poll_trades)
+                    readline.emitKeypressEvents(process.stdin)
+                    process.stdin.setRawMode(true)
+                    process.stdin.on('keypress', function (key, info) {
+                      if (key === 'b' && !info.ctrl ) {
+                        engine.executeSignal('buy')
+                      }
+                      else if (key === 'B' && !info.ctrl) {
+                        engine.executeSignal('buy', null, null, false, true)
+                      }
+                      else if (key === 's' && !info.ctrl) {
+                        engine.executeSignal('sell')
+                      }
+                      else if (key === 'S' && !info.ctrl) {
+                        engine.executeSignal('sell', null, null, false, true)
+                      }
+                      else if ((key === 'c' || key === 'C') && !info.ctrl) {
+                        delete s.buy_order
+                        delete s.sell_order
+                      }
+                      else if (info.name === 'c' && info.ctrl) {
+                        // @todo: cancel open orders before exit
+                        console.log()
+                        process.exit()
+                      }
+                    })
                   })
                 })
                 return
