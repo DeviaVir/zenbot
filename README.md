@@ -181,10 +181,12 @@ Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making 19
 The following command will launch the bot, and if you haven't touched `c.default_selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
 
 ```
-zenbot trade [--paper]
+zenbot trade [--paper] [--manual]
 ```
 
 Use the `--paper` flag to only perform simulated trades while watching the market.
+
+Use the `--manual` flag to watch the price and account balance, but do not perform trades automatically.
 
 Here's how to run a different selector (example: ETH-BTC on Poloniex):
 
@@ -203,11 +205,11 @@ zenbot trade --help
 
   Options:
 
-    -h, --help                      output usage information
     --conf <path>                   path to optional conf overrides file
     --strategy <name>               strategy to use
     --order_type <type>             order type to use (maker/taker)
     --paper                         use paper trading mode (no real trades will take place)
+    --manual                        watch price and account balance, but do not perform trades automatically
     --currency_capital <amount>     for paper trading, amount of start capital in currency
     --asset_capital <amount>        for paper trading, amount of start capital in asset
     --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
@@ -227,7 +229,7 @@ zenbot trade --help
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
     --debug                         output detailed debug info
-
+    -h, --help                      output usage information
 ```
 
 and also:
@@ -291,6 +293,16 @@ trend_ema (default)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
 ```
+
+### Interactive controls
+
+While the `trade` command is running, Zenbot will respond to these keypress commands:
+
+- Pressing `b` will trigger a buy, `s` for sell, and `B` and `C` for market (taker) orders.
+- Pressing `c` or `C` will cancel any active orders.
+- Pressing `m` or `M` will toggle manual mode (`--manual`)
+
+These commands can be used to override what the bot is doing. Or, while running with the `--manual` flag, this allows you to make all the trade decisions yourself.
 
 ### Conf/argument override files
 
