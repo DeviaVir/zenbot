@@ -298,7 +298,7 @@ trend_ema (default)
 
 While the `trade` command is running, Zenbot will respond to these keypress commands:
 
-- Pressing `b` will trigger a buy, `s` for sell, and `B` and `C` for market (taker) orders.
+- Pressing `b` will trigger a buy, `s` for sell, and `B` and `S` for market (taker) orders.
 - Pressing `c` or `C` will cancel any active orders.
 - Pressing `m` or `M` will toggle manual mode (`--manual`)
 
