@@ -78,7 +78,7 @@ let runCommand = (strategy, cb) => {
     speed: `--baseline_periods=${strategy.baseline_periods} --trigger_factor=${strategy.trigger_factor}`,
     trend_ema: `--trend_ema=${strategy.trend_ema} --oversold_rsi=${strategy.oversold_rsi} --oversold_rsi_periods=${strategy.oversold_rsi_periods} --neutral_rate=${strategy.neutral_rate}`
   };
-  let command = `node zenbot sim ${simArgs} ${strategyArgs[strategyName]}`;
+  let command = `node zenbot sim ${simArgs} ${strategyArgs[strategyName]} --period=${strategy.period}  --min_periods=${strategy.min_periods}`;
   console.log(`[ ${countArr.length}/${strategies[strategyName].length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
@@ -159,6 +159,7 @@ let processOutput = output => {
 
     days:               days,
     period:             params.period,
+    min_periods:        params.min_periods,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     frequency:          roundp((wins + losses) / days, 3)
@@ -167,6 +168,8 @@ let processOutput = output => {
 
 let strategies = {
   macd: objectProduct({
+    period: ['1h'],
+    min_periods: [52],
     ema_short_period: range(10, 15),
     ema_long_period: range(20, 30),
     signal_period: range(9, 9),
@@ -176,6 +179,8 @@ let strategies = {
     overbought_rsi: range(70, 70)
   }),
   rsi: objectProduct({
+    period: ['2m'],
+    min_periods: [52],
     rsi_periods: range(10, 30),
     oversold_rsi: range(20, 35),
     overbought_rsi: range(82, 82),
@@ -184,14 +189,20 @@ let strategies = {
     rsi_divisor: range(2, 2)
   }),
   sar: objectProduct({
+    period: ['2m'],
+    min_periods: [52],
     sar_af: range(0.01, 0.055, 0.005),
     sar_max_af: range(0.1, 0.55, 0.05)
   }),
   speed: objectProduct({
+    period: ['1m'],
+    min_periods: [52],
     baseline_periods: range(1000, 5000, 200),
     trigger_factor: range(1.0, 2.0, 0.1)
   }),
   trend_ema: objectProduct({
+    period: ['2m'],
+    min_periods: [52],
     trend_ema: range(TREND_EMA_MIN, TREND_EMA_MAX),
     neutral_rate: (NEUTRAL_RATE_AUTO ? new Array('auto') : []).concat(range(NEUTRAL_RATE_MIN, NEUTRAL_RATE_MAX).map(r => r / 100)),
     oversold_rsi_periods: range(OVERSOLD_RSI_PERIODS_MIN, OVERSOLD_RSI_PERIODS_MAX),
@@ -226,8 +237,8 @@ parallel(tasks, PARALLEL_LIMIT, (err, results) => {
   })
   results.sort((a,b) => (a.roi < b.roi) ? 1 : ((b.roi < a.roi) ? -1 : 0));
   let fileName = `backtesting_${Math.round(+new Date()/1000)}.csv`;
-  let filedsGeneral = ['roi', 'vsBuyHold', 'errorRate', 'wlRatio', 'frequency', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'days'];
-  let filedNamesGeneral = ['ROI (%)', 'VS Buy Hold (%)', 'Error Rate (%)', 'Win/Loss Ratio', '# Trades/Day', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', '# Days'];
+  let filedsGeneral = ['roi', 'vsBuyHold', 'errorRate', 'wlRatio', 'frequency', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days'];
+  let filedNamesGeneral = ['ROI (%)', 'VS Buy Hold (%)', 'Error Rate (%)', 'Win/Loss Ratio', '# Trades/Day', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days'];
   let fields = {
     macd: filedsGeneral.concat([ 'emaShortPeriod', 'emaLongPeriod', 'signalPeriod', 'upTrendThreshold', 'downTrendThreshold', 'overboughtRsiPeriods', 'overboughtRsi', 'params']),
     rsi: filedsGeneral.concat(['rsiPeriods', 'oversoldRsi', 'overboughtRsi', 'rsiRecover', 'rsiDrop', 'rsiDivsor', 'params']),
