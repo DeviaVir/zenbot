@@ -17,7 +17,7 @@ module.exports = function container (get, set, clear) {
       this.option('overbought_rsi', 'sell when RSI reaches or goes above this value', Number, 80)
       this.option('ema_short_period', 'number of periods for the shorter EMA', Number, 24)
       this.option('ema_long_period', 'number of periods for the longer EMA', Number, 200)
-      this.option('signal_period', 'number of periods for the signal EMA', Number, 14)
+      this.option('signal_period', 'number of periods for the signal EMA', Number, 9)
       this.option('up_trend_threshold', 'threshold to trigger a buy signal', Number, 0)
       this.option('down_trend_threshold', 'threshold to trigger a sold signal', Number, 0)
     },
