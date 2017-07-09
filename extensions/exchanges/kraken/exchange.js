@@ -185,7 +185,7 @@ module.exports = function container(get, set, clear) {
         if (data.error.length) {
           return cb(data.error.join(','))
         }
-	if (so.debug) {
+        if (so.debug) {
           console.log("cancelOrder")
           console.log(data)
         }
