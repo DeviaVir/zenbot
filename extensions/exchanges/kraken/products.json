@@ -21,6 +21,34 @@
     "label": "DASH/XBT"
   },
   {
+    "asset": "EOS",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/ETH"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/EUR"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "EOS/XBT"
+  },
+  {
     "asset": "GNO",
     "currency": "XETH",
     "min_size": "0.01",
@@ -92,31 +120,10 @@
   },
   {
     "asset": "XETH",
-    "currency": "XXBT",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "ETH/XBT"
-  },
-  {
-    "asset": "XETH",
     "currency": "ZCAD",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "ETH/CAD"
-  },
-  {
-    "asset": "XETH",
-    "currency": "ZCAD",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "ETH/CAD"
-  },
-  {
-    "asset": "XETH",
-    "currency": "ZEUR",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "ETH/EUR"
   },
   {
     "asset": "XETH",
@@ -134,31 +141,10 @@
   },
   {
     "asset": "XETH",
-    "currency": "ZGBP",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "ETH/GBP"
-  },
-  {
-    "asset": "XETH",
     "currency": "ZJPY",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "ETH/JPY"
-  },
-  {
-    "asset": "XETH",
-    "currency": "ZJPY",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "ETH/JPY"
-  },
-  {
-    "asset": "XETH",
-    "currency": "ZUSD",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "ETH/USD"
   },
   {
     "asset": "XETH",
@@ -253,20 +239,6 @@
   },
   {
     "asset": "XXBT",
-    "currency": "ZCAD",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "XBT/CAD"
-  },
-  {
-    "asset": "XXBT",
-    "currency": "ZEUR",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "XBT/EUR"
-  },
-  {
-    "asset": "XXBT",
     "currency": "ZEUR",
     "min_size": "0.01",
     "increment": "0.00000001",
@@ -281,31 +253,10 @@
   },
   {
     "asset": "XXBT",
-    "currency": "ZGBP",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "XBT/GBP"
-  },
-  {
-    "asset": "XXBT",
     "currency": "ZJPY",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "XBT/JPY"
-  },
-  {
-    "asset": "XXBT",
-    "currency": "ZJPY",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "XBT/JPY"
-  },
-  {
-    "asset": "XXBT",
-    "currency": "ZUSD",
-    "min_size": "0.01",
-    "increment": "0.00000001",
-    "label": "XBT/USD"
   },
   {
     "asset": "XXBT",
