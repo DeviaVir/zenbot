@@ -97,7 +97,7 @@ module.exports = function container (get, set, clear) {
         var periods = get('db.periods')
 
         console.log('fetching pre-roll data:')
-	var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
+        var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
         var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector, '--days', days])
         backfiller.stdout.pipe(process.stdout)
         backfiller.stderr.pipe(process.stderr)
