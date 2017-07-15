@@ -1,3 +1,9 @@
+//
+// Warning - Some of the functions need testing
+// by someone in posession of a BTCe account
+// In particular this is the case for 
+// the buy, sell, cancelOrderand getOrderfunctions
+//
 var BTCE = require('btce')
   , path = require('path')
   , colors = require('colors')
@@ -29,16 +35,6 @@ module.exports = function container (get, set, clear) {
     return product_id.split('-')[0] + '_' + product_id.split('-')[1]
   }
 
-/*
-  function statusErr (resp, body) {
-    if (resp.statusCode !== 200) {
-      var err = new Error('non-200 status: ' + resp.statusCode)
-      err.code = 'HTTP_STATUS'
-      err.body = body
-      return err
-    }
-  }
-*/
   function statusErr (err, body) {
     if (body === null) {
       return new Error(err)
@@ -91,17 +87,12 @@ module.exports = function container (get, set, clear) {
         // move cursor into the past
         args.after = opts.to
       }
-      //var args = {pair: pair, count: 1000}
-      //client.trades(args, function (err, body) {
       client.trades({ pair: pair, count: 1000 }, function (err, body) {
-//        body = statusErr(err, err)
-//console.log('getTrades', body)
         if (err) return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.tid,
-            // Fix me
-            time: trade.date * 1000,   //
+            time: trade.date * 1000,
             //time: new Date(trade.date).getTime(),
             size: trade.amount,
             price: trade.price,
@@ -203,7 +194,6 @@ module.exports = function container (get, set, clear) {
     getOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      //client.getOrder(opts.order_id, function (err, resp, body) {
       // Fix me - Check return result
       var orderInfo = {
         //from: opts.order_id,
