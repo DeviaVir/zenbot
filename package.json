@@ -27,7 +27,7 @@
     "node.bittrex.api": "^0.2.5",
     "number-abbreviate": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
-    "poloniex.js": "0.0.7",
+    "poloniex.js": "git+https://github.com/premasagar/poloniex.js.git",
     "pusher-js": "^4.1.0",
     "quadrigacx": "0.0.7",
     "run-parallel": "^1.1.6",
