@@ -468,7 +468,7 @@ zenbot sell gdax.BTC-USD --pct=10
   - Fixed nonce error
   - Sell order time out bug still remains.
   - Only taker mode works on poloniex with this patch.
-  - Removed buy re-buy in engine.js (this seemed to fix something.)
+  - Removed buy re-buy on_hold in engine.js (this seemed to fix something.)
   - Removed Order On Hold wait forbuy function. (temporary!) (would be great to just set a timeout wait for buy syncbalance do_reoder that works)
   - Apparently fixed some calculations with order on hold.
   - This needs debugging and testing.
