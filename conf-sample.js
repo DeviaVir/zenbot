@@ -100,7 +100,7 @@ c.wait_for_settlement = 5000
 // % to mark up or down price for orders
 c.markup_pct = 0
 // become a market taker (high fees) or a market maker (low fees)
-c.order_type = 'maker'
+c.order_type = 'taker'
 
 // Misc options:
 
