@@ -69,6 +69,11 @@ c.quadriga.secret = 'YOUR-SECRET';
 // replace with the client id used at login, as a string, not number
 c.quadriga.client_id = 'YOUR-CLIENT-ID';
 
+// to enable BTC-e trading, enter your API credentials:
+c.btce = {}
+c.btce.key = 'YOUR-API-KEY'
+c.btce.secret = 'YOUR-SECRET'
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
