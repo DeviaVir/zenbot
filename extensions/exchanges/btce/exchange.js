@@ -119,8 +119,8 @@ module.exports = function container (get, set, clear) {
         if (body.success) {
           var balance = {asset: 0, currency: 0}
           var funds = body.return.funds
-          balance.currency = 999.450009 //funds[args.currency]
-          balance.asset = 0.450008 //funds[args.asset]
+          balance.currency = funds[args.currency]
+          balance.asset = funds[args.asset]
           balance.currency_hold = 0
           balance.asset_hold = 0
           cb(null, balance)
