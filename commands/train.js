@@ -189,6 +189,7 @@ module.exports = function container (get, set, clear) {
           var bar = new ProgressBar(
             'Training [:bar] :percent :etas - Fitness: :fitness',
             {
+              width: 80,
               total: getTrainOptions().generationCount,
               incomplete: ' '
             }
