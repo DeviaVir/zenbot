@@ -95,12 +95,14 @@ module.exports = function container (get, set, clear) {
           })
           var options_json = JSON.stringify(options, null, 2)
           output_lines.push(options_json)
-          s.my_trades.push({
-            price: s.period.close,
-            size: s.balance.asset,
-            type: 'sell',
-            time: s.period.time
-          })
+          if (s.my_trades.length) {
+            s.my_trades.push({
+              price: s.period.close,
+              size: s.balance.asset,
+              type: 'sell',
+              time: s.period.time
+            })
+          }
           s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           s.balance.asset = 0
           s.lookback.unshift(s.period)
