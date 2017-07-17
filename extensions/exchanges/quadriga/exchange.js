@@ -75,7 +75,7 @@ module.exports = function container(get, set, clear) {
         if (body.error) return retry('getTrades', func_args, trades.error)
 
         var trades = body.filter(t => {
-	  return (typeof opts.from === 'undefined') ? true : (moment.unix(t.date).valueOf() > opts.from)
+          return (typeof opts.from === 'undefined') ? true : (moment.unix(t.date).valueOf() > opts.from)
         }).reverse().map(function(trade) {
           return {
             trade_id: trade.tid,
