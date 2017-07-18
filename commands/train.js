@@ -12,14 +12,8 @@ var tb = require('timebucket')
 var defaultIndicators = [
   'CCI',
   'MACD',
-  'MACD_Signal',
-  'MACD_Histogram',
-  'Momentum',
   'RSI',
-  'BOP',
-  'ATR',
   'SAR',
-  'SMA15_SMA50',
   'Stochastic'
 ]
 
@@ -109,7 +103,7 @@ module.exports = function container (get, set, clear) {
         }
         
         function writeModel (strategy) {
-          modelfile = 'models/forex.model_' + so.selector + '_period-' + so.period + '_from-' + moment(so.start_training).format('YYYYMMDD_HHmmss') + '_to-' + moment(so.end_training).format('YYYYMMDD_HHmmss') + '.json'
+          modelfile = 'models/forex.model_' + so.selector + '_period-' + so.period + '_from-' + moment(so.start_training).format('YYYYMMDD_HHmmssZZ') + '_to-' + moment(so.end_training).format('YYYYMMDD_HHmmssZZ') + '.json'
           modelfile.replace(/:/g, '').replace(/-/g, '')
   
           fs.writeFileSync(
@@ -134,10 +128,14 @@ module.exports = function container (get, set, clear) {
 
           console.log(
               "\nRunning simulation on training data from "
-            + moment(so.start_training).format('YYYY-MM-DD HH:mm:ss') + ' to '
-            + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss') + ".\n"
+            + moment(so.start_training).format('YYYY-MM-DD HH:mm:ss ZZ') + ' to '
+            + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + ".\n"
           )
           
+          if (typeof(so.end_training) === 'undefined') {
+            so.end_training = moment().format("x")
+          }
+
           var trainingSimulation = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), [
             'sim',
             so.selector,
@@ -160,7 +158,7 @@ module.exports = function container (get, set, clear) {
             if (so.days_test > 0) {
               console.log(
                   "Running simulation on test data from "
-                + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss') + " onwards.\n"
+                + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " onwards.\n"
               )
               
               var testSimulation = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), [
@@ -179,8 +177,10 @@ module.exports = function container (get, set, clear) {
                   console.log('Child process exited with code ' + code + ' and signal ' + signal)
                 }
                 console.log()
-                process.exit(code)
+                process.exit(0)
               })
+            } else {
+              process.exit(0)
             }
           })
         }
