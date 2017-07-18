@@ -43,7 +43,7 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 
 ## Quick-start
 
-### 1. Requirements: Linux or OSX or Docker, [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
+### 1. Requirements: Windows, Linux or OSX or Docker, [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
 
 ### 2. Install zenbot 4:
 
@@ -93,6 +93,12 @@ After installing (step 2 above),
 cd zenbot
 docker-compose build
 docker-compose up (-d if you don't want to see the log)
+```
+
+If you are running windows use the following command
+
+```
+docker-compose --file=docker-compose-windows.yml up
 ```
 
 If you wish to run commands (e.g. backfills, list-selectors), you can run this separate command after a successful `docker-compose up -d`:
