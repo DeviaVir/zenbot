@@ -50,6 +50,7 @@ module.exports = function container(get, set, clear) {
     name: 'quadriga',
     historyScan: 'backward',
     makerFee: 0.5,
+    takerFee: 0.5,
 
     getProducts: function() {
       return require('./products.json')
@@ -63,21 +64,23 @@ module.exports = function container(get, set, clear) {
       }
 
       var client = publicClient()
-      client.api('transactions', args, function(err, trades) {
+      client.api('transactions', args, function(err, body) {
         if (!shownWarnings) {
-          console.log('please note: the quadriga api does not support backfilling (trade/paper only).')
-          console.log('please note: make sure to set the period to 1h')
+          console.log('please note: the quadriga api does not support backfilling.')
+          console.log('please note: periods should be set to 1h or less.');
           shownWarnings = true;
         }
 
         if (err) return retry('getTrades', func_args, err)
-        if (trades.error) return retry('getTrades', func_args, trades.error)
+        if (body.error) return retry('getTrades', func_args, trades.error)
 
-        var trades = trades.map(function(trade) {
+        var trades = body.filter(t => {
+          return (typeof opts.from === 'undefined') ? true : (moment.unix(t.date).valueOf() > opts.from)
+        }).reverse().map(function(trade) {
           return {
             trade_id: trade.tid,
             time: moment.unix(trade.date).valueOf(),
-            size: trade.amount,
+            size: Number(trade.amount),
             price: trade.price,
             side: trade.side
           }
