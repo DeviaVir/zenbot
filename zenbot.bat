@@ -1,0 +1,1 @@
+node zenbot.sh %*

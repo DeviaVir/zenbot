@@ -1,0 +1,21 @@
+server:
+  build: .
+  volumes:
+    - .:/app
+    - /app/node_modules
+  links:
+    - mongodb
+  command: ./zenbot.sh trade --paper
+  restart: always
+
+mongodb:
+  image: mongo:latest
+  volumes_from:
+    - mongodb-data
+  command: mongod --smallfiles
+
+mongodb-data:
+  image: mongo:latest
+  volumes:
+    - /data/db
+  command: "true"
