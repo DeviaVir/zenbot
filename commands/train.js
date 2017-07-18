@@ -136,7 +136,8 @@ module.exports = function container (get, set, clear) {
             so.end_training = moment().format("x")
           }
 
-          var trainingSimulation = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), [
+          var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
+          var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), [
             'sim',
             so.selector,
             '--strategy', 'forex_analytics',
@@ -161,7 +162,7 @@ module.exports = function container (get, set, clear) {
                 + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " onwards.\n"
               )
               
-              var testSimulation = spawn(path.resolve(__dirname, '..', 'zenbot.sh'), [
+              var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), [
                 'sim',
                 so.selector,
                 '--strategy', 'forex_analytics',
