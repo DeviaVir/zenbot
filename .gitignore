@@ -20,3 +20,4 @@ sim_result*
 *_test
 backtesting_*
 models/*.json
+models/*.html

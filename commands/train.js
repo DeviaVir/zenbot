@@ -158,6 +158,28 @@ module.exports = function container (get, set, clear) {
           return finalModelFile
         }
         
+        function parseSimulation (simulationResultFile) {
+          var endBalance = new RegExp(/end balance: .* \((.*)%\)/)
+          var buyHold = new RegExp(/buy hold: .* \((.*)%\)/)
+          var vsBuyHold = new RegExp(/vs\. buy hold: (.*)%/)
+          var trades = new RegExp(/([0-9].* trades over .* days \(avg (.*) trades\/day\))/)
+          var errorRate = new RegExp(/error rate: (.*)%/)
+
+          var simulationResult = fs.readFileSync(simulationResultFile).toString()
+
+          result = {}
+          if (simulationResult.match(endBalance)) { result.endBalance      = simulationResult.match(endBalance)[1] }
+          if (simulationResult.match(buyHold))    { result.buyHold         = simulationResult.match(buyHold)[1] }
+          if (simulationResult.match(vsBuyHold))  { result.vsBuyHold       = simulationResult.match(vsBuyHold)[1] }
+          if (simulationResult.match(trades)) {
+            result.trades          = simulationResult.match(trades)[1]
+            result.avgTradesPerDay = simulationResult.match(trades)[2]
+          }
+          if (simulationResult.match(errorRate))  { result.errorRate       = simulationResult.match(errorRate)[1] }
+
+          return result
+        }
+
         function trainingDone (strategy, lastPeriod) {
           var tempModelFile = writeTempModel(strategy)
           console.log("\nModel temporarily written to " + tempModelFile)
@@ -169,15 +191,9 @@ module.exports = function container (get, set, clear) {
           console.log(
               "\nRunning simulation on training data from "
             + moment(so.start_training).format('YYYY-MM-DD HH:mm:ss ZZ') + ' to '
-            + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " (sorry, no output while running...).\n"
+            + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + ".\n"
           )
           
-          var endBalance = new RegExp(/^end balance: .* \((.*)%\)/)
-          var buyHold = new RegExp(/buy hold: .* \((.*)%\)/)
-          var vsBuyHold = new RegExp(/vs\. buy hold: (.*)%/)
-          var trades = new RegExp(/([0-9].* trades over .* days \(avg (.*) trades\/day\))/)
-          var errorRate = new RegExp(/error rate: (.*)%/)
-
           var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
           var trainingArgs = [
             'sim',
@@ -188,21 +204,9 @@ module.exports = function container (get, set, clear) {
             '--start', so.start_training,
             '--end', so.end_training,
             '--period', so.period,
-            '--filename', 'none'
+            '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html'
           ]
-          var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), trainingArgs, { stdio: 'pipe' })
-
-          var trainingResult = {}
-          trainingSimulation.stdout.on('data', function (data) {
-            if (data.toString().match(endBalance)) { trainingResult.endBalance   = data.toString().match(endBalance)[1] }
-            if (data.toString().match(buyHold))    { trainingResult.buyHold      = data.toString().match(buyHold)[1] }
-            if (data.toString().match(vsBuyHold))  { trainingResult.vsBuyHold    = data.toString().match(vsBuyHold)[1] }
-            if (data.toString().match(trades)) {
-              trainingResult.trades          = data.toString().match(trades)[1]
-              trainingResult.avgTradesPerDay = data.toString().match(trades)[2]
-            }
-            if (data.toString().match(errorRate))  { trainingResult.errorRate    = data.toString().match(errorRate)[1] }
-          })
+          var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), trainingArgs, { stdio: 'inherit' })
 
           trainingSimulation.on('exit', function (code, signal) {
             if (code) {
@@ -210,7 +214,7 @@ module.exports = function container (get, set, clear) {
               process.exit(code)
             }
 
-            console.log(trainingResult)
+            var trainingResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html')
 
             if (so.days_test > 0) {
               console.log(
@@ -226,28 +230,16 @@ module.exports = function container (get, set, clear) {
                 '--modelfile', path.resolve(__dirname, '..', tempModelFile),
                 '--start', so.end_training,
                 '--period', so.period,
-                '--filename', 'none'
+                '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html',
               ]
-              var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), testArgs, { stdio: 'pipe' })
-
-              var testResult = {}
-              testSimulation.stdout.on('data', function (data) {
-                if (data.toString().match(endBalance)) { testResult.endBalance   = data.toString().match(endBalance)[1] }
-                if (data.toString().match(buyHold))    { testResult.buyHold      = data.toString().match(buyHold)[1] }
-                if (data.toString().match(vsBuyHold))  { testResult.vsBuyHold    = data.toString().match(vsBuyHold)[1] }
-                if (data.toString().match(trades)) {
-                  testResult.trades          = data.toString().match(trades)[1]
-                  testResult.avgTradesPerDay = data.toString().match(trades)[2]
-                }
-                if (data.toString().match(errorRate))  { testResult.errorRate    = data.toString().match(errorRate)[1] }
-              })
+              var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), testArgs, { stdio: 'inherit' })
 
               testSimulation.on('exit', function (code, signal) {
                 if (code) {
                   console.log('Child process exited with code ' + code + ' and signal ' + signal)
                 }
 
-                console.log(testResult)
+                var testResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html')
 
                 var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, testResult)
                 console.log("\nFinal model with results written to " + finalModelFile)
