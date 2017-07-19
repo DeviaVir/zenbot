@@ -26,8 +26,8 @@ c.gdax.passphrase = 'YOUR-PASSPHRASE'
 
 // to enable Poloniex trading, enter your API credentials:
 c.poloniex = {}
-c.poloniex.key = ''
-c.poloniex.secret = ''
+-c.poloniex.key = 'YOUR-API-KEY'
+-c.poloniex.secret = 'YOUR-SECRET'
 // please note: poloniex does not support market orders via the API
 
 // to enable Kraken trading, enter your API credentials:
