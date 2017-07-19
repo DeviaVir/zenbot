@@ -370,7 +370,8 @@ Attempts to buy low and sell high by tracking RSI high-water readings.
 
 - Effective in sideways markets or markets that tend to recover after price drops.
 - Risky to use in bear markets, since the algorithm depends on price recovery.
-- If the other strategies are losing you money, this strategy may perform better, since it basically "reverses the signals" and anticipates a reversal instead of expecting the trend to continue.
+- If the other strategies are losing you money, this strategy may perform better, since it basically "reverses the signals" and
+anticipates a reversal instead of expecting the trend to continue.
 
 ### About the sar strategy
 
@@ -460,6 +461,17 @@ zenbot sell gdax.BTC-USD --pct=10
     - fix crashing on mongo timeout during backfill
     - fix gaps in poloniex backfill
     - default backfill days 90 -> 14
+- vTRK Branch Pull: 
+  - Updated to poloniex.js 0.0.8
+  - Reccomended ssl-strict=false in poloniex.js
+  - Updated packages.json
+  - Fixed nonce error
+  - Sell order time out bug still remains.
+  - Only taker mode works on poloniex with this patch.
+  - Removed buy re-buy on_hold in engine.js (this seemed to fix something.)
+  - Removed Order On Hold wait forbuy function. (temporary!) (would be great to just set a timeout wait for buy syncbalance do_reoder that works)
+  - Apparently fixed some calculations with order on hold.
+  - This needs debugging and testing.
 
 ## TODO
 
