@@ -243,15 +243,18 @@ module.exports = function container (get, set, clear) {
                 var testResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html')
 
                 var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, testResult)
-                console.log("\nFinal model with results written to " + finalModelFile)
+                fs.rename(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html', path.resolve(__dirname, '..', finalModelFile) + '-simTrainingResult.html')
+                fs.rename(path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html', path.resolve(__dirname, '..', finalModelFile) + '-simTestResult.html')
                 fs.unlink(path.resolve(__dirname, '..', tempModelFile))
+                console.log("\nFinal model with results written to " + finalModelFile)
 
                 process.exit(0)
               })
             } else {
               var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, undefined)
-              console.log("\nFinal model with results written to " + finalModelFile)
+              fs.rename(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html', path.resolve(__dirname, '..', finalModelFile) + '-simTrainingResult.html')
               fs.unlink(path.resolve(__dirname, '..', tempModelFile))
+              console.log("\nFinal model with results written to " + finalModelFile)
 
               process.exit(0)
             }
