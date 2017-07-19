@@ -166,6 +166,7 @@ module.exports = function container (get, set, clear) {
           var errorRate = new RegExp(/error rate: (.*)%/)
 
           var simulationResult = fs.readFileSync(simulationResultFile).toString()
+          simulationResult = simulationResult.substr(simulationResult.length - 512);
 
           result = {}
           if (simulationResult.match(endBalance)) { result.endBalance      = simulationResult.match(endBalance)[1] }
