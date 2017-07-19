@@ -5,6 +5,7 @@
   "main": "./index.js",
   "bin": {
     "zenbot": "./zenbot.sh"
+    "zenbot.sh": "./zenbot.sh"
   },
   "dependencies": {
     "bitfinex-api-node": "^1.0.1",
