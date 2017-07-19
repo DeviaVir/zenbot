@@ -8,6 +8,7 @@ var tb = require('timebucket')
   , colors = require('colors')
   , analytics = require('forex.analytics')
   , ProgressBar = require('progress')
+  , crypto = require('crypto')
 
 var defaultIndicators = [
   'CCI',
@@ -102,85 +103,163 @@ module.exports = function container (get, set, clear) {
           }
         }
         
-        function writeModel (strategy) {
-          modelfile = 'models/forex.model_' + so.selector + '_period-' + so.period + '_from-' + moment(so.start_training).format('YYYYMMDD_HHmmssZZ') + '_to-' + moment(so.end_training).format('YYYYMMDD_HHmmssZZ') + '.json'
-          modelfile.replace(/:/g, '').replace(/-/g, '')
-  
+        function writeTempModel (strategy) {
+          var tempModelString = JSON.stringify(
+            {
+              "selector": so.selector,
+              "period": so.period,
+              "start_training": moment(so.start_training),
+              "end_training": moment(so.end_training),
+              "options": getTrainOptions(),
+              "strategy": strategy
+            }, null, 4)
+
+          var tempModelHash = crypto.createHash('sha256').update(tempModelString).digest('hex')
+          var tempModelFile = 'models/temp.' + tempModelHash + '-' + moment(so.start_training).utc().format('YYYYMMDD_HHmmssZZ') + '.json';
+
           fs.writeFileSync(
-            modelfile,
-            JSON.stringify(
-              {
-                "selector": so.selector,
-                "start_training": moment(so.start_training),
-                "end_training": moment(so.end_training),
-                "period": so.period,
-                "options": getTrainOptions(),
-                "strategy": strategy
-              }, null, 4)
+            tempModelFile,
+            tempModelString
+          )
+
+          return tempModelFile
+        }
+
+        function writeFinalModel (strategy, end_training, trainingResult, testResult) {
+          var finalModelString = JSON.stringify(
+            {
+              "selector": so.selector,
+              "period": so.period,
+              "start_training": moment(so.start_training).utc(),
+              "end_training": moment(end_training).utc(),
+              "result_training": trainingResult,
+              "start_test": so.days_test > 0 ? moment(end_training).utc() : undefined,
+              "result_test": testResult,
+              "options": getTrainOptions(),
+              "strategy": strategy
+            }, null, 4)
+
+          var testVsBuyHold = typeof(testResult) !== "undefined" ? testResult.vsBuyHold : 'noTest'
+
+          var finalModelFile = 'models/forex.model_' + so.selector
+            + '_period=' + so.period
+            + '_from=' + moment(so.start_training).utc().format('YYYYMMDD_HHmmssZZ')
+            + '_to=' + moment(end_training).utc().format('YYYYMMDD_HHmmssZZ')
+            + '_trainingVsBuyHold=' + trainingResult.vsBuyHold
+            + '_testVsBuyHold=' + testVsBuyHold
+            + '_created=' + moment().utc().format('YYYYMMDD_HHmmssZZ')
+            + '.json'
+
+          fs.writeFileSync(
+            finalModelFile,
+            finalModelString
           )
   
-          return modelfile
+          return finalModelFile
         }
         
-        function trainingDone (strategy) {
-          var modelfile = writeModel(strategy)
-          console.log("\nModel written to " + modelfile)
+        function trainingDone (strategy, lastPeriod) {
+          var tempModelFile = writeTempModel(strategy)
+          console.log("\nModel temporarily written to " + tempModelFile)
+
+          if (typeof(so.end_training) === 'undefined') {
+            so.end_training = lastPeriod.time * 1000
+          }
 
           console.log(
               "\nRunning simulation on training data from "
             + moment(so.start_training).format('YYYY-MM-DD HH:mm:ss ZZ') + ' to '
-            + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + ".\n"
+            + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " (sorry, no output while running...).\n"
           )
           
-          if (typeof(so.end_training) === 'undefined') {
-            so.end_training = moment().format("x")
-          }
+          var endBalance = new RegExp(/^end balance: .* \((.*)%\)/)
+          var buyHold = new RegExp(/buy hold: .* \((.*)%\)/)
+          var vsBuyHold = new RegExp(/vs\. buy hold: (.*)%/)
+          var trades = new RegExp(/([0-9].* trades over .* days \(avg (.*) trades\/day\))/)
+          var errorRate = new RegExp(/error rate: (.*)%/)
 
           var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
-          var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), [
+          var trainingArgs = [
             'sim',
             so.selector,
             '--strategy', 'forex_analytics',
             '--disable_options',
-            '--modelfile', path.resolve(__dirname, '..', modelfile),
+            '--modelfile', path.resolve(__dirname, '..', tempModelFile),
             '--start', so.start_training,
             '--end', so.end_training,
             '--period', so.period,
             '--filename', 'none'
-          ], { stdio: 'inherit' })
+          ]
+          var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), trainingArgs, { stdio: 'pipe' })
+
+          var trainingResult = {}
+          trainingSimulation.stdout.on('data', function (data) {
+            if (data.toString().match(endBalance)) { trainingResult.endBalance   = data.toString().match(endBalance)[1] }
+            if (data.toString().match(buyHold))    { trainingResult.buyHold      = data.toString().match(buyHold)[1] }
+            if (data.toString().match(vsBuyHold))  { trainingResult.vsBuyHold    = data.toString().match(vsBuyHold)[1] }
+            if (data.toString().match(trades)) {
+              trainingResult.trades          = data.toString().match(trades)[1]
+              trainingResult.avgTradesPerDay = data.toString().match(trades)[2]
+            }
+            if (data.toString().match(errorRate))  { trainingResult.errorRate    = data.toString().match(errorRate)[1] }
+          })
 
           trainingSimulation.on('exit', function (code, signal) {
             if (code) {
               console.log('Child process exited with code ' + code + ' and signal ' + signal)
               process.exit(code)
             }
-            console.log()
+
+            console.log(trainingResult)
 
             if (so.days_test > 0) {
               console.log(
-                  "Running simulation on test data from "
+                  "\nRunning simulation on test data from "
                 + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " onwards.\n"
               )
               
-              var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), [
+              var testArgs = [
                 'sim',
                 so.selector,
                 '--strategy', 'forex_analytics',
                 '--disable_options',
-                '--modelfile', path.resolve(__dirname, '..', modelfile),
+                '--modelfile', path.resolve(__dirname, '..', tempModelFile),
                 '--start', so.end_training,
                 '--period', so.period,
                 '--filename', 'none'
-              ], { stdio: 'inherit' })
+              ]
+              var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), testArgs, { stdio: 'pipe' })
+
+              var testResult = {}
+              testSimulation.stdout.on('data', function (data) {
+                if (data.toString().match(endBalance)) { testResult.endBalance   = data.toString().match(endBalance)[1] }
+                if (data.toString().match(buyHold))    { testResult.buyHold      = data.toString().match(buyHold)[1] }
+                if (data.toString().match(vsBuyHold))  { testResult.vsBuyHold    = data.toString().match(vsBuyHold)[1] }
+                if (data.toString().match(trades)) {
+                  testResult.trades          = data.toString().match(trades)[1]
+                  testResult.avgTradesPerDay = data.toString().match(trades)[2]
+                }
+                if (data.toString().match(errorRate))  { testResult.errorRate    = data.toString().match(errorRate)[1] }
+              })
 
               testSimulation.on('exit', function (code, signal) {
                 if (code) {
                   console.log('Child process exited with code ' + code + ' and signal ' + signal)
                 }
-                console.log()
+
+                console.log(testResult)
+
+                var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, testResult)
+                console.log("\nFinal model with results written to " + finalModelFile)
+                fs.unlink(path.resolve(__dirname, '..', tempModelFile))
+
                 process.exit(0)
               })
             } else {
+              var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, undefined)
+              console.log("\nFinal model with results written to " + finalModelFile)
+              fs.unlink(path.resolve(__dirname, '..', tempModelFile))
+
               process.exit(0)
             }
           })
@@ -237,7 +316,7 @@ module.exports = function container (get, set, clear) {
           
           createStrategy(candlesticks)
             .then(function(strategy) {
-              trainingDone(strategy)
+              trainingDone(strategy, candlesticks[candlesticks.length - 1])
             })
             .catch(function(err) {
               console.log(('Training error. Aborting.').red)
