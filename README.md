@@ -461,18 +461,7 @@ zenbot sell gdax.BTC-USD --pct=10
     - fix crashing on mongo timeout during backfill
     - fix gaps in poloniex backfill
     - default backfill days 90 -> 14
-- vTRK Branch Pull: 
-  - Updated to poloniex.js 0.0.8
-  - Reccomended ssl-strict=false in poloniex.js
-  - Updated packages.json
-  - Fixed nonce error
-  - Sell order time out bug still remains.
-  - Only taker mode works on poloniex with this patch.
-  - Removed buy re-buy on_hold in engine.js (this seemed to fix something.)
-  - Removed Order On Hold wait forbuy function. (temporary!) (would be great to just set a timeout wait for buy syncbalance do_reoder that works)
-  - Apparently fixed some calculations with order on hold.
-  - This needs debugging and testing.
-
+    
 ## TODO
 
 - cancel pending orders on SIGINT
