@@ -171,7 +171,10 @@ module.exports = function container(get, set, clear) {
         }
 
         if (err) return cb(err)
-        if (body.error) return cb(body.error.message)
+        if (body.error) {
+          //console.log(`API Error: ${body.error.message}`);
+          return cb(body.error)
+        }
 
         if (opts.order_type === 'taker') {
           order.status = 'done'
@@ -223,7 +226,10 @@ module.exports = function container(get, set, clear) {
         }
 
         if (err) return cb(err)
-        if (body.error) return cb(body.error.message)
+        if (body.error) {
+          //console.log(`API Error: ${body.error.message}`);
+          return cb(body.error)
+        }
 
         if (opts.order_type === 'taker') {
           order.status = 'done'
@@ -261,7 +267,10 @@ module.exports = function container(get, set, clear) {
       var client = authedClient()
       client.api('lookup_order', params, function(err, body) {
         if (err) return cb(err)
-        if (body.error) return cb(body.error.message)
+        if (body.error) {
+          //console.log(`API Error: ${body.error.message}`);
+          return cb(body.error)
+        }
 
         if (body.status === 2) {
           order.status = 'done'
