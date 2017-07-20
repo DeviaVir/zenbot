@@ -81,7 +81,7 @@ module.exports = function container(get, set, clear) {
             trade_id: trade.tid,
             time: moment.unix(trade.date).valueOf(),
             size: Number(trade.amount),
-            price: trade.price,
+            price: Number(trade.price),
             side: trade.side
           }
         })
@@ -104,11 +104,11 @@ module.exports = function container(get, set, clear) {
           currency: 0
         }
 
-        balance.currency = wallet[currency + '_balance'];
-        balance.asset = wallet[asset + '_balance'];
+        balance.currency = Number(wallet[currency + '_balance']);
+        balance.asset = Number(wallet[asset + '_balance']);
 
-        balance.currency_hold = wallet[currency + '_reserved']
-        balance.asset_hold = wallet[asset + '_reserved']
+        balance.currency_hold = Number(wallet[currency + '_reserved'])
+        balance.asset_hold = Number(wallet[asset + '_reserved'])
         cb(null, balance)
       })
     },
@@ -126,8 +126,8 @@ module.exports = function container(get, set, clear) {
         if (quote.error) return retry('getQuote', func_args, quote.error)
 
         var r = {
-          bid: quote.bid,
-          ask: quote.ask
+          bid: Number(quote.bid),
+          ask: Number(quote.ask)
         }
 
         cb(null, r)
@@ -163,10 +163,10 @@ module.exports = function container(get, set, clear) {
         var order = {
           id: null,
           status: 'open',
-          price: opts.price,
-          size: opts.size,
+          price: Number(opts.price),
+          size: Number(opts.size),
           created_at: new Date().getTime(),
-          filled_size: '0',
+          filled_size: 0,
           ordertype: opts.order_type
         }
 
@@ -182,15 +182,15 @@ module.exports = function container(get, set, clear) {
             var price_total = 0.0
             var order_count = body.orders_matched.length
             for (var idx = 0; idx < order_count; idx++) {
-              asset_total = asset_total + body.orders_matched[idx].amount
-              price_total = price_total + (body.orders_matched[idx].amount * body.orders_matched[idx].price)
+              asset_total = asset_total + Number(body.orders_matched[idx].amount)
+              price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
             }
 
             order.price = price_total / asset_total
             order.size = asset_total
           } else {
-            order.price = body.price
-            order.size = body.amount
+            order.price = Number(body.price)
+            order.size = Number(body.amount)
           }
         }
 
@@ -215,10 +215,10 @@ module.exports = function container(get, set, clear) {
         var order = {
           id: null,
           status: 'open',
-          price: opts.price,
-          size: opts.size,
+          price: Number(opts.price),
+          size: Number(opts.size),
           created_at: new Date().getTime(),
-          filled_size: '0',
+          filled_size: 0,
           ordertype: opts.order_type
         }
 
@@ -234,15 +234,15 @@ module.exports = function container(get, set, clear) {
             var price_total = 0.0
             var order_count = body.orders_matched.length
             for (var idx = 0; idx < order_count; idx++) {
-              asset_total = asset_total + body.orders_matched[idx].amount
-              price_total = price_total + (body.orders_matched[idx].amount * body.orders_matched[idx].price)
+              asset_total = asset_total + Number(body.orders_matched[idx].amount)
+              price_total = price_total + (Number(body.orders_matched[idx].amount) * body.orders_matched[idx].price)
             }
 
             order.price = price_total / asset_total
             order.size = asset_total
           } else {
-            order.price = body.price
-            order.size = body.amount
+            order.price = Number(body.price)
+            order.size = Number(body.amount)
           }
         }
 
@@ -266,7 +266,7 @@ module.exports = function container(get, set, clear) {
         if (body.status === 2) {
           order.status = 'done'
           order.done_at = new Date().getTime()
-          order.filled_size = body.amount
+          order.filled_size = Number(body.amount)
           return cb(null, order)
         }
         cb(null, order)
