@@ -101,10 +101,11 @@ module.exports = function container(get, set, clear) {
     },
 
     getBalance: function(opts, cb) {
+      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.api('balance', function(err, wallet) {
-        if (err) return retry('getBalance', null, err)
-        if (wallet.error) return retry('getBalance', null, wallet.error)
+        if (err) return retry('getBalance', func_args, err)
+        if (wallet.error) return retry('getBalance', func_args, wallet.error)
 
         var currency = opts.currency.toLowerCase()
         var asset = opts.asset.toLowerCase()
