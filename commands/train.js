@@ -10,13 +10,44 @@ var tb = require('timebucket')
   , ProgressBar = require('progress')
   , crypto = require('crypto')
 
-var defaultIndicators = [
+var fa_defaultIndicators = [
   'CCI',
   'MACD',
   'RSI',
   'SAR',
   'Stochastic'
 ]
+
+var fa_availableIndicators = [
+  'ATR',
+  'BOP',
+  'CCI',
+  'MACD',
+  'MACD_Signal',
+  'MACD_Histogram',
+  'Momentum',
+  'RSI',
+  'SAR',
+  'SMA15_SMA50',
+  'Stochastic'
+]
+
+
+function fa_getTrainOptions (so) {
+  if (typeof(so) === "undefined") so = {}
+
+  return {
+    populationCount: so.populationCount || 100,
+    generationCount: so.generationCount || 100,
+    selectionAmount: so.selectionAmount || 10,
+    leafValueMutationProbability: so.leafValueMutationProbability || 0.5,
+    leafSignMutationProbability: so.leafSignMutationProbability || 0.3,
+    logicalNodeMutationProbability: so.logicalNodeMutationProbability || 0.3,
+    leafIndicatorMutationProbability: so.leafIndicatorMutationProbability || 0.2,
+    crossoverProbability: so.crossoverProbability || 0.03,
+    indicators: so.indicators ? so.indicators.split(',') : fa_defaultIndicators
+  }
+}
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -27,20 +58,20 @@ module.exports = function container (get, set, clear) {
       .allowUnknownOption()
       .description('Train the binary buy/sell decision tree for the forex.analytics strategy')
       .option('--conf <path>', 'path to optional conf overrides file')
-      .option('--period <value>', 'period length of a candlestick (default: 20m)', String, '20m')
+      .option('--period <value>', 'period length of a candlestick (default: 30m)', String, '30m')
       .option('--start_training <timestamp>', 'start training at timestamp')
       .option('--end_training <timestamp>', 'end training at timestamp')
       .option('--days_training <days>', 'set duration of training dataset by day count', Number, c.days)
       .option('--days_test <days>', 'set duration of test dataset to use with simulation, appended AFTER the training dataset (default: 0)', Number)
-      .option('--populationCount <value>', 'population count (default: 3000)', Number)
-      .option('--generationCount <value>', 'generation count (default: 250)', Number)
-      .option('--selectionAmount <value>', 'selection amount (default: 30)', Number)
-      .option('--leafValueMutationProbability <value>', 'leaf value mutation probability (default: 0.3)', Number)
-      .option('--leafSignMutationProbability <value>', 'leaf sign mutation probability (default: 0.1)', Number)
-      .option('--logicalNodeMutationProbability <value>', 'logical node mutation probability (default: 0.05)', Number)
-      .option('--leafIndicatorMutationProbability <value>', 'leaf indicator mutation probability (default: 0.2)', Number)
-      .option('--crossoverProbability <value>', 'crossover probability (default: 0.03)', Number)
-      .option('--indicators <value>', 'comma separated list of TA-lib indicators (default: ' + defaultIndicators.toString() + ')', String)
+      .option('--populationCount <value>', 'population count (default: ' + fa_getTrainOptions().populationCount + ')', Number)
+      .option('--generationCount <value>', 'generation count (default: ' + fa_getTrainOptions().generationCount + ')', Number)
+      .option('--selectionAmount <value>', 'selection amount (default: ' + fa_getTrainOptions().selectionAmount + ')', Number)
+      .option('--leafValueMutationProbability <value>', 'leaf value mutation probability (default: ' + fa_getTrainOptions().leafValueMutationProbability + ')', Number)
+      .option('--leafSignMutationProbability <value>', 'leaf sign mutation probability (default: ' + fa_getTrainOptions().leafSignMutationProbability + ')', Number)
+      .option('--logicalNodeMutationProbability <value>', 'logical node mutation probability (default: ' + fa_getTrainOptions().logicalNodeMutationProbability + ')', Number)
+      .option('--leafIndicatorMutationProbability <value>', 'leaf indicator mutation probability (default: ' + fa_getTrainOptions().leafIndicatorMutationProbability + ')', Number)
+      .option('--crossoverProbability <value>', 'crossover probability (default: ' + fa_getTrainOptions().crossoverProbability + ')', Number)
+      .option('--indicators <value>', 'comma separated list of TA-lib indicators (default: ' + fa_defaultIndicators.toString() + ', available: ' + fa_availableIndicators.toString() + ')', String)
 
       .action(function (selector, cmd) {        
         var s = {options: minimist(process.argv)}
@@ -54,6 +85,19 @@ module.exports = function container (get, set, clear) {
         
         if (!so.days_test) { so.days_test = 0 }
         so.strategy = 'noop'
+
+        unknownIndicators = []
+        if (so.indicators) {
+          so.indicators.split(',').forEach(function(indicator) {
+            if (!fa_availableIndicators.includes(indicator))
+              unknownIndicators.push(indicator)
+          })
+        }
+        if (unknownIndicators) {
+          console.error(('ERROR: The following indicators are not in forex.analytics: ').red + (unknownIndicators.toString()).yellow)
+          console.error('Available indicators: ' + fa_availableIndicators.toString())
+          process.exit(1)
+        }
 
         if (so.start_training) {
           so.start_training = moment(so.start_training).valueOf()
@@ -88,20 +132,6 @@ module.exports = function container (get, set, clear) {
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
         var query_start = so.start_training ? tb(so.start_training).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
-
-        function getTrainOptions () {
-          return {
-            populationCount: so.populationCount || 3000,
-            generationCount: so.generationCount || 250,
-            selectionAmount: so.selectionAmount || 30,
-            leafValueMutationProbability: so.leafValueMutationProbability || 0.3,
-            leafSignMutationProbability: so.leafSignMutationProbability || 0.1,
-            logicalNodeMutationProbability: so.logicalNodeMutationProbability || 0.05,
-            leafIndicatorMutationProbability: so.leafIndicatorMutationProbability || 0.2,
-            crossoverProbability: so.crossoverProbability || 0.03,
-            indicators: so.indicators ? so.indicators.split(',') : defaultIndicators
-          }
-        }
         
         function writeTempModel (strategy) {
           var tempModelString = JSON.stringify(
@@ -110,7 +140,7 @@ module.exports = function container (get, set, clear) {
               "period": so.period,
               "start_training": moment(so.start_training),
               "end_training": moment(so.end_training),
-              "options": getTrainOptions(),
+              "options": fa_getTrainOptions(so),
               "strategy": strategy
             }, null, 4)
 
@@ -135,7 +165,7 @@ module.exports = function container (get, set, clear) {
               "result_training": trainingResult,
               "start_test": so.days_test > 0 ? moment(end_training).utc() : undefined,
               "result_test": testResult,
-              "options": getTrainOptions(),
+              "options": fa_getTrainOptions(so),
               "strategy": strategy
             }, null, 4)
 
@@ -266,12 +296,12 @@ module.exports = function container (get, set, clear) {
             'Training [:bar] :percent :etas - Fitness: :fitness',
             {
               width: 80,
-              total: getTrainOptions().generationCount,
+              total: fa_getTrainOptions(so).generationCount,
               incomplete: ' '
             }
           )
 
-          return analytics.findStrategy(candlesticks, getTrainOptions(), function(strategy, fitness, generation) {
+          return analytics.findStrategy(candlesticks, fa_getTrainOptions(so), function(strategy, fitness, generation) {
             bar.tick({
               'fitness': fitness
             })
