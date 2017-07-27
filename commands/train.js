@@ -93,7 +93,7 @@ module.exports = function container (get, set, clear) {
               unknownIndicators.push(indicator)
           })
         }
-        if (unknownIndicators) {
+        if (unknownIndicators.length > 0) {
           console.error(('ERROR: The following indicators are not in forex.analytics: ').red + (unknownIndicators.toString()).yellow)
           console.error('Available indicators: ' + fa_availableIndicators.toString())
           process.exit(1)
