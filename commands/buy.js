@@ -10,10 +10,12 @@ module.exports = function container (get, set, clear) {
       .allowUnknownOption()
       .description('execute a buy order to the exchange')
       .option('--pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
-      .option('--size <size>', 'sell specific size of currency')
-      .option('--markup_pct <pct>', '% to mark up ask price', Number, c.markup_pct)
+      .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
+      .option('--size <size>', 'buy specific size of currency')
+      .option('--markup_pct <pct>', '% to mark down ask price', Number, c.markup_pct)
       .option('--order_adjust_time <ms>', 'adjust bid on this interval to keep order competitive', Number, c.order_adjust_time)
-      .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
+      .option('--max_slippage_pct <pct>', 'avoid buying at a slippage pct above this float', c.max_slippage_pct)
+      .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
         var so = s.options
@@ -23,8 +25,13 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+        so.debug = cmd.debug
         so.buy_pct = cmd.pct
         so.selector = get('lib.normalize-selector')(selector || c.selector)
+        var order_types = ['maker', 'taker']
+        if (!so.order_type in order_types || !so.order_type) {
+          so.order_type = 'maker'
+        }
         so.mode = 'live'
         so.strategy = c.strategy
         so.stats = true

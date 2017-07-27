@@ -5,12 +5,11 @@ server:
     - /app/node_modules
   links:
     - mongodb
-  command: ./zenbot.sh trade
+  command: ./zenbot.sh trade --paper
+  restart: always
 
 mongodb:
   image: mongo:latest
-  ports:
-    - "27017:27017"
   volumes_from:
     - mongodb-data
   command: mongod --smallfiles

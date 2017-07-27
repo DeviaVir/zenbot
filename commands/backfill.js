@@ -113,7 +113,7 @@ module.exports = function container (get, set, clear) {
                 console.error('\nerror: getTrades() returned duplicate results')
                 console.error(opts)
                 console.error(last_batch_opts)
-                process.exit(1)
+                process.exit(0)
               }
               last_batch_id = trades[0].trade_id
               var tasks = trades.map(function (trade) {
@@ -121,50 +121,61 @@ module.exports = function container (get, set, clear) {
                   saveTrade(trade, cb)
                 }
               })
-              parallel(tasks, function (err) {
-                if (err) throw err
-                var oldest_time = marker.oldest_time
-                var newest_time = marker.newest_time
-                markers.forEach(function (other_marker) {
-                  // for backward scan, if the oldest_time is within another marker's range, skip to the other marker's start point.
-                  // for forward scan, if the newest_time is within another marker's range, skip to the other marker's end point.
-                  if (mode === 'backward' && marker.id !== other_marker.id && marker.from <= other_marker.to && marker.from > other_marker.from) {
-                    marker.from = other_marker.from
-                    marker.oldest_time = other_marker.oldest_time
+              function runTasks () {
+                parallel(tasks, function (err) {
+                  if (err) {
+                    console.error(err)
+                    console.error('retrying...')
+                    return setTimeout(runTasks, 10000)
                   }
-                  else if (mode !== 'backward' && marker.id !== other_marker.id && marker.to >= other_marker.from && marker.to < other_marker.to) {
-                    marker.to = other_marker.to
-                    marker.newest_time = other_marker.newest_time
+                  var oldest_time = marker.oldest_time
+                  var newest_time = marker.newest_time
+                  markers.forEach(function (other_marker) {
+                    // for backward scan, if the oldest_time is within another marker's range, skip to the other marker's start point.
+                    // for forward scan, if the newest_time is within another marker's range, skip to the other marker's end point.
+                    if (mode === 'backward' && marker.id !== other_marker.id && marker.from <= other_marker.to && marker.from > other_marker.from) {
+                      marker.from = other_marker.from
+                      marker.oldest_time = other_marker.oldest_time
+                    }
+                    else if (mode !== 'backward' && marker.id !== other_marker.id && marker.to >= other_marker.from && marker.to < other_marker.to) {
+                      marker.to = other_marker.to
+                      marker.newest_time = other_marker.newest_time
+                    }
+                  })
+                  if (oldest_time !== marker.oldest_time) {
+                    var diff = tb(oldest_time - marker.oldest_time).resize('1h').value
+                    console.log('\nskipping ' + diff + ' hrs of previously collected data')
                   }
+                  else if (newest_time !== marker.newest_time) {
+                    var diff = tb(marker.newest_time - newest_time).resize('1h').value
+                    console.log('\nskipping ' + diff + ' hrs of previously collected data')
+                  }
+                  resume_markers.save(marker, function (err) {
+                    if (err) throw err
+                    trade_counter += trades.length
+                    day_trade_counter += trades.length
+                    var current_days_left = Math.ceil((mode === 'backward' ? marker.oldest_time - target_time : target_time - marker.newest_time) / 86400000)
+                    if (current_days_left >= 0 && current_days_left != days_left) {
+                      console.log('\n' + selector, 'saved', day_trade_counter, 'trades', current_days_left, 'days left')
+                      day_trade_counter = 0
+                      days_left = current_days_left
+                    }
+                    else {
+                      process.stdout.write('.')
+                    }
+                    if (mode === 'backward' && marker.oldest_time <= target_time) {
+                      console.log('\ndownload complete!\n')
+                      process.exit(0)
+                    }
+                    if (exchange.backfillRateLimit) {
+                      setTimeout(getNext, exchange.backfillRateLimit)
+                    } else {
+                      setImmediate(getNext)
+                    }
+                  })
                 })
-                if (oldest_time !== marker.oldest_time) {
-                  var diff = tb(oldest_time - marker.oldest_time).resize('1h').value
-                  console.log('\nskipping ' + diff + ' hrs of previously collected data')
-                }
-                else if (newest_time !== marker.newest_time) {
-                  var diff = tb(marker.newest_time - newest_time).resize('1h').value
-                  console.log('\nskipping ' + diff + ' hrs of previously collected data')
-                }
-                resume_markers.save(marker, function (err) {
-                  if (err) throw err
-                  trade_counter += trades.length
-                  day_trade_counter += trades.length
-                  var current_days_left = Math.ceil((mode === 'backward' ? marker.oldest_time - target_time : target_time - marker.newest_time) / 86400000)
-                  if (current_days_left >= 0 && current_days_left != days_left) {
-                    console.log('\n' + selector, 'saved', day_trade_counter, 'trades', current_days_left, 'days left')
-                    day_trade_counter = 0
-                    days_left = current_days_left
-                  }
-                  else {
-                    process.stdout.write('.')
-                  }
-                  if (mode === 'backward' && marker.oldest_time <= target_time) {
-                    console.log('\ndownload complete!\n')
-                    process.exit(0)
-                  }
-                  setImmediate(getNext)
-                })
-              })
+              }
+              runTasks()
             })
           }
           function saveTrade (trade, cb) {

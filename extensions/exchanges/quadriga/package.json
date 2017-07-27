@@ -1,0 +1,8 @@
+{
+  "name": "zenbot_quadrigacx",
+  "version": "0.0.1",
+  "description": "Zenbot supporting code for QuadrigaCX",
+  "dependencies": {
+    "quadrigacx": "^0.0.7"
+  }
+}
