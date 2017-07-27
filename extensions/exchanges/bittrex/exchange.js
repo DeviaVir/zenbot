@@ -74,7 +74,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getTrades', func_args, data.message)
           }
           console.log(data.message)
@@ -106,7 +106,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getBalance', args, data.message)
           }
           console.log(data.message)
@@ -155,7 +155,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getQuote', args, data.message)
           }
           console.log(data.message)
@@ -209,7 +209,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('trade', args, data.message)
           }
           console.log(data.message)
@@ -271,7 +271,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getOrder', args, data.message)
           }
           console.log(data.message)
