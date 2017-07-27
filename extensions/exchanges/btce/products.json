@@ -1,0 +1,218 @@
+[
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.0001",
+    "label": "BTC/USD"
+  },
+  {
+    "asset": "BTC",
+    "currency": "RUR",
+    "min_size": "0.001",
+    "max_size": "1000000",
+    "increment": "0.0001",
+    "label": "BTC/RUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.0001",
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "10",
+    "increment": "0.0001",
+    "label": "LTC/BTC"
+  },
+  {
+    "asset": "LTC",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "LTC/USD"
+  },
+  {
+    "asset": "LTC",
+    "currency": "RUR",
+    "min_size": "0.01",
+    "max_size": "100000",
+    "increment": "0.0001",
+    "label": "LTC/RUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "LTC/EUR"
+  },
+  {
+    "asset": "NMC",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "10",
+    "increment": "0.0001",
+    "label": "NMC/BTC"
+  },
+  {
+    "asset": "NMC",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "100",
+    "increment": "0.0001",
+    "label": "NMC/USD"
+  },
+  {
+    "asset": "NVC",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "10",
+    "increment": "0.0001",
+    "label": "NVC/BTC"
+  },
+  {
+    "asset": "NVC",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "NVC/USD"
+  },
+  {
+    "asset": "USD",
+    "currency": "RUR",
+    "min_size": "0.1",
+    "max_size": "150",
+    "increment": "0.0001",
+    "label": "USD/RUR"
+  },
+  {
+    "asset": "EUR",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "2",
+    "increment": "0.0001",
+    "label": "EUR/USD"
+  },
+  {
+    "asset": "EUR",
+    "currency": "RUR",
+    "min_size": "0.1",
+    "max_size": "200",
+    "increment": "0.0001",
+    "label": "EUR/RUR"
+  },
+  {
+    "asset": "PPC",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "10",
+    "increment": "0.0001",
+    "label": "PPC/BTC"
+  },
+  {
+    "asset": "PPC",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "100",
+    "increment": "0.0001",
+    "label": "PPC/USD"
+  },
+  {
+    "asset": "DSH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "10",
+    "increment": "0.0001",
+    "label": "DSH/BTC"
+  },
+  {
+    "asset": "DSH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "DSH/USD"
+  },
+  {
+    "asset": "DSH",
+    "currency": "RUR",
+    "min_size": "0.01",
+    "max_size": "100000",
+    "increment": "0.0001",
+    "label": "DSH/RUR"
+  },
+  {
+    "asset": "DSH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "DSH/EUR"
+  },
+  {
+    "asset": "DSH",
+    "currency": "LTC",
+    "min_size": "0.01",
+    "max_size": "600",
+    "increment": "0.0001",
+    "label": "DSH/LTC"
+  },
+  {
+    "asset": "DSH",
+    "currency": "ETH",
+    "min_size": "0.01",
+    "max_size": "600",
+    "increment": "0.0001",
+    "label": "DSH/ETH"
+  },
+  {
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "10",
+    "increment": "0.0001",
+    "label": "ETH/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "ETH/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "ETH/EUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "LTC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "ETH/LTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "RUR",
+    "min_size": "0.01",
+    "max_size": "100000",
+    "increment": "0.0001",
+    "label": "ETH/RUR"
+  }
+]
