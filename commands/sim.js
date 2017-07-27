@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
       .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
-      .option('--filename <filename>', 'filename for the result output (ex: result.html)', String, c.filename)
+      .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, c.filename)
       .option('--start <timestamp>', 'start at timestamp')
       .option('--end <timestamp>', 'end at timestamp')
       .option('--days <days>', 'set duration by day count', Number, c.days)
@@ -35,6 +35,7 @@ module.exports = function container (get, set, clear) {
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
+      .option('--disable_options', 'disable printing of options')
       .option('--enable_stats', 'enable printing order stats')
       .option('--verbose', 'print status lines on every period')
       .action(function (selector, cmd) {
@@ -63,6 +64,7 @@ module.exports = function container (get, set, clear) {
           so.start = d.subtract(so.days).toMilliseconds()
         }
         so.stats = !!cmd.enable_stats
+        so.show_options = !cmd.disable_options
         so.verbose = !!cmd.verbose
         so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'sim'
@@ -93,8 +95,10 @@ module.exports = function container (get, set, clear) {
           option_keys.forEach(function (k) {
             options[k] = so[k]
           })
-          var options_json = JSON.stringify(options, null, 2)
-          output_lines.push(options_json)
+          if (so.show_options) {
+            var options_json = JSON.stringify(options, null, 2)
+            output_lines.push(options_json)
+          }
           if (s.my_trades.length) {
             s.my_trades.push({
               price: s.period.close,
@@ -159,9 +163,11 @@ module.exports = function container (get, set, clear) {
             .replace('{{output}}', html_output)
             .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
 
-          var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
-          fs.writeFileSync(out_target, out)
-          console.log('wrote', out_target)
+          if (so.filename !== 'none') {
+            var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+            fs.writeFileSync(out_target, out)
+            console.log('wrote', out_target)
+          }
           process.exit(0)
         }
 
