@@ -81,7 +81,6 @@ module.exports = function container (get, set, clear) {
             side: trade.side
           }
         })
-        trades.reverse()
         cb(null, trades)
       })
     },

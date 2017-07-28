@@ -268,7 +268,7 @@ rsi
     --overbought_rsi=<value>  sell when RSI reaches or goes above this value (default: 82)
     --rsi_recover=<value>  allow RSI to recover this many points before buying (default: 3)
     --rsi_drop=<value>  allow RSI to fall this many points before selling (default: 0)
-    --rsi_divisor=<value>  sell when RSI reaches high-water reading divided by this value (default: 2)
+    --rsi_dividend=<value>  sell when RSI reaches high-water reading divided by this value (default: 2)
 
 sar
   description:
@@ -470,8 +470,15 @@ zenbot sell gdax.BTC-USD --pct=10
 ## TODO
 
 - cancel pending orders on SIGINT
+- determine and fix what is causing live trading to underperform vs. paper trading/simulations
+- improve order execution speed, possibly by using market-type orders (incurring taker fees)
+- support for limiting the amount of balance Zenbot can use for trading
+- fix partial filled orders sometimes not getting recognized, due to race conditions
 - tool to generate graph and stats from live or paper trading sessions
-- review PRs
+- save sim data to db, for front-end UI
+- make error output compact, no stack trace
+- review PR for Bitfinex
+- more exchange support
 - web UI with graphs and logs
 - "reaper" to automatically prune trades collection to a certain day length
 - "lite mode" for trader, an option to run without MongoDB
