@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:boron
 
 RUN mkdir -p /app
 WORKDIR /app
