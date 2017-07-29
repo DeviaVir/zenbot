@@ -193,26 +193,26 @@ module.exports = function container(get, set, clear) {
         if (err) return cb(err)
         if (body.error) return cb(body.error)
 
-        // if (opts.order_type === 'taker') {
-        //   order.status = 'done'
-        //   order.done_at = new Date().getTime()
+        if (opts.order_type === 'taker') {
+          order.status = 'done'
+          order.done_at = new Date().getTime()
 
-        //   if (body.orders_matched) {
-        //     var asset_total = 0
-        //     var price_total = 0.0
-        //     var order_count = body.orders_matched.length
-        //     for (var idx = 0; idx < order_count; idx++) {
-        //       asset_total = asset_total + Number(body.orders_matched[idx].amount)
-        //       price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
-        //     }
+          if (body.orders_matched) {
+            var asset_total = 0
+            var price_total = 0.0
+            var order_count = body.orders_matched.length
+            for (var idx = 0; idx < order_count; idx++) {
+              asset_total = asset_total + Number(body.orders_matched[idx].amount)
+              price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
+            }
 
-        //     order.price = price_total / asset_total
-        //     order.size = asset_total
-        //   } else {
-        //     order.price = Number(body.price)
-        //     order.size = Number(body.amount)
-        //   }
-        // }
+            order.price = price_total / asset_total
+            order.size = asset_total
+          } else {
+            order.price = Number(body.price)
+            order.size = Number(body.amount)
+          }
+        }
 
         debugOut(`    Purchase ID: ${body.id}`)
 
@@ -249,26 +249,26 @@ module.exports = function container(get, set, clear) {
         if (err) return cb(err)
         if (body.error) return cb(body.error)
 
-        // if (opts.order_type === 'taker') {
-        //   order.status = 'done'
-        //   order.done_at = new Date().getTime()
+        if (opts.order_type === 'taker') {
+          order.status = 'done'
+          order.done_at = new Date().getTime()
 
-        //   if (body.orders_matched) {
-        //     var asset_total = 0
-        //     var price_total = 0.0
-        //     var order_count = body.orders_matched.length
-        //     for (var idx = 0; idx < order_count; idx++) {
-        //       asset_total = asset_total + Number(body.orders_matched[idx].amount)
-        //       price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
-        //     }
+          if (body.orders_matched) {
+            var asset_total = 0
+            var price_total = 0.0
+            var order_count = body.orders_matched.length
+            for (var idx = 0; idx < order_count; idx++) {
+              asset_total = asset_total + Number(body.orders_matched[idx].amount)
+              price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
+            }
 
-        //     order.price = price_total / asset_total
-        //     order.size = asset_total
-        //   } else {
-        //     order.price = Number(body.price)
-        //     order.size = Number(body.amount)
-        //   }
-        // }
+            order.price = price_total / asset_total
+            order.size = asset_total
+          } else {
+            order.price = Number(body.price)
+            order.size = Number(body.amount)
+          }
+        }
 
         debugOut(`    Sell ID: ${body.id}`)
 
