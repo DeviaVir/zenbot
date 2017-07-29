@@ -69,6 +69,11 @@ c.quadriga.secret = 'YOUR-SECRET';
 // replace with the client id used at login, as a string, not number
 c.quadriga.client_id = 'YOUR-CLIENT-ID';
 
+// to enable BTC-e trading, enter your API credentials:
+c.btce = {}
+c.btce.key = 'YOUR-API-KEY'
+c.btce.secret = 'YOUR-SECRET'
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
@@ -119,3 +124,23 @@ c.rsi_periods = 14
 c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
+
+//xmpp configs
+
+c.xmppon=0  // 0 xmpp disabled; 1 xmpp enabled (credentials should be correct)
+
+if (c.xmppon) {
+
+  c.xmpp = require('simple-xmpp');
+
+  c.xmpp.connect({
+                jid                    : 'trader@domain.com', //xmpp account trader bot
+                password               : 'Password',          //xmpp password
+                host                   : 'domain.com',        //xmpp domain
+                port                   : 5222                 //xmpp port
+  });
+
+  c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
+}
+//end xmpp configs
+
