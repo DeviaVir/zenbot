@@ -184,7 +184,7 @@ Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making 19
 
 ### 4. Run zenbot
 
-The following command will launch the bot, and if you haven't touched `c.default_selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
+The following command will launch the bot, and if you haven't touched `c.selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
 
 ```
 zenbot trade [--paper] [--manual]
