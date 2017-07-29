@@ -153,7 +153,7 @@ getQuote: function (opts, cb)
 ```
 Called from:
 - https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
-- https://github.com/carlos8f/zenbot/blob/master/commands/buyjs
+- https://github.com/carlos8f/zenbot/blob/master/commands/buy.js
 - https://github.com/carlos8f/zenbot/blob/master/commands/sell.js
 
 Input:

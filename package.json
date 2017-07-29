@@ -10,9 +10,11 @@
     "bitfinex-api-node": "^1.0.1",
     "bitstamp": "^1.0.1",
     "bl": "^1.2.1",
+    "btce": "^0.4.2",
     "codemap": "^1.3.1",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
+    "forex.analytics": "git+https://github.com/mkmarek/forex.analytics.git#7bc278987700d4204e959af17de61495941d1a14",
     "gdax": "^0.4.2",
     "glob": "^7.1.1",
     "har-validator": "^5.0.3",
@@ -28,6 +30,7 @@
     "number-abbreviate": "^2.0.0",
     "numbro": "git+https://github.com/carlos8f/numbro.git",
     "poloniex.js": "0.0.7",
+    "progress": "^2.0.0",
     "pusher-js": "^4.1.0",
     "quadrigacx": "0.0.7",
     "run-parallel": "^1.1.6",
@@ -35,6 +38,7 @@
     "semver": "^5.3.0",
     "sosa_mongo": "^1.0.3",
     "timebucket": "^0.4.0",
+    "talib": "^1.0.3",
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
