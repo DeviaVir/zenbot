@@ -110,9 +110,10 @@ let processOutput = output => {
   let buyHold       = buyHoldRegexp.exec(output2)[1];
   let vsBuyHold     = vsBuyHoldRegexp.exec(output2)[1];
   let wlMatch       = wlRegexp.exec(output2);
-  let wins          = parseInt(wlMatch[1]);
-  let losses        = parseInt(wlMatch[2]);
-  let errorRate     = errRegexp.exec(output2)[1];
+  let errMatch      = errRegexp.exec(output2);
+  let wins          = wlMatch !== null ? parseInt(wlMatch[1]) : 0;
+  let losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0;
+  let errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0;
   let days          = parseInt(params.days);
 
   let roi = roundp(
@@ -275,7 +276,6 @@ if (args.indexOf('--strategy') !== -1) {
   strategyName = args[args.indexOf('--strategy') + 1];
 }
 
-// let tasks = strategies_tend_ema.map(strategy => {
 let tasks = strategies[strategyName].map(strategy => {
   return cb => {
     runCommand(strategy, cb)
