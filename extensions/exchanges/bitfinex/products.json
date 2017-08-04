@@ -166,5 +166,125 @@
     "max_size": "200000.0",
     "increment": "0.0001",
     "label": "XRP/BTC"
+  },
+  {
+    "asset": "IOT",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "100000.0",
+    "increment": "0.0001",
+    "label": "IOT/USD"
+  },
+  {
+    "asset": "IOT",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "100000.0",
+    "increment": "0.0001",
+    "label": "IOT/BTC"
+  },
+  {
+    "asset": "IOT",
+    "currency": "ETH",
+    "min_size": "0.1",
+    "max_size": "100000.0",
+    "increment": "0.0001",
+    "label": "IOT/ETH"
+  },
+  {
+    "asset": "EOS",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.0001",
+    "label": "EOS/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.0001",
+    "label": "EOS/BTC"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.0001",
+    "label": "EOS/ETH"
+  },
+  {
+    "asset": "SAN",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "200000.0",
+    "increment": "0.0001",
+    "label": "SAN/USD"
+  },
+  {
+    "asset": "SAN",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "200000.0",
+    "increment": "0.0001",
+    "label": "SAN/BTC"
+  },
+  {
+    "asset": "SAN",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "200000.0",
+    "increment": "0.0001",
+    "label": "SAN/ETH"
+  },
+  {
+    "asset": "OMG",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.0001",
+    "label": "OMG/USD"
+  },
+  {
+    "asset": "OMG",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.0001",
+    "label": "OMG/BTC"
+  },
+  {
+    "asset": "OMG",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.0001",
+    "label": "OMG/ETH"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "2000.0",
+    "increment": "0.0001",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "2000.0",
+    "increment": "0.0001",
+    "label": "BCH/BTC"
+  },
+  {
+    "asset": "BCH",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "2000.0",
+    "increment": "0.0001",
+    "label": "BCH/ETH"
   }
 ]
