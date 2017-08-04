@@ -1,5 +1,26 @@
 [
   {
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "BCH/EUR"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "XBT",
+    "min_size": "0.01",
+    "increment": "0.00000001",
+    "label": "BCH/XBT"
+  },
+  {
     "asset": "DASH",
     "currency": "ZEUR",
     "min_size": "0.01",
