@@ -80,7 +80,7 @@ module.exports = function container(get, set, clear) {
     getTrades: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var args = {
-	limit_trades: 1000,
+        limit_trades: 1000,
         since: opts.from
       }
 
@@ -193,7 +193,7 @@ module.exports = function container(get, set, clear) {
 
           if (opts.post_only && body.is_cancelled) {
             order.status = 'rejected',
-            order.reject_reason = 'post only'
+              order.reject_reason = 'post only'
           }
 
           debugOut(`    Purchase ID: ${body.id}`)
@@ -201,7 +201,7 @@ module.exports = function container(get, set, clear) {
           orders['~' + body.order_id] = order
           cb(null, order)
         })
-	.catch(error => cb(error))
+        .catch(error => cb(error))
     },
 
     sell: function(opts, cb) {
@@ -258,7 +258,7 @@ module.exports = function container(get, set, clear) {
       var client = authedClient()
       client.getMyOrderStatus(params)
         .then(body => {
-	  if (typeof body !== 'undefined') {
+          if (typeof body !== 'undefined') {
             if (body.is_cancelled) {
               order.status = 'done'
               order.done_at = new Date().getTime()
@@ -269,16 +269,16 @@ module.exports = function container(get, set, clear) {
               order.filled_size = n(body.executed_amount).format('0.00000')
               order.price = n(body.avg_execution_price).format('0.00')
             } else {
-	      order.filled_size = n(body.executed_amount).format('0.00000')
+              order.filled_size = n(body.executed_amount).format('0.00000')
               order.price = n(body.avg_execution_price).format('0.00')
-	    }
-	  }
+            }
+          }
 
           debugOut(`Lookup order ${opts.order_id} status is ${order.status}`)
 
           cb(null, order)
         })
-	.catch(error => cb(error))
+        .catch(error => cb(error))
     },
 
     // return the property used for range querying.
