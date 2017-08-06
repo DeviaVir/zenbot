@@ -1,0 +1,26 @@
+[
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "ETH/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/USD"
+  }
+]
