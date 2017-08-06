@@ -38,13 +38,15 @@ module.exports = function container(get, set, clear) {
 
   function retry(method, args, error) {
     if (error.code === 200) {
-      console.error(('\QuadrigaCX API rate limit exceeded! unable to call ' + method + ', aborting').red)
+      console.error((`\nQuadrigaCX API rate limit exceeded! unable to call ${method}, aborting`).red)
       return
     }
 
     if (method !== 'getTrades') {
-      console.error(('\QuadrigaCX API is down! unable to call ' + method + ', retrying in 30s').red)
+      console.error((`\nQuadrigaCX API is down: (${method}) ${error.message}`).red)
+      console.error((`Retrying in 30 seconds ...`).yellow)
     }
+
     setTimeout(function() {
       exchange[method].apply(exchange, args)
     }, 30000)
@@ -115,11 +117,11 @@ module.exports = function container(get, set, clear) {
           currency: 0
         }
 
-        balance.currency = n(wallet[currency + '_balance']).format(0.00)
-        balance.asset = n(wallet[asset + '_balance']).format(0.00)
+        balance.currency = n(wallet[currency + '_balance']).format('0.00')
+        balance.asset = n(wallet[asset + '_balance']).format('0.00')
 
-        balance.currency_hold = n(wallet[currency + '_reserved']).format(0.00000000)
-        balance.asset_hold = n(wallet[asset + '_reserved']).format(0.00000000)
+        balance.currency_hold = n(wallet[currency + '_reserved']).format('0.00000000')
+        balance.asset_hold = n(wallet[asset + '_reserved']).format('0.00000000')
 
         debugOut(`Balance/Reserve/Hold:`)
         debugOut(`  ${currency} (${wallet[currency + '_balance']}/${wallet[currency + '_reserved']}/${wallet[currency + '_available']})`)
@@ -292,9 +294,13 @@ module.exports = function container(get, set, clear) {
         if (body[0].status === 2) {
           order.status = 'done'
           order.done_at = new Date().getTime()
-          order.filled_size = Number(body[0].amount)
+          order.filled_size = n(body[0].amount).format('0.00000')
+	  order.price = n(body[0].price).format('0.00')
           return cb(null, order)
-        }
+        } else {
+	  order.filled_size = n(body[0].amount).format('0.00000')
+	  order.price = n(body[0].price).format('0.00')
+	}
 
         debugOut(`Lookup order ${opts.order_id} status is ${body.status}`)
 
@@ -304,7 +310,7 @@ module.exports = function container(get, set, clear) {
 
     // return the property used for range querying.
     getCursor: function(trade) {
-      return trade.time
+      return (trade.time || trade)
     }
   }
   return exchange
