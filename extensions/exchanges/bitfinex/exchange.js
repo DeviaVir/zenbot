@@ -255,7 +255,7 @@ module.exports = function container (get, set, clear) {
     
     // return the property used for range querying.
     getCursor: function (trade) {
-      return trade.time
+      return (trade.time || trade)
     }
   }
   return exchange
