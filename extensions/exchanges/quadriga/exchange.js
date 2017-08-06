@@ -295,12 +295,12 @@ module.exports = function container(get, set, clear) {
           order.status = 'done'
           order.done_at = new Date().getTime()
           order.filled_size = n(body[0].amount).format('0.00000')
-	  order.price = n(body[0].price).format('0.00')
+          order.price = n(body[0].price).format('0.00')
           return cb(null, order)
         } else {
-	  order.filled_size = n(body[0].amount).format('0.00000')
-	  order.price = n(body[0].price).format('0.00')
-	}
+          order.filled_size = n(body[0].amount).format('0.00000')
+          order.price = n(body[0].price).format('0.00')
+        }
 
         debugOut(`Lookup order ${opts.order_id} status is ${body.status}`)
 
