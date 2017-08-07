@@ -74,6 +74,13 @@ c.btce = {}
 c.btce.key = 'YOUR-API-KEY'
 c.btce.secret = 'YOUR-SECRET'
 
+// to enable Gemini trading, enter your API credentials:
+c.gemini = {}
+c.gemini.key = 'YOUR-API-KEY'
+c.gemini.secret = 'YOUR-API-SECRET'
+// set to false to trade on the live platform API
+c.gemini.sandbox = true
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)

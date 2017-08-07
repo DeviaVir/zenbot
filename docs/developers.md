@@ -264,11 +264,14 @@ Called from:
 
 Input:
 ```
-  trade
+  trade - This is either a trade or a timestamp
 ```
 Return:
 ```
-  trade.trade_id
+  trade id or timestamp. It really depends on the exchange API. Some, like Gemini, use only timestamps and will only need to return a timestamp. Others, like GDAX operate on trade ids and it is expected to return 'undefined' when passed an initial timestamp to start backfilling.
+
+  Since backfilling requires a timestamp to select the numbers of days to backfill, it may not be possible to use this option if the exchange does not use timestamps for historical data. In this case return 'undefined' when passed a timestamp value.
+
 ```
 Callback:
 ```javascript

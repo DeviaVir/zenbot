@@ -65,7 +65,7 @@ module.exports = function container(get, set, clear) {
     makerFee: 0.16,
     takerFee: 0.26,
     // The limit for the public API is not documented, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
-    backfillRateLimit: 1750,
+    backfillRateLimit: 2000,
 
     getProducts: function () {
       return require('./products.json')
@@ -303,10 +303,10 @@ module.exports = function container(get, set, clear) {
         }
 
         if (orderData.status === 'canceled' && orderData.reason === 'Post only order') {
-          order.status = 'done'
+          order.status = 'rejected'
           order.reject_reason = 'post only'
           order.done_at = new Date().getTime()
-          order.filled_size = n(orderData.vol_exec).format('0.00000000')
+          order.filled_size = '0.00000000'
           return cb(null, order)
         }
 
