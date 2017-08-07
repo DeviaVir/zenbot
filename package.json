@@ -16,6 +16,7 @@
     "commander": "^2.9.0",
     "forex.analytics": "git+https://github.com/mkmarek/forex.analytics.git#7bc278987700d4204e959af17de61495941d1a14",
     "gdax": "^0.4.2",
+    "gemini-api": "^2.0.4",
     "glob": "^7.1.1",
     "har-validator": "^5.0.3",
     "idgen": "^2.0.2",
