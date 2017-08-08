@@ -9,10 +9,9 @@ module.exports = function container (get, set, clear) {
   var s = {options: minimist(process.argv)}
   var so = s.options
   
-  var pair = 'ETHUSD'  
   var ws_timeout = 60000
   
-  var public_client, public_client_ws, authed_client, authed_client_ws
+  var pair, public_client, public_client_ws, authed_client, authed_client_ws
   
   var ws_trades = []
   var ws_balance = []
@@ -67,7 +66,6 @@ module.exports = function container (get, set, clear) {
 
       public_client_ws.on('error', function (e) {
         console.warn(("\nPublic WebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-        console.log(("\nPublic WebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
         setTimeout(function() { public_client_ws.open() }, ws_timeout)
       })
 
@@ -90,8 +88,7 @@ module.exports = function container (get, set, clear) {
         if (ws_hb[event.chanId]) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
-            console.warn(("\nBitfinex Websockets Server did not send a message on channel '" + public_client_ws.channelMap[event.chanId].channel + "' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
-            console.log(("\nBitfinex Websockets Server did not send a message on channel '" + public_client_ws.channelMap[event.chanId].channel + "' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
+            console.warn(("\nPublic WebSockets: No message on channel '" + public_client_ws.channelMap[event.chanId].channel + "' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
             clearInterval(intervalId)
             public_client_ws.ws.close()
             public_client_ws.open()
@@ -106,8 +103,7 @@ module.exports = function container (get, set, clear) {
       authed_client_ws.auth()
     }
     catch (e) {
-      console.error(("\nAuthed WebSockets: Error on auth, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-      console.log(("\nAuthed WebSockets: Error on auth, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
+      console.warn(("\nAuthed WebSockets: Error on auth, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
       setTimeout(function() { authWsOpen() }, ws_timeout)
       return
     }
@@ -119,8 +115,7 @@ module.exports = function container (get, set, clear) {
       if (ws_hb[chanId]) {
         var timeoutThreshold = (Number(Date.now()) - ws_timeout)
         if (timeoutThreshold > ws_hb[chanId]) {
-          console.warn(("\Authed WebSockets did not send a message on channel 'auth' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
-          console.log(("\Authed WebSockets did not send a message on channel 'auth' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
+          console.warn(("\Authed WebSockets: No message on channel 'auth' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
           clearInterval(intervalId)
           authed_client_ws.ws.close()
           authed_client_ws.open()
@@ -135,7 +130,7 @@ module.exports = function container (get, set, clear) {
     // https://bitfinex.readme.io/v2/reference#ws-auth-orders
     var order = ws_orders['~' + cid]
     if (!order) {
-      console.error(("\nERROR: Order " + cid + ' not found in cache.').red)
+      console.error(("\nERROR: Order " + cid + ' not found in cache (manual order?).').red)
       return
     }
 
@@ -156,8 +151,7 @@ module.exports = function container (get, set, clear) {
     order.bitfinex_status = ws_order[13]
     order.price = ws_order[16]
     order.price_avg = ws_order[17]
-    
-    console.error("\nUpdated ORDER: " + JSON.stringify(order))
+
     ws_orders['~' + cid] = order    
   }
   
@@ -167,9 +161,8 @@ module.exports = function container (get, set, clear) {
     if (ws_orders['~' + cid])
     {
       setTimeout(function () {
-        console.log("\nDeleted CACHED order: " + cid)
         delete(ws_orders['~' + cid])
-      }, 60000 * 5)
+      }, 60000 * 60)
     }
 
     updateWsOrder(ws_order)
@@ -204,7 +197,6 @@ module.exports = function container (get, set, clear) {
 
       authed_client_ws.on('error', function (e) {
         console.warn(("\nAuthed WebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-        console.log(("\nAuthed WebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
         authed_client_ws.ws.close()
         setTimeout(function() {
           authed_client_ws.open()
@@ -256,6 +248,8 @@ module.exports = function container (get, set, clear) {
     },
     
     getTrades: function (opts, cb) {
+      pair = joinProduct(opts.product_id)
+
       if (!public_client_ws) { publicClientWs() }
 
       // Backfilling using the REST API
@@ -278,8 +272,8 @@ module.exports = function container (get, set, clear) {
           args.start = args.end - 500000
         }
         var query = encodeQueryData(args)
-        var pair = 't' + joinProduct(opts.product_id)
-        client.makePublicRequest('trades/' + pair + '/hist?' + query, function (err, body) {
+        var tpair = 't' + joinProduct(opts.product_id)
+        client.makePublicRequest('trades/' + tpair + '/hist?' + query, function (err, body) {
           if (err) return retry('getTrades', opts, cb)
           var trades = body.map(function(trade) {
             return {
@@ -319,7 +313,6 @@ module.exports = function container (get, set, clear) {
     },
     
     cancelOrder: function (opts, cb) {
-      console.error("\nCANCEL: " + opts.order_id)
       order = ws_orders['~' + opts.order_id]
       ws_orders['~' + opts.order_id].reject_reason = "zenbot cancel"
 
@@ -337,8 +330,6 @@ module.exports = function container (get, set, clear) {
     },
     
     trade: function (action, opts, cb) {
-      console.error("\nORDER " + action + ': ' + JSON.stringify(opts))
-
       client = authedClientWs();
 
       var cid = Math.round(((new Date()).getTime()).toString() * Math.random())
@@ -365,7 +356,7 @@ module.exports = function container (get, set, clear) {
         price: opts.price,
         size: opts.size,
         post_only: !!opts.post_only,
-        created_at: new Date().getTime() * 1000,
+        created_at: new Date().getTime(),
         filled_size: 0,
         ordertype: opts.order_type
       }
@@ -384,8 +375,6 @@ module.exports = function container (get, set, clear) {
           postonly: is_postonly ? 1 : 0
         }
       ]
-
-      console.error("\n" + action + " params: " + JSON.stringify(ws_order))
 
       client.send(ws_order)
       ws_orders['~' + cid] = order
@@ -414,8 +403,6 @@ module.exports = function container (get, set, clear) {
         order.done_at = new Date().getTime()
         return cb(null, order)
       }
-
-      console.error("\ngetOrder ORDER: " + JSON.stringify(order))
 
       cb(null, order)
     },
