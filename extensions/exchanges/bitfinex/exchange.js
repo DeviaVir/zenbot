@@ -18,6 +18,7 @@ module.exports = function container (get, set, clear) {
   var ws_orders = [] 
   var ws_ticker = [] 
   var ws_hb = []
+  var ws_walletCalcDone
 
   function publicClient () {
     if (!public_client) public_client = new BFX(null,null, {version: 2, transform: true}).rest
@@ -184,6 +185,7 @@ module.exports = function container (get, set, clear) {
         ws_balance[wallet[1].toUpperCase()] = {}
         ws_balance[wallet[1].toUpperCase()].balance = wallet[2]
         ws_balance[wallet[1].toUpperCase()].available = wallet[4] ? wallet[4] : 0
+        if (wallet[4]) { ws_walletCalcDone[wallet[1]] = true }
       }
     })
   }
@@ -239,6 +241,12 @@ module.exports = function container (get, set, clear) {
     setTimeout(function () {
       exchange[method].call(exchange, args, cb)
     }, 1000)
+  }
+
+  function waitForCalc (method, args, cb) {
+    setTimeout(function () {
+      exchange[method].call(exchange, args, cb)
+    }, 100)
   }
   
   function encodeQueryData(data) {
@@ -307,18 +315,48 @@ module.exports = function container (get, set, clear) {
     
     getBalance: function (opts, cb) {
       if (!pair) { pair = joinProduct(opts.asset + '-' + opts.currency) }
+      if (pair && !ws_walletCalcDone) {
+        ws_walletCalcDone = {}
+        ws_walletCalcDone[opts.asset] = false
+        ws_walletCalcDone[opts.currency] = false
+      }
 
       if (!authed_client_ws) { authedClientWs() }
       if (Object.keys(ws_balance).length === 0) { return retry('getBalance', opts, cb) }
 
-      balance = {}
-      balance.currency      = n(ws_balance[opts.currency].balance).format('0.00000000')
-      balance.asset         = n(ws_balance[opts.asset].balance).format('0.00000000')
+      if (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === false) {
+        var ws_update_wallet = [
+          0,
+          'calc',
+          null,
+          [
+            ["wallet_exchange_" + opts.currency],
+            ["wallet_exchange_" + opts.asset]
+          ]
+        ]
 
-      balance.currency_hold = ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
-      balance.asset_hold    = ws_balance[opts.asset].available    ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000')       : n(0).format('0.00000000')
+        authed_client_ws.send(ws_update_wallet)
+        return waitForCalc('getBalance', opts, cb)
+      }
+      else if (
+        (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === true) ||
+        (ws_walletCalcDone[opts.asset] === true && ws_walletCalcDone[opts.currency] === false)
+      ) {
+        return waitForCalc('getBalance', opts, cb)
+      }
+      else {
+        balance = {}
+        balance.currency      = n(ws_balance[opts.currency].balance).format('0.00000000')
+        balance.asset         = n(ws_balance[opts.asset].balance).format('0.00000000')
 
-      cb(null, balance)
+        balance.currency_hold = ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
+        balance.asset_hold    = ws_balance[opts.asset].available    ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000')       : n(0).format('0.00000000')
+
+        ws_walletCalcDone[opts.asset] = false
+        ws_walletCalcDone[opts.currency] = false
+
+        cb(null, balance)
+      }
     },
     
     getQuote: function (opts, cb) {
