@@ -387,7 +387,6 @@ module.exports = function container (get, set, clear) {
       client = authedClientWs();
 
       var cid = Math.round(((new Date()).getTime()).toString() * Math.random())
-      var symbol = 't' + joinProduct(opts.product_id)
       var amount = action === 'buy' ? opts.size : opts.size * -1
       var price = opts.price
 
