@@ -9,9 +9,9 @@ module.exports = function container (get, set, clear) {
   var s = {options: minimist(process.argv)}
   var so = s.options
   
-  var ws_timeout = 60000
+  var ws_timeout = 10000
   
-  var pair, public_client, public_client_ws, authed_client, authed_client_ws
+  var pair, public_client, ws_client
   
   var ws_trades = []
   var ws_balance = []
@@ -25,12 +25,7 @@ module.exports = function container (get, set, clear) {
     return public_client
   }
 
-  function publicWsOpen () {
-    public_client_ws.subscribeTrades(pair)
-    public_client_ws.subscribeTicker(pair)
-  }
-
-  function updateWsTrades (pair, trades) {
+  function wsUpdateTrades (pair, trades) {
     if (trades[0] === "tu") {
       trades = [trades[1]]
     } else if (trades[0] === "te") {
@@ -52,36 +47,16 @@ module.exports = function container (get, set, clear) {
       ws_trades.shift()
   }
   
-  function updateWsTicker (pair, ticker) {
+  function wsUpdateTicker (pair, ticker) {
     ws_ticker = ticker        
   }
 
-  function updateWsHb (message) {
+  function wsUpdateHb (message) {
     if (message[0] != "undefined")
       ws_hb[message[0]] = Date.now()
   }
 
-  function publicClientWs () {
-    if (!public_client_ws) {
-      public_client_ws = new BFX('', '', {version: 2, transform: true}).ws        
-
-      public_client_ws.on('error', function (e) {
-        console.warn(("\nPublic WebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-        setTimeout(function() { public_client_ws.open() }, ws_timeout)
-      })
-
-      public_client_ws
-        .on('open', publicWsOpen)
-        .on('trade', updateWsTrades)
-        .on('ticker', updateWsTicker)
-        .on('message', updateWsHb)
-        .on('subscribed', publicWsSubscribed)
-    }
-
-    return public_client_ws
-  }
-
-  function publicWsSubscribed (event) {
+  function wsSubscribed (event) {
     if (event.channel === "trades") {
       ws_hb[event.chanId] = Date.now()
   
@@ -89,23 +64,23 @@ module.exports = function container (get, set, clear) {
         if (ws_hb[event.chanId]) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
-            console.warn(("\nPublic WebSockets: No message on channel '" + public_client_ws.channelMap[event.chanId].channel + "' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
+            console.warn(("\nWebSockets: No message on channel '" + ws_client.channelMap[event.chanId].channel + "' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
             clearInterval(intervalId)
-            public_client_ws.ws.close()
-            public_client_ws.open()
+            ws_client.ws.close()
+            ws_client.open()
           }
         }
       }, ws_timeout)      
     }
   }
 
-  function authWsOpen () {
+  function wsOpen () {
     try {
-      authed_client_ws.auth()
+      ws_client.auth()
     }
     catch (e) {
-      console.warn(("\nAuthed WebSockets: Error on auth, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-      setTimeout(function() { authWsOpen() }, ws_timeout)
+      console.warn(("\nWebSockets: Error on auth, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
+      setTimeout(function() { wsOpen() }, ws_timeout)
       return
     }
 
@@ -116,16 +91,19 @@ module.exports = function container (get, set, clear) {
       if (ws_hb[chanId]) {
         var timeoutThreshold = (Number(Date.now()) - ws_timeout)
         if (timeoutThreshold > ws_hb[chanId]) {
-          console.warn(("\Authed WebSockets: No message on channel 'auth' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
+          console.warn(("\nWebSockets: No message on channel 'auth' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
           clearInterval(intervalId)
-          authed_client_ws.ws.close()
-          authed_client_ws.open()
+          ws_client.ws.close()
+          ws_client.open()
         }
       }
     }, ws_timeout)
+
+    ws_client.subscribeTrades(pair)
+    ws_client.subscribeTicker(pair)
   }
   
-  function updateWsOrder (ws_order) {
+  function wsUpdateOrder (ws_order) {
     cid = ws_order[2]
 
     // https://bitfinex.readme.io/v2/reference#ws-auth-orders
@@ -156,7 +134,7 @@ module.exports = function container (get, set, clear) {
     ws_orders['~' + cid] = order    
   }
   
-  function updateWsOrderCancel (ws_order) {
+  function wsUpdateOrderCancel (ws_order) {
     cid = ws_order[2]
 
     if (ws_orders['~' + cid])
@@ -166,10 +144,10 @@ module.exports = function container (get, set, clear) {
       }, 60000 * 60)
     }
 
-    updateWsOrder(ws_order)
+    wsUpdateOrder(ws_order)
   }
   
-  function updateWsReqOrder (error) {
+  function wsUpdateReqOrder (error) {
     if (error[6] === 'ERROR' && error[7].match(/^Invalid order: not enough .* balance for/)) {
       cid = error[4][2]
       ws_orders['~' + cid].status = 'rejected'
@@ -190,44 +168,36 @@ module.exports = function container (get, set, clear) {
     })
   }
 
-  function authedClientWs () {
-    if (!public_client_ws) {
-      publicClientWs()
-
-      console.warn(('Warning: Not yet connected to public websockets, waiting 1s for a connection').yellow)
-      setTimeout(function () {
-        if (!authedClientWs) { authed_client_ws = authedClientWs() }
-      }, 1000)
-
-      return null
-    }
-
-    if (!authed_client_ws) {
+  function wsClient () {
+    if (!ws_client) {
       if (!c.bitfinex || !c.bitfinex.key || c.bitfinex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Bitfinex credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client_ws = new BFX(c.bitfinex.key, c.bitfinex.secret, {version: 2, transform: true}).ws
+      ws_client = new BFX(c.bitfinex.key, c.bitfinex.secret, {version: 2, transform: true}).ws
 
-      authed_client_ws.on('error', function (e) {
-        console.warn(("\nAuthed WebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-        authed_client_ws.ws.close()
+      ws_client.on('error', function (e) {
+        console.warn(("\nWebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
+        ws_client.ws.close()
         setTimeout(function() {
-          authed_client_ws.open()
+          ws_client.open()
         }, ws_timeout)
       })
   
-      authed_client_ws
+      ws_client
+        .on('open', wsOpen)
+        .on('subscribed', wsSubscribed)
+        .on('message', wsUpdateHb)
+        .on('trade', wsUpdateTrades)
+        .on('ticker', wsUpdateTicker)
         .on('ws', updateWallet)
         .on('wu', updateWallet)
-        .on('on', updateWsOrder)
-        .on('on-req', updateWsReqOrder)
-        .on('ou', updateWsOrder)
-        .on('oc', updateWsOrderCancel)
-        .on('open', authWsOpen)
-        .on('message', updateWsHb)
+        .on('on', wsUpdateOrder)
+        .on('on-req', wsUpdateReqOrder)
+        .on('ou', wsUpdateOrder)
+        .on('oc', wsUpdateOrderCancel)
     }
     
-    return authed_client_ws
+    return ws_client
   }
   
   function joinProduct (product_id) {
@@ -269,7 +239,7 @@ module.exports = function container (get, set, clear) {
     getTrades: function (opts, cb) {
       if (!pair) { pair = joinProduct(opts.product_id) }
 
-      if (!public_client_ws) { publicClientWs() }
+      if (!ws_client) { ws_client = wsClient() }
 
       // Backfilling using the REST API
       if (opts.to || opts.to === null) {
@@ -321,7 +291,7 @@ module.exports = function container (get, set, clear) {
         ws_walletCalcDone[opts.currency] = false
       }
 
-      if (!authed_client_ws) { authedClientWs() }
+      if (!ws_client) { ws_client = wsClient() }
       if (Object.keys(ws_balance).length === 0) { return retry('getBalance', opts, cb) }
 
       if (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === false) {
@@ -335,7 +305,7 @@ module.exports = function container (get, set, clear) {
           ]
         ]
 
-        authed_client_ws.send(ws_update_wallet)
+        ws_client.send(ws_update_wallet)
         return waitForCalc('getBalance', opts, cb)
       }
       else if (
@@ -384,7 +354,7 @@ module.exports = function container (get, set, clear) {
       if (!pair) { pair = joinProduct(opts.product_id) }
       var symbol = 't' + pair
 
-      client = authedClientWs();
+      if (!ws_client) { ws_client = wsClient() }
 
       var cid = Math.round(((new Date()).getTime()).toString() * Math.random())
       var amount = action === 'buy' ? opts.size : opts.size * -1
@@ -429,7 +399,7 @@ module.exports = function container (get, set, clear) {
         }
       ]
 
-      client.send(ws_order)
+      ws_client.send(ws_order)
       ws_orders['~' + cid] = order
       
       return cb(null, order)
