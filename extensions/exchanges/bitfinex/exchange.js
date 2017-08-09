@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
   var s = {options: minimist(process.argv)}
   var so = s.options
   
-  var ws_timeout = 10000
+  var ws_timeout = 60000
   
   var pair, public_client, ws_client
   
@@ -19,6 +19,7 @@ module.exports = function container (get, set, clear) {
   var ws_ticker = [] 
   var ws_hb = []
   var ws_walletCalcDone
+  var ws_client_isAuthed = false
 
   function publicClient () {
     if (!public_client) public_client = new BFX(null,null, {version: 2, transform: true}).rest
@@ -51,12 +52,18 @@ module.exports = function container (get, set, clear) {
     ws_ticker = ticker        
   }
 
-  function wsUpdateHb (message) {
+  function wsMessage (message) {
+    if (message.event == "auth" && message.status == "OK") {
+      if (so.debug) { console.log(('WebSockets: We are now authenticated.').green) }
+      ws_client_isAuthed = true
+    }
+
     if (message[0] != "undefined")
       ws_hb[message[0]] = Date.now()
   }
 
   function wsSubscribed (event) {
+    // We only use the 'trades' channel for heartbeats. That one should be most frequently updated.
     if (event.channel === "trades") {
       ws_hb[event.chanId] = Date.now()
   
@@ -64,7 +71,7 @@ module.exports = function container (get, set, clear) {
         if (ws_hb[event.chanId]) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
-            console.warn(("\nWebSockets: No message on channel '" + ws_client.channelMap[event.chanId].channel + "' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
+            console.warn(("\nWebSockets: No message on channel 'trade' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
             clearInterval(intervalId)
             ws_client.ws.close()
             ws_client.open()
@@ -75,30 +82,7 @@ module.exports = function container (get, set, clear) {
   }
 
   function wsOpen () {
-    try {
-      ws_client.auth()
-    }
-    catch (e) {
-      console.warn(("\nWebSockets: Error on auth, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-      setTimeout(function() { wsOpen() }, ws_timeout)
-      return
-    }
-
-    var chanId = 0
-    ws_hb[chanId] = Date.now()
-
-    var intervalId = setInterval(function() {
-      if (ws_hb[chanId]) {
-        var timeoutThreshold = (Number(Date.now()) - ws_timeout)
-        if (timeoutThreshold > ws_hb[chanId]) {
-          console.warn(("\nWebSockets: No message on channel 'auth' within " + ws_timeout / 1000 + ' seconds, reconnecting...').yellow)
-          clearInterval(intervalId)
-          ws_client.ws.close()
-          ws_client.open()
-        }
-      }
-    }, ws_timeout)
-
+    ws_client.auth()
     ws_client.subscribeTrades(pair)
     ws_client.subscribeTicker(pair)
   }
@@ -174,19 +158,11 @@ module.exports = function container (get, set, clear) {
         throw new Error('please configure your Bitfinex credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
       ws_client = new BFX(c.bitfinex.key, c.bitfinex.secret, {version: 2, transform: true}).ws
-
-      ws_client.on('error', function (e) {
-        console.warn(("\nWebSockets: Error on connect, retrying in " + ws_timeout / 1000 + ' seconds.').yellow)
-        ws_client.ws.close()
-        setTimeout(function() {
-          ws_client.open()
-        }, ws_timeout)
-      })
   
       ws_client
         .on('open', wsOpen)
         .on('subscribed', wsSubscribed)
-        .on('message', wsUpdateHb)
+        .on('message', wsMessage)
         .on('trade', wsUpdateTrades)
         .on('ticker', wsUpdateTicker)
         .on('ws', updateWallet)
@@ -195,6 +171,27 @@ module.exports = function container (get, set, clear) {
         .on('on-req', wsUpdateReqOrder)
         .on('ou', wsUpdateOrder)
         .on('oc', wsUpdateOrderCancel)
+
+      ws_client.on('error', function (e) {
+        if (e.event == "auth" && e.status == "FAILED") {
+          ws_client_isAuthed = false
+          errorMessage = ('WebSockets Error: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red + ' Retrying in ' + (ws_timeout / 1000 + ' seconds').yellow + '.'
+          if (e.msg == 'apikey: invalid') errorMessage = errorMessage + "\nEither your API key is invalid or you tried reconnecting to quickly. Wait and/or check your API keys."
+          console.error(errorMessage)
+
+          setTimeout(function () {
+            ws_client.auth()
+          }, ws_timeout)
+        }
+        else {
+          console.error(("\nWebSockets Error: An unhandled error occured.").red + " Consider reporting.\nSince those are mostly 'connect' related: Retrying in " + (ws_timeout / 1000 + ' seconds').yellow + '.')
+          console.error(e)
+          ws_client.ws.close()
+          setTimeout(function() {
+            ws_client.open()
+          }, ws_timeout)
+        }
+      })
     }
     
     return ws_client
@@ -205,9 +202,6 @@ module.exports = function container (get, set, clear) {
   }
   
   function retry (method, args, cb) {
-    if (so.debug) {
-      console.log("\nWaiting " + ("1s").yellow + " for initial websockets snapshot.")
-    }
     setTimeout(function () {
       exchange[method].call(exchange, args, cb)
     }, 1000)
@@ -292,7 +286,12 @@ module.exports = function container (get, set, clear) {
       }
 
       if (!ws_client) { ws_client = wsClient() }
-      if (Object.keys(ws_balance).length === 0) { return retry('getBalance', opts, cb) }
+      if (Object.keys(ws_balance).length === 0) {
+        if (so.debug && ws_client_isAuthed === true) {
+          console.warn(("WebSockets Warning: Waiting for initial websockets snapshot.").yellow)
+        }
+        return retry('getBalance', opts, cb)
+      }
 
       if (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === false) {
         var ws_update_wallet = [
@@ -305,7 +304,16 @@ module.exports = function container (get, set, clear) {
           ]
         ]
 
-        ws_client.send(ws_update_wallet)
+        try {
+          ws_client.send(ws_update_wallet)
+        }
+        catch (e) {
+          if (so.debug) {
+            console.error(("\nWebSockets Error: Cannot send 'calc' for getBalance update (maybe connection not open?).").red + " Retrying in " + (ws_timeout / 1000 + ' seconds').yellow + '.')
+          }
+          return retry('getBalance', opts, cb)
+        }
+
         return waitForCalc('getBalance', opts, cb)
       }
       else if (
@@ -346,7 +354,15 @@ module.exports = function container (get, set, clear) {
         }
       ]
 
-      client.send(ws_cancel_order)
+      try {
+        ws_client.send(ws_cancel_order)
+      }
+      catch (e) {
+        if (so.debug) {
+          console.error(("\nWebSockets: Cannot send cancelOrder (maybe connection not open?).").red + " Retrying in " + (ws_timeout / 1000 + ' seconds').yellow + '.')
+        }
+        return retry('cancelOrder', opts, cb)
+      }
       cb()
     },
     
@@ -399,7 +415,17 @@ module.exports = function container (get, set, clear) {
         }
       ]
 
-      ws_client.send(ws_order)
+      try {
+        ws_client.send(ws_order)
+      }
+      catch (e) {
+        if (so.debug) {
+          console.error(("\nWebSockets: Cannot send trade (maybe connection not open?).").red)
+        }
+
+        order.status = 'rejected'
+        order.reject_reason = 'could not send order over websockets'
+      }
       ws_orders['~' + cid] = order
       
       return cb(null, order)
