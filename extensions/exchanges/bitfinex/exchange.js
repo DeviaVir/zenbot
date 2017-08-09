@@ -189,6 +189,17 @@ module.exports = function container (get, set, clear) {
   }
 
   function authedClientWs () {
+    if (!public_client_ws) {
+      publicClientWs()
+
+      console.warn(('Warning: Not yet connected to public websockets, waiting 1s for a connection').yellow)
+      setTimeout(function () {
+        if (!authedClientWs) { authed_client_ws = authedClientWs() }
+      }, 1000)
+
+      return null
+    }
+
     if (!authed_client_ws) {
       if (!c.bitfinex || !c.bitfinex.key || c.bitfinex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Bitfinex credentials in ' + path.resolve(__dirname, 'conf.js'))
@@ -248,7 +259,7 @@ module.exports = function container (get, set, clear) {
     },
     
     getTrades: function (opts, cb) {
-      pair = joinProduct(opts.product_id)
+      if (!pair) { pair = joinProduct(opts.product_id) }
 
       if (!public_client_ws) { publicClientWs() }
 
@@ -295,6 +306,8 @@ module.exports = function container (get, set, clear) {
     },
     
     getBalance: function (opts, cb) {
+      if (!pair) { pair = joinProduct(opts.asset + '-' + opts.currency) }
+
       if (!authed_client_ws) { authedClientWs() }
       if (Object.keys(ws_balance).length === 0) { return retry('getBalance', opts, cb) }
 
@@ -330,6 +343,9 @@ module.exports = function container (get, set, clear) {
     },
     
     trade: function (action, opts, cb) {
+      if (!pair) { pair = joinProduct(opts.product_id) }
+      var symbol = 't' + pair
+
       client = authedClientWs();
 
       var cid = Math.round(((new Date()).getTime()).toString() * Math.random())
