@@ -75,7 +75,7 @@ module.exports = function container (get, set, clear) {
           if (timeoutThreshold > ws_hb[event.chanId]) {
             console.warn(("\nWebSockets Warning: No message on channel 'trade' within " + ws_timeout / 1000 + ' seconds, reconnecting...').red)
             clearInterval(intervalId)
-            ws_client.ws.close()
+            ws_client.close()
             ws_client.open()
           }
         }
@@ -188,7 +188,7 @@ module.exports = function container (get, set, clear) {
         else {
           console.error(("\nWebSockets Error: An unhandled error occured.").red + "\nSince those are mostly 'connect' related: Retrying in " + (ws_retry / 1000 + ' seconds').yellow + '. Otherwise, consider reporting.')
           console.error(e)
-          ws_client.ws.close()
+          ws_client.close()
           setTimeout(function() {
             ws_client.open()
           }, ws_retry)
