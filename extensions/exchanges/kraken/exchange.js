@@ -7,7 +7,9 @@ var KrakenClient = require('kraken-api'),
 
 module.exports = function container(get, set, clear) {
   var c = get('conf')
-  var s = {options: minimist(process.argv)}
+  var s = {
+    options: minimist(process.argv)
+  }
   var so = s.options
 
   var public_client, authed_client
@@ -52,7 +54,7 @@ module.exports = function container(get, set, clear) {
       }
       console.warn(('\nKraken API warning - unable to call ' + method + ' (' + errorMsg + '), retrying in ' + timeout / 1000 + 's').yellow)
     }
-    setTimeout(function () {
+    setTimeout(function() {
       exchange[method].apply(exchange, args)
     }, timeout)
   }
@@ -65,23 +67,20 @@ module.exports = function container(get, set, clear) {
     makerFee: 0.16,
     takerFee: 0.26,
     // The limit for the public API is not documented, 1750 ms between getTrades in backfilling seems to do the trick to omit warning messages.
-    backfillRateLimit: 2000,
+    backfillRateLimit: 3500,
 
-    getProducts: function () {
+    getProducts: function() {
       return require('./products.json')
     },
 
-    getTrades: function (opts, cb) {
+    getTrades: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
       var args = {
         pair: joinProduct(opts.product_id)
       }
-      if (opts.from) {
-        args.since = parseFloat(opts.from) * 1000000000
-      }
 
-      client.api('Trades', args, function (error, data) {
+      client.api('Trades', args, function(error, data) {
         if (error && error.message.match(recoverableErrors)) {
           return retry('getTrades', func_args, error)
         }
@@ -93,11 +92,14 @@ module.exports = function container(get, set, clear) {
         if (data.error.length) {
           return cb(data.error.join(','))
         }
+        if (opts.from) {
+          args.since = Number(opts.from) * 1000000000
+        }
 
         var trades = []
-        Object.keys(data.result[args.pair]).forEach(function (i) {
+        Object.keys(data.result[args.pair]).forEach(function(i) {
           var trade = data.result[args.pair][i]
-          if (!opts.to || (parseFloat(opts.to) >= parseFloat(trade[2]))) {
+          if (!opts.from || (Number(opts.from) < moment.unix((trade[2]).valueOf()))) {
             trades.push({
               trade_id: trade[2] + trade[1] + trade[0],
               time: moment.unix(trade[2]).valueOf(),
@@ -107,17 +109,20 @@ module.exports = function container(get, set, clear) {
             })
           }
         })
+
         cb(null, trades)
       })
     },
 
-    getBalance: function (opts, cb) {
+    getBalance: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
-      client.api('Balance', null, function (error, data) {
+      client.api('Balance', null, function(error, data) {
         var balance = {
-          asset: 0,
-          currency: 0
+          asset: '0',
+          asset_hold: '0',
+          currency: '0',
+          currency_hold: '0'
         }
 
         if (error) {
@@ -128,28 +133,32 @@ module.exports = function container(get, set, clear) {
           console.error(error)
           return cb(error)
         }
+
         if (data.error.length) {
           return cb(data.error.join(','))
         }
+
         if (data.result[opts.currency]) {
           balance.currency = n(data.result[opts.currency]).format('0.00000000')
-          balance.currency_hold = 0
+          balance.currency_hold = '0'
         }
+
         if (data.result[opts.asset]) {
           balance.asset = n(data.result[opts.asset]).format('0.00000000')
-          balance.asset_hold = 0
+          balance.asset_hold = '0'
         }
+
         cb(null, balance)
       })
     },
 
-    getQuote: function (opts, cb) {
+    getQuote: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.api('Ticker', {
         pair: pair
-      }, function (error, data) {
+      }, function(error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
             return retry('getQuote', args, error)
@@ -168,12 +177,12 @@ module.exports = function container(get, set, clear) {
       })
     },
 
-    cancelOrder: function (opts, cb) {
+    cancelOrder: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
       client.api('CancelOrder', {
         txid: opts.order_id
-      }, function (error, data) {
+      }, function(error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
             return retry('cancelOrder', args, error)
@@ -193,7 +202,7 @@ module.exports = function container(get, set, clear) {
       })
     },
 
-    trade: function (type, opts, cb) {
+    trade: function(type, opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
       var params = {
@@ -213,7 +222,7 @@ module.exports = function container(get, set, clear) {
         console.log("trade")
         console.log(params)
       }
-      client.api('AddOrder', params, function (error, data) {
+      client.api('AddOrder', params, function(error, data) {
         if (error && error.message.match(recoverableErrors)) {
           return retry('trade', args, error)
         }
@@ -264,15 +273,15 @@ module.exports = function container(get, set, clear) {
       })
     },
 
-    buy: function (opts, cb) {
+    buy: function(opts, cb) {
       exchange.trade('buy', opts, cb)
     },
 
-    sell: function (opts, cb) {
+    sell: function(opts, cb) {
       exchange.trade('sell', opts, cb)
     },
 
-    getOrder: function (opts, cb) {
+    getOrder: function(opts, cb) {
       var args = [].slice.call(arguments)
       var order = orders['~' + opts.order_id]
       if (!order) return cb(new Error('order not found in cache'))
@@ -280,7 +289,7 @@ module.exports = function container(get, set, clear) {
       var params = {
         txid: opts.order_id
       }
-      client.api('QueryOrders', params, function (error, data) {
+      client.api('QueryOrders', params, function(error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
             return retry('getOrder', args, error)
@@ -322,8 +331,8 @@ module.exports = function container(get, set, clear) {
     },
 
     // return the property used for range querying.
-    getCursor: function (trade) {
-      return Math.floor((trade.time || trade) / 1000)
+    getCursor: function(trade) {
+      return (trade.time || trade)
     }
   }
   return exchange
