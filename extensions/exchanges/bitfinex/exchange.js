@@ -149,7 +149,7 @@ module.exports = function container (get, set, clear) {
         ws_balance[wallet[1].toUpperCase()] = {}
         ws_balance[wallet[1].toUpperCase()].balance = wallet[2]
         ws_balance[wallet[1].toUpperCase()].available = wallet[4] ? wallet[4] : 0
-        if (wallet[4]) { ws_walletCalcDone[wallet[1]] = true }
+        if (wallet[4] !== null) { ws_walletCalcDone[wallet[1]] = true }
       }
     })
   }
@@ -235,8 +235,6 @@ module.exports = function container (get, set, clear) {
     getTrades: function (opts, cb) {
       if (!pair) { pair = joinProduct(opts.product_id) }
 
-      if (!ws_client) { ws_client = wsClient() }
-
       // Backfilling using the REST API
       if (opts.to || opts.to === null) {
         var func_args = [].slice.call(arguments)
@@ -273,6 +271,7 @@ module.exports = function container (get, set, clear) {
         }) 
       } else {
         // We're live now (i.e. opts.from is set), use websockets
+        if (!ws_client) { wsClient() }
         if (typeof(ws_trades) === "undefined") { return retry('getTrades', opts, cb) }
         trades = ws_trades.filter(function (trade) { return trade.time >= opts.from })
         cb(null, trades)
@@ -281,13 +280,14 @@ module.exports = function container (get, set, clear) {
     
     getBalance: function (opts, cb) {
       if (!pair) { pair = joinProduct(opts.asset + '-' + opts.currency) }
+
       if (pair && !ws_walletCalcDone) {
         ws_walletCalcDone = {}
         ws_walletCalcDone[opts.asset] = false
         ws_walletCalcDone[opts.currency] = false
       }
 
-      if (!ws_client) { ws_client = wsClient() }
+      if (!ws_client) { wsClient() }
       if (Object.keys(ws_balance).length === 0) {
         if (so.debug && ws_client_isAuthed === true) {
           console.warn(("WebSockets Warning: Waiting for initial websockets snapshot.").red + " Retrying in " + (ws_retry / 1000 + ' seconds').yellow + '.')
@@ -307,14 +307,16 @@ module.exports = function container (get, set, clear) {
         ]
 
         try {
+          ws_walletCalcDone[opts.asset] = "inProgress"
+          ws_walletCalcDone[opts.currency] = "inProgress"
+
           ws_client.send(ws_update_wallet)
         }
         catch (e) {
           if (so.debug) {
             console.warn(e)
-            console.warn(("\nWebSockets Warning: Cannot send 'calc' for getBalance update (maybe connection not open?).").red + " Retrying in " + (ws_retry / 1000 + ' seconds').yellow + '.')
+            console.warn(("\nWebSockets Warning: Cannot send 'calc' for getBalance update (maybe connection not open?).").red + ' Waiting for reconnect.')
           }
-          return retry('getBalance', opts, cb)
         }
 
         return waitForCalc('getBalance', opts, cb)
@@ -374,7 +376,7 @@ module.exports = function container (get, set, clear) {
       if (!pair) { pair = joinProduct(opts.product_id) }
       var symbol = 't' + pair
 
-      if (!ws_client) { ws_client = wsClient() }
+      if (!ws_client) { wsClient() }
 
       var cid = Math.round(((new Date()).getTime()).toString() * Math.random())
       var amount = action === 'buy' ? opts.size : opts.size * -1
@@ -425,7 +427,7 @@ module.exports = function container (get, set, clear) {
       catch (e) {
         if (so.debug) {
           console.warn(e)
-          console.warn(("\nWebSockets Warning: Cannot send trade (maybe connection not open?).").red + (" Orders are sensitive, we're marking this one as rejected and will not retry automatically.").yellow)
+          console.warn(("\nWebSockets Warning: Cannot send trade (maybe connection not open?).").red + (" Orders are sensitive, we're marking this one as rejected and will not just repeat the order automatically.").yellow)
         }
 
         order.status = 'rejected'
