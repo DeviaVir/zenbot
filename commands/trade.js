@@ -114,9 +114,11 @@ module.exports = function container (get, set, clear) {
               limit: 1000
             }
             if (db_cursor) {
+              trade_cursor = db_cursor
               opts.query.time = {$gt: db_cursor}
             }
             else {
+              trade_cursor = query_start
               opts.query.time = {$gte: query_start}
             }
             get('db.trades').select(opts, function (err, trades) {
@@ -257,7 +259,9 @@ module.exports = function container (get, set, clear) {
                   console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving session')
                   console.error(err)
                 }
-                engine.writeReport(true)
+                if (s.period) {
+                  engine.writeReport(true)
+                }
               })
             })
           }
