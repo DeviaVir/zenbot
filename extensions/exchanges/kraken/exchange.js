@@ -92,9 +92,9 @@ module.exports = function container(get, set, clear) {
         if (data.error.length) {
           return cb(data.error.join(','))
         }
-        if (opts.from) { 
-          args.since = Number(opts.from) * 1000000000 
-        } 
+        if (opts.from) {
+          args.since = Number(opts.from) * 1000000000
+        }
 
         var trades = []
         Object.keys(data.result[args.pair]).forEach(function(i) {
@@ -120,9 +120,9 @@ module.exports = function container(get, set, clear) {
       client.api('Balance', null, function(error, data) {
         var balance = {
           asset: '0',
-      asset_hold: '0',
+          asset_hold: '0',
           currency: '0',
-      currency_hold: '0'
+          currency_hold: '0'
         }
 
         if (error) {
@@ -134,20 +134,20 @@ module.exports = function container(get, set, clear) {
           return cb(error)
         }
 
-    if (data.error.length) {
+        if (data.error.length) {
           return cb(data.error.join(','))
         }
 
-    if (data.result[opts.currency]) {
+        if (data.result[opts.currency]) {
           balance.currency = n(data.result[opts.currency]).format('0.00000000')
           balance.currency_hold = '0'
-    }
+        }
 
         if (data.result[opts.asset]) {
           balance.asset = n(data.result[opts.asset]).format('0.00000000')
           balance.asset_hold = '0'
-    }
-    
+        }
+
         cb(null, balance)
       })
     },
