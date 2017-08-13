@@ -80,7 +80,7 @@ module.exports = function container(get, set, clear) {
         pair: joinProduct(opts.product_id)
       }
       if (opts.from) {
-        args.since = Number(opts.from) * 1000000000
+        args.since = Number(opts.from) * 1000000
       }
 
       client.api('Trades', args, function(error, data) {
