@@ -261,6 +261,10 @@ module.exports = function container (get, set, clear) {
                 }
                 if (s.period) {
                   engine.writeReport(true)
+                } else {
+                  readline.clearLine(process.stdout)
+                  readline.cursorTo(process.stdout, 0)
+                  process.stdout.write('Waiting on first live trade to display reports, could be a few minutes ...')
                 }
               })
             })
