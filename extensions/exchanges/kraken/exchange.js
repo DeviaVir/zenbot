@@ -79,6 +79,9 @@ module.exports = function container(get, set, clear) {
       var args = {
         pair: joinProduct(opts.product_id)
       }
+      if (opts.from) {
+        args.since = Number(opts.from) * 1000000000
+      }
 
       client.api('Trades', args, function(error, data) {
         if (error && error.message.match(recoverableErrors)) {
@@ -91,9 +94,6 @@ module.exports = function container(get, set, clear) {
         }
         if (data.error.length) {
           return cb(data.error.join(','))
-        }
-        if (opts.from) {
-          args.since = Number(opts.from) * 1000000000
         }
 
         var trades = []
