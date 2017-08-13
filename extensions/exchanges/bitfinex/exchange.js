@@ -163,7 +163,7 @@ module.exports = function container (get, set, clear) {
             ws_client.close()
           }
         }
-      }, ws_timeout
+      }, ws_timeout)
     }
   }
 
