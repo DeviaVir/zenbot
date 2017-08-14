@@ -20,6 +20,7 @@ module.exports = function container (get, set, clear) {
       .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
       .option('--manual', 'watch price and account balance, but do not perform trades automatically', Boolean, false)
+      .option('--non_interactive', 'disable keyboard inputs to the bot', Boolean, false)
       .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, c.asset_capital)
       .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, c.avg_slippage_pct)
@@ -157,7 +158,7 @@ module.exports = function container (get, set, clear) {
                     forwardScan()
                     setInterval(forwardScan, c.poll_trades)
                     readline.emitKeypressEvents(process.stdin)
-                    if (process.stdin.setRawMode) {
+                    if (!so.non_interactive && process.stdin.setRawMode) {
                       process.stdin.setRawMode(true)
                       process.stdin.on('keypress', function (key, info) {
                         if (key === 'b' && !info.ctrl ) {
