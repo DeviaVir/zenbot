@@ -217,7 +217,7 @@ module.exports = function container (get, set, clear) {
         .on('ou', wsUpdateOrder)
         .on('oc', wsUpdateOrderCancel)
 
-      setTimeout(function() {
+      setInterval(function() {
         wsConnect()
       }, ws_retry)
     }
