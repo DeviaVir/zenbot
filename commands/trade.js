@@ -114,11 +114,10 @@ module.exports = function container (get, set, clear) {
               limit: 1000
             }
             if (db_cursor) {
-              trade_cursor = db_cursor
               opts.query.time = {$gt: db_cursor}
             }
             else {
-              trade_cursor = query_start
+              trade_cursor = s.exchange.getCursor(query_start) 
               opts.query.time = {$gte: query_start}
             }
             get('db.trades').select(opts, function (err, trades) {
