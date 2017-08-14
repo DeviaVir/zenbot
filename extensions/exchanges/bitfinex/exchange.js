@@ -172,7 +172,6 @@ module.exports = function container (get, set, clear) {
     ws_connected = false
 
     console.error(("\nWebSockets Error: Connection closed.").red + " Retrying every " + (ws_retry / 1000 + ' seconds').yellow + '.')
-    console.error(e)
   }
 
   function wsError (e) {
