@@ -8,19 +8,19 @@ module.exports = function container (get, set, clear) {
   var c = get('conf')
   var s = {options: minimist(process.argv)}
   var so = s.options
-  
+
   var ws_connecting = false
   var ws_connected = false
   var ws_timeout = 60000
   var ws_retry = 10000
   var ws_wait_on_apikey_error = 60000 * 5
-  
+
   var pair, public_client, ws_client
-  
+
   var ws_trades = []
   var ws_balance = []
-  var ws_orders = [] 
-  var ws_ticker = [] 
+  var ws_orders = []
+  var ws_ticker = []
   var ws_hb = []
   var ws_walletCalcDone
 
@@ -35,7 +35,7 @@ module.exports = function container (get, set, clear) {
     } else if (trades[0] === "te") {
       return
     }
-    
+
     trades.forEach(function (trade) {
       newTrade = {
         trade_id: Number(trade.ID),
@@ -46,13 +46,13 @@ module.exports = function container (get, set, clear) {
       }
       ws_trades.push(newTrade)
     })
-    
+
     if (ws_trades.length > 1010)
       ws_trades.shift()
   }
-  
+
   function wsUpdateTicker (pair, ticker) {
-    ws_ticker = ticker        
+    ws_ticker = ticker
   }
 
   function wsMessage (message) {
@@ -65,7 +65,7 @@ module.exports = function container (get, set, clear) {
     if (message[0] != "undefined")
       ws_hb[message[0]] = Date.now()
   }
-  
+
   function wsUpdateOrder (ws_order) {
     cid = ws_order[2]
 
@@ -94,9 +94,9 @@ module.exports = function container (get, set, clear) {
     order.price = ws_order[16]
     order.price_avg = ws_order[17]
 
-    ws_orders['~' + cid] = order    
+    ws_orders['~' + cid] = order
   }
-  
+
   function wsUpdateOrderCancel (ws_order) {
     cid = ws_order[2]
 
@@ -114,7 +114,7 @@ module.exports = function container (get, set, clear) {
 
     wsUpdateOrder(ws_order)
   }
-  
+
   function wsUpdateReqOrder (error) {
     if (error[6] === 'ERROR' && error[7].match(/^Invalid order: not enough .* balance for/)) {
       cid = error[4][2]
@@ -122,7 +122,7 @@ module.exports = function container (get, set, clear) {
       ws_orders['~' + cid].reject_reason = 'balance'
     }
   }
-  
+
   function updateWallet (wallets) {
     if (typeof(wallets[0]) !== "object") wallets = [wallets]
 
@@ -201,7 +201,7 @@ module.exports = function container (get, set, clear) {
       ws_connected = false
 
       ws_client = new BFX(c.bitfinex.key, c.bitfinex.secret, {version: 2, transform: true}).ws
-  
+
       ws_client
         .on('open', wsOpen)
         .on('close', wsClose)
@@ -217,16 +217,16 @@ module.exports = function container (get, set, clear) {
         .on('ou', wsUpdateOrder)
         .on('oc', wsUpdateOrderCancel)
 
-      setTimeout(function() {
+      setInterval(function() {
         wsConnect()
       }, ws_retry)
     }
   }
-  
+
   function joinProduct (product_id) {
     return product_id.split('-')[0] + '' + product_id.split('-')[1]
   }
-  
+
   function retry (method, args, cb) {
     setTimeout(function () {
       exchange[method].call(exchange, args, cb)
@@ -238,24 +238,24 @@ module.exports = function container (get, set, clear) {
       exchange[method].call(exchange, args, cb)
     }, 50)
   }
-  
+
   function encodeQueryData(data) {
     let ret = []
     for (let d in data)
       ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
     return ret.join('&')
   }
-  
+
   var exchange = {
     name: 'bitfinex',
     historyScan: 'backward',
     makerFee: 0.1,
     takerFee: 0.2,
-    
+
     getProducts: function () {
       return require('./products.json')
     },
-    
+
     getTrades: function (opts, cb) {
       if (!pair) { pair = joinProduct(opts.product_id) }
 
@@ -292,7 +292,7 @@ module.exports = function container (get, set, clear) {
             }
           })
           cb(null, trades)
-        }) 
+        })
       } else {
         // We're live now (i.e. opts.from is set), use websockets
         if (!ws_client) { wsClient() }
@@ -301,7 +301,7 @@ module.exports = function container (get, set, clear) {
         cb(null, trades)
       }
     },
-    
+
     getBalance: function (opts, cb) {
       if (!pair) { pair = joinProduct(opts.asset + '-' + opts.currency) }
 
@@ -353,8 +353,8 @@ module.exports = function container (get, set, clear) {
       }
       else {
         balance = {}
-        balance.currency      = n(ws_balance[opts.currency].balance).format('0.00000000')
-        balance.asset         = n(ws_balance[opts.asset].balance).format('0.00000000')
+        balance.currency      = ws_balance[opts.currency].balance   ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
+        balance.asset         = ws_balance[opts.asset].balance      ? n(ws_balance[opts.asset].balance).format('0.00000000')    : n(0).format('0.00000000')
 
         balance.currency_hold = ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
         balance.asset_hold    = ws_balance[opts.asset].available    ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000')       : n(0).format('0.00000000')
@@ -365,11 +365,11 @@ module.exports = function container (get, set, clear) {
         cb(null, balance)
       }
     },
-    
+
     getQuote: function (opts, cb) {
       cb(null, { bid : String(ws_ticker.BID), ask : String(ws_ticker.ASK) })
     },
-    
+
     cancelOrder: function (opts, cb) {
       order = ws_orders['~' + opts.order_id]
       ws_orders['~' + opts.order_id].reject_reason = "zenbot cancel"
@@ -395,7 +395,7 @@ module.exports = function container (get, set, clear) {
       }
       cb()
     },
-    
+
     trade: function (action, opts, cb) {
       if (!pair) { pair = joinProduct(opts.product_id) }
       var symbol = 't' + pair
@@ -429,7 +429,7 @@ module.exports = function container (get, set, clear) {
         filled_size: 0,
         ordertype: opts.order_type
       }
-      
+
       var ws_order = [
         0,
         'on',
@@ -461,7 +461,7 @@ module.exports = function container (get, set, clear) {
 
       return cb(null, order)
     },
-    
+
     buy: function (opts, cb) {
       exchange.trade('buy', opts, cb)
     },
@@ -469,14 +469,14 @@ module.exports = function container (get, set, clear) {
     sell: function (opts, cb) {
       exchange.trade('sell', opts, cb)
     },
-    
+
     getOrder: function (opts, cb) {
       var order = ws_orders['~' + opts.order_id]
 
-      if (order.status === 'rejected' && order.reject_reason === 'post only') {        
+      if (order.status === 'rejected' && order.reject_reason === 'post only') {
         return cb(null, order)
       } else if (order.status === 'rejected' && order.reject_reason === 'zenbot canceled') {
-        return cb(null, order)        
+        return cb(null, order)
       }
 
       if (order.status == "done") {
@@ -486,7 +486,7 @@ module.exports = function container (get, set, clear) {
 
       cb(null, order)
     },
-    
+
     // return the property used for range querying.
     getCursor: function (trade) {
       return (trade.time || trade)
