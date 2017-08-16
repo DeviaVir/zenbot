@@ -353,11 +353,11 @@ module.exports = function container (get, set, clear) {
       }
       else {
         balance = {}
-        balance.currency      = ws_balance[opts.currency].balance   ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
-        balance.asset         = ws_balance[opts.asset].balance      ? n(ws_balance[opts.asset].balance).format('0.00000000')    : n(0).format('0.00000000')
+        balance.currency      = ws_balance[opts.currency] && ws_balance[opts.currency].balance   ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
+        balance.asset         = ws_balance[opts.asset]    && ws_balance[opts.asset].balance      ? n(ws_balance[opts.asset].balance).format('0.00000000')    : n(0).format('0.00000000')
 
-        balance.currency_hold = ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
-        balance.asset_hold    = ws_balance[opts.asset].available    ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000')       : n(0).format('0.00000000')
+        balance.currency_hold = ws_balance[opts.currency] && ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
+        balance.asset_hold    = ws_balance[opts.asset]    && ws_balance[opts.asset].available    ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000')       : n(0).format('0.00000000')
 
         ws_walletCalcDone[opts.asset] = false
         ws_walletCalcDone[opts.currency] = false
