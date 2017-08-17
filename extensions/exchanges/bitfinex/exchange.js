@@ -157,9 +157,6 @@ module.exports = function container (get, set, clear) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
             console.warn(("\nWebSockets Warning: No message on channel 'trade' within " + ws_timeout / 1000 + ' seconds, reconnecting...').red)
-            clearInterval(heartbeat_interval)
-            ws_connecting = false
-            ws_connected = false
             ws_client.close()
           }
         }
