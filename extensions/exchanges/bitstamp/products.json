@@ -79,5 +79,32 @@
     "max_size": "1000000",
     "increment": "0.00001",
     "label": "XRP/BTC"
+  },
+{
+    "id": "ETHUSD",
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.01",
+    "label": "ETH/USD"
+  },
+  {
+    "id": "ETHEUR",
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.01",
+    "label": "ETH/EUR"
+  },
+  {
+    "id": "ETHBTC",
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "ETH/BTC"
   }
 ]
