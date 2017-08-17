@@ -1,98 +1,98 @@
 [
   {
     "asset": "BCH",
-    "currency": "EUR",
+    "currency": "ZEUR",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "BCH/EUR"
   },
   {
     "asset": "BCH",
-    "currency": "USD",
+    "currency": "ZUSD",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "BCH/USD"
   },
   {
     "asset": "BCH",
-    "currency": "XBT",
+    "currency": "XXBT",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "BCH/XBT"
   },
   {
     "asset": "DASH",
-    "currency": "EUR",
+    "currency": "ZEUR",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "DASH/EUR"
   },
   {
     "asset": "DASH",
-    "currency": "USD",
+    "currency": "ZUSD",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "DASH/USD"
   },
   {
     "asset": "DASH",
-    "currency": "XBT",
+    "currency": "XXBT",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "DASH/XBT"
   },
   {
     "asset": "EOS",
-    "currency": "ETH",
+    "currency": "XETH",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "EOS/ETH"
   },
   {
     "asset": "EOS",
-    "currency": "EUR",
+    "currency": "ZEUR",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "EOS/EUR"
   },
   {
     "asset": "EOS",
-    "currency": "USD",
+    "currency": "ZUSD",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "EOS/USD"
   },
   {
     "asset": "EOS",
-    "currency": "XBT",
+    "currency": "XXBT",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "EOS/XBT"
   },
   {
     "asset": "GNO",
-    "currency": "ETH",
+    "currency": "XETH",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "GNO/ETH"
   },
   {
     "asset": "GNO",
-    "currency": "EUR",
+    "currency": "ZEUR",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "GNO/EUR"
   },
   {
     "asset": "GNO",
-    "currency": "USD",
+    "currency": "ZUSD",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "GNO/USD"
   },
   {
     "asset": "GNO",
-    "currency": "XBT",
+    "currency": "XXBT",
     "min_size": "0.01",
     "increment": "0.00000001",
     "label": "GNO/XBT"
