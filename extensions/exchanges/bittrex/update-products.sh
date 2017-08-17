@@ -7,8 +7,8 @@ var products = []
 
 function addProduct(base, quote, altname) {
     products.push({
-        asset: base,
-        currency: quote,
+        asset: quote,
+        currency: base,
         min_size: '0.01',
         max_size: '1000000',
         increment: '0.00000001',
