@@ -2,7 +2,7 @@
   {
     "asset": "BTC",
     "currency": "USD",
-    "min_size": "0.01",
+    "min_size": "0.005",
     "max_size": "2000.0",
     "increment": "0.0001",
     "label": "BTC/USD"
