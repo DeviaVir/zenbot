@@ -22,6 +22,7 @@ module.exports = function container (get, set, clear) {
   var ws_ticker = []
   var ws_hb = []
   var ws_walletCalcDone
+  var heartbeat_interval
 
   function publicClient () {
     if (!public_client) public_client = new BFX(null,null, {version: 2, transform: true}).rest
@@ -151,12 +152,12 @@ module.exports = function container (get, set, clear) {
     if (event.channel === "trades") {
       ws_hb[event.chanId] = Date.now()
 
-      var intervalId = setInterval(function() {
+      heartbeat_interval = setInterval(function() {
         if (ws_hb[event.chanId]) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
             console.warn(("\nWebSockets Warning: No message on channel 'trade' within " + ws_timeout / 1000 + ' seconds, reconnecting...').red)
-            clearInterval(intervalId)
+            clearInterval(heartbeat_interval)
             ws_connecting = false
             ws_connected = false
             ws_client.close()
@@ -169,6 +170,7 @@ module.exports = function container (get, set, clear) {
   function wsClose () {
     ws_connecting = false
     ws_connected = false
+    clearInterval(heartbeat_interval)
 
     console.error(("\nWebSockets Error: Connection closed.").red + " Retrying every " + (ws_retry / 1000 + ' seconds').yellow + '.')
   }
