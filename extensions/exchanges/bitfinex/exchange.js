@@ -13,7 +13,6 @@ module.exports = function container (get, set, clear) {
   var ws_connected = false
   var ws_timeout = 60000
   var ws_retry = 10000
-  var ws_wait_on_apikey_error = 60000 * 5
 
   var pair, public_client, ws_client
 
@@ -175,19 +174,16 @@ module.exports = function container (get, set, clear) {
   }
 
   function wsError (e) {
+    ws_connecting = false
+    ws_connected = false
+
     if (e.event == "auth" && e.status == "FAILED") {
-      errorMessage = ('WebSockets Warning: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red + ' Retrying in ' + (ws_wait_on_apikey_error / 1000 + ' seconds').yellow + '.'
+      errorMessage = ('WebSockets Warning: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red
       if (e.msg == 'apikey: invalid') errorMessage = errorMessage + "\nEither your API key is invalid or you tried reconnecting to quickly. Wait and/or check your API keys."
       console.warn(errorMessage)
-
-      setTimeout(function () {
-        ws_client.auth()
-      }, ws_wait_on_apikey_error)
+      ws_client.close()
     }
     else {
-      ws_connecting = false
-      ws_connected = false
-
       ws_client.close()
     }
   }
