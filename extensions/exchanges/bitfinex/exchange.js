@@ -72,7 +72,7 @@ module.exports = function container (get, set, clear) {
     // https://bitfinex.readme.io/v2/reference#ws-auth-orders
     var order = ws_orders['~' + cid]
     if (!order) {
-      console.warn(("\nWarning: Order " + cid + ' not found in cache (manual order?).').red)
+      if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateOrder (manual order?).').red)
       return
     }
 
@@ -100,17 +100,19 @@ module.exports = function container (get, set, clear) {
   function wsUpdateOrderCancel (ws_order) {
     cid = ws_order[2]
 
+    if (!ws_orders['~' + cid]) {
+      if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateOrderCancel (manual order?).').red)
+      return
+    }
+
     if (ws_order[13].match(/^INSUFFICIENT MARGIN/)) {
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'balance'
     }
 
-    if (ws_orders['~' + cid])
-    {
-      setTimeout(function () {
-        delete(ws_orders['~' + cid])
-      }, 60000 * 60 * 12)
-    }
+    setTimeout(function () {
+      delete(ws_orders['~' + cid])
+    }, 60000 * 60 * 12)
 
     wsUpdateOrder(ws_order)
   }
@@ -118,6 +120,12 @@ module.exports = function container (get, set, clear) {
   function wsUpdateReqOrder (error) {
     if (error[6] === 'ERROR' && error[7].match(/^Invalid order: not enough .* balance for/)) {
       cid = error[4][2]
+
+      if (!ws_orders['~' + cid]) {
+        if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateReqOrder (manual order?).').red)
+        return
+      }
+
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'balance'
     }
