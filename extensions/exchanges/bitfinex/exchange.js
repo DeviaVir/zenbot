@@ -57,7 +57,7 @@ module.exports = function container (get, set, clear) {
 
   function wsMessage (message) {
     if (message.event == "auth" && message.status == "OK") {
-      if (so.debug) { console.log(('WebSockets: We are now fully connected and authenticated.').green) }
+      if (so.debug) { console.log(("\nWebSockets: We are now fully connected and authenticated.").green) }
       ws_connecting = false
       ws_connected = true
     }
@@ -185,7 +185,7 @@ module.exports = function container (get, set, clear) {
     ws_connected = false
 
     if (e.event == "auth" && e.status == "FAILED") {
-      errorMessage = ('WebSockets Warning: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red
+      errorMessage = ("\nWebSockets Warning: Authentication " + e.status + ' (Reason: "' + e.msg + '").').red
       if (e.msg == 'apikey: invalid') errorMessage = errorMessage + "\nEither your API key is invalid or you tried reconnecting to quickly. Wait and/or check your API keys."
       console.warn(errorMessage)
       ws_client.close()
