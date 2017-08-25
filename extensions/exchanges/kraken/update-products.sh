@@ -7,16 +7,9 @@ var mapping
 var products = []
 
 function addProduct(base, quote, altname) {
-  var assetFix = ['BCH', 'DASH', 'EOS', 'GNO']
-
-  var fixed_quote = quote
-  if (assetFix.indexOf(base) >= 0) {
-    fixed_quote = getPair(quote)
-  }
-
   products.push({
     asset: base,
-    currency: fixed_quote,
+    currency: quote,
     min_size: '0.01',
     increment: '0.00000001',
     label: getPair(base) + '/' + getPair(quote)
