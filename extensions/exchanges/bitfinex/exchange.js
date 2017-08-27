@@ -13,7 +13,6 @@ module.exports = function container (get, set, clear) {
   var ws_connected = false
   var ws_timeout = 60000
   var ws_retry = 10000
-  var ws_wait_on_apikey_error = 60000 * 5
 
   var pair, public_client, ws_client
 
@@ -23,6 +22,7 @@ module.exports = function container (get, set, clear) {
   var ws_ticker = []
   var ws_hb = []
   var ws_walletCalcDone
+  var heartbeat_interval
 
   function publicClient () {
     if (!public_client) public_client = new BFX(null,null, {version: 2, transform: true}).rest
@@ -57,7 +57,7 @@ module.exports = function container (get, set, clear) {
 
   function wsMessage (message) {
     if (message.event == "auth" && message.status == "OK") {
-      if (so.debug) { console.log(('WebSockets: We are now fully connected and authenticated.').green) }
+      if (so.debug) { console.log(("\nWebSockets: We are now fully connected and authenticated.").green) }
       ws_connecting = false
       ws_connected = true
     }
@@ -72,7 +72,7 @@ module.exports = function container (get, set, clear) {
     // https://bitfinex.readme.io/v2/reference#ws-auth-orders
     var order = ws_orders['~' + cid]
     if (!order) {
-      console.warn(("\nWarning: Order " + cid + ' not found in cache (manual order?).').red)
+      if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateOrder (manual order?).').red)
       return
     }
 
@@ -100,17 +100,19 @@ module.exports = function container (get, set, clear) {
   function wsUpdateOrderCancel (ws_order) {
     cid = ws_order[2]
 
+    if (!ws_orders['~' + cid]) {
+      if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateOrderCancel (manual order?).').red)
+      return
+    }
+
     if (ws_order[13].match(/^INSUFFICIENT MARGIN/)) {
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'balance'
     }
 
-    if (ws_orders['~' + cid])
-    {
-      setTimeout(function () {
-        delete(ws_orders['~' + cid])
-      }, 60000 * 60 * 12)
-    }
+    setTimeout(function () {
+      delete(ws_orders['~' + cid])
+    }, 60000 * 60 * 12)
 
     wsUpdateOrder(ws_order)
   }
@@ -118,6 +120,12 @@ module.exports = function container (get, set, clear) {
   function wsUpdateReqOrder (error) {
     if (error[6] === 'ERROR' && error[7].match(/^Invalid order: not enough .* balance for/)) {
       cid = error[4][2]
+
+      if (!ws_orders['~' + cid]) {
+        if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateReqOrder (manual order?).').red)
+        return
+      }
+
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'balance'
     }
@@ -152,14 +160,11 @@ module.exports = function container (get, set, clear) {
     if (event.channel === "trades") {
       ws_hb[event.chanId] = Date.now()
 
-      var intervalId = setInterval(function() {
+      heartbeat_interval = setInterval(function() {
         if (ws_hb[event.chanId]) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
             console.warn(("\nWebSockets Warning: No message on channel 'trade' within " + ws_timeout / 1000 + ' seconds, reconnecting...').red)
-            clearInterval(intervalId)
-            ws_connecting = false
-            ws_connected = false
             ws_client.close()
           }
         }
@@ -170,24 +175,22 @@ module.exports = function container (get, set, clear) {
   function wsClose () {
     ws_connecting = false
     ws_connected = false
+    clearInterval(heartbeat_interval)
 
     console.error(("\nWebSockets Error: Connection closed.").red + " Retrying every " + (ws_retry / 1000 + ' seconds').yellow + '.')
   }
 
   function wsError (e) {
+    ws_connecting = false
+    ws_connected = false
+
     if (e.event == "auth" && e.status == "FAILED") {
-      errorMessage = ('WebSockets Warning: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red + ' Retrying in ' + (ws_wait_on_apikey_error / 1000 + ' seconds').yellow + '.'
+      errorMessage = ("\nWebSockets Warning: Authentication " + e.status + ' (Reason: "' + e.msg + '").').red
       if (e.msg == 'apikey: invalid') errorMessage = errorMessage + "\nEither your API key is invalid or you tried reconnecting to quickly. Wait and/or check your API keys."
       console.warn(errorMessage)
-
-      setTimeout(function () {
-        ws_client.auth()
-      }, ws_wait_on_apikey_error)
+      ws_client.close()
     }
     else {
-      ws_connecting = false
-      ws_connected = false
-
       ws_client.close()
     }
   }
