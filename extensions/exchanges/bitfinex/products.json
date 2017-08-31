@@ -194,7 +194,7 @@
   {
     "asset": "EOS",
     "currency": "USD",
-    "min_size": "0.001",
+    "min_size": "0.01",
     "max_size": "50000.0",
     "increment": "0.0000001",
     "label": "EOS/USD"
@@ -202,7 +202,7 @@
   {
     "asset": "EOS",
     "currency": "BTC",
-    "min_size": "0.001",
+    "min_size": "0.01",
     "max_size": "50000.0",
     "increment": "0.0000001",
     "label": "EOS/BTC"
@@ -210,7 +210,7 @@
   {
     "asset": "EOS",
     "currency": "ETH",
-    "min_size": "0.001",
+    "min_size": "0.01",
     "max_size": "50000.0",
     "increment": "0.0000001",
     "label": "EOS/ETH"
