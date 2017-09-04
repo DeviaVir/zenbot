@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "async": "^2.5.0",
-    "bitfinex-api-node": "^1.0.4",
+    "bitfinex-api-node": "^1.1.0",
     "bitstamp": "^1.0.1",
     "bl": "^1.2.1",
     "btce": "^0.4.2",
