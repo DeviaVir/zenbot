@@ -51,7 +51,7 @@ c.bitfinex.secret = 'YOUR-SECRET'
 // May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
 c.bitfinex.wallet = 'exchange'
 
-// to enable Bitfinex trading, enter your API credentials:
+// to enable Bitstamp trading, enter your API credentials:
 c.bitstamp = {}
 c.bitstamp.key = 'YOUR-API-KEY'
 c.bitstamp.secret = 'YOUR-SECRET'
