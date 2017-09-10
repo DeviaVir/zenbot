@@ -102,7 +102,7 @@ c.buy_pct = 99
 c.sell_pct = 99
 // ms to adjust non-filled order after
 c.order_adjust_time = 5000
-// avoid selling at a loss below this pct
+// avoid selling at a loss below this pct set to 0 to ensure selling at a higher price.
 c.max_sell_loss_pct = 25
 // ms to poll order status
 c.order_poll_time = 5000
