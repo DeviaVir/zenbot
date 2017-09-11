@@ -112,6 +112,8 @@ c.wait_for_settlement = 5000
 c.markup_pct = 0
 // become a market taker (high fees) or a market maker (low fees)
 c.order_type = 'maker'
+// when supported by the exchange, use post only type orders.
+c.post_only = true
 
 // Misc options:
 
