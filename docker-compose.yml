@@ -2,10 +2,12 @@ server:
   build: .
   volumes:
     - ./conf.js:/app/conf.js
+    - ./extensions:/app/extensions
   links:
     - mongodb
-  command: ./zenbot.sh trade --paper
+  command: [ "trade", "--paper" ]
   restart: always
+  tty: true
 
 mongodb:
   image: mongo:latest

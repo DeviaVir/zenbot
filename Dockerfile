@@ -4,8 +4,11 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY package.json /app/
-RUN npm install -g node-gyp && npm install --unsafe-perm
+RUN npm install
 
 COPY . /app
 
-CMD [ "./zenbot.sh", "trade", "--paper" ]
+ENV NODE_ENV production
+
+ENTRYPOINT ["/usr/local/bin/node", "zenbot.js"]
+CMD [ "trade", "--paper" ]

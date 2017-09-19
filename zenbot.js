@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+
 var semver = require('semver')
 var version = require('./package.json').version
 USER_AGENT = 'zenbot/' + version
