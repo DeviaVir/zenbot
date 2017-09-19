@@ -4,7 +4,8 @@
   "description": "Cryptocurrency trading bot",
   "main": "./index.js",
   "bin": {
-    "zenbot": "./zenbot.sh"
+    "zenbot": "./zenbot.sh",
+    "zenbot.sh": "./zenbot.sh"
   },
   "dependencies": {
     "async": "^2.5.0",
