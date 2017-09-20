@@ -1,11 +1,11 @@
 server:
   build: .
   volumes:
-    - .:/app
-    - /app/node_modules
+    - ./conf.js:/app/conf.js
+    - ./extensions:/app/extensions
   links:
     - mongodb
-  command: ./zenbot.sh trade --paper
+  command: [ "trade", "--paper" ]
   restart: always
 
 mongodb:
