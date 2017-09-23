@@ -44,7 +44,7 @@ The model, along with the HTML simulation results of both _training_ and _test d
 
 ## Trading
 
-You can use the trained model for training using the normal `trade` command:
+You can use the trained model for trading using the normal `trade` command:
 
 `./zenbot.sh trade bitfinex.ETH-USD --strategy forex_analytics --modelfile models/trained_model_file.json --paper`
 

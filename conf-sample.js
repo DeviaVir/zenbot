@@ -51,7 +51,7 @@ c.bitfinex.secret = 'YOUR-SECRET'
 // May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
 c.bitfinex.wallet = 'exchange'
 
-// to enable Bitfinex trading, enter your API credentials:
+// to enable Bitstamp trading, enter your API credentials:
 c.bitstamp = {}
 c.bitstamp.key = 'YOUR-API-KEY'
 c.bitstamp.secret = 'YOUR-SECRET'
@@ -102,7 +102,7 @@ c.buy_pct = 99
 c.sell_pct = 99
 // ms to adjust non-filled order after
 c.order_adjust_time = 5000
-// avoid selling at a loss below this pct
+// avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
 // ms to poll order status
 c.order_poll_time = 5000
@@ -112,6 +112,8 @@ c.wait_for_settlement = 5000
 c.markup_pct = 0
 // become a market taker (high fees) or a market maker (low fees)
 c.order_type = 'maker'
+// when supported by the exchange, use post only type orders.
+c.post_only = true
 
 // Misc options:
 
