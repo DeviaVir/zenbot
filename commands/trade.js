@@ -8,6 +8,8 @@ var tb = require('timebucket')
   , crypto = require('crypto')
   , readline = require('readline')
   , colors = require('colors')
+  , z = require('zero-fill')
+  , cliff = require('cliff')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
@@ -76,9 +78,11 @@ module.exports = function container (get, set, clear) {
         keyMap.set('s', 'limit'.grey + ' SELL'.red)
         keyMap.set('S', 'market'.grey + ' SELL'.red)
         keyMap.set('c', 'cancel order'.grey)
-        keyMap.set('m', '\'Manual Mode\' ON / OFF'.grey)
+        keyMap.set('m', 'toggle MANUAL trade in LIVE mode ON / OFF'.grey)
         keyMap.set('T', 'switch to \'Taker\' order type'.grey)
         keyMap.set('M', 'switch to \'Maker\' order type'.grey)
+        keyMap.set('o', 'show current trade options'.grey)
+        keyMap.set('O', 'show current trade options in a dirty view (full list)'.grey)
         keyMap.set('X', 'exit program with statistical output'.grey)
 
         function listKeys() {
@@ -87,6 +91,42 @@ module.exports = function container (get, set, clear) {
             console.log(' ' + key + ' - ' + value)
           })
         }
+        
+        function listOptions () {
+          console.log()
+          console.log(s.exchange.name.toUpperCase() + ' exchange active trading options:'.grey)
+          console.log()
+          process.stdout.write(z(22, 'STRATEGY'.grey, ' ') + '\t' + so.strategy + '\t' + (get('strategies.' + so.strategy).description).grey)
+          console.log('\n')
+          process.stdout.write([
+            z(24, (so.mode === 'paper' ? so.mode.toUpperCase() : so.mode.toUpperCase()) + ' MODE'.grey, ' '),
+            z(26, 'PERIOD'.grey, ' '),
+            z(30, 'ORDER TYPE'.grey, ' '),
+            z(28, 'SLIPPAGE'.grey, ' '),
+            z(33, 'EXCHANGE FEES'.grey, ' ')
+          ].join('') + '\n')
+          process.stdout.write([
+            z(15, (so.mode === 'paper' ? '      ' : (so.mode === 'live' && so.manual === false) ? '       ' + 'AUTO'.black.bgRed + '    ' : '       ' + 'MANUAL'.black.bgGreen + '  '), ' '),
+            z(13, so.period, ' '),
+            z(29, (so.order_type === 'maker' ? so.order_type.toUpperCase().green : so.order_type.toUpperCase().red), ' '),
+            z(31, (so.mode === 'paper' ? 'avg. '.grey + so.avg_slippage_pct + '%' : 'max '.grey + so.max_slippage_pct + '%'), ' '),
+            z(20, (so.order_type === 'maker' ? so.order_type + ' ' + s.exchange.makerFee : so.order_type + ' ' + s.exchange.takerFee), ' ')
+          ].join('') + '\n')
+          process.stdout.write('')
+          process.stdout.write([
+            z(19, 'BUY %'.grey, ' '),
+            z(20, 'SELL %'.grey, ' '),
+            z(35, 'TRAILING STOP %'.grey, ' '),
+            z(33, 'TRAILING DISTANCE %'.grey, ' ')
+          ].join('') + '\n')
+          process.stdout.write([
+            z(9, so.buy_pct + '%', ' '),
+            z(9, so.sell_pct + '%', ' '),
+            z(20, so.profit_stop_enable_pct + '%', ' '),
+            z(20, so.profit_stop_pct + '%', ' ')
+          ].join('') + '\n')
+          process.stdout.write('')
+        }              
 
         /* Implementing statistical Exit */
         function exitTrade () {
@@ -254,45 +294,39 @@ module.exports = function container (get, set, clear) {
                       process.stdin.on('keypress', function (key, info) {
                         if (key === 'l') {
                           listKeys()
-                        }
-                        else if (key === 'b' && !info.ctrl ) {
+                        } else if (key === 'b' && !info.ctrl ) {
                           engine.executeSignal('buy')
                           console.log('\nmanual'.grey + ' limit ' + 'BUY'.green + ' command executed'.grey)
-                        }
-                        else if (key === 'B' && !info.ctrl) {
+                        } else if (key === 'B' && !info.ctrl) {
                           engine.executeSignal('buy', null, null, false, true)
                           console.log('\nmanual'.grey + ' market ' + 'BUY'.green + ' command executed'.grey)
-                        }
-                        else if (key === 's' && !info.ctrl) {
+                        } else if (key === 's' && !info.ctrl) {
                           engine.executeSignal('sell')
                           console.log('\nmanual'.grey + ' limit ' + 'SELL'.red + ' command executed'.grey)
-                        }
-                        else if (key === 'S' && !info.ctrl) {
+                        } else if (key === 'S' && !info.ctrl) {
                           engine.executeSignal('sell', null, null, false, true)
                           console.log('\nmanual'.grey + ' market ' + 'SELL'.red + ' command executed'.grey)
-                        }
-                        else if ((key === 'c' || key === 'C') && !info.ctrl) {
+                        } else if ((key === 'c' || key === 'C') && !info.ctrl) {
                           delete s.buy_order
                           delete s.sell_order
                           console.log('\nmanual'.grey + ' order cancel' + ' command executed'.grey)
-                        }
-                        else if (key === 'm' && !info.ctrl) {
+                        } else if (key === 'm' && !info.ctrl && so.mode === 'live') {
                           so.manual = !so.manual
-                          console.log('\nMANUAL trade mode: ' + (so.manual ? 'ON'.green.inverse : 'OFF'.red.inverse))
-                        }
-                        else if (key === 'T' && !info.ctrl) {
+                          console.log('\nMANUAL trade in LIVE mode: ' + (so.manual ? 'ON'.green.inverse : 'OFF'.red.inverse))
+                        } else if (key === 'T' && !info.ctrl) {
                           so.order_type = 'taker'
                           console.log('\n' + 'Taker fees activated'.bgRed)
-                        }
-                        else if (key === 'M' && !info.ctrl) {
+                        } else if (key === 'M' && !info.ctrl) {
                           so.order_type = 'maker'
                           console.log('\n' + 'Maker fees activated'.black.bgGreen)
-                        }
-                        else if (key === 'X' && !info.ctrl) {
+                        } else if (key === 'o' && !info.ctrl) {
+                          listOptions()
+                        } else if (key === 'O' && !info.ctrl) {
+                          console.log('\n' + cliff.inspect(so))
+                        } else if (key === 'X' && !info.ctrl) {
                           console.log('\nExiting... ' + '\nWriting statistics...'.grey)
                           exitTrade()
-                        }
-                        else if (info.name === 'c' && info.ctrl) {
+                        } else if (info.name === 'c' && info.ctrl) {
                           // @todo: cancel open orders before exit
                           console.log()
                           process.exit()
