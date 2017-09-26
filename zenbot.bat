@@ -1,1 +1,1 @@
-node zenbot.sh %*
+node zenbot.js %*
