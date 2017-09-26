@@ -36,10 +36,13 @@ module.exports = function container (get, set, clear) {
             if (err) return cb(err)
             s.exchange.getQuote(s, function (err, quote) {
               if (err) throw err
-              var bal = moment().format('YYYY-MM-DD HH:mm:ss').grey + ' ' + engine.formatCurrency(quote.ask, true, true, false)
-              bal += ' ' + (s.product_id + ' Asset: ').grey + balance.asset.white + ' Currency: '.grey + balance.currency.yellow + ' Total: '.grey + n(balance.asset).multiply(quote.ask).add(balance.currency).value().toString().yellow
+              
+              var bal = moment().format('YYYY-MM-DD HH:mm:ss').grey + ' ' + engine.formatCurrency(quote.ask, true, true, false) + ' ' + (s.product_id).grey + '\n'
+              bal += moment().format('YYYY-MM-DD HH:mm:ss').grey + ' Asset: '.grey + balance.asset.white + ' Available: '.grey + n(balance.asset).subtract(balance.asset_hold).value().toString().yellow + '\n'
+              bal += moment().format('YYYY-MM-DD HH:mm:ss').grey + ' Currency: '.grey + balance.currency.white + ' Available: '.grey + n(balance.currency).subtract(balance.currency_hold).value().toString().yellow + '\n'
+              bal += moment().format('YYYY-MM-DD HH:mm:ss').grey + ' Total: '.grey + n(balance.asset).multiply(quote.ask).add(balance.currency).value().toString().white
               console.log(bal)
-
+              
               if (so.calculate_currency) {
                 s.exchange.getQuote({'product_id': s.asset + '-' + so.calculate_currency}, function (err, asset_quote) {
                   if (err)  throw err

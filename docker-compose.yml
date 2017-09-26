@@ -1,8 +1,7 @@
 server:
   build: .
   volumes:
-    - .:/app
-    - /app/node_modules
+    - ./conf.js:/app/conf.js
   links:
     - mongodb
   command: ./zenbot.sh trade --paper

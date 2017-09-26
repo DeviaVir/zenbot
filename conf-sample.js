@@ -51,7 +51,7 @@ c.bitfinex.secret = 'YOUR-SECRET'
 // May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
 c.bitfinex.wallet = 'exchange'
 
-// to enable Bitfinex trading, enter your API credentials:
+// to enable Bitstamp trading, enter your API credentials:
 c.bitstamp = {}
 c.bitstamp.key = 'YOUR-API-KEY'
 c.bitstamp.secret = 'YOUR-SECRET'
@@ -68,6 +68,18 @@ c.quadriga.secret = 'YOUR-SECRET';
 
 // replace with the client id used at login, as a string, not number
 c.quadriga.client_id = 'YOUR-CLIENT-ID';
+
+// to enable BTC-e trading, enter your API credentials:
+c.btce = {}
+c.btce.key = 'YOUR-API-KEY'
+c.btce.secret = 'YOUR-SECRET'
+
+// to enable Gemini trading, enter your API credentials:
+c.gemini = {}
+c.gemini.key = 'YOUR-API-KEY'
+c.gemini.secret = 'YOUR-API-SECRET'
+// set to false to trade on the live platform API
+c.gemini.sandbox = true
 
 // Optional stop-order triggers:
 
@@ -90,7 +102,7 @@ c.buy_pct = 99
 c.sell_pct = 99
 // ms to adjust non-filled order after
 c.order_adjust_time = 5000
-// avoid selling at a loss below this pct
+// avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
 // ms to poll order status
 c.order_poll_time = 5000
@@ -100,6 +112,8 @@ c.wait_for_settlement = 5000
 c.markup_pct = 0
 // become a market taker (high fees) or a market maker (low fees)
 c.order_type = 'maker'
+// when supported by the exchange, use post only type orders.
+c.post_only = true
 
 // Misc options:
 
@@ -119,3 +133,23 @@ c.rsi_periods = 14
 c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
+
+//xmpp configs
+
+c.xmppon=0  // 0 xmpp disabled; 1 xmpp enabled (credentials should be correct)
+
+if (c.xmppon) {
+
+  c.xmpp = require('simple-xmpp');
+
+  c.xmpp.connect({
+                jid                    : 'trader@domain.com', //xmpp account trader bot
+                password               : 'Password',          //xmpp password
+                host                   : 'domain.com',        //xmpp domain
+                port                   : 5222                 //xmpp port
+  });
+
+  c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
+}
+//end xmpp configs
+

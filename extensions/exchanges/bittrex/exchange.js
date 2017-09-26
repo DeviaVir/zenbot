@@ -28,7 +28,7 @@ module.exports = function container(get, set, clear) {
   })
 
   function joinProduct(product_id) {
-    return product_id.split('-')[0] + '-' + product_id.split('-')[1]
+    return product_id.split('-')[1] + '-' + product_id.split('-')[0]
   }
 
   function retry(method, args, error) {
@@ -74,7 +74,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getTrades', func_args, data.message)
           }
           console.log(data.message)
@@ -106,7 +106,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getBalance', args, data.message)
           }
           console.log(data.message)
@@ -117,9 +117,9 @@ module.exports = function container(get, set, clear) {
           asset: 0,
           currency: 0
         }
+
         Object.keys(data.result).forEach(function (i) {
           var _balance = data.result[i]
-          // yes, currency and asset are turned around on purpose, their API is weird
           if(opts.last_signal === 'buy') {
             if (_balance['Currency'] === opts.currency.toUpperCase()) {
               balance.currency = n(_balance.Available).format('0.00000000'),
@@ -130,11 +130,11 @@ module.exports = function container(get, set, clear) {
                 balance.asset_hold = 0
             }
           } else {
-            if (_balance['Currency'] === opts.currency.toUpperCase()) {
+            if (_balance['Currency'] === opts.asset.toUpperCase()) {
               balance.asset = n(_balance.Available).format('0.00000000'),
                 balance.asset_hold = 0
             }
-            if (_balance['Currency'] === opts.asset.toUpperCase()) {
+            if (_balance['Currency'] === opts.currency.toUpperCase()) {
               balance.currency = n(_balance.Available).format('0.00000000'),
                 balance.currency_hold = 0
             }
@@ -155,7 +155,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getQuote', args, data.message)
           }
           console.log(data.message)
@@ -209,7 +209,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('trade', args, data.message)
           }
           console.log(data.message)
@@ -271,7 +271,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getOrder', args, data.message)
           }
           console.log(data.message)

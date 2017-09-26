@@ -26,7 +26,7 @@ Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-t
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
 - Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
-- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com), [Kraken](https://kraken.com/) and [Bittrex](https://bittrex.com/), work on further exchange support is ongoing.
+- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com), [Kraken](https://kraken.com/), [Bittrex](https://bittrex.com/), [Quadriga](https://www.quadrigacs.com) and [Gemini](https://www.gemini.com) work on further exchange support is ongoing.
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
 - "Paper" trading mode, operates on a simulated balance while watching the live market
@@ -43,7 +43,7 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 
 ## Quick-start
 
-### 1. Requirements: Linux or OSX or Docker, [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
+### 1. Requirements: Windows, Linux or OSX or Docker, [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
 
 ### 2. Install zenbot 4:
 
@@ -93,6 +93,12 @@ After installing (step 2 above),
 cd zenbot
 docker-compose build
 docker-compose up (-d if you don't want to see the log)
+```
+
+If you are running windows use the following command
+
+```
+docker-compose --file=docker-compose-windows.yml up
 ```
 
 If you wish to run commands (e.g. backfills, list-selectors), you can run this separate command after a successful `docker-compose up -d`:
@@ -178,7 +184,7 @@ Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making 19
 
 ### 4. Run zenbot
 
-The following command will launch the bot, and if you haven't touched `c.default_selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
+The following command will launch the bot, and if you haven't touched `c.selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
 
 ```
 zenbot trade [--paper] [--manual]
