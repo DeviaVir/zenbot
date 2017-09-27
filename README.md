@@ -104,8 +104,8 @@ docker-compose --file=docker-compose-windows.yml up
 If you wish to run commands (e.g. backfills, list-selectors), you can run this separate command after a successful `docker-compose up -d`:
 
 ```
-docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh list-selectors
-docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server ./zenbot.sh backfill <selector> --days <days>
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server list-selectors
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server backfill <selector> --days <days>
 ```
 
 ### Vocab: selectors
@@ -197,7 +197,7 @@ Use the `--manual` flag to watch the price and account balance, but do not perfo
 Here's how to run a different selector (example: ETH-BTC on Poloniex):
 
 ```
-./zenbot trade poloniex.eth-btc
+zenbot trade poloniex.eth-btc
 ```
 
 For a full list of options for the `trade` command, use:
