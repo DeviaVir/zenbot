@@ -48,7 +48,8 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
     trend_ema: `--trend_ema=${phenotype.trend_ema} --oversold_rsi=${phenotype.oversold_rsi} --oversold_rsi_periods=${phenotype.oversold_rsi_periods} --neutral_rate=auto`,
     trust_distrust: `--sell_threshold=${phenotype.sell_threshold} --sell_threshold_max=${phenotype.sell_threshold_max} --sell_min=${phenotype.sell_min} --buy_threshold=${phenotype.buy_threshold} --buy_threshold_max=${phenotype.buy_threshold_max} --greed=${phenotype.greed}`
   };
-  let command = `node zenbot.js sim ${simArgs} ${commonArgs} ${strategyArgs[taskStrategyName]}`;
+  let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh';
+  let command = `${zenbot_cmd} sim ${simArgs} ${commonArgs} ${strategyArgs[taskStrategyName]}`;
   console.log(`[ ${iterationCount++}/${populationSize * selectedStrategies.length} ] ${command}`);
 
   phenotype['sim'] = {};
@@ -78,8 +79,10 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
 };
 
 let runUpdate = (days, selector) => {
-  let command = `node zenbot.sh backfill --days=${days} ${selector}`;
-  console.log(`Backfilling ...`);
+  let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh';
+  let command = `${zenbot_cmd} backfill --days=${days} ${selector}`;
+  console.log(`Backfilling (might take some time) ...`);
+  console.log(command);
 
   shell.exec(command, {
     silent: true,
