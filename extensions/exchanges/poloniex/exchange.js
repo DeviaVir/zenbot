@@ -62,12 +62,12 @@ module.exports = function container (get, set, clear) {
         args.end = opts.to
       }
       if (args.start && !args.end) {
-        // add 2 hours
-        args.end = args.start + 7200
+        // add 12 hours
+        args.end = args.start + 43200
       }
       else if (args.end && !args.start) {
-        // subtract 2 hours
-        args.start = args.end - 7200
+        // subtract 12 hours
+        args.start = args.end - 43200
       }
 
       client._public('returnTradeHistory', args, function (err, body) {
