@@ -134,6 +134,11 @@ c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
 
+// send updates via slack webhook
+// https://api.slack.com/incoming-webhooks
+c.slack_enable = false
+c.slack_webhook_url = ''
+
 //xmpp configs
 
 c.xmppon=0  // 0 xmpp disabled; 1 xmpp enabled (credentials should be correct)
