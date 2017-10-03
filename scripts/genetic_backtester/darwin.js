@@ -13,6 +13,7 @@ let json2csv = require('json2csv');
 let roundp = require('round-precision');
 let fs = require('fs');
 let GeneticAlgorithmCtor = require('geneticalgorithm');
+let StripAnsi = require('strip-ansi');
 
 let Phenotypes = require('./phenotype.js');
 
@@ -98,7 +99,8 @@ let processOutput = output => {
   let wlRegexp = /win\/loss: (\d+)\/(\d+)/g;
   let errRegexp = /error rate: (.*)%/g;
 
-  let output2 = output.substr(output.length - 3500);
+  let strippedOutput = StripAnsi(output);
+  let output2 = strippedOutput.substr(strippedOutput.length - 3500);
 
   let rawParams = jsonRegexp.exec(output2)[1];
   let params = JSON.parse(rawParams);
@@ -427,7 +429,7 @@ let simulateGeneration = () => {
   console.log(`\n\n=== Simulating generation ${generationCount++} ===\n`);
 
   runUpdate(argv.days, argv.selector);
-  
+
   iterationCount = 1;
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
     return cb => {
@@ -442,7 +444,7 @@ let simulateGeneration = () => {
     });
 
     results.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0));
-    
+
     let fieldsGeneral = ['fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days', 'params'];
     let fieldNamesGeneral = ['Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters'];
 
