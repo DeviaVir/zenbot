@@ -289,7 +289,7 @@ let strategies = {
   sar: {
     // -- common
     period: RangePeriod(1, 120, 'm'),
-    min_periods: Range(1, 100),
+    min_periods: Range(2, 100),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
     sell_stop_pct: Range0(1, 50),
