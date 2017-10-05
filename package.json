@@ -13,6 +13,7 @@
     "zenbot": "./zenbot.sh"
   },
   "dependencies": {
+    "@slack/client": "^3.14.0",
     "async": "^2.5.0",
     "bitfinex-api-node": "^1.2.0",
     "bitstamp": "^1.0.4",
