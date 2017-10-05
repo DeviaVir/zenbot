@@ -106,7 +106,7 @@ module.exports = function container (get, set, clear) {
             z(33, 'EXCHANGE FEES'.grey, ' ')
           ].join('') + '\n')
           process.stdout.write([
-            z(15, (so.mode === 'paper' ? '      ' : (so.mode === 'live' && so.manual === false) ? '       ' + 'AUTO'.black.bgRed + '    ' : '       ' + 'MANUAL'.black.bgGreen + '  '), ' '),
+            z(15, (so.mode === 'paper' ? '      ' : (so.mode === 'live' && (so.manual === false || typeof so.manual === 'undefined')) ? '       ' + 'AUTO'.black.bgRed + '    ' : '       ' + 'MANUAL'.black.bgGreen + '  '), ' '),
             z(13, so.period, ' '),
             z(29, (so.order_type === 'maker' ? so.order_type.toUpperCase().green : so.order_type.toUpperCase().red), ' '),
             z(31, (so.mode === 'paper' ? 'avg. '.grey + so.avg_slippage_pct + '%' : 'max '.grey + so.max_slippage_pct + '%'), ' '),
