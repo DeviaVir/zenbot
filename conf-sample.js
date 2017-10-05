@@ -134,8 +134,12 @@ c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
 
-//xmpp configs
+//console configs
+c.console = {}
+c.console.on = 0 // console disabled; 1 console enabled
+//end console configs
 
+//xmpp configs
 c.xmppon=0  // 0 xmpp disabled; 1 xmpp enabled (credentials should be correct)
 
 if (c.xmppon) {
@@ -153,3 +157,22 @@ if (c.xmppon) {
 }
 //end xmpp configs
 
+//pushbullets configs
+c.pushbullet = {}
+c.pushbullet.on = 0 // pushbullets disabled; 1 pushbullets enabled (key should be correct)
+c.pushbullet.key = 'YOUR-API-KEY'
+c.pushbullet.deviceID = 'YOUR-DEVICE-ID'
+
+if (c.pushbullet.on) {
+  var pushobj = require('pushbullet');
+
+  c.pushbullet.pusher = new pushobj(c.pushbullet.key);
+}
+//end pushbullets configs
+
+//ifttt configs
+c.ifttt = {}
+c.ifttt.on = 0 // ifttt disabled; 1 ifttt enabled (key should be correct)
+c.ifttt.makerKey = 'YOUR-API-KEY'
+c.ifttt.eventName = 'zenbot'
+//end ifttt configs
