@@ -131,12 +131,14 @@ module.exports = function container (get, set, clear) {
     buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
+      opts.cancel_after = 'day' //order will cancel itself after 1 day
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
+        delete opts.cancel_after
         opts.type = 'market'
       }
       delete opts.order_type
@@ -158,12 +160,14 @@ module.exports = function container (get, set, clear) {
     sell: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
+      opts.cancel_after = 'day' //order will cancel itself after 1 day
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
+        delete opts.cancel_after
         opts.type = 'market'
       }
       delete opts.order_type
