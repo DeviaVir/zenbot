@@ -3,13 +3,7 @@
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
-## New! Chat with other Zenbot users
-
-[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
-
-Zenbot has a Discord chat again! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
-
-## Known Issues and current status
+## Current Status
 
 Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
 
@@ -43,9 +37,12 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 
 ## Quick-start
 
-### 1. Requirements: Windows, Linux or OSX or Docker, [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
+### Step 1) Requirements
 
-### 2. Install zenbot 4:
+- Windows / Linux / macOS 10 (or Docker)
+- [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
+
+### Step 2) Install zenbot 4
 
 Run in your console,
 
@@ -83,7 +80,7 @@ npm install
 npm link
 ```
 
-### Docker
+### Docker (Optional)
 
 To run Zenbot under Docker, install Docker, Docker Compose, Docker Machine (if necessary) You can follow instructions at https://docs.docker.com/compose/install/
 
@@ -108,7 +105,7 @@ docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server list-selectors
 docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server backfill <selector> --days <days>
 ```
 
-### Vocab: selectors
+## Selectors
 
 A "selector" is a short identifier that tells Zenbot which exchange and currency pair to act on. Use the form `{exchange_slug}.{asset}-{currency}`. A complete list of selectors your Zenbot install supports can be found with:
 
@@ -134,7 +131,7 @@ poloniex:
 ...etc
 ```
 
-### 3. (optional) Run simulations for your chosen selector
+## Run a simulation for your selector
 
 To backfill data (provided that your chosen exchange supports it), use:
 
@@ -164,7 +161,7 @@ zenbot list-strategies
 - By default the sim will start with 1000 units of currency. Override with `--currency_capital` and `--asset_capital`.
 - Open `sim_result.html` in your browser to see a candlestick graph with trades.
 
-#### Screenshot and example result
+### Screenshot and example result
 
 Zenbot outputs an HTML graph of each simulation result. In the screenshot below, the pink arrows represent the bot buying (up arrow) and selling (down arrow) as it iterated the historical data of [GDAX](https://gdax.com/) exchange's BTC/USD product.
 
@@ -182,7 +179,7 @@ Zenbot started with $1,000 USD and ended with $2,954.50 after 90 days, making 19
 - Note that this example used tweaked settings to achieve optimal return: `--enable_profit_stop_pct=10`, `--profit_stop_pct=4`, `trend_ema=36`, and `--sell_rate=-0.006`. Default parameters yielded around 65% ROI.
 - [Raw data](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) from simulation
 
-### 4. Run zenbot
+## Running zenbot
 
 The following command will launch the bot, and if you haven't touched `c.selector` in `conf.js`, will trade the default BTC/USD pair on GDAX.
 
@@ -364,7 +361,7 @@ trust_distrust
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
 ```
 
-### Interactive controls
+## Interactive controls
 
 While the `trade` command is running, Zenbot will respond to these keypress commands:
 
@@ -374,7 +371,7 @@ While the `trade` command is running, Zenbot will respond to these keypress comm
 
 These commands can be used to override what the bot is doing. Or, while running with the `--manual` flag, this allows you to make all the trade decisions yourself.
 
-### Conf/argument override files
+## Conf/argument override files
 
 To run `trade` or `sim` commands with a pre-defined set of options, use:
 
@@ -397,7 +394,7 @@ c.max_slippage_pct = 10
 c.order_adjust_time = 10000
 ```
 
-### Reading the console output
+## Reading the console output
 
 ![console](https://rawgit.com/carlos8f/zenbot/master/assets/console.png)
 
@@ -415,7 +412,9 @@ From left to right:
 - Profit or loss percent (can be reset with `--reset_profit`)
 - Gain or loss vs. buy/hold strategy
 
-### About the ema_trend strategy (default)
+## Strategies
+
+### The `trend_ema` strategy (default)
 
 - The default strategy is called `trend_ema` and resides at `./extensions/strategies/trend_ema`.
 - Defaults to using a 2m period, but you can override this with adding e.g. `--period=5m` to the `sim` or `trade` commands.
@@ -426,7 +425,7 @@ From left to right:
 - If `oversold_rsi` is set, tries to buy when the RSI dips below that value, and then starts to recover (a counterpart to `--profit_stop_enable_pct`, which sells when a percent of profit is reached, and then dips)
 - The bot will always try to avoid trade fees, by using post-only orders and thus being a market "maker" instead of a "taker". Some exchanges will, however, not offer maker discounts.
 
-### About the macd strategy
+### The `macd` strategy
 
 The moving average convergence divergence calculation is a lagging indicator, used to follow trends. 
 
@@ -434,7 +433,7 @@ The moving average convergence divergence calculation is a lagging indicator, us
 - It's not firing multiple 'buy' or 'sold' signals, only one per trend, which seems to lead to a better quality trading scheme.
 - Especially when the bot will enter in the middle of a trend, it avoids buying unless it's the beginning of the trend.
 
-### About the rsi strategy
+### The `rsi` strategy
 
 Attempts to buy low and sell high by tracking RSI high-water readings.
 
@@ -442,7 +441,7 @@ Attempts to buy low and sell high by tracking RSI high-water readings.
 - Risky to use in bear markets, since the algorithm depends on price recovery.
 - If the other strategies are losing you money, this strategy may perform better, since it basically "reverses the signals" and anticipates a reversal instead of expecting the trend to continue.
 
-### About the sar strategy
+### The `sar` strategy
 
 Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:parabolic_sar) indicator to trade when SAR trend reverses.
 
@@ -451,7 +450,7 @@ Uses a [Parabolic SAR](http://stockcharts.com/school/doku.php?id=chart_school:te
 - Most effective with short period (default is 2m), which means it generates 50-100 trades/day, so only usable on GDAX (with 0% maker fee) at the moment.
 - Tested live, [results here](https://github.com/carlos8f/zenbot/pull/246#issuecomment-307528347)
 
-### About the speed strategy
+### The `speed` strategy
 
 Trade when % change from last two 1m periods is higher than average.
 
@@ -460,7 +459,7 @@ Trade when % change from last two 1m periods is higher than average.
 - Like the sar strategy, this generates early signals and can be effective in volatile markets and for sudden price drop protection.
 - Its weakness is that it performs very poorly in low-volatility situations and misses signals from gradually developing trends.
 
-### Option tweaking tips
+### Tips for tweaking options
 
 - Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=5m` or `--trend_ema=15` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema` or increasing `neutral_rate`.
 - Sometimes it's tempting to tell the bot trade very often. Try to resist this urge, and go for quality over quantity, since each trade comes with a decent amount of slippage and whipsaw risk.
@@ -495,7 +494,7 @@ Or to sell 10% of your BTC,
 zenbot sell gdax.BTC-USD --pct=10
 ```
 
-## Update Log
+## Changelog
 
 - [v4.0.5](https://github.com/carlos8f/zenbot/releases/tag/v4.0.5) (Latest)
     - handle insufficient funds errors from gdax
@@ -539,6 +538,12 @@ zenbot sell gdax.BTC-USD --pct=10
 - web UI with graphs and logs
 - "reaper" to automatically prune trades collection to a certain day length
 - "lite mode" for trader, an option to run without MongoDB
+
+## Chat with other Zenbot users
+
+[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
+
+Zenbot has a Discord chat! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
 
 ## Donate
 
