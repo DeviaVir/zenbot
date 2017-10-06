@@ -4,7 +4,7 @@ This document is written to help developers implement new extensions for Zenbot.
 It is reverse engineered from inspecting the Zenbot files and the GDAX extension and is not a definitive guide for developing an extension.
 
 Any contribution that makes this document better is certainly welcome.
- 
+
 The document is an attempt to describe the interface functions used for communication with an exchange and a few helper functions. Each function has a set of calling parameters and return values and statuses
 
 The input parameters are packed in the "opts" object, and the results from invoking the function are returned in an object.
@@ -27,7 +27,7 @@ The expected content of "err" is as follows:
 
 Some named errors are already handled by the main program (see getTrades below). These are:
 ```
-  'ETIMEDOUT', // possibly recoverable 
+  'ETIMEDOUT', // possibly recoverable
   'ENOTFOUND', // not recoverable (404?)
   'ECONNRESET' // possibly recoverable
 ```
@@ -37,7 +37,7 @@ Zenbot may have some GDAX-specific code. In particular that pertains to return v
 ```
   name: 'some_exchange_name'
   historyScan: 'forward', 'backward' or false
-  makerFee: exchange_maker_fee (numeric) // Set by a function if the exchange supports it 
+  makerFee: exchange_maker_fee (numeric) // Set by a function if the exchange supports it
   takerFee: exchange_taker_fee (numeric) // Else set with a constant
   backfillRateLimit: some_value_fitting_exchange_policy or 0
 ```
@@ -96,7 +96,7 @@ Input:
 Return:
 ```
   trades.length
-  (array of?) { 
+  (array of?) {
     trade_id: some_id
     time: 'transaction_time',
     size: trade_size,
@@ -107,8 +107,8 @@ Return:
 Expected error codes if error:
 ```
   err.code
- 
-  'ETIMEDOUT', // possibly recoverable 
+
+  'ETIMEDOUT', // possibly recoverable
   'ENOTFOUND', // not recoverable
   'ECONNRESET' // possibly recoverable
 ```
@@ -131,7 +131,7 @@ Input:
 ```
 Return:
 ```
-  balance.asset 
+  balance.asset
   balance.asset_hold
   balance.currency
   balance.currency_hold
@@ -141,7 +141,7 @@ Callback:
 cb(null, balance)
 ```
 Comment:
-Asset vs asset_hold and currency vs currency_hold is kind of mysterious to me. 
+Asset vs asset_hold and currency vs currency_hold is kind of mysterious to me.
 For most exchanges I would just return something similar to available_asset and available_currency
 For exchanges that returns some other values, I would do the calculation on the extension layer
 and not leave it to engine.js, because available_asset and available_currency are only interesting
@@ -157,11 +157,11 @@ Called from:
 - https://github.com/carlos8f/zenbot/blob/master/commands/sell.js
 
 Input:
-``` 
+```
   opts.product_id
 ```
 Return:
-``` 
+```
   {bid: value_of_bid, ask: value_of_ask}
 ```
 Callback:
@@ -193,7 +193,7 @@ Called from:
 - https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
 
 Input:
-``` 
+```
   opts.price
   opts.size
 ```
@@ -214,7 +214,7 @@ Called from:
 - https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
 
 Input:
-``` 
+```
   opts.price
   opts.size
 ```
@@ -234,7 +234,7 @@ getOrder: function (opts, cb)
 Called from:
 - https://github.com/carlos8f/zenbot/blob/master/lib/engine.js
 
-Input: 
+Input:
 ```
   opts.order_id
   opts.product_id
@@ -242,8 +242,8 @@ Input:
 Returns:
 ```
   order.status
-``` 
-Expected values in https://github.com/carlos8f/zenbot/blob/master/lib/engine.js: 
+```
+Expected values in https://github.com/carlos8f/zenbot/blob/master/lib/engine.js:
 - 'done', 'rejected'
   If 'rejected' order.reject_reason = some_reason ('post only')
 Is '*post only*' spesific for GDAX?
@@ -277,3 +277,16 @@ Callback:
 ```javascript
 
 ```
+
+## Extensions
+
+Zenbot offers various extensions, arguably it is what makes zenbot so awesome.
+
+### Extending notifiers
+
+If you wish to add a new notifier, please follow these steps:
+
+- create a your-service-name.js in `/extensions/notifiers/` make sure to use the same function returns as other notifiers
+- add `'notifiers.your-service-name': require('./your-service-name')` to `/extensions/notifiers/_codemap.js`
+- add config bootstrap to `/conf-sample.js`
+- send us a PR with your new service :)
