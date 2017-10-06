@@ -13,6 +13,7 @@
     "zenbot": "./zenbot.sh"
   },
   "dependencies": {
+    "@slack/client": "^3.14.0",
     "async": "^2.5.0",
     "bitfinex-api-node": "^1.2.0",
     "bitstamp": "^1.0.4",
@@ -40,6 +41,7 @@
     "numbro": "carlos8f/numbro",
     "poloniex.js": "0.0.7",
     "progress": "^2.0.0",
+    "pushbullet": "2.0.0",
     "pusher-js": "^4.1.0",
     "quadrigacx": "0.0.7",
     "run-parallel": "^1.1.6",
