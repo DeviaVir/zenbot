@@ -96,7 +96,7 @@ c.profit_stop_pct = 1
 
 // avoid trading at a slippage above this pct
 c.max_slippage_pct = 5
-// buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100) 
+// buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100)
 c.buy_pct = 99
 // sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
 c.sell_pct = 99
@@ -134,22 +134,35 @@ c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
 
-//xmpp configs
+// Notifiers:
+c.notifiers = {}
 
-c.xmppon=0  // 0 xmpp disabled; 1 xmpp enabled (credentials should be correct)
+// xmpp config
+c.notifiers.xmpp = {}
+c.notifiers.xmpp.on = false  // false xmpp disabled; true xmpp enabled (credentials should be correct)
+c.notifiers.xmpp.jid = 'trader@domain.com'
+c.notifiers.xmpp.password = 'Password'
+c.notifiers.xmpp.host = 'domain.com'
+c.notifiers.xmpp.port = 5222
+c.notifiers.xmpp.to = 'MeMyselfAndI@domain.com'
+// end xmpp configs
 
-if (c.xmppon) {
+// pushbullets configs
+c.notifiers.pushbullet = {}
+c.notifiers.pushbullet.on = false // false pushbullets disabled; true pushbullets enabled (key should be correct)
+c.notifiers.pushbullet.key = 'YOUR-API-KEY'
+c.notifiers.pushbullet.deviceID = 'YOUR-DEVICE-ID'
+// end pushbullets configs
 
-  c.xmpp = require('simple-xmpp');
+// ifttt configs
+c.notifiers.ifttt = {}
+c.notifiers.ifttt.on = false // false ifttt disabled; true ifttt enabled (key should be correct)
+c.notifiers.ifttt.makerKey = 'YOUR-API-KEY'
+c.notifiers.ifttt.eventName = 'zenbot'
+// end ifttt configs
 
-  c.xmpp.connect({
-                jid                    : 'trader@domain.com', //xmpp account trader bot
-                password               : 'Password',          //xmpp password
-                host                   : 'domain.com',        //xmpp domain
-                port                   : 5222                 //xmpp port
-  });
-
-  c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
-}
-//end xmpp configs
-
+// slack config
+c.notifiers.slack = {}
+c.notifiers.slack.on = false
+c.notifiers.slack.webhook_url = ''
+// end slack config
