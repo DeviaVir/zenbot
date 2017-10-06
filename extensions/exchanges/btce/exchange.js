@@ -1,7 +1,7 @@
 //
 // Warning - Some of the functions need testing
 // by someone in posession of a BTCe account
-// In particular this is the case for 
+// In particular this is the case for
 // the buy, sell, cancelOrderand getOrderfunctions
 //
 var BTCE = require('btce')
@@ -166,6 +166,7 @@ module.exports = function container (get, set, clear) {
       }
       */
       delete opts.order_type
+      delete opts.cancel_after
       client.trade({'pair': pair, 'type': type, 'rate': opts.price, 'amount': opts.size }, function(err, body) {
         body = statusErr(err, body)
         // Fix me - Check return codes from API

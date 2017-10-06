@@ -96,7 +96,7 @@ c.profit_stop_pct = 1
 
 // avoid trading at a slippage above this pct
 c.max_slippage_pct = 5
-// buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100) 
+// buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100)
 c.buy_pct = 99
 // sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
 c.sell_pct = 99
@@ -133,6 +133,8 @@ c.rsi_periods = 14
 c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
+// time to leave an order open, default to 1 day (this feature is not supported on all exchanges, currently: GDAX)
+c.cancel_after = 'day'
 
 //xmpp configs
 
@@ -152,4 +154,3 @@ if (c.xmppon) {
   c.xmppto="MeMyselfAndI@domain.com" //xmpp alert to friend
 }
 //end xmpp configs
-
