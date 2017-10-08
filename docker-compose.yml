@@ -30,7 +30,6 @@ mongodb-data:
 #  tty: true
 #  ports:
 #    - "1234:1234"
-#    - "27017:27017"
 #  environment:
 #    - CONN_NAME=zendbot_mongodb
 #    - DB_HOST=mongodb
