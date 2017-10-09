@@ -140,6 +140,9 @@ module.exports = function container (get, set, clear) {
         delete opts.cancel_after
         opts.type = 'market'
       }
+      else {
+        opts.time_in_force = 'GTT'
+      }
       delete opts.order_type
       client.buy(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
@@ -167,6 +170,9 @@ module.exports = function container (get, set, clear) {
         delete opts.post_only
         delete opts.cancel_after
         opts.type = 'market'
+      }
+      else {
+        opts.time_in_force = 'GTT'
       }
       delete opts.order_type
       client.sell(opts, function (err, resp, body) {
