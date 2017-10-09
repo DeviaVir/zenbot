@@ -31,7 +31,7 @@ mongodb-data:
 #  ports:
 #    - "1234:1234"
 #  environment:
-#    - CONN_NAME=zendbot_mongodb
+#    - CONN_NAME=zenbot_mongodb
 #    - DB_HOST=mongodb
 #    - DB_PORT=27017
 #  command: "npm start"
