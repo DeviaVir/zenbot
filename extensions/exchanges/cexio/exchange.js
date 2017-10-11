@@ -177,7 +177,6 @@ module.exports = function container (get, set, clear) {
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
-        console.log('status client', err, body)
         if (err || typeof body === 'undefined') return retry('getOrder', func_args, err)
         if (body.status === 'c') {
           order.status = 'rejected'
