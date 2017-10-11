@@ -1,0 +1,138 @@
+[
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "30",
+    "increment": "0.00000001",
+    "label": "BTC/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "1000",
+    "increment": "0.00000001",
+    "label": "ETH/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "DASH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DASH/USD"
+  },
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "30",
+    "increment": "0.00000001",
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ETH/EUR"
+  },
+  {
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BCH/EUR"
+  },
+  {
+    "asset": "DASH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DASH/EUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BTC/GBP"
+  },
+  {
+    "asset": "ETH",
+    "currency": "GBP",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ETH/GBP"
+  },
+  {
+    "asset": "BCH",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BCH/GBP"
+  },
+  {
+    "asset": "DASH",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DASH/GBP"
+  },
+  {
+    "asset": "BTC",
+    "currency": "RUB",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BTC/RUB"
+  },
+  {
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "1000",
+    "increment": "0.00000001",
+    "label": "ETH/BTC"
+  },
+  {
+    "asset": "BCH",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BCH/BTC"
+  },
+  {
+    "asset": "DASH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DASH/BTC"
+  },
+  {
+    "asset": "GHS",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "GHS/BTC"
+  }
+]
