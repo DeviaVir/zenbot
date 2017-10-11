@@ -8,4 +8,5 @@ c.sell_pct = 100
 c.period = '1h'
 c.order_type = 'maker'
 c.stats = true
-c.sar_af = 0.01
+c.srsi_d = 3
+c.srsi_k = 8
