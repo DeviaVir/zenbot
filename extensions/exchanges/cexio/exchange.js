@@ -19,7 +19,6 @@ module.exports = function container (get, set, clear) {
       if (!c.cexio || !c.cexio.username || !c.cexio.key || c.cexio.key === 'YOUR-API-KEY') {
         throw new Error('please configure your CEX.IO credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      let nonce = new Date().getTime() * 1000
       authed_client = new CEX(c.cexio.username, c.cexio.key, c.cexio.secret).rest
     }
     return authed_client
@@ -177,7 +176,6 @@ module.exports = function container (get, set, clear) {
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
-        console.log('status client', err, body)
         if (err || typeof body === 'undefined') return retry('getOrder', func_args, err)
         if (body.status === 'c') {
           order.status = 'rejected'
