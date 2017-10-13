@@ -179,3 +179,10 @@ c.notifiers.slack = {}
 c.notifiers.slack.on = false
 c.notifiers.slack.webhook_url = ''
 // end slack config
+
+// discord configs
+c.notifiers.discord = {}
+c.notifiers.discord.on = false // false ifttt disabled; true ifttt enabled (key should be correct)
+c.notifiers.discord.webhook.id = 'YOUR-WEBHOOK-ID'
+c.notifiers.discord.webhook.token = 'YOUR-WEBHOOK-TOKEN'
+// end discord configs
