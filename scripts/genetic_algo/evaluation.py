@@ -31,7 +31,7 @@ def runzen(cmdline):
 
 
 class Andividual(Individual):
-    BASE_COMMAND = '/app/zenbot.sh sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33 --filename temp.html'
+    BASE_COMMAND = 'env node ../../zenbot.js sim {instrument} --strategy {strategy} --avg_slippage_pct 0.33 --filename temp.html'
     def __init__(self, *args,**kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(self.strategy)
