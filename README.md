@@ -491,6 +491,13 @@ https://xmpp.org/
 Supply zenbot with your IFTTT maker key and zenbot will push notifications to your IFTTT.
 https://ifttt.com/maker_webhooks
 
+### DISCORD
+
+Supply zenbot with your Discord webhook id and webhook token zenbot will push notifications to your Discord channel.
+
+How to add a webhook to a Discord channel
+https://support.discordapp.com/hc/en-us/articles/228383668
+
 ## Manual trade tools
 
 Zenbot's order execution engine can also be used for manual trades. Benefits include:
