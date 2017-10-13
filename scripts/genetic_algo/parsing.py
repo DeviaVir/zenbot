@@ -15,7 +15,7 @@ def parse_trades(stuff):
 
 def args_for_strategy(strat):
     ansi_escape = re.compile(b'\x1b[^m]*m')
-    available = subprocess.check_output(shlex.split('/app/zenbot.sh list-strategies'))
+    available = subprocess.check_output(shlex.split('env node ../../zenbot.js list-strategies'))
     strats = [ansi_escape.sub(b'', strat.strip()) for strat in available.split(b'\n\n')]
     groups = [group.splitlines() for group in strats]
     output = {split[0].split()[0]: split[1:] for split in groups if split}

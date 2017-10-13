@@ -137,7 +137,11 @@ module.exports = function container (get, set, clear) {
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
+        delete opts.cancel_after
         opts.type = 'market'
+      }
+      else {
+        opts.time_in_force = 'GTT'
       }
       delete opts.order_type
       client.buy(opts, function (err, resp, body) {
@@ -164,7 +168,11 @@ module.exports = function container (get, set, clear) {
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
+        delete opts.cancel_after
         opts.type = 'market'
+      }
+      else {
+        opts.time_in_force = 'GTT'
       }
       delete opts.order_type
       client.sell(opts, function (err, resp, body) {

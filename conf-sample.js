@@ -147,6 +147,8 @@ c.rsi_periods = 14
 c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
+// time to leave an order open, default to 1 day (this feature is not supported on all exchanges, currently: GDAX)
+c.cancel_after = 'day'
 
 // Notifiers:
 c.notifiers = {}
