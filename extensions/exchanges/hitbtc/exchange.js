@@ -32,14 +32,6 @@ module.exports = function container(get, set, clear) {
     return authed_client
   }
 
-  function statusErr (resp, body) {
-    if (resp.statusCode !== 200) {
-      var err = new Error('non-200 status: ' + resp.statusCode)
-      err.code = 'HTTP_STATUS'
-      err.body = body
-      return err
-    }
-  }
 
   function joinProduct(product_id) {
     return product_id.split('-')[0] + '/' + product_id.split('-')[1]
@@ -51,7 +43,7 @@ module.exports = function container(get, set, clear) {
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, 20000)
   }
 
   var orders = {}
@@ -59,8 +51,8 @@ module.exports = function container(get, set, clear) {
   var exchange = {
     name: 'hitbtc',
     historyScan: 'forward',
-    makerFee: 0.15,
-    takerFee: 0.25,
+    makerFee: 0.01,
+    takerFee: 0.1,
 
     getProducts: function () {
       return require('./products.json')
@@ -124,14 +116,15 @@ module.exports = function container(get, set, clear) {
 
 
     getQuote: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
+      //var func_args = [].slice.call(arguments)
       var client = publicClient()
       client.fetchTicker(joinProduct(opts.product_id)).then(result =>{
-        cb(null, { bid: String(result.bid), ask: String(result.ask) })
-      }) .catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('getQuote', func_args)
+        cb(null, { bid: result.bid,ask: result.ask })
       })
+        .catch(function (error) {
+          console.error('An error occurred', error)
+          //return retry('getQuote', func_args)
+        })
     },
 
     cancelOrder: function (opts, cb) {
