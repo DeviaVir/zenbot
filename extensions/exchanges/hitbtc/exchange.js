@@ -116,14 +116,14 @@ module.exports = function container(get, set, clear) {
 
 
     getQuote: function (opts, cb) {
-      //var func_args = [].slice.call(arguments)
+      var func_args = [].slice.call(arguments)
       var client = publicClient()
       client.fetchTicker(joinProduct(opts.product_id)).then(result =>{
-        cb(null, { bid: result.bid,ask: result.ask })
+        cb(null, { bid: result.bid, ask: result.ask })
       })
         .catch(function (error) {
           console.error('An error occurred', error)
-          //return retry('getQuote', func_args)
+          return retry('getQuote', func_args)
         })
     },
 
