@@ -22,7 +22,7 @@ module.exports = {
       } else if (v.type === 'float') {
         r[k] = (Math.random() * (v.max - v.min)) + v.min;
       } else if (v.type === 'makertaker') {
-        r[k] = (Math.random() > 0.5) ? 'maker' : 'maker';
+        r[k] = (Math.random() > 0.5) ? 'maker' : 'taker';
       } else if (v.type === 'period') {
         var s = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
         r[k] = s + v.period;
