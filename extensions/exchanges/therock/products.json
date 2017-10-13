@@ -1,0 +1,86 @@
+[
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "increment": "0.000001",
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "BTC/USD"
+  },
+  {
+    "asset": "LTC",
+    "currency": "EUR",
+    "increment": "0.000001",
+    "label": "LTC/EUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "LTC/BTC"
+  },
+  {
+    "asset": "BTC",
+    "currency": "XRP",
+    "increment": "0.000001",
+    "label": "BTC/XRP"
+  },
+  {
+    "asset": "EUR",
+    "currency": "XRP",
+    "increment": "0.000001",
+    "label": "EUR/XRP"
+  },
+  {
+    "asset": "USD",
+    "currency": "XRP",
+    "increment": "0.000001",
+    "label": "USD/XRP"
+  },
+  {
+    "asset": "PPC",
+    "currency": "EUR",
+    "increment": "0.000001",
+    "label": "PPC/EUR"
+  },
+  {
+    "asset": "PPC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "PPC/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "EUR",
+    "increment": "0.000001",
+    "label": "ETH/EUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ETH/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ZEC/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "EUR",
+    "increment": "0.000001",
+    "label": "ZEC/EUR"
+  },
+  {
+    "asset": "BCH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BCH/BTC"
+  }
+]

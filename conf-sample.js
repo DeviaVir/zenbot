@@ -89,8 +89,11 @@ c.gemini.sandbox = true
 c.hitbtc = {}
 c.hitbtc.key = 'YOUR-API-KEY'
 c.hitbtc.secret = 'YOUR-SECRET'
-// set to false to trade on the live platform API
-c.hitbtc.sandbox = true
+
+// to enable therock trading, enter your API credentials:
+c.therock = {}
+c.therock.key = 'YOUR-API-KEY'
+c.therock.secret = 'YOUR-SECRET'
 
 // Optional stop-order triggers:
 
