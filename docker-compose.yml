@@ -8,6 +8,8 @@ server:
   command: [ "trade", "--paper" ]
   restart: always
   tty: true
+  environment:
+    - MONGODB_PORT_27017_TCP_ADDR=mongodb
 
 mongodb:
   image: mongo:latest
