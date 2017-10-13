@@ -23,7 +23,7 @@ module.exports = function container (get, set, clear) {
 
       var options = {
         method: 'POST',
-        url: 'https://discordapp.com/api/webhooks/' + config.webhook.id + '/' + config.webhook.token,
+        url: 'https://discordapp.com/api/webhooks/' + config.id + '/' + config.token,
         json: postData
       }
 

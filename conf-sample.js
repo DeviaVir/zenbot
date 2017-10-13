@@ -186,6 +186,6 @@ c.notifiers.slack.webhook_url = ''
 // discord configs
 c.notifiers.discord = {}
 c.notifiers.discord.on = false // false discord disabled; true discord enabled (key should be correct)
-c.notifiers.discord.webhook.id = 'YOUR-WEBHOOK-ID'
-c.notifiers.discord.webhook.token = 'YOUR-WEBHOOK-TOKEN'
+c.notifiers.discord.id = 'YOUR-WEBHOOK-ID'
+c.notifiers.discord.token = 'YOUR-WEBHOOK-TOKEN'
 // end discord configs
