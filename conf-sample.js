@@ -85,6 +85,13 @@ c.gemini.secret = 'YOUR-SECRET'
 // set to false to trade on the live platform API
 c.gemini.sandbox = true
 
+// to enable hitBTC trading, enter your API credentials:
+c.hitbtc = {}
+c.hitbtc.key = 'YOUR-API-KEY'
+c.hitbtc.secret = 'YOUR-SECRET'
+// set to false to trade on the live platform API
+c.hitbtc.sandbox = true
+
 // Optional stop-order triggers:
 
 // sell if price drops below this % of bought price (0 to disable)
