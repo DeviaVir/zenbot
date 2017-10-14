@@ -1,0 +1,96 @@
+{
+    "selector": "gdax.BTC-EUR",
+    "period": "2h",
+    "start_training": "2017-04-17T00:00:00.000Z",
+    "end_training": "2017-07-16T00:00:00.000Z",
+    "result_training": {
+        "endBalance": "116.63",
+        "buyHold": "55.07",
+        "vsBuyHold": "39.70",
+        "trades": "30 trades over 99 days (avg 0.30 trades/day)",
+        "avgTradesPerDay": "0.30",
+        "errorRate": "50.00"
+    },
+    "start_test": "2017-07-16T00:00:00.000Z",
+    "result_test": {
+        "endBalance": "29.54",
+        "buyHold": "33.66",
+        "vsBuyHold": "-3.09",
+        "trades": "8 trades over 23 days (avg 0.35 trades/day)",
+        "avgTradesPerDay": "0.35",
+        "errorRate": "0.00"
+    },
+    "options": {
+        "populationCount": 100,
+        "generationCount": 100,
+        "selectionAmount": 10,
+        "leafValueMutationProbability": 0.5,
+        "leafSignMutationProbability": 0.3,
+        "logicalNodeMutationProbability": 0.3,
+        "leafIndicatorMutationProbability": 0.2,
+        "crossoverProbability": 0.03,
+        "indicators": [
+            "MACD"
+        ]
+    },
+    "strategy": {
+        "buy": {
+            "operator": "Or",
+            "left": {
+                "operator": "Or",
+                "left": {
+                    "indicator": "MACD",
+                    "sign": "<",
+                    "value": 101912.3894002572
+                },
+                "right": {
+                    "indicator": "MACD",
+                    "sign": "<",
+                    "value": -25144.284914785705
+                }
+            },
+            "right": {
+                "operator": "And",
+                "left": {
+                    "indicator": "MACD",
+                    "sign": ">",
+                    "value": 79598.11008392199
+                },
+                "right": {
+                    "indicator": "MACD",
+                    "sign": ">",
+                    "value": -30061.24912671956
+                }
+            }
+        },
+        "sell": {
+            "operator": "And",
+            "left": {
+                "operator": "And",
+                "left": {
+                    "indicator": "MACD",
+                    "sign": "<",
+                    "value": -71001.29480071459
+                },
+                "right": {
+                    "indicator": "MACD",
+                    "sign": ">",
+                    "value": 50136.74052806501
+                }
+            },
+            "right": {
+                "operator": "Or",
+                "left": {
+                    "indicator": "MACD",
+                    "sign": ">",
+                    "value": -5331.776057744675
+                },
+                "right": {
+                    "indicator": "MACD",
+                    "sign": ">",
+                    "value": -95008.73657970426
+                }
+            }
+        }
+    }
+}
