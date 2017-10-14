@@ -1,24 +1,24 @@
 {
     "selector": "poloniex.ARDR-BTC",
-    "period": "1d",
+    "period": "4h",
     "start_training": "2016-11-08T00:00:00.000Z",
     "end_training": "2017-07-16T00:00:00.000Z",
     "result_training": {
-        "endBalance": "60.24",
+        "endBalance": "171.42",
         "buyHold": "169.78",
-        "vsBuyHold": "-40.60",
-        "trades": "27 trades over 272 days (avg 0.10 trades/day)",
-        "avgTradesPerDay": "0.10",
-        "errorRate": "8.33"
+        "vsBuyHold": "0.61",
+        "trades": "59 trades over 267 days (avg 0.22 trades/day)",
+        "avgTradesPerDay": "0.22",
+        "errorRate": "27.59"
     },
     "start_test": "2017-07-16T00:00:00.000Z",
     "result_test": {
-        "endBalance": "11.27",
+        "endBalance": "12.98",
         "buyHold": "4.10",
-        "vsBuyHold": "6.89",
-        "trades": "8 trades over 116 days (avg 0.07 trades/day)",
-        "avgTradesPerDay": "0.07",
-        "errorRate": "0.00"
+        "vsBuyHold": "8.53",
+        "trades": "13 trades over 31 days (avg 0.42 trades/day)",
+        "avgTradesPerDay": "0.42",
+        "errorRate": "20.00"
     },
     "options": {
         "populationCount": 100,
@@ -40,26 +40,26 @@
                 "operator": "And",
                 "left": {
                     "indicator": "SAR",
-                    "sign": ">",
-                    "value": 0.035621706637050825
+                    "sign": "<",
+                    "value": 0.08718439432472515
                 },
                 "right": {
                     "indicator": "SAR",
-                    "sign": ">",
-                    "value": 0.07214898238871528
+                    "sign": "<",
+                    "value": 0.11565929969588974
                 }
             },
             "right": {
-                "operator": "And",
+                "operator": "Or",
                 "left": {
                     "indicator": "SAR",
                     "sign": "<",
-                    "value": 0.05552799302004985
+                    "value": 0.11646816834351825
                 },
                 "right": {
                     "indicator": "SAR",
                     "sign": ">",
-                    "value": 0.06521915988582784
+                    "value": 0.05750419142988361
                 }
             }
         },
@@ -69,26 +69,26 @@
                 "operator": "And",
                 "left": {
                     "indicator": "SAR",
-                    "sign": ">",
-                    "value": 0.05470412222624865
+                    "sign": "<",
+                    "value": 0.05497703113323747
                 },
                 "right": {
                     "indicator": "SAR",
                     "sign": "<",
-                    "value": 0.03666276696659392
+                    "value": 0.04003279751246987
                 }
             },
             "right": {
-                "operator": "And",
+                "operator": "Or",
                 "left": {
                     "indicator": "SAR",
-                    "sign": "<",
-                    "value": 0.019947823789214184
+                    "sign": ">",
+                    "value": 0.0591248254869329
                 },
                 "right": {
                     "indicator": "SAR",
-                    "sign": "<",
-                    "value": 0.03775369758487331
+                    "sign": ">",
+                    "value": 0.06471402771865031
                 }
             }
         }
