@@ -1,0 +1,96 @@
+{
+    "selector": "poloniex.ARDR-BTC",
+    "period": "1d",
+    "start_training": "2016-11-08T00:00:00.000Z",
+    "end_training": "2017-07-16T00:00:00.000Z",
+    "result_training": {
+        "endBalance": "60.24",
+        "buyHold": "169.78",
+        "vsBuyHold": "-40.60",
+        "trades": "27 trades over 272 days (avg 0.10 trades/day)",
+        "avgTradesPerDay": "0.10",
+        "errorRate": "8.33"
+    },
+    "start_test": "2017-07-16T00:00:00.000Z",
+    "result_test": {
+        "endBalance": "11.27",
+        "buyHold": "4.10",
+        "vsBuyHold": "6.89",
+        "trades": "8 trades over 116 days (avg 0.07 trades/day)",
+        "avgTradesPerDay": "0.07",
+        "errorRate": "0.00"
+    },
+    "options": {
+        "populationCount": 100,
+        "generationCount": 100,
+        "selectionAmount": 10,
+        "leafValueMutationProbability": 0.5,
+        "leafSignMutationProbability": 0.3,
+        "logicalNodeMutationProbability": 0.3,
+        "leafIndicatorMutationProbability": 0.2,
+        "crossoverProbability": 0.03,
+        "indicators": [
+            "SAR"
+        ]
+    },
+    "strategy": {
+        "buy": {
+            "operator": "Or",
+            "left": {
+                "operator": "And",
+                "left": {
+                    "indicator": "SAR",
+                    "sign": ">",
+                    "value": 0.035621706637050825
+                },
+                "right": {
+                    "indicator": "SAR",
+                    "sign": ">",
+                    "value": 0.07214898238871528
+                }
+            },
+            "right": {
+                "operator": "And",
+                "left": {
+                    "indicator": "SAR",
+                    "sign": "<",
+                    "value": 0.05552799302004985
+                },
+                "right": {
+                    "indicator": "SAR",
+                    "sign": ">",
+                    "value": 0.06521915988582784
+                }
+            }
+        },
+        "sell": {
+            "operator": "And",
+            "left": {
+                "operator": "And",
+                "left": {
+                    "indicator": "SAR",
+                    "sign": ">",
+                    "value": 0.05470412222624865
+                },
+                "right": {
+                    "indicator": "SAR",
+                    "sign": "<",
+                    "value": 0.03666276696659392
+                }
+            },
+            "right": {
+                "operator": "And",
+                "left": {
+                    "indicator": "SAR",
+                    "sign": "<",
+                    "value": 0.019947823789214184
+                },
+                "right": {
+                    "indicator": "SAR",
+                    "sign": "<",
+                    "value": 0.03775369758487331
+                }
+            }
+        }
+    }
+}
