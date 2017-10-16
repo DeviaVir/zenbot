@@ -1,5 +1,3 @@
-// Type "Hello World" then press enter.
-var robot = require("robotjs");
 var fs = require('fs');
 require('shelljs/global');
 var path = require('path');
