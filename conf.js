@@ -19,8 +19,8 @@ c.strategy = 'trend_ema'
 
 // to enable GDAX trading, enter your API credentials:
 c.gdax = {}
-c.gdax.key = '6a3f18714aea94776ec963ab3b25ec6f'
-c.gdax.b64secret = 'ZqckIAn8N+FYn0FgdCMauK1Sqo0z0wtRi/xZAvB7ASMpOEb14YOWYzTjbxrM6Spx5ue1GJHnFCZ0cCwiJGdiXg=='
+// c.gdax.key = '6a3f18714aea94776ec963ab3b25ec6f'
+// c.gdax.b64secret = 'ZqckIAn8N+FYn0FgdCMauK1Sqo0z0wtRi/xZAvB7ASMpOEb14YOWYzTjbxrM6Spx5ue1GJHnFCZ0cCwiJGdiXg=='
 c.gdax.passphrase = 'm2asoyjuazi'
 
 // to enable Poloniex trading, enter your API credentials:

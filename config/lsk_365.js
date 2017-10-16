@@ -8,3 +8,4 @@ c.sell_pct = 100
 c.period = '1d'
 c.order_type = 'maker'
 c.stats = true
+c.mode = 'paper'

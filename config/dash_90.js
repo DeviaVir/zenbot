@@ -10,3 +10,4 @@ c.order_type = 'maker'
 c.stats = true
 c.srsi_d = 3
 c.srsi_k = 8
+c.mode = 'paper'

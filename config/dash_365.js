@@ -9,3 +9,4 @@ c.period = '4h'
 c.order_type = 'maker'
 c.stats = true
 c.sar_af = 0.01
+c.mode = 'paper'
