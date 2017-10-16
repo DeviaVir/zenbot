@@ -14,6 +14,5 @@ do
 	# screen -S zenbotstest -p $windowCount -X xdotool key shift+a
 	# screen -S zenbotstest -p $windowCount -X xdotool key BackSpace BackSpace BackSpace BackSpace
 	# screen -S zenbotstest -p $windowCount -X xdotool type "$file"
-	# screen -S zenbotstest -p $windowCount -X xdotool key Enter
 	((windowCount++))
 done
