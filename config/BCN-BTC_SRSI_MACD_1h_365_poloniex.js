@@ -1,6 +1,6 @@
 var c = module.exports = {}
 
-c.selector = 'poloniex.ARDR-BTC'
+c.selector = 'poloniex.BCN-BTC'
 c.strategy = 'srsi_macd'
 c.currency_capital = 0.1
 c.overbought_rsi_periods = 14
