@@ -43,6 +43,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'cexio',
     historyScan: 'forward',
+    backfillRateLimit: 0,
     makerFee: 0,
     takerFee: 0.2,
 
@@ -52,11 +53,14 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      var args = opts.from
+      var args = {}
+      if (opts.from) {
+        args = Number(opts.from)
+      }
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
-        if (err || typeof body === 'undefined') return retry('getTrades', func_args, err)
+        if (err || body === undefined || body === 'error: Rate limit exceeded') return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
             trade_id: Number(trade.tid),
