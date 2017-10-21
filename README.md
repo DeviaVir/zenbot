@@ -80,6 +80,23 @@ npm install
 npm link
 ```
 
+### Ubuntu 16.04 Step-By-Step
+```
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install build-essential mongodb -y
+
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+git clone https://github.com/carlos8f/zenbot.git
+cd zenbot
+npm install
+
+./zenbot.sh trade --paper
+```
+Please note; npm link will not work as forex.analytics is built from source.
+
 ### Docker (Optional)
 
 To run Zenbot under Docker, install Docker, Docker Compose, Docker Machine (if necessary) You can follow instructions at https://docs.docker.com/compose/install/
