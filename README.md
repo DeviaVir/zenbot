@@ -81,6 +81,7 @@ npm link
 ```
 
 ### Ubuntu 16.04 Step-By-Step
+https://youtu.be/BEhU55W9pBI
 ```
 sudo apt-get update
 sudo apt-get upgrade -y
