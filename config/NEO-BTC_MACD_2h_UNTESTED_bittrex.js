@@ -1,7 +1,7 @@
 var c = module.exports = {}
 
 c.selector = 'bittrex.NEO-BTC'
-c.strategy = 'MACD'
+c.strategy = 'macd'
 c.currency_capital = 100
 c.overbought_rsi_periods = 14
 c.buy_pct = 100
