@@ -53,9 +53,9 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      var args = {}
+      var args
       if (opts.from) {
-        args = Number(opts.from)
+        args = opts.from
       }
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
