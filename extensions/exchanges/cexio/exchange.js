@@ -19,7 +19,9 @@ module.exports = function container (get, set, clear) {
       if (!c.cexio || !c.cexio.username || !c.cexio.key || c.cexio.key === 'YOUR-API-KEY') {
         throw new Error('please configure your CEX.IO credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
+      var nonce = Math.floor(new Date().getTime() / 1000)
       authed_client = new CEX(c.cexio.username, c.cexio.key, c.cexio.secret).rest
+      authed_client.nonce = function () { return nonce++ }
     }
     return authed_client
   }
@@ -41,6 +43,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'cexio',
     historyScan: 'forward',
+    backfillRateLimit: 0,
     makerFee: 0,
     takerFee: 0.2,
 
@@ -50,11 +53,14 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      var args = opts.from
+      var args
+      if (opts.from) {
+        args = opts.from
+      }
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
-        if (err || typeof body === 'undefined') return retry('getTrades', func_args, err)
+        if (err || body === undefined || body === 'error: Rate limit exceeded') return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
             trade_id: Number(trade.tid),
@@ -72,11 +78,11 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.account_balance(function (err, body) {
-        if (err || typeof body === 'undefined') return retry('getBalance', func_args, err)
+        if (err || typeof body === 'undefined' || body === 'error: Nonce must be incremented') return retry('getBalance', func_args, err)
         var balance = { asset: 0, currency: 0 }
-        balance.currency = n(body[opts.currency].available).format('0.00000000')
+        balance.currency = n(body[opts.currency].available).add(body[opts.currency].orders).format('0.00000000')
         balance.currency_hold = n(body[opts.currency].orders).format('0.00000000')
-        balance.asset = n(body[opts.asset].available).format('0.00000000')
+        balance.asset = n(body[opts.asset].available).add(body[opts.asset].orders).format('0.00000000')
         balance.asset_hold = n(body[opts.asset].orders).format('0.00000000')
         cb(null, balance)
       })
@@ -96,7 +102,6 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
-        if (body === 'Order canceled') return cb()
         if (err) return retry('cancelOrder', func_args, err)
         cb()
       })
@@ -112,7 +117,6 @@ module.exports = function container (get, set, clear) {
         opts.size = n(opts.size).multiply(opts.orig_price).value() // CEXIO estimates asset size and uses free currency to performe margin buy
         opts.type = 'market'
       }
-      delete opts.order_type
       client.place_order(pair, 'buy', opts.size, opts.price, opts.type, function (err, body) {
         if (body === 'error: Error: Place order error: Insufficient funds.') {
           var order = {
@@ -146,7 +150,6 @@ module.exports = function container (get, set, clear) {
         delete opts.post_only
         opts.type = 'market'
       }
-      delete opts.order_type
       client.place_order(pair, 'sell', opts.size, opts.price, opts.type, function (err, body) {
         if (body === 'error: Error: Place order error: Insufficient funds.') {
           var order = {
@@ -176,7 +179,7 @@ module.exports = function container (get, set, clear) {
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
-        if (err || typeof body === 'undefined') return retry('getOrder', func_args, err)
+        if (err || body === 'error: Invalid Order ID') return retry('getOrder', func_args, err)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'
@@ -184,7 +187,7 @@ module.exports = function container (get, set, clear) {
         if (body.status === 'd' || body.status === 'cd') {
           order.status = 'done'
           order.done_at = new Date().getTime()
-          order.filled_size = n(opts.size).subtract(body.remains).format('0.00000000')
+          order.filled_size = n(body.amount).subtract(body.remains).format('0.00000000')
         }
         cb(null, order)
       })
