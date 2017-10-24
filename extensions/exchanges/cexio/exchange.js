@@ -179,7 +179,7 @@ module.exports = function container (get, set, clear) {
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
-         if (err || body === 'error: Invalid Order ID') return retry('getOrder', func_args, err)
+        if (err || body === 'error: Invalid Order ID') return retry('getOrder', func_args, err)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'
