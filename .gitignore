@@ -17,8 +17,10 @@ conf-*
 conf_*
 !conf-sample.js
 sim_result*
+trade_result*
 *_test
 backtesting_*
 models/*.json
 models/*.html
 *.pyc
+*.swp
