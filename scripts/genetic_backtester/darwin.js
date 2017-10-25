@@ -417,6 +417,7 @@ if (argv.asset_capital) {
 if (argv.symmetrical) {
   simArgs += ` --symmetrical=true`;
 }
+simArgs += ` --filename none`;
 
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all';
 let populationFileName = (argv.population_data) ? argv.population_data : null;
