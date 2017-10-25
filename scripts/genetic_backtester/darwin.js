@@ -408,9 +408,6 @@ let simArgs = (argv.selector) ? argv.selector : 'bitfinex.ETH-USD';
 if (argv.days) {
   simArgs += ` --days=${argv.days}`;
 }
-if (argv.asset_capital) {
-  simArgs += ` --asset_capital=${argv.asset_capital}`;
-}
 if (argv.currency_capital) {
   simArgs += ` --currency_capital=${argv.currency_capital}`;
 }
