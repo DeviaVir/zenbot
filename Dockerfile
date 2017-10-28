@@ -7,6 +7,7 @@ COPY package.json /app/
 RUN npm install -g node-gyp && npm install --unsafe-perm
 
 COPY . /app
+RUN ln -s /app/zenbot.sh /usr/local/bin/zenbot
 
 ENV NODE_ENV production
 
