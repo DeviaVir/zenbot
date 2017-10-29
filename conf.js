@@ -155,15 +155,15 @@ if (c.xmppon) {
 
 // pushbullets configs
 c.notifiers.pushbullet = {}
-c.notifiers.pushbullet.on = true // false pushbullets disabled; true pushbullets enabled (key should be correct)
+c.notifiers.pushbullet.on = false // false pushbullets disabled; true pushbullets enabled (key should be correct)
 c.notifiers.pushbullet.key = 'o.ZQplNI6pXdQERIPg11yYvqzOekN6u83b'
 c.notifiers.pushbullet.deviceID = 'RKe1EAAxJTxbnoyIorlgiqQiMRVsYAiz'
 // end pushbullets configs
 
 // ifttt configs
 c.notifiers.ifttt = {}
-c.notifiers.ifttt.on = false // false ifttt disabled; true ifttt enabled (key should be correct)
-c.notifiers.ifttt.makerKey = 'YOUR-API-KEY'
+c.notifiers.ifttt.on = true // false ifttt disabled; true ifttt enabled (key should be correct)
+c.notifiers.ifttt.makerKey = 'dfw52OPqoW2YhGc4bPlCEJ'
 c.notifiers.ifttt.eventName = 'zenbot'
 // end ifttt configs
 
