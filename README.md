@@ -20,7 +20,7 @@ Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-t
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
 - Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
-- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com), [Kraken](https://kraken.com/), [Bittrex](https://bittrex.com/), [Quadriga](https://www.quadrigacs.com) and [Gemini](https://www.gemini.com) work on further exchange support is ongoing.
+- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com), [Kraken](https://kraken.com/), [Bittrex](https://bittrex.com/), [Quadriga](https://www.quadrigacs.com), [Gemini](https://www.gemini.com), [Bitfinex](https://www.bitfinex.com), [CEX.IO](https://cex.io/trade) and [Bitstamp](https://www.bitstamp.net/), work on further exchange support is ongoing.
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
 - "Paper" trading mode, operates on a simulated balance while watching the live market
@@ -40,7 +40,7 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 ### Step 1) Requirements
 
 - Windows / Linux / macOS 10 (or Docker)
-- [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/).
+- [Node.js](https://nodejs.org/) (version 8 or higher) and [MongoDB](https://www.mongodb.com/).
 
 ### Step 2) Install zenbot 4
 
@@ -79,6 +79,24 @@ npm install
 # optional, installs the `zenbot.sh` binary in /usr/local/bin:
 npm link
 ```
+
+### Ubuntu 16.04 Step-By-Step
+https://youtu.be/BEhU55W9pBI
+```
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install build-essential mongodb -y
+
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+git clone https://github.com/carlos8f/zenbot.git
+cd zenbot
+npm install
+
+./zenbot.sh trade --paper
+```
+Please note; npm link will not work as forex.analytics is built from source.
 
 ### Docker (Optional)
 
@@ -490,6 +508,13 @@ https://xmpp.org/
 
 Supply zenbot with your IFTTT maker key and zenbot will push notifications to your IFTTT.
 https://ifttt.com/maker_webhooks
+
+### DISCORD
+
+Supply zenbot with your Discord webhook id and webhook token zenbot will push notifications to your Discord channel.
+
+How to add a webhook to a Discord channel
+https://support.discordapp.com/hc/en-us/articles/228383668
 
 ## Manual trade tools
 

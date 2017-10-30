@@ -58,16 +58,20 @@ c.bitstamp.secret = 'YOUR-SECRET'
 // A client ID is required on Bitstamp
 c.bitstamp.client_id = 'YOUR-CLIENT-ID'
 
+// to enable CEX.IO trading, enter your API credentials:
+c.cexio = {}
+c.cexio.username = 'YOUR-CLIENT-ID'
+c.cexio.key = 'YOUR-API-KEY'
+c.cexio.secret = 'YOUR-SECRET'
+
 // to enable QuadrigaCX tranding, enter your API credentials:
 c.quadriga = {}
-c.quadriga.key = 'YOUR-API-KEY';
-
+c.quadriga.key = 'YOUR-API-KEY'
 // this is the manual secret key entered by editing the API access
 // and NOT the md5 hash you see in the summary
-c.quadriga.secret = 'YOUR-SECRET';
-
+c.quadriga.secret = 'YOUR-SECRET'
 // replace with the client id used at login, as a string, not number
-c.quadriga.client_id = 'YOUR-CLIENT-ID';
+c.quadriga.client_id = 'YOUR-CLIENT-ID'
 
 // to enable BTC-e trading, enter your API credentials:
 c.btce = {}
@@ -77,9 +81,19 @@ c.btce.secret = 'YOUR-SECRET'
 // to enable Gemini trading, enter your API credentials:
 c.gemini = {}
 c.gemini.key = 'YOUR-API-KEY'
-c.gemini.secret = 'YOUR-API-SECRET'
+c.gemini.secret = 'YOUR-SECRET'
 // set to false to trade on the live platform API
 c.gemini.sandbox = true
+
+// to enable hitBTC trading, enter your API credentials:
+c.hitbtc = {}
+c.hitbtc.key = 'YOUR-API-KEY'
+c.hitbtc.secret = 'YOUR-SECRET'
+
+// to enable therock trading, enter your API credentials:
+c.therock = {}
+c.therock.key = 'YOUR-API-KEY'
+c.therock.secret = 'YOUR-SECRET'
 
 // Optional stop-order triggers:
 
@@ -133,6 +147,8 @@ c.rsi_periods = 14
 c.balance_snapshot_period = '15m'
 // avg. amount of slippage to apply to sim trades
 c.avg_slippage_pct = 0.045
+// time to leave an order open, default to 1 day (this feature is not supported on all exchanges, currently: GDAX)
+c.cancel_after = 'day'
 
 // Notifiers:
 c.notifiers = {}
@@ -166,3 +182,10 @@ c.notifiers.slack = {}
 c.notifiers.slack.on = false
 c.notifiers.slack.webhook_url = ''
 // end slack config
+
+// discord configs
+c.notifiers.discord = {}
+c.notifiers.discord.on = false // false discord disabled; true discord enabled (key should be correct)
+c.notifiers.discord.id = 'YOUR-WEBHOOK-ID'
+c.notifiers.discord.token = 'YOUR-WEBHOOK-TOKEN'
+// end discord configs

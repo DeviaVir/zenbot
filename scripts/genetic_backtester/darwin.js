@@ -408,9 +408,6 @@ let simArgs = (argv.selector) ? argv.selector : 'bitfinex.ETH-USD';
 if (argv.days) {
   simArgs += ` --days=${argv.days}`;
 }
-if (argv.asset_capital) {
-  simArgs += ` --asset_capital=${argv.asset_capital}`;
-}
 if (argv.currency_capital) {
   simArgs += ` --currency_capital=${argv.currency_capital}`;
 }
@@ -420,6 +417,7 @@ if (argv.asset_capital) {
 if (argv.symmetrical) {
   simArgs += ` --symmetrical=true`;
 }
+simArgs += ` --filename none`;
 
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all';
 let populationFileName = (argv.population_data) ? argv.population_data : null;
@@ -494,12 +492,12 @@ let simulateGeneration = () => {
     });
 
     let fileDate = Math.round(+new Date() / 1000);
-    let fileName = `backtesting_${fileDate}.csv`;
+    let fileName = `simulations/backtesting_${fileDate}.csv`;
     fs.writeFile(fileName, csv, err => {
       if (err) throw err;
     });
 
-    // let fileNameJSON = `backtesting_${fileDate}.json`;
+    // let fileNameJSON = `simulations/backtesting_${fileDate}.json`;
     // fs.writeFile(fileNameJSON, JSON.stringify(results, null, 2), err => {
     //   if (err) throw err;
     // });
@@ -509,7 +507,7 @@ let simulateGeneration = () => {
       poolData[v] = pools[v]['pool'].population();
     });
 
-    let poolFileName = `generation_data_${fileDate}_gen_${generationCount}.json`;
+    let poolFileName = `simulations/generation_data_${fileDate}_gen_${generationCount}.json`;
     let poolDataJSON = JSON.stringify(poolData, null, 2);
     fs.writeFile(poolFileName, poolDataJSON, err => {
       if (err) throw err;

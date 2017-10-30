@@ -83,6 +83,7 @@ module.exports = function container (get, set, clear) {
         keyMap.set('M', 'switch to \'Maker\' order type'.grey)
         keyMap.set('o', 'show current trade options'.grey)
         keyMap.set('O', 'show current trade options in a dirty view (full list)'.grey)
+        keyMap.set('P', 'print statistical output'.grey)
         keyMap.set('X', 'exit program with statistical output'.grey)
 
         function listKeys() {
@@ -129,10 +130,10 @@ module.exports = function container (get, set, clear) {
         }              
 
         /* Implementing statistical Exit */
-        function exitTrade () {
+        function printTrade (quit) {
           console.log()
           var output_lines = []
-          if (s.my_trades.length) {
+          if (s.my_trades.length && quit) {
             s.my_trades.push({
               price: s.period.close,
               size: s.balance.asset,
@@ -163,42 +164,44 @@ module.exports = function container (get, set, clear) {
               sells++
             }
           })
-          if (s.my_trades.length) {
+          if (s.my_trades.length && sells > 0) {
             output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
             output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
           }
           output_lines.forEach(function (line) {
             console.log(line)
           })
-          var html_output = output_lines.map(function (line) {
-            return colors.stripColors(line)
-          }).join('\n')
-          var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
-            return {
-              time: period.time,
-              open: period.open,
-              high: period.high,
-              low: period.low,
-              close: period.close,
-              volume: period.volume
+          if (quit) {
+            var html_output = output_lines.map(function (line) {
+              return colors.stripColors(line)
+            }).join('\n')
+            var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
+              return {
+                time: period.time,
+                open: period.open,
+                high: period.high,
+                low: period.low,
+                close: period.close,
+                volume: period.volume
+              }
+            })
+            var code = 'var data = ' + JSON.stringify(data) + ';\n'
+            code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
+            var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
+            var out = tpl
+              .replace('{{code}}', code)
+              .replace('{{trend_ema_period}}', so.trend_ema || 36)
+              .replace('{{output}}', html_output)
+              .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+            if (so.filename !== 'none') {
+              var out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+              fs.writeFileSync(out_target, out)
+              console.log('\nwrote'.grey, out_target)
             }
-          })
-          var code = 'var data = ' + JSON.stringify(data) + ';\n'
-          code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
-          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
-          var out = tpl
-            .replace('{{code}}', code)
-            .replace('{{trend_ema_period}}', so.trend_ema || 36)
-            .replace('{{output}}', html_output)
-            .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
-          if (so.filename !== 'none') {
-            var out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
-            fs.writeFileSync(out_target, out)
-            console.log('\nwrote'.grey, out_target)
+            process.exit(0)
           }
-          process.exit(0)
         }
-        /* The end of exitTrade */        
+        /* The end of printTrade */
 
         var order_types = ['maker', 'taker']
         if (!so.order_type in order_types || !so.order_type) {
@@ -323,9 +326,12 @@ module.exports = function container (get, set, clear) {
                           listOptions()
                         } else if (key === 'O' && !info.ctrl) {
                           console.log('\n' + cliff.inspect(so))
+                        } else if (key === 'P' && !info.ctrl) {
+                          console.log('\nWriting statistics...'.grey)
+                          printTrade(false)
                         } else if (key === 'X' && !info.ctrl) {
                           console.log('\nExiting... ' + '\nWriting statistics...'.grey)
-                          exitTrade()
+                          printTrade(true)
                         } else if (info.name === 'c' && info.ctrl) {
                           // @todo: cancel open orders before exit
                           console.log()
