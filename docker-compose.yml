@@ -3,6 +3,7 @@ server:
   volumes:
     - ./conf.js:/app/conf.js
     - ./extensions:/app/extensions
+    - ./simulations:/app/simulations
   links:
     - mongodb
   command: [ "trade", "--paper" ]
