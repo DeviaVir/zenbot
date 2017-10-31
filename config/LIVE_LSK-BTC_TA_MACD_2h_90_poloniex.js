@@ -168,7 +168,7 @@ if (c.xmppon) {
 }
 //end xmpp configs
 
-c.notifiers = {}
+c.notifiers = {} 
 
 // pushbullets configs
 c.notifiers.pushbullet = {}
