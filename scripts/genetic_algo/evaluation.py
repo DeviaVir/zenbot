@@ -4,6 +4,7 @@ import random
 import shlex
 import subprocess
 import sys
+import re
 from typing import List
 
 from termcolor import colored
@@ -23,10 +24,13 @@ def minutes(x):
 
 
 def runzen(cmdline):
+    ansi_escape = re.compile(b'\x1b[^m]*m')
     with open(os.devnull, 'w') as devnull:
         a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
-    profit = a.split(b'}')[-1].splitlines()[3].split(b': ')[-1][:-1]
+    profit = a.split(b'}')[-1].splitlines()[3].split(b': ')[-1]
+    profit = ansi_escape.sub(b'', profit)[:-1]
     trades = parse_trades(a.split(b'}')[-1].splitlines()[4])
+    trades = ansi_escape.sub(b'', trades)
     return float(profit), float(trades)
 
 
