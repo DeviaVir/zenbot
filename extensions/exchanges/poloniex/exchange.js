@@ -6,11 +6,6 @@ var Poloniex = require('poloniex.js')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
-
-  c.poloniex = {}
-  c.poloniex.key = 'CO7659UP-LYI91GUU-Y07T71DN-7802U2LX'
-  c.poloniex.secret = 'b0171da8c5d72ff7e5386f3f001ee8a5cced387f25d6c9a102dfa3128348bae9b32e619c49fbb8a2d445101bf3e6046cd82168073fc8b5eb403c376d34524232'
-
   var public_client, authed_client
 
   function publicClient (product_id) {

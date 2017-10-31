@@ -15,6 +15,7 @@ conf-*
 conf_*
 !conf-sample.js
 sim_result*
+simulations
 trade_result*
 *_test
 backtesting_*

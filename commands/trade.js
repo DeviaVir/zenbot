@@ -62,6 +62,9 @@ module.exports = function container (get, set, clear) {
             so[k] = overrides[k]
           })
         }
+        set('@zenbot:conf', so)
+        c = get('conf')
+        console.log(c)
         so.selector = get('lib.normalize-selector')(so.selector || selector || c.selector)
         var exchange_id = so.selector.split('.')[0]
         var product_id = so.selector.split('.')[1]
