@@ -7,6 +7,7 @@ npm-debug.log
 db.json
 dump
 conf/secret.json
+config
 github.pub
 github
 config.patch
