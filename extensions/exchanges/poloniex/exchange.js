@@ -6,7 +6,6 @@ var Poloniex = require('poloniex.js')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
-
   var public_client, authed_client
 
   function publicClient (product_id) {
