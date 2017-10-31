@@ -7,7 +7,6 @@ npm-debug.log
 db.json
 dump
 conf/secret.json
-config
 github.pub
 github
 config.patch
@@ -16,7 +15,6 @@ conf-*
 conf_*
 !conf-sample.js
 sim_result*
-simulations
 trade_result*
 *_test
 backtesting_*
