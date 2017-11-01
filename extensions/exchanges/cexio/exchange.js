@@ -53,14 +53,15 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      var args
-      if (opts.from) {
+      if (typeof opts.from === 'undefined') {
+        var args = 1000
+      } else {
         args = opts.from
       }
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
-        if (err || body === undefined || body === 'error: Rate limit exceeded') return retry('getTrades', func_args, err)
+        if (err || typeof body === 'undefined' || body === 'error: Rate limit exceeded') return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
             trade_id: Number(trade.tid),
@@ -78,7 +79,7 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.account_balance(function (err, body) {
-        if (err || typeof body === 'undefined' || body === 'error: Nonce must be incremented') return retry('getBalance', func_args, err)
+        if (err || typeof body === 'undefined' || body === 'error: Nonce must be incremented' || body === 'error: Rate limit exceeded') return retry('getBalance', func_args, err)
         var balance = { asset: 0, currency: 0 }
         balance.currency = n(body[opts.currency].available).add(body[opts.currency].orders).format('0.00000000')
         balance.currency_hold = n(body[opts.currency].orders).format('0.00000000')
