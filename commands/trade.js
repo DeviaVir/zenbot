@@ -133,23 +133,26 @@ module.exports = function container (get, set, clear) {
         function printTrade (quit) {
           console.log()
           var output_lines = []
-          if (s.my_trades.length && quit) {
-            s.my_trades.push({
-              price: s.period.close,
-              size: s.balance.asset,
-              type: 'sell',
-              time: s.period.time
-            })
+          var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+          if (quit) {
+            if (s.my_trades.length) {
+              s.my_trades.push({
+                price: s.period.close,
+                size: s.balance.asset,
+                type: 'sell',
+                time: s.period.time
+              })
+            }
+            s.balance.currency = tmp_balance
+            s.balance.asset = 0
+            s.lookback.unshift(s.period)
           }
-          s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
-          s.balance.asset = 0
-          s.lookback.unshift(s.period)
-          var profit = s.start_capital ? n(s.balance.currency).subtract(s.start_capital).divide(s.start_capital) : n(0)
-          output_lines.push('last balance: ' + n(s.balance.currency).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
-          var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(s.balance.currency)
+          var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
+          output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+          var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(tmp_balance)
           var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-          output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
+          output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
           var last_buy
           var losses = 0, sells = 0
