@@ -3,7 +3,7 @@ let z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
-    name: 'Stochastic CCI Strategy',
+    name: 'cci_srsi',
     description: 'Stochastic CCI Strategy',
 
     getOptions: function () {
