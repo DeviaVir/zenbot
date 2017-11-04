@@ -38,10 +38,10 @@ module.exports = function container (get, set, clear) {
 
     onPeriod: function (s, cb) {
       if (s.trending_up == true) {
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = 'buy'
       }
       else if (s.trending_up == false) {
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = 'sell'
       }
       cb()
     },
