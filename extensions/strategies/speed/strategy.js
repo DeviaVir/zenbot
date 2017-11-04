@@ -1,6 +1,6 @@
 var z = require('zero-fill')
-  , n = require('numbro')
-
+var stat = require('stats-lite')
+var n = require('numbro')
 module.exports = function container (get, set, clear) {
   return {
     name: 'speed',
@@ -8,47 +8,48 @@ module.exports = function container (get, set, clear) {
 
     getOptions: function () {
       this.option('period', 'period length', String, '1m')
-      this.option('min_periods', 'min. number of history periods', Number, 3000)
-      this.option('baseline_periods', 'lookback periods for volatility baseline', Number, 3000)
-      this.option('trigger_factor', 'multiply with volatility baseline EMA to get trigger value', Number, 1.6)
+      this.option('min_periods', 'min. number of history periods', Number, 1000)
+      this.option('meas', 'measurements', Number, 25)
     },
 
     calculate: function (s) {
-      if (s.lookback[1]) {
-        s.period.speed = (s.period.close - s.lookback[1].close) / s.lookback[1].close * 100
-        s.period.abs_speed = Math.abs((s.period.close - s.lookback[1].close) / s.lookback[1].close * 100)
-        if (s.lookback[s.options.baseline_periods + 1]) {
-          get('lib.ema')(s, 'baseline', s.options.baseline_periods, 'abs_speed')
+      get('lib.ema')(s, 'speed', s.options.speed)
+      if (s.lookback[s.options.meas]) {
+        var arr = []
+        var i = s.options.meas
+        while (--i) arr.push(s.lookback[i].close);
+        s.dev = stat.stdev(arr)
+        s.meany = stat.mean(arr)
+        s.closep = s.lookback[0].close
+        s.diffpm = s.closep - s.meany
+        if (
+                (Math.abs(s.diffpm) > s.dev)
+                && (Math.abs(s.diffpm) === s.diffpm)
+        ) {
+                s.trending_up = true;
+        } else if (
+                (Math.abs(s.diffpm) > s.dev)
+                && (Math.abs(s.diffpm) !== s.dev)
+        ) {
+                s.trending_up = false; //literally: direction down
         }
-      }
+     }
     },
 
     onPeriod: function (s, cb) {
-      if (typeof s.period.baseline === 'number') {
-        if (s.period.speed >= s.period.baseline * s.options.trigger_factor) {
-          if (s.trend !== 'up') {
-            s.acted_on_trend = false
-          }
-          s.trend = 'up'
-          s.signal = !s.acted_on_trend ? 'buy' : null
-        }
-        else if (s.period.speed <= s.period.baseline * s.options.trigger_factor * -1) {
-          if (s.trend !== 'down') {
-            s.acted_on_trend = false
-          }
-          s.trend = 'down'
-          s.signal = !s.acted_on_trend ? 'sell' : null
-        }
+      if (s.trending_up == true) {
+        s.signal = !s.acted_on_trend ? 'buy' : null
+      }
+      else if (s.trending_up == false) {
+        s.signal = !s.acted_on_trend ? 'sell' : null
       }
       cb()
     },
 
     onReport: function (s) {
       var cols = []
-      cols.push(z(8, n(s.period.speed).format('0.0000'), ' ')[s.period.speed >= 0 ? 'green' : 'red'])
-      if (typeof s.period.baseline === 'number') {
-        cols.push(z(8, n(s.period.baseline).format('0.0000'), ' ').grey)
-      }
+      cols.push(z(8, n(s.diffpm).format('0.0000'), ' ')[s.diffpm > 0 ? 'green' : 'red'])
+      cols.push(z(8, n(s.diffpm).format('0.0000'), ' ')[s.diffpm < 0 ? 'red' : 'green'])
       return cols
     }
   }
