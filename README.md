@@ -1,6 +1,6 @@
 ![zenbot logo](http://thehypedgeek.com/wp-content/uploads/2017/04/doraemon-header.png)
 
-### ZenMeow is Zenbot's revision of GdaxBot's speed trading.
+### MeowZen is Zenbot's revision of GdaxBot's speed trading.
 ### Configs for speed strategy have been heavily edited.
 
 ### For a working command, please email desenigma@gmail.com and I'll send you my BTC Address for a small fee ~$5 for the backtesting and tuning fee. Or, find me on discord: @Rainy#3179
