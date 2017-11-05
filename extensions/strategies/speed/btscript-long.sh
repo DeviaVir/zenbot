@@ -1,7 +1,7 @@
 #!/bin/bash
-sudo ./zenbot.sh backfill gdax.LTC-USD --days=34
-sudo ./zenbot.sh backfill gdax.ETH-USD --days=34
-sudo ./zenbot.sh backfill gdax.BTC-USD --days=34
+sudo ./zenbot.sh backfill gdax.LTC-USD --days=5
+sudo ./zenbot.sh backfill gdax.ETH-USD --days=5
+sudo ./zenbot.sh backfill gdax.BTC-USD --days=5
 while :
 do
     # TASK 1
