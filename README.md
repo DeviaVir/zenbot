@@ -28,6 +28,26 @@ cd zenbot
 npm install
 
 
+```
+## Speed Trading Usage:
+For Simulation:
+--meas is the measurements of last trades standard deviation.
+Always use --min_periods greater than this number. Never use 0 or 1.
+```
+sudo ./zenbot.sh sim --days=14 --period=100ms --meas=1000 --min_periods=2500 --strategy=speed
+```
+For paper trading:
+```
+sudo ./zenbot.sh trade --paper --period=100ms --meas=1000 --min_periods=2500 --strategy=speed
+```
+For live trading:
+```
+sudo ./zenbot.sh trade --period=100ms --meas=1000 --min_periods=2500 --strategy=speed
+```
+If you can't find a good command, email me or find me on discord! The fee for a command is: ~$5
+
+
+
 ## Selectors
 
 A "selector" is a short identifier that tells Zenbot which exchange and currency pair to act on. Use the form `{exchange_slug}.{asset}-{currency}`. A complete list of selectors your Zenbot install supports can be found with:
