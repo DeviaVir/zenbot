@@ -3,7 +3,7 @@ var stat = require('stats-lite')
 var n = require('numbro')
 module.exports = function container (get, set, clear) {
   return {
-    name: 'speed',
+    name: 'stddev1',
     description: 'Trade when % change from last two 1m periods is higher than average.',
 
     getOptions: function () {
@@ -34,15 +34,15 @@ module.exports = function container (get, set, clear) {
                 s.trending_up = false; //literally: direction down
         }
      }
+     if (s.trending_up == true) {
+       s.signal = 'buy'
+     }
+     else if (s.trending_up == false) {
+       s.signal = 'sell'
+     }
     },
 
     onPeriod: function (s, cb) {
-      if (s.trending_up == true) {
-        s.signal = 'buy'
-      }
-      else if (s.trending_up == false) {
-        s.signal = 'sell'
-      }
       cb()
     },
 
