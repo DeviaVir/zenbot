@@ -23,12 +23,12 @@ module.exports = function container (get, set, clear) {
         s.closep = s.lookback[0].close
         s.diffpm = s.closep - s.meany
         if (
-                (Math.abs(s.diffpm) > s.dev)
+                s.diffpm > s.dev
                 && (Math.abs(s.diffpm) === s.diffpm)
         ) {
                 s.trending_up = true;
         } else if (
-                (Math.abs(s.diffpm) > s.dev)
+                s.diffpm < s.dev
                 && (Math.abs(s.diffpm) !== s.diffpm)
         ) {
                 s.trending_up = false; //literally: direction down
