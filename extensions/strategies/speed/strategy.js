@@ -29,7 +29,7 @@ module.exports = function container (get, set, clear) {
                 s.trending_up = true;
         } else if (
                 (Math.abs(s.diffpm) > s.dev)
-                && (Math.abs(s.diffpm) !== s.dev)
+                && (Math.abs(s.diffpm) !== s.diffpm)
         ) {
                 s.trending_up = false; //literally: direction down
         }
