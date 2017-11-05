@@ -7,7 +7,7 @@
 
 ### For donations:
 ### ```1GaB5aap11wyv5nfc2AN7a5fFk1GNoFJGH```
-
+![zenbot logo](https://github.com/TheRoboKitten/MeowZen/raw/master/download.png)
 
 
 
