@@ -1,7 +1,7 @@
 #!/bin/bash
-sudo ./zenbot.sh backfill gdax.LTC-USD --days=0.14
-sudo ./zenbot.sh backfill gdax.ETH-USD --days=0.14
-sudo ./zenbot.sh backfill gdax.BTC-USD --days=0.14
+sudo ./zenbot.sh backfill gdax.LTC-USD --days=34
+sudo ./zenbot.sh backfill gdax.ETH-USD --days=34
+sudo ./zenbot.sh backfill gdax.BTC-USD --days=34
 while :
 do
     # TASK 1
@@ -85,36 +85,36 @@ sudo ./zenbot.sh sim --period=100ms --meas=3000 --min_periods=3050 --strategy=sp
     read -t 1 -n 1 key
     if [[ $key = l ]]
     then	
-sudo ./zenbot.sh sim --period=100ms --meas=100 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=200 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=300 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=400 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=500 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=600 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=700 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=800 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=900 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1000 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1100 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1200 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1300 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1400 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1500 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1600 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1700 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1800 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=1900 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2000 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2100 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2200 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2300 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2400 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2500 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2600 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2700 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2800 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=2900 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
-sudo ./zenbot.sh sim --period=100ms --meas=3000 --min_periods=3050 --strategy=speed --days=0.1 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=100 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=200 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=300 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=400 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=500 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=600 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=700 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=800 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=900 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1000 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1100 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1200 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1300 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1400 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1500 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1600 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1700 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1800 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=1900 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2000 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2100 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2200 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2300 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2400 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2500 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2600 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2700 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2800 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=2900 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
+sudo ./zenbot.sh sim --period=100ms --meas=3000 --min_periods=3050 --strategy=speed --days=3 gdax.LTC-USD
         break
     fi
 done
