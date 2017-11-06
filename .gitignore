@@ -24,3 +24,5 @@ models/*.json
 models/*.html
 *.pyc
 *.swp
+temp.html
+logs

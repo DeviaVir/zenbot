@@ -88,23 +88,29 @@ class Andividual(Individual):
         if param == 'period':
             res = minutes(int(value/2))
         elif param == 'min_periods':
-            res = int(value * 20)
+            res = int(value*20)
         elif param == 'trend_ema':
-            res = int(value*15 )
+            res = int(value*15)
         elif 'period' in param:
-            res = int(value *10)
+            res = int(value*10)
         elif 'pct' in param:
             res = pct(value)
         elif 'rate' in param:
             res = pct(value)
         elif 'rsi' in param:
             res = float(value)
+        elif 'sell' in param:
+            res = value/10.0
+        elif 'buy' in param:
+            res = value/10.0
         elif 'threshold' in param:
             res = value/100000.0
         elif 'sar_af' == param:
-            res = value / 1000.0
+            res = value/1000.0
         elif 'sar_max_af' == param:
             res = pct(value)
+        elif 'greed' == param:
+            res = value/10.0
         else:
             raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py", 'red'))
         return param, res
