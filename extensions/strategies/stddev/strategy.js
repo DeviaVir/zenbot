@@ -1,4 +1,4 @@
-//"sudo ./zenbot.sh sim --strategy=stddev --trendtrades_1=2500 --days=7 --period=100ms --min_periods=3000";
+//" sudo ./zenbot.sh sim --strategy=stddev --trendtrades_1=100 --trendtrades_2=300 --min_periods=1005 --period=100ms";
 var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
@@ -10,35 +10,38 @@ module.exports = function container (get, set, clear) {
     description: 'Trade when % change from last two 1m periods is higher than average.',
 
     getOptions: function () {
-      this.option('period', 'period length', String, '100ms')
-      this.option('trendtrades_1', "Trades for trend 1", Number, 2500)
+      this.option('period', 'period length', String, '1s')
+      this.option('trendtrades_1', "Trades for trend 1", Number, 50)
+      this.option('trendtrades_2', "Trades for trend 1", Number, 100)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "min_periods", Number, 3000)
+      this.option('min_periods', "min_periods", Number, 1250)
     },
 
 
     calculate: function (s) {
       get('lib.ema')(s, 'stddev', s.options.stddev)
       var tl0 = []
-      if (s.lookback[s.options.trendtrades_1]) {
+      var tl1 = []
+      if (s.lookback[s.options.min_periods]) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl0.push(s.lookback[i].close) }
-      s.tlst0 = stats.stdev(tl0)
-      s.mean = math.mean(tl0)
-      s.sign = s.mean - s.tlst0
-      s.sig = tl0[0] - s.sign
-    }
+          for (let i = 0; i < s.options.trendtrades_2; i++) { tl1.push(s.lookback[i].close) }
+          s.std1 = stats.stdev(tl1)
+          s.std0 = stats.stdev(tl0)
+
+   }
 },
 
     onPeriod: function (s, cb) {
             if (
-                  s.sig > 0
+                  s.std0 > 0
+                  && s.std1 > 0
 
                ) {
                   s.signal = 'buy'
                }
-             else {
+            else {
                   s.signal = 'sell'
-              }
+               }
       cb()
     },
 
