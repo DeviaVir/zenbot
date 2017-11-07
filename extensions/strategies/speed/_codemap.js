@@ -1,6 +1,6 @@
 module.exports = {
   _ns: 'zenbot',
 
-  'strategies.speed': require('./strategy'),
-  'strategies.list[]': '#strategies.speed'
+  'strategies.stddev': require('./strategy'),
+  'strategies.list[]': '#strategies.stddev'
 }
