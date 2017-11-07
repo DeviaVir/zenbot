@@ -1,5 +1,3 @@
-  GNU nano 2.5.3                                                               File: extensions/strategies/stddev/strategy.js                                                                                                                                     
-
 var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
@@ -14,8 +12,8 @@ module.exports = function container (get, set, clear) {
 
     getOptions: function () {
       this.option('period', 'period length', String, '1s')
-      this.option('trendtrades_1', "Trades for trend 1", Number, 100)
-      this.option('trendtrades_2', "Trades for trend 2", Number, 1000)
+      this.option('trendtrades_1', "Trades for trend 1", Number, 25)
+      this.option('trendtrades_2', "Trades for trend 2", Number, 40)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "min_periods", Number, 1250)
     },
@@ -36,7 +34,7 @@ module.exports = function container (get, set, clear) {
 
     onPeriod: function (s, cb) {
             if (
-                  s.devi1 > 0
+                  s.devi > 0
                ) {
                   s.signal = 'buy'
                }
