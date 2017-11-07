@@ -11,9 +11,9 @@ module.exports = function container (get, set, clear) {
     description: 'Trade when % change from last two 1m periods is higher than average.',
 
     getOptions: function () {
-      this.option('period', 'period length', String, '1s')
+      this.option('period', 'period length', String, '100ms')
       this.option('trendtrades_1', "Trades for trend 1", Number, 1000)
-      this.option('trendtrades_2', "Trades for trend 1", Number, 100)
+      this.option('trendtrades_2', "Trades for trend 2", Number, 100)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "min_periods", Number, 1250)
     },
