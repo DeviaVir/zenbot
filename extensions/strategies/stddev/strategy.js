@@ -2,7 +2,6 @@
 var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
-var math = require('mathjs');
 var tl0mp = []
 module.exports = function container (get, set, clear) {
   return {
