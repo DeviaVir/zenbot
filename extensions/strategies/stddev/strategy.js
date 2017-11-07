@@ -1,3 +1,4 @@
+//"sudo ./zenbot.sh sim --strategy=stddev --trendtrades_1=2500 --days=7 --period=100ms --min_periods=3000";
 var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
