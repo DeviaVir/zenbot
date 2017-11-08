@@ -40,7 +40,7 @@ module.exports = function container (get, set, clear) {
     },
     onReport: function (s) {
       var cols = []
-      cols.push(z(s.signal, ' ')[s.signal === false ? 'red' : 'green'])
+      cols.push(z(s.signal, ' ')[s.signal == 'sell' ? 'red' : 'green'])
             return cols
       },
     }
