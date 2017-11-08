@@ -118,7 +118,7 @@ c.sell_pct = 99
 c.order_adjust_time = 5000
 // avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
-// ms to poll order status
+// ms to poll order status set extremely low for overclock/speed strats (in seconds or ms)
 c.order_poll_time = 5000
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 5000
@@ -133,7 +133,7 @@ c.post_only = true
 
 // default # days for backfill and sim commands
 c.days = 14
-// ms to poll new trades at
+// ms to poll new trades at - set extremely low for overclock/speed strats (in seconds or ms)
 c.poll_trades = 30000
 // amount of currency to start simulations with
 c.currency_capital = 1000
