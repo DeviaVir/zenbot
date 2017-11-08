@@ -516,6 +516,11 @@ Supply zenbot with your Discord webhook id and webhook token zenbot will push no
 How to add a webhook to a Discord channel
 https://support.discordapp.com/hc/en-us/articles/228383668
 
+### Prowl
+
+Supply zenbot with your Prowl API key and zenbot will push notifications to your Prowl enabled devices.
+https://www.prowlapp.com/
+
 ## Manual trade tools
 
 Zenbot's order execution engine can also be used for manual trades. Benefits include:
