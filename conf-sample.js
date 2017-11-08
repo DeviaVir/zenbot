@@ -110,15 +110,15 @@ c.profit_stop_pct = 1
 
 // avoid trading at a slippage above this pct
 c.max_slippage_pct = 5
-// buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100)
+// buy with this % of currency balance (WARNING : sometimes things won't work properly if you set this value to 100 (Gdax)) (Float?)
 c.buy_pct = 99
-// sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
+// sell with this % of asset balance (WARNING : sometimes things wonn' work properly if you set this value to 100 (Gdax)) (Float?)
 c.sell_pct = 99
 // ms to adjust non-filled order after
 c.order_adjust_time = 5000
 // avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
-// ms to poll order status
+// ms to poll order status, 1000ms for overclocking speed trading strategies.
 c.order_poll_time = 5000
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 5000
@@ -133,7 +133,7 @@ c.post_only = true
 
 // default # days for backfill and sim commands
 c.days = 14
-// ms to poll new trades at
+// ms to poll new trades at, 100ms for overclocking speed trading strategies.
 c.poll_trades = 30000
 // amount of currency to start simulations with
 c.currency_capital = 1000
