@@ -17,14 +17,14 @@ module.exports = function container (get, set, clear) {
       var tl0 = []
       var tl1 = []
       if (s.lookback[s.options.min_periods]) {
-          for (let i = 0; i < s.options.trendtrades_1; i++) { tl0.push(s.lookback[i].close) }
-          for (let i = 0; i < s.options.trendtrades_2; i++) { tl1.push(s.lookback[i].close) }
-          s.std0 = stats.stdev(tl0) / 2
-          s.std1 = stats.stdev(tl1) / 2
-          s.mean0 = math.mean(tl0)
-          s.mean1 = math.mean(tl1)
-          s.sig0 = s.std0 > s.std1 ? 'Up' : 'Down';
-          s.sig1 = s.mean0 > s.mean1 ? 'Up' : 'Down';
+        for (let i = 0; i < s.options.trendtrades_1; i++) { tl0.push(s.lookback[i].close) }
+        for (let i = 0; i < s.options.trendtrades_2; i++) { tl1.push(s.lookback[i].close) }
+        s.std0 = stats.stdev(tl0) / 2
+        s.std1 = stats.stdev(tl1) / 2
+        s.mean0 = math.mean(tl0)
+        s.mean1 = math.mean(tl1)
+        s.sig0 = s.std0 > s.std1 ? 'Up' : 'Down';
+        s.sig1 = s.mean0 > s.mean1 ? 'Up' : 'Down';
    }
 },
     onPeriod: function (s, cb) {
