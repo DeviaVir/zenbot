@@ -20,27 +20,33 @@ module.exports = function container (get, set, clear) {
       if (s.lookback[s.options.min_periods]) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl0.push(s.lookback[i].close) }
           for (let i = 0; i < s.options.trendtrades_2; i++) { tl1.push(s.lookback[i].close) }
-          s.std0 = stats.stdev(tl0)
-          s.std1 = stats.stdev(tl1)
+          s.std0 = stats.stdev(tl0) / 2
+          s.std1 = stats.stdev(tl1) / 2
+          s.mean0 = math.mean(tl0)
+          s.mean1 = math.mean(tl1)
+          s.sig0 = s.std0 > s.std1 ? 'Up' : 'Down';
+          s.sig1 = s.mean0 > s.mean1 ? 'Up' : 'Down';
    }
 },
     onPeriod: function (s, cb) {
-            if (
-                  s.std0 < 0
+            if (  
+                  s.sig0 === 'Down'
+                  && s.sig1 === 'Down'
                ) {
                   s.signal = 'sell'
                }
             else if (
-                  s.std0 > 0
-                  && s.std1 > 0
+                  s.sig0 === 'Up'
+                  && s.sig1 === 'Up'
                ) {
-                  s.signal = 'buy'
+                  s.signal = 'buu'
                }
       cb()
     },
+
     onReport: function (s) {
       var cols = []
-      cols.push(z(s.signal, ' ')[s.signal == 'sell' ? 'red' : 'green'])
+      cols.push(z(s.signal, ' ')[s.signal === false ? 'red' : 'green'])
             return cols
       },
     }
