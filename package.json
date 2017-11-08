@@ -57,8 +57,6 @@
     "timebucket": "^0.4.0",
     "ws": "^3.2.0",
     "zero-fill": "^2.2.3"
-
-
   },
   "devDependencies": {
     "eslint": "^4.7.1"
