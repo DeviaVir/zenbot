@@ -5,7 +5,7 @@ y = x * 6
 while (x < 1000):
     A = str(x)
     C = y * 0.5   
-    L = y - C
+    L = y
     H = y + C
     while (H > L):
         J = round(L)
