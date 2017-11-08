@@ -7,10 +7,9 @@ module.exports = function container (get, set, clear) {
     name: 'stddev',
     description: 'Trade when % change from last two 1m periods is higher than average.',
     getOptions: function () {
-      this.option('period', 'period length', String, '100ms')
-      this.option('trendtrades_1', "Trades for array 1 to be subtracted stddev and mean from", Number, 50)
-      this.option('trendtrades_2', "Trades for array 2 to be subtracted", Number, 100)
-      this.option('selector', "Selector", String, 'Gdax.BTC-USD')
+      this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms', String, '100ms')
+      this.option('trendtrades_1', "Trades for array 1 to be subtracted stddev and mean from", Number, 5)
+      this.option('trendtrades_2', "Trades for array 2 to be subtracted", Number, 43)
       this.option('min_periods', "min_periods", Number, 1250)
     },
     calculate: function (s) {
