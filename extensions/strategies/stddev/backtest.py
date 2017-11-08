@@ -1,6 +1,6 @@
 from subprocess import call
 x = 5
-y = x * 9.6
+y = x * 9.7
 while (x < 1000):
     A = str(x)
     C = y * 0.1 
@@ -10,7 +10,7 @@ while (x < 1000):
         J = round(L)
         K = int(J)
         I = str(K)
-        command = 'sudo ./zenbot.sh sim --strategy=stddev --trendtrades_1=' + A + ' --trendtrades_2=' + I + ' --min_periods=1250 --period=100ms --days$
+        command = './zenbot.sh sim --strategy=stddev --trendtrades_1=' + A + ' --trendtrades_2=' + I + ' --min_periods=1250 --period=100ms --days$
         print(command) 
         call(command, shell=True)
         L = L + 1
