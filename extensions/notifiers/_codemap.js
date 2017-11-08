@@ -5,5 +5,6 @@ module.exports = {
   'notifiers.ifttt': require('./ifttt'),
   'notifiers.pushbullet': require('./pushbullet'),
   'notifiers.slack': require('./slack'),
-  'notifiers.xmpp': require('./xmpp')
+  'notifiers.xmpp': require('./xmpp'),
+  'notifiers.prowl': require('./prowl')
 }

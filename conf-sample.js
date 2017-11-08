@@ -189,3 +189,9 @@ c.notifiers.discord.on = false // false discord disabled; true discord enabled (
 c.notifiers.discord.id = 'YOUR-WEBHOOK-ID'
 c.notifiers.discord.token = 'YOUR-WEBHOOK-TOKEN'
 // end discord configs
+
+// prowl configs
+c.notifiers.prowl = {}
+c.notifiers.prowl.on = false // false prowl disabled; true prowl enabled (key should be correct)
+c.notifiers.prowl.key = 'YOUR-API-KEY'
+// end prowl configs
