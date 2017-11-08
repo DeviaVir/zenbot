@@ -14,5 +14,5 @@ while (x < 1000):
         print(command) 
         call(command, shell=True)
         L = L + 1
-    y = x * 8.6
     x = x + 1
+    y = x * 8.6
