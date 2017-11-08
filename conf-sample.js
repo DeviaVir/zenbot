@@ -112,7 +112,7 @@ c.profit_stop_pct = 1
 c.max_slippage_pct = 5
 // buy with this % of currency balance (WARNING : sometimes things won't work properly if you set this value to 100 (Gdax)) (Float?)
 c.buy_pct = 99
-// sell with this % of asset balance (WARNING : sometimes things wonn' work properly if you set this value to 100 (Gdax)) (Gloat?)
+// sell with this % of asset balance (WARNING : sometimes things wonn' work properly if you set this value to 100 (Gdax)) (Float?)
 c.sell_pct = 99
 // ms to adjust non-filled order after
 c.order_adjust_time = 5000
