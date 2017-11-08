@@ -1,6 +1,6 @@
 from subprocess import call
 x = 5
-y = x * 8.6
+y = x * 9.4
 while (x < 1000):
     A = str(x)
     C = y * 0.1 
@@ -15,4 +15,4 @@ while (x < 1000):
         call(command, shell=True)
         L = L + 1
     x = x + 1
-    y = x * 8.6
+    y = x * 9.4
