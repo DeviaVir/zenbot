@@ -29,7 +29,7 @@ module.exports = function container (get, set, clear) {
    }
 },
     onPeriod: function (s, cb) {
-            if (  
+            if (
                   s.sig0 === 'Down'
                   && s.sig1 === 'Down'
                ) {
@@ -38,8 +38,8 @@ module.exports = function container (get, set, clear) {
             else if (
                   s.sig0 === 'Up'
                   && s.sig1 === 'Up'
-               ) {
-                  s.signal = 'buu'
+               ) {   
+                  s.signal = 'buy'
                }
       cb()
     },
