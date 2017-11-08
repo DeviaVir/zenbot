@@ -10,7 +10,7 @@ while (x < 1000):
         J = round(L)
         K = int(J)
         I = str(K)
-        command = './zenbot.sh sim --strategy=stddev --trendtrades_1=' + A + ' --trendtrades_2=' + I + ' --min_periods=1250 --period=100ms --days$
+        command = './zenbot.sh sim --strategy=stddev --trendtrades_1=' + A + ' --trendtrades_2=' + I + ' --min_periods=1250 --period=100ms --days=3
         print(command) 
         call(command, shell=True)
         L = L + 1
