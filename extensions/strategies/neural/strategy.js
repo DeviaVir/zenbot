@@ -9,7 +9,10 @@ module.exports = function container (get, set, clear) {
     description: 'Trade when % change from last two 1m periods is higher than average.',		
     getOptions: function () {		
       this.option('period', 'period length', String, '10s')		
-      this.option('trendtrades_1', "Trades to learn from", Number, 50)		
+      this.option('trendtrades_1', "Trades to learn from", Number, 1000)
+      this.option('trains', "Number of trains on data", Number, 1000)
+      this.option('neurons', "Number of neurons on data", Number, 1000)
+      this.option('depth', "Decisions... decisions...", 2)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')		
       this.option('min_periods', "min_periods", Number, 1250)		
     },		
@@ -20,10 +23,10 @@ module.exports = function container (get, set, clear) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }		
           // create a net out of it		
           var net = new convnetjs.Net();		
-          var d = 100;		
+          var d = 2;		
           var layer_defs = [];		
           layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:d});		
-          layer_defs.push({type:'fc', num_neurons:1000, activation:'sigmoid'});		
+          layer_defs.push({type:'fc', num_neurons:s.options.neurons, activation:'sigmoid'});		
           layer_defs.push({type:'regression', num_neurons:1});		
           var net = new convnetjs.Net();		
           net.makeLayers(layer_defs);		
@@ -35,20 +38,22 @@ module.exports = function container (get, set, clear) {
          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.2, batch_size:1, l2_decay:0.001});		
 		
          var learn = function () {		
-           for(var j = 0; j < 10; j++){		
-             for (var i = 0; i < my_data.length - d; i++) {		
+           for(var j = 0; j < s.options.trains; j++) {	
+              for(var i = 0; i < my_data.length - d; i++) {
                  var data = my_data.slice(i, i + d);		
                  var real_value = [my_data[i + d]];		
-                 var x = new convnetjs.Vol(data);		
+                 var x = new convnetjs.Vol(data);
                  trainer.train(x, real_value);		
-                 var predicted_value = net.forward(x);		
-                 s.value = predicted_value.w[0]		
-             }		
+             }
+           }
+         var predicted_value = net.forward(x);		
+         s.value = predicted_value[0].w
+         console.log(predicted_value)
            }		
          }		
-         learn();		
-         s.price = s.lookback[0]		
-         s.sig = s.value - s.price		
+         learn();			
+         console.log(s.value)
+         s.sig = s.value		
   }		
 },		
     onPeriod: function (s, cb) {		
