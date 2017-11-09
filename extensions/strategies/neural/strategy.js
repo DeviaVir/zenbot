@@ -1,7 +1,5 @@
-var convnetjs = require('convnetjs');		
-var z = require('zero-fill')		
+var convnetjs = require('convnetjs');			
 var stats = require('stats-lite')		
-var n = require('numbro')		
 var math = require('mathjs');		
 module.exports = function container (get, set, clear) {		
   return {		
@@ -12,9 +10,9 @@ module.exports = function container (get, set, clear) {
       this.option('trendtrades_1', "Trades to learn from", Number, 1000)
       this.option('trains', "Number of trains on data", Number, 1000)
       this.option('neurons', "Number of neurons on data", Number, 1000)
-      this.option('depth', "Decisions... decisions...", 2)
+      this.option('depth', "Decisions... decisions... Don't change this.", Number, 2)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')		
-      this.option('min_periods', "min_periods", Number, 1250)		
+      this.option('min_periods', "Any number larger than trendtrades_1", Number, 1250)		
     },		
     calculate: function (s) {		
       get('lib.ema')(s, 'neural', s.options.neural)		
