@@ -1,4 +1,4 @@
-#./zenbot.sh sim --strategy=stddev --period=10s --days=7
+#sudo ./zenbot.sh sim --strategy=stddev --trendtrades_1=160 --min_periods=160 --period=10s --days=7
 var np = require('numjs')
 var z = require('zero-fill')
 var stats = require('stats-lite')
