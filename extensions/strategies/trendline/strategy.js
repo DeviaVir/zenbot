@@ -1,4 +1,3 @@
-#sudo ./zenbot.sh sim --strategy=trendline --trendtrades_1=53 --min_periods=75 --period=10s --days=7
 var np = require('numjs')
 var z = require('zero-fill')
 var stats = require('stats-lite')
@@ -11,9 +10,9 @@ module.exports = function container (get, set, clear) {
     description: 'Trade when % change from last two 1m periods is higher than average.',
     getOptions: function () {
       this.option('period', 'period length', String, '10s')
-      this.option('trendtrades_1', "Doesnt really matter, will fix later", Number, 53)
+      this.option('trendtrades_1', "N/A", Number, 100)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "min_periods", Number, 75)
+      this.option('min_periods', "min_periods", Number, 1250)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'trendline', s.options.trendline)
@@ -34,21 +33,22 @@ module.exports = function container (get, set, clear) {
 },
     onPeriod: function (s, cb) {
             if (
-                  (s.growth < 1.0006)
+                  (s.growth < 0.9990)
                ) {
-                  s.signal = 'sell'
+                   s.signal = 'Buy'
               }
             else if (
-                  (s.growth >  1.0006)
+                  (s.growth > 1.0010)
                ) {
-                  s.signal = 'buy'
+                   s.signal = 'Sell'
                }
       cb()
     },
 
     onReport: function (s) {
       var cols = []
-      cols.push(z(s.signal, ' ')[s.signal === false ? 'red' : 'green'])
+      cols.push(z(s.signal, ' ')[s.signal === 'Sell' ? 'red' : 'green'])
+      cols.push(z(s.signal, ' ')[s.signal === 'Buy' ? 'green' : 'red'])
             return cols
       },
     }
