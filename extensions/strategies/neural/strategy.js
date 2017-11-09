@@ -10,7 +10,7 @@ module.exports = function container (get, set, clear) {
       this.option('trendtrades_1', "Trades to learn from", Number, 150)
       this.option('trains', "Number of trains on data", Number, 50)
       this.option('neurons', "Number of neurons on data", Number, 250)
-      this.option('depth', "What does this do???", Number, 100)
+      this.option('depth', "What does this do??? Neuron pathways?", Number, 2)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')		
       this.option('min_periods', "Any number larger than trendtrades_1", Number, 1250)		
     },		
@@ -21,7 +21,7 @@ module.exports = function container (get, set, clear) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }		
           // create a net out of it		
           var net = new convnetjs.Net();		
-          var d = 2;		
+          var d = s.options.depth;		
           var layer_defs = [];		
           layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:d});		
           layer_defs.push({type:'fc', num_neurons:s.options.neurons, activation:'sigmoid'});		
