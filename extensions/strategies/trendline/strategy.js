@@ -33,14 +33,14 @@ module.exports = function container (get, set, clear) {
 },
     onPeriod: function (s, cb) {
             if (
-                  (s.growth < 0.9990)
+                  (s.growth < 0.9995)
                ) {
-                   s.signal = 'Buy'
+                   s.signal = 'sell'
               }
             else if (
-                  (s.growth > 1.0010)
+                  (s.growth > 1.0005)
                ) {
-                   s.signal = 'Sell'
+                   s.signal = 'buy'
                }
       cb()
     },
