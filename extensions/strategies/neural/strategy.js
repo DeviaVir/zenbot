@@ -37,9 +37,9 @@ module.exports = function container (get, set, clear) {
                 
          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.2, batch_size:1, l2_decay:0.001});         
                 
-         var learn = function () {              
-           for(var j = 0; j < s.options.trains; j++) {  
-              for(var i = my_data.length; i > my_data.length - d; i--) {
+         var learn = function () {             
+             for(var j = 0; j < s.options.trains; j++) {			                
+ -               for(var i = 0; i < my_data.length - d; i++) {
                  var data = my_data.slice(i, i + d);            
                  var real_value = [my_data[i + d]];             
                  var x = new convnetjs.Vol(data);
