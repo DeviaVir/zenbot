@@ -1,7 +1,4 @@
-var np = require('numjs')
-var z = require('zero-fill')
 var stats = require('stats-lite')
-var n = require('numbro')
 var math = require('mathjs')
 var trend = require('trend')
 module.exports = function container (get, set, clear) {
