@@ -46,8 +46,8 @@ module.exports = function container (get, set, clear) {
                  trainer.train(x, real_value);          
              }
            }
-         var predicted_values = net.forward(x);         
-         s.value = predicted_values.w[0]                
+         var predicted_values = net.forward(x);
+         s.value = predicted_values.w[0] - math.mean(tl1)              
          }              
          learn();                       
          console.log(s.value)
