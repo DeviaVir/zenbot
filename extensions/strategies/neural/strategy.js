@@ -51,7 +51,7 @@ module.exports = function container (get, set, clear) {
          }              
          learn();                       
          console.log(s.value)
-         s.sig = s.value - math.mean(tl1)               
+         s.sig = s.value            
   }             
 },              
     onPeriod: function (s, cb) {                
