@@ -6,11 +6,11 @@ module.exports = function container (get, set, clear) {
     name: 'neural',		
     description: 'Trade when % change from last two 1m periods is higher than average.',		
     getOptions: function () {		
-      this.option('period', 'period length', String, '10s')		
-      this.option('trendtrades_1', "Trades to learn from", Number, 1000)
-      this.option('trains', "Number of trains on data", Number, 1000)
-      this.option('neurons', "Number of neurons on data", Number, 1000)
-      this.option('depth', "Decisions... decisions... Don't change this.", Number, 2)
+      this.option('period', 'period length', String, '1m')		
+      this.option('trendtrades_1', "Trades to learn from", Number, 150)
+      this.option('trains', "Number of trains on data", Number, 50)
+      this.option('neurons', "Number of neurons on data", Number, 250)
+      this.option('depth', "What does this do???", Number, 100)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')		
       this.option('min_periods', "Any number larger than trendtrades_1", Number, 1250)		
     },		
