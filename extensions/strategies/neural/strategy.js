@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
     description: 'Use neural learning to predict future price. Starts when min_period lasts longer than backfill.',
     getOptions: function () {
       this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
-      this.option('trendtrades_1', "Trades to learn from and calculate mean from. (prediction - mean > 0 = buy)", Number, 100)
+      this.option('trendtrades_1', "Trades to learn from and calculate mean from. (prediction - mean > 0 = buy)", Number, 25)
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
       this.option('neurons_1', "Neurons in layer 1", Number, 10)
       this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
