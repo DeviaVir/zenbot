@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
     getOptions: function () {
       this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms', String, '100ms')
       this.option('trendtrades_1', "Trades for array 1 to be subtracted stddev and mean from", Number, 5)
-      this.option('trendtrades_2', "Trades for array 2 to be subtracted", Number, 43)
+      this.option('trendtrades_2', "Trades for array 2 to be calculated stddev and mean from", Number, 53)
       this.option('min_periods', "min_periods", Number, 1250)
     },
     calculate: function (s) {
