@@ -25,27 +25,26 @@ module.exports = function container (get, set, clear) {
           s.mean1 = math.mean(tl1)
           s.sig0 = s.std0 > s.std1 ? 'Up' : 'Down';
           s.sig1 = s.mean0 > s.mean1 ? 'Up' : 'Down';
-   }
-},
+    }
+  },
     onPeriod: function (s, cb) {
-            if (
-                  s.sig1 === 'Down'
-               ) {
-                  s.signal = 'sell'
-               }
-            else if (
-                  s.sig0 === 'Up'
-                  && s.sig1 === 'Up'
-               ) {   
-                  s.signal = 'buy'
-               }
-      cb()
-    },
-
+      if (
+          s.sig1 === 'Down'
+         ) {
+          s.signal = 'sell'
+         }
+      else if (
+          s.sig0 === 'Up'
+          && s.sig1 === 'Up'
+         ) {   
+          s.signal = 'buy'
+         }
+    cb()
+  },
     onReport: function (s) {
       var cols = []
       cols.push(z(s.signal, ' ')[s.signal === false ? 'red' : 'green'])
       return cols
-      },
-    }
+    },
   }
+}
