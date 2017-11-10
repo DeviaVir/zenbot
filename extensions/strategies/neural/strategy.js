@@ -19,7 +19,7 @@ module.exports = function container (get, set, clear) {
       this.option('neurons_3', "Neurons in layer 3", Number, 50)
       this.option('depth', "Don't change this / N/A", Number, 1)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Set this to greater than trendtrades_1", Number, 999)
+      this.option('min_periods', "Set this to greater than trendtrades_1", Number, 1000)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
