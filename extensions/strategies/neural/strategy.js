@@ -6,7 +6,7 @@ var math = require('mathjs');
 module.exports = function container (get, set, clear) {
   return {
     name: 'neural',
-    description: 'Use neural learning to predict future price. Starts when trades loaded have reached 2 * min_periods',
+    description: 'Use neural learning to predict future price. Starts when min_period lasts longer than backfill.',
     getOptions: function () {
       this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
       this.option('trendtrades_1', "Trades to learn from and calculate mean from. (predixtion - mean > 0 = buy)", Number, 1000)
@@ -19,12 +19,13 @@ module.exports = function container (get, set, clear) {
       this.option('neurons_3', "Neurons in layer 3", Number, 50)
       this.option('depth', "Don't change this / N/A", Number, 1)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Set this to greater than trendtrades_1", Number, 1000)
+      this.option('min_periods', "Set this to slightly less than trendtrades_1", Number, 1000)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
       var tl1 = []
-      if (s.lookback[s.options.min_periods * 1.5]) {
+      // Soemething needs to be done about this line below, s.lookback.length is always too early.
+      if (s.lookback.length > s.options.min_periods) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }
           // create a net out of it
           var net = new convnetjs.Net();
