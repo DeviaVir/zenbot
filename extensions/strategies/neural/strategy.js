@@ -16,12 +16,8 @@ module.exports = function container (get, set, clear) {
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Set this to same as trendtrades_1", Number, 250)
       this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 300)
-      this.option('momentum', "momentum of prediction", Number, 0.5)
+      this.option('momentum', "momentum of prediction", Number, 0.1)
     },
-    calculate: function (s) {
-      get('lib.ema')(s, 'neural', s.options.neural)
-      var tl1 = []
-      // Soemething needs to be done about this line below, s.lookback.length is always too early.
       if (s.lookback[s.options.start_trigger]) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }
           // create a net out of it
@@ -33,8 +29,8 @@ module.exports = function container (get, set, clear) {
           layer_defs.push({type:'regression', num_neurons:1});
           var net = new convnetjs.Net();
           net.makeLayers(layer_defs);
-          var my_data = tl1
-          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:0.001});
+          var my_data = tl1.reverse()
+          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.1, batch_size:1, l2_decay:0.001});
 
           var learn = function () {
              for(var j = 0; j < 100; j++){
@@ -54,24 +50,29 @@ module.exports = function container (get, set, clear) {
           }
 
          learn();
-         var item = tl1;
+         var item = tl1.reverse();
          s.prediction = predict(item)
          s.sig = s.prediction - tl1[0]
-        }
+         }
     },
 
 
     onPeriod: function (s, cb) {
         if (
-            // for some reason I swapped this
-            s.sig < 0
+           s.sig > 0
+           && s.bought === 'bought'
            )
            {
-            s.signal = 'buy'
+            s.signal = 'sell'
+            s.bought = 'sold'
            }
-        else
+        else if
+           (
+           s.sig < 0
+           )
            {
-           s.signal = 'sell'
+           s.signal = 'buy'
+           s.bought = 'bought'
            }
       cb()
     },
