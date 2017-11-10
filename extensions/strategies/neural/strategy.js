@@ -67,8 +67,8 @@ module.exports = function container (get, set, clear) {
            {
            s.signal = 'sell'
            }
-       cb()
-     },
+      cb()
+    },
 
     onReport: function (s) {
       var cols = []
