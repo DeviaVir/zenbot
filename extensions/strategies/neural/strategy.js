@@ -14,8 +14,8 @@ module.exports = function container (get, set, clear) {
       this.option('neurons_1', "Neurons in layer 1", Number, 20)
       this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Set this to same as trendtrades_1", Number, 9)
-      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 1000
+      this.option('min_periods', "Set this to same as trendtrades_1", Number, 1000)
+      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 1600
                  )
     },
     calculate: function (s) {
