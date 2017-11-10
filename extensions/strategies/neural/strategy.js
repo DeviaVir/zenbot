@@ -20,7 +20,7 @@ module.exports = function container (get, set, clear) {
       this.option('depth', "Don't change this / N/A", Number, 1)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Set this to same as trendtrades_1", Number, 1000)
-      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 1600)
+      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 1500)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
