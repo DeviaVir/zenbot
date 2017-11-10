@@ -75,7 +75,7 @@ module.exports = function container (get, set, clear) {
 
     onReport: function (s) {
       var cols = []
-      cols.push(z(8, n(s.value).format('00000.0000'), ' ')[s.sig > 0 ? 'green' : 'red'])
+      cols.push(z(8, n(s.output).format('00000.0000'), ' ')[s.sig > 0 ? 'green' : 'red'])
       return cols
     },
   }
