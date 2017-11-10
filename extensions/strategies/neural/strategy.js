@@ -15,8 +15,8 @@ module.exports = function container (get, set, clear) {
       this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Set this to same as trendtrades_1", Number, 250)
-      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 300
-                 )
+      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 300)
+      this.option('momentum', "momentum of prediction", Number, 0.5)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
@@ -34,7 +34,7 @@ module.exports = function container (get, set, clear) {
           var net = new convnetjs.Net();
           net.makeLayers(layer_defs);
           var my_data = tl1
-          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.2, batch_size:1, l2_decay:0.001});
+          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:0.001});
 
           var learn = function () {
              for(var j = 0; j < 100; j++){
