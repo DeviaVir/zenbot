@@ -6,7 +6,7 @@ var math = require('mathjs');
 module.exports = function container (get, set, clear) {
   return {
     name: 'neural',
-    description: 'Trade when % change from last two 1m periods is higher than average.',
+    description: 'Use neural learning to predict future price.',
     getOptions: function () {
       this.option('period', 'period length', String, '30s')
       this.option('trendtrades_1', "Trades to learn from and calculate mean from. (predixtion - mean > 0 = buy)", Number, 1000)
