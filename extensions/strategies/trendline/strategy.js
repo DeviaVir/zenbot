@@ -30,23 +30,24 @@ module.exports = function container (get, set, clear) {
   }
 },
     onPeriod: function (s, cb) {
-            if (
-                  (s.growth < 0.9991)
-               ) {
-                   s.signal = 'sell'
+      if (
+         s.growth < 0.9991
+         ) 
+         {
+           s.signal = 'sell'
+         }
+      else if (
+              s.growth > 1.0001
+              ) 
+              {
+              s.signal = 'buy'
               }
-            else if (
-                  (s.growth > 1.0001)
-               ) {
-                   s.signal = 'buy'
-               }
       cb()
     },
-
     onReport: function (s) {
       var cols = []
       cols.push(z(s.signal, ' ')[s.signal === 'Sell' ? 'red' : 'green'])
       return cols
-      },
-    }
+    },
   }
+}
