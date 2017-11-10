@@ -24,7 +24,7 @@ module.exports = function container (get, set, clear) {
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
       var tl1 = []
-      if (s.lookback[s.options.min_periods]) {
+      if (s.lookback[s.options.min_periods * 1.5]) {
           for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }
           // create a net out of it
           var net = new convnetjs.Net();
