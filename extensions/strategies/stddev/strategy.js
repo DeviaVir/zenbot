@@ -30,15 +30,17 @@ module.exports = function container (get, set, clear) {
     onPeriod: function (s, cb) {
       if (
           s.sig1 === 'Down'
-         ) {
+         )
+         {
           s.signal = 'sell'
          }
       else if (
-          s.sig0 === 'Up'
-          && s.sig1 === 'Up'
-         ) {   
-          s.signal = 'buy'
-         }
+              s.sig0 === 'Up'
+              && s.sig1 === 'Up'
+              ) 
+              {   
+              s.signal = 'buy'
+              }
     cb()
   },
     onReport: function (s) {
