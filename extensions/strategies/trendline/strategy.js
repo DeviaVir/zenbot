@@ -7,9 +7,10 @@ module.exports = function container (get, set, clear) {
     description: 'Trade when % change from last two 1m periods is higher than average.',
     getOptions: function () {
       this.option('period', 'period length', String, '10s')
-      this.option('trendtrades_1', "N/A", Number, 100)
-      this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "min_periods", Number, 1250)
+      this.option('trendtrades_1', "Number of trades to load into data", Number, 100)
+      this.option('lastpoints', "Number of short points at beginning of trendline", Number, 3)
+      this.option('avgpoints', "Number of long points at end of trendline", Number,  53)
+      this.option('min_periods', "Minimum trades to backfill with (trendtrades_1 + about ~10)", Number, 1250)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'trendline', s.options.trendline)
@@ -20,8 +21,8 @@ module.exports = function container (get, set, clear) {
           var chart = tl1
 
           growth = trend(chart, {
-              lastPoints: 3,
-              avgPoints: 53,
+              lastPoints: s.options.lastpoints,
+              avgPoints: s.options.avgpoints,
               avgMinimum: 10,
               reversed: true
          }),
@@ -30,12 +31,12 @@ module.exports = function container (get, set, clear) {
 },
     onPeriod: function (s, cb) {
             if (
-                  (s.growth < 0.9995)
+                  (s.growth < 0.9991)
                ) {
                    s.signal = 'sell'
               }
             else if (
-                  (s.growth > 1.0005)
+                  (s.growth > 1.0001)
                ) {
                    s.signal = 'buy'
                }
@@ -45,8 +46,7 @@ module.exports = function container (get, set, clear) {
     onReport: function (s) {
       var cols = []
       cols.push(z(s.signal, ' ')[s.signal === 'Sell' ? 'red' : 'green'])
-      cols.push(z(s.signal, ' ')[s.signal === 'Buy' ? 'green' : 'red'])
-            return cols
+      return cols
       },
     }
   }
