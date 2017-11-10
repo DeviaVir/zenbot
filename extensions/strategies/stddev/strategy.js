@@ -5,7 +5,7 @@ var math = require('mathjs');
 module.exports = function container (get, set, clear) {
   return {
     name: 'stddev',
-    description: 'Trade when % change from last two 1m periods is higher than average.',
+    description: 'Buy when standard deviation and mean increase, sell on mean decrease.',
     getOptions: function () {
       this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms', String, '100ms')
       this.option('trendtrades_1', "Trades for array 1 to be subtracted stddev and mean from", Number, 5)
