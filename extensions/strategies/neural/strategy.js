@@ -34,7 +34,7 @@ module.exports = function container (get, set, clear) {
           var net = new convnetjs.Net();
           net.makeLayers(layer_defs);
           var my_data = tl1
-          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.0, batch_size:1, l2_decay:0.001});
+          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.2, batch_size:1, l2_decay:0.001});
 
           var learn = function () {
              for(var j = 0; j < 100; j++){
