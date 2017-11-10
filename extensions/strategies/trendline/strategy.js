@@ -4,7 +4,7 @@ var trend = require('trend')
 module.exports = function container (get, set, clear) {
   return {
     name: 'trendline',
-    description: 'Trade when % change from last two 1m periods is higher than average.',
+    description: 'Calculate a trendline and trade when trend is positive vs negative.',
     getOptions: function () {
       this.option('period', 'period length', String, '10s')
       this.option('trendtrades_1', "Number of trades to load into data", Number, 100)
