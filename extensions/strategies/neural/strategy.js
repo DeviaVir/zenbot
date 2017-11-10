@@ -9,13 +9,14 @@ module.exports = function container (get, set, clear) {
     description: 'Use neural learning to predict future price. Starts when min_period lasts longer than backfill.',
     getOptions: function () {
       this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
-      this.option('trendtrades_1', "Trades to learn from and calculate mean from. (predixtion - mean > 0 = buy)", Number, 50)
+      this.option('trendtrades_1', "Trades to learn from and calculate mean from. (predixtion - mean > 0 = buy)", Number, 20)
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
       this.option('neurons_1', "Neurons in layer 1", Number, 20)
       this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Set this to same as trendtrades_1", Number, 9)
-      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 1500)
+      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 1000
+                 )
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
