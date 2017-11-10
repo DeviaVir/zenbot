@@ -8,7 +8,7 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price.',
     getOptions: function () {
-      this.option('period', 'period length', String, '30s')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
       this.option('trendtrades_1', "Trades to learn from and calculate mean from. (predixtion - mean > 0 = buy)", Number, 1000)
       this.option('trains', "Don't change this / N/A", Number, 1)
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
@@ -41,21 +41,24 @@ module.exports = function container (get, set, clear) {
           var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:0.2, batch_size:1, l2_decay:0.001});
 
           var learn = function () {
+             future = []
              for(var j = 0; j < s.options.trains; j++) {
                  for(var i = 0; i < my_data.length - d; i++) {
                  var data = my_data.slice(i, i + d);
                  var real_value = [my_data[i + d]];
                  var x = new convnetjs.Vol(data);
                  trainer.train(x, real_value);
+                 var predicted_values = net.forward(x);
+                 }
+               future.push(predicted_values.w[0])
              }
-             var predicted_values = net.forward(x);
-             s.value = predicted_values.w[0]
            }
-         }
-         learn();
-         s.sig = s.value - math.mean(tl1)
-  }
-},
+        learn();
+        s.output = math.mean(future)
+        s.sig = s.output - math.mean(tl1)
+      }
+    },
+
     onPeriod: function (s, cb) {
         if (
             s.sig > 0
