@@ -45,7 +45,7 @@ module.exports = function container (get, set, clear) {
     onReport: function (s) {
       var cols = []
       cols.push(z(s.signal, ' ')[s.signal === false ? 'red' : 'green'])
-            return cols
+      return cols
       },
     }
   }
