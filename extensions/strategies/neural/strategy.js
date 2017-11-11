@@ -12,8 +12,7 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value',
-String, '10s')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '10s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
       this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 100)
       this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 3)
