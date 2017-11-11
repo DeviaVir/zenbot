@@ -12,13 +12,13 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '10s')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
-      this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 100)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 3)
+      this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 5)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 1)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Periods to calculate learn from", Number, 200)
-      this.option('min_predict', "Periods to predict next number from", Number, 10)
+      this.option('min_periods', "Periods to calculate learn from", Number, 25)
+      this.option('min_predict', "Periods to predict next number from", Number, 3)
       this.option('momentum', "momentum of prediction", Number, 0.2)
       this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0)
     },
@@ -69,7 +69,7 @@ module.exports = function container (get, set, clear) {
     },
     onPeriod: function (s, cb) {
         if (
-           s.sig0 === 'False'
+           s.sig0 === 'True'
            && bought === 'bought'
            )
            {
@@ -78,7 +78,7 @@ module.exports = function container (get, set, clear) {
            }
         else if
            (
-           s.sig0 === 'True'
+           s.sig0 === 'False'
            && bought === 'sold'
            )
            {
@@ -89,8 +89,8 @@ module.exports = function container (get, set, clear) {
     },
     onReport: function (s) {
       cols = []
-      cols.push(z(8, n(s.mean).format('0000.00'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
-      cols.push(z(8, n(s.meanp).format('0000.00'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
+      cols.push(z(8, n(s.mean).format('0000.00'), ' ')[s.meanp < s.mean ? 'green' : 'red'])
+      cols.push(z(8, n(s.meanp).format('0000.00'), ' ')[s.meanp < s.mean ? 'green' : 'red'])
       return cols
     },
   }
