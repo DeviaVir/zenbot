@@ -57,7 +57,7 @@ module.exports = function container (get, set, clear) {
          // again, array must be reversed.
          var item = tlp.reverse();
          s.prediction = predict(item)
-         s.sig = tl1[0] > s.prediction ? 'True' : 'False'
+         s.sig = s.prediction < tlp[0] ? 'True' : 'False'
          }
     },
     onPeriod: function (s, cb) {
