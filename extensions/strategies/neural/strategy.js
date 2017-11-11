@@ -8,10 +8,10 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price. Starts when min_period lasts longer than backfill.',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '1s')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '10s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
-      this.option('neurons_1', "Neurons in layer 1", Number, 10)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
+      this.option('neurons_1', "Neurons in layer 1", Number, 1)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 2)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Periods to calculate learn from", Number, 10000)
       this.option('min_predict', "Periods to predict next number from", Number, 10)
@@ -22,8 +22,8 @@ module.exports = function container (get, set, clear) {
       var tlp = []
       var tll = []
       if (s.lookback[s.options.min_periods]) {
-          for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
-          for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
+          for (let i = 0; i < s.options.min_periods; i++) { tll.push(math.round(s.lookback[i].close)) }
+          for (let i = 0; i < s.options.min_predict; i++) { tlp.push(math.round(s.lookback[i].close)) }
           // create a net out of it
           var net = new convnetjs.Net();
           var d = s.options.depth;
@@ -31,10 +31,10 @@ module.exports = function container (get, set, clear) {
           layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:d});
           // add another fc layer for more neurons
           layer_defs.push({type:'fc', num_neurons:s.options.neurons_1, activation:s.options.activation_1_type});
+          // keep regression neurons at 1 otherwise error
           layer_defs.push({type:'regression', num_neurons:1});
           var net = new convnetjs.Net();
           net.makeLayers(layer_defs);
-          // Array must be reversed to get next value to train
           var my_data = tll.reverse()
           var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:0.001});
           var learn = function () {
@@ -54,7 +54,6 @@ module.exports = function container (get, set, clear) {
             return predicted_value.w[0];
           }
          learn();
-         // again, array must be reversed.
          var item = tlp.reverse();
          s.prediction = predict(item)
          s.sig = s.prediction < tlp[0] ? 'True' : 'False'
@@ -68,7 +67,6 @@ module.exports = function container (get, set, clear) {
            {
             s.signal = 'sell'
             s.bought = 'sold'
-
            }
         else if
            (
