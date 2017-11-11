@@ -20,7 +20,7 @@ module.exports = function container (get, set, clear) {
       this.option('min_periods', "Periods to calculate learn from", Number, 200)
       this.option('min_predict', "Periods to predict next number from", Number, 10)
       this.option('momentum', "momentum of prediction", Number, 0.2)
-      this.option('decay', "decay of prediction", Number, 000.000)
+      this.option('decay', "decay of prediction", Number, 0.0)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
