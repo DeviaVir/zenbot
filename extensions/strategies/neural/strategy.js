@@ -94,8 +94,8 @@ String, '10s')
       cb()
     },
     onReport: function (s) {
-      cols.push(z(8, n(s.mean).format('00000.0000'), ' ')[s.mean < s.meanp ? 'green' : 'red'])
-      cols.push(z(8, n(s.meanp).format('00000.0000'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
+      cols.push(z(8, n(s.mean).format('0000.00'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
+      cols.push(z(8, n(s.meanp).format('0000.00'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
       return cols
     },
   }
