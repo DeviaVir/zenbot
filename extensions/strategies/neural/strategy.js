@@ -85,8 +85,6 @@ module.exports = function container (get, set, clear) {
            s.signal = 'buy'
            bought = 'bought'
            }
-           bought = 'bought'
-           }
       cb()
     },
     onReport: function (s) {
