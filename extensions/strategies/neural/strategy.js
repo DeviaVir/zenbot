@@ -3,15 +3,19 @@ var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
 var math = require('mathjs');
+// the below line starts you on a sell signal
+var bought = 'bought'
+// the below line needs to be set to 0 to calculate a buy signal in loop
+var predictold = 0
 module.exports = function container (get, set, clear) {
   return {
     name: 'neural',
-    description: 'Use neural learning to predict future price. Starts when min_period lasts longer than backfill.',
+    description: 'Use neural learning to predict future price. Be careful. Numbers are rounded. Dont choose period below 10s',
     getOptions: function () {
       this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '10s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
-      this.option('neurons_1', "Neurons in layer 1", Number, 1)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 2)
+      this.option('neurons_1', "Neurons in layer 1", Number, 10)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Periods to calculate learn from", Number, 10000)
       this.option('min_predict', "Periods to predict next number from", Number, 10)
@@ -56,25 +60,28 @@ module.exports = function container (get, set, clear) {
          learn();
          var item = tlp.reverse();
          s.prediction = predict(item)
-         s.sig = s.prediction < tlp[0] ? 'True' : 'False'
+         s.sig0 = s.prediction < predictold ? 'True' : 'False'
+         predictold = s.prediction
+
          }
     },
     onPeriod: function (s, cb) {
         if (
-           s.sig === 'False'
-           && s.bought === 'bought'
+           s.sig0 === 'False'
+           && bought === 'bought'
            )
            {
             s.signal = 'sell'
-            s.bought = 'sold'
+            bought = 'sold'
            }
         else if
            (
-           s.sig === 'True'
+           s.sig0 === 'True'
+           && bought === 'sold'
            )
            {
            s.signal = 'buy'
-           s.bought = 'bought'
+           bought = 'bought'
            }
       cb()
     },
