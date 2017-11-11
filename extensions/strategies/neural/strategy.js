@@ -26,8 +26,8 @@ module.exports = function container (get, set, clear) {
       var tlp = []
       var tll = []
       if (s.lookback[s.options.min_periods]) {
-          for (let i = 0; i < s.options.min_periods; i++) { tll.push(math.round(s.lookback[i].close)) }
-          for (let i = 0; i < s.options.min_predict; i++) { tlp.push(math.round(s.lookback[i].close)) }
+          for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
+          for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
           // create a net out of it
           var net = new convnetjs.Net();
           var d = s.options.depth;
@@ -60,7 +60,7 @@ module.exports = function container (get, set, clear) {
          learn();
          var item = tlp.reverse();
          s.prediction = predict(item)
-         s.sig0 = s.prediction < predictold ? 'True' : 'False'
+         s.sig0 = s.prediction > predictold ? 'True' : 'False'
          predictold = s.prediction
 
          }
