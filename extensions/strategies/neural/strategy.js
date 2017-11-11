@@ -8,18 +8,19 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price. Starts when min_period lasts longer than backfill.',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
-      this.option('trendtrades_1', "Trades to learn from and calculate mean from. (prediction - mean > 0 = buy)", Number, 25)
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '1s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
-      this.option('neurons_1', "Neurons in layer 1", Number, 10)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
+      this.option('neurons_1', "Neurons in layer 1", Number, 1)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 2)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Set this to same as trendtrades_1", Number, 250)
-      this.option('start_trigger', "Minimum trades to start calculating after x trades load", Number, 300)
-      this.option('momentum', "momentum of prediction", Number, 0.1)
+      this.option('min_periods', "Periods to calculate from", Number, 10)
+      this.option('momentum', "momentum of prediction", Number, 0.2)
     },
-      if (s.lookback[s.options.start_trigger]) {
-          for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }
+    calculate: function (s) {
+      get('lib.ema')(s, 'neural', s.options.neural)
+      var tl1 = []
+      if (s.lookback[s.options.min_periods]) {
+          for (let i = 0; i < s.lookback.length; i++) { tl1.push(s.lookback[i].close) }
           // create a net out of it
           var net = new convnetjs.Net();
           var d = s.options.depth;
@@ -31,7 +32,6 @@ module.exports = function container (get, set, clear) {
           net.makeLayers(layer_defs);
           var my_data = tl1.reverse()
           var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:0.001});
-
           var learn = function () {
              for(var j = 0; j < 100; j++){
                  for (var i = 0; i < my_data.length - d; i++) {
@@ -48,18 +48,16 @@ module.exports = function container (get, set, clear) {
             var predicted_value = net.forward(x);
             return predicted_value.w[0];
           }
-
          learn();
          var item = tl1.reverse();
          s.prediction = predict(item)
-         s.sig = s.prediction - tl1[0]
+         s.sig = tl1[0] > s.prediction ? 'True' : 'False'
          }
     },
-
-
     onPeriod: function (s, cb) {
+        // Buy low sell high
         if (
-           s.sig > 0
+           s.sig === 'False'
            && s.bought === 'bought'
            )
            {
@@ -68,7 +66,7 @@ module.exports = function container (get, set, clear) {
            }
         else if
            (
-           s.sig < 0
+           s.sig === 'True'
            )
            {
            s.signal = 'buy'
@@ -76,10 +74,9 @@ module.exports = function container (get, set, clear) {
            }
       cb()
     },
-
     onReport: function (s) {
       var cols = []
-      cols.push(z(8, n(s.output).format('00000.0000'), ' ')[s.sig > 0 ? 'green' : 'red'])
+      cols.push(z(8, n(s.prediction).format('00000.0000'), ' ')[s.sig === 'True' ? 'green' : 'red'])
       return cols
     },
   }
