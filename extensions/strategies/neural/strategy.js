@@ -5,21 +5,23 @@ var n = require('numbro')
 var math = require('mathjs');
 // the below line starts you on a sell signal
 var bought = 'bought'
-// the below line needs to be set to 0 to calculate a buy signal in loop
-var predictold = 0
+// the beow line is for calculating the last mean vs the now mean.
+var oldmean = 0
 module.exports = function container (get, set, clear) {
   return {
     name: 'neural',
-    description: 'Use neural learning to predict future price. Be careful. Numbers are rounded. Dont choose period below 10s',
+    description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '10s')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value',
+String, '10s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
-      this.option('neurons_1', "Neurons in layer 1", Number, 10)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
+      this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 100)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 3)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Periods to calculate learn from", Number, 10000)
+      this.option('min_periods', "Periods to calculate learn from", Number, 200)
       this.option('min_predict', "Periods to predict next number from", Number, 10)
       this.option('momentum', "momentum of prediction", Number, 0.2)
+      this.option('decay', "decay of prediction", Number, 000.000)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'neural', s.options.neural)
@@ -40,9 +42,9 @@ module.exports = function container (get, set, clear) {
           var net = new convnetjs.Net();
           net.makeLayers(layer_defs);
           var my_data = tll.reverse()
-          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:0.001});
+          var trainer = new convnetjs.SGDTrainer(net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:s.options.decay});
           var learn = function () {
-             for(var j = 0; j < 10; j++){
+             for(var j = 0; j < 100; j++){
                  for (var i = 0; i < my_data.length - d; i++) {
                    var data = my_data.slice(i, i + d);
                    var real_value = [my_data[i + d]];
@@ -60,12 +62,16 @@ module.exports = function container (get, set, clear) {
          learn();
          var item = tlp.reverse();
          s.prediction = predict(item)
-         s.sig0 = s.prediction > predictold ? 'True' : 'False'
-         predictold = s.prediction
-
+         s.mean = math.mean(tlp[0], tlp[1], tlp[2])
+         s.meanp = math.mean(s.prediction, oldmean)
+         s.sig0 = s.mean < s.meanp ? 'True' : 'False'
+         oldmean = s.prediction
          }
     },
     onPeriod: function (s, cb) {
+        console.log('Signal :' + s.sig0)
+        console.log('Actual :' + s.mean)
+        console.log('Prediction :' + s.meanp)
         if (
            s.sig0 === 'False'
            && bought === 'bought'
@@ -83,12 +89,16 @@ module.exports = function container (get, set, clear) {
            s.signal = 'buy'
            bought = 'bought'
            }
+           bought = 'bought'
+           }
       cb()
     },
     onReport: function (s) {
-      var cols = []
-      cols.push(z(8, n(s.prediction).format('00000.0000'), ' ')[s.sig === 'True' ? 'green' : 'red'])
+      cols.push(z(8, n(s.mean).format('00000.0000'), ' ')[s.mean < s.meanp ? 'green' : 'red'])
+      cols.push(z(8, n(s.meanp).format('00000.0000'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
       return cols
     },
   }
 }
+
+
