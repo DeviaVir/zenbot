@@ -69,9 +69,6 @@ String, '10s')
          }
     },
     onPeriod: function (s, cb) {
-        console.log('Signal :' + s.sig0)
-        console.log('Actual :' + s.mean)
-        console.log('Prediction :' + s.meanp)
         if (
            s.sig0 === 'False'
            && bought === 'bought'
