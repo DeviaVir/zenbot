@@ -32,7 +32,7 @@ module.exports = function container (get, set, clear) {
 },
     onPeriod: function (s, cb) {
       if (
-         s.growth < 0.9991
+         s.growth < 0.9999
          ) 
          {
            s.signal = 'sell'
