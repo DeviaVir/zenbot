@@ -1,6 +1,7 @@
 var stats = require('stats-lite')
 var math = require('mathjs')
 var trend = require('trend')
+var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'trendline',
