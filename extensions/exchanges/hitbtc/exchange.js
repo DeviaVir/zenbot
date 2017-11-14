@@ -171,7 +171,6 @@ module.exports = function container (get, set, clear) {
       })
     },
 
-
     getOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
