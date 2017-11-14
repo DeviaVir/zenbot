@@ -7,7 +7,7 @@ module.exports = function container (get, set, clear) {
   var public_client, authed_client
 
   function publicClient () {
-    if (!public_client) public_client = new ccxt.hitbtc({ 'apiKey': '', 'secret': '' })
+    if (!public_client) public_client = new ccxt.hitbtc2({ 'apiKey': '', 'secret': '' })
     return public_client
   }
 
@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
       if (!c.hitbtc || !c.hitbtc.key || !c.hitbtc.key === 'YOUR-API-KEY') {
         throw new Error('please configure your HitBTC credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.hitbtc({ 'apiKey': c.hitbtc.key, 'secret': c.hitbtc.secret })
+      authed_client = new ccxt.hitbtc2({ 'apiKey': c.hitbtc.key, 'secret': c.hitbtc.secret })
     }
     return authed_client
   }
@@ -46,37 +46,53 @@ module.exports = function container (get, set, clear) {
       return require('./products.json')
     },
 
-    getTrades: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
-      var args = {
-        id: joinProduct(opts.product_id),
-        'side': true,
-        'by': 'ts'
-      }
-      if (opts.from) {
-        args.from = opts.from
-      }
-      if (opts.to) {
-        args.till = opts.to
-      }
-      var client = publicClient()
-      client.fetchTrades(joinProduct(opts.product_id), args).then(result => {
-        var trades = result.map(function (trade) {
-          return {
-            trade_id: trade.id,
-            time: trade.timestamp,
-            size: parseFloat(trade.amount),
-            price: parseFloat(trade.price),
-            side: trade.side
-          }
-        })
-        cb(null, trades)
-      })
-        .catch(function (error) {
-          console.error('An error occurred', error)
-          return retry('getTrades', func_args)
+    getTradesTheRock: function (args, cb, trades=[]) {
+      let _this = this
+      let client = publicClient()
+      let market = client.market(args.id)
+      client.request(
+        `trades/${args.id}`,
+        'public', 'GET', args
+      ).then(function(response) {
+        trades = trades.concat(response['trades'])
+          return _this.getTradesTheRock(args, cb, trades)
+          return cb(client.parseTrades (trades, market))
         })
     },
+
+
+
+        getTrades: function (opts, cb) {
+          var func_args = [].slice.call(arguments)
+          var args = {
+            id: joinProduct(opts.product_id),
+            'side': true,
+            'by': 'ts'
+          }
+          if (opts.from) {
+            args.from = opts.from
+          }
+          if (opts.to) {
+            args.till = opts.to
+          }
+          var client = publicClient()
+          client.fetchTrades(joinProduct(opts.product_id), args).then(result => {
+            var trades = result.map(function (trade) {
+              return {
+                trade_id: trade.id,
+                time: trade.timestamp,
+                size: parseFloat(trade.amount),
+                price: parseFloat(trade.price),
+                side: trade.side
+              }
+            })
+            cb(null, trades)
+          })
+            .catch(function (error) {
+              console.error('An error occurred', error)
+              return retry('getTrades', func_args)
+            })
+        },
 
     getBalance: function (opts, cb) {
       var func_args = [].slice.call(arguments)
