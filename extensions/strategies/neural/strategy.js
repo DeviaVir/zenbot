@@ -85,8 +85,8 @@ module.exports = function container (get, set, clear) {
     },
     onReport: function (s) {
       cols = []
-      cols.push(z(8, n(s.mean).format('0000.00'), ' ')[s.meanp < s.mean ? 'green' : 'red'])
-      cols.push(z(8, n(s.meanp).format('0000.00'), ' ')[s.meanp < s.mean ? 'green' : 'red'])
+      cols.push(z(8, n(s.mean).format('0000.00'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
+      cols.push(z(8, n(s.meanp).format('0000.00'), ' ')[s.meanp > s.mean ? 'green' : 'red'])
       return cols
     },
   }
