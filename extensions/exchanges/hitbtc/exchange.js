@@ -7,7 +7,7 @@ module.exports = function container (get, set, clear) {
   var public_client, authed_client
 
   function publicClient () {
-    if (!public_client) public_client = new ccxt.hitbtc({ 'apiKey': '', 'secret': '' })
+    if (!public_client) public_client = new ccxt.hitbtc2({ 'apiKey': '', 'secret': '' })
     return public_client
   }
 
@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
       if (!c.hitbtc || !c.hitbtc.key || !c.hitbtc.key === 'YOUR-API-KEY') {
         throw new Error('please configure your HitBTC credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.hitbtc({ 'apiKey': c.hitbtc.key, 'secret': c.hitbtc.secret })
+      authed_client = new ccxt.hitbtc2({ 'apiKey': c.hitbtc.key, 'secret': c.hitbtc.secret })
     }
     return authed_client
   }
@@ -31,7 +31,7 @@ module.exports = function container (get, set, clear) {
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 20000)
+    }, 5000)
   }
 
   var orders = {}
@@ -48,19 +48,8 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      var args = {
-        id: joinProduct(opts.product_id),
-        'side': true,
-        'by': 'ts'
-      }
-      if (opts.from) {
-        args.from = opts.from
-      }
-      if (opts.to) {
-        args.till = opts.to
-      }
       var client = publicClient()
-      client.fetchTrades(joinProduct(opts.product_id), args).then(result => {
+      client.fetchTrades(joinProduct(opts.product_id)).then(result => {
         var trades = result.map(function (trade) {
           return {
             trade_id: trade.id,
@@ -92,8 +81,8 @@ module.exports = function container (get, set, clear) {
             balance.asset = result[key].free
             balance.asset_hold = result[key].used
           }
-          cb(null, balance)
         })
+        cb(null, balance)
       })
         .catch(function (error) {
           console.error('An error occurred', error)
