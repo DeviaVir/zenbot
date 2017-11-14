@@ -1,8 +1,10 @@
-var convnetjs = require('convnetjs');
+var convnetjs = require('convnetjs')
 var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
-var math = require('mathjs');
+var math = require('mathjs')
+var cluster = require('cluster')
+var numCPUs = require('os').cpus().length;
 // the below line starts you on a sell signal
 var bought = 'bought'
 // the beow line is for calculating the last mean vs the now mean.
@@ -26,12 +28,20 @@ module.exports = function container (get, set, clear) {
 
     },
     onPeriod: function (s, cb) {
+    if (cluster.isMaster) {
+     // Fork workers.
+      for (var i = 0; i < numCPUs; i++) {
+        cluster.fork();
+      }
+      cluster.on('exit', function(worker, code, signal) {
+      console.log('worker ' + worker.process.pid + ' died');
+      });
+    } else {
+
         // do the network thing
         var tlp = []
         var tll = []
         if (s.neural === undefined) {
-            console.log()
-            console.log ('creating net')
             // Create the net the first time it is needed and NOT on every run
             s.neural = {
                 net : new convnetjs.Net(),
@@ -74,8 +84,7 @@ module.exports = function container (get, set, clear) {
             s.sig0 = s.meanp > s.mean
             oldmean = s.prediction
         }
-
-
+      }
 
         // NORMAL onPeriod STUFF here
         if (

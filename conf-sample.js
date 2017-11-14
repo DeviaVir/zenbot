@@ -11,9 +11,9 @@ c.mongo.password = null
 c.mongo.replicaSet = null
 
 // default selector. only used if omitting [selector] argument from a command.
-c.selector = 'gdax.BTC-USD'
+c.selector = 'gdax.LTC-USD'
 // name of default trade strategy
-c.strategy = 'trend_ema'
+c.strategy = 'neural'
 
 // Exchange API keys:
 
@@ -119,9 +119,9 @@ c.order_adjust_time = 5000
 // avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
 // ms to poll order status set extremely low for overclock/speed strats (in seconds or ms)
-c.order_poll_time = 5000
+c.order_poll_time = 250
 // ms to wait for settlement (after an order cancel)
-c.wait_for_settlement = 5000
+c.wait_for_settlement = 250
 // % to mark up or down price for orders
 c.markup_pct = 0
 // become a market taker (high fees) or a market maker (low fees)
@@ -134,7 +134,7 @@ c.post_only = true
 // default # days for backfill and sim commands
 c.days = 14
 // ms to poll new trades at - set extremely low for overclock/speed strats (in seconds or ms)
-c.poll_trades = 30000
+c.poll_trades = 250
 // amount of currency to start simulations with
 c.currency_capital = 1000
 // amount of asset to start simulations with
