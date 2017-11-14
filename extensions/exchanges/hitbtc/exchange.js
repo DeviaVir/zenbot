@@ -39,7 +39,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'hitbtc',
     historyScan: 'forward',
-    makerFee: 0.01,
+    makerFee: -0.01,
     takerFee: 0.1,
 
     getProducts: function () {
