@@ -61,7 +61,7 @@ module.exports = function container (get, set, clear) {
          learn();
          var item = tlp.reverse();
          s.prediction = predict(item)
-         s.mean = math.mean(tlp[0], tlp[1], tlp[2])
+         s.mean = math.mean(tll[0], tll[1], tll[2])
          s.meanp = math.mean(s.prediction, oldmean)
          s.sig0 = s.mean < s.meanp ? 'True' : 'False'
          oldmean = s.prediction
