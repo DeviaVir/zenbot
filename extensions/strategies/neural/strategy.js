@@ -63,27 +63,23 @@ module.exports = function container (get, set, clear) {
          s.prediction = predict(item)
          s.mean = math.mean(tll[0], tll[1], tll[2])
          s.meanp = math.mean(s.prediction, oldmean)
-         s.sig0 = s.mean < s.meanp ? 'True' : 'False'
+         s.sig0 = s.meanp > s.mean
          oldmean = s.prediction
          }
     },
     onPeriod: function (s, cb) {
         if (
-           s.sig0 === 'True'
-           && bought === 'bought'
+           s.sig0 === false
            )
            {
             s.signal = 'sell'
-            bought = 'sold'
            }
         else if
            (
-           s.sig0 === 'False'
-           && bought === 'sold'
+           s.sig0 === true
            )
            {
            s.signal = 'buy'
-           bought = 'bought'
            }
       cb()
     },
