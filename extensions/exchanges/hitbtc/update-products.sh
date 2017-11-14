@@ -2,13 +2,10 @@
 const ccxt = require ('ccxt')
 const c = require('../../../conf')
 
-const hitbtc = new ccxt.hitbtc ({
+const hitbtc = new ccxt.hitbtc2 ({
   'apiKey': c.hitbtc.key,
   'secret': c.hitbtc.secret,
 })
-
-
-
 
 hitbtc.fetch_markets('BTCUSD')
   .then(result =>   {
@@ -31,4 +28,3 @@ hitbtc.fetch_markets('BTCUSD')
     console.error('An error occurred', error)
     process.exit(1)
   })
-
