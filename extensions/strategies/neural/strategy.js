@@ -3,6 +3,8 @@ var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
 var math = require('mathjs')
+var napa = require('napajs');
+var train = napa.zone.create('train', { workers: 16 });
 // the beow line is for calculating the last mean vs the now mean.
 var oldmean = 0
 module.exports = function container (get, set, clear) {
@@ -44,9 +46,8 @@ module.exports = function container (get, set, clear) {
       if (s.lookback[s.options.min_periods]) {
           for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
           for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
-           var my_data = tll.reverse()
+          var my_data = tll.reverse()
           var learn = function () {
-              for(var j = 0; j < 500; j++){
                   for (var i = 0; i < my_data.length - s.neural.neuralDepth; i++) {
                       var data = my_data.slice(i, i + s.neural.neuralDepth);
                       var real_value = [my_data[i + s.neural.neuralDepth]];
@@ -54,14 +55,15 @@ module.exports = function container (get, set, clear) {
                       s.neural.trainer.train(x, real_value);
                       var predicted_values = s.neural.net.forward(x);
                   }
-              }
           }
           var predict = function(data){
               var x = new convnetjs.Vol(data);
               var predicted_value = s.neural.net.forward(x);
               return predicted_value.w[0];
           }
-          learn();
+          for(var j = 0; j < 500; j++){
+            train.execute(learn());
+          }
           var item = tlp.reverse();
           s.prediction = predict(item)
           s.mean = math.mean(tll[0], tll[1], tll[2])

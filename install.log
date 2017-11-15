@@ -1,0 +1,6 @@
+Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
+Hit:2 http://us.archive.ubuntu.com/ubuntu xenial InRelease
+Hit:3 http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu xenial InRelease
+Hit:4 http://us.archive.ubuntu.com/ubuntu xenial-updates InRelease
+Get:5 http://us.archive.ubuntu.com/ubuntu xenial-backports InRelease [102 kB]
+Hit:6 https://deb.nodesource.com/node_7.x xenial InRelease
