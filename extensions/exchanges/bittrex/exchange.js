@@ -82,16 +82,18 @@ module.exports = function container(get, set, clear) {
         }
 
         var trades = []
-        Object.keys(data.result).forEach(function (i) {
-          var trade = data.result[i]
-          trades.push({
-            trade_id: trade.Id,
-            time: moment(trade.TimeStamp).valueOf(),
-            size: parseFloat(trade.Quantity),
-            price: parseFloat(trade.Price),
-            side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
+        if (typeof data.result !== 'undefined') {
+          Object.keys(data.result).forEach(function (i) {
+            var trade = data.result[i]
+            trades.push({
+              trade_id: trade.Id,
+              time: moment(trade.TimeStamp).valueOf(),
+              size: parseFloat(trade.Quantity),
+              price: parseFloat(trade.Price),
+              side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
+            })
           })
-        })
+        }
         cb(null, trades)
       })
     },
