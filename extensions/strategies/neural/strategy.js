@@ -4,7 +4,9 @@ var stats = require('stats-lite')
 var n = require('numbro')
 var math = require('mathjs')
 var napa = require('napajs');
-var train = napa.zone.create('train', { workers: 16 });
+var zone2 = napa.zone.create('zone2', {
+    workers: 1
+});
 // the beow line is for calculating the last mean vs the now mean.
 var oldmean = 0
 module.exports = function container (get, set, clear) {
@@ -29,40 +31,35 @@ module.exports = function container (get, set, clear) {
       // do the network thing
       var tlp = []
       var tll = []
-      if (s.neural === undefined) {
           // Create the net the first time it is needed and NOT on every run
-          s.neural = {
-              net : new convnetjs.Net(),
-              layer_defs : [
-                  {type:'input', out_sx:1, out_sy:1, out_depth:s.options.depth},
-                  {type:'fc', num_neurons:s.options.neurons_1, activation:s.options.activation_1_type},
-                  {type:'regression', num_neurons:1}
-              ],
-              neuralDepth: s.options.depth,
-          }
-          s.neural.net.makeLayers(s.neural.layer_defs);
-          s.neural.trainer = new convnetjs.SGDTrainer(s.neural.net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:s.options.decay});
-      }
+          global.net = new convnetjs.Net(),
+          global.defs = [{type:'input', out_sx:1, out_sy:1, out_depth:s.options.depth}, {type:'fc', num_neurons:s.options.neurons_1, activation:s.options.activation_1_type}, {type:'regression', num_neurons:1}]
+          global.neuralDepth = s.options.depth
+          global.net.makeLayers(global.defs);
+          global.trainer = new convnetjs.SGDTrainer(global.net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:s.options.decay});
       if (s.lookback[s.options.min_periods]) {
           for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
           for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
-          var my_data = tll.reverse()
-          var learn = function () {
-                  for (var i = 0; i < my_data.length - s.neural.neuralDepth; i++) {
-                      var data = my_data.slice(i, i + s.neural.neuralDepth);
-                      var real_value = [my_data[i + s.neural.neuralDepth]];
-                      var x = new convnetjs.Vol(data);
-                      s.neural.trainer.train(x, real_value);
-                      var predicted_values = s.neural.net.forward(x);
-                  }
-          }
+          global.my_data = tll.reverse()
+          global.length = global.my_data.length
           var predict = function(data){
               var x = new convnetjs.Vol(data);
-              var predicted_value = s.neural.net.forward(x);
+              var predicted_value = global.net.forward(x);
               return predicted_value.w[0];
           }
-          for(var j = 0; j < 500; j++){
-            train.execute(learn());
+          //threading below by napajs for 500 training rounds a thread, the first line broadcasts the function, the second executes.
+          for (var j = 0; j < 500; j++){
+            function test() {
+               for (var i = 0; i < global.length - global.neuralDepth; i++) {
+                   var data = global.my_data.slice(i, i + global.neuralDepth);
+                   var real_value = [global.my_data[i + global.neuralDepth]];
+                   var x = new convnetjs.Vol(data);
+                   global.trainer.train(x, real_value);
+                   var predicted_values = global.net.forward(x);
+               };
+            };
+            zone2.broadcast(test.toString());
+            zone2.execute(() => { global.test(global.my_data, global.length, global.neuralDepth, global.trainer, global.net); }, []);
           }
           var item = tlp.reverse();
           s.prediction = predict(item)
