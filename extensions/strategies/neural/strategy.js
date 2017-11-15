@@ -3,8 +3,6 @@ var z = require('zero-fill')
 var stats = require('stats-lite')
 var n = require('numbro')
 var math = require('mathjs')
-// the below line starts you on a sell signal
-var bought = 'bought'
 // the beow line is for calculating the last mean vs the now mean.
 var oldmean = 0
 module.exports = function container (get, set, clear) {
