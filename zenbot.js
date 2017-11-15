@@ -1,3 +1,17 @@
+var cluster = require('cluster');
+cluster.setMaxListeners(0)
+var numCPUs = require('os').cpus().length;
+if (cluster.isMaster) {
+  // Fork workers.
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', function(worker, code, signal) {
+    console.log('worker ' + worker.process.pid + ' died');
+  });
+} else {
+
+
 
 var semver = require('semver')
 var version = require('./package.json').version
@@ -38,3 +52,4 @@ boot(function (err, zenbot) {
   }
   program.parse(process.argv)
 })
+}
