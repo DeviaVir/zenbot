@@ -82,7 +82,7 @@ module.exports = function container(get, set, clear) {
         }
 
         var trades = []
-        if (typeof data.result !== 'undefined') {
+        try {
           Object.keys(data.result).forEach(function (i) {
             var trade = data.result[i]
             trades.push({
@@ -93,6 +93,9 @@ module.exports = function container(get, set, clear) {
               side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
             })
           })
+        } catch (e) {
+          console.log('bittrex API (getmarkethistory). Retry in progress.  Error:' + e);
+          return retry('getTrades', func_args, e.toString());
         }
         cb(null, trades)
       })
