@@ -1,23 +1,22 @@
-var stats = require('stats-lite')
 var math = require('mathjs')
 var trend = require('trend')
 var z = require('zero-fill')
+var n = require('numbro')
 module.exports = function container (get, set, clear) {
   return {
     name: 'trendline',
     description: 'Calculate a trendline and trade when trend is positive vs negative.',
     getOptions: function () {
-      this.option('period', 'period length', String, '10s')
-      this.option('trendtrades_1', "Number of trades to load into data", Number, 100)
-      this.option('lastpoints', "Number of short points at beginning of trendline", Number, 3)
-      this.option('avgpoints', "Number of long points at end of trendline", Number,  53)
-      this.option('min_periods', "Minimum trades to backfill with (trendtrades_1 + about ~10)", Number, 1250)
+      this.option('period', 'period length', String, '100ms')
+      this.option('lastpoints', "Number of trades for short trend average", Number, 100)
+      this.option('avgpoints', "Number of trades for long trend average", Number, 1000)
+      this.option('min_periods', "avgpoints + 500", Number, 1500)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'trendline', s.options.trendline)
       var tl1 = []
       if (s.lookback[s.options.min_periods]) {
-          for (let i = 0; i < s.options.trendtrades_1; i++) { tl1.push(s.lookback[i].close) }
+          for (let i = 0; i < s.options.min_periods; i++) { tl1.push(s.lookback[i].close) }
 
           var chart = tl1
 
@@ -32,22 +31,22 @@ module.exports = function container (get, set, clear) {
 },
     onPeriod: function (s, cb) {
       if (
-         s.growth < 0.9999
-         ) 
+         s.growth < 1
+         )
          {
-           s.signal = 'sell'
+         s.signal = 'sell'
          }
       else if (
-              s.growth > 1.0001
-              ) 
-              {
-              s.signal = 'buy'
-              }
+         s.growth > 1
+         )
+         {
+         s.signal = 'buy'
+         }
       cb()
     },
     onReport: function (s) {
       var cols = []
-      cols.push(z(s.signal, ' ')[s.signal === 'Sell' ? 'red' : 'green'])
+      cols.push(z(8, n(s.growth).format('0.00000'), ' ')[s.growth > 1 ? 'green' : 'red'])
       return cols
     },
   }
