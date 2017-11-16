@@ -11,6 +11,7 @@ module.exports = function container (get, set, clear) {
       this.option('lastpoints', "Number of trades for short trend average", Number, 100)
       this.option('avgpoints', "Number of trades for long trend average", Number, 1000)
       this.option('min_periods', "avgpoints + 500", Number, 1500)
+      this.option('markup_pct', "Default Strategy Markup - Hard In The Paint Mode", Number, 0.01)
     },
     calculate: function (s) {
       get('lib.ema')(s, 'trendline', s.options.trendline)
