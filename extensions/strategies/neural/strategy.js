@@ -14,17 +14,17 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '1m')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
-      this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 5)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 3)
+      this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 1)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 5)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Periods to calculate learn from", Number, 100)
-      this.option('min_predict', "Periods to predict next number from", Number, 10)
-      this.option('momentum', "momentum of prediction", Number, 0)
+      this.option('min_periods', "Periods to calculate learn from", Number, 300)
+      this.option('min_predict', "Periods to predict next number from", Number, 100)
+      this.option('momentum', "momentum of prediction", Number, 0.9)
       this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0)
-      this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 8)
-      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 100)
+      this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 4)
+      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 10)
 
     },
     calculate: function (s) {
@@ -86,7 +86,8 @@ module.exports = function container (get, set, clear) {
         // NORMAL onPeriod STUFF here
         global.meanp = s.meanp
         global.mean = s.mean
-        global.sig0 = global.meanp > global.mean
+        //something strange is going on here
+        global.sig0 = global.meanp < global.mean
         if (
            global.sig0 === false
            )
