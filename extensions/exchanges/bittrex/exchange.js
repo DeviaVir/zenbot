@@ -95,7 +95,7 @@ module.exports = function container(get, set, clear) {
           })
         } catch (e) {
           console.log('bittrex API (getmarkethistory). Retry in progress.  Error:' + e);
-          return retry('getTrades', func_args, e.toString());
+          return retry('getTrades', func_args, {message: e.toString()});
         }
         cb(null, trades)
       })
