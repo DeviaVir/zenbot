@@ -287,13 +287,14 @@ neural
     --period=<value>  period length - make sure to lower your poll trades time to lower than this value (default: 5s)
     --activation_1_type=<value>  Neuron Activation Type: sigmoid, tanh, relu (default: sigmoid)
     --neurons_1=<value>  Neurons in layer 1 Shoot for atleast 100 (default: 5)
-    --depth=<value>  Rows of data to predict ahead for matches/learning (default: 9)
+    --depth=<value>  Rows of data to predict ahead for matches/learning (default: 3)
     --selector=<value>  Selector (default: Gdax.BTC-USD)
     --min_periods=<value>  Periods to calculate learn from (default: 100)
     --min_predict=<value>  Periods to predict next number from (default: 10)
     --momentum=<value>  momentum of prediction (default: 0)
     --decay=<value>  decay of prediction, use teeny tiny increments (default: 0)
     --threads=<value>  Number of processing threads you'd like to run (best for sim) (default: 8)
+    --learns=<value>  Number of times to 'learn' the neural network with past data (default: 100)
 
 rsi
   description:

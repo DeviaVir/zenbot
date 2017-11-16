@@ -8,7 +8,7 @@ const numCPUs = require('os').cpus().length;
 // the below line starts you at 0 threads
 global.forks = 0
 // the beow line is for calculating the last mean vs the now mean.
-global.oldmean = 0
+var oldmean = 0
 module.exports = function container (get, set, clear) {
   return {
     name: 'neural',
@@ -17,24 +17,21 @@ module.exports = function container (get, set, clear) {
       this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '5s')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
       this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 5)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 9)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 3)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
       this.option('min_periods', "Periods to calculate learn from", Number, 100)
       this.option('min_predict', "Periods to predict next number from", Number, 10)
       this.option('momentum', "momentum of prediction", Number, 0)
       this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0)
       this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 8)
+      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 100)
+
     },
     calculate: function (s) {
-      if (cluster.isMaster) {
-        get('lib.ema')(s, 'neural', s.options.neural)
-        if (global.forks < s.options.threads) { cluster.fork(); global.forks++; }
-      }
-      else if (cluster.isWorker) {
-        get('lib.ema')(s, 'neural', s.options.neural)
-        // do the network thing
-        var tlp = []
-        var tll = []
+      calculated = null
+    },
+    onPeriod: function (s, cb) {
+      get('lib.ema')(s, 'neural', s.options.neural)
         if (s.neural === undefined) {
           // Create the net the first time it is needed and NOT on every run
           s.neural = {
@@ -49,12 +46,22 @@ module.exports = function container (get, set, clear) {
           s.neural.net.makeLayers(s.neural.layer_defs);
           s.neural.trainer = new convnetjs.SGDTrainer(s.neural.net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:s.options.decay});
         }
+      if (cluster.isMaster) {
+        get('lib.ema')(s, 'neural', s.options.neural)
+        if (global.forks < s.options.threads) { cluster.fork(); global.forks++; }
+      }
+      if (cluster.isWorker) {
+        get('lib.ema')(s, 'neural', s.options.neural)
+        // do the network thing
+        var tlp = []
+        var tll = []
         if (s.lookback[s.options.min_periods]) {
           for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
           for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
           var my_data = tll.reverse()
           var learn = function () {
-            for(var j = 0; j < 500; j++){
+            //Learns
+            for (var j = 0; j < s.options.learns; j++) {
               for (var i = 0; i < my_data.length - s.neural.neuralDepth; i++) {
                 var data = my_data.slice(i, i + s.neural.neuralDepth);
                 var real_value = [my_data[i + s.neural.neuralDepth]];
@@ -64,38 +71,37 @@ module.exports = function container (get, set, clear) {
               }
             }
           }
-          var predict = function(data){
+          var predict = function(data) {
             var x = new convnetjs.Vol(data);
             var predicted_value = s.neural.net.forward(x);
             return predicted_value.w[0];
           }
           learn();
           var item = tlp.reverse();
-          global.prediction = predict(item)
-          console.log(global.prediction)
-          global.mean = math.mean(tll[0], tll[1], tll[2])
-          global.meanp = math.mean(global.prediction, global.oldmean)
-          global.oldmean = global.prediction
-       }
-      }
-    },
-    onPeriod: function (s, cb) {
-          s.sig0 = global.meanp > global.mean
+          s.prediction = predict(item)
+          s.mean = math.mean(s.lookback[0].close, s.lookback[1].close, s.lookback[2].close)
+          s.meanp = math.mean(s.prediction, oldmean)
+          oldmean = s.prediction
+        }
         // NORMAL onPeriod STUFF here
+        global.meanp = s.meanp
+        global.mean = s.mean
+        global.sig0 = global.meanp > global.mean
         if (
-           s.sig0 === false
+           global.sig0 === false
            )
            {
             s.signal = 'sell'
            }
         else if
            (
-           s.sig0 === true
+           global.sig0 === true
            )
            {
            s.signal = 'buy'
            }
       cb()
+     }
     },
     onReport: function (s) {
       cols = []
