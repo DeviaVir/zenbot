@@ -12,7 +12,7 @@ module.exports = function container (get, set, clear) {
       .option('--pct <pct>', 'sell with this % of currency balance', Number, c.sell_pct)
       .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--size <size>', 'sell specific size of currency')
-      .option('--markup_pct <pct>', '% to mark up ask price', Number, c.markup_pct)
+      .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, c.markup_sell_pct)
       .option('--order_adjust_time <ms>', 'adjust ask on this interval to keep order competitive', Number, c.order_adjust_time)
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--debug', 'output detailed debug info')
