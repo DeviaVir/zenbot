@@ -39,6 +39,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
     "mongodb": "^2.2.31",
+    "node-prowl": "^0.1.7",
     "node-uuid": "^1.4.8",
     "node.bittrex.api": "^0.2.5",
     "number-abbreviate": "^2.0.0",
