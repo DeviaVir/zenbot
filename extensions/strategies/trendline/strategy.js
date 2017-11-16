@@ -2,15 +2,16 @@ var math = require('mathjs')
 var trend = require('trend')
 var z = require('zero-fill')
 var n = require('numbro')
+var oldgrowth = 1
 module.exports = function container (get, set, clear) {
   return {
     name: 'trendline',
     description: 'Calculate a trendline and trade when trend is positive vs negative.',
     getOptions: function () {
-      this.option('period', 'period length', String, '5s')
+      this.option('period', 'period length', String, '1s')
       this.option('lastpoints', "Number of trades for short trend average", Number, 100)
       this.option('avgpoints', "Number of trades for long trend average", Number, 1000)
-      this.option('min_periods', "Basically avgpoints + a BUNCH of more preroll periods for anything less than 5s period", Number, 5000)
+      this.option('min_periods', "Basically avgpoints + a BUNCH of more preroll periods for anything less than 5s period", Number, 10000)
       this.option('markup_pct', "Default Strategy Markup - Hard In The Paint Mode", Number, 0.01)
     },
     calculate: function (s) {
@@ -27,18 +28,19 @@ module.exports = function container (get, set, clear) {
               avgMinimum: 10,
               reversed: true
          }),
-         s.growth = growth
-  }
-},
+         s.stats = growth
+         s.growth = growth > 1.001
+      }
+    },
     onPeriod: function (s, cb) {
       if (
-         s.growth < 1
+         s.growth === false
          )
          {
          s.signal = 'sell'
          }
       else if (
-         s.growth > 1
+         s.growth === true
          )
          {
          s.signal = 'buy'
@@ -47,7 +49,7 @@ module.exports = function container (get, set, clear) {
     },
     onReport: function (s) {
       var cols = []
-      cols.push(z(8, n(s.growth).format('0.00000'), ' ')[s.growth > 1 ? 'green' : 'red'])
+      cols.push(z(8, n(s.stats).format('0.00000'), ' ')[s.stats > 1.001 ? 'green' : 'red'])
       return cols
     },
   }
