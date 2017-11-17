@@ -29,7 +29,7 @@ module.exports = function container (get, set, clear) {
               reversed: true
          }),
          s.stats = growth
-         s.growth = growth > 1.001
+         s.growth = growth > 1
       }
     },
     onPeriod: function (s, cb) {
