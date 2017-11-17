@@ -18,6 +18,8 @@
     "bitfinex-api-node": "^1.2.0",
     "bitstamp": "^1.0.4",
     "bl": "^1.2.1",
+    "boomerang-client": "^0.0.3",
+    "boomerang-server": "^0.0.3",
     "btce": "^0.4.2",
     "cexio-api-node": "^1.0.4",
     "cliff": "^0.1.10",
