@@ -294,7 +294,7 @@ module.exports = function container (get, set, clear) {
                     }
                     lookback_size = s.lookback.length
                     forwardScan()
-                    setInterval(forwardScan, c.poll_trades)
+                    setInterval(forwardScan, so.poll_trades)
                     readline.emitKeypressEvents(process.stdin)
                     if (!so.non_interactive && process.stdin.setRawMode) {
                       process.stdin.setRawMode(true)
