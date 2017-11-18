@@ -122,8 +122,10 @@ c.max_sell_loss_pct = 25
 c.order_poll_time = 500
 // ms to wait for settlement (after an order cancel)
 c.wait_for_settlement = 100
-// % to mark up or down price for orders
-c.markup_pct = 0
+// % to mark down buy price for orders
+c.markdown_buy_pct = 0
+// % to mark up sell price for orders
+c.markup_sell_pct = 0
 // become a market taker (high fees) or a market maker (low fees)
 c.order_type = 'maker'
 // when supported by the exchange, use post only type orders.
