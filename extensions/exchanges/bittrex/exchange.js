@@ -38,7 +38,7 @@ module.exports = function container(get, set, clear) {
       var timeout = 2500
     }
 
-    console.error(('\Bittrex API error - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').red)
+    console.error(('\Bittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, timeout)
@@ -95,8 +95,7 @@ module.exports = function container(get, set, clear) {
             }
           })
         } catch (e) {
-          console.log('bittrex API (getmarkethistory). Retry in progress.  Error:' + e);
-          return retry('getTrades', func_args, {message: e.toString()});
+          return retry('getTrades', func_args, {message: 'Error:  ' + e});
         }
         cb(null, trades)
       })
