@@ -63,7 +63,6 @@ module.exports = function container(get, set, clear) {
 
       bittrex_public.getmarkethistory(args, function( data ) {
         if (!shownWarning) {
-          console.log('please note: do not be alarmed if you see an error "returned duplicate results"')
           console.log('please note: the bittrex api does not support backfilling (trade/paper only).')
           console.log('please note: make sure to set the --period=1m to make sure data for trade/paper is fetched.')
           shownWarning = true
@@ -85,13 +84,15 @@ module.exports = function container(get, set, clear) {
         try {
           Object.keys(data.result).forEach(function (i) {
             var trade = data.result[i]
-            trades.push({
-              trade_id: trade.Id,
-              time: moment(trade.TimeStamp).valueOf(),
-              size: parseFloat(trade.Quantity),
-              price: parseFloat(trade.Price),
-              side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
-            })
+            if (isNaN(opts.from) || moment(trade.TimeStamp).valueOf() > opts.from) {
+              trades.push({
+                trade_id: trade.Id,
+                time: moment(trade.TimeStamp).valueOf(),
+                size: parseFloat(trade.Quantity),
+                price: parseFloat(trade.Price),
+                side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
+              })
+            }
           })
         } catch (e) {
           console.log('bittrex API (getmarkethistory). Retry in progress.  Error:' + e);
@@ -302,7 +303,7 @@ module.exports = function container(get, set, clear) {
 
     // return the property used for range querying.
     getCursor: function (trade) {
-      return Math.floor((trade.time || trade) / 1000)
+      return (trade.time || trade);
     }
   }
   return exchange
