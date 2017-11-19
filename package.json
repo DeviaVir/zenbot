@@ -31,7 +31,7 @@
     "glob": "^7.1.1",
     "har-validator": "^5.0.3",
     "idgen": "^2.0.2",
-    "kraken-api": "^0.1.7",
+    "kraken-api": "github:xma/npm-kraken-api#zenbot",
     "micro-request": "^666.0.10",
     "mime": "^1.4.0",
     "minimist": "^1.2.0",
