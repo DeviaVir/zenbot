@@ -23,7 +23,7 @@ module.exports = function container (get, set, clear) {
       this.option('min_predict', "Periods to predict next number from", Number, 100)
       this.option('momentum', "momentum of prediction", Number, 0.9)
       this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0)
-      this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 4)
+      this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 1)
       this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 10)
       this.option('markup_pct', "Defaulting a markup percent", Number, 0.05)
     },
