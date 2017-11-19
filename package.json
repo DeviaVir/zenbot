@@ -25,7 +25,7 @@
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "convnetjs": "0.3.0",
-    "ccxt": "^1.4.77",
+    "ccxt": "^1.10.171",
     "forex.analytics": "mkmarek/forex.analytics#7bc278987700d4204e959af17de61495941d1a14",
     "gdax": "^0.4.2",
     "gemini-api": "^2.0.4",
