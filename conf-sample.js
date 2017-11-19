@@ -119,9 +119,9 @@ c.order_adjust_time = 5000
 // avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
 // ms to poll order status
-c.order_poll_time = 500
+c.order_poll_time = 5000
 // ms to wait for settlement (after an order cancel)
-c.wait_for_settlement = 100
+c.wait_for_settlement = 5000
 // % to mark down buy price for orders
 c.markdown_buy_pct = 0
 // % to mark up sell price for orders
@@ -136,7 +136,7 @@ c.post_only = true
 // default # days for backfill and sim commands
 c.days = 14
 // ms to poll new trades at
-c.poll_trades = 500
+c.poll_trades = 30000
 // amount of currency to start simulations with
 c.currency_capital = 1000
 // amount of asset to start simulations with
