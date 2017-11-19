@@ -7,7 +7,7 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 // the below line starts you at 0 threads
 global.forks = 0
-// the beow line is for calculating the last mean vs the now mean.
+// the below line is for calculating the last mean vs the now mean.
 var oldmean = 0
 module.exports = function container (get, set, clear) {
   return {
