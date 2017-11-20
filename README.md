@@ -236,7 +236,8 @@ zenbot trade --help
     --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
     --buy_pct <pct>                 buy with this % of currency balance
     --sell_pct <pct>                sell with this % of asset balance
-    --markup_pct <pct>              % to mark up or down ask/bid price
+    --markdown_buy_pct <pct>        % to mark down buy price (previously the --markup_pct property)
+    --markup_sell_pct <pct>         % to mark up sell price (previously the --markup_pct property)
     --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
     --order_poll_time <ms>          poll order status on this interval
     --sell_stop_pct <pct>           sell if price drops below this % of bought price
