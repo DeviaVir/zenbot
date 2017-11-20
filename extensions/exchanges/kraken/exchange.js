@@ -14,7 +14,7 @@ module.exports = function container(get, set, clear) {
 
   var public_client, authed_client
   // var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded|between Cloudflare and the origin web server)/)
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|SSL handshake failed|Gateway time-out|Bad gateway|Service:Unavailable)/)
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|SSL handshake failed|Gateway time-out|Bad gateway|Service:Unavailable|Service:Busy)/)
   var silencedRecoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|SSL handshake failed|Gateway time-out|Bad gateway)/)
 
   function publicClient() {
