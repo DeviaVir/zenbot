@@ -11,13 +11,25 @@ request('https://api.bitfinex.com/v1/symbols_details', {headers: {'User-Agent': 
   }
   var products = []
   body.forEach(function (product) {
+    var min_size = parseFloat(product.minimum_order_size)
+    var prec = 0
+    if (min_size > 130 ) {
+      prec = 4 
+    } else if (min_size > 30) {
+      prec = 3
+    } else if (min_size > 1) {
+      prec = 2
+    } else if (min_size > 0.1) {
+      prec = 1
+    }
+    var increment = '0.' + '0'.repeat(prec + product.price_precision - (product.pair.substring(3, 6).toUpperCase() == 'USD' ? 3 : 0)) + '1'
     products.push({
 //     id: product.pair,
       asset: product.pair.substring(0, 3).toUpperCase(),
       currency: product.pair.substring(3, 6).toUpperCase(),
       min_size: product.minimum_order_size,
       max_size: product.maximum_order_size,
-      increment: '0.0001',
+      increment: increment,
       label: product.pair.substring(0, 3).toUpperCase() + '/' + product.pair.substring(3, 6).toUpperCase()
     })
   })
