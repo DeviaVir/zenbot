@@ -557,6 +557,12 @@ https://support.discordapp.com/hc/en-us/articles/228383668
 Supply zenbot with your Prowl API key and zenbot will push notifications to your Prowl enabled devices.
 https://www.prowlapp.com/
 
+### TextBelt
+
+Supply zenbot with your TextBelt API key and zenbot will send SMS notifications to your cell phone.
+https://www.textbelt.com/
+
+
 ## Manual trade tools
 
 Zenbot's order execution engine can also be used for manual trades. Benefits include:
