@@ -51,6 +51,7 @@
     "quadrigacx": "0.0.7",
     "run-parallel": "^1.1.6",
     "run-series": "^1.1.4",
+    "regression": "^2.0.0",
     "semver": "^5.4.1",
     "simple-xmpp": "^1.3.0",
     "sosa_mongo": "^1.0.3",
