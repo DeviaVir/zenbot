@@ -197,3 +197,11 @@ c.notifiers.prowl = {}
 c.notifiers.prowl.on = false // false prowl disabled; true prowl enabled (key should be correct)
 c.notifiers.prowl.key = 'YOUR-API-KEY'
 // end prowl configs
+
+// textbelt configs
+c.notifiers.textbelt = {}
+c.notifiers.textbelt.on = false // false textbelt disabled; true textbelt enabled (key should be correct)
+c.notifiers.textbelt.phone = '3121234567'
+c.notifiers.textbelt.key = 'textbelt'
+// end textbelt configs
+
