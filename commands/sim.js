@@ -219,7 +219,12 @@ module.exports = function container (get, set, clear) {
             }
             engine.update(trades, function (err) {
               if (err) throw err
-              cursor = trades[trades.length - 1].time
+              if (reversing) { 
+                cursor = trades[trades.length - 1].orig_time
+              }
+              else {
+                cursor = trades[trades.length - 1].time
+              }
               setImmediate(getNext)
             })
           })
