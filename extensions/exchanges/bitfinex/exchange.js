@@ -129,6 +129,19 @@ module.exports = function container (get, set, clear) {
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'balance'
     }
+    if (error[6] === 'ERROR' && error[7] === 'Invalid price.') {
+      cid = error[4][2]
+
+      if (!ws_orders['~' + cid]) {
+        if (so.debug) console.warn(("\nWarning: Order " + cid + ' not found in cache for wsUpdateReqOrder (manual order?).').red)
+        return
+      }
+      
+      if (so.debug) console.log(ws_orders['~' + cid])
+
+      ws_orders['~' + cid].status = 'rejected'
+      ws_orders['~' + cid].reject_reason = 'price'
+    }
   }
 
   function updateWallet (wallets) {
