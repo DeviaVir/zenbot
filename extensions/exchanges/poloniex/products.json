@@ -69,7 +69,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Belacoin/Bitcoin"
+    "label": "Bela/Bitcoin"
   },
   {
     "asset": "BLK",
@@ -142,6 +142,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "CLAMS/Bitcoin"
+  },
+  {
+    "asset": "CVC",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Civic/Bitcoin"
+  },
+  {
+    "asset": "CVC",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Civic/Ethereum"
   },
   {
     "asset": "DASH",
@@ -280,6 +296,22 @@
     "label": "GameCredits/Bitcoin"
   },
   {
+    "asset": "GAS",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Gas/Bitcoin"
+  },
+  {
+    "asset": "GAS",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Gas/Ethereum"
+  },
+  {
     "asset": "GNO",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -392,14 +424,6 @@
     "label": "MaidSafeCoin/Monero"
   },
   {
-    "asset": "NAUT",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Nautiluscoin/Bitcoin"
-  },
-  {
     "asset": "NAV",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -422,14 +446,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Namecoin/Bitcoin"
-  },
-  {
-    "asset": "NOTE",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "DNotes/Bitcoin"
   },
   {
     "asset": "NXC",
@@ -462,6 +478,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "NXT/Monero"
+  },
+  {
+    "asset": "OMG",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "OmiseGO/Bitcoin"
+  },
+  {
+    "asset": "OMG",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "OmiseGO/Ethereum"
   },
   {
     "asset": "OMNI",
@@ -560,14 +592,6 @@
     "label": "Siacoin/Bitcoin"
   },
   {
-    "asset": "SJCX",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Storjcoin X/Bitcoin"
-  },
-  {
     "asset": "STEEM",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -582,6 +606,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "STEEM/Ethereum"
+  },
+  {
+    "asset": "STORJ",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Storj/Bitcoin"
   },
   {
     "asset": "STR",
@@ -742,5 +774,21 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Zcash/Monero"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "0x/Bitcoin"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "0x/Ethereum"
   }
 ]
