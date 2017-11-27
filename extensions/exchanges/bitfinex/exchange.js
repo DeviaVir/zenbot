@@ -137,7 +137,7 @@ module.exports = function container (get, set, clear) {
         return
       }
       
-      console.log(ws_orders['~' + cid])
+      if (so.debug) console.log(ws_orders['~' + cid])
 
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'price'
