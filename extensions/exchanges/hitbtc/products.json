@@ -948,6 +948,12 @@
     "label": "BCH/USD"
   },
   {
+    "asset": "BTG",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BTG/BTC"
+  },
+  {
     "asset": "ECAT",
     "currency": "ETH",
     "increment": "0.000001",
