@@ -19,7 +19,7 @@
     "asset": "BCH",
     "currency": "USD",
     "min_size": "0.01",
-    "max_size": null,
+    "max_size": "30",
     "increment": "0.00000001",
     "label": "BCH/USD"
   },
@@ -30,6 +30,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/USD"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ZEC/USD"
   },
   {
     "asset": "BTC",
@@ -64,6 +72,14 @@
     "label": "DASH/EUR"
   },
   {
+    "asset": "ZEC",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ZEC/EUR"
+  },
+  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.01",
@@ -96,6 +112,14 @@
     "label": "DASH/GBP"
   },
   {
+    "asset": "ZEC",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ZEC/GBP"
+  },
+  {
     "asset": "BTC",
     "currency": "RUB",
     "min_size": "0.01",
@@ -115,7 +139,7 @@
     "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.1",
-    "max_size": null,
+    "max_size": "30",
     "increment": "0.00000001",
     "label": "BCH/BTC"
   },
@@ -126,6 +150,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ZEC/BTC"
   },
   {
     "asset": "GHS",
