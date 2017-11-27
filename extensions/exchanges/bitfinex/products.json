@@ -2,7 +2,7 @@
   {
     "asset": "BTC",
     "currency": "USD",
-    "min_size": "0.004",
+    "min_size": "0.002",
     "max_size": "2000.0",
     "increment": "0.001",
     "label": "BTC/USD"
@@ -122,7 +122,7 @@
   {
     "asset": "BCC",
     "currency": "BTC",
-    "min_size": "0.004",
+    "min_size": "0.002",
     "max_size": "2000.0",
     "increment": "0.000001",
     "label": "BCC/BTC"
@@ -138,7 +138,7 @@
   {
     "asset": "BCC",
     "currency": "USD",
-    "min_size": "0.004",
+    "min_size": "0.002",
     "max_size": "2000.0",
     "increment": "0.001",
     "label": "BCC/USD"
@@ -154,7 +154,7 @@
   {
     "asset": "BTC",
     "currency": "EUR",
-    "min_size": "0.004",
+    "min_size": "0.002",
     "max_size": "2000.0",
     "increment": "0.000001",
     "label": "BTC/EUR"
@@ -202,7 +202,7 @@
   {
     "asset": "EOS",
     "currency": "USD",
-    "min_size": "14.0",
+    "min_size": "12.0",
     "max_size": "50000.0",
     "increment": "0.00001",
     "label": "EOS/USD"
@@ -210,7 +210,7 @@
   {
     "asset": "EOS",
     "currency": "BTC",
-    "min_size": "14.0",
+    "min_size": "12.0",
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "EOS/BTC"
@@ -218,7 +218,7 @@
   {
     "asset": "EOS",
     "currency": "ETH",
-    "min_size": "14.0",
+    "min_size": "12.0",
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "EOS/ETH"
@@ -226,25 +226,25 @@
   {
     "asset": "SAN",
     "currency": "USD",
-    "min_size": "34.0",
+    "min_size": "20.0",
     "max_size": "200000.0",
-    "increment": "0.000001",
+    "increment": "0.00001",
     "label": "SAN/USD"
   },
   {
     "asset": "SAN",
     "currency": "BTC",
-    "min_size": "34.0",
+    "min_size": "20.0",
     "max_size": "200000.0",
-    "increment": "0.000000001",
+    "increment": "0.00000001",
     "label": "SAN/BTC"
   },
   {
     "asset": "SAN",
     "currency": "ETH",
-    "min_size": "34.0",
+    "min_size": "20.0",
     "max_size": "200000.0",
-    "increment": "0.000000001",
+    "increment": "0.00000001",
     "label": "SAN/ETH"
   },
   {
