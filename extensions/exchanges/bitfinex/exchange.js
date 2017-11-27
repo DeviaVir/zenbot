@@ -61,7 +61,7 @@ module.exports = function container (get, set, clear) {
       ws_connecting = false
       ws_connected = true
     }
-    
+
     if (message[0] != "undefined")
       ws_hb[message[0]] = Date.now()
   }
