@@ -129,7 +129,7 @@ module.exports = function container (get, set, clear) {
       ws_orders['~' + cid].status = 'rejected'
       ws_orders['~' + cid].reject_reason = 'balance'
     }
-    if (error[6] === 'ERROR' && error[7] == 'Invalid price.') {
+    if (error[6] === 'ERROR' && error[7] === 'Invalid price.') {
       cid = error[4][2]
 
       if (!ws_orders['~' + cid]) {
