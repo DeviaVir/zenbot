@@ -34,7 +34,7 @@ module.exports = function container (get, set, clear) {
       .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
-      .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
+      .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', c.symmetrical)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .option('--disable_options', 'disable printing of options')
       .option('--enable_stats', 'enable printing order stats')
@@ -219,7 +219,12 @@ module.exports = function container (get, set, clear) {
             }
             engine.update(trades, function (err) {
               if (err) throw err
-              cursor = trades[trades.length - 1].time
+              if (reversing) { 
+                cursor = trades[trades.length - 1].orig_time
+              }
+              else {
+                cursor = trades[trades.length - 1].time
+              }
               setImmediate(getNext)
             })
           })

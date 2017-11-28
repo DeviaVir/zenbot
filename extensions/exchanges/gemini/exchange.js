@@ -18,7 +18,7 @@ module.exports = function container(get, set, clear) {
 
   function publicClient() {
     if (!public_client) public_client = new GeminiAPI.default({
-      sandbox: false
+      sandbox: c.gemini.sandbox || false
     })
     return public_client
   }
