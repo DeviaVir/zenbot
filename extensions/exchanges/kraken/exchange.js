@@ -223,7 +223,8 @@ module.exports = function container(get, set, clear) {
         type: type,
         ordertype: (opts.order_type === 'taker' ? 'market' : 'limit'),
         volume: opts.size,
-        trading_agreement: c.kraken.tosagree
+        trading_agreement: c.kraken.tosagree,
+	expiretm: '+' + opts.cancel_after
       }
       if (opts.post_only === true && params.ordertype === 'limit') {
         params.oflags = 'post'
