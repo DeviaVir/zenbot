@@ -49,6 +49,7 @@ module.exports = function container (get, set, clear) {
       if (cluster.isMaster) {
         get('lib.ema')(s, 'neural', s.options.neural)
         if (global.forks < s.options.threads) { cluster.fork(); global.forks++; }
+        cluster.on('exit', (code) => { process.exit(code); });
       }
       if (cluster.isWorker) {
         get('lib.ema')(s, 'neural', s.options.neural)
