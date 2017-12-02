@@ -165,7 +165,7 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
         if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetOrder ' + body).red)
-        if (err || body === 'error: Invalid Order ID') return retry('getOrder', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getOrder', func_args, body)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'
