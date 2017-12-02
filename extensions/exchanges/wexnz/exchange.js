@@ -153,7 +153,7 @@ module.exports = function container (get, set, clear) {
 
     trade: function (type, opts, cb) {
       var func_args = [].slice.call(arguments)
-      var client = authed_client()
+      var client = authedClient()
       var pair = joinProduct(opts.product_id)
       /* WEXNZ has no order type?
       if (typeof opts.post_only === 'undefined') {
@@ -166,6 +166,7 @@ module.exports = function container (get, set, clear) {
       }
       */
       delete opts.order_type
+      delete opts.cancel_after
       client.trade({'pair': pair, 'type': type, 'rate': opts.price, 'amount': opts.size }, function(err, body) {
         body = statusErr(err, body)
         // Fix me - Check return codes from API
