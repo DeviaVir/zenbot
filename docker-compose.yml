@@ -1,12 +1,16 @@
 server:
   build: .
   volumes:
-    - .:/app
-    - /app/node_modules
+    - ./conf.js:/app/conf.js
+    - ./extensions:/app/extensions
+    - ./simulations:/app/simulations
   links:
     - mongodb
-  command: ./zenbot.sh trade --paper
+  command: [ "trade", "--paper" ]
   restart: always
+  tty: true
+  environment:
+    - MONGODB_PORT_27017_TCP_ADDR=mongodb
 
 mongodb:
   image: mongo:latest
@@ -19,3 +23,18 @@ mongodb-data:
   volumes:
     - ./data/db:/data/db
   command: "true"
+
+# Remove below comments to use this container. "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
+#
+#adminmongo:
+#  image: mrvautin/adminmongo
+#  links:
+#    - mongodb
+#  tty: true
+#  ports:
+#    - "1234:1234"
+#  environment:
+#    - CONN_NAME=zenbot_mongodb
+#    - DB_HOST=mongodb
+#    - DB_PORT=27017
+#  command: "npm start"

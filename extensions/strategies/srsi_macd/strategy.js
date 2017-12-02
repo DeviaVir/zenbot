@@ -3,7 +3,7 @@ let z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
-    name: 'rsi_macd',
+    name: 'srsi_macd',
     description: 'Stochastic MACD Strategy',
 
     getOptions: function () {

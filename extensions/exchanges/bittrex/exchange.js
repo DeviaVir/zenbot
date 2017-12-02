@@ -28,7 +28,7 @@ module.exports = function container(get, set, clear) {
   })
 
   function joinProduct(product_id) {
-    return product_id.split('-')[0] + '-' + product_id.split('-')[1]
+    return product_id.split('-')[1] + '-' + product_id.split('-')[0]
   }
 
   function retry(method, args, error) {
@@ -38,7 +38,7 @@ module.exports = function container(get, set, clear) {
       var timeout = 2500
     }
 
-    console.error(('\Bittrex API error - unable to call ' + method + ' (' + error + '), retrying in ' + timeout / 1000 + 's').red)
+    console.error(('\Bittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, timeout)
@@ -63,7 +63,6 @@ module.exports = function container(get, set, clear) {
 
       bittrex_public.getmarkethistory(args, function( data ) {
         if (!shownWarning) {
-          console.log('please note: do not be alarmed if you see an error "returned duplicate results"')
           console.log('please note: the bittrex api does not support backfilling (trade/paper only).')
           console.log('please note: make sure to set the --period=1m to make sure data for trade/paper is fetched.')
           shownWarning = true
@@ -74,7 +73,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getTrades', func_args, data.message)
           }
           console.log(data.message)
@@ -82,16 +81,22 @@ module.exports = function container(get, set, clear) {
         }
 
         var trades = []
-        Object.keys(data.result).forEach(function (i) {
-          var trade = data.result[i]
-          trades.push({
-            trade_id: trade.Id,
-            time: moment(trade.TimeStamp).valueOf(),
-            size: parseFloat(trade.Quantity),
-            price: parseFloat(trade.Price),
-            side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
+        try {
+          Object.keys(data.result).forEach(function (i) {
+            var trade = data.result[i]
+            if (isNaN(opts.from) || moment(trade.TimeStamp).valueOf() > opts.from) {
+              trades.push({
+                trade_id: trade.Id,
+                time: moment(trade.TimeStamp).valueOf(),
+                size: parseFloat(trade.Quantity),
+                price: parseFloat(trade.Price),
+                side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
+              })
+            }
           })
-        })
+        } catch (e) {
+          return retry('getTrades', func_args, {message: 'Error:  ' + e});
+        }
         cb(null, trades)
       })
     },
@@ -106,7 +111,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getBalance', args, data.message)
           }
           console.log(data.message)
@@ -117,9 +122,9 @@ module.exports = function container(get, set, clear) {
           asset: 0,
           currency: 0
         }
+
         Object.keys(data.result).forEach(function (i) {
           var _balance = data.result[i]
-          // yes, currency and asset are turned around on purpose, their API is weird
           if(opts.last_signal === 'buy') {
             if (_balance['Currency'] === opts.currency.toUpperCase()) {
               balance.currency = n(_balance.Available).format('0.00000000'),
@@ -130,11 +135,11 @@ module.exports = function container(get, set, clear) {
                 balance.asset_hold = 0
             }
           } else {
-            if (_balance['Currency'] === opts.currency.toUpperCase()) {
+            if (_balance['Currency'] === opts.asset.toUpperCase()) {
               balance.asset = n(_balance.Available).format('0.00000000'),
                 balance.asset_hold = 0
             }
-            if (_balance['Currency'] === opts.asset.toUpperCase()) {
+            if (_balance['Currency'] === opts.currency.toUpperCase()) {
               balance.currency = n(_balance.Available).format('0.00000000'),
                 balance.currency_hold = 0
             }
@@ -155,7 +160,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getQuote', args, data.message)
           }
           console.log(data.message)
@@ -209,7 +214,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('trade', args, data.message)
           }
           console.log(data.message)
@@ -271,7 +276,7 @@ module.exports = function container(get, set, clear) {
         }
 
         if(!data.success) {
-          if (data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('getOrder', args, data.message)
           }
           console.log(data.message)
@@ -297,7 +302,7 @@ module.exports = function container(get, set, clear) {
 
     // return the property used for range querying.
     getCursor: function (trade) {
-      return Math.floor((trade.time || trade) / 1000)
+      return (trade.time || trade);
     }
   }
   return exchange

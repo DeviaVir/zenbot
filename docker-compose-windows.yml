@@ -1,0 +1,21 @@
+server:
+  build: .
+  volumes:
+    - ./conf.js:/app/conf.js
+    - ./extensions:/app/extensions
+  links:
+    - mongodb
+  command: [ "trade", "--paper" ]
+  restart: always
+
+mongodb:
+  image: mongo:latest
+  volumes_from:
+    - mongodb-data
+  command: mongod --smallfiles
+
+mongodb-data:
+  image: mongo:latest
+  volumes:
+    - /data/db
+  command: "true"

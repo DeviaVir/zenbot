@@ -3,19 +3,19 @@ let z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
-    name: 'Stochastic CCI Strategy',
+    name: 'cci_srsi',
     description: 'Stochastic CCI Strategy',
 
     getOptions: function () {
       this.option('period', 'period length', String, '20m')
-      this.option('min_periods', 'min. number of history periods', Number, 50)
-      //this.option('ema_acc', 'sideways threshold (0.2-0.4)', Number, 0.3)
-      this.option('cci_periods', 'number of RSI periods', Number, 12)
+      this.option('min_periods', 'min. number of history periods', Number, 30)
+      this.option('ema_acc', 'sideways threshold (0.2-0.4)', Number, 0.03)
+      this.option('cci_periods', 'number of RSI periods', Number, 14)
       this.option('rsi_periods', 'number of RSI periods', Number, 14)
       this.option('srsi_periods', 'number of RSI periods', Number, 9)
       this.option('srsi_k', '%K line', Number, 5)
       this.option('srsi_d', '%D line', Number, 3)
-      this.option('oversold_rsi', 'buy when RSI reaches or drops below this value', Number, 22)
+      this.option('oversold_rsi', 'buy when RSI reaches or drops below this value', Number, 18)
       this.option('overbought_rsi', 'sell when RSI reaches or goes above this value', Number, 85)
       this.option('oversold_cci', 'buy when CCI reaches or drops below this value', Number, -90)
       this.option('overbought_cci', 'sell when CCI reaches or goes above this value', Number, 140)
@@ -40,12 +40,32 @@ module.exports = function container (get, set, clear) {
         s.rsi_fromAbove = s.period.srsi_K < s.lookback[0]['srsi_K']
       }
 
+      if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
+        s.period.acc = Math.abs((s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100)
+      }
     },
 
     onPeriod: function (s, cb) {
     	if (!s.in_preroll && typeof s.trend !== 'undefined') {
+
+        // Sideways Market
+        if (s.period.acc < s.options.ema_acc) {
+          // Buy signal
+          if (s.period.cci <= s.options.oversold_cci && /*s.period.srsi_K > s.period.srsi_D &&*/ s.period.srsi_K <= s.options.oversold_rsi) {
+  				  if (!s.cci_fromAbove && !s.rsi_fromAbove) {
+              s.signal = 'buy'
+            }
+          }
+          // Sell signal
+          if (s.period.cci >= s.options.overbought_cci && /*s.period.srsi_K < s.period.srsi_D &&*/ s.period.srsi_K >= s.options.overbought_rsi) {
+            if (s.cci_fromAbove || s.rsi_fromAbove) {
+                s.signal = 'sell'
+            }
+          }
+          //cb()
+        }
         // Buy signal
-        if (s.trend === 'up'/* || s.period.acc < s.options.ema_acc*/) {
+        if (s.trend === 'up') {
         	if (s.period.cci <= s.options.oversold_cci && /*s.period.srsi_K > s.period.srsi_D &&*/ s.period.srsi_K <= s.options.oversold_rsi) {
   				  if (!s.cci_fromAbove && !s.rsi_fromAbove) {
               s.signal = 'buy'
@@ -53,9 +73,9 @@ module.exports = function container (get, set, clear) {
           }
         }
 			  // Sell signal
-        if (s.trend === 'down'/* || s.period.acc < s.options.ema_acc*/) {
+        if (s.trend === 'down') {
           if (s.period.cci >= s.options.overbought_cci && /*s.period.srsi_K < s.period.srsi_D &&*/ s.period.srsi_K >= s.options.overbought_rsi) {
-            if (s.cci_fromAbove && s.rsi_fromAbove) {
+            if (s.cci_fromAbove || s.rsi_fromAbove) {
                 s.signal = 'sell'
             }
           }
@@ -74,7 +94,7 @@ module.exports = function container (get, set, clear) {
           color = 'red'
         }
         cols.push(z(8, n(s.period.cci).format('000'), ' ')[color])
-        cols.push(z(8, n(s.period.srsi_K).format('000'), ' ')[color])
+        cols.push(s.period.acc > s.options.ema_acc ? z(8, n(s.period.srsi_K).format('000'), ' ')[color] : '   -->   ')
       }
       else {
         cols.push('         ')

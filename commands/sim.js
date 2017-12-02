@@ -16,7 +16,7 @@ module.exports = function container (get, set, clear) {
       .option('--conf <path>', 'path to optional conf overrides file')
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
-      .option('--filename <filename>', 'filename for the result output (ex: result.html)', String, c.filename)
+      .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, c.filename)
       .option('--start <timestamp>', 'start at timestamp')
       .option('--end <timestamp>', 'end at timestamp')
       .option('--days <days>', 'set duration by day count', Number, c.days)
@@ -25,7 +25,8 @@ module.exports = function container (get, set, clear) {
       .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to trades', Number, c.avg_slippage_pct)
       .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, c.buy_pct)
       .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, c.sell_pct)
-      .option('--markup_pct <pct>', '% to mark up or down ask/bid price', Number, c.markup_pct)
+      .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, c.markdown_buy_pct)
+      .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, c.markup_sell_pct)
       .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, c.order_adjust_time)
       .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, c.sell_stop_pct)
       .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, c.buy_stop_pct)
@@ -33,8 +34,9 @@ module.exports = function container (get, set, clear) {
       .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, c.profit_stop_pct)
       .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', c.max_sell_loss_pct)
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
-      .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', Boolean, c.symmetrical)
+      .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', c.symmetrical)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
+      .option('--disable_options', 'disable printing of options')
       .option('--enable_stats', 'enable printing order stats')
       .option('--verbose', 'print status lines on every period')
       .action(function (selector, cmd) {
@@ -63,6 +65,7 @@ module.exports = function container (get, set, clear) {
           so.start = d.subtract(so.days).toMilliseconds()
         }
         so.stats = !!cmd.enable_stats
+        so.show_options = !cmd.disable_options
         so.verbose = !!cmd.verbose
         so.selector = get('lib.normalize-selector')(selector || c.selector)
         so.mode = 'sim'
@@ -93,14 +96,18 @@ module.exports = function container (get, set, clear) {
           option_keys.forEach(function (k) {
             options[k] = so[k]
           })
-          var options_json = JSON.stringify(options, null, 2)
-          output_lines.push(options_json)
-          s.my_trades.push({
-            price: s.period.close,
-            size: s.balance.asset,
-            type: 'sell',
-            time: s.period.time
-          })
+          if (so.show_options) {
+            var options_json = JSON.stringify(options, null, 2)
+            output_lines.push(options_json)
+          }
+          if (s.my_trades.length) {
+            s.my_trades.push({
+              price: s.period.close,
+              size: s.balance.asset,
+              type: 'sell',
+              time: s.period.time
+            })
+          }
           s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           s.balance.asset = 0
           s.lookback.unshift(s.period)
@@ -157,9 +164,11 @@ module.exports = function container (get, set, clear) {
             .replace('{{output}}', html_output)
             .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
 
-          var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
-          fs.writeFileSync(out_target, out)
-          console.log('wrote', out_target)
+          if (so.filename !== 'none') {
+            var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+            fs.writeFileSync(out_target, out)
+            console.log('wrote', out_target)
+          }
           process.exit(0)
         }
 
@@ -210,7 +219,12 @@ module.exports = function container (get, set, clear) {
             }
             engine.update(trades, function (err) {
               if (err) throw err
-              cursor = trades[trades.length - 1].time
+              if (reversing) { 
+                cursor = trades[trades.length - 1].orig_time
+              }
+              else {
+                cursor = trades[trades.length - 1].time
+              }
               setImmediate(getNext)
             })
           })

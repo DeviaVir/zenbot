@@ -1,0 +1,1574 @@
+[
+  {
+    "asset": "BCN",
+    "currency": "BTC",
+    "increment": "1e-10",
+    "label": "BCN/BTC"
+  },
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "increment": "0.01",
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "BTC/USD"
+  },
+  {
+    "asset": "DASH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "DASH/BTC"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "BTC",
+    "increment": "1e-9",
+    "label": "DOGE/BTC"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "DOGE/USD"
+  },
+  {
+    "asset": "DSH",
+    "currency": "BTC",
+    "increment": "1e-9",
+    "label": "DSH/BTC"
+  },
+  {
+    "asset": "EMC",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "EMC/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ETH/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "EUR",
+    "increment": "0.0001",
+    "label": "ETH/EUR"
+  },
+  {
+    "asset": "FCN",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "FCN/BTC"
+  },
+  {
+    "asset": "LSK",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "LSK/BTC"
+  },
+  {
+    "asset": "LSK",
+    "currency": "EUR",
+    "increment": "0.0001",
+    "label": "LSK/EUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "LTC/BTC"
+  },
+  {
+    "asset": "LTC",
+    "currency": "EUR",
+    "increment": "0.001",
+    "label": "LTC/EUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "USD",
+    "increment": "0.001",
+    "label": "LTC/USD"
+  },
+  {
+    "asset": "NXT",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "NXT/BTC"
+  },
+  {
+    "asset": "QCN",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "QCN/BTC"
+  },
+  {
+    "asset": "SBD",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "SBD/BTC"
+  },
+  {
+    "asset": "SC",
+    "currency": "BTC",
+    "increment": "1e-9",
+    "label": "SC/BTC"
+  },
+  {
+    "asset": "STEEM",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "STEEM/BTC"
+  },
+  {
+    "asset": "STEEM",
+    "currency": "EUR",
+    "increment": "0.0001",
+    "label": "STEEM/EUR"
+  },
+  {
+    "asset": "XDN",
+    "currency": "BTC",
+    "increment": "1e-10",
+    "label": "XDN/BTC"
+  },
+  {
+    "asset": "XEM",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "XEM/BTC"
+  },
+  {
+    "asset": "XMR",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "XMR/BTC"
+  },
+  {
+    "asset": "ARDR",
+    "currency": "BTC",
+    "increment": "1e-9",
+    "label": "ARDR/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ZEC/BTC"
+  },
+  {
+    "asset": "WAVES",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "WAVES/BTC"
+  },
+  {
+    "asset": "MAID",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "MAID/BTC"
+  },
+  {
+    "asset": "AMP",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "AMP/BTC"
+  },
+  {
+    "asset": "BUS",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "BUS/BTC"
+  },
+  {
+    "asset": "DGD",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "DGD/BTC"
+  },
+  {
+    "asset": "ICN",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ICN/BTC"
+  },
+  {
+    "asset": "SNGLS",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "SNGLS/BTC"
+  },
+  {
+    "asset": "1ST",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "1ST/BTC"
+  },
+  {
+    "asset": "XLC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "XLC/BTC"
+  },
+  {
+    "asset": "TRST",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "TRST/BTC"
+  },
+  {
+    "asset": "TIME",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "TIME/BTC"
+  },
+  {
+    "asset": "GNO",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "GNO/BTC"
+  },
+  {
+    "asset": "REP",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "REP/BTC"
+  },
+  {
+    "asset": "XMR",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "XMR/USD"
+  },
+  {
+    "asset": "DASH",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "DASH/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "ETH/USD"
+  },
+  {
+    "asset": "NXT",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "NXT/USD"
+  },
+  {
+    "asset": "ZRC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ZRC/BTC"
+  },
+  {
+    "asset": "BOS",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BOS/BTC"
+  },
+  {
+    "asset": "DCT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "DCT/BTC"
+  },
+  {
+    "asset": "ANT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ANT/BTC"
+  },
+  {
+    "asset": "AEON",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "AEON/BTC"
+  },
+  {
+    "asset": "GUP",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "GUP/BTC"
+  },
+  {
+    "asset": "PLU",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "PLU/BTC"
+  },
+  {
+    "asset": "LUN",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "LUN/BTC"
+  },
+  {
+    "asset": "TAAS",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "TAAS/BTC"
+  },
+  {
+    "asset": "NXC",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "NXC/BTC"
+  },
+  {
+    "asset": "EDG",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "EDG/BTC"
+  },
+  {
+    "asset": "RLC",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "RLC/BTC"
+  },
+  {
+    "asset": "SWT",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "SWT/BTC"
+  },
+  {
+    "asset": "TKN",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "TKN/BTC"
+  },
+  {
+    "asset": "WINGS",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "WINGS/BTC"
+  },
+  {
+    "asset": "XAUR",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "XAUR/BTC"
+  },
+  {
+    "asset": "AE",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "AE/BTC"
+  },
+  {
+    "asset": "PTOY",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "PTOY/BTC"
+  },
+  {
+    "asset": "WTT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "WTT/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "ZEC/USD"
+  },
+  {
+    "asset": "XEM",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "XEM/USD"
+  },
+  {
+    "asset": "BCN",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "BCN/USD"
+  },
+  {
+    "asset": "XDN",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "XDN/USD"
+  },
+  {
+    "asset": "MAID",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "MAID/USD"
+  },
+  {
+    "asset": "ETC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ETC/BTC"
+  },
+  {
+    "asset": "ETC",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "ETC/USD"
+  },
+  {
+    "asset": "CFI",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "CFI/BTC"
+  },
+  {
+    "asset": "PLBT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "PLBT/BTC"
+  },
+  {
+    "asset": "BNT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BNT/BTC"
+  },
+  {
+    "asset": "XDNCO",
+    "currency": "BTC",
+    "increment": "1e-10",
+    "label": "XDNCO/BTC"
+  },
+  {
+    "asset": "FYN",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "FYN/ETH"
+  },
+  {
+    "asset": "SNM",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "SNM/ETH"
+  },
+  {
+    "asset": "SNT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "SNT/ETH"
+  },
+  {
+    "asset": "CVC",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "CVC/USD"
+  },
+  {
+    "asset": "PAY",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PAY/ETH"
+  },
+  {
+    "asset": "OAX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "OAX/ETH"
+  },
+  {
+    "asset": "OMG",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "OMG/ETH"
+  },
+  {
+    "asset": "BQX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "BQX/ETH"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "XTZ/BTC"
+  },
+  {
+    "asset": "CRS",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "CRS/USD"
+  },
+  {
+    "asset": "DICE",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "DICE/BTC"
+  },
+  {
+    "asset": "CFI",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "CFI/ETH"
+  },
+  {
+    "asset": "PTOY",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PTOY/ETH"
+  },
+  {
+    "asset": "1ST",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "1ST/ETH"
+  },
+  {
+    "asset": "XAUR",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "XAUR/ETH"
+  },
+  {
+    "asset": "TAAS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "TAAS/ETH"
+  },
+  {
+    "asset": "TIME",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "TIME/ETH"
+  },
+  {
+    "asset": "DICE",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "DICE/ETH"
+  },
+  {
+    "asset": "SWT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "SWT/ETH"
+  },
+  {
+    "asset": "XMR",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "XMR/ETH"
+  },
+  {
+    "asset": "ETC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ETC/ETH"
+  },
+  {
+    "asset": "DASH",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "DASH/ETH"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ZEC/ETH"
+  },
+  {
+    "asset": "PLU",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PLU/ETH"
+  },
+  {
+    "asset": "GNO",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "GNO/ETH"
+  },
+  {
+    "asset": "XRP",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "XRP/BTC"
+  },
+  {
+    "asset": "MPK",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "MPK/USD"
+  },
+  {
+    "asset": "NET",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "NET/ETH"
+  },
+  {
+    "asset": "STRAT",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "STRAT/USD"
+  },
+  {
+    "asset": "STRAT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "STRAT/BTC"
+  },
+  {
+    "asset": "SNC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "SNC/ETH"
+  },
+  {
+    "asset": "ADX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ADX/ETH"
+  },
+  {
+    "asset": "BET",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "BET/ETH"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "EOS/ETH"
+  },
+  {
+    "asset": "DENT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "DENT/ETH"
+  },
+  {
+    "asset": "SAN",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "SAN/ETH"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "EOS/BTC"
+  },
+  {
+    "asset": "EOS",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "EOS/USD"
+  },
+  {
+    "asset": "MNE",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "MNE/BTC"
+  },
+  {
+    "asset": "MRV",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "MRV/ETH"
+  },
+  {
+    "asset": "MSP",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "MSP/ETH"
+  },
+  {
+    "asset": "DDF",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "DDF/ETH"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "XTZ/ETH"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "XTZ/USD"
+  },
+  {
+    "asset": "UET",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "UET/ETH"
+  },
+  {
+    "asset": "MYB",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "MYB/ETH"
+  },
+  {
+    "asset": "SUR",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "SUR/ETH"
+  },
+  {
+    "asset": "IXT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "IXT/ETH"
+  },
+  {
+    "asset": "HRB",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "HRB/ETH"
+  },
+  {
+    "asset": "PLR",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PLR/ETH"
+  },
+  {
+    "asset": "TIX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "TIX/ETH"
+  },
+  {
+    "asset": "NDC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "NDC/ETH"
+  },
+  {
+    "asset": "PRO",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PRO/ETH"
+  },
+  {
+    "asset": "AVT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "AVT/ETH"
+  },
+  {
+    "asset": "TFL",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "TFL/BTC"
+  },
+  {
+    "asset": "COSS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "COSS/ETH"
+  },
+  {
+    "asset": "PBKX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PBKX/ETH"
+  },
+  {
+    "asset": "PQT",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "PQT/USD"
+  },
+  {
+    "asset": "8BT",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "8BT/USD"
+  },
+  {
+    "asset": "EVX",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "EVX/USD"
+  },
+  {
+    "asset": "IML",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "IML/ETH"
+  },
+  {
+    "asset": "ROOTS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ROOTS/ETH"
+  },
+  {
+    "asset": "DLT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "DLT/BTC"
+  },
+  {
+    "asset": "BNT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "BNT/ETH"
+  },
+  {
+    "asset": "BNT",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "BNT/USD"
+  },
+  {
+    "asset": "QAU",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "QAU/BTC"
+  },
+  {
+    "asset": "QAU",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "QAU/ETH"
+  },
+  {
+    "asset": "MANA",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "MANA/USD"
+  },
+  {
+    "asset": "DNT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "DNT/BTC"
+  },
+  {
+    "asset": "FYP",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "FYP/BTC"
+  },
+  {
+    "asset": "OPT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "OPT/BTC"
+  },
+  {
+    "asset": "GRPH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "GRPH/BTC"
+  },
+  {
+    "asset": "TNT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "TNT/ETH"
+  },
+  {
+    "asset": "STX",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "STX/BTC"
+  },
+  {
+    "asset": "STX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "STX/ETH"
+  },
+  {
+    "asset": "STX",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "STX/USD"
+  },
+  {
+    "asset": "TNT",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "TNT/USD"
+  },
+  {
+    "asset": "TNT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "TNT/BTC"
+  },
+  {
+    "asset": "CAT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "CAT/BTC"
+  },
+  {
+    "asset": "CAT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "CAT/ETH"
+  },
+  {
+    "asset": "CAT",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "CAT/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BCH/BTC"
+  },
+  {
+    "asset": "BCH",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "BCH/ETH"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "BTG",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BTG/BTC"
+  },
+  {
+    "asset": "ECAT",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ECAT/ETH"
+  },
+  {
+    "asset": "SNC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "SNC/BTC"
+  },
+  {
+    "asset": "SNC",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "SNC/USD"
+  },
+  {
+    "asset": "OAX",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "OAX/USD"
+  },
+  {
+    "asset": "OAX",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "OAX/BTC"
+  },
+  {
+    "asset": "BAS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "BAS/ETH"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ZRX/BTC"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ZRX/ETH"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "ZRX/USD"
+  },
+  {
+    "asset": "RVT",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "RVT/BTC"
+  },
+  {
+    "asset": "ICOS",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ICOS/BTC"
+  },
+  {
+    "asset": "ICOS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ICOS/ETH"
+  },
+  {
+    "asset": "ICOS",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "ICOS/USD"
+  },
+  {
+    "asset": "PPC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "PPC/BTC"
+  },
+  {
+    "asset": "PPC",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "PPC/USD"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "QTUM/ETH"
+  },
+  {
+    "asset": "VERI",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "VERI/BTC"
+  },
+  {
+    "asset": "VERI",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "VERI/ETH"
+  },
+  {
+    "asset": "VERI",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "VERI/USD"
+  },
+  {
+    "asset": "IGNIS",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "IGNIS/ETH"
+  },
+  {
+    "asset": "PRG",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "PRG/BTC"
+  },
+  {
+    "asset": "PRG",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PRG/ETH"
+  },
+  {
+    "asset": "PRG",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "PRG/USD"
+  },
+  {
+    "asset": "BMC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "BMC/BTC"
+  },
+  {
+    "asset": "BMC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "BMC/ETH"
+  },
+  {
+    "asset": "BMC",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "BMC/USD"
+  },
+  {
+    "asset": "CND",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "CND/BTC"
+  },
+  {
+    "asset": "CND",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "CND/ETH"
+  },
+  {
+    "asset": "CND",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "CND/USD"
+  },
+  {
+    "asset": "SKIN",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "SKIN/BTC"
+  },
+  {
+    "asset": "EMGO",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "EMGO/BTC"
+  },
+  {
+    "asset": "EMGO",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "EMGO/USD"
+  },
+  {
+    "asset": "CDT",
+    "currency": "ETH",
+    "increment": "1e-7",
+    "label": "CDT/ETH"
+  },
+  {
+    "asset": "CDT",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "CDT/USD"
+  },
+  {
+    "asset": "FUN",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "FUN/BTC"
+  },
+  {
+    "asset": "FUN",
+    "currency": "ETH",
+    "increment": "1e-7",
+    "label": "FUN/ETH"
+  },
+  {
+    "asset": "FUN",
+    "currency": "USD",
+    "increment": "1e-7",
+    "label": "FUN/USD"
+  },
+  {
+    "asset": "HVN",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "HVN/BTC"
+  },
+  {
+    "asset": "HVN",
+    "currency": "ETH",
+    "increment": "1e-7",
+    "label": "HVN/ETH"
+  },
+  {
+    "asset": "FUEL",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "FUEL/BTC"
+  },
+  {
+    "asset": "FUEL",
+    "currency": "ETH",
+    "increment": "0.0001",
+    "label": "FUEL/ETH"
+  },
+  {
+    "asset": "FUEL",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "FUEL/USD"
+  },
+  {
+    "asset": "POE",
+    "currency": "BTC",
+    "increment": "1e-9",
+    "label": "POE/BTC"
+  },
+  {
+    "asset": "POE",
+    "currency": "ETH",
+    "increment": "1e-8",
+    "label": "POE/ETH"
+  },
+  {
+    "asset": "MCAP",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "MCAP/BTC"
+  },
+  {
+    "asset": "AIR",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "AIR/BTC"
+  },
+  {
+    "asset": "AIR",
+    "currency": "ETH",
+    "increment": "1e-7",
+    "label": "AIR/ETH"
+  },
+  {
+    "asset": "AIR",
+    "currency": "USD",
+    "increment": "1e-7",
+    "label": "AIR/USD"
+  },
+  {
+    "asset": "AMB",
+    "currency": "USD",
+    "increment": "0.001",
+    "label": "AMB/USD"
+  },
+  {
+    "asset": "AMB",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "AMB/ETH"
+  },
+  {
+    "asset": "AMB",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "AMB/BTC"
+  },
+  {
+    "asset": "NTO",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "NTO/BTC"
+  },
+  {
+    "asset": "WEALTH",
+    "currency": "ETH",
+    "increment": "0.001",
+    "label": "WEALTH/ETH"
+  },
+  {
+    "asset": "ICO",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ICO/BTC"
+  },
+  {
+    "asset": "PING",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "PING/BTC"
+  },
+  {
+    "asset": "RKC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "RKC/ETH"
+  },
+  {
+    "asset": "GAME",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "GAME/BTC"
+  },
+  {
+    "asset": "TKR",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "TKR/ETH"
+  },
+  {
+    "asset": "HPC",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "HPC/BTC"
+  },
+  {
+    "asset": "PPT",
+    "currency": "ETH",
+    "increment": "0.0001",
+    "label": "PPT/ETH"
+  },
+  {
+    "asset": "MTH",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "MTH/BTC"
+  },
+  {
+    "asset": "MTH",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "MTH/ETH"
+  },
+  {
+    "asset": "WMGO",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "WMGO/BTC"
+  },
+  {
+    "asset": "WMGO",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "WMGO/USD"
+  },
+  {
+    "asset": "LRC",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "LRC/BTC"
+  },
+  {
+    "asset": "LRC",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "LRC/ETH"
+  },
+  {
+    "asset": "ICX",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "ICX/BTC"
+  },
+  {
+    "asset": "ICX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "ICX/ETH"
+  },
+  {
+    "asset": "NEO",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "NEO/BTC"
+  },
+  {
+    "asset": "NEO",
+    "currency": "ETH",
+    "increment": "0.0001",
+    "label": "NEO/ETH"
+  },
+  {
+    "asset": "NEO",
+    "currency": "USD",
+    "increment": "0.01",
+    "label": "NEO/USD"
+  },
+  {
+    "asset": "CSNO",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "CSNO/BTC"
+  },
+  {
+    "asset": "ORME",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "ORME/BTC"
+  },
+  {
+    "asset": "ICX",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "ICX/USD"
+  },
+  {
+    "asset": "PIX",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "PIX/BTC"
+  },
+  {
+    "asset": "PIX",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "PIX/ETH"
+  },
+  {
+    "asset": "IND",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "IND/ETH"
+  },
+  {
+    "asset": "YOYOW",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "YOYOW/BTC"
+  },
+  {
+    "asset": "MIPS",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "MIPS/BTC"
+  },
+  {
+    "asset": "CDT",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "CDT/BTC"
+  },
+  {
+    "asset": "XVG",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "XVG/BTC"
+  },
+  {
+    "asset": "XVG",
+    "currency": "ETH",
+    "increment": "1e-7",
+    "label": "XVG/ETH"
+  },
+  {
+    "asset": "XVG",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "XVG/USD"
+  },
+  {
+    "asset": "DGB",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "DGB/BTC"
+  },
+  {
+    "asset": "DGB",
+    "currency": "ETH",
+    "increment": "0.000001",
+    "label": "DGB/ETH"
+  },
+  {
+    "asset": "DGB",
+    "currency": "USD",
+    "increment": "0.0001",
+    "label": "DGB/USD"
+  },
+  {
+    "asset": "DCN",
+    "currency": "BTC",
+    "increment": "1e-9",
+    "label": "DCN/BTC"
+  },
+  {
+    "asset": "DCN",
+    "currency": "ETH",
+    "increment": "1e-8",
+    "label": "DCN/ETH"
+  },
+  {
+    "asset": "DCN",
+    "currency": "USD",
+    "increment": "0.000001",
+    "label": "DCN/USD"
+  },
+  {
+    "asset": "LAT",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "LAT/BTC"
+  },
+  {
+    "asset": "EBET",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "EBET/ETH"
+  },
+  {
+    "asset": "ART",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "ART/BTC"
+  },
+  {
+    "asset": "TRX",
+    "currency": "BTC",
+    "increment": "1e-8",
+    "label": "TRX/BTC"
+  },
+  {
+    "asset": "TRX",
+    "currency": "ETH",
+    "increment": "1e-7",
+    "label": "TRX/ETH"
+  },
+  {
+    "asset": "TRX",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "TRX/USD"
+  },
+  {
+    "asset": "ZSC",
+    "currency": "BTC",
+    "increment": "1e-7",
+    "label": "ZSC/BTC"
+  },
+  {
+    "asset": "ZSC",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "ZSC/ETH"
+  },
+  {
+    "asset": "ZSC",
+    "currency": "USD",
+    "increment": "0.00001",
+    "label": "ZSC/USD"
+  },
+  {
+    "asset": "CCT",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "CCT/ETH"
+  },
+  {
+    "asset": "ETBS",
+    "currency": "BTC",
+    "increment": "0.00001",
+    "label": "ETBS/BTC"
+  },
+  {
+    "asset": "VEN",
+    "currency": "BTC",
+    "increment": "0.000001",
+    "label": "VEN/BTC"
+  },
+  {
+    "asset": "VEN",
+    "currency": "ETH",
+    "increment": "0.00001",
+    "label": "VEN/ETH"
+  },
+  {
+    "asset": "VEN",
+    "currency": "USD",
+    "increment": "0.001",
+    "label": "VEN/USD"
+  }
+]
