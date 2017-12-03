@@ -32,7 +32,7 @@ module.exports = function container (get, set, clear) {
   }
 
   function joinProduct (product_id) {
-    return (product_id.split('-')[0] + '_' + product_id.split('-')[1]).toLowerCase
+    return (product_id.split('-')[0] + '_' + product_id.split('-')[1]).toLowerCase()
   }
 
   function statusErr (err, body) {
