@@ -74,6 +74,7 @@ c.quadriga.secret = 'YOUR-SECRET'
 c.quadriga.client_id = 'YOUR-CLIENT-ID'
 
 // to enable WEX.NZ trading, enter your API credentials:
+// Note: WexNZ only supports backfilling the last ~1/4 day ATM.
 c.wexnz = {}
 c.wexnz.key = 'YOUR-API-KEY'
 c.wexnz.secret = 'YOUR-SECRET'

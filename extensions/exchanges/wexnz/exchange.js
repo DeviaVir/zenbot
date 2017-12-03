@@ -66,9 +66,10 @@ module.exports = function container (get, set, clear) {
 
   var exchange = {
     name: 'wexnz',
-    historyScan: 'false',
+    historyScan: 'backward',
     makerFee: 0.2,
     takerFee: 0.2,
+    backfillRateLimit: 1,
 
     getProducts: function () {
       return require('./products.json')
@@ -87,7 +88,7 @@ module.exports = function container (get, set, clear) {
         // move cursor into the past
         args.after = opts.to
       }
-      client.trades({ pair: pair, count: 1000 }, function (err, body) {
+      client.trades({ pair: pair, count: 100000000 }, function (err, body) {
         if (err) return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
@@ -153,7 +154,7 @@ module.exports = function container (get, set, clear) {
 
     trade: function (type, opts, cb) {
       var func_args = [].slice.call(arguments)
-      var client = authed_client()
+      var client = authedClient()
       var pair = joinProduct(opts.product_id)
       /* WEXNZ has no order type?
       if (typeof opts.post_only === 'undefined') {
