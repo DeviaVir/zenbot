@@ -69,7 +69,7 @@ module.exports = function container (get, set, clear) {
     historyScan: 'backward',
     makerFee: 0.2,
     takerFee: 0.2,
-    backfillRateLimit: 1,
+    backfillRateLimit: 5000,
 
     getProducts: function () {
       return require('./products.json')
