@@ -73,10 +73,10 @@ c.quadriga.secret = 'YOUR-SECRET'
 // replace with the client id used at login, as a string, not number
 c.quadriga.client_id = 'YOUR-CLIENT-ID'
 
-// to enable BTC-e trading, enter your API credentials:
-c.btce = {}
-c.btce.key = 'YOUR-API-KEY'
-c.btce.secret = 'YOUR-SECRET'
+// to enable WEX.NZ trading, enter your API credentials:
+c.wexnz = {}
+c.wexnz.key = 'YOUR-API-KEY'
+c.wexnz.secret = 'YOUR-SECRET'
 
 // to enable Gemini trading, enter your API credentials:
 c.gemini = {}
@@ -197,3 +197,11 @@ c.notifiers.prowl = {}
 c.notifiers.prowl.on = false // false prowl disabled; true prowl enabled (key should be correct)
 c.notifiers.prowl.key = 'YOUR-API-KEY'
 // end prowl configs
+
+// textbelt configs
+c.notifiers.textbelt = {}
+c.notifiers.textbelt.on = false // false textbelt disabled; true textbelt enabled (key should be correct)
+c.notifiers.textbelt.phone = '3121234567'
+c.notifiers.textbelt.key = 'textbelt'
+// end textbelt configs
+

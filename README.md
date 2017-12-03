@@ -236,7 +236,8 @@ zenbot trade --help
     --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
     --buy_pct <pct>                 buy with this % of currency balance
     --sell_pct <pct>                sell with this % of asset balance
-    --markup_pct <pct>              % to mark up or down ask/bid price
+    --markdown_buy_pct <pct>        % to mark down buy price (previously the --markup_pct property)
+    --markup_sell_pct <pct>         % to mark up sell price (previously the --markup_pct property)
     --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
     --order_poll_time <ms>          poll order status on this interval
     --sell_stop_pct <pct>           sell if price drops below this % of bought price
@@ -279,6 +280,22 @@ macd
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+neural
+  description:
+    Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)
+  options:
+    --period=<value>  period length - make sure to lower your poll trades time to lower than this value (default: 5s)
+    --activation_1_type=<value>  Neuron Activation Type: sigmoid, tanh, relu (default: sigmoid)
+    --neurons_1=<value>  Neurons in layer 1 Shoot for atleast 100 (default: 5)
+    --depth=<value>  Rows of data to predict ahead for matches/learning (default: 3)
+    --selector=<value>  Selector (default: Gdax.BTC-USD)
+    --min_periods=<value>  Periods to calculate learn from (default: 100)
+    --min_predict=<value>  Periods to predict next number from (default: 10)
+    --momentum=<value>  momentum of prediction (default: 0)
+    --decay=<value>  decay of prediction, use teeny tiny increments (default: 0)
+    --threads=<value>  Number of processing threads you'd like to run (best for sim) (default: 8)
+    --learns=<value>  Number of times to 'learn' the neural network with past data (default: 100)
 
 rsi
   description:
@@ -329,6 +346,15 @@ srsi_macd
     --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
 
+stddev
+  description:
+    Buy when standard deviation and mean increase, sell on mean decrease.
+  options:
+    --period=<value>  period length, set poll trades to 100ms, poll order 1000ms (default: 100ms)
+    --trendtrades_1=<value>  Trades for array 1 to be subtracted stddev and mean from (default: 5)
+    --trendtrades_2=<value>  Trades for array 2 to be calculated stddev and mean from (default: 53)
+    --min_periods=<value>  min_periods (default: 1250)
+
 ta_ema
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -364,6 +390,16 @@ trend_ema (default)
     --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: auto)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
+
+trendline
+  description:
+    Calculate a trendline and trade when trend is positive vs negative.
+  options:
+    --period=<value>  period length (default: 10s)
+    --trendtrades_1=<value>  Number of trades to load into data (default: 100)
+    --lastpoints=<value>  Number of short points at beginning of trendline (default: 3)
+    --avgpoints=<value>  Number of long points at end of trendline (default: 53)
+    --min_periods=<value>  Minimum trades to backfill with (trendtrades_1 + about ~10) (default: 1250)
 
 trust_distrust
   description:
@@ -520,6 +556,12 @@ https://support.discordapp.com/hc/en-us/articles/228383668
 
 Supply zenbot with your Prowl API key and zenbot will push notifications to your Prowl enabled devices.
 https://www.prowlapp.com/
+
+### TextBelt
+
+Supply zenbot with your TextBelt API key and zenbot will send SMS notifications to your cell phone.
+https://www.textbelt.com/
+
 
 ## Manual trade tools
 

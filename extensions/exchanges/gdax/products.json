@@ -16,20 +16,20 @@
     "label": "LTC/BTC"
   },
   {
-    "asset": "BTC",
-    "currency": "GBP",
+    "asset": "LTC",
+    "currency": "USD",
     "min_size": "0.01",
-    "max_size": "250",
+    "max_size": "1000000",
     "increment": "0.01",
-    "label": "BTC/GBP"
+    "label": "LTC/USD"
   },
   {
-    "asset": "BTC",
-    "currency": "EUR",
+    "asset": "ETH",
+    "currency": "USD",
     "min_size": "0.01",
-    "max_size": "250",
+    "max_size": "5000",
     "increment": "0.01",
-    "label": "BTC/EUR"
+    "label": "ETH/USD"
   },
   {
     "asset": "ETH",
@@ -48,14 +48,6 @@
     "label": "ETH/BTC"
   },
   {
-    "asset": "LTC",
-    "currency": "USD",
-    "min_size": "0.01",
-    "max_size": "1000000",
-    "increment": "0.01",
-    "label": "LTC/USD"
-  },
-  {
     "asset": "BTC",
     "currency": "USD",
     "min_size": "0.01",
@@ -64,11 +56,19 @@
     "label": "BTC/USD"
   },
   {
-    "asset": "ETH",
-    "currency": "USD",
+    "asset": "BTC",
+    "currency": "EUR",
     "min_size": "0.01",
-    "max_size": "5000",
+    "max_size": "250",
     "increment": "0.01",
-    "label": "ETH/USD"
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "250",
+    "increment": "0.01",
+    "label": "BTC/GBP"
   }
 ]
