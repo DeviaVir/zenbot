@@ -32,7 +32,7 @@ module.exports = function container (get, set, clear) {
   }
 
   function joinProduct (product_id) {
-    return product_id.split('-')[0] + '_' + product_id.split('-')[1]
+    return (product_id.split('-')[0] + '_' + product_id.split('-')[1]).toLowerCase
   }
 
   function statusErr (err, body) {
@@ -78,7 +78,7 @@ module.exports = function container (get, set, clear) {
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
-      var pair = joinProduct(opts.product_id).toLowerCase()
+      var pair = joinProduct(opts.product_id)
       var args = {}
       if (opts.from) {
         // move cursor into the future
