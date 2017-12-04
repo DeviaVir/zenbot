@@ -19,12 +19,12 @@ module.exports = function container (get) {
   let startServer = function(port, tradeObject) {
     tradeObject.port = port
 
-    app.get('/tradedata', function (req, res) {
+    app.get('/trades', function (req, res) {
       res.send(tradeObject)
     })
 
     app.listen(port)
-    tradeObject.url = require('ip').address() + ':' + port + '/tradeData'
+    tradeObject.url = require('ip').address() + ':' + port + '/trades'
     console.log('api running on ' + tradeObject.url)
   }
 

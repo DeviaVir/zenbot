@@ -562,6 +562,17 @@ https://www.prowlapp.com/
 Supply zenbot with your TextBelt API key and zenbot will send SMS notifications to your cell phone.
 https://www.textbelt.com/
 
+## Rest API
+
+You can enable a Rest API for Zenbot by enabling the following configuration
+```
+c.output.api = {}
+c.output.api.on = true
+c.output.api.port = 0 // 0 = random port
+```
+You can choose a port, or pick 0 for a random port.
+
+Once you did that, you can call the API on: http://\<hostname\>:\<port\>/trades
 
 ## Manual trade tools
 
