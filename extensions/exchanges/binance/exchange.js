@@ -17,7 +17,7 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.binance || !c.binance.key || !c.binance.key === 'YOUR-API-KEY') {
+      if (!c.binance || !c.binance.key || c.binance.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Binance credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
       authed_client = new ccxt.binance({ 'apiKey': c.binance.key, 'secret': c.binance.secret })
