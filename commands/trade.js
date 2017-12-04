@@ -72,7 +72,8 @@ module.exports = function container (get, set, clear) {
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
-        
+        get('lib.output').initializeOutput(s)
+
         const keyMap = new Map()
         keyMap.set('b', 'limit'.grey + ' BUY'.green)
         keyMap.set('B', 'market'.grey + ' BUY'.green)

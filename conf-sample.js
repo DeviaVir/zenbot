@@ -205,3 +205,10 @@ c.notifiers.textbelt.phone = '3121234567'
 c.notifiers.textbelt.key = 'textbelt'
 // end textbelt configs
 
+// output
+c.output  = {}
+
+// REST API
+c.output.api = {}
+c.output.api.on = true
+c.output.api.port = 0 // 0 = random port
