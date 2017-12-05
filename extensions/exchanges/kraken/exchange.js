@@ -14,7 +14,7 @@ module.exports = function container(get, set, clear) {
 
   var public_client, authed_client
   // var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded|between Cloudflare and the origin web server)/)
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server)/)
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time\-out|The web server reported a bad gateway|525\: SSL handshake failed)/)
   var silencedRecoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT)/)
 
   function publicClient() {
@@ -62,7 +62,17 @@ module.exports = function container(get, set, clear) {
     if (so.debug || !error.message.match(silencedRecoverableErrors)) {
       if (error.message.match(/between Cloudflare and the origin web server/)) {
         errorMsg = 'Connection between Cloudflare CDN and api.kraken.com failed'
-      } else {
+      }
+      else if (error.message.match(/The web server reported a gateway time\-out/)) {
+        errorMsg = 'Web server Gateway time-out'
+      }
+      else if (error.message.match(/The web server reported a bad gateway/)) {
+        errorMsg = 'Web server bad Gateway'
+      }
+      else if (error.message.match(/525\: SSL handshake failed/)) {
+        errorMsg = 'SSL handshake failed'
+      }
+      else {
         errorMsg = error
       }
       console.warn(('\nKraken API warning - unable to call ' + method + ' (' + errorMsg + '), retrying in ' + timeout / 1000 + 's').yellow)
@@ -336,6 +346,7 @@ module.exports = function container(get, set, clear) {
           order.status = 'done'
           order.done_at = new Date().getTime()
           order.filled_size = n(orderData.vol_exec).format('0.00000000')
+          order.price = n(orderData.price).format('0.00000000')
           return cb(null, order)
         }
 
