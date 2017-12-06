@@ -78,7 +78,6 @@ module.exports = function container(get, set, clear) {
       else if (error.message.match(/api.kraken.com \| 522\:/)) {
         errorMsg = 'Generic 522 Server error'
       }
-
       else {
         errorMsg = error
       }
