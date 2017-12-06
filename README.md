@@ -276,7 +276,7 @@ neural
   description:
     Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)
   options:
-    --period=<value>  period length - make sure to lower your poll trades time to lower than this value (default: 5s)
+    --period=<value>  period length - make sure to lower your poll trades time to lower than this value (default: 2m)
     --activation_1_type=<value>  Neuron Activation Type: sigmoid, tanh, relu (default: sigmoid)
     --neurons_1=<value>  Neurons in layer 1 Shoot for atleast 100 (default: 5)
     --depth=<value>  Rows of data to predict ahead for matches/learning (default: 3)
