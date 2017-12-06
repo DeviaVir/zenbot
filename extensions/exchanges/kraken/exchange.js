@@ -14,7 +14,7 @@ module.exports = function container(get, set, clear) {
 
   var public_client, authed_client
   // var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded|between Cloudflare and the origin web server)/)
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time\-out|The web server reported a bad gateway|525\: SSL handshake failed)/)
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time\-out|The web server reported a bad gateway|525\: SSL handshake failed|Service\:Unavailable)/)
   var silencedRecoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT)/)
 
   function publicClient() {
@@ -71,6 +71,9 @@ module.exports = function container(get, set, clear) {
       }
       else if (error.message.match(/525\: SSL handshake failed/)) {
         errorMsg = 'SSL handshake failed'
+      }
+      else if (error.message.match(/Service\:Unavailable/)) {
+        errorMsg = 'Service Unavailable'
       }
       else {
         errorMsg = error
