@@ -1,6 +1,7 @@
 const CEX = require('cexio-api-node')
 var path = require('path')
 var n = require('numbro')
+var minimist = require('minimist')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
