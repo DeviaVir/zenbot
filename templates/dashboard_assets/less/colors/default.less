@@ -1,0 +1,183 @@
+@import "../variables.less";
+
+/*Just change your choise color here its theme Colors*/
+
+@topbar: #2f323e;
+@sidebar:#fff;
+@bodycolor:#f1f2f7;
+@headingtext: #2b2b2b;
+@bodytext: #686868;
+@sidebar-text:#54667a;
+@themecolor: @info;
+@dark-themecolor: #4F5467;
+
+body {
+    background: @sidebar;
+}
+.top-left-part{
+    background:@sidebar;
+    .dark-logo{
+        display:none;
+    }
+    .light-logo{
+        display:inline-block;
+    }
+}
+/*Top Header Part*/
+
+.logo i {
+    color: @white;
+}
+
+.navbar-header {
+    background: @topbar;
+}
+
+.navbar-top-links > li > a {
+    color: @white;
+}
+.sidebar .sidebar-head{
+    background: @white;
+    h3{color:@bodytext;}
+}
+
+
+/*Right panel*/
+
+.right-sidebar .rpanel-title {
+    background: @themecolor;
+}
+
+
+/*Bread Crumb*/
+
+.bg-title .breadcrumb .active {
+    color: @themecolor;
+}
+
+/*Sidebar*/
+
+.sidebar {
+    background: @sidebar;
+    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+    .label-custom {
+        background: @megna;
+    }
+}
+
+#side-menu li a {
+    color: @sidebar-text;
+}
+
+#side-menu li a {
+    color: @sidebar-text;
+    border-left: 0px solid @sidebar;
+}
+
+#side-menu > li > a {
+    border-left:3px solid transperant;
+    &:hover,
+    &:focus {
+        background: rgba(0, 0, 0, 0.07);
+    }
+    &.active {
+        background: transperant;
+        color: @sidebar-text;
+        border-left:3px solid @themecolor;
+        font-weight: 500;
+    }
+}
+
+#side-menu ul > li > a {
+    &:hover {
+        color: @themecolor;
+    }
+    &.active {
+        color: @sidebar-text;
+        font-weight: 500;
+    }
+}
+
+.user-profile .user-pro-body .u-dropdown {
+    color: @sidebar-text;
+}
+
+
+/*themecolor*/
+
+.bg-theme {
+    background-color: #707cd2 !important;
+}
+
+.bg-theme-dark {
+    background-color: @themecolor !important;
+}
+
+
+/*Button*/
+
+.btn-custom {
+    background: @themecolor;
+    border: 1px solid @themecolor;
+    color: @white;
+    &:hover {
+        background: @themecolor;
+        opacity: 0.8;
+        color: @white;
+        border: 1px solid @themecolor;
+    }
+}
+
+
+/*Custom tab*/
+
+.customtab li.active a,
+.customtab li.active a:hover,
+.customtab li.active a:focus {
+    border-bottom: 2px solid @themecolor;
+    color: @themecolor;
+}
+
+.tabs-vertical li.active a,
+.tabs-vertical li.active a:hover,
+.tabs-vertical li.active a:focus {
+    background: @themecolor;
+    border-right: 2px solid @themecolor;
+}
+
+
+/*Nav-pills*/
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    background: @themecolor;
+    color: @white;
+}
+
+
+/*Extra css*/
+.bg-theme {
+    background-color: @info !important;
+}
+.panel-themecolor,
+.panel-theme {
+    border-color: @themecolor;
+    .panel-heading {
+        border-color: @themecolor;
+        color: white;
+        background-color: @themecolor;
+        a {
+            color: @white;
+            &:hover {
+                color: rgba(255, 255, 255, 0.5);
+            }
+        }
+    }
+    a {
+        color: @themecolor;
+        &:hover {
+            color: darken(@themecolor, 15%);
+        }
+    }
+}

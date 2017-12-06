@@ -1,0 +1,24 @@
+.ct-sm-line-chart, .ct-area-ln-chart, #ct-polar-chart, .ct-svg-chartct-bar-chart{
+  position: relative;
+}
+.ct-sm-line-chart .ct-series-a .ct-line, .ct-bar-chart .ct-series-a .ct-bar, .ct-sm-line-chart .ct-series-a .ct-point, .ct-donute-chart .ct-series-a .ct-slice-donut,  .ct-gauge-chart .ct-series-a .ct-slice-donut, .ct-area-ln-chart .ct-series-a .ct-line, .ct-area-ln-chart .ct-series-a .ct-point, .ct-animation-chart .ct-series-a .ct-line, .ct-animation-chart .ct-series-a .ct-point, .ct-svg-chart .ct-series-a .ct-line  {
+      stroke: #2cabe3;        
+    }
+.ct-sm-line-chart .ct-series-b .ct-line,  .ct-bar-chart .ct-series-b .ct-bar, .ct-sm-line-chart .ct-series-b .ct-point, .ct-donute-chart .ct-series-b .ct-slice-donut,  .ct-gauge-chart .ct-series-b .ct-slice-donut, .ct-animation-chart .ct-series-b .ct-line, .ct-animation-chart .ct-series-b .ct-point, .ct-svg-chart .ct-series-b .ct-line  {
+      stroke: #ff7676;        
+    }  
+.ct-sm-line-chart .ct-series-c .ct-line, .ct-sm-line-chart .ct-series-c .ct-point, .ct-donute-chart .ct-series-c .ct-slice-donut,  .ct-gauge-chart .ct-series-c .ct-slice-donut, .ct-animation-chart .ct-series-c .ct-line, .ct-animation-chart .ct-series-c .ct-point, .ct-svg-chart .ct-series-c .ct-line  {
+      stroke: #53e69d;        
+    }  
+ .ct-gauge-chart .ct-series-d .ct-slice-donut,  .ct-donute-chart .ct-series-d .ct-slice-donut{
+      stroke: #ffc36d; 
+ }
+.ct-donute-chart .ct-series-e .ct-slice-donut{
+  stroke: #4c5667;
+}
+.ct-donute-chart .ct-series-f .ct-slice-donut{
+  stroke: #02bec9;
+}
+ .ct-area-ln-chart .ct-series-a .ct-area, .ct-svg-chart .ct-series-a .ct-area {
+        fill: #2cabe3;
+    }         }

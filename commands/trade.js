@@ -221,7 +221,7 @@ module.exports = function container (get, set, clear) {
         /* The end of printTrade */
 
         /* Implementing statistical status dump every 10 secs */
-        var shouldSaveStats = false;
+        var shouldSaveStats = true;
         function toggleStats(){
           shouldSaveStats = !shouldSaveStats;
           if(shouldSaveStats)
@@ -236,7 +236,6 @@ module.exports = function container (get, set, clear) {
             saveStatsLoop()
           }, 10000)
         }
-        saveStatsLoop()
 
         function saveStats () {
           if(!shouldSaveStats) return;
@@ -284,7 +283,7 @@ module.exports = function container (get, set, clear) {
           })
           var code = 'var data = ' + JSON.stringify(data) + ';\n'
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
-          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
+          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'trade_result.html.tpl'), {encoding: 'utf8'})
           var out = tpl
             .replace('{{code}}', code)
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
@@ -296,7 +295,7 @@ module.exports = function container (get, set, clear) {
 
             //ymd
             var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-            out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
+            out_target = so.filename || 'stats/index.html'
 
             fs.writeFileSync(out_target, out)
             //console.log('\nwrote'.grey, out_target)
@@ -362,6 +361,7 @@ module.exports = function container (get, set, clear) {
               if (!trades.length) {
                 console.log('------------------------------------------ INITIALIZE  OUTPUT ------------------------------------------')
                 get('lib.output').initializeOutput(s)
+                saveStatsLoop()
                 console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
                 if (so.mode === 'paper') {
                   console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')

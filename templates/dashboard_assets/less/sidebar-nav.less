@@ -1,0 +1,148 @@
+// --Sidebar
+.sidebar {
+    overflow-y: auto;
+    .sidebar-nav.navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .fa-fw {
+        width: 20px;
+        text-align: center!important;
+        display: inline-block;
+        font-style: normal;
+        font-weight: 500;
+        margin-right: 7px;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+    .mdi {
+        font-size: 21px;
+    }
+    .sidebar-head {
+        padding: 4px 20px;
+        width: 240px;
+        position: fixed;
+        z-index: 10;
+        left: 0px;
+        top: 0px;
+        h3 {
+            color: @white;
+            font-weight: 400;
+            i {
+                font-size: 20px;
+            }
+        }
+    }
+    &:hover .sidebar-head {
+        width: 240px;
+    }
+    .label {
+        font-size: 10px;
+        border-radius: 60px;
+        padding: 6px 8px;
+        min-width: 30px;
+        height: 20px;
+        margin-top: 0px;
+    }
+}
+
+.sidebar #side-menu .user-pro {
+    .img-circle {
+        width: 30px;
+        margin-right: 10px;
+    }
+    >a {
+        padding-left: 15px;
+    }
+    ul li a {
+        padding-left: 25px;
+    }
+    .nav-second-level {
+        li i {
+            margin-right: 10px;
+        }
+    }
+}
+
+#side-menu {
+    overflow: hidden;
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+#side-menu li.active>a {
+    background: rgba(0, 0, 0, 0);
+}
+
+#side-menu li a {
+    color: @sidebar-text;
+    width: 240px;
+    &:focus {
+        background: rgba(0, 0, 0, 0);
+    }
+}
+
+#side-menu li.devider {
+    margin: 7px 0;
+    border-top: 1px solid @border;
+}
+
+#side-menu>li>a {
+    padding: 15px 35px 15px 20px;
+    display: block;
+    &:hover,
+    &:focus {
+        background: rgba(0, 0, 0, 0.1);
+    }
+    &.active {
+        color: @themecolor;
+    }
+}
+
+#side-menu ul>li>a {
+    &:hover {
+        color: @themecolor;
+        background: none;
+    }
+    &.active {
+        color: @themecolor;
+    }
+}
+
+.sidebar .arrow {
+    position: absolute;
+    right: 20px;
+    top: 17px;
+}
+
+.sidebar .nav-second-level .arrow {
+    right: 20px;
+    top: 17px;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f105";
+}
+
+.sidebar .active>a>span>.fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: none !important;
+}
+
+.sidebar .nav-second-level li a {
+    padding: 14px 10px 14px 40px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 60px;
+}
+
+.content-wrapper .nicescroll-rails {
+    display: none!important;
+}
