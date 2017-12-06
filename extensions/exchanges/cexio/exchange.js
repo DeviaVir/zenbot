@@ -37,11 +37,11 @@ module.exports = function container (get, set, clear) {
 
   function retry (method, args) {
     if (method !== 'getTrades') {
-      console.error(('\nCEX.IO API is down! unable to call ' + method + ', retrying in 10s').red)
+      console.error(('\nCEX.IO API is down! unable to call ' + method + ', retrying in 15s').red)
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, 15000)
   }
 
   var orders = {}
