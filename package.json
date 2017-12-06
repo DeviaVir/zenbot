@@ -58,7 +58,6 @@
     "simple-xmpp": "^1.3.0",
     "sosa_mongo": "^1.0.3",
     "stats-lite": "2.1.0",
-    "talib": "^1.0.3",
     "trend": "0.3.0",
     "timebucket": "^0.4.0",
     "wexnz": "^0.1.3",
