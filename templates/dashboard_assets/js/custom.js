@@ -9,17 +9,7 @@
 
      $(function () {
          $(".preloader").fadeOut();
-         $('#side-menu').metisMenu();
      });
-
-     /* ===== Theme Settings ===== */
-
-     $(".open-close").on("click", function () {
-         body.toggleClass("show-sidebar").toggleClass("hide-sidebar");
-         $(".sidebar-head .open-close i").toggleClass("ti-menu");
-     });
-
-
 
      /* ===========================================================
          Loads the correct sidebar on window load.
@@ -32,12 +22,8 @@
                  var topOffset = 60,
                      width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width,
                      height = ((window.innerHeight > 0) ? window.innerHeight : this.screen.height) - 1;
-                 if (width < 768) {
-                     $('div.navbar-collapse').addClass('collapse');
-                     topOffset = 100; /* 2-row-menu */
-                 } else {
-                     $('div.navbar-collapse').removeClass('collapse');
-                 }
+
+
 
                  /* ===== This is for resizing window ===== */
 
@@ -109,12 +95,6 @@
          size: "6px",
          color: 'rgba(0,0,0,0.3)'
      });
-     $('.chat-list').slimScroll({
-         height: '100%',
-         position: 'right',
-         size: "0px",
-         color: '#dcdcdc'
-     });
 
      /* ===== Resize all elements ===== */
 
@@ -138,7 +118,7 @@
          $("#recoverform").fadeIn();
      });
 
-     /* ================================================================= 
+     /* =================================================================
          Update 1.5
          this is for close icon when navigation open in mobile view
      ================================================================= */

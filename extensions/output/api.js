@@ -6,7 +6,6 @@ module.exports = function container (get) {
   let app = express()
   let random_port = require('random-port')
   let path = require("path")
-  let es6Renderer = require('express-es6-template-engine')
 
   let run = function(reporter, tradeObject) {
     if (!reporter.port || reporter.port === 0) {
@@ -26,15 +25,16 @@ module.exports = function container (get) {
   let startServer = function(port, tradeObject) {
     tradeObject.port = port
 
-    app.engine('html', es6Renderer);
     app.set('views', path.join(__dirname+'../../../templates'));
-    app.set('view engine', 'html');
+    app.set('view engine', 'ejs');
 
     app.use('/assets', express.static(__dirname+'../../../templates/dashboard_assets'));
     app.use('/assets-zenbot', express.static(__dirname+'../../../assets'));
 
     app.get('/', function (req, res) {
-      res.render('dashboard', {locals: objectWithoutKey(tradeObject, 'options')});
+      let datas = objectWithoutKey(tradeObject, 'options')
+      datas = objectWithoutKey(tradeObject, 'lookback')
+      res.render('dashboard', datas);
     })
 
     app.get('/trades', function (req, res) {
