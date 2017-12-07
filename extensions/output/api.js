@@ -47,7 +47,7 @@ module.exports = function container (get) {
     })
 
     app.listen(port)
-    tradeObject.url = require('ip').address() + ':' + port + '/trades'
+    tradeObject.url = require('ip').address() + ':' + port + ''
     console.log('api running on ' + tradeObject.url)
   }
 
