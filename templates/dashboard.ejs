@@ -306,7 +306,7 @@
 
                 row += "<tr>";
                 row += "<td class='text-center'>" + myObj[s].rank + "</td>";
-                row += "<td><div class='s-s-"+myObj[s].bitcoin+" currency-logo-sprite'></div>" + myObj[s].name + " ("+myObj[s].symbol+")" +  "</td>";
+                row += "<td><div class='s-s-"+myObj[s].id+" currency-logo-sprite'></div>" + myObj[s].name + " ("+myObj[s].symbol+")" +  "</td>";
                 row += "<td class='text-right'>" + new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", minimumSignificantDigits: 2, maximumSignificantDigits: 6}).format(myObj[s].price_usd) + "</td>";
                 row += "<td class='text-right hidden-xs'>" + new Intl.NumberFormat("en-US", {minimumSignificantDigits: 2, maximumSignificantDigits: 6}).format(myObj[s].price_btc) + " BTC</td>";
                 row += "<td class='text-right hidden-xs hidden-sm'>" + new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(myObj[s]["24h_volume_usd"]) + "</td>";
