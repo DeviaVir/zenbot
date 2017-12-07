@@ -1,0 +1,12 @@
+{
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#edf1f5",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/carlos8f/zenbot/master/assets/logo.png",
+      "sizes": "330x203",
+      "type": "image/png"
+    }
+  ]
+}
