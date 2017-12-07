@@ -1,4 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900);
+@import url(https://coinmarketcap.com/static/sprites/all_views_market-cap-by-circulating-supply_0.css?3177814135);
+
 @import "spinners.css";
 .preloader {
     width: 100%;
@@ -10319,4 +10321,10 @@ ul.pro-amenities li span i {
         margin: 10% auto 0;
         width: 300px
     }
+}
+
+.currency-logo-sprite {
+    margin-right: 8px;
+    margin-top: 4px;
+    float: left;
 }
