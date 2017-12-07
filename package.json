@@ -27,6 +27,7 @@
     "convnetjs": "0.3.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "forex.analytics": "mkmarek/forex.analytics#7bc278987700d4204e959af17de61495941d1a14",
     "gdax": "^0.4.2",
     "gemini-api": "^2.0.4",
     "glob": "^7.1.1",
