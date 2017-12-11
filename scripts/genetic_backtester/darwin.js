@@ -19,7 +19,7 @@ let Phenotypes = require('./phenotype.js');
 
 let VERSION = 'Zenbot 4 Genetic Backtester v0.2';
 
-let PARALLEL_LIMIT = process.env.PARALLEL_LIMIT || require('os').cpus().length;
+let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length;
 
 let TREND_EMA_MIN = 20;
 let TREND_EMA_MAX = 20;
