@@ -16,7 +16,7 @@ mongodb:
   image: mongo:latest
   volumes_from:
     - mongodb-data
-  command: mongod --smallfiles
+  command: mongod --smallfiles --bind_ip_all
 
 mongodb-data:
   image: mongo:latest
