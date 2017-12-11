@@ -36,6 +36,11 @@ c.kraken.secret = 'YOUR-SECRET'
 // Please read API TOS on https://www.kraken.com/u/settings/api
 c.kraken.tosagree = 'disagree'
 
+// to enable Binance trading, enter your API credentials:
+c.binance = {}
+c.binance.key = 'YOUR-API-KEY'
+c.binance.secret = 'YOUR-SECRET'
+
 // to enable Bittrex trading, enter your API credentials:
 c.bittrex = {}
 c.bittrex.key = 'YOUR-API-KEY'
