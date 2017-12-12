@@ -21,25 +21,21 @@ module.exports = function container (get, set, clear) {
       this.option('oversold_rsi_periods', 'number of periods for oversold RSI', Number, 14)
       this.option('oversold_rsi', 'buy when RSI reaches this value', Number, 25)
       this.option('overbought_rsi', 'sell when RSI reaches this value', Number, 70)
-      this.option('trailing_stop', 'If we lose this percent sell', Number, 0.015)
     },
 
       /*TODO : WTF ???
       */
     calculate: function (s) {
+      //some additionnal indicator useful one day ;)
       get('lib.ema')(s, 'trend_ema', s.options.trend_ema)
       get('lib.cci')(s, 'cci', s.options.cci_periods,s.options.cci_constant)
+      get('lib.rsi')(s, 'rsi', s.options.oversold_rsi_periods)
+      //Ichimoku
       get('lib.midprice')(s, 'ts', 9)
       get('lib.midprice')(s, 'ks', 26)
       get('lib.midprice')(s, 'ssa', 1,'ks','ts')
       get('lib.midprice')(s, 'ssb', 52)
-
-      //Overbought or oversold ?
-      if (s.options.oversold_rsi) {
-        get('lib.rsi')(s, 'oversold_rsi', s.options.oversold_rsi_periods)
-        s.oversold=(s.period.oversold_rsi < s.options.oversold_rsi)
-        s.overbought=(s.period.oversold_rsi > s.options.overbought_rsi)
-      }
+      
       //Calculate rate of ema's
       if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
         s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
@@ -55,47 +51,33 @@ module.exports = function container (get, set, clear) {
 
     onPeriod: function (s, cb) {
       if (typeof s.period.trend_ema_stddev === 'number') {
-        if(/*stop loss si last_bought_price > prix de cloture alors perte donc vente !!! */
-          s.period.trend_ema_rate > s.period.trend_ema_stddev * 1 &&
-          s.last_bought_price !== null && s.last_bought_price !== undefined && (s.last_bought_price*(1-s.options.trailing_stop))>s.period.close
-        ){
-          s.signal = 'sell'
-          s.trend = 'up'
-          s.last_bought_price = null
-        }else if (
-          //(s.last_bought_price === null || s.last_bought_price === undefined || s.last_bought_price<s.period.low) &&
-          //s.overbought &&
+        if (
+        //Prices go low ... sell close < TS (early signal could wait close < KS)
           s.period.close < s.period.ts &&
+        // not sure if we have to verify the kumo here ...
           s.lookback.length>25 && s.period.ts >= s.lookback[25].ssa && s.period.ts >= s.lookback[25].ssb 
-          //s.period.cci > s.options.cci_overbought &&
-          //&& s.period.trend_ema_rate > s.period.trend_ema_stddev * 1
         ){
           if (s.trend !== 'up') {s.acted_on_trend = false}
           s.trend = 'up'
-          s.last_bought_price = null
           s.signal = !s.acted_on_trend ? 'sell' : null
-        }else if(/*BUY*/
-          //s.oversold &&
+        }else if(
+        //Prices go high TS > KS
           (s.period.ts >= s.period.ks && s.period.close >= s.period.ks)&&
+        //Greedy Move (Very Weak Signal) : Buying under the kumo
           s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
-          //s.period.cci < s.options.cci_oversold &&
-          //&& (s.period.trend_ema_rate < (s.period.trend_ema_stddev * -1) 
-          //|| (s.period.overbought_rsi<70 && s.period.ts > s.period.ks  && s.period.close > s.period.ts && s.lookback[25].ssa  > s.lookback[25].ssb)
-          //) 
         ){
           if (s.trend !== 'down') {s.acted_on_trend = false}
-          s.buy_activator = false;
           s.trend = 'down'
           s.signal = !s.acted_on_trend ? 'buy' : null
-          if(s.signal==='buy'){
-            s.last_bought_price = s.period.low
-          }
+        }else if(
+        //When close < ts < ks < (ssa & ssb) we should short
+            (s.period.ts < s.period.ks && s.period.close < s.period.ks)&&
+            s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
+            
+        ){
+            console.log('short');
+//            s.signal = 'short';
         }
-      }
-      if(/*trailing stop*/
-        s.last_bought_price !== null && s.last_bought_price !== undefined && s.last_bought_price<(s.period.close/**(1+s.options.trailing_stop)*/)
-      ){
-        s.last_bought_price=s.period.close
       }
       cb()
     },
