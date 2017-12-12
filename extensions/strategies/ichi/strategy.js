@@ -4,7 +4,7 @@ var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'ichi',
-    description: 'Ichimoku Kinko Hyo',
+    description: 'Ichimoku Kinko Hyo, require a markup > 0 to follow trend. TODO : Support short / Don\'t trade in range',
 
     getOptions: function () {
       this.option('period', 'period length', String, '1m')
@@ -51,8 +51,8 @@ module.exports = function container (get, set, clear) {
 
     onPeriod: function (s, cb) {
       if (typeof s.period.trend_ema_stddev === 'number') {
-        if (
-        //Prices go low ... sell close < TS (early signal could wait close < KS)
+        if (/* SELL */
+        //Prices go low ... sell close < TS (early signal could wait close < KS to avoid not taking gain on skyrocket)
           s.period.close < s.period.ts &&
         // not sure if we have to verify the kumo here ...
           s.lookback.length>25 && s.period.ts >= s.lookback[25].ssa && s.period.ts >= s.lookback[25].ssb 
@@ -60,7 +60,8 @@ module.exports = function container (get, set, clear) {
           if (s.trend !== 'up') {s.acted_on_trend = false}
           s.trend = 'up'
           s.signal = !s.acted_on_trend ? 'sell' : null
-        }else if(
+          s.shorting = false;
+        }else if(/* BUY */
         //Prices go high TS > KS
           (s.period.ts >= s.period.ks && s.period.close >= s.period.ks)&&
         //Greedy Move (Very Weak Signal) : Buying under the kumo
@@ -69,14 +70,15 @@ module.exports = function container (get, set, clear) {
           if (s.trend !== 'down') {s.acted_on_trend = false}
           s.trend = 'down'
           s.signal = !s.acted_on_trend ? 'buy' : null
+          s.shorting = false;
         }else if(
         //When close < ts < ks < (ssa & ssb) we should short
+            (s.shorting === undefined || s.shorting === false) &&
             (s.period.ts < s.period.ks && s.period.close < s.period.ts) &&
             s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
-            
         ){
             console.log('short');
-//            s.signal = 'short';
+            s.shorting = true;
         }
       }
       cb()
