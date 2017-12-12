@@ -71,7 +71,7 @@ module.exports = function container (get, set, clear) {
           s.signal = !s.acted_on_trend ? 'buy' : null
         }else if(
         //When close < ts < ks < (ssa & ssb) we should short
-            (s.period.ts < s.period.ks && s.period.close < s.period.ks)&&
+            (s.period.ts < s.period.ks && s.period.close < s.period.ts) &&
             s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
             
         ){
