@@ -67,7 +67,6 @@ return {
         if (s.trend !== 'up') {s.acted_on_trend = false}
         s.trend = 'up'
         s.signal = !s.acted_on_trend ? 'sell' : null
-        closeShort(s)//shouldn't not be called ... should buy first ;)
       }else if(/* BUY */
       //Prices go high TS > KS
         (s.period.ts >= s.period.ks && s.period.close >= s.period.ks)
@@ -76,8 +75,7 @@ return {
       ){
         if (s.trend !== 'down') {s.acted_on_trend = false}
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'buy' : null
-        closeShort(s)        
+        s.signal = !s.acted_on_trend ? 'buy' : null      
       }
       if(
       //When close < ts < ks < (ssa & ssb) we should short
@@ -87,6 +85,8 @@ return {
       ){
           console.log('short');
           s.shorting = true;
+      }else if(s.shorting === true && s.period.close >= s.period.ts){
+        closeShort(s)
       }
     }
     cb()
