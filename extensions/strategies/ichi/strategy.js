@@ -78,7 +78,8 @@ return {
         s.trend = 'down'
         s.signal = !s.acted_on_trend ? 'buy' : null
         closeShort(s)        
-      }else if(
+      }
+      if(
       //When close < ts < ks < (ssa & ssb) we should short
           (s.shorting === undefined || s.shorting === false) &&
           (s.period.ts < s.period.ks && s.period.close < s.period.ts) &&
