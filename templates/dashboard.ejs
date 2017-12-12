@@ -11,8 +11,8 @@
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#edf1f5">
-    <meta name="msapplication-navbutton-color" content="#edf1f5">
+    <meta name="theme-color" content="#ff6600">
+    <meta name="msapplication-navbutton-color" content="#ff6600">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -110,7 +110,7 @@
                     <% if (typeof stats != "undefined") { %>
                     <div class="col-lg-3 col-sm-6 col-xs-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Last balance</h3>
+                            <h3 class="box-title">Last balance ( <%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
                             <ul class="list-inline one-part">
                               <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><%= stats.tmp_balance %></span> <small class="text-success"><%= currency.toUpperCase() %></small></li>
                               <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="text-success"><%= stats.profit %></span> <small class="text-success">of profit</small></li>
@@ -215,7 +215,7 @@
                                         </tr>
                                       <% } %>
                                       <% if (my_trades) { %>
-                                        <% my_trades.forEach(function(trade){ %>
+                                        <% my_trades.reverse().forEach(function(trade){ %>
                                           <tr>
                                             <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></td>
                                             <td><%= trade.size %> <%= asset.toUpperCase() %></td>
@@ -226,7 +226,7 @@
                                         <% }); %>
                                       <% } %>
 
-                                      <% if (!(my_trades && typeof buy_order != "undefined" && typeof sell_order != "undefined")) { %>
+                                      <% if (!(typeof buy_order != "undefined" || typeof sell_order != "undefined") && !my_trades) { %>
                                         <tr><td colspan="5" class="text-center">There is no trades at the moment</td></tr>
                                       <% } %>
                                     </tbody>
