@@ -353,7 +353,6 @@ module.exports = function container(get, set, clear) {
           order.status = 'done'
           order.done_at = new Date().getTime()
           order.filled_size = n(orderData.vol_exec).format('0.00000000')
-	        console.log ('\n[MT] orderData.price is : ' +  n(orderData.price).format('0.00000000')+ ' Old order price was: ' + n(order.price).format('0.00000000') )
           order.price = n(orderData.price).format('0.00000000')
           return cb(null, order)
         }
