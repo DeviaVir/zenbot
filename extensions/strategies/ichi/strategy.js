@@ -3,8 +3,8 @@ var z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
-    name: 'stop_loss',
-    description: 'Stop loss systems',
+    name: 'ichi',
+    description: 'Ichimoku Kinko Hyo',
 
     getOptions: function () {
       this.option('period', 'period length', String, '1m')
@@ -24,12 +24,7 @@ module.exports = function container (get, set, clear) {
       this.option('trailing_stop', 'If we lose this percent sell', Number, 0.015)
     },
 
-      /*TODO : 
-        Trend reversal indicator / activator :
-          CCI ?
-        Indicator de vente courte !!
-        Sell ONLY when bought price < sold price ?
-
+      /*TODO : WTF ???
       */
     calculate: function (s) {
       get('lib.ema')(s, 'trend_ema', s.options.trend_ema)
@@ -43,7 +38,7 @@ module.exports = function container (get, set, clear) {
       if (s.options.oversold_rsi) {
         get('lib.rsi')(s, 'oversold_rsi', s.options.oversold_rsi_periods)
         s.oversold=(s.period.oversold_rsi < s.options.oversold_rsi)
-	      s.overbought=(s.period.oversold_rsi > s.options.overbought_rsi)
+        s.overbought=(s.period.oversold_rsi > s.options.overbought_rsi)
       }
       //Calculate rate of ema's
       if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
@@ -73,7 +68,7 @@ module.exports = function container (get, set, clear) {
           s.period.close < s.period.ts &&
           s.lookback.length>25 && s.period.ts >= s.lookback[25].ssa && s.period.ts >= s.lookback[25].ssb 
           //s.period.cci > s.options.cci_overbought &&
-          && s.period.trend_ema_rate > s.period.trend_ema_stddev * 1
+          //&& s.period.trend_ema_rate > s.period.trend_ema_stddev * 1
         ){
           if (s.trend !== 'up') {s.acted_on_trend = false}
           s.trend = 'up'
@@ -84,12 +79,12 @@ module.exports = function container (get, set, clear) {
           (s.period.ts >= s.period.ks && s.period.close >= s.period.ks)&&
           s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
           //s.period.cci < s.options.cci_oversold &&
-          && (s.period.trend_ema_rate < (s.period.trend_ema_stddev * -1) 
+          //&& (s.period.trend_ema_rate < (s.period.trend_ema_stddev * -1) 
           //|| (s.period.overbought_rsi<70 && s.period.ts > s.period.ks  && s.period.close > s.period.ts && s.lookback[25].ssa  > s.lookback[25].ssb)
-          ) 
+          //) 
         ){
           if (s.trend !== 'down') {s.acted_on_trend = false}
-	  s.buy_activator = false;
+          s.buy_activator = false;
           s.trend = 'down'
           s.signal = !s.acted_on_trend ? 'buy' : null
           if(s.signal==='buy'){
