@@ -10,9 +10,9 @@
   {
     "asset": "ETH",
     "currency": "USD",
-    "min_size": "0.1",
+    "min_size": "0.01",
     "max_size": "1000",
-    "increment": "0.0001",
+    "increment": "0.001",
     "label": "ETH/USD"
   },
   {
@@ -36,7 +36,7 @@
     "currency": "USD",
     "min_size": "0.01",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.00000001",
     "label": "ZEC/USD"
   },
   {
@@ -52,7 +52,7 @@
     "currency": "EUR",
     "min_size": "0.1",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.00000001",
     "label": "ETH/EUR"
   },
   {
@@ -76,7 +76,7 @@
     "currency": "EUR",
     "min_size": "0.01",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.00000001",
     "label": "ZEC/EUR"
   },
   {
@@ -92,7 +92,7 @@
     "currency": "GBP",
     "min_size": "0.1",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.00000001",
     "label": "ETH/GBP"
   },
   {
@@ -116,7 +116,7 @@
     "currency": "GBP",
     "min_size": "0.01",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.00000001",
     "label": "ZEC/GBP"
   },
   {
@@ -132,7 +132,7 @@
     "currency": "BTC",
     "min_size": "0.1",
     "max_size": "1000",
-    "increment": "0.0001",
+    "increment": "0.00000001",
     "label": "ETH/BTC"
   },
   {
@@ -166,5 +166,53 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "GHS/BTC"
+  },
+  {
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "XRP",
+    "currency": "GBP",
+    "min_size": "0.00000001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "BTG",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "BTG",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "BTG",
+    "currency": "GBP",
+    "min_size": "0.00000001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
   }
 ]

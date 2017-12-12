@@ -19,7 +19,7 @@ let Phenotypes = require('./phenotype.js');
 
 let VERSION = 'Zenbot 4 Genetic Backtester v0.2';
 
-let PARALLEL_LIMIT = require('os').cpus().length;
+let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length;
 
 let TREND_EMA_MIN = 20;
 let TREND_EMA_MAX = 20;
@@ -74,7 +74,7 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
       phenotype['sim'] = result;
       result['fitness'] = Phenotypes.fitness(phenotype);
     } catch (err) {
-      console.log(`Bad output detected`);
+      console.log(`Bad output detected`, err.toString());
       console.log(stdout);
     }
 
@@ -131,7 +131,6 @@ let processOutput = output => {
   delete r.order_adjust_time;
   delete r.population;
   delete r.population_data;
-  delete r.selector;
   delete r.sell_pct;
   delete r.start;
   delete r.stats;
@@ -153,6 +152,7 @@ let processOutput = output => {
     order_type: params.order_type,
     roi: roi,
     wlRatio: losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
+    selector: params.selector,
     strategy: params.strategy,
     frequency: roundp((wins + losses) / days, 3)
   };
@@ -509,8 +509,8 @@ let simulateGeneration = () => {
 
     results.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0));
 
-    let fieldsGeneral = ['fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days', 'params'];
-    let fieldNamesGeneral = ['Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters'];
+    let fieldsGeneral = ['selector', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days', 'params'];
+    let fieldNamesGeneral = ['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters'];
 
     let csv = json2csv({
       data: results,
