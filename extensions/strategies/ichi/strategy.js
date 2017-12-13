@@ -66,7 +66,7 @@ return {
       ){
         if (s.trend !== 'up') {s.acted_on_trend = false}
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = 'sell';//!s.acted_on_trend ? 'sell' : null
       }else if(/* BUY */
       //Prices go high TS > KS
         (s.period.ts >= s.period.ks && s.period.close >= s.period.ks)
@@ -75,7 +75,7 @@ return {
       ){
         if (s.trend !== 'down') {s.acted_on_trend = false}
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'buy' : null      
+        s.signal = 'buy';// !s.acted_on_trend ? 'buy' : null      
       }
       if(
       //When close < ts < ks < (ssa & ssb) we should short

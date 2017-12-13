@@ -19,7 +19,7 @@ module.exports = function container (get, set, clear) {
       if (!c.cexio || !c.cexio.username || !c.cexio.key || c.cexio.key === 'YOUR-API-KEY') {
         throw new Error('please configure your CEX.IO credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      var nonce = new Date().getTime() / 1000
+      var nonce = Math.floor(new Date().getTime() / 1000)
       authed_client = new CEX(c.cexio.username, c.cexio.key, c.cexio.secret).rest
       authed_client.nonce = function () { return nonce++ }
     }
@@ -34,9 +34,12 @@ module.exports = function container (get, set, clear) {
     if (method !== 'getTrades') {
       console.error(('\nCEX.IO API is down! unable to call ' + method + ', retrying in 10s').red)
     }
+    var r_timeout = 10000
+    //if(method === 'getBalance'){r_timeout=60000}
     setTimeout(function () {
+      console.log('Timeout '+method)
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, r_timeout)
   }
 
   var orders = {}
@@ -61,8 +64,7 @@ module.exports = function container (get, set, clear) {
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetTrades ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getTrades', func_args, body)
+        if (err || typeof body === 'undefined' || body === 'error: Rate limit exceeded') return retry('getTrades', func_args, err)
         var trades = body.map(function (trade) {
           return {
             trade_id: Number(trade.tid),
@@ -80,8 +82,7 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.account_balance(function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetBalance ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getBalance', func_args, body)
+        if (err || typeof body === 'undefined' || typeof body[opts.currency] === 'undefined' || body === 'error: Nonce must be incremented' || body === 'error: Rate limit exceeded') return retry('getBalance', func_args, err)
         var balance = { asset: 0, currency: 0 }
         balance.currency = n(body[opts.currency].available).add(body[opts.currency].orders).format('0.00000000')
         balance.currency_hold = n(body[opts.currency].orders).format('0.00000000')
@@ -96,8 +97,7 @@ module.exports = function container (get, set, clear) {
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.ticker(pair, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetQuote ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getQuote', func_args, body)
+        if (err || typeof body === 'undefined') return retry('getQuote', func_args, err)
         cb(null, { bid: String(body.bid), ask: String(body.ask) })
       })
     },
@@ -106,28 +106,22 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
-        //if (body === 'Order canceled') return cb()
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ncancelOrder ' + body).red)
         if (err) return retry('cancelOrder', func_args, err)
         cb()
       })
     },
 
-    trade: function (action, opts, cb) {
+    buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       var pair = joinProduct(opts.product_id)
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
-        if (action === 'buy') {
-          opts.size = n(opts.size).multiply(opts.orig_price).value() // CEXIO estimates asset size and uses free currency to performe margin buy
-        }
+        opts.size = n(opts.size).multiply(opts.orig_price).value() // CEXIO estimates asset size and uses free currency to performe margin buy
         opts.type = 'market'
       }
-      client.place_order(pair, action, opts.size, opts.price, opts.type, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ntrade ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Place order error: Insufficient funds.')) return retry('trade', func_args, body)
+      client.place_order(pair, 'buy', opts.size, opts.price, opts.type, function (err, body) {
         if (body === 'error: Error: Place order error: Insufficient funds.') {
           var order = {
             status: 'rejected',
@@ -135,7 +129,7 @@ module.exports = function container (get, set, clear) {
           }
           return cb(null, order)
         }
-        if (err) return retry('trade', func_args, err)
+        if (err) return retry('buy', func_args, err)
         order = {
           id: body && (body.complete === false || body.message) ? body.id : null,
           status: 'open',
@@ -151,12 +145,37 @@ module.exports = function container (get, set, clear) {
       })
     },
 
-    buy: function (opts, cb) {
-      exchange.trade('buy', opts, cb)
-    },
-
     sell: function (opts, cb) {
-      exchange.trade('sell', opts, cb)
+      var func_args = [].slice.call(arguments)
+      var client = authedClient()
+      var pair = joinProduct(opts.product_id)
+      if (opts.order_type === 'taker') {
+        delete opts.price
+        delete opts.post_only
+        opts.type = 'market'
+      }
+      client.place_order(pair, 'sell', opts.size, opts.price, opts.type, function (err, body) {
+        if (body === 'error: Error: Place order error: Insufficient funds.') {
+          var order = {
+            status: 'rejected',
+            reject_reason: 'balance'
+          }
+          return cb(null, order)
+        }
+        if (err) return retry('buy', func_args, err)
+        order = {
+          id: body && (body.complete === false || body.message) ? body.id : null,
+          status: 'open',
+          price: opts.price,
+          size: opts.size,
+          post_only: !!opts.post_only,
+          created_at: new Date().getTime(),
+          filled_size: '0',
+          ordertype: opts.order_type
+        }
+        orders['~' + body.id] = order
+        cb(null, order)
+      })
     },
 
     getOrder: function (opts, cb) {
@@ -164,8 +183,7 @@ module.exports = function container (get, set, clear) {
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetOrder ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getOrder', func_args, body)
+        if (err ||(typeof body === 'string' && body.match(/error/)) || body === 'error: Invalid Order ID') return retry('getOrder', func_args, err)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'

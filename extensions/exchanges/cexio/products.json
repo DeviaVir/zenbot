@@ -12,7 +12,7 @@
     "currency": "USD",
     "min_size": "0.1",
     "max_size": "1000",
-    "increment": "0.00000001",
+    "increment": "0.01",
     "label": "ETH/USD"
   },
   {
@@ -24,12 +24,28 @@
     "label": "BCH/USD"
   },
   {
+    "asset": "BTG",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BTG/USD"
+  },
+  {
     "asset": "DASH",
     "currency": "USD",
     "min_size": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/USD"
+  },
+  {
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/USD"
   },
   {
     "asset": "ZEC",
@@ -64,12 +80,28 @@
     "label": "BCH/EUR"
   },
   {
+    "asset": "BTG",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BTG/EUR"
+  },
+  {
     "asset": "DASH",
     "currency": "EUR",
     "min_size": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/EUR"
+  },
+  {
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/EUR"
   },
   {
     "asset": "ZEC",
@@ -144,12 +176,28 @@
     "label": "BCH/BTC"
   },
   {
+    "asset": "BTG",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BTG/BTC"
+  },
+  {
     "asset": "DASH",
     "currency": "BTC",
     "min_size": "0.01",
     "max_size": null,
     "increment": "0.00000001",
     "label": "DASH/BTC"
+  },
+  {
+    "asset": "XRP",
+    "currency": "BTC",
+    "min_size": "40",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "XRP/BTC"
   },
   {
     "asset": "ZEC",
