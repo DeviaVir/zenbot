@@ -19,6 +19,10 @@ module.exports = {
       	if (Math.random() >= 0.5) {
       	  r[k] = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
       	}
+      } else if (v.type === 'intfactor') {
+        // possible 0 value by providing min 0
+      	if (v.min == 0 && Math.random() <= 0.5) r[k] = 0;
+        else r[k] = Math.round((Math.random() * (v.max - v.min + 1)/v.factor)*v.factor);
       } else if (v.type === 'float') {
         r[k] = (Math.random() * (v.max - v.min)) + v.min;
       } else if (v.type === 'makertaker') {
