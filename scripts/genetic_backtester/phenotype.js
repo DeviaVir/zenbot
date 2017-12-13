@@ -15,10 +15,10 @@ module.exports = {
       if (v.type === 'int') {
         r[k] = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
       } else if (v.type === 'int0') {
-	r[k] = 0;
-	if (Math.random() >= 0.5) {
-	  r[k] = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
-	}
+      	r[k] = 0;
+      	if (Math.random() >= 0.5) {
+      	  r[k] = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
+      	}
       } else if (v.type === 'float') {
         r[k] = (Math.random() * (v.max - v.min)) + v.min;
       } else if (v.type === 'makertaker') {
