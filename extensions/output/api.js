@@ -16,11 +16,17 @@ module.exports = function container (get) {
     }
   }
 
+  let objectWithoutKey = (object, key) => {
+    const {[key]: deletedKey, ...otherKeys} = object;
+    return otherKeys;
+  }
+
   let startServer = function(port, tradeObject) {
     tradeObject.port = port
 
     app.get('/trades', function (req, res) {
-      res.send(tradeObject)
+      // Remove "options" key because it contains credentials
+      res.send(objectWithoutKey(tradeObject, 'options'))
     })
 
     app.listen(port)
