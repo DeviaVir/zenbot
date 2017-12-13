@@ -110,7 +110,44 @@ module.exports = function container (get, set, clear) {
         cb()
       })
     },
-
+//Begin Short
+    short: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
+      var client = authedClient()
+      var pair = joinProduct(opts.product_id)
+      /*if (opts.order_type === 'taker') {
+        delete opts.price
+        delete opts.post_only
+        opts.size = n(opts.size).multiply(opts.orig_price).value() // CEXIO estimates asset size and uses free currency to performe margin buy
+        opts.type = 'market'
+      }*/
+      opts.type = 'short'
+      console.log(client.open_position);
+      return;//debugging ...
+      client.open_position(pair, 'short', opts.size, opts.price, opts.type, function (err, body) {
+        if (body === 'error: Error: Place order error: Insufficient funds.') {
+          var order = {
+            status: 'rejected',
+            reject_reason: 'balance'
+          }
+          return cb(null, order)
+        }
+        if (err) return retry('short', func_args, err)
+        order = {
+          id: body && (body.complete === false || body.message) ? body.id : null,
+          status: 'open',
+          price: opts.price,
+          size: opts.size,
+          post_only: !!opts.post_only,
+          created_at: new Date().getTime(),
+          filled_size: '0',
+          ordertype: opts.order_type
+        }
+        orders['~' + body.id] = order
+        cb(null, order)
+      })
+    },
+    //EndShort
     buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
