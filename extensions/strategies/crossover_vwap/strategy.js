@@ -22,8 +22,8 @@ module.exports = function container (get, set, clear) {
       this.option('emalen1', 'Length of EMA 1', Number, 30 )//green
       this.option('smalen1', 'Length of SMA 1', Number, 108 )//red
       this.option('smalen2', 'Length of SMA 2', Number, 60 )//purple
-      this.option('vwap_length', 'Length of vwap', Number, 10 )//gold
-      this.option('vwap_max', 'Max history for vwap. Increasing this makes it more sensitive to short-term changes', Number)//gold
+      this.option('vwap_length', 'Min periods for vwap to start', Number, 10 )//gold
+      this.option('vwap_max', 'Max history for vwap. Increasing this makes it more sensitive to short-term changes', Number, 8000)//gold
     },
     
     /*
@@ -42,7 +42,7 @@ module.exports = function container (get, set, clear) {
     
     onPeriod: function (s, cb) { 
       let pOpen = s.period.open,
-        pClose = s.period.close;
+        pClose = s.period.close,
         emagreen = s.period.ema1,
         smared = s.period.sma1,
         smapurple= s.period.sma2,
@@ -80,31 +80,21 @@ module.exports = function container (get, set, clear) {
     onReport: function (s) {
       var cols = []
       let pOpen = s.period.open,
-        pClose = s.period.open;
-        emaSO = s.period.ema_short_o,
-        emaLO = s.period.ema_long_o,
-        emaSC = s.period.ema_short_c,
-        emaLC = s.period.ema_long_c;
+        pClose = s.period.close,
+        emagreen = s.period.ema1,
+        smared = s.period.sma1,
+        smapurple= s.period.sma2,
+        vwapgold = s.period.vwap
       
-      
-      if (typeof s.period.vwap != 'undefined' && typeof emaLC != 'undefined') {
-        var color = 'grey'
-        if (emaSC > emaLO)
-          color = 'green'
-        else if (pClose < (pOpen * -1)) 
-          color = 'red'
-        
-        cols.push(z(8, n(s.period.vwap).format('0.00000'), ' ')['gold'])
-        cols.push(z(8, n(emaLC).format('0.00000'), ' ')['blue'])
- 
+      if (vwapgold && emagreen) {   
+        var color = "green";
+        if(vwapgold > emagreen) color = "red"
+          
+        cols.push(z(6, n(vwapgold).format('0.00000'), '')['yellow'] + ' ')
+        cols.push(z(6, n(emagreen).format('0.00000'), '')[color] + ' ')
       }
       else {
-        if (s.period.trend_ema_stddev) {
-          cols.push('                  ')
-        }
-        else {
-          cols.push('        ')
-        }
+        cols.push('                ')
       }
       return cols
     }
