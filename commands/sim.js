@@ -146,14 +146,12 @@ module.exports = function container (get, set, clear) {
             return colors.stripColors(line)
           }).join('\n')
           var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
-            return {
-              time: period.time,
-              open: period.open,
-              high: period.high,
-              low: period.low,
-              close: period.close,
-              volume: period.volume
+            var data = {};
+            var keys = Object.keys(period);
+            for(i = 0;i < keys.length;i++){
+              data[keys[i]] = period[keys[i]];
             }
+            return data;
           })
           var code = 'var data = ' + JSON.stringify(data) + ';\n'
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
