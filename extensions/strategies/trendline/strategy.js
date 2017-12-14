@@ -21,8 +21,8 @@ module.exports = function container (get, set, clear) {
     calculate: function (s) {
       get('lib.ema')(s, 'trendline', s.options.trendline)
       var tl1 = []
-      if (s.lookback[(s.options.min_periods)]) {
-        for (let i = 0; i < (s.options.min_periods); i++) { tl1.push(s.lookback[i].close) }
+      if (s.lookback[(s.options.avgpoints + 100)]) {
+        for (let i = 0; i < (s.options.avgpoints + 100); i++) { tl1.push(s.lookback[i].close) }
           var chart = tl1
           growth = trend(chart, {
               lastPoints: s.options.lastpoints,
