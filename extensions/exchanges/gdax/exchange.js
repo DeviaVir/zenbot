@@ -35,14 +35,9 @@ module.exports = function container (get, set, clear) {
   }
 
   function retry (method, args, err) {
-    if (method !== 'getTrades') {
-      console.error(('\nGDAX API is down! unable to call ' + method + ', retrying in 10s').red)
-      if (err) console.error(err)
-      console.error(args.slice(0, -1))
-    }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, 500)
   }
 
   var orders = {}
