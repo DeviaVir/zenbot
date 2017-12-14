@@ -13,8 +13,8 @@ module.exports = function container (get, set, clear) {
       this.option('min_periods', "min_periods", Number, 1250)
     },
     calculate: function (s) {
-    calculated = null
-  },
+      calculated = null
+    },
     onPeriod: function (s, cb) {
       get('lib.ema')(s, 'stddev', s.options.stddev)
       var tl0 = []
