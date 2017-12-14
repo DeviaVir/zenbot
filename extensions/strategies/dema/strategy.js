@@ -4,7 +4,7 @@ var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'dema',
-    description: 'Buy when (ema_short_period > ema_long_period) and sell when (ema_short_period < ema_long_period).',
+    description: 'Buy when (short ema > long ema) and sell when (short ema < long ema).',
 
     getOptions: function () {
       this.option('period', 'period length', String, '1h')
