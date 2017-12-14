@@ -3,7 +3,7 @@ var z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
-    name: 'macd',
+    name: 'dema',
     description: 'Buy when (ema_short_period - ema_long_period > 0) and sell when (ema_short_period - ema_long_period < 0).',
 
     getOptions: function () {
