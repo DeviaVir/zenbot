@@ -32,10 +32,10 @@ module.exports = function container (get, set, clear) {
       get('lib.ema')(s, 'ema_short', s.options.ema_short_period)
       get('lib.ema')(s, 'ema_long', s.options.ema_long_period)
       if (s.period.ema_short && s.period.ema_long) {
-        s.period.dema = (s.period.ema_short - s.period.ema_long)
-        get('lib.ema')(s, 'signal', s.options.signal_period, 'macd')
-        if (s.period.signal) {
-          s.period.dema_histogram = s.period.dema - s.period.signal
+        s.period.dema_histogram = (s.period.ema_short - s.period.ema_long)
+      \\  get('lib.ema')(s, 'signal', s.options.signal_period, 'macd')
+      \\  if (s.period.signal) {
+       \\   s.period.dema_histogram = s.period.dema - s.period.signal
         }
       }
     },
