@@ -4,13 +4,13 @@ var z = require('zero-fill')
 module.exports = function container (get, set, clear) {
   return {
     name: 'dema',
-    description: 'Buy when (ema_short_period - ema_long_period > 0) and sell when (ema_short_period - ema_long_period < 0).',
+    description: 'Buy when (ema_short_period > ema_long_period) and sell when (ema_short_period < ema_long_period).',
 
     getOptions: function () {
-      this.option('period', 'period length', String, '15m')
-      this.option('min_periods', 'min. number of history periods', Number, 26)
-      this.option('ema_short_period', 'number of periods for the shorter EMA', Number, 12)
-      this.option('ema_long_period', 'number of periods for the longer EMA', Number, 26)
+      this.option('period', 'period length', String, '1h')
+      this.option('min_periods', 'min. number of history periods', Number, 21)
+      this.option('ema_short_period', 'number of periods for the shorter EMA', Number, 10)
+      this.option('ema_long_period', 'number of periods for the longer EMA', Number, 21)
       this.option('up_trend_threshold', 'threshold to trigger a buy signal', Number, 0)
       this.option('down_trend_threshold', 'threshold to trigger a sold signal', Number, 0)
       this.option('overbought_rsi_periods', 'number of periods for overbought RSI', Number, 9)
