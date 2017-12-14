@@ -37,7 +37,7 @@ module.exports = function container (get, set, clear) {
   function retry (method, args, err) {
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 500)
+    }, 3000)
   }
 
   var orders = {}
