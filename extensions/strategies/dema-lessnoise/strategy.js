@@ -48,7 +48,7 @@ module.exports = function container (get, set, clear) {
       }
 
       if (typeof s.period.dema_histogram === 'number' && typeof s.lookback[0].dema_histogram === 'number') {
-        if (s.period.ema_short / s.lookback[0].ema_short * 100 <= s.options.noise_level_pct) {
+        if (s.period.ema_short / s.lookback[0].ema_short * 100 < s.options.noise_level_pct) {
           s.signal = 'null';
         } else if ((s.period.dema_histogram + s.options.down_trend_threshold) < 0 && (s.lookback[0].dema_histogram + s.options.down_trend_threshold) >= 0) {
           s.signal = 'sell';
