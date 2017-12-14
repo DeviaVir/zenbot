@@ -51,7 +51,7 @@ module.exports = function container (get, set, clear) {
          s.signal = 'buy'
          }
       else if (
-         s.growth === false &&
+         s.growth === false |
          s.growth2 === false
          )
          {
