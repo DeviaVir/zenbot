@@ -30,7 +30,7 @@ module.exports = function container (get, set, clear) {
               avgMinimum: 10,
               reversed: true
          }),
-		  growth2 = trend(chart, {
+          growth2 = trend(chart, {
               lastPoints: s.options.lastpoints2,
               avgPoints: s.options.avgpoints2,
               avgMinimum: 10,
@@ -38,21 +38,21 @@ module.exports = function container (get, set, clear) {
          }),
          s.stats = growth
          s.growth = growth > 1
-		     s.stats2 = growth2
+         s.stats2 = growth2
          s.growth2 = growth2 > 1
       }
     },
     onPeriod: function (s, cb) {
       if (
          s.growth === true &&
-		     s.growth2 === true
+         s.growth2 === true
          )
          {
          s.signal = 'buy'
          }
       else if (
          s.growth === false &&
-	    	 s.growth2 === false
+         s.growth2 === false
          )
          {
          s.signal = 'sell'
