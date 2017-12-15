@@ -196,6 +196,9 @@ c.notifiers.discord = {}
 c.notifiers.discord.on = false // false discord disabled; true discord enabled (key should be correct)
 c.notifiers.discord.id = 'YOUR-WEBHOOK-ID'
 c.notifiers.discord.token = 'YOUR-WEBHOOK-TOKEN'
+c.notifiers.discord.username = '' // default "Zenbot"
+c.notifiers.discord.avatar_url = ''
+c.notifiers.discord.color = null // color as a decimal
 // end discord configs
 
 // prowl configs
