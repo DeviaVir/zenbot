@@ -157,6 +157,13 @@ To backfill data (provided that your chosen exchange supports it), use:
 zenbot backfill <selector> --days <days>
 ```
 
+You can also select start and end date:
+
+```
+zenbot backfill <selector> --start="YYYYMMDDhhmm" --end="YYYYMMDDhhmm"
+```
+Note you can use them separately.
+
 After you've backfilled, you can run a simulation:
 
 ```

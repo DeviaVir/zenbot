@@ -17,8 +17,8 @@ module.exports = function container (get, set, clear) {
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, c.filename)
-      .option('--start <timestamp>', 'start at timestamp')
-      .option('--end <timestamp>', 'end at timestamp')
+      .option('--start <datetime>', 'start ("YYYYMMDDhhmm")')
+      .option('--end <datetime>', 'end ("YYYYMMDDhhmm")')
       .option('--days <days>', 'set duration by day count', Number, c.days)
       .option('--currency_capital <amount>', 'amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'amount of start capital in asset', Number, c.asset_capital)
@@ -49,13 +49,13 @@ module.exports = function container (get, set, clear) {
           }
         })
         if (so.start) {
-          so.start = moment(so.start).valueOf()
+          so.start = moment(so.start, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.end) {
             so.end = tb(so.start).resize('1d').add(so.days).toMilliseconds()
           }
         }
         if (so.end) {
-          so.end = moment(so.end).valueOf()
+          so.end = moment(so.end, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.start) {
             so.start = tb(so.end).resize('1d').subtract(so.days).toMilliseconds()
           }
