@@ -11,7 +11,11 @@ function isReversable(s){
 	if(/*last_kumo||*/cur_kumo)console.log('Kumo : '+cur_kumo+' '+kumo_size);
 	return /*last_kumo || */cur_kumo;
 }
-
+/**
+ * Just try to get a short trend
+ * @param {*} s 
+ * @param {*} name 
+ */
 function currentTrend(s,name){
 	return s.period[name]-s.lookback[5][name];
 }
@@ -68,37 +72,33 @@ return {
     if (typeof s.period.trend_ema_stddev === 'number') {
     //Normal BUY/SELL
       if (/* SELL */
-      //Prices go low ... sell close < TS (early signal could wait close < KS to avoid not taking gain on skyrocket)
         s.period.close < s.period.ts
-      // not sure if we have to verify the kumo here ...
-      //&&  s.lookback.length>25 && s.period.ts >= s.lookback[25].ssa && s.period.ts >= s.lookback[25].ssb 
       ){
         s.signal = 'sell';
       }else if(/* BUY */
-      //Prices go high TS > KS
         s.period.ts >= s.period.ks
-	&& s.period.close >= s.period.ks
+        && s.period.close >= s.period.ks
         && s.lookback.length>25/**/ && s.period.ts >= s.lookback[25].ssa && s.period.ts >= s.lookback[25].ssb &&/**/s.period.ks >= s.lookback[25].ssa && s.period.ks >= s.lookback[25].ssb 
-	//&& !isReversable(s)
-	&& s.lookback.length>25 && s.period.close >= s.lookback[25].close // Chikou must be above the actual price
-	&& currentTrend(s,'ssa')>=0
+        //&& !isReversable(s)
+        && s.lookback.length>25 && s.period.close >= s.lookback[25].close // Chikou must be above the actual price
+        && currentTrend(s,'ssa')>=0
       ){
         s.signal = 'buy';      
       }
     //Short OPEN/CLOSE
       if(
       //When close < ts < ks < (ssa & ssb) we should short
-          (s.shorting === undefined || s.shorting === false) &&
-          (s.period.ts < s.period.ks && s.period.close < s.period.ts) &&
-          s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
+        (s.shorting === undefined || s.shorting === false) &&
+        (s.period.ts < s.period.ks && s.period.close < s.period.ts) &&
+        s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
       ){
-          console.log('short');
-          s.shorting = true;
-	  s.signal = 'short';
+        console.log('short');
+        s.shorting = true;
+	      s.signal = 'short';
       }else if(s.shorting === true && s.period.close >= s.period.ts){
-	  s.shorting = false;
-	  s.signal = 'close';
-	  console.log('closing');
+	      s.shorting = false;
+	      s.signal = 'close';
+	      console.log('closing');
       }
     }
     cb()

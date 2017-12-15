@@ -115,16 +115,19 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       var pair = joinProduct(opts.product_id)
-      /*if (opts.order_type === 'taker') {
-        delete opts.price
-        delete opts.post_only
-        opts.size = n(opts.size).multiply(opts.orig_price).value() // CEXIO estimates asset size and uses free currency to performe margin buy
-        opts.type = 'market'
-      }*/
-      opts.type = 'short'
-      console.log(client.open_position);
+      var data ={
+        ptype:'short',
+        pair:pair,
+        symbol:opts.product_id.split('-')[0],msymbol:opts.product_id.split('-')[1],
+        leverage:2,
+        amount:opts.size,
+        stopLossPrice:n(opts.size).multiply(opts.orig_price).value()*0.75,//TODO improve this :) -> opts.price
+        anySlippage:true
+      };
+      print(data)
       return;//debugging ...
-      client.open_position(pair, 'short', opts.size, opts.price, opts.type, function (err, body) {
+      client.private_post_open_position_pair(data,
+      function (err, body) {
         if (body === 'error: Error: Place order error: Insufficient funds.') {
           var order = {
             status: 'rejected',
