@@ -14,7 +14,6 @@ module.exports = function container (get, set, clear) {
       this.option('lastpoints2', "Number of trades for short trend average", Number, 5)
       this.option('avgpoints2', "Number of trades for long trend average", Number, 50)
       this.option('min_periods', "Basically avgpoints + a BUNCH of more preroll periods for anything less than 5s period", Number, 1000)
-      this.option('max_sell_loss_pct', "Max Sell loss Pct", Number, 0)
 
     },
     calculate: function (s) {
