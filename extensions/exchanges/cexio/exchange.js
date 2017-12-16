@@ -154,7 +154,7 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       var pair = joinProduct(opts.product_id)
-      var data ={pair:pair,id: opts.id};
+      var data ={pair:pair,id: opts.order_id};
       print(data)
       return;//debugging ...
       client.private_post_close_position_pair(data,
