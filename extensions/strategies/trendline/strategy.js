@@ -9,20 +9,19 @@ module.exports = function container (get, set, clear) {
     description: 'Calculate a trendline and trade when trend is positive vs negative.',
     getOptions: function () {
       this.option('period', 'period length', String, '1s')
-      this.option('lastpoints', "Number of trades for short trend average", Number, 100)
-      this.option('avgpoints', "Number of trades for long trend average", Number, 1000)
-      this.option('lastpoints2', "Number of trades for short trend average", Number, 10)
-      this.option('avgpoints2', "Number of trades for long trend average", Number, 100)
+      this.option('lastpoints', "Number of trades for short trend average", Number, 10)
+      this.option('avgpoints', "Number of trades for long trend average", Number, 100)
+      this.option('lastpoints2', "Number of trades for short trend average", Number, 5)
+      this.option('avgpoints2', "Number of trades for long trend average", Number, 50)
       this.option('min_periods', "Basically avgpoints + a BUNCH of more preroll periods for anything less than 5s period", Number, 5000)
       this.option('max_sell_loss_pct', "Max Sell loss Pct", Number, 0)
-      this.option('markup_pct', "Default Strategy Markup - Hard In The Paint Mode", Number, 0.01)
 
     },
     calculate: function (s) {
       get('lib.ema')(s, 'trendline', s.options.trendline)
       var tl1 = []
-      if (s.lookback[(s.options.min_periods)]) {
-        for (let i = 0; i < (s.options.min_periods); i++) { tl1.push(s.lookback[i].close) }
+      if (s.lookback[(s.options.avgpoints + 500)]) {
+        for (let i = 0; i < (s.options.avgpoints + 500); i++) { tl1.push(s.lookback[i].close) }
           var chart = tl1
           growth = trend(chart, {
               lastPoints: s.options.lastpoints,
