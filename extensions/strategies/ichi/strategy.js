@@ -40,6 +40,8 @@ return {
     this.option('oversold_rsi_periods', 'number of periods for oversold RSI', Number, 14)
     this.option('oversold_rsi', 'buy when RSI reaches this value', Number, 25)
     this.option('overbought_rsi', 'sell when RSI reaches this value', Number, 70)
+
+    this.option('enable_short', 'Enable shorting (cost higher fee but allow to earn money down trade)', Boolean, true)
   },
 
     /*TODO : WTF ???
@@ -55,13 +57,12 @@ return {
     get('lib.midprice')(s, 'ssa', 1,'ks','ts')
     get('lib.midprice')(s, 'ssb', 52)
     
-    //Calculate rate of ema's
+    //Calculate rate of ema's (useless but keeping it ;)
     if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
       s.period.trend_ema_rate = (s.period.trend_ema - s.lookback[0].trend_ema) / s.lookback[0].trend_ema * 100
     }
     if (s.options.neutral_rate === 'auto') {
       get('lib.stddev')(s, 'trend_ema_stddev', 10, 'trend_ema_rate')
-      get('lib.stddev')(s, 'cci_stddev', 10, 'trend_cci_rate')
     }
     else {
       s.period.trend_ema_stddev = s.options.neutral_rate
@@ -73,6 +74,7 @@ return {
     //Normal BUY/SELL
       if (/* SELL */
         s.period.close < s.period.ts
+        &&!s.shorting
       ){
         s.signal = 'sell';
       }else if(/* BUY */
@@ -88,17 +90,18 @@ return {
     //Short OPEN/CLOSE
       if(
       //When close < ts < ks < (ssa & ssb) we should short
-        (s.shorting === undefined || s.shorting === false) &&
-        (s.period.ts < s.period.ks && s.period.close < s.period.ts) &&
-        s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
+        s.options.enable_short
+        && (s.shorting === undefined || s.shorting === false)
+        && (s.period.ts < s.period.ks && s.period.close < s.period.ts)
+        && s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
+        && s.period.close<s.period.open // avoid short on flash crash recover
+        && currentTrend(s,'ssb')<0//Only buy on big drop to avoid loosing money
       ){
-        console.log('short');
         s.shorting = true;
 	      s.signal = 'short';
       }else if(s.shorting === true && s.period.close >= s.period.ts){
 	      s.shorting = false;
 	      s.signal = 'close';
-	      console.log('closing');
       }
     }
     cb()

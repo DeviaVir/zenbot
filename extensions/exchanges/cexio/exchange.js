@@ -150,6 +150,19 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       })
     },
+    close: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
+      var client = authedClient()
+      var pair = joinProduct(opts.product_id)
+      var data ={pair:pair,id: opts.id};
+      print(data)
+      return;//debugging ...
+      client.private_post_close_position_pair(data,
+      function (err, body) {
+        if (err) return retry('close', func_args, err)
+        cb(null, null)
+      })
+    },
     //EndShort
     buy: function (opts, cb) {
       var func_args = [].slice.call(arguments)
