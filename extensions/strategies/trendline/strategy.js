@@ -11,8 +11,8 @@ module.exports = function container (get, set, clear) {
       this.option('period', 'period length', String, '1s')
       this.option('lastpoints', "Number of trades for short trend average", Number, 100)
       this.option('avgpoints', "Number of trades for long trend average", Number, 1000)
-      this.option('lastpoints2', "Number of trades for short trend average", Number, 50)
-      this.option('avgpoints2', "Number of trades for long trend average", Number, 500)
+      this.option('lastpoints2', "Number of trades for short trend average", Number, 10)
+      this.option('avgpoints2', "Number of trades for long trend average", Number, 100)
       this.option('min_periods', "Basically avgpoints + a BUNCH of more preroll periods for anything less than 5s period", Number, 2000)
 
     },
