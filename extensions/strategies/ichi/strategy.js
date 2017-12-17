@@ -73,7 +73,7 @@ return {
     if (typeof s.period.trend_ema_stddev === 'number') {
     //Normal BUY/SELL
       if (/* SELL */
-        s.period.close < s.period.ts
+        s.period.close < s.period.ks
         &&!s.shorting
       ){
         s.signal = 'sell';
@@ -82,8 +82,9 @@ return {
         && s.period.close >= s.period.ks
         && s.lookback.length>25/**/ && s.period.ts >= s.lookback[25].ssa && s.period.ts >= s.lookback[25].ssb &&/**/s.period.ks >= s.lookback[25].ssa && s.period.ks >= s.lookback[25].ssb 
         //&& !isReversable(s)
+        && (s.period.rsi<=70 && s.period.cci >100)
         && s.lookback.length>25 && s.period.close >= s.lookback[25].close // Chikou must be above the actual price
-        && currentTrend(s,'ssa')>=0
+        && currentTrend(s,'ssa')>=0.2
       ){
         s.signal = 'buy';      
       }
@@ -95,11 +96,11 @@ return {
         && (s.period.ts < s.period.ks && s.period.close < s.period.ts)
         && s.lookback.length>25 && s.period.ts <= s.lookback[25].ssa && s.period.ts <= s.lookback[25].ssb 
         && s.period.close<s.period.open // avoid short on flash crash recover
-        && currentTrend(s,'ssb')<0//Only buy on big drop to avoid loosing money
+        && currentTrend(s,'ssb')<0.2//Only buy on big drop to avoid loosing money
       ){
         s.shorting = true;
 	      s.signal = 'short';
-      }else if(s.shorting === true && s.period.close >= s.period.ts){
+      }else if(s.shorting === true && s.period.close >= s.period.ks){
 	      s.shorting = false;
 	      s.signal = 'close';
       }
