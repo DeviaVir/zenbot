@@ -15,6 +15,9 @@ Zenbot 4 is functional, but is having trouble reliably making profit. At this po
 
 Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
 
+## Questions
+Please ask questions related to zenbot on stackoverflow. The tag is [zenbot](https://stackoverflow.com/questions/tagged/zenbot).
+
 ## Description
 
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
