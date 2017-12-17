@@ -119,7 +119,7 @@ module.exports = function container (get, set, clear) {
           var d = tb('1d')
           so.end_training = d.subtract(so.days_test).toMilliseconds()
         }
-        so.selector = get('lib.normalize-selector')(selector || c.selector)
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
         so.mode = 'train'
         if (cmd.conf) {
           var overrides = require(path.resolve(process.cwd(), cmd.conf))
@@ -136,7 +136,7 @@ module.exports = function container (get, set, clear) {
         function writeTempModel (strategy) {
           var tempModelString = JSON.stringify(
             {
-              "selector": so.selector,
+              "selector": so.selector.normalized,
               "period": so.period,
               "start_training": moment(so.start_training),
               "end_training": moment(so.end_training),
@@ -158,7 +158,7 @@ module.exports = function container (get, set, clear) {
         function writeFinalModel (strategy, end_training, trainingResult, testResult) {
           var finalModelString = JSON.stringify(
             {
-              "selector": so.selector,
+              "selector": so.selector.normalized,
               "period": so.period,
               "start_training": moment(so.start_training).utc(),
               "end_training": moment(end_training).utc(),
@@ -171,7 +171,7 @@ module.exports = function container (get, set, clear) {
 
           var testVsBuyHold = typeof(testResult) !== "undefined" ? testResult.vsBuyHold : 'noTest'
 
-          var finalModelFile = 'models/forex.model_' + so.selector
+          var finalModelFile = 'models/forex.model_' + so.selector.normalized
             + '_period=' + so.period
             + '_from=' + moment(so.start_training).utc().format('YYYYMMDD_HHmmssZZ')
             + '_to=' + moment(end_training).utc().format('YYYYMMDD_HHmmssZZ')
@@ -228,7 +228,7 @@ module.exports = function container (get, set, clear) {
           var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
           var trainingArgs = [
             'sim',
-            so.selector,
+            so.selector.normalized,
             '--strategy', 'forex_analytics',
             '--disable_options',
             '--modelfile', path.resolve(__dirname, '..', tempModelFile),
@@ -255,7 +255,7 @@ module.exports = function container (get, set, clear) {
               
               var testArgs = [
                 'sim',
-                so.selector,
+                so.selector.normalized,
                 '--strategy', 'forex_analytics',
                 '--disable_options',
                 '--modelfile', path.resolve(__dirname, '..', tempModelFile),
@@ -312,7 +312,7 @@ module.exports = function container (get, set, clear) {
           console.log()
           
           if (!s.period) {
-            console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
+            console.error('no trades found! try running `zenbot backfill ' + so.selector.normalized + '` first')
             process.exit(1)
           }
          
@@ -354,7 +354,7 @@ module.exports = function container (get, set, clear) {
         function getTrades () {
           var opts = {
             query: {
-              selector: so.selector
+              selector: so.selector.normalized
             },
             sort: {time: 1},
             limit: 1000
