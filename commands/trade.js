@@ -312,7 +312,6 @@ module.exports = function container (get, set, clear) {
         var db_cursor, trade_cursor
         var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()
         var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
-        var trades_per_min = 0
         var session = null
         var sessions = get('db.sessions')
         var balances = get('db.balances')
@@ -467,6 +466,10 @@ module.exports = function container (get, set, clear) {
         function forwardScan () {
           function saveSession () {
             engine.syncBalance(function (err) {
+              if (!err && s.balance.asset === undefined) {
+                // TODO not the nicest place to verify the state, but did not found a better one
+                throw new Error('Error during syncing balance. Please check your API-Key')
+              }
               if (err) {
                 console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error syncing balance')
                 if (err.desc) console.error(err.desc)
