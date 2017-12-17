@@ -21,6 +21,16 @@ c.order_poll_time = 3000
 c.poll_trades = 6000
 ```
 
+## Kraken API returned error: API:Invalid nonce
+
+This is a common error when calling exchange APIs on a regular basis:
+>Kraken API warning - unable to call getBalance (Error: Kraken API returned error: API:Invalid nonce), retrying in 0.15s
+
+Nonce errors aren't usually an issue but can introduce a slight delay in your trading. In Kraken, you can increase your API Nonce window, reducing the chances of this happening. 
+
+Log into your Kraken account, navigate through *Settings* then *API*, select your API Key and increase your *Nonce Window* for the API Key used by Zenbot. 
+
+
 ## Orders Placed & Forgotten
 
 I've seen Zenbot getting stuck with `Selling` or `Buying`. Checking for open orders in Kraken, I see the open order there, but Zenbot doesn't seem to have realised the order was placed. This usually happens while the Kraken API is under high load.
