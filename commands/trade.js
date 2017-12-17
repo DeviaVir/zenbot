@@ -63,12 +63,12 @@ module.exports = function container (get, set, clear) {
             so[k] = overrides[k]
           })
         }
-        so.selector = get('lib.normalize-selector')(so.selector || selector || c.selector)
-        var exchange_id = so.selector.split('.')[0]
-        var product_id = so.selector.split('.')[1]
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
+        var exchange_id = so.selector.exchange_id
+        var product_id = so.selector.product_id
         var exchange = get('exchanges.' + exchange_id)
         if (!exchange) {
-          console.error('cannot trade ' + so.selector + ': exchange not implemented')
+          console.error('cannot trade ' + so.selector.normalized + ': exchange not implemented')
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
@@ -197,7 +197,7 @@ module.exports = function container (get, set, clear) {
               .replace('{{code}}', code)
               .replace('{{trend_ema_period}}', so.trend_ema || 36)
               .replace('{{output}}', html_output)
-              .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+              .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
             if (so.filename !== 'none') {
               var out_target
               
@@ -206,10 +206,10 @@ module.exports = function container (get, set, clear) {
                 
                 //ymd
                 var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-                out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
+                out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
               fs.writeFileSync(out_target, out)
               }else
-                out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+                out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
               
               fs.writeFileSync(out_target, out)
               console.log('\nwrote'.grey, out_target)
@@ -288,14 +288,14 @@ module.exports = function container (get, set, clear) {
             .replace('{{code}}', code)
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
             .replace('{{output}}', html_output)
-            .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+            .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
           if (so.filename !== 'none') {
             var out_target
             var dt = new Date().toISOString();
             
             //ymd
             var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-            out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
+            out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
 
             fs.writeFileSync(out_target, out)
             //console.log('\nwrote'.grey, out_target)
@@ -322,7 +322,7 @@ module.exports = function container (get, set, clear) {
         get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
         var marker = {
           id: crypto.randomBytes(4).toString('hex'),
-          selector: so.selector,
+          selector: so.selector.normalized,
           from: null,
           to: null,
           oldest_time: null
@@ -334,7 +334,7 @@ module.exports = function container (get, set, clear) {
 
         console.log('fetching pre-roll data:')
         var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
-        var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector, '--days', days])
+        var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector.normalized, '--days', days])
         backfiller.stdout.pipe(process.stdout)
         backfiller.stderr.pipe(process.stderr)
         backfiller.on('exit', function (code) {
@@ -344,7 +344,7 @@ module.exports = function container (get, set, clear) {
           function getNext () {
             var opts = {
               query: {
-                selector: so.selector
+                selector: so.selector.normalized
               },
               sort: {time: 1},
               limit: 1000
@@ -372,12 +372,12 @@ module.exports = function container (get, set, clear) {
                   }
                   session = {
                     id: crypto.randomBytes(4).toString('hex'),
-                    selector: so.selector,
+                    selector: so.selector.normalized,
                     started: new Date().getTime(),
                     mode: so.mode,
                     options: so
                   }
-                  sessions.select({query: {selector: so.selector}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
+                  sessions.select({query: {selector: so.selector.normalized}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
@@ -484,8 +484,8 @@ module.exports = function container (get, set, clear) {
                 session.price = s.period.close
                 var d = tb().resize(c.balance_snapshot_period)
                 var b = {
-                  id: so.selector + '-' + d.toString(),
-                  selector: so.selector,
+                  id: so.selector.normalized + '-' + d.toString(),
+                  selector: so.selector.normalized,
                   time: d.toMilliseconds(),
                   currency: s.balance.currency,
                   asset: s.balance.asset,
@@ -576,7 +576,7 @@ module.exports = function container (get, set, clear) {
                 if (s.my_trades.length > my_trades_size) {
                   s.my_trades.slice(my_trades_size).forEach(function (my_trade) {
                     my_trade.id = crypto.randomBytes(4).toString('hex')
-                    my_trade.selector = so.selector
+                    my_trade.selector = so.selector.normalized
                     my_trade.session_id = session.id
                     my_trade.mode = so.mode
                     my_trades.save(my_trade, function (err) {
@@ -591,7 +591,7 @@ module.exports = function container (get, set, clear) {
                 function savePeriod (period) {
                   if (!period.id) {
                     period.id = crypto.randomBytes(4).toString('hex')
-                    period.selector = so.selector
+                    period.selector = so.selector.normalized
                     period.session_id = session.id
                   }
                   periods.save(period, function (err) {
@@ -616,8 +616,8 @@ module.exports = function container (get, set, clear) {
             }
           })
           function saveTrade (trade) {
-            trade.id = so.selector + '-' + String(trade.trade_id)
-            trade.selector = so.selector
+            trade.id = so.selector.normalized + '-' + String(trade.trade_id)
+            trade.selector = so.selector.normalized
             if (!marker.from) {
               marker.from = trade_cursor
               marker.oldest_time = trade.time
