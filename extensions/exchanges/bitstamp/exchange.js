@@ -325,7 +325,9 @@ module.exports = function container (get, set, clear) {
           body = orders['~' + opts.order_id]
           body.status = 'done'
           body.done_reason = 'canceled'
-        } 
+        } else if(body.status === 'Finished')
+          body.status = 'done';
+        
         cb(null, body)
       })
     },
