@@ -72,7 +72,6 @@ module.exports = function container (get, set, clear) {
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
-        get('lib.output').initializeOutput(s)
 
         const keyMap = new Map()
         keyMap.set('b', 'limit'.grey + ' BUY'.green)
@@ -96,7 +95,7 @@ module.exports = function container (get, set, clear) {
             console.log(' ' + key + ' - ' + value)
           })
         }
-        
+
         function listOptions () {
           console.log()
           console.log(s.exchange.name.toUpperCase() + ' exchange active trading options:'.grey)
@@ -131,7 +130,7 @@ module.exports = function container (get, set, clear) {
             z(20, so.profit_stop_pct + '%', ' ')
           ].join('') + '\n')
           process.stdout.write('')
-        }              
+        }
 
         /* Implementing statistical Exit */
         function printTrade (quit, dump) {
@@ -158,6 +157,14 @@ module.exports = function container (get, set, clear) {
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
           output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          s.stats = {
+            profit: profit.format('0.00%'),
+            tmp_balance: n(tmp_balance).format('0.00000000'),
+            buy_hold: buy_hold.format('0.00000000'),
+            buy_hold_profit: n(buy_hold_profit).format('0.00%'),
+            day_count: s.day_count,
+            trade_per_day: n(s.my_trades.length / s.day_count).format('0.00')
+          }
           var last_buy
           var losses = 0, sells = 0
           s.my_trades.forEach(function (trade) {
@@ -174,7 +181,11 @@ module.exports = function container (get, set, clear) {
           if (s.my_trades.length && sells > 0) {
             output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
             output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+            s.stats.win = (sells - losses)
+            s.stats.losses = losses
+            s.stats.error_rate = (sells ? n(losses).divide(sells).format('0.00%') : '0.00%')
           }
+
           output_lines.forEach(function (line) {
             console.log(line)
           })
@@ -200,17 +211,17 @@ module.exports = function container (get, set, clear) {
               .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
             if (so.filename !== 'none') {
               var out_target
-              
+
               if(dump){
                 var dt = new Date().toISOString();
-                
+
                 //ymd
                 var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
                 out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
               fs.writeFileSync(out_target, out)
               }else
                 out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
-              
+
               fs.writeFileSync(out_target, out)
               console.log('\nwrote'.grey, out_target)
             }
@@ -218,9 +229,9 @@ module.exports = function container (get, set, clear) {
           }
         }
         /* The end of printTrade */
-        
+
         /* Implementing statistical status dump every 10 secs */
-        var shouldSaveStats = false;
+        var shouldSaveStats = true;
         function toggleStats(){
           shouldSaveStats = !shouldSaveStats;
           if(shouldSaveStats)
@@ -228,21 +239,20 @@ module.exports = function container (get, set, clear) {
           else
             console.log("Auto stats dump disabled")
         }
-        
+
         function saveStatsLoop(){
           saveStats()
           setTimeout(function () {
             saveStatsLoop()
           }, 10000)
         }
-        saveStatsLoop()
-        
+
         function saveStats () {
           if(!shouldSaveStats) return;
-          
+
           var output_lines = []
           var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
-          
+
           var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
           output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
           var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(tmp_balance)
@@ -250,6 +260,14 @@ module.exports = function container (get, set, clear) {
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
           output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          s.stats = {
+            profit: profit.format('0.00%'),
+            tmp_balance: n(tmp_balance).format('0.00000000'),
+            buy_hold: buy_hold.format('0.00000000'),
+            buy_hold_profit: n(buy_hold_profit).format('0.00%'),
+            day_count: s.day_count,
+            trade_per_day: n(s.my_trades.length / s.day_count).format('0.00')
+          }
           var last_buy
           var losses = 0, sells = 0
           s.my_trades.forEach(function (trade) {
@@ -266,8 +284,11 @@ module.exports = function container (get, set, clear) {
           if (s.my_trades.length && sells > 0) {
             output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
             output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+            s.stats.win = (sells - losses)
+            s.stats.losses = losses
+            s.stats.error_rate = (sells ? n(losses).divide(sells).format('0.00%') : '0.00%')
           }
-          
+
           var html_output = output_lines.map(function (line) {
             return colors.stripColors(line)
           }).join('\n')
@@ -281,7 +302,7 @@ module.exports = function container (get, set, clear) {
           })
           var code = 'var data = ' + JSON.stringify(data) + ';\n'
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
-          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
+          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'trade_result.html.tpl'), {encoding: 'utf8'})
           var out = tpl
             .replace('{{code}}', code)
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
@@ -290,10 +311,10 @@ module.exports = function container (get, set, clear) {
           if (so.filename !== 'none') {
             var out_target
             var dt = new Date().toISOString();
-            
+
             //ymd
             var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-            out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
+            out_target = so.filename || 'stats/index.html'
 
             fs.writeFileSync(out_target, out)
             //console.log('\nwrote'.grey, out_target)
@@ -350,12 +371,15 @@ module.exports = function container (get, set, clear) {
               opts.query.time = {$gt: db_cursor}
             }
             else {
-              trade_cursor = s.exchange.getCursor(query_start) 
+              trade_cursor = s.exchange.getCursor(query_start)
               opts.query.time = {$gte: query_start}
             }
             get('db.trades').select(opts, function (err, trades) {
               if (err) throw err
               if (!trades.length) {
+                console.log('------------------------------------------ INITIALIZE  OUTPUT ------------------------------------------')
+                get('lib.output').initializeOutput(s)
+                saveStatsLoop()
                 console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
                 if (so.mode === 'paper') {
                   console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')
@@ -434,7 +458,7 @@ module.exports = function container (get, set, clear) {
                           console.log('\nDumping statistics...'.grey)
                           printTrade(false, true)
                         } else if (key === 'D' && !info.ctrl) {
-                          
+
                           console.log('\nDumping statistics...'.grey)
                           toggleStats()
                         } else if (info.name === 'c' && info.ctrl) {

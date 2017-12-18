@@ -15,9 +15,10 @@ data/*
 conf.js
 conf-*
 conf_*
+conf/*
 !conf-sample.js
-sim_result*
-trade_result*
+sim_result*.html
+trade_result*.html
 *_test
 backtesting_*
 models/*.json
