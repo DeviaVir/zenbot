@@ -214,6 +214,13 @@ c.notifiers.textbelt.phone = '3121234567'
 c.notifiers.textbelt.key = 'textbelt'
 // end textbelt configs
 
+// telegram configs
+c.notifiers.telegram = {};
+c.notifiers.telegram.on = false // false telegram disabled; true telegram enabled (key should be correct)
+c.notifiers.telegram.bot_token = 'YOUR-BOT-TOKEN'
+c.notifiers.telegram.chat_id = '8942311' // the id of the chat the messages should be send in
+// end telegram configs
+
 // output
 c.output  = {}
 
