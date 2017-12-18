@@ -242,14 +242,21 @@ module.exports = function container (get, set, clear) {
         if (body.status === 'error') {
 	        return retry('getBalance', args)
         }
-        var balance = {asset: 0, currency: 0}
+        var balance = {
+          asset: '0',
+          asset_hold: '0',
+          currency: '0',
+          currency_hold: '0'
+        }
+                
         // Dirty hack to avoid engine.js bailing out when balance has 0 value
         // The added amount is small enough to not have any significant effect
-        balance.currency = n(body[opts.currency.toLowerCase() + '_available']) + 0.000001
-        balance.asset = n(body[opts.asset.toLowerCase() + '_available']) + 0.000001
-        balance.currency_hold = 0
-        balance.asset_hold = 0
-				if (typeof balance.asset == undefined || typeof balance.currency == undefined ) {
+        balance.currency = n(body[opts.currency.toLowerCase() + '_balance']) + 0.000001
+        balance.asset = n(body[opts.asset.toLowerCase() + '_balance']) + 0.000001
+        balance.currency_hold = n(body[opts.currency.toLowerCase() + '_reserved']) + 0.000001
+        balance.asset_hold = n(body[opts.asset.toLowerCase() + '_reserved']) + 0.000001
+
+				if (typeof balance.asset == undefined || typeof balance.currency == undefined) {
           console.log('Communication delay, fallback to previous balance')
 					balance = lastBalance
 				} else {
@@ -263,6 +270,7 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
+
         body = statusErr(err,body)
         if (body.status === 'error') {
 	        return retry('cancelOrder', func_args, err)
@@ -290,6 +298,7 @@ module.exports = function container (get, set, clear) {
             // 'In Queue', 'Open', 'Finished'
             body.status = 'done'
           }
+
           orders['~' + body.id] = body
           cb(null, body)
         })
@@ -320,12 +329,17 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.order_status(opts.order_id, function (err, body) {
+
         body = statusErr(err,body)
         if (body.status === 'error') {
           body = orders['~' + opts.order_id]
           body.status = 'done'
           body.done_reason = 'canceled'
-        } 
+        } else if(body.status === 'Finished')
+          body.status = 'done';
+        
+        if(body.datetime) body.time = body.datetime;
+        
         cb(null, body)
       })
     },
