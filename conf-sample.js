@@ -214,6 +214,14 @@ c.notifiers.textbelt.phone = '3121234567'
 c.notifiers.textbelt.key = 'textbelt'
 // end textbelt configs
 
+// pushover configs
+c.notifiers.pushover = {}
+c.notifiers.pushover.on = false // false pushover disabled; true pushover enabled (keys should be correct)
+c.notifiers.pushover.token = 'YOUR-API-TOKEN' // create application and supply the token here
+c.notifiers.pushover.user = 'YOUR-USER-KEY' // this is your own user's key (not application related)
+c.notifiers.pushover.priority = '0' // choose a priority to send zenbot messages with, see https://pushover.net/api#priority
+// end pushover configs
+
 // output
 c.output  = {}
 
