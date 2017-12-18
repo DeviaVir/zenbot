@@ -3,12 +3,8 @@ var glob = require('glob')
 
 module.exports = function (cb) {
   var zenbot = require('./')()
-  try {
-    var c = require('./conf')
-  }
-  catch (e) {
-    c = {}
-  }
+  var c = getConfiguration()
+
   var defaults = require('./conf-sample')
   Object.keys(defaults).forEach(function (k) {
     if (typeof c[k] === 'undefined') {
@@ -50,4 +46,32 @@ module.exports = function (cb) {
       withMongo()
     }
   })
+
+  function getConfiguration() {
+    var conf = undefined
+
+    try {
+      var _allArgs = process.argv.slice();
+      var found = false
+
+      while (!found && _allArgs.length > 0) {
+        found = (_allArgs.shift() == '--conf');
+      }
+
+      if (found) {
+        try {
+          conf = require(_allArgs[0])
+        } catch (ee) {
+          conf = require('./conf')
+        }
+      } else {
+        conf = require('./conf')
+      }
+    }
+    catch (e) {
+      conf = {}
+    }
+
+    return conf
+  }
 }
