@@ -222,6 +222,13 @@ c.notifiers.pushover.user = 'YOUR-USER-KEY' // this is your own user's key (not 
 c.notifiers.pushover.priority = '0' // choose a priority to send zenbot messages with, see https://pushover.net/api#priority
 // end pushover configs
 
+// telegram configs
+c.notifiers.telegram = {};
+c.notifiers.telegram.on = false // false telegram disabled; true telegram enabled (key should be correct)
+c.notifiers.telegram.bot_token = 'YOUR-BOT-TOKEN'
+c.notifiers.telegram.chat_id = 'YOUR-CHAT-ID' // the id of the chat the messages should be send in
+// end telegram configs
+
 // output
 c.output  = {}
 
