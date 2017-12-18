@@ -154,7 +154,7 @@ module.exports = function container (get, set, clear) {
                     if (err) throw err
                     trade_counter += trades.length
                     day_trade_counter += trades.length
-                    var current_days_left = Math.ceil((mode === 'backward' ? marker.oldest_time - target_time : target_time - marker.newest_time) / 86400000)
+                    var current_days_left = 1 + (mode === 'backward' ? tb(marker.oldest_time - target_time).resize('1d').value : tb(target_time - marker.newest_time).resize('1d').value)
                     if (current_days_left >= 0 && current_days_left != days_left) {
                       console.log('\n' + selector, 'saved', day_trade_counter, 'trades', current_days_left, 'days left')
                       day_trade_counter = 0
@@ -175,6 +175,7 @@ module.exports = function container (get, set, clear) {
                   })
                 })
               }
+
               runTasks()
             })
           }
