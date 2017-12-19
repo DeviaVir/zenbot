@@ -48,6 +48,9 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+
+        so.periodSize = so.period
+
         if (so.start) {
           so.start = moment(so.start, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.end) {
@@ -78,7 +81,7 @@ module.exports = function container (get, set, clear) {
         var engine = get('lib.engine')(s)
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
-        var query_start = so.start ? tb(so.start).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
+        var query_start = so.start ? tb(so.start).resize(so.periodSize).subtract(so.min_periods + 2).toMilliseconds() : null
 
         function exitSim () {
           console.log()
