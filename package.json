@@ -45,7 +45,7 @@
     "node-uuid": "^1.4.8",
     "node.bittrex.api": "^0.2.5",
     "number-abbreviate": "^2.0.0",
-    "numbro": "carlos8f/numbro",
+    "numbro": "highvelocityspace/numbro",
     "poloniex.js": "0.0.7",
     "progress": "^2.0.0",
     "pushbullet": "2.0.0",
