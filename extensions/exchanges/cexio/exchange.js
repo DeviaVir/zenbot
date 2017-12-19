@@ -44,8 +44,8 @@ module.exports = function container (get, set, clear) {
     name: 'cexio',
     historyScan: 'forward',
     backfillRateLimit: 0,
-    makerFee: 0,
-    takerFee: 0.2,
+    makerFee: 0.16,
+    takerFee: 0.25,
 
     getProducts: function () {
       return require('./products.json')
@@ -53,8 +53,9 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      if (typeof opts.from === 'undefined') {
-        var args = 1000
+      var args
+      if (typeof opts.from === 'undefined' && opts.product_id === 'BTC-USD') {
+        args = 2000000
       } else {
         args = opts.from
       }
@@ -108,7 +109,7 @@ module.exports = function container (get, set, clear) {
       client.cancel_order(opts.order_id, function (err, body) {
         //if (body === 'Order canceled') return cb()
         if (typeof body === 'string' && body.match(/error/)) console.log(('\ncancelOrder ' + body).red)
-        if (err) return retry('cancelOrder', func_args, err)
+        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Order not found')) return retry('cancelOrder', func_args, err)
         cb()
       })
     },
@@ -165,7 +166,7 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
         if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetOrder ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getOrder', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Invalid Order ID')) return retry('getOrder', func_args, body)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'
