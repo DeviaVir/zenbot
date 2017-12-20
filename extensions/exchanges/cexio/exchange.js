@@ -1,9 +1,14 @@
 const CEX = require('cexio-api-node')
 var path = require('path')
 var n = require('numbro')
+var minimist = require('minimist')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
+  var s = {
+    options: minimist(process.argv)
+  }
+  var so = s.options
 
   var public_client, authed_client
 
@@ -19,9 +24,7 @@ module.exports = function container (get, set, clear) {
       if (!c.cexio || !c.cexio.username || !c.cexio.key || c.cexio.key === 'YOUR-API-KEY') {
         throw new Error('please configure your CEX.IO credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      var nonce = new Date().getTime() / 1000
       authed_client = new CEX(c.cexio.username, c.cexio.key, c.cexio.secret).rest
-      authed_client.nonce = function () { return nonce++ }
     }
     return authed_client
   }
@@ -44,8 +47,8 @@ module.exports = function container (get, set, clear) {
     name: 'cexio',
     historyScan: 'forward',
     backfillRateLimit: 0,
-    makerFee: 0,
-    takerFee: 0.2,
+    makerFee: 0.16,
+    takerFee: 0.25,
 
     getProducts: function () {
       return require('./products.json')
@@ -53,15 +56,16 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      if (typeof opts.from === 'undefined') {
-        var args = 1000
+      var args
+      if (typeof opts.from === 'undefined' && opts.product_id === 'BTC-USD') {
+        args = 2000000
       } else {
         args = opts.from
       }
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetTrades ' + body).red)
+        if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetTrades ' + body).red)
         if (err || (typeof body === 'string' && body.match(/error/))) return retry('getTrades', func_args, body)
         var trades = body.map(function (trade) {
           return {
@@ -80,7 +84,7 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.account_balance(function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetBalance ' + body).red)
+        if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetBalance ' + body).red)
         if (err || (typeof body === 'string' && body.match(/error/))) return retry('getBalance', func_args, body)
         var balance = { asset: 0, currency: 0 }
         balance.currency = n(body[opts.currency].available).add(body[opts.currency].orders).format('0.00000000')
@@ -96,7 +100,7 @@ module.exports = function container (get, set, clear) {
       var client = publicClient()
       var pair = joinProduct(opts.product_id)
       client.ticker(pair, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetQuote ' + body).red)
+        if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetQuote ' + body).red)
         if (err || (typeof body === 'string' && body.match(/error/))) return retry('getQuote', func_args, body)
         cb(null, { bid: String(body.bid), ask: String(body.ask) })
       })
@@ -106,9 +110,8 @@ module.exports = function container (get, set, clear) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
-        //if (body === 'Order canceled') return cb()
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ncancelOrder ' + body).red)
-        if (err) return retry('cancelOrder', func_args, err)
+        if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ncancelOrder ' + body).red)
+        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Order not found')) return retry('cancelOrder', func_args, err)
         cb()
       })
     },
@@ -126,7 +129,7 @@ module.exports = function container (get, set, clear) {
         opts.type = 'market'
       }
       client.place_order(pair, action, opts.size, opts.price, opts.type, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ntrade ' + body).red)
+        if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ntrade ' + body).red)
         if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Place order error: Insufficient funds.')) return retry('trade', func_args, body)
         if (body === 'error: Error: Place order error: Insufficient funds.') {
           var order = {
@@ -164,8 +167,8 @@ module.exports = function container (get, set, clear) {
       var order = orders['~' + opts.order_id]
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
-        if (typeof body === 'string' && body.match(/error/)) console.log(('\ngetOrder ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getOrder', func_args, body)
+        if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetOrder ' + body).red)
+        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Invalid Order ID')) return retry('getOrder', func_args, body)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'
