@@ -14,6 +14,7 @@ module.exports = function container (get, set, clear) {
       .option('--size <size>', 'buy specific size of currency')
       .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, c.markdown_buy_pct)
       .option('--order_adjust_time <ms>', 'adjust bid on this interval to keep order competitive', Number, c.order_adjust_time)
+      .option('--order_poll_time <ms>', 'poll order status on this interval', Number, c.order_poll_time)
       .option('--max_slippage_pct <pct>', 'avoid buying at a slippage pct above this float', c.max_slippage_pct)
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
