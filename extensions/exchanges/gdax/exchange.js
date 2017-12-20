@@ -113,7 +113,10 @@ module.exports = function container (get, set, clear) {
       client.getProductTicker(function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
         if (err) return retry('getQuote', func_args, err)
-        cb(null, {bid: body.bid, ask: body.ask})
+        if (body.bid || body.ask)
+          cb(null, {bid: body.bid, ask: body.ask})
+        else
+          cb(new Error(opts.product_id + ' has no liquidity to quote'))
       })
     },
 
