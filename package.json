@@ -12,6 +12,9 @@
   "bin": {
     "zenbot": "./zenbot.sh"
   },
+  "scripts": {
+    "postinstall": "rm -rf node_modules/forex.analytics/.git"
+  },
   "dependencies": {
     "@slack/client": "^3.14.0",
     "async": "^2.5.0",
