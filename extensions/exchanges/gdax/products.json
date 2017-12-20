@@ -70,5 +70,29 @@
     "max_size": "250",
     "increment": "0.01",
     "label": "BTC/GBP"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.0001",
+    "max_size": "250",
+    "increment": "0.01",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.0001",
+    "max_size": "250",
+    "increment": "0.01",
+    "label": "BCH/EUR"
+  },
+  {
+    "asset": "BCH",
+    "currency": "BTC",
+    "min_size": "0.0001",
+    "max_size": "250",
+    "increment": "0.01",
+    "label": "BCH/BTC"
   }
 ]
