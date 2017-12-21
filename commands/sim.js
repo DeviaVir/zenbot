@@ -70,7 +70,7 @@ module.exports = function container (get, set, clear) {
         so.stats = !!cmd.enable_stats
         so.show_options = !cmd.disable_options
         so.verbose = !!cmd.verbose
-        so.selector = get('lib.normalize-selector')(selector || c.selector)
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
         so.mode = 'sim'
         if (cmd.conf) {
           var overrides = require(path.resolve(process.cwd(), cmd.conf))
@@ -86,7 +86,7 @@ module.exports = function container (get, set, clear) {
         function exitSim () {
           console.log()
           if (!s.period) {
-            console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
+            console.error('no trades found! try running `zenbot backfill ' + so.selector.normalized + '` first')
             process.exit(1)
           }
           var option_keys = Object.keys(so)
@@ -163,10 +163,10 @@ module.exports = function container (get, set, clear) {
             .replace('{{code}}', code)
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
             .replace('{{output}}', html_output)
-            .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+            .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
 
           if (so.filename !== 'none') {
-            var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+            var out_target = so.filename || 'simulations/sim_result_' + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
             fs.writeFileSync(out_target, out)
             console.log('wrote', out_target)
           }
@@ -176,7 +176,7 @@ module.exports = function container (get, set, clear) {
         function getNext () {
           var opts = {
             query: {
-              selector: so.selector
+              selector: so.selector.normalized
             },
             sort: {time: 1},
             limit: 1000

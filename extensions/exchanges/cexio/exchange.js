@@ -34,7 +34,7 @@ module.exports = function container (get, set, clear) {
   }
 
   function retry (method, args) {
-    if (method !== 'getTrades') {
+    if (so.debug && method !== 'getTrades') {
       console.error(('\nCEX.IO API is down! unable to call ' + method + ', retrying in 10s').red)
     }
     setTimeout(function () {
@@ -66,7 +66,7 @@ module.exports = function container (get, set, clear) {
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetTrades ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getTrades', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getTrades', func_args)
         var trades = body.map(function (trade) {
           return {
             trade_id: Number(trade.tid),
@@ -85,7 +85,7 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.account_balance(function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetBalance ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getBalance', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getBalance', func_args)
         var balance = { asset: 0, currency: 0 }
         balance.currency = n(body[opts.currency].available).add(body[opts.currency].orders).format('0.00000000')
         balance.currency_hold = n(body[opts.currency].orders).format('0.00000000')
@@ -101,7 +101,7 @@ module.exports = function container (get, set, clear) {
       var pair = joinProduct(opts.product_id)
       client.ticker(pair, function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetQuote ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getQuote', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getQuote', func_args)
         cb(null, { bid: String(body.bid), ask: String(body.ask) })
       })
     },
@@ -111,7 +111,7 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ncancelOrder ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Order not found')) return retry('cancelOrder', func_args, err)
+        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Order not found')) return retry('cancelOrder', func_args)
         cb()
       })
     },
@@ -130,7 +130,7 @@ module.exports = function container (get, set, clear) {
       }
       client.place_order(pair, action, opts.size, opts.price, opts.type, function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ntrade ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Place order error: Insufficient funds.')) return retry('trade', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Error: Place order error: Insufficient funds.')) return retry('trade', func_args)
         if (body === 'error: Error: Place order error: Insufficient funds.') {
           var order = {
             status: 'rejected',
@@ -168,7 +168,7 @@ module.exports = function container (get, set, clear) {
       var client = authedClient()
       client.get_order_details(opts.order_id, function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetOrder ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/) && body !== 'error: Invalid Order ID')) return retry('getOrder', func_args, body)
+        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getOrder', func_args)
         if (body.status === 'c') {
           order.status = 'rejected'
           order.reject_reason = 'canceled'
