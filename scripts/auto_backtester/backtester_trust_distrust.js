@@ -67,7 +67,7 @@ let objectProduct = obj => {
 
 let runCommand = (strategy, cb) => {
   countArr.push(1);
-  let command = `./zenbot.sh sim ${simArgs} --strategy=trust_distrust --period=${strategy.period}m --sell_threshold=${strategy.sell_threshold} --sell_threshold_max=${strategy.sell_threshold_max} --sell_min=${strategy.sell_min} --buy_threshold=${strategy.buy_threshold} --days=30`;
+  let command = `./zenbot.sh sim ${simArgs} --strategy=trust_distrust --periodLength=${strategy.periodLength}m --sell_threshold=${strategy.sell_threshold} --sell_threshold_max=${strategy.sell_threshold_max} --sell_min=${strategy.sell_min} --buy_threshold=${strategy.buy_threshold} --days=30`;
   console.log(`[ ${countArr.length}/${strategies.length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
@@ -90,6 +90,7 @@ let processOutput = output => {
 
   let rawParams     = jsonRegexp.exec(output2)[1];
   let params        = JSON.parse(rawParams);
+  debugger
   let endBalance    = endBalRegexp.exec(output2)[1];
   let wlMatch       = wlRegexp.exec(output2);
   let wins          = parseInt(wlMatch[1]);
@@ -113,7 +114,7 @@ let processOutput = output => {
     sellMin:        params.sell_min,
     buyThreshold: params.buy_threshold,
     days:               days,
-    period:             params.period,
+    period:             params.periodLength,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     frequency:          roundp((wins + losses) / days, 3)
