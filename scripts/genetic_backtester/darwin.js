@@ -147,7 +147,7 @@ let processOutput = output => {
     losses: losses,
     errorRate: parseFloat(errorRate),
     days: days,
-    period: params.periodLength,
+    periodLength: params.periodLength,
     min_periods: params.min_periods,
     markup_pct: params.markup_pct,
     order_type: params.order_type,
@@ -197,12 +197,12 @@ let RangeFloat = (min, max) => {
   return r;
 };
 
-let RangePeriod = (min, max, period) => {
+let RangePeriod = (min, max, periodLength) => {
   var r = {
-    type: 'period',
+    type: 'periodLength',
     min: min,
     max: max,
-    period: period
+    periodLength: periodLength
   };
   return r;
 };
@@ -224,7 +224,7 @@ let RangeNeuralActivation = () => {
 let strategies = {
   crossover_vwap: {
     // -- common
-    period: RangePeriod(1, 400, 'm'),
+    periodLength: RangePeriod(1, 400, 'm'),
     min_periods: Range(1, 200),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
@@ -241,7 +241,7 @@ let strategies = {
   },
   cci_srsi: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -264,7 +264,7 @@ let strategies = {
   },
   srsi_macd: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -288,7 +288,7 @@ let strategies = {
   },
   macd: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -308,7 +308,7 @@ let strategies = {
   },
   neural: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -327,7 +327,7 @@ let strategies = {
   },
   rsi: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -346,7 +346,7 @@ let strategies = {
   },
   sar: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(2, 100),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -361,7 +361,7 @@ let strategies = {
   },
   speed: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 100),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -376,7 +376,7 @@ let strategies = {
   },
   trend_ema: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 100),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -392,7 +392,7 @@ let strategies = {
   },
   trust_distrust: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 100),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -411,7 +411,7 @@ let strategies = {
   },
   ta_macd: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
@@ -432,7 +432,7 @@ let strategies = {
   },
   ta_ema: {
     // -- common
-    period: RangePeriod(1, 120, 'm'),
+    periodLength: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 100),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
