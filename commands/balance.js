@@ -15,20 +15,20 @@ module.exports = function container (get, set, clear) {
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
-        s.selector = get('lib.normalize-selector')(selector || c.selector)
-        var exch = s.selector.split('.')[0]
-        s.exchange = get('exchanges.' + exch)
-        s.product_id = s.selector.split('.')[1]
-        s.asset = s.product_id.split('-')[0]
-        s.currency = s.product_id.split('-')[1]
+        s.selector = get('lib.objectify-selector')(selector || c.selector)
+        s.exchange = get('exchanges.' + s.selector.exchange_id)
+        s.product_id = s.selector.product_id
+        s.asset = s.selector.asset
+        s.currency = s.selector.currency
+
         var so = s.options
         delete so._
+
         Object.keys(c).forEach(function (k) {
           if (typeof cmd[k] !== 'undefined') {
             so[k] = cmd[k]
           }
         })
-        so.selector = s.selector
         so.debug = cmd.debug
         var engine = get('lib.engine')(s)
         function balance () {
