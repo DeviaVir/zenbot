@@ -49,8 +49,6 @@ module.exports = function container (get, set, clear) {
           }
         })
 
-        so.periodLength = so.period
-
         if (so.start) {
           so.start = moment(so.start, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.end) {

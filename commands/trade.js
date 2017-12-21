@@ -54,7 +54,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
-        so.periodLength = so.period
+
         so.debug = cmd.debug
         so.stats = !cmd.disable_stats
         so.mode = so.paper ? 'paper' : 'live'
