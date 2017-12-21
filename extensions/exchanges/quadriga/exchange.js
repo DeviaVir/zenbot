@@ -79,7 +79,7 @@ module.exports = function container(get, set, clear) {
       client.api('transactions', args, function(err, body) {
         if (!shownWarnings) {
           console.log('please note: the quadriga api does not support backfilling.')
-          console.log('please note: periods should be set to 1h or less.')
+          console.log('please note: period lengths should be set to 1h or less.')
           shownWarnings = true
         }
 
