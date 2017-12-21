@@ -70,7 +70,13 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "eslint": "^4.7.1"
+    "eslint": "^4.7.1",
+    "geneticalgorithm": "^0.3.4",
+    "json2csv": "^3.11.5",
+    "round-precision": "^1.0.0",
+    "run-parallel-limit": "^1.0.3",
+    "shelljs": "^0.7.8",
+    "yargs": "^10.0.3"
   },
   "engines": {
     "node": "^8.0.0 || ^9.0.0"
