@@ -1,5 +1,5 @@
 
-var service = require('../../lib/services/collection-service')
+var service = require('../../../lib/services/collection-service')
 
 describe('Collections Service', function() {
 	beforeEach(function() {
