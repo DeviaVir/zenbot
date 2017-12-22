@@ -66,6 +66,7 @@ module.exports = function container (get, set, clear) {
     backfillRateLimit: 0,
     makerFee: 0.16,
     takerFee: 0.25,
+    dynamicFees: true,
 
     getProducts: function () {
       return require('./products.json')
