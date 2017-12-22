@@ -25,7 +25,7 @@ module.exports = function (cb) {
     })
   }
 
-  var authStr, authMechanismStr, authMechanism;
+  var authStr = '', authMechanismStr, authMechanism;
   
   if(c.mongo.username){
     authStr = encodeURIComponent(c.mongo.username)
