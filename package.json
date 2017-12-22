@@ -13,6 +13,7 @@
     "zenbot": "./zenbot.sh"
   },
   "scripts": {
+    "test": "jasmine test/**/**.test.js",
     "postinstall": "rm -rf node_modules/forex.analytics/.git"
   },
   "dependencies": {
