@@ -29,12 +29,10 @@ module.exports = function (cb) {
   
   if(c.mongo.username){
     authStr = encodeURIComponent(c.mongo.username)
-      //authStr += ':' + encodeURIComponent(c.mongo.password) + '@'
     
-    if(c.mongo.password)
-      authStr += ':' + encodeURIComponent(c.mongo.password) + '@'
-    else
-      authStr += '@'  
+    if(c.mongo.password) authStr += ':' + encodeURIComponent(c.mongo.password)
+
+    authStr += '@'  
       
     // authMechanism could be a conf.js parameter to support more mongodb authentication methods
     authMechanism = 'DEFAULT'
