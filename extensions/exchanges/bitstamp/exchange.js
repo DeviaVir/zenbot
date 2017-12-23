@@ -298,6 +298,7 @@ module.exports = function container (get, set, clear) {
             // 'In Queue', 'Open', 'Finished'
             body.status = 'done'
           }
+          if(body.datetime) body.done_at = body.created_at = body.datetime;
 
           orders['~' + body.id] = body
           cb(null, body)
@@ -338,7 +339,9 @@ module.exports = function container (get, set, clear) {
         } else if(body.status === 'Finished')
           body.status = 'done';
         
-        if(body.datetime) body.time = body.datetime;
+        if(body.status === 'done'){
+          if(body.transactions && body.transactions[0].datetime) body.done_at = body.transactions[0].datetime;
+        }
         
         cb(null, body)
       })
