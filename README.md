@@ -285,7 +285,7 @@ c.order_adjust_time = 10000
 
 ## Reading the console output
 
-![console](https://rawgit.com/carlos8f/zenbot/master/assets/console.png)
+![console](Capture.PNG)
 
 From left to right:
 
