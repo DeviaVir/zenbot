@@ -249,6 +249,7 @@ trendline (default)
     --markup_sell_pct=<value>  test (default: 0)
     --markdown_buy_pct=<value>  test (default: 0)
 
+```
 ## Interactive controls
 
 While the `trade` command is running, Zenbot will respond to these keypress commands:
