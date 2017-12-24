@@ -302,7 +302,7 @@ From left to right:
 - col4: stdev of 1000 trades
 - col5: 10000trades mean
 - col6: 1000 trades mean
-- col7: the mean of the 10000 & 1000 trades and stdev calculated into 100* the stdev percentage of the mean of the long and short trades (in short the active-markup based on a tenth of standard deviation.) 
+- col7: the mean of the 10000 & 1000 trades and stdev calculated into 100* the stdev percentage of the mean of the long and short trades (in short the active-markup based on a multiplier of standard deviation.) 
 - If the four cols on the right are green, that means its a currently increasing trend) when both on the left are green both trends are increasing)
 ```
 - Current signal or action, including `buy`, `sell`, `buying`, `selling`, `bought`, `sold` and `last_trade_worth` (percent change in the trend direction since last buy/sell)
