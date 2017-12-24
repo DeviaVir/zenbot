@@ -1,5 +1,6 @@
 ![zenbot logo](Capture.PNG)
 
+```sudo ./zenbot.sh sim --strategy=trendline --period=1s --min_periods=15000 --days=14 poloniex.BCN-BTC```
 
 ### Ubuntu 16.04 Step-By-Step
 https://youtu.be/BEhU55W9pBI
