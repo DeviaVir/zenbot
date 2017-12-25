@@ -125,9 +125,9 @@ c.order_adjust_time = 10000
 // avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
 c.max_sell_loss_pct = 25
 // ms to poll order status
-c.order_poll_time = 1000
+c.order_poll_time = 3000
 // ms to wait for settlement (after an order cancel)
-c.wait_for_settlement = 100
+c.wait_for_settlement = 3000
 // % to mark down buy price for orders
 c.markdown_buy_pct = 0.2
 // % to mark up sell prie for orders
