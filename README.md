@@ -2,15 +2,15 @@
 
 Make separate directories with different API keys per coin:
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.BCN-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.BCN-BTC```
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.LTC-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.LTC-BTC```
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.ETH-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.ETH-BTC```
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.XRP-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.XRP-BTC```
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.DOGE-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.DOGE-BTC```
 
 
 
