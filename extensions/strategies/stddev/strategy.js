@@ -13,6 +13,9 @@ module.exports = function container (get, set, clear) {
       this.option('min_periods', "min_periods", Number, 1250)
     },
     calculate: function (s) {
+      calculated = null
+    },
+    onPeriod: function (s, cb) {
       get('lib.ema')(s, 'stddev', s.options.stddev)
       var tl0 = []
       var tl1 = []
@@ -25,22 +28,13 @@ module.exports = function container (get, set, clear) {
           s.mean1 = math.mean(tl1)
           s.sig0 = s.std0 > s.std1 ? 'Up' : 'Down';
           s.sig1 = s.mean0 > s.mean1 ? 'Up' : 'Down';
-    }
-  },
-    onPeriod: function (s, cb) {
-      if (
-          s.sig1 === 'Down'
-         )
-         {
+      }
+      if (s.sig1 === 'Down') {
           s.signal = 'sell'
-         }
-      else if (
-              s.sig0 === 'Up'
-              && s.sig1 === 'Up'
-              ) 
-              {   
-              s.signal = 'buy'
-              }
+      }
+      else if (s.sig0 === 'Up' && s.sig1 === 'Up') {   
+          s.signal = 'buy'
+      }
     cb()
   },
     onReport: function (s) {

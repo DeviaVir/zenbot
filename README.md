@@ -157,6 +157,13 @@ To backfill data (provided that your chosen exchange supports it), use:
 zenbot backfill <selector> --days <days>
 ```
 
+You can also select start and end date:
+
+```
+zenbot backfill <selector> --start="YYYYMMDDhhmm" --end="YYYYMMDDhhmm"
+```
+Note you can use them separately.
+
 After you've backfilled, you can run a simulation:
 
 ```
@@ -258,6 +265,16 @@ and also:
 
 ```
 zenbot list-strategies
+
+crossover_vwap
+  description:
+    Estimate trends by comparing "Volume Weighted Average Price" to the "Exponential Moving Average".
+  options:
+    --emalen1=<value>  Length of EMA 1 (default: 30)
+    --smalen1=<value>  Length of SMA 1 (default: 108)
+    --smalen2=<value>  Length of SMA 2 (default: 60)
+    --vwap_length=<value>  Min periods for vwap to start (default: 10)
+    --vwap_max=<value>  Max history for vwap. Increasing this makes it more sensitive to short-term changes (default: 8000)
 
 forex_analytics
   description:
