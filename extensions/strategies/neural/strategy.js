@@ -14,18 +14,17 @@ module.exports = function container (get, set, clear) {
     name: 'neural',
     description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
     getOptions: function () {
-      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value. Same as --periodLength', String, '15m')
-      this.option('periodLength', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '15m')
+      this.option('period', 'period length - make sure to lower your poll trades time to lower than this value', String, '1m')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
       this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 1)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 3)
-      this.option('selector', "Selector", String, 'Gdax.BTC-USD')
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 1)
+      this.option('selector', "Selector", String, 'poloniex.BCH-BTC')
       this.option('min_periods', "Periods to calculate learn from", Number, 100)
-      this.option('min_predict', "Periods to predict next number from", Number, 10)
-      this.option('momentum', "momentum of prediction", Number, 0.999)
-      this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0.999)
+      this.option('min_predict', "Periods to predict next number from", Number, 1)
+      this.option('momentum', "momentum of prediction", Number, 0.9)
+      this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0.1)
       this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 1)
-      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 10)
+      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 5)
     },
     calculate: function (s) {
       calculated = null
@@ -107,9 +106,9 @@ module.exports = function container (get, set, clear) {
     },
     onReport: function (s) {
       cols = []
-      cols.push(z(8, n(global.mean).format('00000.000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
+      cols.push(z(8, n(global.mean).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
       cols.push('    ')
-      cols.push(z(8, n(global.meanp).format('00000.000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
+      cols.push(z(8, n(global.meanp).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
       return cols
     },
   }
