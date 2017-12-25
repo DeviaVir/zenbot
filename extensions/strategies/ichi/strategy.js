@@ -41,7 +41,7 @@ return {
     this.option('oversold_rsi', 'buy when RSI reaches this value', Number, 25)
     this.option('overbought_rsi', 'sell when RSI reaches this value', Number, 70)
 
-    this.option('enable_short', 'Enable shorting (cost higher fee but allow to earn money down trade)', Boolean, true)
+    this.option('enable_short', 'Enable shorting (cost higher fee but allow to earn money down trade)', Boolean, false)
   },
 
     /*TODO : WTF ???
