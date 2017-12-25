@@ -1,6 +1,13 @@
 ![zenbot logo](Capture.PNG)
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=1s --min_periods=15000 --days=14 poloniex.BCN-BTC```
+Make separate directories with different API keys per coin:
+
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.BCN-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.LTC-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.ETH-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.XRP-BTC```
+```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 --days=14 poloniex.DOGE-BTC```
+
 
 ### Ubuntu 16.04 Step-By-Step
 https://youtu.be/BEhU55W9pBI
