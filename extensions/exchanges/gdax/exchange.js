@@ -17,13 +17,9 @@ module.exports = function container (get, set, clear) {
     if (!websocket_client[product_id]) {
       // OrderbookSync extends WebsocketClient and subscribes to the 'full' channel, so we can use it like one
       var auth = null
-      if (c.gdax && c.gdax.key && c.gdax.key !== 'YOUR-API-KEY') {
-        auth = {
-          key: c.gdax.key,
-          secret: c.gdax.b64secret,
-          passphrase: c.gdax.passphrase
-        }
-      }
+      try {
+        auth = authedClient()
+      } catch(e){}
       websocket_client[product_id] = new Gdax.OrderbookSync([product_id], c.gdax.apiURI, c.gdax.websocketURI, auth)
       // initialize a cache for the websocket connection
       websocket_cache[product_id] = {
