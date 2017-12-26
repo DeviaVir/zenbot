@@ -200,10 +200,14 @@ path.middle, path.zero {
 }
 
 .tradearrow path.tradearrow {
-    stroke: none;
+    stroke: black;
 }
 
-.tradearrow path.buy, .tradearrow path.sell {
+.tradearrow path.buy {
+    fill: #00ff00;
+}
+
+.tradearrow path.sell {
     fill: #ff0056;
 }
 

@@ -1,24 +1,26 @@
 var z = require('zero-fill')
   , n = require('numbro')
-  //, fs = require('fs'), fs_started = false
 ;
 
 
 var data = "";
-/*
-if(!fs_started) {
-  fs.appendFile('log.csv', 'pid'+','+'pOpen'+','+'pClose'+','+'emagreen'+','+'smapurple'+','+'smared'+'\n', (err)=>{});
-  fs_started = true;
-}//*/
 module.exports = function container (get, set, clear) {
   return {
     name: 'crossover_vwap',
-    description: 'Testing indicator with vwap',
+    description: 'Estimate trends by comparing "Volume Weighted Average Price" to the "Exponential Moving Average".',
 
-    getOptions: function () {
-      // these are relative to period length. Good tests so far: period=5m or 90m
-      
+    getOptions: function () {      
       // default start is 30, 108, 60.
+      // these are relative to period length.
+      
+      /*
+        Positive simulations during testing: 
+      
+        zenbot sim kraken.XXRP-ZEUR --period="120m" --strategy=crossover_vwap --currency_capital=700 --asset_capital=0 --max_slippage_pct=100 --days=60 --avg_slippage_pct=0.045 --vwap_max=8000 --markup_sell_pct=0.5 --markdown_buy_pct=0.5 --emalen1=50
+        zenbot sim kraken.XXRP-ZEUR --period="120m" --strategy=crossover_vwap --currency_capital=700 --asset_capital=0 --max_slippage_pct=100 --days=60 --avg_slippage_pct=0.045 --vwap_max=8000 --markup_sell_pct=0.5 --markdown_buy_pct=0.5 --emalen1=30
+      */
+      this.option('period', 'period length, same as --periodLength', String, '120m')
+      this.option('periodLength', 'period length, same as --period', String, '120m')
       this.option('emalen1', 'Length of EMA 1', Number, 30 )//green
       this.option('smalen1', 'Length of SMA 1', Number, 108 )//red
       this.option('smalen2', 'Length of SMA 2', Number, 60 )//purple
@@ -26,13 +28,8 @@ module.exports = function container (get, set, clear) {
       this.option('vwap_max', 'Max history for vwap. Increasing this makes it more sensitive to short-term changes', Number, 8000)//gold
     },
     
-    /*
-      zenbot sim kraken.XXRP-ZEUR --period="120m" --strategy=crossover_vwap --currency_capital=700 --asset_capital=0 --max_slippage_pct=100 --days=60 --avg_slippage_pct=0.045 --vwap_max=8000 --markup_sell_pct=0.5 --markdown_buy_pct=0.5 --emalen1=50
-      zenbot sim kraken.XXRP-ZEUR --period="120m" --strategy=crossover_vwap --currency_capital=700 --asset_capital=0 --max_slippage_pct=100 --days=60 --avg_slippage_pct=0.045 --vwap_max=8000 --markup_sell_pct=0.5 --markdown_buy_pct=0.5 --emalen1=30
-    */
+
     calculate: function (s) {
-        // compute MACD
-        //get('lib.ti_vwap')(s, 'vwap', s.options.vwap_len)//gold
         get('lib.vwap')(s, 'vwap', s.options.vwap_length, s.options.vwap_max)//gold
         
         get('lib.ema')(s, 'ema1', s.options.emalen1)//green

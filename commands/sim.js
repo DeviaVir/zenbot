@@ -17,8 +17,8 @@ module.exports = function container (get, set, clear) {
       .option('--strategy <name>', 'strategy to use', String, c.strategy)
       .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, c.order_type)
       .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, c.filename)
-      .option('--start <timestamp>', 'start at timestamp')
-      .option('--end <timestamp>', 'end at timestamp')
+      .option('--start <datetime>', 'start ("YYYYMMDDhhmm")')
+      .option('--end <datetime>', 'end ("YYYYMMDDhhmm")')
       .option('--days <days>', 'set duration by day count', Number, c.days)
       .option('--currency_capital <amount>', 'amount of start capital in currency', Number, c.currency_capital)
       .option('--asset_capital <amount>', 'amount of start capital in asset', Number, c.asset_capital)
@@ -48,14 +48,15 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+
         if (so.start) {
-          so.start = moment(so.start).valueOf()
+          so.start = moment(so.start, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.end) {
             so.end = tb(so.start).resize('1d').add(so.days).toMilliseconds()
           }
         }
         if (so.end) {
-          so.end = moment(so.end).valueOf()
+          so.end = moment(so.end, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.start) {
             so.start = tb(so.end).resize('1d').subtract(so.days).toMilliseconds()
           }
@@ -67,7 +68,7 @@ module.exports = function container (get, set, clear) {
         so.stats = !!cmd.enable_stats
         so.show_options = !cmd.disable_options
         so.verbose = !!cmd.verbose
-        so.selector = get('lib.normalize-selector')(selector || c.selector)
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
         so.mode = 'sim'
         if (cmd.conf) {
           var overrides = require(path.resolve(process.cwd(), cmd.conf))
@@ -78,12 +79,12 @@ module.exports = function container (get, set, clear) {
         var engine = get('lib.engine')(s)
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
-        var query_start = so.start ? tb(so.start).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
+        var query_start = so.start ? tb(so.start).resize(so.periodLength).subtract(so.min_periods + 2).toMilliseconds() : null
 
         function exitSim () {
           console.log()
           if (!s.period) {
-            console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
+            console.error('no trades found! try running `zenbot backfill ' + so.selector.normalized + '` first')
             process.exit(1)
           }
           var option_keys = Object.keys(so)
@@ -142,28 +143,27 @@ module.exports = function container (get, set, clear) {
           output_lines.forEach(function (line) {
             console.log(line)
           })
-          var html_output = output_lines.map(function (line) {
-            return colors.stripColors(line)
-          }).join('\n')
-          var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
-            var data = {};
-            var keys = Object.keys(period);
-            for(i = 0;i < keys.length;i++){
-              data[keys[i]] = period[keys[i]];
-            }
-            return data;
-          })
-          var code = 'var data = ' + JSON.stringify(data) + ';\n'
-          code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
-          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
-          var out = tpl
-            .replace('{{code}}', code)
-            .replace('{{trend_ema_period}}', so.trend_ema || 36)
-            .replace('{{output}}', html_output)
-            .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
-
           if (so.filename !== 'none') {
-            var out_target = so.filename || 'simulations/sim_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+            var html_output = output_lines.map(function (line) {
+              return colors.stripColors(line)
+            }).join('\n')
+            var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
+              var data = {}
+              var keys = Object.keys(period)
+              for(var i = 0;i < keys.length;i++){
+                data[keys[i]] = period[keys[i]]
+              }
+              return data
+            })
+            var code = 'var data = ' + JSON.stringify(data) + ';\n'
+            code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
+            var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
+            var out = tpl
+              .replace('{{code}}', code)
+              .replace('{{trend_ema_period}}', so.trend_ema || 36)
+              .replace('{{output}}', html_output)
+              .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
+            var out_target = so.filename || 'simulations/sim_result_' + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
             fs.writeFileSync(out_target, out)
             console.log('wrote', out_target)
           }
@@ -173,7 +173,7 @@ module.exports = function container (get, set, clear) {
         function getNext () {
           var opts = {
             query: {
-              selector: so.selector
+              selector: so.selector.normalized
             },
             sort: {time: 1},
             limit: 1000

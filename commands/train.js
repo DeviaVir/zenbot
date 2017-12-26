@@ -82,7 +82,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
-        
+
         if (!so.days_test) { so.days_test = 0 }
         so.strategy = 'noop'
 
@@ -119,7 +119,7 @@ module.exports = function container (get, set, clear) {
           var d = tb('1d')
           so.end_training = d.subtract(so.days_test).toMilliseconds()
         }
-        so.selector = get('lib.normalize-selector')(selector || c.selector)
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
         so.mode = 'train'
         if (cmd.conf) {
           var overrides = require(path.resolve(process.cwd(), cmd.conf))
@@ -131,13 +131,13 @@ module.exports = function container (get, set, clear) {
 
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
-        var query_start = so.start_training ? tb(so.start_training).resize(so.period).subtract(so.min_periods + 2).toMilliseconds() : null
+        var query_start = so.start_training ? tb(so.start_training).resize(so.periodLength).subtract(so.min_periods + 2).toMilliseconds() : null
         
         function writeTempModel (strategy) {
           var tempModelString = JSON.stringify(
             {
-              "selector": so.selector,
-              "period": so.period,
+              "selector": so.selector.normalized,
+              "period": so.periodLength,
               "start_training": moment(so.start_training),
               "end_training": moment(so.end_training),
               "options": fa_getTrainOptions(so),
@@ -158,8 +158,8 @@ module.exports = function container (get, set, clear) {
         function writeFinalModel (strategy, end_training, trainingResult, testResult) {
           var finalModelString = JSON.stringify(
             {
-              "selector": so.selector,
-              "period": so.period,
+              "selector": so.selector.normalized,
+              "period": so.periodLength,
               "start_training": moment(so.start_training).utc(),
               "end_training": moment(end_training).utc(),
               "result_training": trainingResult,
@@ -171,8 +171,8 @@ module.exports = function container (get, set, clear) {
 
           var testVsBuyHold = typeof(testResult) !== "undefined" ? testResult.vsBuyHold : 'noTest'
 
-          var finalModelFile = 'models/forex.model_' + so.selector
-            + '_period=' + so.period
+          var finalModelFile = 'models/forex.model_' + so.selector.normalized
+            + '_period=' + so.periodLength
             + '_from=' + moment(so.start_training).utc().format('YYYYMMDD_HHmmssZZ')
             + '_to=' + moment(end_training).utc().format('YYYYMMDD_HHmmssZZ')
             + '_trainingVsBuyHold=' + trainingResult.vsBuyHold
@@ -228,13 +228,13 @@ module.exports = function container (get, set, clear) {
           var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
           var trainingArgs = [
             'sim',
-            so.selector,
+            so.selector.normalized,
             '--strategy', 'forex_analytics',
             '--disable_options',
             '--modelfile', path.resolve(__dirname, '..', tempModelFile),
             '--start', so.start_training,
             '--end', so.end_training,
-            '--period', so.period,
+            '--period', so.periodLength,
             '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html'
           ]
           var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), trainingArgs, { stdio: 'inherit' })
@@ -255,12 +255,12 @@ module.exports = function container (get, set, clear) {
               
               var testArgs = [
                 'sim',
-                so.selector,
+                so.selector.normalized,
                 '--strategy', 'forex_analytics',
                 '--disable_options',
                 '--modelfile', path.resolve(__dirname, '..', tempModelFile),
                 '--start', so.end_training,
-                '--period', so.period,
+                '--period', so.periodLength,
                 '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html',
               ]
               var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), testArgs, { stdio: 'inherit' })
@@ -312,7 +312,7 @@ module.exports = function container (get, set, clear) {
           console.log()
           
           if (!s.period) {
-            console.error('no trades found! try running `zenbot backfill ' + so.selector + '` first')
+            console.error('no trades found! try running `zenbot backfill ' + so.selector.normalized + '` first')
             process.exit(1)
           }
          
@@ -354,7 +354,7 @@ module.exports = function container (get, set, clear) {
         function getTrades () {
           var opts = {
             query: {
-              selector: so.selector
+              selector: so.selector.normalized
             },
             sort: {time: 1},
             limit: 1000

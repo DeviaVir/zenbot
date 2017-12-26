@@ -14,6 +14,7 @@ module.exports = function container (get, set, clear) {
       .option('--size <size>', 'sell specific size of currency')
       .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, c.markup_sell_pct)
       .option('--order_adjust_time <ms>', 'adjust ask on this interval to keep order competitive', Number, c.order_adjust_time)
+      .option('--order_poll_time <ms>', 'poll order status on this interval', Number, c.order_poll_time)
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
@@ -27,7 +28,6 @@ module.exports = function container (get, set, clear) {
         })
         so.debug = cmd.debug
         so.sell_pct = cmd.pct
-        so.selector = get('lib.normalize-selector')(selector || c.selector)
         var order_types = ['maker', 'taker']
         if (!so.order_type in order_types || !so.order_type) {
           so.order_type = 'maker'

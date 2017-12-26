@@ -54,6 +54,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+
         so.debug = cmd.debug
         so.stats = !cmd.disable_stats
         so.mode = so.paper ? 'paper' : 'live'
@@ -63,12 +64,10 @@ module.exports = function container (get, set, clear) {
             so[k] = overrides[k]
           })
         }
-        so.selector = get('lib.normalize-selector')(so.selector || selector || c.selector)
-        var exchange_id = so.selector.split('.')[0]
-        var product_id = so.selector.split('.')[1]
-        var exchange = get('exchanges.' + exchange_id)
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
+        var exchange = get('exchanges.' + so.selector.exchange_id)
         if (!exchange) {
-          console.error('cannot trade ' + so.selector + ': exchange not implemented')
+          console.error('cannot trade ' + so.selector.normalized + ': exchange not implemented')
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
@@ -112,7 +111,7 @@ module.exports = function container (get, set, clear) {
           ].join('') + '\n')
           process.stdout.write([
             z(15, (so.mode === 'paper' ? '      ' : (so.mode === 'live' && (so.manual === false || typeof so.manual === 'undefined')) ? '       ' + 'AUTO'.black.bgRed + '    ' : '       ' + 'MANUAL'.black.bgGreen + '  '), ' '),
-            z(13, so.period, ' '),
+            z(13, so.periodLength, ' '),
             z(29, (so.order_type === 'maker' ? so.order_type.toUpperCase().green : so.order_type.toUpperCase().red), ' '),
             z(31, (so.mode === 'paper' ? 'avg. '.grey + so.avg_slippage_pct + '%' : 'max '.grey + so.max_slippage_pct + '%'), ' '),
             z(20, (so.order_type === 'maker' ? so.order_type + ' ' + s.exchange.makerFee : so.order_type + ' ' + s.exchange.takerFee), ' ')
@@ -197,7 +196,7 @@ module.exports = function container (get, set, clear) {
               .replace('{{code}}', code)
               .replace('{{trend_ema_period}}', so.trend_ema || 36)
               .replace('{{output}}', html_output)
-              .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+              .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
             if (so.filename !== 'none') {
               var out_target
               
@@ -206,10 +205,10 @@ module.exports = function container (get, set, clear) {
                 
                 //ymd
                 var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-                out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
+                out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
               fs.writeFileSync(out_target, out)
               }else
-                out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+                out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
               
               fs.writeFileSync(out_target, out)
               console.log('\nwrote'.grey, out_target)
@@ -272,14 +271,12 @@ module.exports = function container (get, set, clear) {
             return colors.stripColors(line)
           }).join('\n')
           var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
-            return {
-              time: period.time,
-              open: period.open,
-              high: period.high,
-              low: period.low,
-              close: period.close,
-              volume: period.volume
+            var data = {};
+            var keys = Object.keys(period);
+            for(i = 0;i < keys.length;i++){
+              data[keys[i]] = period[keys[i]];
             }
+            return data;
           })
           var code = 'var data = ' + JSON.stringify(data) + ';\n'
           code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
@@ -288,14 +285,14 @@ module.exports = function container (get, set, clear) {
             .replace('{{code}}', code)
             .replace('{{trend_ema_period}}', so.trend_ema || 36)
             .replace('{{output}}', html_output)
-            .replace(/\{\{symbol\}\}/g,  so.selector + ' - zenbot ' + require('../package.json').version)
+            .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
           if (so.filename !== 'none') {
             var out_target
             var dt = new Date().toISOString();
             
             //ymd
             var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-            out_target = so.filename || 'simulations/trade_result_' + so.selector +'_' + today + '_UTC.html'
+            out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
 
             fs.writeFileSync(out_target, out)
             //console.log('\nwrote'.grey, out_target)
@@ -310,9 +307,8 @@ module.exports = function container (get, set, clear) {
         }
 
         var db_cursor, trade_cursor
-        var query_start = tb().resize(so.period).subtract(so.min_periods * 2).toMilliseconds()
+        var query_start = tb().resize(so.periodLength).subtract(so.min_periods * 2).toMilliseconds()
         var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
-        var trades_per_min = 0
         var session = null
         var sessions = get('db.sessions')
         var balances = get('db.balances')
@@ -322,7 +318,7 @@ module.exports = function container (get, set, clear) {
         get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
         var marker = {
           id: crypto.randomBytes(4).toString('hex'),
-          selector: so.selector,
+          selector: so.selector.normalized,
           from: null,
           to: null,
           oldest_time: null
@@ -334,7 +330,7 @@ module.exports = function container (get, set, clear) {
 
         console.log('fetching pre-roll data:')
         var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh'; // Use 'win32' for 64 bit windows too
-        var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector, '--days', days])
+        var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector.normalized, '--days', days])
         backfiller.stdout.pipe(process.stdout)
         backfiller.stderr.pipe(process.stderr)
         backfiller.on('exit', function (code) {
@@ -344,7 +340,7 @@ module.exports = function container (get, set, clear) {
           function getNext () {
             var opts = {
               query: {
-                selector: so.selector
+                selector: so.selector.normalized
               },
               sort: {time: 1},
               limit: 1000
@@ -372,12 +368,12 @@ module.exports = function container (get, set, clear) {
                   }
                   session = {
                     id: crypto.randomBytes(4).toString('hex'),
-                    selector: so.selector,
+                    selector: so.selector.normalized,
                     started: new Date().getTime(),
                     mode: so.mode,
                     options: so
                   }
-                  sessions.select({query: {selector: so.selector}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
+                  sessions.select({query: {selector: so.selector.normalized}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
@@ -467,6 +463,10 @@ module.exports = function container (get, set, clear) {
         function forwardScan () {
           function saveSession () {
             engine.syncBalance(function (err) {
+              if (!err && s.balance.asset === undefined) {
+                // TODO not the nicest place to verify the state, but did not found a better one
+                throw new Error('Error during syncing balance. Please check your API-Key')
+              }
               if (err) {
                 console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error syncing balance')
                 if (err.desc) console.error(err.desc)
@@ -484,8 +484,8 @@ module.exports = function container (get, set, clear) {
                 session.price = s.period.close
                 var d = tb().resize(c.balance_snapshot_period)
                 var b = {
-                  id: so.selector + '-' + d.toString(),
-                  selector: so.selector,
+                  id: so.selector.normalized + '-' + d.toString(),
+                  selector: so.selector.normalized,
                   time: d.toMilliseconds(),
                   currency: s.balance.currency,
                   asset: s.balance.asset,
@@ -529,7 +529,7 @@ module.exports = function container (get, set, clear) {
               })
             })
           }
-          var opts = {product_id: product_id, from: trade_cursor}
+          var opts = {product_id: so.selector.product_id, from: trade_cursor}
           exchange.getTrades(opts, function (err, trades) {
             if (err) {
               if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND' || err.code === 'ECONNRESET') {
@@ -576,7 +576,7 @@ module.exports = function container (get, set, clear) {
                 if (s.my_trades.length > my_trades_size) {
                   s.my_trades.slice(my_trades_size).forEach(function (my_trade) {
                     my_trade.id = crypto.randomBytes(4).toString('hex')
-                    my_trade.selector = so.selector
+                    my_trade.selector = so.selector.normalized
                     my_trade.session_id = session.id
                     my_trade.mode = so.mode
                     my_trades.save(my_trade, function (err) {
@@ -591,7 +591,7 @@ module.exports = function container (get, set, clear) {
                 function savePeriod (period) {
                   if (!period.id) {
                     period.id = crypto.randomBytes(4).toString('hex')
-                    period.selector = so.selector
+                    period.selector = so.selector.normalized
                     period.session_id = session.id
                   }
                   periods.save(period, function (err) {
@@ -616,8 +616,8 @@ module.exports = function container (get, set, clear) {
             }
           })
           function saveTrade (trade) {
-            trade.id = so.selector + '-' + String(trade.trade_id)
-            trade.selector = so.selector
+            trade.id = so.selector.normalized + '-' + String(trade.trade_id)
+            trade.selector = so.selector.normalized
             if (!marker.from) {
               marker.from = trade_cursor
               marker.oldest_time = trade.time
