@@ -1,4 +1,4 @@
-![zenbot logo](Capture.PNG)
+![zenbot logo](Capture2.PNG)
 
 Make separate directories with different API keys per coin:
 
