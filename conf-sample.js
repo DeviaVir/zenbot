@@ -13,7 +13,7 @@ c.mongo.replicaSet = null
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'poloniex.BCH-BTC'
 // name of default trade strategy
-c.strategy = 'trendline'
+c.strategy = 'neural'
 
 // Exchange API keys:
 
