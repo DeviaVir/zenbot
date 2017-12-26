@@ -1,5 +1,7 @@
 var c = module.exports = {}
 
+/// This conf is for NEURAL strategy as a profitable sim example, use --period=1m
+
 // mongo configuration
 c.mongo = {}
 c.mongo.host = process.env.MONGODB_PORT_27017_TCP_ADDR || 'localhost'
