@@ -2,16 +2,7 @@
 
 Make separate directories with different API keys per coin:
 
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.BCN-BTC```
-
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.LTC-BTC```
-
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.ETH-BTC```
-
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.XRP-BTC```
-
-```sudo ./zenbot.sh sim --strategy=trendline --period=30s --min_periods=15000 poloniex.DOGE-BTC```
-
+```sudo ./zenbot.sh sim --strategy=neural --period=1m poloniex.BCH-BTC```
 
 
 ### Ubuntu 16.04 Step-By-Step
@@ -299,7 +290,7 @@ c.order_adjust_time = 10000
 
 ![console](Capture.PNG)
 
-From left to right:
+From left to right ( for trendline not pictured above, which is neural ):
 
 - Timestamp in local time (grey, blue when showing "live" stats)
 - Asset price in currency (yellow)
