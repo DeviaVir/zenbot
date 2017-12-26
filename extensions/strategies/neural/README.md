@@ -14,7 +14,7 @@ From left to right ( for trendline not pictured above, which is neural ):
 ```
 - col1: current last trade price
 - col2: The old trade last trade price averaged with the prediction. 
-- If the four cols on the right are green, that means its a currently increasing trend) when both on the left are green both trends are increasing)
+- If the predicted price and average of last trade price exceeds the current last trade price, then buy.. Like a neural-trendline.
 ```
 - Current signal or action, including `buy`, `sell`, `buying`, `selling`, `bought`, `sold` and `last_trade_worth` (percent change in the trend direction since last buy/sell)
 - Account balance (asset)
@@ -22,7 +22,7 @@ From left to right ( for trendline not pictured above, which is neural ):
 - Profit or loss percent (can be reset with `--reset_profit`)
 - Gain or loss vs. buy/hold strategy
 
-The signaling for this strategy that works best/quickest: 
+The signaling for this strategy example:
 
 ```
           learn();
