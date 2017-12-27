@@ -57,8 +57,9 @@ module.exports = function container (get, set, clear) {
         var tlp = []
         var tll = []
         if (s.lookback[s.options.min_periods]) {
+          var min_predict = s.options.min_predict > s.options.min_periods ? s.options.min_periods : s.options.min_predict;
           for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
-          for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
+          for (let i = 0; i < min_predict; i++) { tlp.push(s.lookback[i].close) }
           var my_data = tll.reverse()
           var learn = function () {
             //Learns
