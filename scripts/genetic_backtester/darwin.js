@@ -14,6 +14,7 @@ let roundp = require('round-precision');
 let fs = require('fs');
 let GeneticAlgorithmCtor = require('geneticalgorithm');
 let StripAnsi = require('strip-ansi');
+let moment = require('moment');
 
 let Phenotypes = require('./phenotype.js');
 
@@ -234,7 +235,7 @@ let strategies = {
     buy_stop_pct: Range0(1, 50),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
-    
+
     // -- strategy
     emalen1: Range(1, 300),
     vwap_length: Range(1, 300),
@@ -442,7 +443,7 @@ let strategies = {
     buy_stop_pct: Range0(1, 50),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
-    
+
     // -- strategy
     lastpoints: Range(20, 500),
     avgpoints: Range(300, 3000),
@@ -482,6 +483,14 @@ let argv = require('yargs').argv;
 let simArgs = (argv.selector) ? argv.selector : 'bitfinex.ETH-USD';
 if (argv.days) {
   simArgs += ` --days=${argv.days}`;
+}
+else {
+  if (argv.start) {
+    simArgs += ` --start=${argv.start}`;
+  }
+  if (argv.end) {
+    simArgs += ` --end=${argv.end}`;
+  }
 }
 if (argv.currency_capital) {
   simArgs += ` --currency_capital=${argv.currency_capital}`;
@@ -540,7 +549,18 @@ let generationCount = 1;
 let simulateGeneration = () => {
   console.log(`\n\n=== Simulating generation ${generationCount++} ===\n`);
 
-  runUpdate(argv.days, argv.selector);
+  let days = argv.days;
+  if (!days) {
+    if (argv.start) {
+      var start = moment(argv.start, "YYYYMMDDhhmm");
+      days = moment().diff(start, 'days');
+    }
+    else {
+      var end = moment(argv.end, "YYYYMMDDhhmm");
+      days = moment().diff(end, 'days') + 1;
+    }
+  }
+  runUpdate(days, argv.selector);
 
   iterationCount = 1;
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
