@@ -29,12 +29,9 @@ module.exports = function container (get, set, clear) {
   }
 
   function retry (method, args) {
-    if (method !== 'getTrades') {
-      console.error(('\nPoloniex API is down! unable to call ' + method + ', retrying in 10s').red)
-    }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, 10000)
+    }, 1)
   }
 
   var orders = {}
