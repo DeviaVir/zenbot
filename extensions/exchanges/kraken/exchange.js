@@ -48,15 +48,14 @@ module.exports = function container(get, set, clear) {
     if (assetsToFix.indexOf(asset) >= 0 && currency.length > 3) {
       currency = currency.substring(1)
     }
-    return `X${asset}X${currency}`
+    return asset + currency;
   }
 
   function retry(method, args, error) {
-    let timeout, errorMsg
     if (error.message.match(/API:Rate limit exceeded/)) {
-      timeout = 10000
+      var timeout = 10000
     } else {
-      timeout = 150
+      var timeout = 150
     }
 
     // silence common timeout errors
