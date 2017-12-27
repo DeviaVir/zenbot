@@ -57,18 +57,18 @@
     "id": "XRPUSD",
     "asset": "XRP",
     "currency": "USD",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "1000000",
-    "increment": "0.01",
+    "increment": "0.00001",
     "label": "XRP/USD"
   },
   {
     "id": "XRPEUR",
     "asset": "XRP",
     "currency": "EUR",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "1000000",
-    "increment": "0.01",
+    "increment": "0.00001",
     "label": "XRP/EUR"
   },
   {
