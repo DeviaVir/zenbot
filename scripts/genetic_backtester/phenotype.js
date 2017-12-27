@@ -65,7 +65,7 @@ module.exports = {
   },
 
   fitness: function(phenotype) {
-    if (typeof phenotype.sim === 'undfined') return 0;
+    if (typeof phenotype.sim === 'undefined') return 0;
     
     var vsBuyHoldRate = (phenotype.sim.vsBuyHold / 50);
     var wlRatioRate = 1.0 / (1.0 + Math.pow(2.71828, -(phenotype.sim.wins - phenotype.sim.losses)));
