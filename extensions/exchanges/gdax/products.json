@@ -1,19 +1,19 @@
 [
   {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.0001",
+    "max_size": "250",
+    "increment": "0.01",
+    "label": "BCH/USD"
+  },
+  {
     "asset": "LTC",
     "currency": "EUR",
     "min_size": "0.01",
     "max_size": "1000000",
     "increment": "0.01",
     "label": "LTC/EUR"
-  },
-  {
-    "asset": "LTC",
-    "currency": "BTC",
-    "min_size": "0.01",
-    "max_size": "1000000",
-    "increment": "0.00001",
-    "label": "LTC/BTC"
   },
   {
     "asset": "LTC",
@@ -24,75 +24,59 @@
     "label": "LTC/USD"
   },
   {
-    "asset": "ETH",
-    "currency": "USD",
+    "asset": "LTC",
+    "currency": "BTC",
     "min_size": "0.01",
-    "max_size": "5000",
-    "increment": "0.01",
-    "label": "ETH/USD"
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "LTC/BTC"
   },
   {
     "asset": "ETH",
     "currency": "EUR",
-    "min_size": "0.01",
+    "min_size": "0.001",
     "max_size": "5000",
     "increment": "0.01",
     "label": "ETH/EUR"
   },
   {
     "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "5000",
+    "increment": "0.01",
+    "label": "ETH/USD"
+  },
+  {
+    "asset": "ETH",
     "currency": "BTC",
-    "min_size": "0.01",
+    "min_size": "0.001",
     "max_size": "5000",
     "increment": "0.00001",
     "label": "ETH/BTC"
   },
   {
     "asset": "BTC",
-    "currency": "USD",
-    "min_size": "0.01",
+    "currency": "GBP",
+    "min_size": "0.0001",
     "max_size": "250",
     "increment": "0.01",
-    "label": "BTC/USD"
+    "label": "BTC/GBP"
   },
   {
     "asset": "BTC",
     "currency": "EUR",
-    "min_size": "0.01",
+    "min_size": "0.0001",
     "max_size": "250",
     "increment": "0.01",
     "label": "BTC/EUR"
   },
   {
     "asset": "BTC",
-    "currency": "GBP",
-    "min_size": "0.01",
-    "max_size": "250",
-    "increment": "0.01",
-    "label": "BTC/GBP"
-  },
-  {
-    "asset": "BCH",
     "currency": "USD",
     "min_size": "0.0001",
     "max_size": "250",
     "increment": "0.01",
-    "label": "BCH/USD"
-  },
-  {
-    "asset": "BCH",
-    "currency": "EUR",
-    "min_size": "0.0001",
-    "max_size": "250",
-    "increment": "0.01",
-    "label": "BCH/EUR"
-  },
-  {
-    "asset": "BCH",
-    "currency": "BTC",
-    "min_size": "0.0001",
-    "max_size": "250",
-    "increment": "0.01",
-    "label": "BCH/BTC"
+    "label": "BTC/USD"
   }
 ]
