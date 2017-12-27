@@ -535,6 +535,42 @@ selectedStrategies.forEach(function(v) {
   }
 });
 
+var isUsefulKey = key => {
+  if(key == "filename" || key == "show_options" || key == "sim") return false;
+  return true;
+}
+var generateCommandParams = input => {
+  input = input.params.replace("module.exports =","");
+  input = JSON.parse(input);
+
+  var result = "";
+  var keys = Object.keys(input);
+  for(i = 0;i < keys.length;i++){
+    var key = keys[i];
+    if(isUsefulKey(key)){
+      // selector should be at start before keys
+      if(key == "selector"){
+        result = input[key].normalized + result;
+      }
+      
+      else result += " --"+key+"="+input[key];
+    }
+    
+  }
+  return result;
+}
+var saveGenerationData = function(csvFileName, jsonFileName, dataCSV, dataJSON, callback){
+  fs.writeFile(csvFileName, dataCSV, err => {
+    if (err) throw err;
+    console.log("> Finished writing generation csv to " + csvFileName);
+    callback(1);
+  });
+  fs.writeFile(jsonFileName, dataJSON, err => {
+    if (err) throw err;
+    console.log("> Finished writing generation json to " + jsonFileName);
+    callback(2);
+  });
+}
 let generationCount = 1;
 
 let simulateGeneration = () => {
@@ -550,7 +586,7 @@ let simulateGeneration = () => {
   })).reduce((a, b) => a.concat(b));
 
   parallel(tasks, PARALLEL_LIMIT, (err, results) => {
-    console.log("\Generation complete, saving results...");
+    console.log("\n\Generation complete, saving results...");
     results = results.filter(function(r) {
       return !!r;
     });
@@ -560,44 +596,51 @@ let simulateGeneration = () => {
     let fieldsGeneral = ['selector', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days', 'params'];
     let fieldNamesGeneral = ['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters'];
 
-    let csv = json2csv({
+    let dataCSV = json2csv({
       data: results,
       fields: fieldsGeneral,
       fieldNames: fieldNamesGeneral
     });
 
     let fileDate = Math.round(+new Date() / 1000);
-    let fileName = `simulations/backtesting_${fileDate}.csv`;
-    fs.writeFile(fileName, csv, err => {
-      if (err) throw err;
-    });
-
-    // let fileNameJSON = `simulations/backtesting_${fileDate}.json`;
-    // fs.writeFile(fileNameJSON, JSON.stringify(results, null, 2), err => {
-    //   if (err) throw err;
-    // });
-
+    let csvFileName = `simulations/backtesting_${fileDate}.csv`;
+    
     let poolData = {};
     selectedStrategies.forEach(function(v) {
       poolData[v] = pools[v]['pool'].population();
     });
 
-    let poolFileName = `simulations/generation_data_${fileDate}_gen_${generationCount}.json`;
-    let poolDataJSON = JSON.stringify(poolData, null, 2);
-    fs.writeFile(poolFileName, poolDataJSON, err => {
-      if (err) throw err;
+    let jsonFileName = `simulations/generation_data_${fileDate}_gen_${generationCount}.json`;
+    let dataJSON = JSON.stringify(poolData, null, 2);
+    var filesSaved = 0;
+    saveGenerationData(csvFileName, jsonFileName, dataCSV, dataJSON, (id)=>{
+      filesSaved++;
+      if(filesSaved == 2){        
+        console.log(`\n\nGeneration's Best Results`);
+        selectedStrategies.forEach((v)=> {
+          let best = pools[v]['pool'].best();      
+          if(best.sim)
+            console.log(`\t(${v}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}.`);
+          else 
+            console.log(`\t(${v}) Result Fitness ${results[0].vsBuyHold}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`);
+      
+
+          // prepare command snippet from top result for this strat
+          let prefix = './zenbot.sh sim ';
+          let bestCommand = generateCommandParams(results[0]);
+          
+          bestCommand = prefix + bestCommand;
+          bestCommand = bestCommand + ' --days=' + argv.days + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital;
+          
+          console.log(bestCommand + '\n');
+            
+          let nextGen = pools[v]['pool'].evolve();
+        });
+        
+        simulateGeneration();
+      }
     });
-
-    console.log(`\n\nGeneration's Best Results`);
-
-    selectedStrategies.forEach(function(v) {
-      let best = pools[v]['pool'].best();
-      console.log(`(${v}) VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}`);
-
-      let nextGen = pools[v]['pool'].evolve();
-    });
-
-    simulateGeneration();
+ 
   });
 };
 
