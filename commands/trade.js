@@ -54,7 +54,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
-        so.periodLength = so.period
+
         so.debug = cmd.debug
         so.stats = !cmd.disable_stats
         so.mode = so.paper ? 'paper' : 'live'
@@ -84,6 +84,7 @@ module.exports = function container (get, set, clear) {
         keyMap.set('M', 'switch to \'Maker\' order type'.grey)
         keyMap.set('o', 'show current trade options'.grey)
         keyMap.set('O', 'show current trade options in a dirty view (full list)'.grey)
+        keyMap.set('L', 'toggle DEBUG'.grey)
         keyMap.set('P', 'print statistical output'.grey)
         keyMap.set('X', 'exit program with statistical output'.grey)
         keyMap.set('d', 'dump statistical output to HTML file'.grey)
@@ -433,9 +434,11 @@ module.exports = function container (get, set, clear) {
                           console.log('\nDumping statistics...'.grey)
                           printTrade(false, true)
                         } else if (key === 'D' && !info.ctrl) {
-                          
                           console.log('\nDumping statistics...'.grey)
                           toggleStats()
+                        } else if (key === 'L' && !info.ctrl) {
+                          so.debug = !so.debug
+                          console.log('\nDEBUG mode: ' + (so.debug ? 'ON'.green.inverse : 'OFF'.red.inverse))
                         } else if (info.name === 'c' && info.ctrl) {
                           // @todo: cancel open orders before exit
                           console.log()

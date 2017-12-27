@@ -49,8 +49,6 @@ module.exports = function container (get, set, clear) {
           }
         })
 
-        so.periodLength = so.period
-
         if (so.start) {
           so.start = moment(so.start, "YYYYMMDDhhmm").valueOf()
           if (so.days && !so.end) {
@@ -145,27 +143,26 @@ module.exports = function container (get, set, clear) {
           output_lines.forEach(function (line) {
             console.log(line)
           })
-          var html_output = output_lines.map(function (line) {
-            return colors.stripColors(line)
-          }).join('\n')
-          var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
-            var data = {};
-            var keys = Object.keys(period);
-            for(i = 0;i < keys.length;i++){
-              data[keys[i]] = period[keys[i]];
-            }
-            return data;
-          })
-          var code = 'var data = ' + JSON.stringify(data) + ';\n'
-          code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
-          var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
-          var out = tpl
-            .replace('{{code}}', code)
-            .replace('{{trend_ema_period}}', so.trend_ema || 36)
-            .replace('{{output}}', html_output)
-            .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
-
           if (so.filename !== 'none') {
+            var html_output = output_lines.map(function (line) {
+              return colors.stripColors(line)
+            }).join('\n')
+            var data = s.lookback.slice(0, s.lookback.length - so.min_periods).map(function (period) {
+              var data = {}
+              var keys = Object.keys(period)
+              for(var i = 0;i < keys.length;i++){
+                data[keys[i]] = period[keys[i]]
+              }
+              return data
+            })
+            var code = 'var data = ' + JSON.stringify(data) + ';\n'
+            code += 'var trades = ' + JSON.stringify(s.my_trades) + ';\n'
+            var tpl = fs.readFileSync(path.resolve(__dirname, '..', 'templates', 'sim_result.html.tpl'), {encoding: 'utf8'})
+            var out = tpl
+              .replace('{{code}}', code)
+              .replace('{{trend_ema_period}}', so.trend_ema || 36)
+              .replace('{{output}}', html_output)
+              .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
             var out_target = so.filename || 'simulations/sim_result_' + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
             fs.writeFileSync(out_target, out)
             console.log('wrote', out_target)

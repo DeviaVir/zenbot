@@ -18,15 +18,14 @@ module.exports = function container (get, set, clear) {
       this.option('periodLength', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '1m')
       this.option('activation_1_type', "Neuron Activation Type: sigmoid, tanh, relu", String, 'sigmoid')
       this.option('neurons_1', "Neurons in layer 1 Shoot for atleast 100", Number, 1)
-      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 5)
+      this.option('depth', "Rows of data to predict ahead for matches/learning", Number, 1)
       this.option('selector', "Selector", String, 'Gdax.BTC-USD')
-      this.option('min_periods', "Periods to calculate learn from", Number, 300)
-      this.option('min_predict', "Periods to predict next number from", Number, 100)
+      this.option('min_periods', "Periods to calculate learn from", Number, 1000)
+      this.option('min_predict', "Periods to predict next number from", Number, 1)
       this.option('momentum', "momentum of prediction", Number, 0.9)
-      this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0)
+      this.option('decay', "decay of prediction, use teeny tiny increments", Number, 0.1)
       this.option('threads', "Number of processing threads you'd like to run (best for sim)", Number, 1)
-      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 10)
-      this.option('markup_pct', "Defaulting a markup percent", Number, 0.05)
+      this.option('learns', "Number of times to 'learn' the neural network with past data", Number, 2)
     },
     calculate: function (s) {
       calculated = null
@@ -58,8 +57,9 @@ module.exports = function container (get, set, clear) {
         var tlp = []
         var tll = []
         if (s.lookback[s.options.min_periods]) {
+          var min_predict = s.options.min_predict > s.options.min_periods ? s.options.min_periods : s.options.min_predict;
           for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
-          for (let i = 0; i < s.options.min_predict; i++) { tlp.push(s.lookback[i].close) }
+          for (let i = 0; i < min_predict; i++) { tlp.push(s.lookback[i].close) }
           var my_data = tll.reverse()
           var learn = function () {
             //Learns
@@ -81,7 +81,7 @@ module.exports = function container (get, set, clear) {
           learn();
           var item = tlp.reverse();
           s.prediction = predict(item)
-          s.mean = math.mean(s.lookback[0].close, s.lookback[1].close, s.lookback[2].close)
+          s.mean = s.lookback[0].close
           s.meanp = math.mean(s.prediction, oldmean)
           oldmean = s.prediction
         }
@@ -108,9 +108,9 @@ module.exports = function container (get, set, clear) {
     },
     onReport: function (s) {
       cols = []
-      cols.push(z(8, n(global.mean).format('00000.000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
+      cols.push(z(8, n(global.mean).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
       cols.push('    ')
-      cols.push(z(8, n(global.meanp).format('00000.000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
+      cols.push(z(8, n(global.meanp).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
       return cols
     },
   }

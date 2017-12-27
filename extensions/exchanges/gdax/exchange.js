@@ -116,7 +116,7 @@ module.exports = function container (get, set, clear) {
         if (body.bid || body.ask)
           cb(null, {bid: body.bid, ask: body.ask})
         else
-          cb(new Error(opts.product_id + ' has no liquidity to quote'))
+          cb({code: 'ENOTFOUND', body: opts.product_id + ' has no liquidity to quote'})
       })
     },
 

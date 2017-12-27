@@ -14,6 +14,7 @@ let roundp = require('round-precision');
 let fs = require('fs');
 let GeneticAlgorithmCtor = require('geneticalgorithm');
 let StripAnsi = require('strip-ansi');
+let moment = require('moment');
 
 let Phenotypes = require('./phenotype.js');
 
@@ -41,6 +42,7 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
   let commonArgs = `--strategy=${taskStrategyName} --periodLength=${phenotype.periodLength} --min_periods=${phenotype.min_periods} --markup_pct=${phenotype.markup_pct} --order_type=${phenotype.order_type} --sell_stop_pct=${phenotype.sell_stop_pct} --buy_stop_pct=${phenotype.buy_stop_pct} --profit_stop_enable_pct=${phenotype.profit_stop_enable_pct} --profit_stop_pct=${phenotype.profit_stop_pct}`;
   let strategyArgs = {
     crossover_vwap: `--emalen1=${phenotype.emalen1}  --vwap_length=${phenotype.vwap_length} --vwap_max=${phenotype.vwap_max} --markdown_buy_pct=${phenotype.markdown_buy_pct} --markup_sell_pct=${phenotype.markup_sell_pct}`,
+    trendline: `--lastpoints=${phenotype.lastpoints}  --avgpoints=${phenotype.avgpoints} --lastpoints2=${phenotype.lastpoints2} --avgpoints2=${phenotype.avgpoints2} --markdown_buy_pct=${phenotype.markdown_buy_pct} --markup_sell_pct=${phenotype.markup_sell_pct}`,
     cci_srsi: `--cci_periods=${phenotype.rsi_periods} --rsi_periods=${phenotype.srsi_periods} --srsi_periods=${phenotype.srsi_periods} --srsi_k=${phenotype.srsi_k} --srsi_d=${phenotype.srsi_d} --oversold_rsi=${phenotype.oversold_rsi} --overbought_rsi=${phenotype.overbought_rsi} --oversold_cci=${phenotype.oversold_cci} --overbought_cci=${phenotype.overbought_cci} --constant=${phenotype.constant}`,
     srsi_macd: `--rsi_periods=${phenotype.rsi_periods} --srsi_periods=${phenotype.srsi_periods} --srsi_k=${phenotype.srsi_k} --srsi_d=${phenotype.srsi_d} --oversold_rsi=${phenotype.oversold_rsi} --overbought_rsi=${phenotype.overbought_rsi} --ema_short_period=${phenotype.ema_short_period} --ema_long_period=${phenotype.ema_long_period} --signal_period=${phenotype.signal_period} --up_trend_threshold=${phenotype.up_trend_threshold} --down_trend_threshold=${phenotype.down_trend_threshold}`,
     macd: `--ema_short_period=${phenotype.ema_short_period} --ema_long_period=${phenotype.ema_long_period} --signal_period=${phenotype.signal_period} --up_trend_threshold=${phenotype.up_trend_threshold} --down_trend_threshold=${phenotype.down_trend_threshold} --overbought_rsi_periods=${phenotype.overbought_rsi_periods} --overbought_rsi=${phenotype.overbought_rsi}`,
@@ -233,7 +235,7 @@ let strategies = {
     buy_stop_pct: Range0(1, 50),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
-    
+
     // -- strategy
     emalen1: Range(1, 300),
     vwap_length: Range(1, 300),
@@ -430,6 +432,24 @@ let strategies = {
     overbought_rsi_periods: Range(1, 50),
     overbought_rsi: Range(20, 100)
   },
+  trendline: {
+    // -- common
+    periodLength: RangePeriod(1, 400, 'm'),
+    min_periods: Range(1, 200),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    lastpoints: Range(20, 500),
+    avgpoints: Range(300, 3000),
+    lastpoints2: Range(5, 300),
+    avgpoints2: Range(50, 1000),
+  },
   ta_ema: {
     // -- common
     periodLength: RangePeriod(1, 120, 'm'),
@@ -463,6 +483,14 @@ let argv = require('yargs').argv;
 let simArgs = (argv.selector) ? argv.selector : 'bitfinex.ETH-USD';
 if (argv.days) {
   simArgs += ` --days=${argv.days}`;
+}
+else {
+  if (argv.start) {
+    simArgs += ` --start=${argv.start}`;
+  }
+  if (argv.end) {
+    simArgs += ` --end=${argv.end}`;
+  }
 }
 if (argv.currency_capital) {
   simArgs += ` --currency_capital=${argv.currency_capital}`;
@@ -521,7 +549,18 @@ let generationCount = 1;
 let simulateGeneration = () => {
   console.log(`\n\n=== Simulating generation ${generationCount++} ===\n`);
 
-  runUpdate(argv.days, argv.selector);
+  let days = argv.days;
+  if (!days) {
+    if (argv.start) {
+      var start = moment(argv.start, "YYYYMMDDhhmm");
+      days = moment().diff(start, 'days');
+    }
+    else {
+      var end = moment(argv.end, "YYYYMMDDhhmm");
+      days = moment().diff(end, 'days') + 1;
+    }
+  }
+  runUpdate(days, argv.selector);
 
   iterationCount = 1;
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
@@ -538,7 +577,7 @@ let simulateGeneration = () => {
 
     results.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0));
 
-    let fieldsGeneral = ['selector', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days', 'params'];
+    let fieldsGeneral = ['selector', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'periodLength', 'min_periods', 'days', 'params'];
     let fieldNamesGeneral = ['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters'];
 
     let csv = json2csv({

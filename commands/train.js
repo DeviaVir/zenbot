@@ -83,8 +83,6 @@ module.exports = function container (get, set, clear) {
           }
         })
 
-        so.periodLength = so.period;
-        
         if (!so.days_test) { so.days_test = 0 }
         so.strategy = 'noop'
 

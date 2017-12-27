@@ -28,6 +28,7 @@ module.exports = function container (get, set, clear) {
         })
         so.debug = cmd.debug
         so.sell_pct = cmd.pct
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
         var order_types = ['maker', 'taker']
         if (!so.order_type in order_types || !so.order_type) {
           so.order_type = 'maker'
