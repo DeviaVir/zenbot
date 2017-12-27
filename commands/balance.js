@@ -29,6 +29,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+        so.selector = s.selector
         so.debug = cmd.debug
         var engine = get('lib.engine')(s)
         function balance () {
