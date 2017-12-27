@@ -15,11 +15,12 @@ module.exports = function container (get, set, clear) {
       .option('--debug', 'output detailed debug info')
       .action(function (selector, cmd) {
         var s = {options: minimist(process.argv)}
-        s.selector = get('lib.objectify-selector')(selector || c.selector)
-        s.exchange = get('exchanges.' + s.selector.exchange_id)
-        s.product_id = s.selector.product_id
-        s.asset = s.selector.asset
-        s.currency = s.selector.currency
+        var so = s.options
+        so.selector = get('lib.objectify-selector')(selector || c.selector)
+        s.exchange = get('exchanges.' + so.selector.exchange_id)
+        s.product_id = so.selector.product_id
+        s.asset = so.selector.asset
+        s.currency = so.selector.currency
 
         var so = s.options
         delete so._
