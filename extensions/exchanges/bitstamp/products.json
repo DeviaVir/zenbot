@@ -1,0 +1,110 @@
+[
+  {
+    "id": "BTCUSD",
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/USD"
+  },
+  {
+    "id": "BTCEUR",
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/EUR"
+  },
+  {
+    "id": "EURUSD",
+    "asset": "EUR",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "EUR/USD"
+  },
+  {
+    "id": "LTCUSD",
+    "asset": "LTC",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.01",
+    "label": "LTC/USD"
+  },
+  {
+    "id": "LTCEUR",
+    "asset": "LTC",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.01",
+    "label": "LTC/EUR"
+  },
+  {
+    "id": "LTCBTC",
+    "asset": "LTC",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "LTC/BTC"
+  },
+  {
+    "id": "XRPUSD",
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": "5",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "XRP/USD"
+  },
+  {
+    "id": "XRPEUR",
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "5",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "XRP/EUR"
+  },
+  {
+    "id": "XRPBTC",
+    "asset": "XRP",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "XRP/BTC"
+  },
+{
+    "id": "ETHUSD",
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.01",
+    "label": "ETH/USD"
+  },
+  {
+    "id": "ETHEUR",
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.01",
+    "label": "ETH/EUR"
+  },
+  {
+    "id": "ETHBTC",
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "ETH/BTC"
+  }
+]

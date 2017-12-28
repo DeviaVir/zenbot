@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>zenbot sim result</title>
+  <title>{{symbol}} sim result</title>
   <style type="text/css">
 html {
   height: 100%;
@@ -13,8 +13,6 @@ body {
   background-color: #1f2d35;
   color: #888;
   position: relative;
-  height: 100%;
-  overflow: hidden;
 }
 
 svg {
@@ -202,10 +200,14 @@ path.middle, path.zero {
 }
 
 .tradearrow path.tradearrow {
-    stroke: none;
+    stroke: black;
 }
 
-.tradearrow path.buy, .tradearrow path.sell {
+.tradearrow path.buy {
+    fill: #00ff00;
+}
+
+.tradearrow path.sell {
     fill: #ff0056;
 }
 
@@ -260,6 +262,9 @@ path.middle, path.zero {
 .footer a {
     color: cyan;
     text-decoration: none;
+}
+pre {
+    font-size: 2em;
 }
   </style>
 </head>
@@ -401,7 +406,7 @@ var withData = function (data, trades) {
   svg.append('text')
           .attr("class", "symbol")
           .attr("x", 50)
-          .text("zenbot");
+          .text("{{symbol}}");
 
   svg.append("g")
           .attr("class", "x axis")
@@ -511,5 +516,6 @@ var withData = function (data, trades) {
 {{code}}
 withData(data, trades)
   </script>
+  <pre><code>{{output}}</pre></code>
 </body>
 </html>

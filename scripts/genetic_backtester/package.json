@@ -1,0 +1,14 @@
+{
+  "name": "zenbot4_auto_backtester",
+  "version": "0.2.0",
+  "description": "Parallel simulation runner with CSV results",
+  "dependencies": {
+    "geneticalgorithm": "git+https://github.com/cmroche/geneticalgorithm.git",
+    "json2csv": "^3.7.3",
+    "round-precision": "^1.0.0",
+    "run-parallel-limit": "^1.0.3",
+    "shelljs": "^0.7.8",
+    "yargs": "^8.0.2",
+    "strip-ansi": "^4.0.0"
+  }
+}

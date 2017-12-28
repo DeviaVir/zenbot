@@ -1,0 +1,55 @@
+[{
+    "id": "BTCUSD",
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BTC/USD"
+  },
+  {
+    "id": "BTCCAD",
+    "asset": "BTC",
+    "currency": "CAD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BTC/CAD"
+  },
+  {
+    "id": "ETHCAD",
+    "asset": "ETH",
+    "currency": "CAD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "ETH/CAD"
+  },
+  {
+    "id": "ETHBTC",
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.00001",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "ETH/BTC"
+  },
+  {
+    "id": "LTCCAD",
+    "asset": "LTC",
+    "currency": "CAD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "LTC/CAD"
+  },
+  {
+    "id": "BCHCAD",
+    "asset": "BCH",
+    "currency": "CAD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BCH/CAD"
+  }
+]
