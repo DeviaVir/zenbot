@@ -48,7 +48,7 @@ module.exports = function container(get, set, clear) {
     if (assetsToFix.indexOf(asset) >= 0 && currency.length > 3) {
       currency = currency.substring(1)
     }
-    return `X${asset}X${currency}`
+    return asset + currency;
   }
 
   function retry(method, args, error) {

@@ -220,7 +220,7 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
-        return retry('buy', func_args)
+        return retry('sell', func_args)
       })
     },
 
