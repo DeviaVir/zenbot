@@ -410,7 +410,7 @@ module.exports = function container (get, set, clear) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
-                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset`` == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                         s.orig_capital = session.orig_capital = prev_session.orig_capital
                         s.orig_price = session.orig_price = prev_session.orig_price
                         if (so.mode === 'paper') {
