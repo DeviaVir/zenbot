@@ -54,6 +54,7 @@
     "numbro": "highvelocityspace/numbro",
     "path": "^0.12.7",
     "poloniex.js": "0.0.7",
+    "popper.js": "^1.12.9",
     "progress": "^2.0.0",
     "pushbullet": "2.0.0",
     "pusher-js": "^4.1.0",
