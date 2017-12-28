@@ -39,7 +39,7 @@
     "ip": "~1.1.5",
     "jasmine": "^2.8.0",
     "kraken-api": "^0.1.7",
-    "mathjs": "3.16.5",
+    "mathjs": "^3.17.0",
     "micro-request": "^666.0.10",
     "mime": "^1.4.0",
     "minimist": "^1.2.0",
