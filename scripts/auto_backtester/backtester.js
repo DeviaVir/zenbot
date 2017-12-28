@@ -189,7 +189,7 @@ let processOutput = output => {
     oversoldRsi:        params.oversold_rsi,
 
     days:               days,
-    period:             params.periodLength,
+    periodLength:       params.periodLength,
     min_periods:        params.min_periods,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
@@ -199,7 +199,7 @@ let processOutput = output => {
 
 let strategies = {
   cci_srsi: objectProduct({
-    period: ['20m'],
+    periodLength: ['20m'],
     min_periods: [52, 200],
     rsi_periods: [14, 20],
     srsi_periods: [14, 20],
@@ -212,7 +212,7 @@ let strategies = {
     constant: [0.015]
   }),
   srsi_macd: objectProduct({
-    period: ['30m'],
+    periodLength: ['30m'],
     min_periods: [52, 200],
     rsi_periods: [14, 20],
     srsi_periods: [14, 20],
@@ -227,7 +227,7 @@ let strategies = {
     down_trend_threshold: [0]
   }),
   macd: objectProduct({
-    period: ['1h'],
+    periodLength: ['1h'],
     min_periods: [52],
     ema_short_period: range(10, 15),
     ema_long_period: range(20, 30),
@@ -238,7 +238,7 @@ let strategies = {
     overbought_rsi: range(70, 70)
   }),
   rsi: objectProduct({
-    period: ['2m'],
+    periodLength: ['2m'],
     min_periods: [52],
     rsi_periods: range(10, 30),
     oversold_rsi: range(20, 35),
@@ -248,19 +248,19 @@ let strategies = {
     rsi_divisor: range(2, 2)
   }),
   sar: objectProduct({
-    period: ['2m'],
+    periodLength: ['2m'],
     min_periods: [52],
     sar_af: range(0.01, 0.055, 0.005),
     sar_max_af: range(0.1, 0.55, 0.05)
   }),
   speed: objectProduct({
-    period: ['1m'],
+    periodLength: ['1m'],
     min_periods: [52],
     baseline_periods: range(1000, 5000, 200),
     trigger_factor: range(1.0, 2.0, 0.1)
   }),
   trend_ema: objectProduct({
-    period: ['2m'],
+    periodLength: ['2m'],
     min_periods: [52],
     trend_ema: range(TREND_EMA_MIN, TREND_EMA_MAX),
     neutral_rate: (NEUTRAL_RATE_AUTO ? new Array('auto') : []).concat(range(NEUTRAL_RATE_MIN, NEUTRAL_RATE_MAX).map(r => r / 100)),
