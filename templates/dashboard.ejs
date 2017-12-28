@@ -50,10 +50,10 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-12">
                     <h4 class="page-title">Dashboard</h4>
                 </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <div class="col-lg-9 col-sm-8 col-md-8 col-12">
                     <ol class="breadcrumb">
                         <li>Running since <%= day_count %> days</li>
                     </ol>
@@ -66,27 +66,27 @@
             <!-- ============================================================== -->
             <!-- .row -->
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Current Market</h3>
 
                         <div  class="row">
 
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-info">Price</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-info"></i> <span><%= period.close %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
                             <% if (typeof quote != "undefined") { %>
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-success">ASK</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-success"></i> <span><%= quote.ask %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
 
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-danger">BID</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-danger"></i> <span><%= quote.bid %></span> <small><%= asset.toUpperCase() %></small></li>
@@ -102,7 +102,7 @@
 
             <div class="row">
                 <% if (typeof stats != "undefined") { %>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Last balance ( <%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
                         <ul class="list-inline one-part">
@@ -111,7 +111,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Buy hold</h3>
                         <ul class="list-inline one-part">
@@ -120,7 +120,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Trades per day</h3>
                         <ul class="list-inline one-part">
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <% } %>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Asset / Currency</h3>
                         <ul class="list-inline one-part">
@@ -145,7 +145,7 @@
             <!--row -->
             <!-- /.row -->
             <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-12">
                     <div class="white-box">
                         <h3 class="box-title"><%= exchange.name.toUpperCase() %> <%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> Live chart</h3>
                         <div style="height: 405px;">
