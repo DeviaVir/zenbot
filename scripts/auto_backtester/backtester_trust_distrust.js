@@ -8,7 +8,7 @@
  * EMA Parameters: "trend_ema", "neutral_rate"
  * RSI Parameters: "oversold_rsi", "oversold_rsi_periods"
  *
- * Example: ./backtester.js gdax.ETH-USD --days=10 --currency_capital=5 --period=1m
+ * Example: ./backtester.js gdax.ETH-USD --days=10 --currency_capital=5 --periodLength=1m
 */
 
 let shell     = require('shelljs');
@@ -114,7 +114,7 @@ let processOutput = output => {
     sellMin:        params.sell_min,
     buyThreshold: params.buy_threshold,
     days:               days,
-    period:             params.periodLength,
+    periodLength:       params.periodLength,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     frequency:          roundp((wins + losses) / days, 3)
@@ -126,7 +126,7 @@ let strategies = objectProduct({
   sell_threshold_max: range(SELL_THRESHOLD_MAX_MIN, SELL_THRESHOLD_MAX_MAX),
   sell_min: range(SELL_MIN_MIN, SELL_MIN_MAX),
   buy_threshold: range(BUY_THRESHOLD_MIN, BUY_THRESHOLD_MAX),
-  period: range(PERIOD_MIN, PERIOD_MAX)
+  periodLength: range(PERIOD_MIN, PERIOD_MAX)
 });
 
 let tasks = strategies.map(strategy => {
