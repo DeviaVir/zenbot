@@ -1,18 +1,51 @@
 var Gdax = require('gdax')
-  , path = require('path')
-  , colors = require('colors')
-  , numbro = require('numbro')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf')
 
-  var public_client = {}, authed_client
+  var public_client = {}, authed_client, websocket_client = {}, websocket_cache = {}
 
   function publicClient (product_id) {
     if (!public_client[product_id]) {
+      websocketClient(product_id)
       public_client[product_id] = new Gdax.PublicClient(product_id, c.gdax.apiURI)
     }
     return public_client[product_id]
+  }
+
+  function websocketClient (product_id) {
+    if (!websocket_client[product_id]) {
+      // OrderbookSync extends WebsocketClient and subscribes to the 'full' channel, so we can use it like one
+      var auth = null
+      try {
+        auth = authedClient()
+      } catch(e){}
+      websocket_client[product_id] = new Gdax.OrderbookSync([product_id], c.gdax.apiURI, c.gdax.websocketURI, auth)
+      // initialize a cache for the websocket connection
+      websocket_cache[product_id] = {
+        trades: [],
+        trade_ids: []
+      }
+      websocket_client[product_id].on('open', () => {
+        console.log('websocket connection to '+product_id+' opened')
+      })
+      websocket_client[product_id].on('message', (message) => {
+        switch (message.type) {
+        case 'match':
+          handleTrade(message, product_id)
+          break
+        default:
+          break
+        }
+      })
+      websocket_client[product_id].on('error', (err) => {
+        console.log(err)
+      })
+      websocket_client[product_id].on('close', () => {
+        console.error('websocket connection to '+product_id+' closed, attempting reconnect')
+        websocket_client[product_id].connect()
+      })
+    }
   }
 
   function authedClient () {
@@ -45,6 +78,15 @@ module.exports = function container (get, set, clear) {
     }, 10000)
   }
 
+  function handleTrade(trade, product_id) {
+    var cache = websocket_cache[product_id]
+    cache.trades.push(trade)
+    cache.trade_ids.push(trade.trade_id)
+  }
+
+  // TODO: this contains open orders and gets updated on buy/sell/getOrder
+  // should maintain a list of ID's and keep this up to date from the websocket feed's 
+  // 'done'/'change'/'match' messages and use this as a cache for `getOrder` below
   var orders = {}
 
   var exchange = {
@@ -68,6 +110,30 @@ module.exports = function container (get, set, clear) {
       else if (opts.to) {
         // move cursor into the past
         args.after = opts.to
+      }
+      // check for locally cached trades from the websocket feed
+      var cache = websocket_cache[opts.product_id]
+      var max_trade_id = cache.trade_ids.reduce(function(a, b) {
+        return Math.max(a, b)
+      }, -1)
+      if (opts.from && max_trade_id >= opts.from) {
+        var fromIndex = cache.trades.findIndex((value)=> {return value.trade_id == opts.from})
+        var newTrades = cache.trades.slice(fromIndex + 1)
+        newTrades = newTrades.map(function (trade) {
+          return {
+            trade_id: trade.trade_id,
+            time: new Date(trade.time).getTime(),
+            size: Number(trade.size),
+            price: Number(trade.price),
+            side: trade.side
+          }
+        })
+        newTrades.reverse()
+        cb(null, newTrades)
+        // trim cache
+        cache.trades = cache.trades.slice(fromIndex)
+        cache.trade_ids = cache.trade_ids.slice(fromIndex)
+        return
       }
       client.getProductTrades(args, function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
@@ -108,6 +174,22 @@ module.exports = function container (get, set, clear) {
     },
 
     getQuote: function (opts, cb) {
+      // check websocket cache first
+      if(websocket_client[opts.product_id] && websocket_client[opts.product_id].books) {
+        var book = websocket_client[opts.product_id].books[opts.product_id]
+        var state = book.state()
+        var asks = state.asks
+        var bids = state.bids
+        if(bids.length && asks.length){
+          // price is a `num` arbitrary precision number and needs to be toString()ed and parseFloat()ed 
+          var best_bid = parseFloat(bids[0].price.toString())
+          var best_ask = parseFloat(asks[0].price.toString())
+          if(best_bid && best_ask){
+            cb(null, {bid: best_bid, ask: best_ask})
+            return
+          }
+        }
+      }
       var func_args = [].slice.call(arguments)
       var client = publicClient(opts.product_id)
       client.getProductTicker(function (err, resp, body) {
