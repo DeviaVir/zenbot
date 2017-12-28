@@ -1,1 +1,0 @@
-node zenbot.js %*
