@@ -28,7 +28,8 @@ module.exports = function container (get) {
     app.set('views', path.join(__dirname+'../../../templates'));
     app.set('view engine', 'ejs');
 
-    app.use('/assets', express.static(__dirname+'../../../templates.dashboard_assets'));
+    app.use('/assets', express.static(__dirname+'../../../templates/dashboard_assets'));
+    app.use('/assets-wp', express.static(__dirname+'../../../dist/'));
     app.use('/assets-zenbot', express.static(__dirname+'../../../assets'));
 
     app.get('/', function (req, res) {

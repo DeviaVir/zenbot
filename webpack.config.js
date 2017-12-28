@@ -15,24 +15,16 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'common' }),
     new webpack.optimize.UglifyJsPlugin()
   ],
   output: {
-    publicPath: '/assets/js/',
-    path: path.join(__dirname, '/dist/js/'),
-    filename: 'bundle.js'
+    publicPath: '/assets-wp/',
+    path: path.join(__dirname, '/dist/'),
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules)/,
-        query: {
-          presets: ['es2015']
-        }
-      },
+      { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/, query: { presets: ['es2015'] } },
       {
         test: /\.(scss)$/,
         use: [{
@@ -53,6 +45,21 @@ module.exports = {
           loader: 'sass-loader' // compiles SASS to CSS
         }]
       },
-    ]
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+      {
+        test: require.resolve('jquery'),
+        use: [{
+          loader: 'expose-loader',
+          options: 'jQuery'
+        },{
+          loader: 'expose-loader',
+          options: '$'
+        }]
+      },
+    ],
   },
 }
