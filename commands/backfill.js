@@ -5,6 +5,9 @@ var tb = require('timebucket')
 
 module.exports = function container (get, set, clear) {
   var c = get('conf') || {}
+
+  var collectionService = get('lib.collection-service')(get, set, clear)
+
   return function (program) {
     program
       .command('backfill [selector]')
@@ -17,10 +20,10 @@ module.exports = function container (get, set, clear) {
           console.error('cannot backfill ' + selector.normalized + ': exchange not implemented')
           process.exit(1)
         }
-        var trades = get('db.trades')
-        get('db.mongo').collection('trades').ensureIndex({selector: 1, time: 1})
-        var resume_markers = get('db.resume_markers')
-        get('db.mongo').collection('resume_markers').ensureIndex({selector: 1, to: -1})
+
+        var trades = collectionService.getTrades();
+        var resume_markers = collectionService.getResumeMarkers();
+
         var marker = {
           id: crypto.randomBytes(4).toString('hex'),
           selector: selector.normalized,
