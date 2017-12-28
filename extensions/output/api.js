@@ -34,7 +34,7 @@ module.exports = function container (get) {
 
     app.get('/', function (req, res) {
       let datas = objectWithoutKey(tradeObject, 'options');
-      datas = objectWithoutKey(tradeObject, 'look');
+      datas = objectWithoutKey(tradeObject, 'lookback');
       res.render('dashboard', datas);
     });
 
