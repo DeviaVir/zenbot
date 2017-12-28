@@ -71,7 +71,7 @@ module.exports = function container (get, set, clear) {
           process.exit(1)
         }
         var engine = get('lib.engine')(s)
-        get('lib.output').initializeOutput(s)
+
 
         const keyMap = new Map()
         keyMap.set('b', 'limit'.grey + ' BUY'.green)
@@ -158,6 +158,16 @@ module.exports = function container (get, set, clear) {
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
           output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          // Build stats for UI
+          s.stats = {
+            profit: profit.format('0.00%'),
+            tmp_balance: n(tmp_balance).format('0.00000000'),
+            buy_hold: buy_hold.format('0.00000000'),
+            buy_hold_profit: n(buy_hold_profit).format('0.00%'),
+            day_count: s.day_count,
+            trade_per_day: n(s.my_trades.length / s.day_count).format('0.00')
+          }
+
           var last_buy
           var losses = 0, sells = 0
           s.my_trades.forEach(function (trade) {
@@ -174,6 +184,11 @@ module.exports = function container (get, set, clear) {
           if (s.my_trades.length && sells > 0) {
             output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
             output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+
+            //for API
+            s.stats.win = (sells - losses)
+            s.stats.losses = losses
+            s.stats.error_rate = (sells ? n(losses).divide(sells).format('0.00%') : '0.00%')
           }
           output_lines.forEach(function (line) {
             console.log(line)
@@ -250,6 +265,16 @@ module.exports = function container (get, set, clear) {
           output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
           output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          // Build stats for UI
+          s.stats = {
+            profit: profit.format('0.00%'),
+            tmp_balance: n(tmp_balance).format('0.00000000'),
+            buy_hold: buy_hold.format('0.00000000'),
+            buy_hold_profit: n(buy_hold_profit).format('0.00%'),
+            day_count: s.day_count,
+            trade_per_day: n(s.my_trades.length / s.day_count).format('0.00')
+          }
+
           var last_buy
           var losses = 0, sells = 0
           s.my_trades.forEach(function (trade) {
@@ -266,6 +291,11 @@ module.exports = function container (get, set, clear) {
           if (s.my_trades.length && sells > 0) {
             output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
             output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+
+            //for API
+            s.stats.win = (sells - losses)
+            s.stats.losses = losses
+            s.stats.error_rate = (sells ? n(losses).divide(sells).format('0.00%') : '0.00%')
           }
           
           var html_output = output_lines.map(function (line) {
@@ -356,6 +386,8 @@ module.exports = function container (get, set, clear) {
             get('db.trades').select(opts, function (err, trades) {
               if (err) throw err
               if (!trades.length) {
+                console.log('------------------------------------------ INITIALIZE  OUTPUT ------------------------------------------')
+                get('lib.output').initializeOutput(s)
                 console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
                 if (so.mode === 'paper') {
                   console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')
@@ -378,7 +410,7 @@ module.exports = function container (get, set, clear) {
                     if (err) throw err
                     var prev_session = prev_sessions[0]
                     if (prev_session && !cmd.reset_profit) {
-                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                      if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset`` == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                         s.orig_capital = session.orig_capital = prev_session.orig_capital
                         s.orig_price = session.orig_price = prev_session.orig_price
                         if (so.mode === 'paper') {
