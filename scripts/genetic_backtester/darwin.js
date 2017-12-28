@@ -619,11 +619,12 @@ let simulateGeneration = () => {
         console.log(`\n\nGeneration's Best Results`);
         selectedStrategies.forEach((v)=> {
           let best = pools[v]['pool'].best();      
-          if(best.sim)
+          if(best.sim){
             console.log(`\t(${v}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}.`);
-          else 
-            console.log(`\t(${v}) Result Fitness ${results[0].vsBuyHold}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`);
-      
+            
+          } else {
+            console.log(`\t(${v}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`);
+          }
 
           // prepare command snippet from top result for this strat
           let prefix = './zenbot.sh sim ';
