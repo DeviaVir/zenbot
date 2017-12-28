@@ -13,7 +13,7 @@
     "zenbot": "./zenbot.sh"
   },
   "scripts": {
-    "postinstall": "rm -rf node_modules/forex.analytics/.git"
+    "postinstall": "rm -rf node_modules/forex.analytics/.git && webpack -p"
   },
   "dependencies": {
     "@slack/client": "^3.14.0",
@@ -33,9 +33,12 @@
     "commander": "^2.9.0",
     "convnetjs": "0.3.0",
     "ccxt": "^1.10.171",
+    "counterup": "^1.0.2",
+    "css-loader": "^0.28.7",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "exports-loader": "^0.6.4",
+    "expose-loader": "^0.7.4",
     "file-loader": "^1.1.6",
     "forex.analytics": "mkmarek/forex.analytics#7bc278987700d4204e959af17de61495941d1a14",
     "gdax": "^0.4.2",
@@ -83,6 +86,7 @@
     "trend": "0.3.0",
     "timebucket": "^0.4.0",
     "url-loader": "^0.6.2",
+    "waypoints": "^4.0.1",
     "webpack": "^3.10.0",
     "wexnz": "^0.1.3",
     "ws": "^3.2.0",

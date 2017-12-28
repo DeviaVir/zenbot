@@ -21,14 +21,8 @@
     <link rel="apple-touch-icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
 
     <title><%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> on <%= exchange.name.toUpperCase() %> - Dashboard</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- animation CSS -->
-    <link href="/assets/css/animate.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/assets/css/style.css" rel="stylesheet">
-    <!-- color CSS -->
-    <link href="/assets/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- Webpack compiled -->
+    <link href="/assets-wp/app.bundle.js" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -281,16 +275,9 @@
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
-<script src="/assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-<!--slimscroll JavaScript -->
-<script src="/assets/js/jquery.slimscroll.js"></script>
-<!--Counter js -->
-<script src="/assets/bower_components/waypoints/lib/jquery.waypoints.js"></script>
-<script src="/assets/bower_components/counterup/jquery.counterup.min.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="/assets/js/custom.js"></script>
+<!-- Webpack compiled -->
+<script src="/assets-wp/app.bundle.js"></script>
+<!--<script src="/assets-wp/common.bundle.js"></script>-->
 
 <script>
 
