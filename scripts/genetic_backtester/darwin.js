@@ -120,7 +120,7 @@ let processOutput = output => {
   let errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0;
   let days = parseInt(params.days);
   let start = parseInt(params.start);
-  let end = parseInt(params.start);
+  let end = parseInt(params.end);
 
   let roi = roundp(
     ((endBalance - params.currency_capital) / params.currency_capital) * 100,
