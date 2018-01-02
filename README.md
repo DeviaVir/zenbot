@@ -1,4 +1,4 @@
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/logo.png)
+![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
@@ -50,13 +50,13 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 Run in your console,
 
 ```
-git clone https://github.com/carlos8f/zenbot.git
+git clone https://github.com/deviavir/zenbot.git
 ```
 
 Or, without git,
 
 ```
-wget https://github.com/carlos8f/zenbot/archive/master.tar.gz
+wget https://github.com/deviavir/zenbot/archive/master.tar.gz
 tar -xf zenbot-master.tar.gz
 mv zenbot-master zenbot
 ```
@@ -93,7 +93,7 @@ sudo apt-get install build-essential mongodb -y
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-git clone https://github.com/carlos8f/zenbot.git
+git clone https://github.com/deviavir/zenbot.git
 cd zenbot
 npm install
 
@@ -470,7 +470,7 @@ c.order_adjust_time = 10000
 
 ## Reading the console output
 
-![console](https://rawgit.com/carlos8f/zenbot/master/assets/console.png)
+![console](https://rawgit.com/deviavir/zenbot/master/assets/console.png)
 
 From left to right:
 
@@ -668,7 +668,7 @@ zenbot sell gdax.BTC-USD --pct=10
 
 ## Chat with other Zenbot users
 
-[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
+[![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
 
 Zenbot has a Discord chat! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
 
@@ -680,7 +680,7 @@ P.S., some have asked for how to donate to Zenbot development. I accept donation
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
 
-![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/zenbot_square.png)
+![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/zenbot_square.png)
 
 Thanks!
 
