@@ -64,7 +64,7 @@ module.exports = function container(get, set, clear) {
       bittrex_public.getmarkethistory(args, function( data ) {
         if (!shownWarning) {
           console.log('please note: the bittrex api does not support backfilling (trade/paper only).')
-          console.log('please note: make sure to set the --periodLength=1m to make sure data for trade/paper is fetched.')
+          console.log('please note: make sure to set the --period_length=1m to make sure data for trade/paper is fetched.')
           shownWarning = true
         }
         if (typeof data !== 'object') {
