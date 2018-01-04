@@ -31,9 +31,9 @@ module.exports = {
         var items = ['sigmoid', 'tanh', 'relu'];
         var index = Math.floor(Math.random() * items.length);
         r[k] = items[index];
-      } else if (v.type === 'periodLength') {
+      } else if (v.type === 'period_length') {
         var s = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
-        r[k] = s + v.periodLength;
+        r[k] = s + v.period_length;
       }
     }
     return r;

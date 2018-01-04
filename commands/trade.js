@@ -112,7 +112,7 @@ module.exports = function container (get, set, clear) {
           ].join('') + '\n')
           process.stdout.write([
             z(15, (so.mode === 'paper' ? '      ' : (so.mode === 'live' && (so.manual === false || typeof so.manual === 'undefined')) ? '       ' + 'AUTO'.black.bgRed + '    ' : '       ' + 'MANUAL'.black.bgGreen + '  '), ' '),
-            z(13, so.periodLength, ' '),
+            z(13, so.period_length, ' '),
             z(29, (so.order_type === 'maker' ? so.order_type.toUpperCase().green : so.order_type.toUpperCase().red), ' '),
             z(31, (so.mode === 'paper' ? 'avg. '.grey + so.avg_slippage_pct + '%' : 'max '.grey + so.max_slippage_pct + '%'), ' '),
             z(20, (so.order_type === 'maker' ? so.order_type + ' ' + s.exchange.makerFee : so.order_type + ' ' + s.exchange.takerFee), ' ')
@@ -308,7 +308,7 @@ module.exports = function container (get, set, clear) {
         }
 
         var db_cursor, trade_cursor
-        var query_start = tb().resize(so.periodLength).subtract(so.min_periods * 2).toMilliseconds()
+        var query_start = tb().resize(so.period_length).subtract(so.min_periods * 2).toMilliseconds()
         var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
         var session = null
         var sessions = get('db.sessions')

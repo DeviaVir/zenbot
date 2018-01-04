@@ -7,8 +7,8 @@ module.exports = function container (get, set, clear) {
     description: 'Stochastic CCI Strategy',
 
     getOptions: function () {
-      this.option('period', 'period length, same as --periodLength', String, '20m')
-      this.option('periodLength', 'period length, same as --period', String, '20m')
+      this.option('period', 'period length, same as --period_length', String, '20m')
+      this.option('period_length', 'period length, same as --period', String, '20m')
       this.option('min_periods', 'min. number of history periods', Number, 30)
       this.option('ema_acc', 'sideways threshold (0.2-0.4)', Number, 0.03)
       this.option('cci_periods', 'number of RSI periods', Number, 14)

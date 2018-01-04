@@ -19,8 +19,8 @@ module.exports = function container (get, set, clear) {
         zenbot sim kraken.XXRP-ZEUR --period="120m" --strategy=crossover_vwap --currency_capital=700 --asset_capital=0 --max_slippage_pct=100 --days=60 --avg_slippage_pct=0.045 --vwap_max=8000 --markup_sell_pct=0.5 --markdown_buy_pct=0.5 --emalen1=50
         zenbot sim kraken.XXRP-ZEUR --period="120m" --strategy=crossover_vwap --currency_capital=700 --asset_capital=0 --max_slippage_pct=100 --days=60 --avg_slippage_pct=0.045 --vwap_max=8000 --markup_sell_pct=0.5 --markdown_buy_pct=0.5 --emalen1=30
       */
-      this.option('period', 'period length, same as --periodLength', String, '120m')
-      this.option('periodLength', 'period length, same as --period', String, '120m')
+      this.option('period', 'period length, same as --period_length', String, '120m')
+      this.option('period_length', 'period length, same as --period', String, '120m')
       this.option('emalen1', 'Length of EMA 1', Number, 30 )//green
       this.option('smalen1', 'Length of SMA 1', Number, 108 )//red
       this.option('smalen2', 'Length of SMA 2', Number, 60 )//purple
