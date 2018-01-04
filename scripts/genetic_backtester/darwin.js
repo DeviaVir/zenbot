@@ -4,7 +4,7 @@
  * Clifford Roche <clifford.roche@gmail.com>
  * 07/01/2017
  *
- * Example: ./darwin.js --selector="bitfinex.ETH-USD" --days=10 --currency_capital=5000 --use_strategies=(all|macd,trend_ema)
+ * Example: ./darwin.js --selector="bitfinex.ETH-USD" --days="10" --currency_capital="5000" --use_strategies="all | macd,trend_ema,etc" --population="101" --population_data="simulations/generation_data_NUMBERS_gen_X.json"
  */
 
 let shell = require('shelljs');
