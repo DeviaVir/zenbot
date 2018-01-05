@@ -7,8 +7,8 @@ module.exports = function container (get, set, clear) {
     description: 'Attempts to buy low and sell high by tracking RSI high-water readings.',
 
     getOptions: function () {
-      this.option('period', 'period length, same as --periodLength', String, '2m')
-      this.option('periodLength', 'period length, same as --period', String, '2m')
+      this.option('period', 'period length, same as --period_length', String, '2m')
+      this.option('period_length', 'period length, same as --period', String, '2m')
       this.option('min_periods', 'min. number of history periods', Number, 52)
       this.option('rsi_periods', 'number of RSI periods', 14)
       this.option('oversold_rsi', 'buy when RSI reaches or drops below this value', Number, 30)
