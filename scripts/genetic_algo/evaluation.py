@@ -26,7 +26,11 @@ def minutes(x):
 def runzen(cmdline):
     ansi_escape = re.compile(b'\x1b[^m]*m')
     with open(os.devnull, 'w') as devnull:
-        a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
+        try:
+            a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
+        except Exception as e:
+            # print(e)
+            return -100.0, 0.0
     profit = a.split(b'}')[-1].splitlines()[3].split(b': ')[-1]
     profit = ansi_escape.sub(b'', profit)[:-1]
     trades = parse_trades(a.split(b'}')[-1].splitlines()[4])
@@ -39,6 +43,10 @@ class Andividual(Individual):
     def __init__(self, *args,**kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(self.strategy)
+        # period and periodLength are the same and yield errors
+        # if both are used.
+        self.args = [a for a in self.args if a != 'periodLength']
+
         for _ in self.args:
             self.append(50 + (random.random() - 0.5) * 100)
 
