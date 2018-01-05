@@ -494,7 +494,7 @@ let strategies = {
   },
   dema: {
     // -- common
-    periodLength: RangePeriod(1, 120, 'm'),
+    period_length: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
     markup_pct: RangeFloat(0, 5),
     order_type: RangeMakerTaker(),
