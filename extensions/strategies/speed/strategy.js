@@ -7,8 +7,8 @@ module.exports = function container (get, set, clear) {
     description: 'Trade when % change from last two 1m periods is higher than average.',
 
     getOptions: function () {
-      this.option('period', 'period length, same as --periodLength', String, '1m')
-      this.option('periodLength', 'period length, same as --period', String, '1m')
+      this.option('period', 'period length, same as --period_length', String, '1m')
+      this.option('period_length', 'period length, same as --period', String, '1m')
       this.option('min_periods', 'min. number of history periods', Number, 3000)
       this.option('baseline_periods', 'lookback periods for volatility baseline', Number, 3000)
       this.option('trigger_factor', 'multiply with volatility baseline EMA to get trigger value', Number, 1.6)
