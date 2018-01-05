@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets-zenbot/zenbot_square.png">
+
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ff6600">
+    <meta name="msapplication-navbutton-color" content="#ff6600">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
+
+    <title><%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> on <%= exchange.name.toUpperCase() %> - Dashboard</title>
+    <!-- Webpack compiled -->
+    <link href="/assets-wp/app.bundle.js" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hide-sidebar" >
+<!-- ============================================================== -->
+<!-- Preloader -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+    </svg>
+</div>
+<!-- ============================================================== -->
+<!-- Wrapper -->
+<!-- ============================================================== -->
+<div id="wrapper">
+    <!-- ============================================================== -->
+    <!-- Page Content -->
+    <!-- ============================================================== -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-12">
+                    <h4 class="page-title">Dashboard</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-12">
+                    <ol class="breadcrumb">
+                        <li>Running since <%= day_count %> days</li>
+                    </ol>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <!-- ============================================================== -->
+            <!-- Different data widgets -->
+            <!-- ============================================================== -->
+            <!-- .row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Current Market</h3>
+
+                        <div  class="row">
+
+                            <div class="col-sm-4 col-12">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-info">Price</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-info"></i> <span><%= period.close %></span> <small><%= asset.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
+                            <% if (typeof quote != "undefined") { %>
+                            <div class="col-sm-4 col-12">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-success">ASK</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-success"></i> <span><%= quote.ask %></span> <small><%= asset.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-4 col-12">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-danger">BID</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-danger"></i> <span><%= quote.bid %></span> <small><%= asset.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
+                            <% } %>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <% if (typeof stats != "undefined") { %>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Last balance ( <%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
+                        <ul class="list-inline one-part">
+                            <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><%= stats.tmp_balance %></span> <small class="text-success"><%= currency.toUpperCase() %></small></li>
+                            <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="text-success"><%= stats.profit %></span> <small class="text-success">of profit</small></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Buy hold</h3>
+                        <ul class="list-inline one-part">
+                            <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><%= stats.buy_hold %></span> <small class="text-info"><%= currency.toUpperCase() %></small></li>
+                            <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="text-info"><%= stats.buy_hold_profit %></span> <small class="text-info">of profit</small></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Trades per day</h3>
+                        <ul class="list-inline one-part">
+                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= stats.trade_per_day %></span></li>
+                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="text-purple"><%= my_trades.length %> trades over <%= day_count %> days</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <% } %>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Asset / Currency</h3>
+                        <ul class="list-inline one-part">
+                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= balance.asset %></span> <small class="text-purple"><%= asset.toUpperCase() %></small></li>
+                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= balance.currency %></span> <small class="text-purple"><%= currency.toUpperCase() %></small></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--/.row -->
+            <!--row -->
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-12">
+                    <div class="white-box">
+                        <h3 class="box-title"><%= exchange.name.toUpperCase() %> <%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> Live chart</h3>
+                        <div style="height: 405px;">
+                            <!-- TradingView Widget BEGIN -->
+                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                            <script type="text/javascript">
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": "<%= exchange.name.toUpperCase() %>:<%= asset.toUpperCase() %><%= currency.toUpperCase() %>",
+                                    "interval": "D",
+                                    "timezone": "Etc/UTC",
+                                    "theme": "Light",
+                                    "style": "1",
+                                    "locale": "en",
+                                    "toolbar_bg": "#f1f3f6",
+                                    "enable_publishing": false,
+                                    "save_image": false,
+                                    "hideideas": true
+                                });
+                            </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- table -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">My trades</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>TYPE</th>
+                                    <th>AMOUNT</th>
+                                    <th>PRICE</th>
+                                    <th>DATE</th>
+                                    <th>EXECUTED DATE</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% if (typeof buy_order != "undefined") { %>
+                                <tr>
+                                    <td><span class='text-success'>BUY</span></td>
+                                    <td><%= buy_order.size %> <%= asset.toUpperCase() %></td>
+                                    <td><%= buy_order.price %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Date(buy_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><span class='text-info'>Waiting</span></td>
+                                </tr>
+                                <% } %>
+                                <% if (typeof sell_order != "undefined") { %>
+                                <tr>
+                                    <td><span class='text-danger'>SELL</span></td>
+                                    <td><%= sell_order.size %> <%= asset.toUpperCase() %></td>
+                                    <td><%= sell_order.price %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Date(sell_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><span class='text-info'>Waiting</span></td>
+                                </tr>
+                                <% } %>
+                                <% if (my_trades) { %>
+                                <% my_trades.reverse().forEach(function(trade){ %>
+                                <tr>
+                                    <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></td>
+                                    <td><%= trade.size %> <%= asset.toUpperCase() %></td>
+                                    <td><%= trade.price %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Date(trade.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><%= new Date(trade.time + trade.execution_time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })  %></td>
+                                </tr>
+                                <% }); %>
+                                <% } %>
+
+                                <% if (!(typeof buy_order != "undefined" || typeof sell_order != "undefined") && !my_trades) { %>
+                                <tr><td colspan="5" class="text-center">There is no trades at the moment</td></tr>
+                                <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ============================================================== -->
+            <!-- table -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">CoinMarketCap Data</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class='text-center'>RANK</th>
+                                    <th align="left">NAME</th>
+                                    <th class='text-right'>PRICE (USD)</th>
+                                    <th class='text-right hidden-xs'>PRICE (BTC)</th>
+                                    <th class='text-right hidden-xs hidden-sm'>VOLUME</th>
+                                    <th class='text-right hidden-xs hidden-sm'>MARKET CAP</th>
+                                    <th class='text-right hidden-xs hidden-sm'>CURRENT SUPPLY</th>
+                                    <th class='text-right'>CHANGE 1H</th>
+                                    <th class='text-right'>CHANGE 24H</th>
+                                    <th class='text-right'>CHANGE 7D</th>
+                                </tr>
+                                </thead>
+                                <tbody id="market_data">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+        <footer class="footer text-center"> <%= (new Date()).getFullYear() %> &copy; zenbot </footer>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page Content -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<!-- Webpack compiled -->
+<script src="/assets-wp/app.bundle.js"></script>
+<!--<script src="/assets-wp/common.bundle.js"></script>-->
+
+<script>
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+
+            var row = "";
+            for (s = 0; s < myObj.length; s++) {
+                if(s==25)
+                    break;
+
+                row += "<tr>";
+                row += "<td class='text-center'>" + myObj[s].rank + "</td>";
+                row += "<td><div class='s-s-"+myObj[s].id+" currency-logo-sprite'></div>" + myObj[s].name + " ("+myObj[s].symbol+")" +  "</td>";
+                row += "<td class='text-right'>" + new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", minimumSignificantDigits: 2, maximumSignificantDigits: 6}).format(myObj[s].price_usd) + "</td>";
+                row += "<td class='text-right hidden-xs'>" + new Intl.NumberFormat("en-US", {minimumSignificantDigits: 2, maximumSignificantDigits: 6}).format(myObj[s].price_btc) + " BTC</td>";
+                row += "<td class='text-right hidden-xs hidden-sm'>" + new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(myObj[s]["24h_volume_usd"]) + "</td>";
+                row += "<td class='text-right hidden-xs hidden-sm'>" + new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(myObj[s].market_cap_usd) + "</td>";
+                row += "<td class='text-right hidden-xs hidden-sm'>" + new Intl.NumberFormat("en-US").format(myObj[s].total_supply) + " " + myObj[s].symbol + "</td>";
+                row += "<td class='text-right'><span class='text-"+((myObj[s].percent_change_1h > 0) ? 'success' : 'danger' )+"'>" + new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits: 2}).format(myObj[s].percent_change_1h/100) + "</span></td>";
+                row += "<td class='text-right'><span class='text-"+((myObj[s].percent_change_24h > 0) ? 'success' : 'danger' )+"'>" + new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits: 2}).format(myObj[s].percent_change_24h/100) + "</span></td>";
+                row += "<td class='text-right'><span class='text-"+((myObj[s].percent_change_7d > 0) ? 'success' : 'danger' )+"'>" + new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits: 2}).format(myObj[s].percent_change_7d/100) + "</span></td>";
+                row += "</tr>";
+            }
+
+
+            document.getElementById("market_data").innerHTML = row;
+        }
+
+    };
+
+
+    xmlhttp.open("GET", "https://api.coinmarketcap.com/v1/ticker/", true);
+    xmlhttp.send();
+</script>
+</body>
+
+</html>

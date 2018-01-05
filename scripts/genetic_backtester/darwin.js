@@ -4,7 +4,7 @@
  * Clifford Roche <clifford.roche@gmail.com>
  * 07/01/2017
  *
- * Example: ./darwin.js --selector="bitfinex.ETH-USD" --days=10 --currency_capital=5000 --use_strategies=(all|macd,trend_ema)
+ * Example: ./darwin.js --selector="bitfinex.ETH-USD" --days="10" --currency_capital="5000" --use_strategies="all | macd,trend_ema,etc" --population="101" --population_data="simulations/generation_data_NUMBERS_gen_X.json"
  */
 
 let shell = require('shelljs');
@@ -119,6 +119,8 @@ let processOutput = output => {
   let losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0;
   let errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0;
   let days = parseInt(params.days);
+  let start = parseInt(params.start);
+  let end = parseInt(params.end);
 
   let roi = roundp(
     ((endBalance - params.currency_capital) / params.currency_capital) * 100,
@@ -136,9 +138,20 @@ let processOutput = output => {
   delete r.population_data;
   delete r.sell_pct;
   delete r.start;
+  delete r.end;
   delete r.stats;
   delete r.use_strategies;
   delete r.verbose;
+
+  if (start) {
+    r.start = moment(start).format("YYYYMMDDhhmm");
+  }
+  if (end) {
+    r.end = moment(end).format("YYYYMMDDhhmm");
+  }
+  if (!start && !end && params.days) {
+    r.days = params.days;
+  }
 
   return {
     params: 'module.exports = ' + JSON.stringify(r),
@@ -561,10 +574,10 @@ var generateCommandParams = input => {
       if(key == "selector"){
         result = input[key].normalized + result;
       }
-      
+
       else result += " --"+key+"="+input[key];
     }
-    
+
   }
   return result;
 }
@@ -580,16 +593,16 @@ var saveGenerationData = function(csvFileName, jsonFileName, dataCSV, dataJSON, 
     callback(2);
   });
 }
-let generationCount = 1;
+let generationCount = 0;
 
 let simulateGeneration = () => {
-  console.log(`\n\n=== Simulating generation ${generationCount++} ===\n`);
+  console.log(`\n\n=== Simulating generation ${++generationCount} ===\n`);
 
   let days = argv.days;
   if (!days) {
     if (argv.start) {
       var start = moment(argv.start, "YYYYMMDDhhmm");
-      days = moment().diff(start, 'days');
+      days = Math.max(1, moment().diff(start, 'days'));
     }
     else {
       var end = moment(argv.end, "YYYYMMDDhhmm");
@@ -624,7 +637,7 @@ let simulateGeneration = () => {
 
     let fileDate = Math.round(+new Date() / 1000);
     let csvFileName = `simulations/backtesting_${fileDate}.csv`;
-    
+
     let poolData = {};
     selectedStrategies.forEach(function(v) {
       poolData[v] = pools[v]['pool'].population();
@@ -635,13 +648,13 @@ let simulateGeneration = () => {
     var filesSaved = 0;
     saveGenerationData(csvFileName, jsonFileName, dataCSV, dataJSON, (id)=>{
       filesSaved++;
-      if(filesSaved == 2){        
+      if(filesSaved == 2){
         console.log(`\n\nGeneration's Best Results`);
         selectedStrategies.forEach((v)=> {
-          let best = pools[v]['pool'].best();      
+          let best = pools[v]['pool'].best();
           if(best.sim){
             console.log(`\t(${v}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}.`);
-            
+
           } else {
             console.log(`\t(${v}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`);
           }
@@ -649,19 +662,19 @@ let simulateGeneration = () => {
           // prepare command snippet from top result for this strat
           let prefix = './zenbot.sh sim ';
           let bestCommand = generateCommandParams(results[0]);
-          
+
           bestCommand = prefix + bestCommand;
-          bestCommand = bestCommand + ' --days=' + argv.days + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital;
-          
+          bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital;
+
           console.log(bestCommand + '\n');
-            
+
           let nextGen = pools[v]['pool'].evolve();
         });
-        
+
         simulateGeneration();
       }
     });
- 
+
   });
 };
 

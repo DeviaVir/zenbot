@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900);
+/*Theme Colors*/
+/*bootstrap Color*/
+/*Normal Color*/
+/*Border radius*/
+/*Preloader*/
+.preloader {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    position: fixed;
+    z-index: 99999;
+    background: #fff;
+}
+.preloader .cssload-speeding-wheel {
+    position: absolute;
+    top: calc(50% - 3.5px);
+    left: calc(50% - 3.5px);
+}
+/*Just change your choise color here its theme Colors*/
+body {
+    background: #fff;
+}
+.top-left-part {
+    background: #fff;
+}
+.top-left-part .dark-logo {
+    display: none;
+}
+.top-left-part .light-logo {
+    display: inline-block;
+}
+/*Top Header Part*/
+.logo i {
+    color: #ffffff;
+}
+.navbar-header {
+    background: #2f323e;
+}
+.navbar-top-links > li > a {
+    color: #ffffff;
+}
+.sidebar .sidebar-head {
+    background: #ffffff;
+}
+.sidebar .sidebar-head h3 {
+    color: #686868;
+}
+/*Right panel*/
+.right-sidebar .rpanel-title {
+    background: #41b3f9;
+}
+/*Bread Crumb*/
+.bg-title .breadcrumb .active {
+    color: #41b3f9;
+}
+/*Sidebar*/
+.sidebar {
+    background: #fff;
+    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+}
+.sidebar .label-custom {
+    background: #01c0c8;
+}
+#side-menu li a {
+    color: #54667a;
+}
+#side-menu li a {
+    color: #54667a;
+    border-left: 0px solid #fff;
+}
+#side-menu > li > a {
+    border-left: 3px solid transperant;
+}
+#side-menu > li > a:hover,
+#side-menu > li > a:focus {
+    background: rgba(0, 0, 0, 0.07);
+}
+#side-menu > li > a.active {
+    background: transperant;
+    color: #54667a;
+    border-left: 3px solid #41b3f9;
+    font-weight: 500;
+}
+#side-menu ul > li > a:hover {
+    color: #41b3f9;
+}
+#side-menu ul > li > a.active {
+    color: #54667a;
+    font-weight: 500;
+}
+.user-profile .user-pro-body .u-dropdown {
+    color: #54667a;
+}
+/*themecolor*/
+.bg-theme {
+    background-color: #707cd2 !important;
+}
+.bg-theme-dark {
+    background-color: #41b3f9 !important;
+}
+/*Button*/
+.btn-custom {
+    background: #41b3f9;
+    border: 1px solid #41b3f9;
+    color: #ffffff;
+}
+.btn-custom:hover {
+    background: #41b3f9;
+    opacity: 0.8;
+    color: #ffffff;
+    border: 1px solid #41b3f9;
+}
+/*Custom tab*/
+.customtab li.active a,
+.customtab li.active a:hover,
+.customtab li.active a:focus {
+    border-bottom: 2px solid #41b3f9;
+    color: #41b3f9;
+}
+.tabs-vertical li.active a,
+.tabs-vertical li.active a:hover,
+.tabs-vertical li.active a:focus {
+    background: #41b3f9;
+    border-right: 2px solid #41b3f9;
+}
+/*Nav-pills*/
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+    background: #41b3f9;
+    color: #ffffff;
+}
+/*Extra css*/
+.bg-theme {
+    background-color: #41b3f9 !important;
+}
+.panel-themecolor,
+.panel-theme {
+    border-color: #41b3f9;
+}
+.panel-themecolor .panel-heading,
+.panel-theme .panel-heading {
+    border-color: #41b3f9;
+    color: white;
+    background-color: #41b3f9;
+}
+.panel-themecolor .panel-heading a,
+.panel-theme .panel-heading a {
+    color: #ffffff;
+}
+.panel-themecolor .panel-heading a:hover,
+.panel-theme .panel-heading a:hover {
+    color: rgba(255, 255, 255, 0.5);
+}
+.panel-themecolor a,
+.panel-theme a {
+    color: #41b3f9;
+}
+.panel-themecolor a:hover,
+.panel-theme a:hover {
+    color: #0791e6;
+}
