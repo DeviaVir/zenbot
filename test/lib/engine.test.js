@@ -1,49 +1,119 @@
-var service = require('../../../lib/engine')
-
 describe('Engine', function() {
-	describe(' executeSignal ', function() {
-		describe(' when buy_max_amt less than buy_pct amount ', function(){
+	describe('executeSignal', function() {
+		it('when maker with buy_max_amt less than buy_pct amount should use buy_pct', function(){
+			
 			// arrange
-			var signalType = 'buy';
-			var currencyAmount = 1;
+			var signal_type = 'buy';
+			var currency_amount = 1;
 			var buy_pct = 50;
-			var buy_max_amt = 0.25;
+			var buy_max_amt = 0.25;			
+			var buySpy = jasmine.createSpy();
+			var sut = createEngine(currency_amount, buy_pct, buy_max_amt, buySpy);
 			
-			// so.mode, so.order_type, quote.bid, so.markdown_buy_pct, s.product.increment, s.balance.currency
-			
-			// executeSignal('buy', null, null, false, false)
 			// act
-			service.executeSignal(signalType);
+			sut.executeSignal(signal_type);
 			// assert
-			// doOrder was called with 
+			var expected = "2.77500000";
+			var buyArgs = buySpy.calls.mostRecent().args[0]
+			expect(buyArgs.size).toBe(expected);
 		});
 		
-		describe(' when buy_max_amt more than buy_pct amount ', function(){
+		it('when maker with buy_max_amt more than buy_pct amount should use buy_pct', function(){
 			// arrange
-			var signalType = 'buy';
-			var currencyAmount = 1;
+			var signal_type = 'buy';
+			var currency_amount = 1;
 			var buy_pct = 50;
-			var buy_max_amt = 0.55;
+			var buy_max_amt = 0.75;			
+			var buySpy = jasmine.createSpy();
+			var sut = createEngine(currency_amount, buy_pct, buy_max_amt, buySpy);
 			
-			// executeSignal('buy', null, null, false, false)
 			// act
-			service.executeSignal(signalType);
+			sut.executeSignal(signal_type);
 			// assert
-		
+			var expected = "5.55000000";
+			var buyArgs = buySpy.calls.mostRecent().args[0]
+			expect(buyArgs.size).toBe(expected);
 		});
 		
-		describe(' when buy_max_amt equals buy_pct amount ', function(){
+		it('when maker with buy_max_amt equals buy_pct amount should use buy_pct', function(){
 			// arrange
-			var signalType = 'buy';
-			var currencyAmount = 1;
+			var signal_type = 'buy';
+			var currency_amount = 1;
 			var buy_pct = 50;
-			var buy_max_amt = 0.5;
+			var buy_max_amt = 0.50;			
+			var buySpy = jasmine.createSpy();
+			var sut = createEngine(currency_amount, buy_pct, buy_max_amt, buySpy);
 			
-			// executeSignal('buy', null, null, false, false)
 			// act
-			service.executeSignal(signalType);
+			sut.executeSignal(signal_type);
 			// assert
-		
+			var expected = "5.55000000";
+			var buyArgs = buySpy.calls.mostRecent().args[0]
+			expect(buyArgs.size).toBe(expected);
 		});
 	})
 });
+
+function createEngine(currency_amount, buy_pct, buy_max_amt, buySpy){	
+	var fake_asset = "test_asset";
+	var fake_currency = "BTC";
+	var fake_exchange = "test_exchange";
+	var fake_project = "test_product";
+	var fake_bid = 0.10;
+	var fake_ask = 0.11;
+	var fake_balance = { currency: currency_amount, asset:0};
+	
+	var fakes = {
+		get: function() { },
+		set: function() { },
+		clear: function() { }
+	};
+	
+	var fake_product = {
+		"asset": fake_asset,
+		"currency": fake_currency,
+		"min_total": "0.1",
+		"max_size": null,
+		"increment": "0.01",
+		"label": "Test TST/BTC"
+	  };
+
+	var fake_return = {
+		'conf': {},
+		'exchanges.test_exchange' : {
+			getProducts: function() { return [fake_product]; },
+			getQuote: function(product, callback){ callback(null, { bid: fake_bid, ask: fake_ask}) },
+			getBalance: function(args, callback){ return callback(null, fake_balance);},
+			buy: buySpy,
+			name: fake_exchange,
+			makerFee: 0.1,
+			takerFee: 0.1
+		},
+		'lib.notify': {
+			pushMessage: function(title, message){ console.log("Title: " + title, "Message: "+message)}
+		}
+	}
+	
+	spyOn(fakes,"get").and.callFake(function(param){
+		return fake_return[param]
+	});
+	
+	var engine = require('../../lib/engine')(fakes.get, fakes.set, fakes.clear);
+	var input = {
+		options: {
+			selector: {
+				exchange_id:fake_exchange,
+				product_id:fake_project,
+				asset:fake_asset,
+				currency: fake_currency
+			},
+			period: "30m",
+			markdown_buy_pct : 2,
+			mode:"live",
+			order_type: "maker",
+			buy_pct:buy_pct,
+			buy_max_amt:buy_max_amt
+		}
+	};
+	return engine(input);
+}
