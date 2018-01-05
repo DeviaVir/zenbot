@@ -468,6 +468,12 @@ c.oversold_rsi_periods = 20
 c.max_slippage_pct = 10
 c.order_adjust_time = 10000
 ```
+## GUI 
+A basic web UI is available at the url stated during startup.  This port can be configured in the conf.js or randomly assigned.
+In it's infancy, there are a few caveats with the current UI.
+- In order to have statistics displayed, they must first be dumped from the CLI.  Pressing `D` will refresh the statistics on each refresh of the dashboard.
+- Currently the data is mostly static with the exception of the tradingview charts.
+- Currently only READ-ONLY
 
 ## Reading the console output
 

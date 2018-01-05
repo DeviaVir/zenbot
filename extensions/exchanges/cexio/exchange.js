@@ -42,6 +42,23 @@ module.exports = function container (get, set, clear) {
     }, 10000)
   }
 
+  function refreshFees(args) {
+    var skew = 5000 // in ms
+    var now = new Date();
+    var nowUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds())
+    var midnightUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()).setHours(24,0,0,0)
+    var countdown = midnightUTC - nowUTC + skew
+    if (so.debug) {
+      var hours = parseInt((countdown/(1000*60*60))%24)
+      var minutes = parseInt((countdown/(1000*60))%60)
+      var seconds = parseInt((countdown/1000)%60)
+      console.log('\nRefreshing fees in ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds')
+    }
+    setTimeout(function() {
+      exchange['setFees'].apply(exchange, args)
+    }, countdown)
+  }
+
   var orders = {}
   var exchange = {
     name: 'cexio',
@@ -49,6 +66,7 @@ module.exports = function container (get, set, clear) {
     backfillRateLimit: 0,
     makerFee: 0.16,
     takerFee: 0.25,
+    dynamicFees: true,
 
     getProducts: function () {
       return require('./products.json')
@@ -179,6 +197,32 @@ module.exports = function container (get, set, clear) {
           order.filled_size = n(body.amount).subtract(body.remains).format('0.00000000')
         }
         cb(null, order)
+      })
+    },
+
+    setFees: function(opts) {
+      var func_args = [].slice.call(arguments)
+      var client = authedClient()
+      client.get_my_fee(function (err, body) {
+        if (err || (typeof body === 'string' && body.match(/error/))) {
+          if (so.debug) {
+            console.log(('\nsetFees ' + body + ' - using fixed fees!').red)
+          }
+          return retry('setFees', func_args)
+        } else {
+          var pair = opts.asset + ':' + opts.currency
+          var makerFee = (parseFloat(body[pair].buyMaker) + parseFloat(body[pair].sellMaker)) / 2
+          var takerFee = (parseFloat(body[pair].buy) + parseFloat(body[pair].sell)) / 2
+          if (exchange.makerFee != makerFee) {
+            if (so.debug) console.log('\nMaker fee changed: ' + exchange.makerFee + '% -> ' + makerFee + '%')
+            exchange.makerFee = makerFee
+          }
+          if (exchange.takerFee != takerFee) {
+            if (so.debug) console.log('\nTaker fee changed: ' + exchange.takerFee + '% -> ' + takerFee + '%')
+            exchange.takerFee = takerFee
+          }
+        }
+        return refreshFees(func_args)
       })
     },
 
