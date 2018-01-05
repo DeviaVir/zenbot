@@ -245,7 +245,7 @@ zenbot trade --help
     --asset_capital <amount>        for paper trading, amount of start capital in asset
     --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
     --buy_pct <pct>                 buy with this % of currency balance
-	--buy_max_amt <amt>				buy with up to this amount of currency balance
+    --buy_max_amt <amt>             buy with up to this amount of currency balance
     --sell_pct <pct>                sell with this % of asset balance
     --markdown_buy_pct <pct>        % to mark down buy price (previously the --markup_pct property)
     --markup_sell_pct <pct>         % to mark up sell price (previously the --markup_pct property)
