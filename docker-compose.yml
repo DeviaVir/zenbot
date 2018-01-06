@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   server:
-    build: .
+    image: deviavir/zenbot:unstable
     volumes:
       - ./conf.js:/app/conf.js
       - ./extensions:/app/extensions
@@ -22,7 +22,7 @@ services:
     image: mongo:latest
     volumes:
       - ./data/db:/data/db
-    command: mongod --smallfiles --logpath=/dev/null
+    command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
     ports:
       - 27017:27017
 
