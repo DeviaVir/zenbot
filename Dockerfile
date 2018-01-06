@@ -5,7 +5,8 @@ WORKDIR /app
 
 COPY package.json /app/
 COPY webpack.config.js /app/
-COPY webpack-src/ /app/
+COPY webpack-src /app/webpack-src
+COPY templates /app/templates
 RUN npm install -g node-gyp
 RUN npm install --unsafe-perm
 
