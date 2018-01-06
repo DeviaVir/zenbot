@@ -64,11 +64,11 @@ module.exports = function container (get, set, clear) {
       }
       if (args.startTime && !args.endTime) {
         // add 12 hours
-        args.endTime = args.startTime + 43200000
+        args.endTime = args.startTime + 3600000
       }
       else if (args.endTime && !args.startTime) {
         // subtract 12 hours
-        args.startTime = args.endTime - 43200000
+        args.startTime = args.endTime - 3600000
       }
 
       var client = publicClient()
