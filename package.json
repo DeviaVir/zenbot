@@ -63,7 +63,7 @@
     "node-telegram-bot-api": "^0.29.0",
     "node.bittrex.api": "^0.2.5",
     "number-abbreviate": "^2.0.0",
-    "numbro": "github:highvelocityspace/numbro",
+    "numbro": "highvelocityspace/numbro",
     "path": "^0.12.7",
     "poloniex.js": "0.0.7",
     "popper.js": "^1.12.9",
