@@ -3,6 +3,8 @@
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
+# Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot)
+
 ## Current Status
 
 Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
@@ -109,7 +111,6 @@ After installing (step 2 above),
 
 ```
 cd zenbot
-docker-compose build
 docker-compose up (-d if you don't want to see the log)
 ```
 
@@ -125,6 +126,17 @@ If you wish to run commands (e.g. backfills, list-selectors), you can run this s
 docker-compose exec server zenbot list-selectors
 docker-compose exec server zenbot backfill <selector> --days <days>
 ```
+
+#### Updating docker
+
+In case you are behind on updates, you can run:
+```
+docker pull deviavir/zenbot:unstable
+```
+And re-run `docker-compose up -d` to start the new image.
+
+`deviavir/zenbot` is automatically updated after every merge.
+You can follow the tags/builds here: https://hub.docker.com/r/deviavir/zenbot/builds/
 
 ## Selectors
 
