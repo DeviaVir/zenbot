@@ -315,19 +315,6 @@ dema
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 80)
     --noise_level_pct=<value>  do not trade when short ema is with this % of last short ema (default: 2)
 
-dema
-  description:
-    Buy when (short ema > long ema) and sell when (short ema < long ema).
-  options:
-    --period=<value>  period length (default: 1h)
-    --min_periods=<value>  min. number of history periods (default: 21)
-    --ema_short_period=<value>  number of periods for the shorter EMA (default: 10)
-    --ema_long_period=<value>  number of periods for the longer EMA (default: 21)
-    --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
-    --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
-    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 9)
-    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 80)
-
 forex_analytics
   description:
     Apply the trained forex analytics model.
