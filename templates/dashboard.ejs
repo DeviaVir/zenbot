@@ -154,7 +154,7 @@
                             <script type="text/javascript">
                                 new TradingView.widget({
                                     "autosize": true,
-                                    "symbol": "<%= exchange.name.toUpperCase() %>:<%= asset.toUpperCase() %><%= currency.toUpperCase() %>",
+                                    "symbol": "<%= (exchange.name.toUpperCase() === 'GDAX' ? 'COINBASE' : exchange.name.toUpperCase()) %>:<%= asset.toUpperCase() %><%= currency.toUpperCase() %>",
                                     "interval": "D",
                                     "timezone": "Etc/UTC",
                                     "theme": "Light",

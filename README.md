@@ -282,6 +282,18 @@ and also:
 ```
 zenbot list-strategies
 
+bollinger
+  description:
+    Buy when (Signal ≤ Lower Bollinger Band) and sell when (Signal ≥ Upper Bollinger Band).
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --period_length=<value>  period length, same as --period (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --bollinger_size=<value>  period size (default: 20)
+    --bollinger_time=<value>  times of standard deviation between the upper band and the moving averages (default: 2)
+    --bollinger_upper_bound_pct=<value>  pct the current price should be near the bollinger upper bound before we sell (default: 0)
+    --bollinger_lower_bound_pct=<value>  pct the current price should be near the bollinger lower bound before we buy (default: 0)
+
 cci_srsi
   description:
     Stochastic CCI Strategy
