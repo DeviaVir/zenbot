@@ -387,9 +387,11 @@ module.exports = function container (get, set, clear) {
             get('db.trades').select(opts, function (err, trades) {
               if (err) throw err
               if (!trades.length) {
-                console.log('------------------------------------------ INITIALIZE  OUTPUT ------------------------------------------')
+                var head = '------------------------------------------ INITIALIZE  OUTPUT ------------------------------------------';
+                console.log(head)
                 get('lib.output').initializeOutput(s)
-                console.log('---------------------------- STARTING ' + so.mode.toUpperCase() + ' TRADING ----------------------------')
+                var minuses = Math.floor((head.length - so.mode.length - 19) / 2)
+                console.log('-'.repeat(minuses) + ' STARTING ' + so.mode.toUpperCase() + ' TRADING ' + '-'.repeat(minuses + (minuses % 2 == 0 ? 0 : 1)))
                 if (so.mode === 'paper') {
                   console.log('!!! Paper mode enabled. No real trades are performed until you remove --paper from the startup command.')
                 }

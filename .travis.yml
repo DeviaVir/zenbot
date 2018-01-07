@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - "8"
+  - "9"
+before_install:
+  - rm -rf package-lock.json
+  - npm install https://github.com/floatdrop/pinkie-promise.git
+  - npm install -g node-gyp

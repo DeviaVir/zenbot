@@ -38,7 +38,7 @@ module.exports = function container(get, set, clear) {
       var timeout = 2500
     }
 
-    console.error(('\Bittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
+    console.error(('\nBittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, timeout)
