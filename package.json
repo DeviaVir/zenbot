@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "jasmine test/**/**.test.js",
-    "postinstall": "rm -rf node_modules/forex.analytics/.git && webpack -p"
+    "postinstall": "./post_install.sh"
   },
   "dependencies": {
     "@slack/client": "^3.14.0",
