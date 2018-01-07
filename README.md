@@ -43,7 +43,7 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 ### Step 1) Requirements
 
 - Windows / Linux / macOS 10 (or Docker)
-- [Node.js](https://nodejs.org/) (version 8 or higher) and [MongoDB](https://www.mongodb.com/).
+- [Node.js](https://nodejs.org/) (version 8.3.0 or higher) and [MongoDB](https://www.mongodb.com/).
 
 ### Step 2) Install zenbot 4
 
