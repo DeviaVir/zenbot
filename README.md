@@ -18,7 +18,7 @@ Zenbot 4 is functional, but is having trouble reliably making profit. At this po
 Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
 
 ## Questions
-Please ask questions related to zenbot on stackoverflow. The tag is [zenbot](https://stackoverflow.com/questions/tagged/zenbot).
+Please ask (programming) questions related to zenbot on stackoverflow. The tag is [zenbot](https://stackoverflow.com/questions/tagged/zenbot).
 
 ## Description
 
@@ -542,7 +542,9 @@ c.oversold_rsi_periods = 20
 c.max_slippage_pct = 10
 c.order_adjust_time = 10000
 ```
+
 ## GUI
+
 A basic web UI is available at the url stated during startup.  This port can be configured in the conf.js or randomly assigned.
 In it's infancy, there are a few caveats with the current UI.
 - In order to have statistics displayed, they must first be dumped from the CLI.  Pressing `D` will refresh the statistics on each refresh of the dashboard.
@@ -702,51 +704,6 @@ Or to sell 10% of your BTC,
 zenbot sell gdax.BTC-USD --pct=10
 ```
 
-## Changelog
-
-- [v4.0.5](https://github.com/carlos8f/zenbot/releases/tag/v4.0.5) (Latest)
-    - handle insufficient funds errors from gdax
-    - new trend_ema defaults adjusted for latest btc movements: 20m period, neutral_rate=0
-    - include more data in sim output
-    - remove rarely useful trend_ema options
-    - avoid abort in trader on failed getTrades()
-- v4.0.4
-    - debugging for polo odd results
-    - sim: simplify and correct makerFee assessment
-    - fix conf path in API credentials errors
-    - fix order total under 0.0001 error on polo
-    - Docker: extend README slightly (thanks [@DeviaVir](https://github.com/deviavir) and [@egorbenko](https://github.com/egorbenko))
-    - docker-compose: do not expose mongodb by default! (thanks [@DeviaVir](https://github.com/deviavir))
-- v4.0.3
-    - fix for docker mongo host error
-    - link for new Discord chat!
-    - fix polo crash on getOrder weird result
-    - fix oversold_rsi trigger while in preroll
-    - fix polo "not enough..." errors
-    - fancy colors for price report
-    - display product id in report
-    - fix poloniex backfill batches too big, mongo timeouts
-    - fix cursorTo() crash on some node installs
-    - memDump for debugging order failures
-    - fix column spacing on progress report
-- v4.0.2
-    - minor overhaul to trend_ema strat - added whipsaw filtering via std. deviation (`--neutral_rate=auto`)
-    - trim preroll of sim result graph
-- v4.0.1
-    - Added .dockerignore (thanks [@sulphur](https://github.com/sulphur))
-    - fix crashing on mongo timeout during backfill
-    - fix gaps in poloniex backfill
-    - default backfill days 90 -> 14
-
-## TODO
-
-- cancel pending orders on SIGINT
-- tool to generate graph and stats from live or paper trading sessions
-- review PRs
-- web UI with graphs and logs
-- "reaper" to automatically prune trades collection to a certain day length
-- "lite mode" for trader, an option to run without MongoDB
-
 ## Chat with other Zenbot users
 
 [![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
@@ -755,11 +712,15 @@ Zenbot has a Discord chat! You can get in [through this invite link](https://dis
 
 ## Donate
 
-P.S., some have asked for how to donate to Zenbot development. I accept donations at **my Bitcoin address** Here:
+P.S., some have asked for how to donate to Zenbot development. We accept donations at **Bitcoin addresses** below:
 
-### carlos8f's BTC
+### carlos8f's BTC (original zenbot author)
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
+
+### DeviaVir's BTC (current maintainer)
+
+`3BZojxm9q8uGWvvsudLCmqfBhtT7ceeSQk`
 
 ![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/zenbot_square.png)
 
