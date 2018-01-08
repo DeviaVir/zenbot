@@ -19,9 +19,23 @@ def args_for_strategy(strat):
     strats = [ansi_escape.sub(b'', strat.strip()) for strat in available.split(b'\n\n')]
     groups = [group.splitlines() for group in strats]
     output = {split[0].split()[0]: split[1:] for split in groups if split}
-    result = {strategy: [line.strip().strip(b'-').split(b'=')[0] for line in lines if b'--' in line] for strategy, lines
-              in
-              output.items()}
-    result = {key.decode(): [p.decode() for p in val] for key, val in result.items()}
+    result = {strategy: [line.strip().strip(b'-').split(b'=')[0]
+                         for line in lines if b'--' in line]
+              for strategy, lines in output.items()}
+    result = {key.decode(): [p.decode() for p in val]
+              for key, val in result.items()}
 
     return result[strat]
+
+
+def strategies():
+    ansi_escape = re.compile(b'\x1b[^m]*m')
+    available = subprocess.check_output(shlex.split('env node ../../zenbot.js list-strategies'))
+    strats = [ansi_escape.sub(b'', strat.strip()) for strat in available.split(b'\n\n')]
+    groups = [group.splitlines() for group in strats]
+    output = {split[0].split()[0]: split[1:] for split in groups if split}
+    result = {strategy: [line.strip().strip(b'-').split(b'=')[0]
+                         for line in lines if b'--' in line]
+              for strategy, lines in output.items()}
+    result = [key.decode() for key, val in result.items()]
+    return result

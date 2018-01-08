@@ -5,6 +5,7 @@ import shlex
 import subprocess
 import sys
 import re
+import numpy as np
 from typing import List
 
 from termcolor import colored
@@ -26,7 +27,11 @@ def minutes(x):
 def runzen(cmdline):
     ansi_escape = re.compile(b'\x1b[^m]*m')
     with open(os.devnull, 'w') as devnull:
-        a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
+        try:
+            a = subprocess.check_output(shlex.split(cmdline), stderr=devnull)
+        except Exception as e:
+            # print(e)
+            return -100.0, 0.0
     profit = a.split(b'}')[-1].splitlines()[3].split(b': ')[-1]
     profit = ansi_escape.sub(b'', profit)[:-1]
     trades = parse_trades(a.split(b'}')[-1].splitlines()[4])
@@ -39,15 +44,31 @@ class Andividual(Individual):
     def __init__(self, *args,**kwargs):
         super(Andividual, self).__init__(*args, **kwargs)
         self.args = args_for_strategy(self.strategy)
+        # period and periodLength are the same and yield errors
+        # if both are used.
+        self.args = [a for a in self.args if a != 'periodLength']
+
         for _ in self.args:
             self.append(50 + (random.random() - 0.5) * 100)
 
     def __repr__(self):
         return colored(f"{self.cmdline}  {super(Andividual, self).__repr__()}", 'grey')
 
+    def mate(p1, p2):
+        '''overriding function of individual
+        '''
+        print('overriding mating fct')
+        # do crossover
+        # c1args = np.random.randindt(2, size=len(self.args))
+        return p1, p2
+
     @property
     def instrument(self):
         return random.choice(self.instruments)
+
+    @property
+    def strategy(self):
+        return random.choice(self.strategies)
 
     @property
     def objective(self):
@@ -111,6 +132,66 @@ class Andividual(Individual):
             res = pct(value)
         elif 'greed' == param:
             res = value/10.0
+        elif 'lastpoints' == param:
+            res = int(value)
+        elif 'avgpoints' == param:
+            res = 10 * int(value)
+        elif 'lastpoints2' == param:
+            res = int(value/10)
+        elif 'avgpoints2' == param:
+            res = int(value/10)
+        elif 'markup_sell_pkt' == param:
+            res = value
+        elif 'markup_buy_pkt' == param:
+            res = value
+        elif 'sell_threshold' in param:
+            res = value/100000.0
+        elif 'sell_threshold_max' in param:
+            res = value/100000.0
+        elif 'sell_min' in param:
+            res = value/100000.0
+        elif 'buy_threshold' in param:
+            res = value/100000.0
+        elif 'buy_threshold_max' in param:
+            res = value/100000.0
+        elif 'trigger_factor' == param:
+            res = value/1000.0
+        elif 'ema_acc' == param:
+            res = value/1000000.0
+        elif 'srsi' in param:
+            res = value/100000.0
+        elif 'oversold_cci' == param:
+            res = -value/1000.0
+        elif 'overbought_cci' == param:
+            res = value/1000.0
+        elif 'constant' == param:
+            res = value/1000000.0
+        elif 'ema' in param:
+            res = value/100000.0
+        elif 'sma' in param:
+            res = value/100000.0
+        elif 'vwap_length' == param:
+            res = value/100000.0
+        elif 'vwap_max' == param:
+            res = value/1000.0
+        elif 'activation_1_type' == param:
+            res = np.random.choice(['sigmoid', 'tanh', 'relu'])
+        elif 'neurons_1' == param:
+            res = value/100000.0
+        elif 'depth' == param:
+            res = value/100000.0
+        elif 'selector' == param:
+            res = self.instrument
+        elif 'min_predict' == param:
+            res = value/1000000.0
+        elif 'momentum' == param:
+            res = value/1000000.0
+        elif 'threads' == param:
+            res = value/1000000.0
+        elif 'learns' == param:
+            res = value/1000000.0
+        elif 'decay' == param:
+            res = value/1000000.0
         else:
             raise ValueError(colored(f"I don't understand {param} please add it to evaluation.py", 'red'))
         return param, res

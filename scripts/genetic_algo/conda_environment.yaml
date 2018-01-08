@@ -1,0 +1,12 @@
+name: zenbot_env
+dependencies:
+    - python=3.6
+    - numpy
+    - networkx
+    - matplotlib
+    - termcolor
+    - pip:
+        - deap
+        - scoop
+        - names
+        - fabric3
