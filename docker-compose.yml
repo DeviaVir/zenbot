@@ -2,8 +2,8 @@ version: '3.1'
 
 services:
   server:
-    # image: deviavir/zenbot:unstable
-    build: .
+    image: deviavir/zenbot:unstable
+    # build: .
     volumes:
       - '.:/app'
     links:
