@@ -25,12 +25,12 @@ module.exports = function container (get) {
   let startServer = function(port, tradeObject) {
     tradeObject.port = port
 
-    app.set('views', path.join(__dirname+'../../../templates'));
+    app.set('views', path.join(__dirname+'/../../templates'));
     app.set('view engine', 'ejs');
 
-    app.use('/assets', express.static(__dirname+'../../../templates/dashboard_assets'));
-    app.use('/assets-wp', express.static(__dirname+'../../../dist/'));
-    app.use('/assets-zenbot', express.static(__dirname+'../../../assets'));
+    app.use('/assets', express.static(__dirname+'/../../templates/dashboard_assets'));
+    app.use('/assets-wp', express.static(__dirname+'/../../dist/'));
+    app.use('/assets-zenbot', express.static(__dirname+'/../../assets'));
 
     app.get('/', function (req, res) {
       let datas = objectWithoutKey(tradeObject, 'options');
