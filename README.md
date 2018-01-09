@@ -743,8 +743,8 @@ Thanks!
 
 ### License: MIT
 
-- Copyright (C) 2017 Carlos Rodriguez
-- Copyright (C) 2017 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
+- Copyright (C) 2018 Carlos Rodriguez
+- Copyright (C) 2018 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal
