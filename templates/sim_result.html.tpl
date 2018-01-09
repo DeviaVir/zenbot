@@ -516,6 +516,6 @@ var withData = function (data, trades) {
 {{code}}
 withData(data, trades)
   </script>
-  <pre><code>{{output}}</pre></code>
+  <pre><code>{{output}}</code></pre>
 </body>
 </html>
