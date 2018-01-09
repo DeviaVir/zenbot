@@ -54,7 +54,12 @@ class Individual(list):
             print(mutant)
         del mutant.fitness.values
         return mutant
-    def __eq__(self, other):
-        return hash(self)==hash(other)
+
+    # def __eq__(self, other):
+    #     '''when overriding __eq__ this way, all initial individuals are
+    #     considered the same and thus cannot be different set elements!
+    #     therefore commenting this out. look for usage of hash equality
+    #     '''
+    #     return hash(self)==hash(other)
     def __hash__(self):
         return hash(tuple(self.fitness.values))

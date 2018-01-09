@@ -21,9 +21,9 @@
     "id": "BNBBTC",
     "asset": "BNB",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000",
-    "increment": "0.00000001",
+    "increment": "0.0000001",
     "label": "BNB/BTC"
   },
   {
@@ -549,6 +549,33 @@
     "label": "AMB/ETH"
   },
   {
+    "id": "APPCBNB",
+    "asset": "APPC",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000",
+    "increment": "0.00001",
+    "label": "APPC/BNB"
+  },
+  {
+    "id": "APPCBTC",
+    "asset": "APPC",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000",
+    "increment": "0.00000001",
+    "label": "APPC/BTC"
+  },
+  {
+    "id": "APPCETH",
+    "asset": "APPC",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000",
+    "increment": "0.0000001",
+    "label": "APPC/ETH"
+  },
+  {
     "id": "ARKBTC",
     "asset": "ARK",
     "currency": "BTC",
@@ -696,9 +723,9 @@
     "id": "BNBETH",
     "asset": "BNB",
     "currency": "ETH",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000",
-    "increment": "0.00000001",
+    "increment": "0.000001",
     "label": "BNB/ETH"
   },
   {

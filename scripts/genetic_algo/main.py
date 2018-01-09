@@ -8,6 +8,8 @@ from termcolor import colored
 from conf import indpb, sigma, partitions, selectors
 from evaluation import evaluate_zen, Andividual
 from evolution import evolve
+import parsing
+
 blue = partial(lambda text, color: colored(str(text), color), color='blue')
 green = partial(lambda text, color: colored(str(text), color), color='green')
 
@@ -16,10 +18,17 @@ def main(instrument, days, popsize, strategy='trend_ema'):
     print(colored("Starting evolution....", 'blue'))
     evaluate = partial(evaluate_zen, days=days)
     print(blue("Evaluating ")+green(popsize)+blue(" individuals over ") + green(days) + blue(' days in ') + green(partitions) + blue(' partitions.'))
-    Andividual.instruments = selectors[instrument]
+    try:
+        Andividual.instruments = selectors[instrument]
+    except:
+        # if not in the list, assume it is one usable instrument
+        Andividual.instruments = [instrument]
     Andividual.mate = cxTwoPoint
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
-    Andividual.strategy = strategy
+    # Andividual.strategy = strategy
+    strategies = parsing.strategies()
+    Andividual.strategies = [st for st in strategies if 'forex' not in st]
+    print('using strategies:', Andividual.strategies)
     print(colored(f"Mating function is ", 'blue') + colored(Andividual.mate, 'green'))
     print(colored(f"Mutating function is ", 'blue') + colored(Andividual.mutate, 'green'))
     res = evolve(evaluate, Andividual, popsize)
