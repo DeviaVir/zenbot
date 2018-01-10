@@ -1863,6 +1863,24 @@
     "label": "VIB/BTC"
   },
   {
+    "id": "VIBEBTC",
+    "asset": "VIBE",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000",
+    "increment": "0.00000001",
+    "label": "VIBE/BTC"
+  },
+  {
+    "id": "VIBEETH",
+    "asset": "VIBE",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000",
+    "increment": "0.0000001",
+    "label": "VIBE/ETH"
+  },
+  {
     "id": "VIBETH",
     "asset": "VIB",
     "currency": "ETH",
