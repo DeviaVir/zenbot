@@ -253,7 +253,7 @@ let strategies = {
     profit_stop_pct: Range(1,20),
 
   // -- strategy
-    bollinger_size: Range(1, 15),
+    bollinger_size: Range(1, 40),
     bollinger_time: RangeFloat(1,6),
     bollinger_upper_bound_pct: RangeFloat(-1, 30),
     bollinger_lower_bound_pct: RangeFloat(-1, 30)
