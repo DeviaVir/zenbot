@@ -1,121 +1,227 @@
 describe("Engine", function() {
 	describe("executeSignal", function() {
-		describe("when maker", function(){
-			it("with buy_max_amt less than buy_pct amount should use buy_max_amt", function(){
-				// arrange
-				var signal_type = "buy"
-				var currency_amount = 1
-				var buy_pct = 50
-				var buy_max_amt = 0.25
-				var order_type = "maker"			
-				var buy_spy = jasmine.createSpy()
-				var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy)
-				// act
-				sut.executeSignal(signal_type)
-				// assert
-				var expected = "2.77500000"
-				var buyArgs = buy_spy.calls.mostRecent().args[0]
-				expect(buyArgs.size).toBe(expected)
+		describe("when maker in live mode", function(){
+			describe("with buy_max set", function(){
+				it("and no held assets should use raw buy_max_amt", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = 0.25
+					var order_type = "maker"
+					var held_asset = 0
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "2.77500000"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				it("and held assets should use adjusted buy_max_amt", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 3.0
+					var buy_pct = 50
+					var buy_max_amt = 0.25
+					var order_type = "maker"
+					var held_asset = 0.75
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "1.85925000"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				it("and held assets so large adjusted buy_max_amt is below order minimum should not place order", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = 0.25
+					var order_type = "maker"
+					var held_asset = 2.0
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					expect(buy_spy).not.toHaveBeenCalled()
+				})
 			})
-			
-			it("with buy_max_amt more than buy_pct amount should use buy_pct", function(){
-				// arrange
-				var signal_type = "buy"
-				var currency_amount = 1
-				var buy_pct = 50
-				var buy_max_amt = 0.75
-				var order_type = "maker"			
-				var buy_spy = jasmine.createSpy()
-				var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy)
-				// act
-				sut.executeSignal(signal_type)
-				// assert
-				var expected = "5.55000000"
-				var buyArgs = buy_spy.calls.mostRecent().args[0]
-				expect(buyArgs.size).toBe(expected)
-			})
-			
-			it("with buy_max_amt equals buy_pct amount should use buy_pct", function(){
-				// arrange
-				var signal_type = "buy"
-				var currency_amount = 1
-				var buy_pct = 50
-				var buy_max_amt = 0.50
-				var order_type = "maker"			
-				var buy_spy = jasmine.createSpy()
-				var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy)
-				// act
-				sut.executeSignal(signal_type)
-				// assert
-				var expected = "5.55000000"
-				var buyArgs = buy_spy.calls.mostRecent().args[0]
-				expect(buyArgs.size).toBe(expected)
+			describe("with no buy_max set", function(){
+				it("and no held assets should use raw buy_pct", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = undefined
+					var order_type = "maker"
+					var held_asset = 0				
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "5.55000000"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				it("and held assets should use adjusted buy_pct", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = undefined
+					var order_type = "maker"
+					var held_asset = 0.5				
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "4.93950000"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				it("and held assets so large adjusted buy_pct is below order minimum should not place order", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = undefined
+					var order_type = "maker"
+					var held_asset = 5.25				
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					expect(buy_spy).not.toHaveBeenCalled()
+				})
 			})
 		})
 		
-		describe("when taker", function(){
-			it("with buy_max_amt less than buy_pct amount should use buy_max_amt", function(){
-				// arrange
-				var signal_type = "buy"
-				var currency_amount = 1
-				var buy_pct = 50
-				var buy_max_amt = 0.25
-				var order_type = "taker"
-				var buy_spy = jasmine.createSpy()
-				var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy)
-				// act
-				sut.executeSignal(signal_type)
-				// assert
-				var expected = "2.77222222"
-				var buyArgs = buy_spy.calls.mostRecent().args[0]
-				expect(buyArgs.size).toBe(expected)
+		describe("when taker in live mode", function(){
+			describe("with buy_max_amt set",function(){
+				it("and no held assets should use raw buy_max_amt", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1
+					var buy_pct = 50
+					var buy_max_amt = 0.25
+					var order_type = "taker"
+					var held_asset = 0
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "2.77222222"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				
+				it("and held assets should use adjusted buy_max_amt", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 3.0
+					var buy_pct = 50
+					var buy_max_amt = 0.25
+					var order_type = "taker"
+					var held_asset = 0.75
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "1.85738888"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				
+				it("and held assets so large adjusted buy_max_amt is below order minimum should not place order", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = 0.25
+					var order_type = "taker"
+					var held_asset = 2.0
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					expect(buy_spy).not.toHaveBeenCalled()
+				})
 			})
-			
-			it("with buy_max_amt more than buy_pct amount should use buy_pct", function(){
-				// arrange
-				var signal_type = "buy"
-				var currency_amount = 1
-				var buy_pct = 50
-				var buy_max_amt = 0.75
-				var order_type = "taker"			
-				var buy_spy = jasmine.createSpy()
-				var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy)
-				// act
-				sut.executeSignal(signal_type)
-				// assert
-				var expected = "5.54444444"
-				var buyArgs = buy_spy.calls.mostRecent().args[0]
-				expect(buyArgs.size).toBe(expected)
-			})
-			
-			it("with buy_max_amt equals buy_pct amount should use buy_pct", function(){
-				// arrange
-				var signal_type = "buy"
-				var currency_amount = 1
-				var buy_pct = 50
-				var buy_max_amt = 0.50
-				var order_type = "taker"			
-				var buy_spy = jasmine.createSpy()
-				var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy)
-				// act
-				sut.executeSignal(signal_type)
-				// assert
-				var expected = "5.54444444"
-				var buyArgs = buy_spy.calls.mostRecent().args[0]
-				expect(buyArgs.size).toBe(expected)
+			describe("with no buy_max_amt set",function(){
+				it("with no buy_max_amt set and no held assets should use raw buy_pct", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1
+					var buy_pct = 50
+					var buy_max_amt = undefined
+					var order_type = "taker"
+					var held_asset = 0
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "5.54444444"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				it("and held assets should use adjusted buy_pct", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = undefined
+					var order_type = "taker"
+					var held_asset = 0.5				
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					var expected = "4.93455555"
+					var buyArgs = buy_spy.calls.mostRecent().args[0]
+					expect(buyArgs.size).toBe(expected)
+				})
+				it("and held assets so large adjusted buy_pct is below order minimum should not place order", function(){
+					// arrange
+					var signal_type = "buy"
+					var currency_amount = 1.0
+					var buy_pct = 50
+					var buy_max_amt = undefined
+					var order_type = "taker"
+					var held_asset = 5.25				
+					var buy_spy = jasmine.createSpy()
+					var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
+					// act
+					sut.executeSignal(signal_type)
+					// assert
+					expect(buy_spy).not.toHaveBeenCalled()
+				})
 			})
 		})
 	})
 })
 
-function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, buy_spy){	
+function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy){	
 	var fake_asset = "test_asset"
 	var fake_currency = "BTC"
 	var fake_exchange = "test_exchange"
 	var fake_project = "test_product"
 	var fake_bid = 0.10
 	var fake_ask = 0.11
-	var fake_balance = { currency: currency_amount, asset:0}
+	var fake_balance = { currency: currency_amount, asset:held_asset}
 	
 	var fakes = {
 		get: function() { },
