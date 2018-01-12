@@ -141,6 +141,8 @@ c.post_only = true
 
 // default # days for backfill and sim commands
 c.days = 14
+// defaults to a high number of lookback periods
+c.keep_lookback_periods = 50000
 // ms to poll new trades at
 c.poll_trades = 30000
 // amount of currency to start simulations with
