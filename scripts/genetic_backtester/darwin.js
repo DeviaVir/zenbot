@@ -41,6 +41,7 @@ let iterationCount = 0;
 let runCommand = (taskStrategyName, phenotype, cb) => {
   let commonArgs = `--strategy=${taskStrategyName} --period_length=${phenotype.period_length} --min_periods=${phenotype.min_periods}  --markdown_buy_pct=${phenotype.markdown_buy_pct} --markup_sell_pct=${phenotype.markup_sell_pct} --order_type=${phenotype.order_type} --sell_stop_pct=${phenotype.sell_stop_pct} --buy_stop_pct=${phenotype.buy_stop_pct} --profit_stop_enable_pct=${phenotype.profit_stop_enable_pct} --profit_stop_pct=${phenotype.profit_stop_pct}`;
   let strategyArgs = {
+    bollinger: `--bollinger_size=${phenotype.bollinger_size} --bollinger_time=${phenotype.bollinger_time} --bollinger_upper_bound_pct=${phenotype.bollinger_upper_bound_pct} --bollinger_lower_bound_pct=${phenotype.bollinger_lower_bound_pct}`,
     crossover_vwap: `--emalen1=${phenotype.emalen1} --smalen1=${phenotype.smalen1} --smalen2=${phenotype.smalen2} --vwap_length=${phenotype.vwap_length} --vwap_max=${phenotype.vwap_max}`,
     trendline: `--lastpoints=${phenotype.lastpoints}  --avgpoints=${phenotype.avgpoints} --lastpoints2=${phenotype.lastpoints2} --avgpoints2=${phenotype.avgpoints2} --markdown_buy_pct=${phenotype.markdown_buy_pct} --markup_sell_pct=${phenotype.markup_sell_pct}`,
     cci_srsi: `--cci_periods=${phenotype.rsi_periods} --rsi_periods=${phenotype.srsi_periods} --srsi_periods=${phenotype.srsi_periods} --srsi_k=${phenotype.srsi_k} --srsi_d=${phenotype.srsi_d} --oversold_rsi=${phenotype.oversold_rsi} --overbought_rsi=${phenotype.overbought_rsi} --oversold_cci=${phenotype.oversold_cci} --overbought_cci=${phenotype.overbought_cci} --constant=${phenotype.constant}`,
@@ -144,7 +145,7 @@ let processOutput = output => {
   delete r.use_strategies;
   delete r.verbose;
   r.selector = r.selector.normalized
-  
+
   if (start) {
     r.start = moment(start).format("YYYYMMDDhhmm");
   }
@@ -240,6 +241,23 @@ let RangeNeuralActivation = () => {
 };
 
 let strategies = {
+  bollinger: {
+    period_length: RangePeriod(1, 60, 'm'),
+    min_periods: Range(1, 20),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+  // -- strategy
+    bollinger_size: Range(1, 40),
+    bollinger_time: RangeFloat(1,6),
+    bollinger_upper_bound_pct: RangeFloat(-1, 30),
+    bollinger_lower_bound_pct: RangeFloat(-1, 30)
+  },
   crossover_vwap: {
     // -- common
     period_length: RangePeriod(1, 400, 'm'),
@@ -561,6 +579,7 @@ console.log(`Creating population of ${populationSize} ...\n`);
 
 let pools = {};
 let selectedStrategies = (strategyName === 'all') ? allStrategyNames() : strategyName.split(',');
+
 
 let importedPoolData = (populationFileName) ? JSON.parse(fs.readFileSync(populationFileName, 'utf8')) : null;
 
