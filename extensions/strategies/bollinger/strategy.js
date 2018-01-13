@@ -31,7 +31,7 @@ module.exports = function container (get, set, clear) {
           } else if (s.period.close < (lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct)) {
             s.signal = 'buy'
           } else {
-            s.signal = 'null' // hold
+            s.signal = null // hold
           }
         }
       }
