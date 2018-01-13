@@ -155,7 +155,9 @@ module.exports = function container (get, set, clear) {
       delete opts.order_type
       var order = {}
       client.createOrder(joinProduct(opts.product_id), opts.type, opts.side, this.roundToNearest(opts.size, opts), opts.price, args).then(result => {
-        if (result && result.message === 'Insufficient funds') {
+        // catch errors which does not allow a retry like:
+        // "Filter failure: MIN_NOTIONAL" => reported as code -1013
+        if (result && result.message.match(new RegExp(/Insufficient funds|MIN_NOTIONAL/))) {
           order = {
             status: 'rejected',
             reject_reason: 'balance'
@@ -199,7 +201,9 @@ module.exports = function container (get, set, clear) {
       delete opts.order_type
       var order = {}
       client.createOrder(joinProduct(opts.product_id), opts.type, opts.side, this.roundToNearest(opts.size, opts), opts.price, args).then(result => {
-        if (result && result.message === 'Insufficient funds') {
+        // catch errors which does not allow a retry like:
+        // "Filter failure: MIN_NOTIONAL" => reported as code -1013
+        if (result && result.message.match(new RegExp(/Insufficient funds|MIN_NOTIONAL/))) {
           order = {
             status: 'rejected',
             reject_reason: 'balance'
