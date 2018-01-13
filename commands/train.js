@@ -113,11 +113,7 @@ module.exports = function container (get, set, clear) {
         }
         if (!so.start_training && so.days_training) {
           var d = tb('1d')
-          so.start_training = d.subtract(so.days_test).subtract(so.days_training).toMilliseconds()
-        }
-        if (so.days_test > 0) {
-          var d = tb('1d')
-          so.end_training = d.subtract(so.days_test).toMilliseconds()
+          so.start_training = d.subtract(so.days_training).toMilliseconds()
         }
         so.selector = get('lib.objectify-selector')(selector || c.selector)
         so.mode = 'train'
@@ -232,8 +228,8 @@ module.exports = function container (get, set, clear) {
             '--strategy', 'forex_analytics',
             '--disable_options',
             '--modelfile', path.resolve(__dirname, '..', tempModelFile),
-            '--start', so.start_training,
-            '--end', so.end_training,
+            '--start', moment(so.start_training).format('YYYYMMDDHHmm'),
+            '--end', moment(so.end_training).format('YYYYMMDDHHmm'),
             '--period', so.period_length,
             '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html'
           ]
@@ -248,18 +244,21 @@ module.exports = function container (get, set, clear) {
             var trainingResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html')
 
             if (so.days_test > 0) {
-              console.log(
-                  "\nRunning simulation on test data from "
-                + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " onwards.\n"
+              var endTest = moment(so.end_training).add(so.days_test, 'days')
+
+              console.log("\nRunning simulation on test data from "
+                + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " to "
+                + moment(endTest).format('YYYY-MM-DD HH:mm:ss ZZ') + " (" + so.days_test + " days).\n"
               )
-              
+
               var testArgs = [
                 'sim',
                 so.selector.normalized,
                 '--strategy', 'forex_analytics',
                 '--disable_options',
                 '--modelfile', path.resolve(__dirname, '..', tempModelFile),
-                '--start', so.end_training,
+                '--start', moment(so.end_training).format('YYYYMMDDHHmm'),
+                '--end', moment(endTest).format('YYYYMMDDHHmm'),
                 '--period', so.period_length,
                 '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html',
               ]
