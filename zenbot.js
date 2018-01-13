@@ -8,8 +8,8 @@ program._name = 'zenbot'
 
 var versions = process.versions
 
-if (semver.gt('6.0.0', versions.node)) {
-  console.log('You are running a node.js version older than 6.x, please upgrade via https://nodejs.org/en/')
+if (semver.gt('8.3.0', versions.node)) {
+  console.log('You are running a node.js version older than 8.3.x, please upgrade via https://nodejs.org/en/')
   process.exit(1)
 }
 
