@@ -185,6 +185,7 @@
                                     <th>TYPE</th>
                                     <th>AMOUNT</th>
                                     <th>PRICE</th>
+                                    <th>SLIPPAGE</th>
                                     <th>DATE</th>
                                     <th>EXECUTED DATE</th>
                                 </tr>
@@ -195,6 +196,7 @@
                                     <td><span class='text-success'>BUY</span></td>
                                     <td><%= buy_order.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= buy_order.price %> <%= currency.toUpperCase() %></td>
+                                    <td></td>
                                     <td><%= new Date(buy_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
                                     <td><span class='text-info'>Waiting</span></td>
                                 </tr>
@@ -204,6 +206,7 @@
                                     <td><span class='text-danger'>SELL</span></td>
                                     <td><%= sell_order.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= sell_order.price %> <%= currency.toUpperCase() %></td>
+                                    <td></td>
                                     <td><%= new Date(sell_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
                                     <td><span class='text-info'>Waiting</span></td>
                                 </tr>
@@ -214,6 +217,7 @@
                                     <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></td>
                                     <td><%= trade.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= trade.price %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {style: "percent", maximumSignificantDigits: 4}).format(trade.slippage) %></td>
                                     <td><%= new Date(trade.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
                                     <td><%= new Date(trade.time + trade.execution_time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })  %></td>
                                 </tr>
@@ -221,7 +225,7 @@
                                 <% } %>
 
                                 <% if (!(typeof buy_order != "undefined" || typeof sell_order != "undefined") && !my_trades) { %>
-                                <tr><td colspan="5" class="text-center">There is no trades at the moment</td></tr>
+                                <tr><td colspan="6" class="text-center">There is no trades at the moment</td></tr>
                                 <% } %>
                                 </tbody>
                             </table>
