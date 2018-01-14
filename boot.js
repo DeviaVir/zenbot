@@ -66,6 +66,7 @@ module.exports = function (cb) {
         try {
           conf = require(_allArgs[0])
         } catch (ee) {
+          console.log('Fall back to conf.js, ' + ee)
           conf = require('./conf')
         }
       } else {
@@ -73,6 +74,7 @@ module.exports = function (cb) {
       }
     }
     catch (e) {
+      console.log('Fall back to sample-conf.js, ' + e)
       conf = {}
     }
 

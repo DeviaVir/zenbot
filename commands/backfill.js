@@ -12,6 +12,7 @@ module.exports = function container (get, set, clear) {
     program
       .command('backfill [selector]')
       .description('download historical trades for analysis')
+      .option('--conf <path>', 'path to optional conf overrides file')
       .option('-d, --days <days>', 'number of days to acquire (default: ' + c.days + ')', Number, c.days)
       .action(function (selector, cmd) {
         selector = get('lib.objectify-selector')(selector || c.selector)
