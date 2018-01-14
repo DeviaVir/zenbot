@@ -176,6 +176,16 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
+        
+        // decide if this error is allowed for a retry:
+        // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+          return cb(null, {
+            status: 'rejected',
+            reject_reason: 'balance'
+          })
+        }
+
         return retry('buy', func_args)
       })
     },
@@ -220,6 +230,16 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
+        
+        // decide if this error is allowed for a retry:
+        // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+          return cb(null, {
+            status: 'rejected',
+            reject_reason: 'balance'
+          })
+        }
+
         return retry('sell', func_args)
       })
     },
