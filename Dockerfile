@@ -1,6 +1,6 @@
 FROM node:8
 
-RUN mkdir -p /app/scripts/genetic_backtester/
+RUN mkdir -p /app
 WORKDIR /app
 
 COPY . /app
