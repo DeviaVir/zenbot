@@ -2,11 +2,11 @@
   "name": "zenbot4",
   "version": "4.1.0",
   "description": "Cryptocurrency trading bot",
-  "bugs": "https://github.com/carlos8f/zenbot/issues",
+  "bugs": "https://github.com/deviavir/zenbot/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/carlos8f/zenbot.git"
+    "url": "https://github.com/deviavir/zenbot.git"
   },
   "main": "./index.js",
   "bin": {
@@ -104,6 +104,6 @@
     "yargs": "^10.0.3"
   },
   "engines": {
-    "node": "^8.0.0 || ^9.0.0"
+    "node": "^8.3.0 || ^9.0.0"
   }
 }
