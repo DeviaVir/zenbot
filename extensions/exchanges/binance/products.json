@@ -120,9 +120,9 @@
     "id": "WTCBTC",
     "asset": "WTC",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000",
-    "increment": "0.00000001",
+    "increment": "0.0000001",
     "label": "WTC/BTC"
   },
   {
@@ -1708,6 +1708,33 @@
     "max_size": "100000",
     "increment": "0.00000001",
     "label": "REQ/ETH"
+  },
+  {
+    "id": "RLCBNB",
+    "asset": "RLC",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000",
+    "increment": "0.00001",
+    "label": "RLC/BNB"
+  },
+  {
+    "id": "RLCBTC",
+    "asset": "RLC",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000",
+    "increment": "0.0000001",
+    "label": "RLC/BTC"
+  },
+  {
+    "id": "RLCETH",
+    "asset": "RLC",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000",
+    "increment": "0.000001",
+    "label": "RLC/ETH"
   },
   {
     "id": "SNTBTC",
