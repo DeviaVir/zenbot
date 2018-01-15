@@ -18,6 +18,7 @@ conf_*
 !conf-sample.js
 sim_result*
 trade_result*
+paper_result*
 *_test
 backtesting_*
 generation_data_*
