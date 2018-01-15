@@ -126,15 +126,6 @@
     "label": "ETH/USDT"
   },
   {
-    "id": "WTCBTC",
-    "asset": "WTC",
-    "currency": "BTC",
-    "min_size": "0.01000000",
-    "max_size": "100000",
-    "increment": "0.0000001",
-    "label": "WTC/BTC"
-  },
-  {
     "id": "HSRBTC",
     "asset": "HSR",
     "currency": "BTC",
@@ -1719,42 +1710,6 @@
     "label": "WABI/BTC"
   },
   {
-    "id": "RLCBNB",
-    "asset": "RLC",
-    "currency": "BNB",
-    "min_size": "0.01000000",
-    "max_size": "100000",
-    "increment": "0.00001",
-    "label": "RLC/BNB"
-  },
-  {
-    "id": "RLCBTC",
-    "asset": "RLC",
-    "currency": "BTC",
-    "min_size": "0.01000000",
-    "max_size": "100000",
-    "increment": "0.0000001",
-    "label": "RLC/BTC"
-  },
-  {
-    "id": "RLCETH",
-    "asset": "RLC",
-    "currency": "ETH",
-    "min_size": "0.01000000",
-    "max_size": "100000",
-    "increment": "0.000001",
-    "label": "RLC/ETH"
-  },
-  {
-    "id": "SNTBTC",
-    "asset": "SNT",
-    "currency": "BTC",
-    "min_size": "1.00000000",
-    "max_size": "100000.00000000",
-    "increment": "1.00000000",
-    "label": "SNT/BTC"
-  },
-  {
     "id": "WABIETH",
     "asset": "WABI",
     "currency": "ETH",
@@ -2212,5 +2167,23 @@
     "max_size": "10000.00000000",
     "increment": "0.01000000",
     "label": "RLC/BNB"
+  },
+  {
+    "id": "INSBTC",
+    "asset": "INS",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "INS/BTC"
+  },
+  {
+    "id": "INSETH",
+    "asset": "INS",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "INS/ETH"
   }
 ]
