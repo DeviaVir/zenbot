@@ -1718,6 +1718,7 @@
     "increment": "1.00000000",
     "label": "WABI/BTC"
   },
+  {
     "id": "RLCBNB",
     "asset": "RLC",
     "currency": "BNB",
