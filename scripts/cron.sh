@@ -6,10 +6,6 @@ setup_git() {
 }
 
 run_cron() {
-  git checkout unstable
-  git reset --hard origin/unstable
-  npm install -g node-gyp
-  npm install
   for f in extensions/exchanges/*/update-products.sh;
   do
     echo "processing ${f}"
