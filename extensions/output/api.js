@@ -10,10 +10,10 @@ module.exports = function container (get) {
   let run = function(reporter, tradeObject) {
     if (!reporter.port || reporter.port === 0) {
       random_port({from: 20000}, function(port) {
-        startServer(port, tradeObject)
+        startServer(port, reporter.ip, tradeObject)
       })
     } else {
-      startServer(reporter.port, tradeObject)
+      startServer(reporter.port, reporter.ip, tradeObject)
     }
   }
 
@@ -22,7 +22,7 @@ module.exports = function container (get) {
     return otherKeys;
   };
 
-  let startServer = function(port, tradeObject) {
+  let startServer = function(port, ip, tradeObject) {
     tradeObject.port = port
 
     app.set('views', path.join(__dirname+'/../../templates'));
@@ -46,8 +46,13 @@ module.exports = function container (get) {
       res.sendFile(path.join(__dirname+'../../../stats/index.html'));
     });
 
-    app.listen(port)
-    tradeObject.url = require('ip').address() + ':' + port + '/'
+    if (ip) {
+      app.listen(port, ip)
+      tradeObject.url = ip + ':' + port + '/'
+    } else {
+      app.listen(port)
+      tradeObject.url = require('ip').address() + ':' + port + '/'
+    }
     console.log('Web GUI running on http://' + tradeObject.url)
   }
 

@@ -241,4 +241,5 @@ c.output  = {}
 // REST API
 c.output.api = {}
 c.output.api.on = true
+c.output.api.ip = '0.0.0.0' // IPv4 or IPv6 address to listen on, uses all available interfaces if omitted
 c.output.api.port = 0 // 0 = random port
