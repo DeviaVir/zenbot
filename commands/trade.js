@@ -42,6 +42,7 @@ module.exports = function container (get, set, clear) {
       .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', c.max_slippage_pct)
       .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, c.rsi_periods)
       .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, c.poll_trades)
+      .option('--currency_increment <amount>', 'Currency increment, if different than the asset increment', String, null)
       .option('--keep_lookback_periods <amount>', 'Keep this many lookback periods max. ', Number, c.keep_lookback_periods)
       .option('--disable_stats', 'disable printing order stats')
       .option('--reset_profit', 'start new profit calculation from 0')
@@ -56,6 +57,7 @@ module.exports = function container (get, set, clear) {
             so[k] = cmd[k]
           }
         })
+        so.currency_increment = cmd.currency_increment
         so.keep_lookback_periods = cmd.keep_lookback_periods
         so.debug = cmd.debug
         so.stats = !cmd.disable_stats
