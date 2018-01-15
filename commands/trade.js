@@ -217,16 +217,16 @@ module.exports = function container (get, set, clear) {
               .replace(/\{\{symbol\}\}/g,  so.selector.normalized + ' - zenbot ' + require('../package.json').version)
             if (so.filename !== 'none') {
               var out_target
-              
+              var out_target_prefix = so.paper ? 'simulations/paper_result_' : 'stats/trade_result_'
               if(dump){
                 var dt = new Date().toISOString();
                 
                 //ymd
                 var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10);
-                out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
+                out_target = so.filename || out_target_prefix + so.selector.normalized +'_' + today + '_UTC.html'
               fs.writeFileSync(out_target, out)
               }else
-                out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
+                out_target = so.filename || out_target_prefix + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
               
               fs.writeFileSync(out_target, out)
               console.log('\nwrote'.grey, out_target)
