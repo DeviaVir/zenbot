@@ -25,8 +25,15 @@ module.exports = function container (get, set, clear) {
     return authed_client
   }
 
+  /**
+   * Convert BNB-BTC to BNB/BTC
+   *
+   * @param product_id BNB-BTC
+   * @returns {string}
+   */
   function joinProduct(product_id) {
-    return product_id.split('-')[0] + '/' + product_id.split('-')[1]
+    let split = product_id.split('-');
+    return split[0] + '/' + split[1]
   }
 
   function retry (method, args, err) {
@@ -130,8 +137,22 @@ module.exports = function container (get, set, clear) {
       client.cancelOrder(opts.order_id, joinProduct(opts.product_id)).then(function (body) {
         if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
         cb(null)
-      },function(err){
-        if (err) return retry('cancelOrder', func_args, err)
+      }, function(err){
+        // match error against string:
+        // "binance {"code":-2011,"msg":"UNKNOWN_ORDER"}"
+        
+        if (err) {
+          // decide if this error is allowed for a retry 
+
+          if (err.message && err.message.match(new RegExp(/-2011|UNKNOWN_ORDER/))) {
+            console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + " - " + err).cyan)
+          } else {
+            // retry is allowed for this error
+
+            return retry('cancelOrder', func_args, err)
+          }
+        }
+
         cb()
       })
     },
@@ -176,6 +197,16 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
+        
+        // decide if this error is allowed for a retry:
+        // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+          return cb(null, {
+            status: 'rejected',
+            reject_reason: 'balance'
+          })
+        }
+
         return retry('buy', func_args)
       })
     },
@@ -220,6 +251,16 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
+        
+        // decide if this error is allowed for a retry:
+        // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+          return cb(null, {
+            status: 'rejected',
+            reject_reason: 'balance'
+          })
+        }
+
         return retry('sell', func_args)
       })
     },

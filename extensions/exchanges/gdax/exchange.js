@@ -20,7 +20,7 @@ module.exports = function container (get, set, clear) {
       try {
         auth = authedClient()
       } catch(e){}
-      websocket_client[product_id] = new Gdax.OrderbookSync([product_id], c.gdax.apiURI, c.gdax.websocketURI, auth)
+      websocket_client[product_id] = new Gdax.OrderbookSync([product_id], c.gdax.apiURI, c.gdax.websocketURI, auth, { heartbeat: true })
       // initialize a cache for the websocket connection
       websocket_cache[product_id] = {
         trades: [],
@@ -43,9 +43,11 @@ module.exports = function container (get, set, clear) {
       })
       websocket_client[product_id].on('close', () => {
         console.error('websocket connection to '+product_id+' closed, attempting reconnect')
-        websocket_client[product_id].connect()
+        websocket_client[product_id] = null
+        websocket_client[product_id] = websocketClient(product_id)
       })
     }
+    return websocket_client[product_id]
   }
 
   function authedClient () {

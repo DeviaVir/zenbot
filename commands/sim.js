@@ -65,6 +65,8 @@ module.exports = function container (get, set, clear) {
           var d = tb('1d')
           so.start = d.subtract(so.days).toMilliseconds()
         }
+        so.days = moment(so.end).diff(moment(so.start), 'days')
+        
         so.stats = !!cmd.enable_stats
         so.show_options = !cmd.disable_options
         so.verbose = !!cmd.verbose

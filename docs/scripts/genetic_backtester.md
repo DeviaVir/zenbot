@@ -16,23 +16,28 @@ cd ../../
 
 Launch the genetic backtester from the zenbot root by directly invoking darwin.js:
 ```bash
-  ./scripts/genetic_backtester/darwin.js --days=30 --asset_capital=0 --currency_capital=1000 --selector="gdax.BTC-USD" --population=150 --use_strategies="macd,trend_ema"
+./scripts/genetic_backtester/darwin.js --selector="bitfinex.ETH-USD" --days="10" --currency_capital="1000" --use_strategies="all | macd,trend_ema,etc" --population="101" --population_data="simulations/generation_data_[simtimestamp]_gen_[x].json"
 ```
 
 ## Parameters
 
 The following parameters are available when executing darwin.js:
 ```
-// Primary Parameters
---use_strategies="strategyname"                                                         # comma separated strategy list to test with. Leave blank to test all.
---population_data=./simulations/generation_data_1514280516_gen_582.json                 # (optional) continue backtesting from a specific generation
---population=150                                                                        # (optional) number of simulation per generation
 
 // General Parameters
---selector="gdax.BTC-USD"                                                               # selector to run simulations on
---days=30                                                                               # how many days to execute per simulation
---currency_capital=1000                                                                 # currency amount to start simulations with. Needs to be bigger than 0 (see issue #449).
---asset_capital=0                                                                       # (optional) asset amount to start simulations with.
+--selector="gdax.BTC-USD"                                                               # Which selector (exchange.COIN-ALT) backfill trade data the backtest is to be run against.
+--days="30"                                                                             # How many days of backfill to run the backtest against.
+(or)
+--start="201712010001"                                                                  # Specifies date/time in "YYYYMMDDhhmm" format at which to begin backtesting in liu of --days. Backtest will begin with start date through backtest execution time.
+--end="201712312359"                                                                    # Optional - Used in conjunction with --start in order to restrict backtesting to a specific period instead of from start -> now.
+--currency_capital="1000"                                                               # Currency amount to start simulations with. Needs to be bigger than 0 (see issue #449).
+(or)
+--asset_capital="100"                                                                   # Optional - Asset amount to start simulations with.
+
+// Specific Parameters
+--use_strategies="all | strategy1,strategy2"                                            # With this parameter, you can choose to test all, some (comma separated), or just one of the available strategies defined within darwin.
+--population="150"                                                                      # Optional - Number of simulation per generation
+--population_data="./simulations/generation_data_[simtimestamp]_gen_[X].json"           # Optional - Resume backtesting on a previously terminated backtesting session based on results from specified generation.
 
 ```
 
