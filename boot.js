@@ -39,7 +39,7 @@ module.exports = function (cb) {
   }
   
   var u = 'mongodb://' + authStr + c.mongo.host + ':' + c.mongo.port + '/' + c.mongo.db + '?' + (c.mongo.replicaSet ? '&replicaSet=' + c.mongo.replicaSet : '' ) + (authMechanism ? '&authMechanism=' + authMechanism : '' )
-  require('mongodb').MongoClient.connect(u, function (err, db) {
+  require('mongodb').MongoClient.connect(u, function (err, client) {
     if (err) {
       zenbot.set('zenbot:db.mongo', null)
       console.error('WARNING: MongoDB Connection Error: ', err)
@@ -47,6 +47,7 @@ module.exports = function (cb) {
       console.error('Attempted authentication string: ' + u);
       return withMongo()
     }
+    var db = client.db(c.mongo.db)
     zenbot.set('zenbot:db.mongo', db)
     withMongo()
   })
