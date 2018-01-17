@@ -4,6 +4,9 @@ node_js:
   - '9'
 before_install:
   - npm install -g node-gyp
+  - if [ "$TRAVIS_NODE_VERSION" = "9" ]; then npm install -g greenkeeper-lockfile@1; fi
+before_script: if [ "$TRAVIS_NODE_VERSION" = "9" ]; then greenkeeper-lockfile-update; fi
+after_script: if [ "$TRAVIS_NODE_VERSION" = "9" ]; then greenkeeper-lockfile-upload; fi
 after_success:
   - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then /bin/sh scripts/cron.sh; fi
 env:
