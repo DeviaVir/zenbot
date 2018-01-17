@@ -86,7 +86,9 @@ npm link
 ```
 
 ### Ubuntu 16.04 Step-By-Step
-https://youtu.be/BEhU55W9pBI
+[Video](https://youtu.be/BEhU55W9pBI)
+[Blog Post](https://jaynagpaul.com/algorithmic-crypto-trading?utm_source=zenbot)
+
 ```
 sudo apt-get update
 sudo apt-get upgrade -y
