@@ -50,13 +50,13 @@ module.exports = function container (get, set, clear) {
         })
 
         if (so.start) {
-          so.start = moment(so.start, "YYYYMMDDhhmm").valueOf()
+          so.start = moment(so.start, 'YYYYMMDDhhmm').valueOf()
           if (so.days && !so.end) {
             so.end = tb(so.start).resize('1d').add(so.days).toMilliseconds()
           }
         }
         if (so.end) {
-          so.end = moment(so.end, "YYYYMMDDhhmm").valueOf()
+          so.end = moment(so.end, 'YYYYMMDDhhmm').valueOf()
           if (so.days && !so.start) {
             so.start = tb(so.end).resize('1d').subtract(so.days).toMilliseconds()
           }
@@ -66,7 +66,7 @@ module.exports = function container (get, set, clear) {
           so.start = d.subtract(so.days).toMilliseconds()
         }
         so.days = moment(so.end).diff(moment(so.start), 'days')
-        
+
         so.stats = !!cmd.enable_stats
         so.show_options = !cmd.disable_options
         so.verbose = !!cmd.verbose
@@ -219,7 +219,7 @@ module.exports = function container (get, set, clear) {
             }
             engine.update(trades, function (err) {
               if (err) throw err
-              if (reversing) { 
+              if (reversing) {
                 cursor = trades[trades.length - 1].orig_time
               }
               else {
