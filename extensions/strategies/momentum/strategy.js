@@ -3,7 +3,7 @@ let z = require('zero-fill')
 
 module.exports = function container(get, set, clear) {
   return {
-    name: 'Momentum',
+    name: 'momentum',
     description: 'MOM = Close(Period) - Close(Length)',
 
     getOptions: function () {
@@ -32,16 +32,16 @@ module.exports = function container(get, set, clear) {
     },
 
     onReport: function (s) {
-      var cols = []
+      let cols = [], color
 
       if (s.period.mom0 != null) {
-        var color = s.period.mom0 < 0 ? 'red' : s.period.mom0 > 0 ? 'green' : 'grey'
+        color = s.period.mom0 < 0 ? 'red' : s.period.mom0 > 0 ? 'green' : 'grey'
         cols.push(z(5, n(s.period.mom0).format('000'), ' ')[color])
       } else {
         cols.push(' '.repeat(5))
       }
       if (s.period.mom1 != null) {
-        var color = s.period.mom1 < 0 ? 'red' : s.period.mom1 > 0 ? 'green' : 'grey'
+        color = s.period.mom1 < 0 ? 'red' : s.period.mom1 > 0 ? 'green' : 'grey'
         cols.push(z(5, n(s.period.mom1).format('000'), ' ')[color])
       } else {
         cols.push(' '.repeat(5))
