@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-12">
                     <ol class="breadcrumb">
-                        <li>Running since <%= day_count %> days</li>
+                        <li>Running since <%= moment(boot_time).toNow(true) %></li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -153,11 +153,11 @@
                         <script src="/assets-wp/plotly.bundle.js" charset="utf8"></script>
                         <script type="text/javascript">
 
-                            function unpack(rows, key) {
+                            function unpack(rows, key, offset) {
                                 return rows.map(function(row) {
                                     if (key == 'time') {
                                         // Plotly’s date format is 'yyyy-mm-dd HH:MM:SS.ssssss'
-                                        return new Date(row.time - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
+                                        return new Date(row.time - offset * 60000).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
                                     } else {
                                         return row[key];
                                     }
@@ -171,12 +171,13 @@
                                     var trades = tradeData.trades;
                                     var lookback = tradeData.lookback;
                                     var my_trades = tradeData.my_trades;
+                                    var offset = tradeData.tz_offset;
 
                                     var price = {
                                         type: "scatter",
                                         name: 'Price',
                                         mode: 'lines+markers',
-                                        x: unpack(trades, 'time'),
+                                        x: unpack(trades, 'time', offset),
                                         y: unpack(trades, 'price')
                                     };
 
@@ -185,7 +186,7 @@
                                         name: 'Volume',
                                         yaxis: 'y2',
                                         opacity: '0.25',
-                                        x: unpack(trades, 'time'),
+                                        x: unpack(trades, 'time', offset),
                                         y: unpack(trades, 'size'),
                                         width: 3600*4
                                     };
@@ -193,7 +194,7 @@
                                     var ohlc = {
                                         type: 'ohlc',
                                         name: 'OHLC',
-                                        x: unpack(lookback, 'time'),
+                                        x: unpack(lookback, 'time', offset),
                                         open: unpack(lookback, 'open'),
                                         high: unpack(lookback, 'high'),
                                         low: unpack(lookback, 'low'),
@@ -205,7 +206,7 @@
                                     var lastTrade = new Date(price.x[price.x.length - 1]);
                                     lastTrade.setMinutes(lastTrade.getMinutes() + 1);
                                     var rangeEnd = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
-                                    lastTrade.setMinutes(lastTrade.getMinutes() - 61);
+                                    lastTrade.setMinutes(lastTrade.getMinutes() - 31);
                                     var rangeStart = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
 
                                     var layout = {
@@ -254,7 +255,7 @@
 
                                     for (i = 0; i < my_trades.length; i++) {
                                         layout.annotations.push({
-                                            x: new Date(my_trades[i].time - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, ''),
+                                            x: new Date(my_trades[i].time - offset * 60000).toISOString().replace(/T/g, ' ').replace(/Z/g, ''),
                                             y: my_trades[i].price,
                                             xref: 'x',
                                             yref: 'y',
@@ -294,7 +295,7 @@
                                     <th>PRICE</th>
                                     <th>SLIPPAGE</th>
                                     <th>DATE</th>
-                                    <th>EXECUTED DATE</th>
+                                    <th>EXECUTION TIME</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -319,14 +320,14 @@
                                 </tr>
                                 <% } %>
                                 <% if (my_trades) { %>
-                                <% my_trades.reverse().forEach(function(trade){ %>
+                                <% my_trades.sort(function(a,b){return a.time > b.time ? -1 : 1;}).forEach(function(trade){ %>
                                 <tr>
                                     <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></td>
                                     <td><%= trade.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= trade.price %> <%= currency.toUpperCase() %></td>
                                     <td><%= new Intl.NumberFormat("en-US", {style: "percent", maximumSignificantDigits: 4}).format(trade.slippage) %></td>
-                                    <td><%= new Date(trade.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
-                                    <td><%= new Date(trade.time + trade.execution_time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })  %></td>
+                                    <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
+                                    <td><%= moment.duration(trade.execution_time).humanize() %></td>
                                 </tr>
                                 <% }); %>
                                 <% } %>
