@@ -7,8 +7,8 @@ module.exports = function container (get, set, clear) {
     description: 'Stochastic MACD Strategy',
 
     getOptions: function () {
-      this.option('period', 'period length, same as --periodLength', String, '30m')
-      this.option('periodLength', 'period length, same as --period', String, '30m')
+      this.option('period', 'period length, same as --period_length', String, '30m')
+      this.option('period_length', 'period length, same as --period', String, '30m')
       this.option('min_periods', 'min. number of history periods', Number, 200)
       this.option('rsi_periods', 'number of RSI periods', 14)
       this.option('srsi_periods', 'number of RSI periods', Number, 9)

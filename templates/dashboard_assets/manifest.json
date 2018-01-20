@@ -1,0 +1,13 @@
+{
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#ff6600",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "src": "https://raw.githubusercontent.com/DeviaVir/zenbot/master/assets/zenbot_square.png",
+            "sizes": "112x112",
+            "type": "image/png"
+        }
+    ]
+}

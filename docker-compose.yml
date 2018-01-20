@@ -1,40 +1,42 @@
-server:
-  build: .
-  volumes:
-    - ./conf.js:/app/conf.js
-    - ./extensions:/app/extensions
-    - ./simulations:/app/simulations
-  links:
-    - mongodb
-  command: [ "trade", "--paper" ]
-  restart: always
-  tty: true
-  environment:
-    - MONGODB_PORT_27017_TCP_ADDR=mongodb
+version: '3.1'
 
-mongodb:
-  image: mongo:latest
-  volumes_from:
-    - mongodb-data
-  command: mongod --smallfiles --bind_ip_all
+services:
 
-mongodb-data:
-  image: mongo:latest
-  volumes:
-    - ./data/db:/data/db
-  command: "true"
+  server:
+    image: deviavir/zenbot:unstable
+    volumes:
+      - ./conf.js:/app/conf.js
+      - ./extensions:/app/extensions
+      - ./simulations:/app/simulations
+    links:
+      - mongodb
+    command: [ "trade", "--paper" ]
+    restart: always
+    tty: true
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_PORT_27017_TCP_ADDR=mongodb
 
-# Remove below comments to use this container. "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
-#
-#adminmongo:
-#  image: mrvautin/adminmongo
-#  links:
-#    - mongodb
-#  tty: true
-#  ports:
-#    - "1234:1234"
-#  environment:
-#    - CONN_NAME=zenbot_mongodb
-#    - DB_HOST=mongodb
-#    - DB_PORT=27017
-#  command: "npm start"
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - ./data/db:/data/db
+    command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
+    ports:
+      - 27017:27017
+
+  # Remove below comments to use this container. "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
+  #
+  #adminmongo:
+  #  image: mrvautin/adminmongo
+  #  links:
+  #    - mongodb
+  #  tty: true
+  #  ports:
+  #    - "1234:1234"
+  #  environment:
+  #    - CONN_NAME=zenbot_mongodb
+  #    - DB_HOST=mongodb
+  #    - DB_PORT=27017
+  #  command: "npm start"

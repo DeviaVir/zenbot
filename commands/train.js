@@ -113,11 +113,7 @@ module.exports = function container (get, set, clear) {
         }
         if (!so.start_training && so.days_training) {
           var d = tb('1d')
-          so.start_training = d.subtract(so.days_test).subtract(so.days_training).toMilliseconds()
-        }
-        if (so.days_test > 0) {
-          var d = tb('1d')
-          so.end_training = d.subtract(so.days_test).toMilliseconds()
+          so.start_training = d.subtract(so.days_training).toMilliseconds()
         }
         so.selector = get('lib.objectify-selector')(selector || c.selector)
         so.mode = 'train'
@@ -131,13 +127,13 @@ module.exports = function container (get, set, clear) {
 
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
-        var query_start = so.start_training ? tb(so.start_training).resize(so.periodLength).subtract(so.min_periods + 2).toMilliseconds() : null
+        var query_start = so.start_training ? tb(so.start_training).resize(so.period_length).subtract(so.min_periods + 2).toMilliseconds() : null
         
         function writeTempModel (strategy) {
           var tempModelString = JSON.stringify(
             {
               "selector": so.selector.normalized,
-              "period": so.periodLength,
+              "period": so.period_length,
               "start_training": moment(so.start_training),
               "end_training": moment(so.end_training),
               "options": fa_getTrainOptions(so),
@@ -159,7 +155,7 @@ module.exports = function container (get, set, clear) {
           var finalModelString = JSON.stringify(
             {
               "selector": so.selector.normalized,
-              "period": so.periodLength,
+              "period": so.period_length,
               "start_training": moment(so.start_training).utc(),
               "end_training": moment(end_training).utc(),
               "result_training": trainingResult,
@@ -172,7 +168,7 @@ module.exports = function container (get, set, clear) {
           var testVsBuyHold = typeof(testResult) !== "undefined" ? testResult.vsBuyHold : 'noTest'
 
           var finalModelFile = 'models/forex.model_' + so.selector.normalized
-            + '_period=' + so.periodLength
+            + '_period=' + so.period_length
             + '_from=' + moment(so.start_training).utc().format('YYYYMMDD_HHmmssZZ')
             + '_to=' + moment(end_training).utc().format('YYYYMMDD_HHmmssZZ')
             + '_trainingVsBuyHold=' + trainingResult.vsBuyHold
@@ -232,9 +228,9 @@ module.exports = function container (get, set, clear) {
             '--strategy', 'forex_analytics',
             '--disable_options',
             '--modelfile', path.resolve(__dirname, '..', tempModelFile),
-            '--start', so.start_training,
-            '--end', so.end_training,
-            '--period', so.periodLength,
+            '--start', moment(so.start_training).format('YYYYMMDDHHmm'),
+            '--end', moment(so.end_training).format('YYYYMMDDHHmm'),
+            '--period', so.period_length,
             '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html'
           ]
           var trainingSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), trainingArgs, { stdio: 'inherit' })
@@ -248,19 +244,22 @@ module.exports = function container (get, set, clear) {
             var trainingResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html')
 
             if (so.days_test > 0) {
-              console.log(
-                  "\nRunning simulation on test data from "
-                + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " onwards.\n"
+              var endTest = moment(so.end_training).add(so.days_test, 'days')
+
+              console.log("\nRunning simulation on test data from "
+                + moment(so.end_training).format('YYYY-MM-DD HH:mm:ss ZZ') + " to "
+                + moment(endTest).format('YYYY-MM-DD HH:mm:ss ZZ') + " (" + so.days_test + " days).\n"
               )
-              
+
               var testArgs = [
                 'sim',
                 so.selector.normalized,
                 '--strategy', 'forex_analytics',
                 '--disable_options',
                 '--modelfile', path.resolve(__dirname, '..', tempModelFile),
-                '--start', so.end_training,
-                '--period', so.periodLength,
+                '--start', moment(so.end_training).format('YYYYMMDDHHmm'),
+                '--end', moment(endTest).format('YYYYMMDDHHmm'),
+                '--period', so.period_length,
                 '--filename', path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html',
               ]
               var testSimulation = spawn(path.resolve(__dirname, '..', zenbot_cmd), testArgs, { stdio: 'inherit' })

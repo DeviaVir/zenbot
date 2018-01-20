@@ -73,7 +73,7 @@ module.exports = function container (get, set, clear) {
           return retry('getTrades', func_args)
         }
         if (!body.map) {
-          console.error('\getTrades odd result:')
+          console.error('\ngetTrades odd result:')
           console.error(body)
           return retry('getTrades', func_args)
         }
@@ -100,7 +100,7 @@ module.exports = function container (get, set, clear) {
           return retry('getBalance', args)
         }
         if (body.error) {
-          console.error('\ggetBalance error:')
+          console.error('\ngetBalance error:')
           console.error(body)
           return retry('getBalance', args)
         }
@@ -126,7 +126,7 @@ module.exports = function container (get, set, clear) {
           return retry('getQuote', args)
         }
         if (body.error) {
-          console.error('\ggetQuote error:')
+          console.error('\ngetQuote error:')
           console.error(body)
           return retry('getQuote', args)
         }

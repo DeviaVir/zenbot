@@ -21,10 +21,15 @@ request('https://poloniex.com/public?command=returnTicker', {headers: {'User-Age
     var products = []
     Object.keys(ticker).forEach(function (pair) {
       var asset = pair.split('_')[1], currency = pair.split('_')[0]
+      if(currency === "USDT"){
+        min_total = '1'
+      }else {
+        min_total = '0.0001'
+      }
       products.push({
         asset: asset,
         currency: currency,
-        min_total: '0.0001',
+        min_total: min_total,
         max_size: null,
         increment: '0.00000001',
         label: currencies[asset].name + '/' + currencies[currency].name

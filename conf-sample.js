@@ -141,6 +141,8 @@ c.post_only = true
 
 // default # days for backfill and sim commands
 c.days = 14
+// defaults to a high number of lookback periods
+c.keep_lookback_periods = 50000
 // ms to poll new trades at
 c.poll_trades = 30000
 // amount of currency to start simulations with
@@ -235,4 +237,5 @@ c.output  = {}
 // REST API
 c.output.api = {}
 c.output.api.on = true
+c.output.api.ip = '0.0.0.0' // IPv4 or IPv6 address to listen on, uses all available interfaces if omitted
 c.output.api.port = 0 // 0 = random port

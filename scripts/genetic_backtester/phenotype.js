@@ -31,9 +31,9 @@ module.exports = {
         var items = ['sigmoid', 'tanh', 'relu'];
         var index = Math.floor(Math.random() * items.length);
         r[k] = items[index];
-      } else if (v.type === 'periodLength') {
+      } else if (v.type === 'period_length') {
         var s = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min);
-        r[k] = s + v.periodLength;
+        r[k] = s + v.period_length;
       }
     }
     return r;
@@ -68,7 +68,8 @@ module.exports = {
     if (typeof phenotype.sim === 'undefined') return 0;
     
     var vsBuyHoldRate = (phenotype.sim.vsBuyHold / 50);
-    var wlRatioRate = 1.0 / (1.0 + Math.pow(2.71828, -(phenotype.sim.wins - phenotype.sim.losses)));
+    var wlRatio = phenotype.sim.wins - phenotype.sim.losses
+    var wlRatioRate = 1.0 / (1.0 + Math.pow(2.71828, wlRatio < 0 ? wlRatio:-(wlRatio)));
     var rate = vsBuyHoldRate * (wlRatioRate);
     return rate;
   },

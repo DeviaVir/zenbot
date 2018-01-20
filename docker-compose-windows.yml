@@ -1,5 +1,5 @@
 server:
-  build: .
+  image: deviavir/zenbot:unstable
   volumes:
     - ./conf.js:/app/conf.js
     - ./extensions:/app/extensions
@@ -12,7 +12,7 @@ mongodb:
   image: mongo:latest
   volumes_from:
     - mongodb-data
-  command: mongod --smallfiles
+  command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
 
 mongodb-data:
   image: mongo:latest

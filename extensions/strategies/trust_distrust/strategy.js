@@ -7,8 +7,8 @@ module.exports = function container (get, set, clear) {
     description: 'Sell when price higher than $sell_min% and highest point - $sell_threshold% is reached. Buy when lowest price point + $buy_threshold% reached.',
 
     getOptions: function () {
-      this.option('period', 'period length, same as --periodLength', String, '30m')
-      this.option('periodLength', 'period length, same as --period', String, '30m')
+      this.option('period', 'period length, same as --period_length', String, '30m')
+      this.option('period_length', 'period length, same as --period', String, '30m')
       this.option('min_periods', 'min. number of history periods', Number, 52)
       this.option('sell_threshold', 'sell when the top drops at least below this percentage', Number, 2)
       this.option('sell_threshold_max', 'sell when the top drops lower than this max, regardless of sell_min (panic sell, 0 to disable)', Number, 0)

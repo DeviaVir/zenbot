@@ -82,7 +82,7 @@ let runCommand = (strategy, cb) => {
     trend_ema: `--trend_ema=${strategy.trend_ema} --oversold_rsi=${strategy.oversold_rsi} --oversold_rsi_periods=${strategy.oversold_rsi_periods} --neutral_rate=${strategy.neutral_rate}`
   };
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'; // Use 'win32' for 64 bit windows too
-  let command = `${zenbot_cmd} sim ${simArgs} ${strategyArgs[strategyName]} --periodLength=${strategy.periodLength}  --min_periods=${strategy.min_periods}`;
+  let command = `${zenbot_cmd} sim ${simArgs} ${strategyArgs[strategyName]} --period_length=${strategy.period_length}  --min_periods=${strategy.min_periods}`;
   console.log(`[ ${countArr.length}/${strategies[strategyName].length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
@@ -189,7 +189,7 @@ let processOutput = output => {
     oversoldRsi:        params.oversold_rsi,
 
     days:               days,
-    periodLength:       params.periodLength,
+    period_length:       params.period_length,
     min_periods:        params.min_periods,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
@@ -199,7 +199,7 @@ let processOutput = output => {
 
 let strategies = {
   cci_srsi: objectProduct({
-    periodLength: ['20m'],
+    period_length: ['20m'],
     min_periods: [52, 200],
     rsi_periods: [14, 20],
     srsi_periods: [14, 20],
@@ -212,7 +212,7 @@ let strategies = {
     constant: [0.015]
   }),
   srsi_macd: objectProduct({
-    periodLength: ['30m'],
+    period_length: ['30m'],
     min_periods: [52, 200],
     rsi_periods: [14, 20],
     srsi_periods: [14, 20],
@@ -227,7 +227,7 @@ let strategies = {
     down_trend_threshold: [0]
   }),
   macd: objectProduct({
-    periodLength: ['1h'],
+    period_length: ['1h'],
     min_periods: [52],
     ema_short_period: range(10, 15),
     ema_long_period: range(20, 30),
@@ -238,7 +238,7 @@ let strategies = {
     overbought_rsi: range(70, 70)
   }),
   rsi: objectProduct({
-    periodLength: ['2m'],
+    period_length: ['2m'],
     min_periods: [52],
     rsi_periods: range(10, 30),
     oversold_rsi: range(20, 35),
@@ -248,19 +248,19 @@ let strategies = {
     rsi_divisor: range(2, 2)
   }),
   sar: objectProduct({
-    periodLength: ['2m'],
+    period_length: ['2m'],
     min_periods: [52],
     sar_af: range(0.01, 0.055, 0.005),
     sar_max_af: range(0.1, 0.55, 0.05)
   }),
   speed: objectProduct({
-    periodLength: ['1m'],
+    period_length: ['1m'],
     min_periods: [52],
     baseline_periods: range(1000, 5000, 200),
     trigger_factor: range(1.0, 2.0, 0.1)
   }),
   trend_ema: objectProduct({
-    periodLength: ['2m'],
+    period_length: ['2m'],
     min_periods: [52],
     trend_ema: range(TREND_EMA_MIN, TREND_EMA_MAX),
     neutral_rate: (NEUTRAL_RATE_AUTO ? new Array('auto') : []).concat(range(NEUTRAL_RATE_MIN, NEUTRAL_RATE_MAX).map(r => r / 100)),

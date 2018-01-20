@@ -86,13 +86,13 @@ module.exports = function container (get, set, clear) {
       amount: amount,
       price: price,
       daily_order: true
-    });
+    })
   }
 
   Bitstamp.prototype.tradeMarket = function(direction, market, amount, callback) {
     this._post(market, direction + '/market', callback, {
       amount: amount,
-    });
+    })
   }
 
   var util = require('util')
@@ -158,7 +158,7 @@ module.exports = function container (get, set, clear) {
     if (wstrades.length > 30) wstrades.splice(0,10)
   })
   //-----------------------------------------------------
-	
+
   function statusErr (err, body) {
     if (typeof body === 'undefined') {
       var ret = {}
@@ -184,7 +184,7 @@ module.exports = function container (get, set, clear) {
     }, to * 1000)
   }
 
-	var lastBalance = {asset: 0, currency: 0}
+  var lastBalance = {asset: 0, currency: 0}
   var orders = {}
 
   var exchange = {
@@ -231,16 +231,16 @@ module.exports = function container (get, set, clear) {
     //
 
     getBalance: function (opts, cb) {
-			var args = {
-							currency: opts.currency.toLowerCase(),
-							asset: opts.asset.toLowerCase(),
-							wait: 10
-			  }
+      var args = {
+        currency: opts.currency.toLowerCase(),
+        asset: opts.asset.toLowerCase(),
+        wait: 10
+      }
       var client = authedClient()
       client.balance(null, function (err, body) {
         body = statusErr(err,body)
         if (body.status === 'error') {
-	        return retry('getBalance', args)
+          return retry('getBalance', args)
         }
         var balance = {
           asset: '0',
@@ -248,7 +248,7 @@ module.exports = function container (get, set, clear) {
           currency: '0',
           currency_hold: '0'
         }
-                
+
         // Dirty hack to avoid engine.js bailing out when balance has 0 value
         // The added amount is small enough to not have any significant effect
         balance.currency = n(body[opts.currency.toLowerCase() + '_balance']) + 0.000001
@@ -256,12 +256,12 @@ module.exports = function container (get, set, clear) {
         balance.currency_hold = n(body[opts.currency.toLowerCase() + '_reserved']) + 0.000001
         balance.asset_hold = n(body[opts.asset.toLowerCase() + '_reserved']) + 0.000001
 
-				if (typeof balance.asset == undefined || typeof balance.currency == undefined) {
+        if (typeof balance.asset == undefined || typeof balance.currency == undefined) {
           console.log('Communication delay, fallback to previous balance')
-					balance = lastBalance
-				} else {
-					lastBalance = balance
-				}
+          balance = lastBalance
+        } else {
+          lastBalance = balance
+        }
         cb(null, balance)
       })
     },
@@ -273,7 +273,7 @@ module.exports = function container (get, set, clear) {
 
         body = statusErr(err,body)
         if (body.status === 'error') {
-	        return retry('cancelOrder', func_args, err)
+          return retry('cancelOrder', func_args, err)
         }
         cb()
       })
@@ -293,7 +293,7 @@ module.exports = function container (get, set, clear) {
           if (body.status === 'error') {
             var order = { status: 'rejected', reject_reason: 'balance' }
             return cb(null, order)
-          } else { 
+          } else {
             // Statuses:
             // 'In Queue', 'Open', 'Finished'
             body.status = 'done'
@@ -309,8 +309,8 @@ module.exports = function container (get, set, clear) {
           if (body.status === 'error') {
             var order = { status: 'rejected', reject_reason: 'balance' }
             return cb(null, order)
-          } else { 
-	          body.status = 'done'
+          } else {
+            body.status = 'done'
           }
           orders['~' + body.id] = body
           cb(null, body)
@@ -327,7 +327,6 @@ module.exports = function container (get, set, clear) {
     },
 
     getOrder: function (opts, cb) {
-      var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.order_status(opts.order_id, function (err, body) {
 
@@ -337,12 +336,12 @@ module.exports = function container (get, set, clear) {
           body.status = 'done'
           body.done_reason = 'canceled'
         } else if(body.status === 'Finished')
-          body.status = 'done';
-        
+          body.status = 'done'
+
         if(body.status === 'done'){
           if(body.transactions && body.transactions[0].datetime) body.done_at = body.transactions[0].datetime;
         }
-        
+
         cb(null, body)
       })
     },

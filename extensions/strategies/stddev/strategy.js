@@ -7,8 +7,8 @@ module.exports = function container (get, set, clear) {
     name: 'stddev',
     description: 'Buy when standard deviation and mean increase, sell on mean decrease.',
     getOptions: function () {
-      this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --periodLength', String, '100ms')
-      this.option('periodLength', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period', String, '100ms')
+      this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period_length', String, '100ms')
+      this.option('period_length', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period', String, '100ms')
       this.option('trendtrades_1', "Trades for array 1 to be subtracted stddev and mean from", Number, 5)
       this.option('trendtrades_2', "Trades for array 2 to be calculated stddev and mean from", Number, 53)
       this.option('min_periods', "min_periods", Number, 1250)

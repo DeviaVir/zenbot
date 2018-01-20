@@ -34,7 +34,7 @@
   {
     "asset": "BCH",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Bitcoin Cash/Tether USD"
@@ -90,7 +90,7 @@
   {
     "asset": "BTC",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Bitcoin/Tether USD"
@@ -170,7 +170,7 @@
   {
     "asset": "DASH",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Dash/Tether USD"
@@ -234,7 +234,7 @@
   {
     "asset": "ETC",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum Classic/Tether USD"
@@ -250,7 +250,7 @@
   {
     "asset": "ETH",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum/Tether USD"
@@ -394,7 +394,7 @@
   {
     "asset": "LTC",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Litecoin/Tether USD"
@@ -466,7 +466,7 @@
   {
     "asset": "NXT",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "NXT/Tether USD"
@@ -562,7 +562,7 @@
   {
     "asset": "REP",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Augur/Tether USD"
@@ -626,7 +626,7 @@
   {
     "asset": "STR",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Stellar/Tether USD"
@@ -706,7 +706,7 @@
   {
     "asset": "XMR",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Monero/Tether USD"
@@ -730,7 +730,7 @@
   {
     "asset": "XRP",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ripple/Tether USD"
@@ -762,7 +762,7 @@
   {
     "asset": "ZEC",
     "currency": "USDT",
-    "min_total": "0.0001",
+    "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Zcash/Tether USD"

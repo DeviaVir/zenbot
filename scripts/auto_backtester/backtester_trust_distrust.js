@@ -8,7 +8,7 @@
  * EMA Parameters: "trend_ema", "neutral_rate"
  * RSI Parameters: "oversold_rsi", "oversold_rsi_periods"
  *
- * Example: ./backtester.js gdax.ETH-USD --days=10 --currency_capital=5 --periodLength=1m
+ * Example: ./backtester.js gdax.ETH-USD --days=10 --currency_capital=5 --period_length=1m
 */
 
 let shell     = require('shelljs');
@@ -67,7 +67,7 @@ let objectProduct = obj => {
 
 let runCommand = (strategy, cb) => {
   countArr.push(1);
-  let command = `./zenbot.sh sim ${simArgs} --strategy=trust_distrust --periodLength=${strategy.periodLength}m --sell_threshold=${strategy.sell_threshold} --sell_threshold_max=${strategy.sell_threshold_max} --sell_min=${strategy.sell_min} --buy_threshold=${strategy.buy_threshold} --days=30`;
+  let command = `./zenbot.sh sim ${simArgs} --strategy=trust_distrust --period_length=${strategy.period_length}m --sell_threshold=${strategy.sell_threshold} --sell_threshold_max=${strategy.sell_threshold_max} --sell_min=${strategy.sell_min} --buy_threshold=${strategy.buy_threshold} --days=30`;
   console.log(`[ ${countArr.length}/${strategies.length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
@@ -114,7 +114,7 @@ let processOutput = output => {
     sellMin:        params.sell_min,
     buyThreshold: params.buy_threshold,
     days:               days,
-    periodLength:       params.periodLength,
+    period_length:       params.period_length,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     frequency:          roundp((wins + losses) / days, 3)
@@ -126,7 +126,7 @@ let strategies = objectProduct({
   sell_threshold_max: range(SELL_THRESHOLD_MAX_MIN, SELL_THRESHOLD_MAX_MAX),
   sell_min: range(SELL_MIN_MIN, SELL_MIN_MAX),
   buy_threshold: range(BUY_THRESHOLD_MIN, BUY_THRESHOLD_MAX),
-  periodLength: range(PERIOD_MIN, PERIOD_MAX)
+  period_length: range(PERIOD_MIN, PERIOD_MAX)
 });
 
 let tasks = strategies.map(strategy => {

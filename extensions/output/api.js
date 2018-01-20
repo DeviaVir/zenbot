@@ -5,27 +5,55 @@ module.exports = function container (get) {
   let express = require('express')
   let app = express()
   let random_port = require('random-port')
+  let path = require('path')
 
   let run = function(reporter, tradeObject) {
     if (!reporter.port || reporter.port === 0) {
       random_port({from: 20000}, function(port) {
-        startServer(port, tradeObject)
+        startServer(port, reporter.ip, tradeObject)
       })
     } else {
-      startServer(reporter.port, tradeObject)
+      startServer(reporter.port, reporter.ip, tradeObject)
     }
   }
 
-  let startServer = function(port, tradeObject) {
+  let objectWithoutKey = (object, key) => {
+    const {[key]: deletedKey, ...otherKeys} = object;
+    return otherKeys;
+  };
+
+  let startServer = function(port, ip, tradeObject) {
     tradeObject.port = port
 
-    app.get('/trades', function (req, res) {
-      res.send(tradeObject)
-    })
+    app.set('views', path.join(__dirname+'/../../templates'));
+    app.set('view engine', 'ejs');
 
-    app.listen(port)
-    tradeObject.url = require('ip').address() + ':' + port + '/trades'
-    console.log('api running on ' + tradeObject.url)
+    app.use('/assets', express.static(__dirname+'/../../templates/dashboard_assets'));
+    app.use('/assets-wp', express.static(__dirname+'/../../dist/'));
+    app.use('/assets-zenbot', express.static(__dirname+'/../../assets'));
+
+    app.get('/', function (req, res) {
+      let datas = objectWithoutKey(tradeObject, 'options');
+      datas = objectWithoutKey(tradeObject);
+      res.render('dashboard', datas);
+    });
+
+    app.get('/trades', function (req, res) {
+      res.send(objectWithoutKey(tradeObject, 'options'));
+    });
+
+    app.get('/stats', function (req, res) {
+      res.sendFile(path.join(__dirname+'../../../stats/index.html'));
+    });
+
+    if (ip) {
+      app.listen(port, ip)
+      tradeObject.url = ip + ':' + port + '/'
+    } else {
+      app.listen(port)
+      tradeObject.url = require('ip').address() + ':' + port + '/'
+    }
+    console.log('Web GUI running on http://' + tradeObject.url)
   }
 
   return {

@@ -3,7 +3,7 @@
     "id": "BTCUSD",
     "asset": "BTC",
     "currency": "USD",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "10000",
     "increment": "0.01",
     "label": "BTC/USD"
@@ -12,7 +12,7 @@
     "id": "BTCEUR",
     "asset": "BTC",
     "currency": "EUR",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "10000",
     "increment": "0.01",
     "label": "BTC/EUR"
@@ -21,7 +21,7 @@
     "id": "EURUSD",
     "asset": "EUR",
     "currency": "USD",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "10000",
     "increment": "0.01",
     "label": "EUR/USD"
@@ -30,7 +30,7 @@
     "id": "LTCUSD",
     "asset": "LTC",
     "currency": "USD",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "1000000",
     "increment": "0.01",
     "label": "LTC/USD"
@@ -39,7 +39,7 @@
     "id": "LTCEUR",
     "asset": "LTC",
     "currency": "EUR",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "1000000",
     "increment": "0.01",
     "label": "LTC/EUR"
@@ -48,7 +48,7 @@
     "id": "LTCBTC",
     "asset": "LTC",
     "currency": "BTC",
-    "min_size": "0.01",
+    "min_size": "0.001",
     "max_size": "1000000",
     "increment": "0.00001",
     "label": "LTC/BTC"
@@ -75,7 +75,7 @@
     "id": "XRPBTC",
     "asset": "XRP",
     "currency": "BTC",
-    "min_size": "0.01",
+    "min_size": "0.001",
     "max_size": "1000000",
     "increment": "0.00001",
     "label": "XRP/BTC"
@@ -84,7 +84,7 @@
     "id": "ETHUSD",
     "asset": "ETH",
     "currency": "USD",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "1000000",
     "increment": "0.01",
     "label": "ETH/USD"
@@ -93,7 +93,7 @@
     "id": "ETHEUR",
     "asset": "ETH",
     "currency": "EUR",
-    "min_size": "0.01",
+    "min_size": "5",
     "max_size": "1000000",
     "increment": "0.01",
     "label": "ETH/EUR"
@@ -102,9 +102,36 @@
     "id": "ETHBTC",
     "asset": "ETH",
     "currency": "BTC",
-    "min_size": "0.01",
+    "min_size": "0.001",
     "max_size": "1000000",
     "increment": "0.00001",
     "label": "ETH/BTC"
+  },
+  {
+    "id": "BCHUSD",
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "5",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BCH/USD"
+  },
+  {
+    "id": "BCHEUR",
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "5",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BCH/EUR"
+  },
+  {
+    "id": "BCHBTC",
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.001",
+    "max_size": "1000000",
+    "increment": "0.00001",
+    "label": "BCH/BTC"
   }
 ]

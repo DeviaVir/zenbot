@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '8'
+  - '9'
+before_install:
+  - npm install -g node-gyp
+  - if [ "$TRAVIS_NODE_VERSION" = "9" ]; then npm install -g greenkeeper-lockfile@1; fi
+before_script: if [ "$TRAVIS_NODE_VERSION" = "9" ]; then greenkeeper-lockfile-update; fi
+after_script: if [ "$TRAVIS_NODE_VERSION" = "9" ]; then greenkeeper-lockfile-upload; fi
+after_success:
+  - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then /bin/sh scripts/cron.sh; fi
+env:
+  global:
+    secure: X5ZcoLrEavb26c1vY6L6hxmOtUGp07ta9jb0heU/9TkR0PCxBwqh1THHZIUO4qhOURSPXmBmajgMBDYzBgHpjd+5PrtF5mTqcRhXLpAbb9RQ0+H9VvTuwAWca6H7jG8RUS7zcV70u9de0zEmRFTX85iusPoIoqF2cafgsMtq6Gtx8rb+4WZ45Etn589RrOaehG2u1w+MW6vzohWpHY6hc3yqFWsKUfDdahWofdmH1SIpEgckbQ26LuaBMfqHeDPHtHsMfloHhukvmPzobBKJ7PuQWtJ/enuygY9ZjAX7NTgWEG7m5SLvJZ4PuVkc9ea0ZHMVB3L9bR2njbtBf4QnRhti/XyaNgBGqTsce52z3Z+3Hs9/Hktbb2KLJ2Jid3nwhoUmYr5HTRPkkQ54gOgLFMshi4H+vr4s+MMcfHQ6B0kjADenEf2vFcMwLCey/ERh52csqdlJviw9IJRa0YrSXc3krnlOVMPHnaOgKuU/hYyM3uj5CzG4iCmqOJG0sBtlrp+Q+q9kDtpNw+U/xRZzJ6+0XmFNtNLz762VCW6zs/zsaJ6livU6rSUOKyUo5v+5Ay6DOAjDe2NM3R7hymvhlWJh8SCLBJEDZsLbeN1pozDatOXsD2OWJnhHYfQbntekytoXy3fSrgZYuWJ6yL/S6R4Eo73XkoL2Bah8+aAhcEE=
