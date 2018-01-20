@@ -147,27 +147,134 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-12">
                     <div class="white-box">
-                        <h3 class="box-title"><%= exchange.name.toUpperCase() %> <%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> Live chart</h3>
-                        <div style="height: 405px;">
-                            <!-- TradingView Widget BEGIN -->
-                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                            <script type="text/javascript">
-                                new TradingView.widget({
-                                    "autosize": true,
-                                    "symbol": "<%= (exchange.name.toUpperCase() === 'GDAX' ? 'COINBASE' : exchange.name.toUpperCase()) %>:<%= asset.toUpperCase() %><%= currency.toUpperCase() %>",
-                                    "interval": "D",
-                                    "timezone": "Etc/UTC",
-                                    "theme": "Light",
-                                    "style": "1",
-                                    "locale": "en",
-                                    "toolbar_bg": "#f1f3f6",
-                                    "enable_publishing": false,
-                                    "save_image": false,
-                                    "hideideas": true
-                                });
-                            </script>
+                        <h3 class="box-title"><%= exchange.name.toUpperCase() %> <%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> Trade chart</h3>
+                        <div id="trades_plot" style="height: 505px;">
                         </div>
-                        <!-- TradingView Widget END -->
+                        <script src="/assets-wp/plotly.bundle.js" charset="utf8"></script>
+                        <script type="text/javascript">
+
+                            function unpack(rows, key) {
+                                return rows.map(function(row) {
+                                    if (key == 'time') {
+                                        // Plotly’s date format is 'yyyy-mm-dd HH:MM:SS.ssssss'
+                                        return new Date(row.time - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
+                                    } else {
+                                        return row[key];
+                                    }
+                                });
+                            }
+
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    var tradeData = JSON.parse(this.responseText);
+                                    var trades = tradeData.trades;
+                                    var lookback = tradeData.lookback;
+                                    var my_trades = tradeData.my_trades;
+
+                                    var price = {
+                                        type: "scatter",
+                                        name: 'Price',
+                                        mode: 'lines+markers',
+                                        x: unpack(trades, 'time'),
+                                        y: unpack(trades, 'price')
+                                    };
+
+                                    var volume = {
+                                        type: 'bar',
+                                        name: 'Volume',
+                                        yaxis: 'y2',
+                                        opacity: '0.25',
+                                        x: unpack(trades, 'time'),
+                                        y: unpack(trades, 'size'),
+                                        width: 3600*4
+                                    };
+
+                                    var ohlc = {
+                                        type: 'ohlc',
+                                        name: 'OHLC',
+                                        x: unpack(lookback, 'time'),
+                                        open: unpack(lookback, 'open'),
+                                        high: unpack(lookback, 'high'),
+                                        low: unpack(lookback, 'low'),
+                                        close: unpack(lookback, 'close') 
+                                    };
+
+                                    var data = [ price, volume, ohlc ];
+
+                                    var lastTrade = new Date(price.x[price.x.length - 1]);
+                                    lastTrade.setMinutes(lastTrade.getMinutes() + 1);
+                                    var rangeEnd = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
+                                    lastTrade.setMinutes(lastTrade.getMinutes() - 61);
+                                    var rangeStart = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
+
+                                    var layout = {
+                                        showlegend: false,
+                                        xaxis: {
+                                            range: [ rangeStart, rangeEnd ],
+                                            rangeselector: {
+                                                buttons: [
+                                                    {
+                                                        count: 5,
+                                                        label: '5m',
+                                                        step: 'minute',
+                                                        stepmode: 'todate'
+                                                    },
+                                                    {
+                                                        count: 30,
+                                                        label: '30m',
+                                                        step: 'minute',
+                                                        stepmode: 'todate'
+                                                    },
+                                                    {
+                                                        count: 1,
+                                                        label: '1h',
+                                                        step: 'hour',
+                                                        stepmode: 'todate'
+                                                    },
+                                                    {
+                                                        step: 'all'
+                                                    }
+                                                ]
+                                            },
+                                            rangeslider: {},
+                                            type: 'date'
+                                        },
+                                        yaxis: {
+                                            title: 'Price',
+                                            overlaying: 'y2',
+                                            side: 'right'
+                                        },
+                                        yaxis2: { 
+                                            title: 'Volume',
+                                            side: 'left'
+                                        },
+                                        annotations: []
+                                    };
+
+                                    for (i = 0; i < my_trades.length; i++) {
+                                        layout.annotations.push({
+                                            x: new Date(my_trades[i].time - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, ''),
+                                            y: my_trades[i].price,
+                                            xref: 'x',
+                                            yref: 'y',
+                                            text: my_trades[i].type,
+                                            ax: 0,
+                                            ay: -50
+                                        });
+                                    }
+
+                                    Plotly.newPlot('trades_plot', data, layout);
+
+                                    window.onresize = function() {
+                                        Plotly.Plots.resize('trades_plot');
+                                    };
+                                }
+                            };
+
+                            xmlhttp.open("GET", "/trades", true);
+                            xmlhttp.send();
+                        </script>
                     </div>
                 </div>
             </div>
