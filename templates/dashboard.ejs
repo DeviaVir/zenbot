@@ -293,6 +293,7 @@
                                     <th>TYPE</th>
                                     <th>AMOUNT</th>
                                     <th>PRICE</th>
+                                    <th>TOTAL</th>
                                     <th>SLIPPAGE</th>
                                     <th>DATE</th>
                                     <th>EXECUTION TIME</th>
@@ -304,7 +305,8 @@
                                     <td><span class='text-success'>BUY</span></td>
                                     <td><%= buy_order.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= buy_order.price %> <%= currency.toUpperCase() %></td>
-                                    <td></td>
+                                    <td>-</td>
+                                    <td>-</td>
                                     <td><%= new Date(buy_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
                                     <td><span class='text-info'>Waiting</span></td>
                                 </tr>
@@ -314,7 +316,8 @@
                                     <td><span class='text-danger'>SELL</span></td>
                                     <td><%= sell_order.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= sell_order.price %> <%= currency.toUpperCase() %></td>
-                                    <td></td>
+                                    <td>-</td>
+                                    <td>-</td>
                                     <td><%= new Date(sell_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
                                     <td><span class='text-info'>Waiting</span></td>
                                 </tr>
@@ -325,6 +328,7 @@
                                     <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></td>
                                     <td><%= trade.size %> <%= asset.toUpperCase() %></td>
                                     <td><%= trade.price %> <%= currency.toUpperCase() %></td>
+                                    <td><%= trade.size * trade.price %> <%= currency.toUpperCase() %></td>
                                     <td><%= new Intl.NumberFormat("en-US", {style: "percent", maximumSignificantDigits: 4}).format(trade.slippage) %></td>
                                     <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><%= moment.duration(trade.execution_time).humanize() %></td>
