@@ -106,8 +106,8 @@
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Last balance ( <%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
                         <ul class="list-inline one-part">
-                            <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><%= stats.tmp_balance %></span> <small class="text-success"><%= currency.toUpperCase() %></small></li>
-                            <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="text-success"><%= stats.profit %></span> <small class="text-success">of profit</small></li>
+                            <li class="text-right text-success"><i class="ti-arrow-up"></i> <span class="counter"><%= stats.tmp_balance %></span> <small><%= currency.toUpperCase() %></small></li>
+                            <li class="text-right text-<% if (parseFloat(stats.profit) < 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.profit %></span> <small>of profit</small></li>
                         </ul>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Buy hold</h3>
                         <ul class="list-inline one-part">
-                            <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><%= stats.buy_hold %></span> <small class="text-info"><%= currency.toUpperCase() %></small></li>
-                            <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="text-info"><%= stats.buy_hold_profit %></span> <small class="text-info">of profit</small></li>
+                            <li class="text-right text-info"><i class="ti-arrow-up"></i> <span class="counter"><%= stats.buy_hold %></span> <small><%= currency.toUpperCase() %></small></li>
+                            <li class="text-right text-<% if (parseFloat(stats.buy_hold_profit) < 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.buy_hold_profit %></span> <small>of profit</small></li>
                         </ul>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                         <h3 class="box-title">Trades per day</h3>
                         <ul class="list-inline one-part">
                             <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= stats.trade_per_day %></span></li>
-                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="text-purple"><%= my_trades.length %> trades over <%= day_count %> days</span></li>
+                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="text-purple"><%= my_trades.length %> trade<% if (my_trades.length != 1) { %>s<% } %> over <%= day_count %> day<% if (day_count != 1) { %>s<% } %></span></li>
                         </ul>
                     </div>
                 </div>
@@ -231,7 +231,7 @@
                                                         count: 1,
                                                         label: '1h',
                                                         step: 'hour',
-                                                        stepmode: 'todate'
+                                                        stepmode: 'backward'
                                                     },
                                                     {
                                                         step: 'all'
