@@ -66,45 +66,59 @@
             <!-- ============================================================== -->
             <!-- .row -->
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Current Market</h3>
-
-                        <div  class="row">
-
-                            <div class="col-sm-4 col-12">
+                        <div class="row">
+                            <div class="col-sm-4 col-6">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-info">Price</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-info"></i> <span><%= period.close %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
                             <% if (typeof quote != "undefined") { %>
-                            <div class="col-sm-4 col-12">
+                            <div class="col-sm-4 col-6">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-success">ASK</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-success"></i> <span><%= quote.ask %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
-
-                            <div class="col-sm-4 col-12">
+                            <div class="col-sm-4 col-6">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-danger">BID</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-danger"></i> <span><%= quote.bid %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
                             <% } %>
-
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Captial</h3>
+                        <div class="row">
+                            <div class="col-sm-6 col-6">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Asset</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= balance.asset %></span> <small><%= asset.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6 col-6">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Currency</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= balance.currency %></span> <small><%= currency.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
             <div class="row">
                 <% if (typeof stats != "undefined") { %>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="white-box analytics-info">
-                        <h3 class="box-title">Last balance ( <%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
+                        <h3 class="box-title">Last balance (<%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2, maximumSignificantDigits: 10}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
                         <ul class="list-inline one-part">
                             <li class="text-right text-success"><i class="ti-arrow-up"></i> <span class="counter"><%= stats.tmp_balance %></span> <small><%= currency.toUpperCase() %></small></li>
                             <li class="text-right text-<% if (parseFloat(stats.profit) < 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.profit %></span> <small>of profit</small></li>
@@ -129,16 +143,18 @@
                         </ul>
                     </div>
                 </div>
-                <% } %>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">Asset / Currency</h3>
-                        <ul class="list-inline one-part">
-                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= balance.asset %></span> <small class="text-purple"><%= asset.toUpperCase() %></small></li>
-                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= balance.currency %></span> <small class="text-purple"><%= currency.toUpperCase() %></small></li>
-                        </ul>
+                    <% if (typeof stats.error_rate != "undefined") { %>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Error Rate</h3>
+                            <ul class="list-inline one-part">
+                                <li class="text-right text-<% if (parseFloat(stats.error_rate) > 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.error_rate %></span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple">Win/Loss: <%= stats.win %>/<%= stats.losses %></span></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                    <% } %>
+                <% } %>
             </div>
 
             <!--/.row -->
