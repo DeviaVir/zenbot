@@ -39,26 +39,21 @@ let NEUTRAL_RATE_AUTO = false
 let iterationCount = 0
 
 let runCommand = (taskStrategyName, phenotype, cb) => {
-  let commonArgs = `--strategy=${taskStrategyName} --period_length=${phenotype.period_length} --min_periods=${phenotype.min_periods}  --markdown_buy_pct=${phenotype.markdown_buy_pct} --markup_sell_pct=${phenotype.markup_sell_pct} --order_type=${phenotype.order_type} --sell_stop_pct=${phenotype.sell_stop_pct} --buy_stop_pct=${phenotype.buy_stop_pct} --profit_stop_enable_pct=${phenotype.profit_stop_enable_pct} --profit_stop_pct=${phenotype.profit_stop_pct}`
-  let strategyArgs = {
-    bollinger: `--bollinger_size=${phenotype.bollinger_size} --bollinger_time=${phenotype.bollinger_time} --bollinger_upper_bound_pct=${phenotype.bollinger_upper_bound_pct} --bollinger_lower_bound_pct=${phenotype.bollinger_lower_bound_pct}`,
-    crossover_vwap: `--emalen1=${phenotype.emalen1} --smalen1=${phenotype.smalen1} --smalen2=${phenotype.smalen2} --vwap_length=${phenotype.vwap_length} --vwap_max=${phenotype.vwap_max}`,
-    trendline: `--lastpoints=${phenotype.lastpoints}  --avgpoints=${phenotype.avgpoints} --lastpoints2=${phenotype.lastpoints2} --avgpoints2=${phenotype.avgpoints2} --markdown_buy_pct=${phenotype.markdown_buy_pct} --markup_sell_pct=${phenotype.markup_sell_pct}`,
-    cci_srsi: `--cci_periods=${phenotype.rsi_periods} --rsi_periods=${phenotype.srsi_periods} --srsi_periods=${phenotype.srsi_periods} --srsi_k=${phenotype.srsi_k} --srsi_d=${phenotype.srsi_d} --oversold_rsi=${phenotype.oversold_rsi} --overbought_rsi=${phenotype.overbought_rsi} --oversold_cci=${phenotype.oversold_cci} --overbought_cci=${phenotype.overbought_cci} --constant=${phenotype.constant}`,
-    srsi_macd: `--rsi_periods=${phenotype.rsi_periods} --srsi_periods=${phenotype.srsi_periods} --srsi_k=${phenotype.srsi_k} --srsi_d=${phenotype.srsi_d} --oversold_rsi=${phenotype.oversold_rsi} --overbought_rsi=${phenotype.overbought_rsi} --ema_short_period=${phenotype.ema_short_period} --ema_long_period=${phenotype.ema_long_period} --signal_period=${phenotype.signal_period} --up_trend_threshold=${phenotype.up_trend_threshold} --down_trend_threshold=${phenotype.down_trend_threshold}`,
-    macd: `--ema_short_period=${phenotype.ema_short_period} --ema_long_period=${phenotype.ema_long_period} --signal_period=${phenotype.signal_period} --up_trend_threshold=${phenotype.up_trend_threshold} --down_trend_threshold=${phenotype.down_trend_threshold} --overbought_rsi_periods=${phenotype.overbought_rsi_periods} --overbought_rsi=${phenotype.overbought_rsi}`,
-    neural: `--activation_1_type=${phenotype.activation_1_type} --neurons_1=${phenotype.neurons_1} --depth=${phenotype.depth} --momentum=${phenotype.momentum} --decay=${phenotype.decay} --min_predict=${phenotype.min_predict} --learns=${phenotype.learns}`,
-    rsi: `--rsi_periods=${phenotype.rsi_periods} --oversold_rsi=${phenotype.oversold_rsi} --overbought_rsi=${phenotype.overbought_rsi} --rsi_recover=${phenotype.rsi_recover} --rsi_drop=${phenotype.rsi_drop} --rsi_divisor=${phenotype.rsi_divisor}`,
-    sar: `--sar_af=${phenotype.sar_af} --sar_max_af=${phenotype.sar_max_af}`,
-    speed: `--baseline_periods=${phenotype.baseline_periods} --trigger_factor=${phenotype.trigger_factor}`,
-    trend_ema: `--trend_ema=${phenotype.trend_ema} --oversold_rsi=${phenotype.oversold_rsi} --oversold_rsi_periods=${phenotype.oversold_rsi_periods} --neutral_rate=auto`,
-    trust_distrust: `--sell_threshold=${phenotype.sell_threshold} --sell_threshold_max=${phenotype.sell_threshold_max} --sell_min=${phenotype.sell_min} --buy_threshold=${phenotype.buy_threshold} --buy_threshold_max=${phenotype.buy_threshold_max} --greed=${phenotype.greed}`,
-    ta_macd: `--ema_short_period=${phenotype.ema_short_period} --ema_long_period=${phenotype.ema_long_period} --signal_period=${phenotype.signal_period} --up_trend_threshold=${phenotype.up_trend_threshold} --down_trend_threshold=${phenotype.down_trend_threshold} --overbought_rsi_periods=${phenotype.overbought_rsi_periods} --overbought_rsi=${phenotype.overbought_rsi}`,
-    ta_ema: `--trend_ema=${phenotype.trend_ema} --oversold_rsi=${phenotype.oversold_rsi} --oversold_rsi_periods=${phenotype.oversold_rsi_periods} --neutral_rate=auto`,
-    dema: `--ema_short_period=${phenotype.ema_short_period} --ema_long_period=${phenotype.ema_long_period} --signal_period=${phenotype.signal_period} --up_trend_threshold=${phenotype.up_trend_threshold} --down_trend_threshold=${phenotype.down_trend_threshold} --overbought_rsi_periods=${phenotype.overbought_rsi_periods} --overbought_rsi=${phenotype.overbought_rsi}`
-  }
+  var cmdArgs = Object.assign({}, phenotype)
+  cmdArgs.strategy = taskStrategyName
+  Object.assign(cmdArgs, simArgs)
+
+  var selector = cmdArgs.selector
+  delete cmdArgs.selector
+  delete cmdArgs.sim
+
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'
-  let command = `${zenbot_cmd} sim ${simArgs} ${commonArgs} ${strategyArgs[taskStrategyName]}`
+  let command = `${zenbot_cmd} sim ${selector}`
+
+  for (const [ key, value ] of Object.entries(cmdArgs)) {
+    command += ` --${key}=${value}`
+  }
+
   console.log(`[ ${iterationCount++}/${populationSize * selectedStrategies.length} ] ${command}`)
 
   phenotype['sim'] = {}
@@ -547,28 +542,16 @@ console.log(`\n--==${VERSION}==--`)
 console.log(new Date().toUTCString() + '\n')
 
 let argv = require('yargs').argv
-let simArgs = (argv.selector) ? argv.selector : 'bitfinex.ETH-USD'
-if (argv.days) {
-  simArgs += ` --days=${argv.days}`
-}
-else {
-  if (argv.start) {
-    simArgs += ` --start=${argv.start}`
-  }
-  if (argv.end) {
-    simArgs += ` --end=${argv.end}`
-  }
-}
-if (argv.currency_capital) {
-  simArgs += ` --currency_capital=${argv.currency_capital}`
-}
-if (argv.asset_capital) {
-  simArgs += ` --asset_capital=${argv.asset_capital}`
-}
-if (argv.symmetrical) {
-  simArgs += ' --symmetrical=true'
-}
-simArgs += ' --filename none'
+let simArgs = Object.assign({}, argv)
+if (!simArgs.selector)
+  simArgs.selector = 'bitfinex.ETH-USD'
+if (!simArgs.filename)
+  simArgs.filename = 'none'
+delete simArgs.use_strategies
+delete simArgs.population_data
+delete simArgs.population
+delete simArgs['$0'] // This comes in to argv all by itself
+delete simArgs['_']  // This comes in to argv all by itself
 
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
 let populationFileName = (argv.population_data) ? argv.population_data : null
@@ -626,8 +609,8 @@ var generateCommandParams = input => {
     var key = keys[i]
     if(isUsefulKey(key)){
       // selector should be at start before keys
-      if(key == 'selector'){
-        result = input[key].normalized + result
+      if(key == "selector"){
+        result = input[key] + result
       }
 
       else result += ' --'+key+'='+input[key]
