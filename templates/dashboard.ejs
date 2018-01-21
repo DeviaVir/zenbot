@@ -323,7 +323,7 @@
                                     <td><%= buy_order.price %> <%= currency.toUpperCase() %></td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td><%= new Date(buy_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><%= moment(buy_order.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><span class='text-info'>Waiting</span></td>
                                 </tr>
                                 <% } %>
@@ -334,7 +334,7 @@
                                     <td><%= sell_order.price %> <%= currency.toUpperCase() %></td>
                                     <td>-</td>
                                     <td>-</td>
-                                    <td><%= new Date(sell_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><%= moment(sell_order.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><span class='text-info'>Waiting</span></td>
                                 </tr>
                                 <% } %>
