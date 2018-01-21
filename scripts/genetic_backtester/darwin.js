@@ -252,6 +252,22 @@ let strategies = {
     bollinger_upper_bound_pct: RangeFloat(-1, 30),
     bollinger_lower_bound_pct: RangeFloat(-1, 30)
   },
+  trend_bollinger: {
+    period_length: RangePeriod(1, 60, 'm'),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    bollinger_size: Range(1, 40),
+    bollinger_time: RangeFloat(1,6),
+    bollinger_upper_bound_pct: RangeFloat(-1, 30),
+    bollinger_lower_bound_pct: RangeFloat(-1, 30)
+  },
   crossover_vwap: {
     // -- common
     period_length: RangePeriod(1, 400, 'm'),
