@@ -66,24 +66,24 @@
             <!-- ============================================================== -->
             <!-- .row -->
             <div class="row">
-                <div class="col-6">
+                <div class="col-lg-6 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Current Market</h3>
                         <div class="row">
-                            <div class="col-sm-4 col-6">
+                            <div class="col-lg-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-info">Price</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-info"></i> <span><%= period.close %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
                             <% if (typeof quote != "undefined") { %>
-                            <div class="col-sm-4 col-6">
+                            <div class="col-lg-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-success">ASK</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-success"></i> <span><%= quote.ask %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
-                            <div class="col-sm-4 col-6">
+                            <div class="col-lg-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-danger">BID</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-danger"></i> <span><%= quote.bid %></span> <small><%= asset.toUpperCase() %></small></li>
@@ -93,17 +93,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Captial</h3>
                         <div class="row">
-                            <div class="col-sm-6 col-6">
+                            <div class="col-lg-6 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Asset</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= balance.asset %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
-                            <div class="col-sm-6 col-6">
+                            <div class="col-lg-6 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Currency</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= balance.currency %></span> <small><%= currency.toUpperCase() %></small></li>
