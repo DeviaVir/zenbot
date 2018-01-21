@@ -236,6 +236,20 @@ let RangeNeuralActivation = () => {
 }
 
 let strategies = {
+  momentum: {
+    // -- common
+    period_length: RangePeriod(1, 60, 'm'),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1, 20),
+
+    // -- strategy
+    momentum_size: Range(1, 20)
+  },
   bollinger: {
     period_length: RangePeriod(1, 60, 'm'),
     markdown_buy_pct: RangeFloat(-1, 5),
