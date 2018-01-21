@@ -568,6 +568,22 @@ let strategies = {
     wavetrend_oversold_1: Range(-100,0),
     wavetrend_oversold_2: Range(-100,0),
     wavetrend_trends: RangeBoolean()
+  },
+  stddev: {
+    // -- common
+    // reference in extensions is given in ms have not heard of an exchange that supports 500ms thru api so setting min at 1 second
+    period_length: RangePeriod(1, 7200, 's'), 
+    min_periods: Range(1, 2500),
+    markup_pct: RangeFloat(0, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    trendtrades_1: Range(2, 20),
+    trendtrades_2: Range(4, 100)
   }
 }
 
