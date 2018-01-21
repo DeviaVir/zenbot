@@ -238,7 +238,6 @@ let RangeNeuralActivation = () => {
 let strategies = {
   bollinger: {
     period_length: RangePeriod(1, 60, 'm'),
-    min_periods: Range(1, 20),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
@@ -609,7 +608,7 @@ var generateCommandParams = input => {
     var key = keys[i]
     if(isUsefulKey(key)){
       // selector should be at start before keys
-      if(key == "selector"){
+      if(key == 'selector'){
         result = input[key] + result
       }
 
@@ -690,7 +689,7 @@ let simulateGeneration = () => {
         console.log('\n\nGeneration\'s Best Results')
         selectedStrategies.forEach((v)=> {
           let best = pools[v]['pool'].best()
-          
+
           if(best.sim){
             console.log(`\t(${v}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}.`)
 
