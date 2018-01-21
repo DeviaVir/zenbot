@@ -234,6 +234,12 @@ let RangeNeuralActivation = () => {
   }
   return r
 }
+let RangeBoolean = () => {
+  var r = {
+    type: 'truefalse'
+  }
+  return r
+}
 
 let strategies = {
   bollinger: {
@@ -542,6 +548,26 @@ let strategies = {
     down_trend_threshold: Range(0, 50),
     overbought_rsi_periods: Range(1, 50),
     overbought_rsi: Range(20, 100)
+  },
+  wavetrend: {
+    // -- common
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 200),
+    markup_pct: RangeFloat(0, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    wavetrend_channel_length: Range(1,20),
+    wavetrend_average_length: Range(1,42),
+    wavetrend_overbought_1: Range(1, 100),
+    wavetrend_overbought_2: Range(1,100),
+    wavetrend_oversold_1: Range(-100,0),
+    wavetrend_oversold_2: Range(-100,0),
+    wavetrend_trends: RangeBoolean()
   }
 }
 
