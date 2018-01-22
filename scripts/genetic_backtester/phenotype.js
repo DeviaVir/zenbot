@@ -34,6 +34,8 @@ module.exports = {
       } else if (v.type === 'period_length') {
         var s = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min)
         r[k] = s + v.period_length
+      } else if (v.type === 'truefalse') {
+        r[k] = (Math.random() > 0.5) ? true : false
       }
     }
     return r
