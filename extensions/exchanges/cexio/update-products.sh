@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const ccxt = require('ccxt')
 const path = require('path')
 var client = new ccxt.cex()
