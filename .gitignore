@@ -30,3 +30,5 @@ temp.html
 logs
 .sync
 dist/*
+.idea
+*.iml
