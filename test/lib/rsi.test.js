@@ -5,7 +5,7 @@ describe('RSI (Relative Strength Index)', function () {
   it('should calculate RSI with default period', function () {
     (RSI())(normalData, 'rsi', 14)
 
-    expect(normalData.period.rsi).toEqual(32)
+    expect(normalData.period.rsi).toEqual(32.26)
   })
 
   it('should set RSI to 100 when there is no losses for the entire period', function() {
