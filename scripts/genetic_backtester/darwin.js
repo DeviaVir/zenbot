@@ -234,9 +234,31 @@ let RangeNeuralActivation = () => {
   }
   return r
 }
+let RangeBoolean = () => {
+  var r = {
+    type: 'truefalse'
+  }
+  return r
+}
 
 let strategies = {
   bollinger: {
+    period_length: RangePeriod(1, 60, 'm'),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    bollinger_size: Range(1, 40),
+    bollinger_time: RangeFloat(1,6),
+    bollinger_upper_bound_pct: RangeFloat(-1, 30),
+    bollinger_lower_bound_pct: RangeFloat(-1, 30)
+  },
+  trend_bollinger: {
     period_length: RangePeriod(1, 60, 'm'),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
@@ -526,6 +548,55 @@ let strategies = {
     down_trend_threshold: Range(0, 50),
     overbought_rsi_periods: Range(1, 50),
     overbought_rsi: Range(20, 100)
+  },
+  wavetrend: {
+    // -- common
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 200),
+    markup_pct: RangeFloat(0, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    wavetrend_channel_length: Range(1,20),
+    wavetrend_average_length: Range(1,42),
+    wavetrend_overbought_1: Range(1, 100),
+    wavetrend_overbought_2: Range(1,100),
+    wavetrend_oversold_1: Range(-100,0),
+    wavetrend_oversold_2: Range(-100,0),
+    wavetrend_trends: RangeBoolean()
+  },
+  stddev: {
+    // -- common
+    // reference in extensions is given in ms have not heard of an exchange that supports 500ms thru api so setting min at 1 second
+    period_length: RangePeriod(1, 7200, 's'), 
+    min_periods: Range(1, 2500),
+    markup_pct: RangeFloat(0, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    trendtrades_1: Range(2, 20),
+    trendtrades_2: Range(4, 100)
+  },
+  momentum: {
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 2500),
+    markup_pct: RangeFloat(0, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+    
+    // -- strategy
+    momentum_size: Range(1,20)
   }
 }
 

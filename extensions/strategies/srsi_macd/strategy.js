@@ -67,7 +67,8 @@ module.exports = function container (get, set, clear) {
           color = 'red'
         }
         cols.push(z(8, n(s.period.macd_histogram).format('+00.0000'), ' ')[color])
-        cols.push(z(8, n(s.period.srsi_K).format('000'), ' ').cyan)
+        cols.push(z(8, n(s.period.srsi_K).format('00.00'), ' ').cyan)
+        cols.push(z(8, n(s.period.srsi_D).format('00.00'), ' ').yellow)
       }
       else {
         cols.push('         ')
