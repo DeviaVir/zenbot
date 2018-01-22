@@ -1,9 +1,9 @@
 var RSI = require('../../lib/rsi');
 var SRSI = require('../../lib/srsi')(RSI);
 
-fdescribe('SRSI (StochRSI Oscillator)', function () {
+describe('SRSI (StochRSI Oscillator)', function () {
 
-  it('should calculate RSI with default period', function () {
+  it('should calculate SRSI with default period', function () {
     SRSI(data, 'srsi', 14, 3, 3);
 
     expect(data.period.srsi_K).toEqual(19.38);
