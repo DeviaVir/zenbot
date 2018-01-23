@@ -84,7 +84,7 @@ module.exports = function container (get, set, clear) {
         if (!so.min_periods) so.min_periods = 1
         var cursor, reversing, reverse_point
         var query_start = so.start ? tb(so.start).resize(so.period_length).subtract(so.min_periods + 2).toMilliseconds() : null
-
+        
         function exitSim () {
           console.log()
           if (!s.period) {
@@ -167,7 +167,7 @@ module.exports = function container (get, set, clear) {
 
           if (so.backtester_generation >= 0)
           {
-            fs.writeFileSync(path.resolve(__dirname, '..', 'simulations', so.selector.normalized.toLowerCase()+'_'+so.backtester_generation+'.json'),options_json, {encoding: 'utf8'})
+            fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_'+so.strategy.replace('_','')+'_'+ so.selector.normalized.replace('_','').toLowerCase()+'_'+so.backtester_generation+'.json'),options_json, {encoding: 'utf8'})
           }
 
 

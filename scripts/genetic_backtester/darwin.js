@@ -39,15 +39,6 @@ let NEUTRAL_RATE_AUTO = false
 
 let iterationCount = 0
 
-//todo: remove these and anything that uses them after verification that new system will work in all operating systems
-//note compiling regex is costly on cpu and memory (realativly speaking),  they should be made const, and top level to avoid 
-//destruction and recreation.  save a little time and memory.
-const jsonRegexp = /(\{[\s\S]*?\})\send balance/g
-const endBalRegexp = /end balance: (\d+\.\d+) \(/g
-const buyHoldRegexp = /buy hold: (\d+\.\d+) \(/g
-const vsBuyHoldRegexp = /vs. buy hold: (-?\d+\.\d+)%/g
-const wlRegexp = /win\/loss: (\d+)\/(\d+)/g
-const errRegexp = /error rate: (.*)%/g
 
 let runCommand = (taskStrategyName, phenotype, cb) => {
   var cmdArgs = Object.assign({}, phenotype)
@@ -68,6 +59,7 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
   console.log(`[ ${iterationCount++}/${populationSize * selectedStrategies.length} ] ${command}`)
 
   phenotype['sim'] = {}
+ 
 
   shell.exec(command, {
     silent: true,
@@ -81,7 +73,7 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
 
     let result = null
     try {
-      result = processOutput(stdout,phenotype)
+      result = processOutput(stdout,taskStrategyName,phenotype)
       phenotype['sim'] = result
       result['fitness'] = Phenotypes.fitness(phenotype)
     } catch (err) {
@@ -105,13 +97,13 @@ let runUpdate = (days, selector) => {
   })
 }
 
-let processOutput = (output, pheno)=> {
+let processOutput = (output,taskStrategyName, pheno)=> {
 
 
   let strippedOutput = StripAnsi(output)
   let output2 = strippedOutput.substr(strippedOutput.length - 3500)
   
-  let tFileName = path.resolve(__dirname, '..','..', 'simulations', pheno.exchangeMarketPair.toLowerCase()+'_'+pheno.backtester_generation+'.json')
+  let tFileName = path.resolve(__dirname, '..','..', 'simulations','sim_'+taskStrategyName.replace('_','')+'_'+ pheno.exchangeMarketPair.toLowerCase().replace('_','')+'_'+pheno.backtester_generation+'.json')
   let simulationResults
 
   let params 
@@ -153,22 +145,7 @@ let processOutput = (output, pheno)=> {
     start = parseInt(simulationResults.start)
     end = parseInt(simulationResults.end || null)
   }
-  else
-  {
-    let rawParams = jsonRegexp.exec(output2)[1]
-    params = JSON.parse(rawParams)
-    endBalance = endBalRegexp.exec(output2)[1]
-    buyHold = buyHoldRegexp.exec(output2)[1]
-    vsBuyHold = vsBuyHoldRegexp.exec(output2)[1]
-    wlMatch = wlRegexp.exec(output2)
-    errMatch      = errRegexp.exec(output2)
-    wins          = wlMatch !== null ? parseInt(wlMatch[1]) : 0
-    losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0
-    errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0
-    days = parseInt(params.days)
-    start = parseInt(params.start)
-    end = parseInt(params.end)
-  }
+  
 
   let roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
 
@@ -694,7 +671,7 @@ let importedPoolData = (populationFileName) ? JSON.parse(fs.readFileSync(populat
 try
 {
   let tDirName = path.resolve(__dirname, '..','..', 'simulations')
-  let tFileName = simArgs.selector.toLowerCase()+'_'
+  let tFileName = 'sim_'
   let files = fs.readdirSync(tDirName)
 
   for(let i = 0; i < files.length; i++)
