@@ -39,9 +39,18 @@ let NEUTRAL_RATE_AUTO = false
 
 let iterationCount = 0
 
+//todo: remove these and anything that uses them after verification that new system will work in all operating systems
+//note compiling regex is costly on cpu and memory (realativly speaking),  they should be made const, and top level to avoid 
+//destruction and recreation.  save a little time and memory.
+const jsonRegexp = /(\{[\s\S]*?\})\send balance/g
+const endBalRegexp = /end balance: (\d+\.\d+) \(/g
+const buyHoldRegexp = /buy hold: (\d+\.\d+) \(/g
+const vsBuyHoldRegexp = /vs. buy hold: (-?\d+\.\d+)%/g
+const wlRegexp = /win\/loss: (\d+)\/(\d+)/g
+const errRegexp = /error rate: (.*)%/g
+
 let runCommand = (taskStrategyName, phenotype, cb) => {
   var cmdArgs = Object.assign({}, phenotype)
-  //cmdArgs.backtester_generation = cb.scope
   cmdArgs.strategy = taskStrategyName
   Object.assign(cmdArgs, simArgs)
 
@@ -97,12 +106,7 @@ let runUpdate = (days, selector) => {
 }
 
 let processOutput = (output, pheno)=> {
-  let jsonRegexp = /(\{[\s\S]*?\})\send balance/g
-  let endBalRegexp = /end balance: (\d+\.\d+) \(/g
-  let buyHoldRegexp = /buy hold: (\d+\.\d+) \(/g
-  let vsBuyHoldRegexp = /vs. buy hold: (-?\d+\.\d+)%/g
-  let wlRegexp = /win\/loss: (\d+)\/(\d+)/g
-  let errRegexp = /error rate: (.*)%/g
+
 
   let strippedOutput = StripAnsi(output)
   let output2 = strippedOutput.substr(strippedOutput.length - 3500)
@@ -122,8 +126,10 @@ let processOutput = (output, pheno)=> {
   let days 
   let start
   let end
-  // This can retrieve the results 2 different places.  It defaults to reading it from the json file
+  // This can retrieve the results from 2 different places.  It defaults to reading it from the json file
   // but if no file is found it will fall back to the older metheod of scraping the output of the sim process
+  // stdio scraping to be removed after full verification of functionality.
+  // todo: see above comment
   if (fs.existsSync(tFileName))
   {
     let jsonBuffer
@@ -169,7 +175,6 @@ let processOutput = (output, pheno)=> {
 
   //todo: figure out what this is trying to do.
   let r = params
-  //JSON.parse(rawParams.replace(/[\r\n]/g, ''))
   delete r.asset_capital
   delete r.buy_pct
   delete r.currency_capital
