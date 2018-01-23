@@ -15,10 +15,11 @@ let fs = require('fs')
 let GeneticAlgorithmCtor = require('geneticalgorithm')
 let StripAnsi = require('strip-ansi')
 let moment = require('moment')
+let path = require('path')
 
 let Phenotypes = require('./phenotype.js')
 
-let VERSION = 'Zenbot 4 Genetic Backtester v0.2'
+let VERSION = 'Zenbot 4 Genetic Backtester v0.2.1'
 
 let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length
 
@@ -40,6 +41,7 @@ let iterationCount = 0
 
 let runCommand = (taskStrategyName, phenotype, cb) => {
   var cmdArgs = Object.assign({}, phenotype)
+  //cmdArgs.backtester_generation = cb.scope
   cmdArgs.strategy = taskStrategyName
   Object.assign(cmdArgs, simArgs)
 
@@ -70,7 +72,7 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
 
     let result = null
     try {
-      result = processOutput(stdout)
+      result = processOutput(stdout,phenotype)
       phenotype['sim'] = result
       result['fitness'] = Phenotypes.fitness(phenotype)
     } catch (err) {
@@ -94,7 +96,7 @@ let runUpdate = (days, selector) => {
   })
 }
 
-let processOutput = output => {
+let processOutput = (output, pheno)=> {
   let jsonRegexp = /(\{[\s\S]*?\})\send balance/g
   let endBalRegexp = /end balance: (\d+\.\d+) \(/g
   let buyHoldRegexp = /buy hold: (\d+\.\d+) \(/g
@@ -104,27 +106,70 @@ let processOutput = output => {
 
   let strippedOutput = StripAnsi(output)
   let output2 = strippedOutput.substr(strippedOutput.length - 3500)
+  
+  let tFileName = path.resolve(__dirname, '..','..', 'simulations', pheno.exchangeMarketPair.toLowerCase()+'_'+pheno.backtester_generation+'.json')
+  let simulationResults
 
-  let rawParams = jsonRegexp.exec(output2)[1]
-  let params = JSON.parse(rawParams)
-  let endBalance = endBalRegexp.exec(output2)[1]
-  let buyHold = buyHoldRegexp.exec(output2)[1]
-  let vsBuyHold = vsBuyHoldRegexp.exec(output2)[1]
-  let wlMatch = wlRegexp.exec(output2)
-  let errMatch      = errRegexp.exec(output2)
-  let wins          = wlMatch !== null ? parseInt(wlMatch[1]) : 0
-  let losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0
-  let errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0
-  let days = parseInt(params.days)
-  let start = parseInt(params.start)
-  let end = parseInt(params.end)
+  let params 
+  let endBalance
+  let buyHold
+  let vsBuyHold
+  let wlMatch
+  let errMatch
+  let wins
+  let losses
+  let errorRate
+  let days 
+  let start
+  let end
+  // This can retrieve the results 2 different places.  It defaults to reading it from the json file
+  // but if no file is found it will fall back to the older metheod of scraping the output of the sim process
+  if (fs.existsSync(tFileName))
+  {
+    let jsonBuffer
+    jsonBuffer = fs.readFileSync(tFileName,{encoding:'utf8'})
+    simulationResults = JSON.parse(jsonBuffer)
+    fs.unlinkSync(tFileName)
+  }
 
-  let roi = roundp(
-    ((endBalance - params.currency_capital) / params.currency_capital) * 100,
-    3
-  )
 
-  let r = JSON.parse(rawParams.replace(/[\r\n]/g, ''))
+  if (typeof(simulationResults) === 'object'  )
+  {
+    params = simulationResults
+    endBalance = simulationResults.simresults.currency
+    buyHold = simulationResults.simresults.buy_hold
+    vsBuyHold = simulationResults.simresults.buy_hold
+    wlMatch = (simulationResults.simresults.total_sells - simulationResults.simresults.total_losses) +'/'+ simulationResults.simresults.total_losses
+    wins          = simulationResults.simresults.total_sells
+    losses        = simulationResults.simresults.total_losses
+    errorRate     = simulationResults.simresults.total_losses / simulationResults.simresults.total_sells
+    days = parseInt(simulationResults.days)
+    start = parseInt(simulationResults.start)
+    end = parseInt(simulationResults.end || null)
+  }
+  else
+  {
+    let rawParams = jsonRegexp.exec(output2)[1]
+    params = JSON.parse(rawParams)
+    endBalance = endBalRegexp.exec(output2)[1]
+    buyHold = buyHoldRegexp.exec(output2)[1]
+    vsBuyHold = vsBuyHoldRegexp.exec(output2)[1]
+    wlMatch = wlRegexp.exec(output2)
+    errMatch      = errRegexp.exec(output2)
+    wins          = wlMatch !== null ? parseInt(wlMatch[1]) : 0
+    losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0
+    errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0
+    days = parseInt(params.days)
+    start = parseInt(params.start)
+    end = parseInt(params.end)
+  }
+
+  let roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
+
+
+  //todo: figure out what this is trying to do.
+  let r = params
+  //JSON.parse(rawParams.replace(/[\r\n]/g, ''))
   delete r.asset_capital
   delete r.buy_pct
   delete r.currency_capital
@@ -139,6 +184,7 @@ let processOutput = output => {
   delete r.stats
   delete r.use_strategies
   delete r.verbose
+  delete r.simresults
   r.selector = r.selector.normalized
 
   if (start) {
@@ -243,7 +289,7 @@ let RangeBoolean = () => {
 
 let strategies = {
   bollinger: {
-    period_length: RangePeriod(1, 60, 'm'),
+    period_length: RangePeriod(1, 120, 'm'),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
@@ -259,7 +305,7 @@ let strategies = {
     bollinger_lower_bound_pct: RangeFloat(-1, 30)
   },
   trend_bollinger: {
-    period_length: RangePeriod(1, 60, 'm'),
+    period_length: RangePeriod(1, 120, 'm'),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
@@ -636,6 +682,29 @@ let selectedStrategies = (strategyName === 'all') ? allStrategyNames() : strateg
 
 let importedPoolData = (populationFileName) ? JSON.parse(fs.readFileSync(populationFileName, 'utf8')) : null
 
+//Clean up any generation files left over in the simulation directory
+//they will be overwritten, but best not to confuse the issue.
+//if it fails.   doesn't matter they will be overwritten anyways. not need to halt the system.
+try
+{
+  let tDirName = path.resolve(__dirname, '..','..', 'simulations')
+  let tFileName = simArgs.selector.toLowerCase()+'_'
+  let files = fs.readdirSync(tDirName)
+
+  for(let i = 0; i < files.length; i++)
+  {
+    if (files[i].lastIndexOf(tFileName) == 0)
+    {
+      let filePath = path.resolve(__dirname, '..','..', 'simulations',files[i] )
+      fs.unlinkSync(filePath)
+    }
+
+  }
+} catch (err)
+{
+  console.log('error deleting lint from prior run')
+}
+
 selectedStrategies.forEach(function(v) {
   let strategyPool = pools[v] = {}
 
@@ -722,6 +791,8 @@ let simulateGeneration = () => {
   iterationCount = 1
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
     return cb => {
+      phenotype.backtester_generation = iterationCount
+      phenotype.exchangeMarketPair = argv.selector
       runCommand(v, phenotype, cb)
     }
   })).reduce((a, b) => a.concat(b))
