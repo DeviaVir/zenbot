@@ -12,8 +12,8 @@ module.exports = function container(get, set, clear) {
 
     calculate: function (s) {
       if (s.in_preroll) { return }
-      get('lib.momentum')(s, 'mom0', s.options.momentum_size)
-      get('lib.momentum')(s, 'mom1', s.options.momentum_size)
+      get('lib.momentum')(s, 'mom0', 'close', s.options.momentum_size)
+      get('lib.momentum')(s, 'mom1', 'mom0', 1)
     },
 
     onPeriod: function (s, cb) {
@@ -33,7 +33,6 @@ module.exports = function container(get, set, clear) {
 
     onReport: function (s) {
       let cols = [], color
-
       if (s.period.mom0 != null) {
         color = s.period.mom0 < 0 ? 'red' : s.period.mom0 > 0 ? 'green' : 'grey'
         cols.push(z(5, n(s.period.mom0).format('000'), ' ')[color])
