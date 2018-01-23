@@ -138,9 +138,7 @@ module.exports = function container (get, set, clear) {
         }              
 
         /* Implementing statistical Exit */
-        function printTrade (quit, dump) {
-          console.log()
-          var output_lines = []
+        function printTrade (quit, dump, statsonly = false) {
           var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
           if (quit) {
             if (s.my_trades.length) {
@@ -156,12 +154,16 @@ module.exports = function container (get, set, clear) {
             s.lookback.unshift(s.period)
           }
           var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
-          output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
           var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(tmp_balance)
           var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
-          output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-          output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
-          output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          if (!statsonly) {
+            console.log()
+            var output_lines = []
+            output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+            output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+            output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
+            output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
+          }
           // Build stats for UI
           s.stats = {
             profit: profit.format('0.00%'),
@@ -186,17 +188,21 @@ module.exports = function container (get, set, clear) {
             }
           })
           if (s.my_trades.length && sells > 0) {
-            output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
-            output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+            if (!statsonly) {
+              output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
+              output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+            }
 
             //for API
             s.stats.win = (sells - losses)
             s.stats.losses = losses
             s.stats.error_rate = (sells ? n(losses).divide(sells).format('0.00%') : '0.00%')
           }
-          output_lines.forEach(function (line) {
-            console.log(line)
-          })
+          if (!statsonly) {
+            output_lines.forEach(function (line) {
+              console.log(line)
+            })
+          }
           if (quit || dump) {
             var html_output = output_lines.map(function (line) {
               return colors.stripColors(line)
@@ -542,6 +548,7 @@ module.exports = function container (get, set, clear) {
                 b.buy_hold = s.period.close * (session.orig_capital / session.orig_price)
                 b.buy_hold_profit = (b.buy_hold - session.orig_capital) / session.orig_capital
                 b.vs_buy_hold = (b.consolidated - b.buy_hold) / b.buy_hold
+                c.output.api.on && printTrade(false, false, true)
                 if (so.mode === 'live') {
                   balances.save(b, function (err) {
                     if (err) {
