@@ -144,7 +144,7 @@ let processOutput = (output, pheno)=> {
     params = simulationResults
     endBalance = simulationResults.simresults.currency
     buyHold = simulationResults.simresults.buy_hold
-    vsBuyHold = simulationResults.simresults.buy_hold
+    vsBuyHold = simulationResults.simresults.vs_buy_hold
     wlMatch = (simulationResults.simresults.total_sells - simulationResults.simresults.total_losses) +'/'+ simulationResults.simresults.total_losses
     wins          = simulationResults.simresults.total_sells
     losses        = simulationResults.simresults.total_losses
@@ -202,11 +202,11 @@ let processOutput = (output, pheno)=> {
     r.days = params.days
   }
 
-  return {
+  let results = {
     params: 'module.exports = ' + JSON.stringify(r),
     endBalance: parseFloat(endBalance),
     buyHold: parseFloat(buyHold),
-    vsBuyHold: parseFloat(vsBuyHold),
+    vsBuyHold: parseFloat(vsBuyHold) || vsBuyHold,
     wins: wins,
     losses: losses,
     errorRate: parseFloat(errorRate),
@@ -222,6 +222,7 @@ let processOutput = (output, pheno)=> {
     strategy: params.strategy,
     frequency: roundp((wins + losses) / days, 3)
   }
+  return results
 }
 
 let Range = (min, max) => {

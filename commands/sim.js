@@ -145,15 +145,16 @@ module.exports = function container (get, set, clear) {
             output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
             output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
           }
-          options_output.simresults.start_capital = s.start_capital;
-          options_output.simresults.currency = n(s.balance.currency).value();
-          options_output.simresults.profit = profit.value();
-          options_output.simresults.buy_hold = buy_hold.value();
-          options_output.simresults.buy_hold_profit = buy_hold_profit.value();
-          options_output.simresults.total_trades = s.my_trades.length;
-          options_output.simresults.length_days = s.day_count;
-          options_output.simresults.total_sells = sells;
-          options_output.simresults.total_losses = losses;
+          options_output.simresults.start_capital = s.start_capital
+          options_output.simresults.currency = n(s.balance.currency).value()
+          options_output.simresults.profit = profit.value()
+          options_output.simresults.buy_hold = buy_hold.value()
+          options_output.simresults.buy_hold_profit = buy_hold_profit.value()
+          options_output.simresults.total_trades = s.my_trades.length
+          options_output.simresults.length_days = s.day_count
+          options_output.simresults.total_sells = sells
+          options_output.simresults.total_losses = losses
+          options_output.simresults.vs_buy_hold = n(s.balance.currency).subtract(buy_hold).divide(buy_hold).value() * 100.00
           
           let options_json = JSON.stringify(options_output, null, 2)
           if (so.show_options) {       
