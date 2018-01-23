@@ -322,7 +322,7 @@
                                 <tr>
                                     <td><span class='text-success'>BUY</span></td>
                                     <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(buy_order.size) %> <%= asset.toUpperCase() %></td>
-                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(buy_order.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(buy_order.price) %> <%= currency.toUpperCase() %></td>
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
@@ -335,7 +335,7 @@
                                 <tr>
                                     <td><span class='text-danger'>SELL</span></td>
                                     <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(sell_order.size) %> <%= asset.toUpperCase() %></td>
-                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(sell_order.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(sell_order.price) %> <%= currency.toUpperCase() %></td>
                                     <td>-</td>
                                     <td>-</td>
                                     <td>-</td>
@@ -349,8 +349,8 @@
                                 <tr>
                                     <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></span></td>
                                     <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(trade.size) %> <%= asset.toUpperCase() %></td>
-                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.price) %> <%= currency.toUpperCase() %></td>
-                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.size * trade.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(trade.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(trade.size * trade.price) %> <%= currency.toUpperCase() %></td>
                                     <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 8}).format(trade.fee) %> <% if (trade.type == "buy") { %> <%= asset.toUpperCase() %> <% } else { %> <%= currency.toUpperCase() %> <% } %></td>
                                     <td><span class="text-<% if (trade.slippage > 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 4, maximumFractionDigits: 4}).format(trade.slippage) %></span></td>
                                     <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
