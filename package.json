@@ -103,7 +103,7 @@
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.3",
     "shelljs": "^0.8.0",
-    "yargs": "^10.0.3"
+    "yargs": "^11.0.0"
   },
   "engines": {
     "node": "^8.3.0 || ^9.0.0"
