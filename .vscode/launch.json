@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Zenbot Paper Trading",
+            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/zenbot.js",
+            "cwd": "${workspaceFolder}",
+            "args": [ "trade", "gdax.btc-usd", "--paper", "--period=1m"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Zenbot Sim",
+            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/zenbot.js",
+            "cwd": "${workspaceFolder}",
+            "args": [ "sim", "gdax.btc-usd", "--paper", "--period=1m"]
+        },
+        
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Genetic Backtester",
+            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/scripts/genetic_backtester/darwin.js",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--selector=gdax.btc-usd",
+                "--asset_capital=1.0",
+                "--currency_capital=101.0",
+                "--use_strategies=rsi",
+                "--population=100",
+                "--population_data=",
+                "--days=5",
+                "--order_type=maker"
+                ]
+        }
+    ]
+}
