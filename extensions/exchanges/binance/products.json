@@ -2185,5 +2185,32 @@
     "max_size": "100000.00000000",
     "increment": "0.01000000",
     "label": "INS/ETH"
+  },
+  {
+    "id": "PIVXBTC",
+    "asset": "PIVX",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "PIVX/BTC"
+  },
+  {
+    "id": "PIVXETH",
+    "asset": "PIVX",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "PIVX/ETH"
+  },
+  {
+    "id": "PIVXBNB",
+    "asset": "PIVX",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "PIVX/BNB"
   }
 ]
