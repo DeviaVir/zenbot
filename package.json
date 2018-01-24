@@ -61,7 +61,7 @@
     "node-prowl": "^0.1.7",
     "node-sass": "^4.7.2",
     "node-telegram-bot-api": "^0.30.0",
-    "node.bittrex.api": "^1.0.0",
+    "node-bittrex-api": "^0.8.1",
     "number-abbreviate": "^2.0.0",
     "numbro": "highvelocityspace/numbro",
     "path": "^0.12.7",
