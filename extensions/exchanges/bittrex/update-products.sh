@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var bittrex = require('node.bittrex.api')
+var bittrex = require('node-bittrex-api')
 
 var mapping
 var products = []
