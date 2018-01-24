@@ -233,8 +233,7 @@ module.exports = function container(get, set, clear) {
       var params = {
         market: joinProduct(opts.product_id),
         quantity: opts.size,
-        rate: opts.price,
-        verbose:true
+        rate: opts.price
       }
 
       if(!('order_type' in opts) || !opts.order_type) {
@@ -259,16 +258,12 @@ module.exports = function container(get, set, clear) {
             }
             return cb(null, returnResult)
           }
-         
-          
         }
         
         if (typeof data !== 'object') {
           return cb(null, {})
         }
       
-      
- 
         if(!data.success) {
           if (data.message && data.message.match(recoverableErrors)) {
             return retry('trade', args, data.message)
