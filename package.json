@@ -13,7 +13,8 @@
     "zenbot": "./zenbot.sh"
   },
   "scripts": {
-    "test": "jasmine test/**/**.test.js",
+    "test": "jasmine test/_specs/**/**.test.js",
+    "test-one": "jasmine $PATH_TO_TEST",
     "postinstall": "node post_install.js"
   },
   "dependencies": {
