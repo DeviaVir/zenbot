@@ -21,7 +21,7 @@ let StripAnsi = require('strip-ansi');
 
 let VERSION = 'Zenbot 4.04 Backtester v0.2';
 
-let PARALLEL_LIMIT = 3//require('os').cpus().length;
+let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length;
 
 let TREND_EMA_MIN = 20;
 let TREND_EMA_MAX = 20;
