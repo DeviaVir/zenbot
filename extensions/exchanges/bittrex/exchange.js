@@ -1,7 +1,7 @@
 var bittrex_authed = require('node-bittrex-api'),
-  bittrex_public = require('node-bittrex-api'),
-  moment = require('moment'),
-  n = require('numbro')
+    bittrex_public = require('node-bittrex-api'),
+    moment = require('moment'),
+    n = require('numbro')
 
 
 
@@ -270,7 +270,7 @@ module.exports = function container(get, set, clear) {
       
  
         if(!data.success) {
-          if ( data.message && data.message.match(recoverableErrors)) {
+          if (data.message && data.message.match(recoverableErrors)) {
             return retry('trade', args, data.message)
           }
           console.log(data.message)
