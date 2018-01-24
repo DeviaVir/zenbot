@@ -6,7 +6,7 @@ module.exports = (function (get, set, clear) {
 
 	return (trade_id, data) => { 
 
-		if (data !== undefined) {
+		if (data !== undefined && typeof process.stdout.clearLine == 'function') {
 			process.stdout.clearLine();
 			process.stdout.write("Processed trades up to " + Moment(data.time).fromNow() + "." );
 			process.stdout.cursorTo(0);
