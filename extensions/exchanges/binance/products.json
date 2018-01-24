@@ -2212,5 +2212,23 @@
     "max_size": "10000.00000000",
     "increment": "0.01000000",
     "label": "PIVX/BNB"
+  },
+  {
+    "id": "IOSTBTC",
+    "asset": "IOST",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "IOST/BTC"
+  },
+  {
+    "id": "IOSTETH",
+    "asset": "IOST",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "IOST/ETH"
   }
 ]

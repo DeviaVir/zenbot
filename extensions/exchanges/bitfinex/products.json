@@ -474,7 +474,7 @@
   {
     "asset": "GNT",
     "currency": "USD",
-    "min_size": "16.0",
+    "min_size": "18.0",
     "max_size": "200000.0",
     "increment": "0.00001",
     "label": "GNT/USD"
@@ -482,7 +482,7 @@
   {
     "asset": "GNT",
     "currency": "BTC",
-    "min_size": "16.0",
+    "min_size": "18.0",
     "max_size": "200000.0",
     "increment": "0.00000001",
     "label": "GNT/BTC"
@@ -490,7 +490,7 @@
   {
     "asset": "GNT",
     "currency": "ETH",
-    "min_size": "16.0",
+    "min_size": "18.0",
     "max_size": "200000.0",
     "increment": "0.00000001",
     "label": "GNT/ETH"

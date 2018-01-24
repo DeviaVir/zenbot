@@ -86,5 +86,13 @@
     "max_size": "4000",
     "increment": "0.01",
     "label": "LTC/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "120",
+    "increment": "0.01",
+    "label": "BCH/EUR"
   }
 ]
