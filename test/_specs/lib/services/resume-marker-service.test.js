@@ -390,6 +390,32 @@ describe('Resume Marker Service', function() {
 	})
 
 	describe('database stuff', function() {
+		var opts = {resumeMarkersArray: [ ]}
+		var mockCollectionService = collectionServiceFactory.get(opts);
+
+		beforeEach(function() {
+			spyOn(foo, 'get').and.returnValues(
+				{},
+				() => { return {normalized: 'tests.BTC-USD'}},
+				mockCollectionService
+				)
+		})
+
+		it('still calls the callback when flush is called and there are no ranges', function() {
+			var instance = service(foo.get, foo.set, foo.clear)
+
+			instance.load();
+
+			expect(instance.getRanges().length).toBe(0)
+
+			var cb = jasmine.createSpy('flushCallback')
+			instance.flush(cb);
+
+			expect(cb).toHaveBeenCalled()
+		})
+	})
+
+	describe('database stuff', function() {
 		var opts = {resumeMarkersArray: [	{from: 2994, to: 2998, oldest_time: 99960, newest_time: 99986},
 											{from: 2894, to: 2898, oldest_time: 98960, newest_time: 98986},
 											{from: 2794, to: 2798, oldest_time: 97960, newest_time: 97986}
