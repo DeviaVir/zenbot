@@ -1,9 +1,9 @@
-var bittrex_authed = require('node.bittrex.api'),
-    bittrex_public = require('node.bittrex.api'),
-    path = require('path'),
-    moment = require('moment'),
-    n = require('numbro'),
-    colors = require('colors')
+var bittrex_authed = require('node-bittrex-api'),
+  bittrex_public = require('node-bittrex-api'),
+  path = require('path'),
+  moment = require('moment'),
+  n = require('numbro'),
+  colors = require('colors')
 
 
 /**
@@ -61,7 +61,15 @@ module.exports = function container(get, set, clear) {
         market: joinProduct(opts.product_id)
       }
 
-      bittrex_public.getmarkethistory(args, function( data ) {
+      bittrex_public.getmarkethistory(args, function( data, err) {
+        if (err != null && data == null)
+        {
+          data = {}
+          data.message = err.message
+          data.success = err.success
+          data.result = err.result
+        }
+      
         if (!shownWarning) {
           console.log('please note: the bittrex api does not support backfilling (trade/paper only).')
           console.log('please note: make sure to set the --period_length=1m to make sure data for trade/paper is fetched.')
@@ -95,7 +103,7 @@ module.exports = function container(get, set, clear) {
             }
           })
         } catch (e) {
-          return retry('getTrades', func_args, {message: 'Error:  ' + e});
+          return retry('getTrades', func_args, {message: 'Error:  ' + e})
         }
         cb(null, trades)
       })
@@ -104,8 +112,21 @@ module.exports = function container(get, set, clear) {
     getBalance: function (opts, cb) {
       var args = [].slice.call(arguments)
 
-      bittrex_authed.getbalances(function( data ) {
-        if (typeof data !== 'object') {
+      bittrex_authed.getbalances(function( data,err ) {
+        if (err != null && data == null)
+        {
+          data = {}
+          data.message = err.message
+          data.success = err.success
+          data.result = err.result
+        }
+    
+        if (err != null)
+        {
+          console.log(JSON.stringify(err))
+        }
+
+        if (typeof data !== 'object' ) {
           console.log('bittrex API (getbalances) had an abnormal response, quitting.')
           return cb(null, [])
         }
@@ -128,20 +149,20 @@ module.exports = function container(get, set, clear) {
           if(opts.last_signal === 'buy') {
             if (_balance['Currency'] === opts.currency.toUpperCase()) {
               balance.currency = n(_balance.Available).format('0.00000000'),
-                balance.currency_hold = 0
+              balance.currency_hold = 0
             }
             if (_balance['Currency'] === opts.asset.toUpperCase()) {
               balance.asset = n(_balance.Available).format('0.00000000'),
-                balance.asset_hold = 0
+              balance.asset_hold = 0
             }
           } else {
             if (_balance['Currency'] === opts.asset.toUpperCase()) {
               balance.asset = n(_balance.Available).format('0.00000000'),
-                balance.asset_hold = 0
+              balance.asset_hold = 0
             }
             if (_balance['Currency'] === opts.currency.toUpperCase()) {
               balance.currency = n(_balance.Available).format('0.00000000'),
-                balance.currency_hold = 0
+              balance.currency_hold = 0
             }
           }
         })
@@ -153,7 +174,15 @@ module.exports = function container(get, set, clear) {
       var args = {
         market: joinProduct(opts.product_id)
       }
-      bittrex_public.getticker(args, function( data ) {
+      bittrex_public.getticker(args, function( data, err ) {
+        if (err != null && data == null)
+        {
+          data = {}
+          data.message = err.message
+          data.success = err.success
+          data.result = err.result
+        }
+     
         if (typeof data !== 'object') {
           console.log('bittrex API (getticker) had an abnormal response, quitting.')
           return cb(null, [])
@@ -178,7 +207,16 @@ module.exports = function container(get, set, clear) {
       var args = [].slice.call(arguments)
       bittrex_authed.cancel({
         uuid: opts.order_id
-      }, function( data ) {
+      }, function( data,err ) {
+        if (err != null && data == null)
+        {
+          data = {}
+          data.message = err.message
+          data.success = err.success
+          data.result = err.result
+        }
+      
+
         if (typeof data !== 'object') {
           console.log('bittrex API (cancel) had an abnormal response, quitting.')
           return cb(null, [])
@@ -200,27 +238,64 @@ module.exports = function container(get, set, clear) {
       var params = {
         market: joinProduct(opts.product_id),
         quantity: opts.size,
-        rate: opts.price
+        rate: opts.price,
+        verbose:true
       }
 
-      if(!'order_type' in opts || !opts.order_type) {
+      if(!('order_type' in opts) || !opts.order_type) {
         opts.order_type = 'maker'
       }
 
-      var fn = function(data) {
-        if (typeof data !== 'object') {
-          console.log('bittrex API (trade) had an abnormal response, quitting.')
-          return cb(null, [])
+      var fn = function(data,err) {
+        if (err != null && data == null)
+        {
+          data = {}
+          data.message = err.message
+          data.success = err.success
+          data.result = err.result
         }
-
-        if(!data.success) {
-          if (data.message && data.message.match(recoverableErrors)) {
-            return retry('trade', args, data.message)
+        if (err && err.message)
+        {
+          if (err.message =='MIN_TRADE_REQUIREMENT_NOT_MET')
+          {
+            let returnResult = {
+              reject_reason:'balance',
+              status:'rejected'
+            }
+            return cb(null, returnResult)
           }
-          console.log(data.message)
+          if (!data.message.match(recoverableErrors))
+          {
+            let returnResult = {
+              reject_reason:err.message,
+              status:'rejected'
+            }
+          }
+          
+        }
+        
+        if (typeof data !== 'object') {
+          return cb(null, {})
+        }
+      
+        try{
+          if (err != null)
+          {
+            console.log(JSON.stringify(err))
+          }
+          if(!data.success) {
+            if ( data.message && data.message.match(recoverableErrors)) {
+              return retry('trade', args, data.message)
+            }
+            console.log(data.message)
+            return cb(null, [])
+          }
+        } 
+        catch (erro)
+        {
+          console.log(JSON.stringify(erro))
           return cb(null, [])
         }
-
         var order = {
           id: data && data.result ? data.result.uuid : null,
           status: 'open',
@@ -239,6 +314,8 @@ module.exports = function container(get, set, clear) {
       if (type === 'buy') {
         if (opts.order_type === 'maker') {
           bittrex_authed.buylimit(params, fn)
+
+   
         }
         if (opts.order_type === 'taker') {
           bittrex_authed.buymarket(params, fn)
@@ -246,7 +323,9 @@ module.exports = function container(get, set, clear) {
       } 
       if (type === 'sell') {
         if (opts.order_type === 'maker') {
+
           bittrex_authed.selllimit(params, fn)
+    
         }
         if (opts.order_type === 'taker') {
           bittrex_authed.sellmarket(params, fn)
@@ -269,7 +348,15 @@ module.exports = function container(get, set, clear) {
       var params = {
         uuid: opts.order_id
       }
-      bittrex_authed.getorder(params, function (data) {
+      bittrex_authed.getorder(params, function (data,err) {
+        if (err != null && data == null)
+        {
+          data = {}
+          data.message = err.message
+          data.success = err.success
+          data.result = err.result
+        }
+        
         if (typeof data !== 'object') {
           console.log('bittrex API (getorder) had an abnormal response, quitting.')
           return cb(null, [])
@@ -302,7 +389,7 @@ module.exports = function container(get, set, clear) {
 
     // return the property used for range querying.
     getCursor: function (trade) {
-      return (trade.time || trade);
+      return (trade.time || trade)
     }
   }
   return exchange
