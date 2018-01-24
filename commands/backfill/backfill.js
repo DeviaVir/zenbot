@@ -25,9 +25,19 @@ module.exports = function container (get, set, clear) {
 
 	        	var exchangeService = get('lib.exchange-service')(get, set, clear);
 	        	var exchange = exchangeService.getExchange()
-	        	if (exchange !== undefined) {
+	        	var exchangeName = exchange.name; // TODO: Refactor all exchanges to be in the format of the stub.exchange, so we can use getName() here.
 
-		        	var exchangeName = exchange.name; // TODO: Refactor all exchanges to be in the format of the stub.exchange, so we can use getName() here.
+	        	if (exchange === undefined) {
+      				console.error("\nSorry, couldn't find an exchange named [" + exchangeName + "].")
+      				process.exit(1); 
+	        	}
+
+	        	if (!exchange.historyScan) {
+			        console.error('\ncannot backfill ' + exchangeName + ': exchange does not offer historical data')
+        			process.exit(1)
+	        	}
+
+	        	if (exchange !== undefined) {
 		      		var msg = "Hitting up the exchange '" + exchangeName + "' for trades within the past " + so.days + " day"; if (so.days > 1) {msg += "s."} else {msg += "."}
 
 		      		console.log("*************************")
@@ -49,9 +59,6 @@ module.exports = function container (get, set, clear) {
 	      					console.log("error. " + err)
 	      				}
 	      			);
-      			} else {
-      				console.log("\nSorry, couldn't find an exchange named [" + c.selector.normalized + "].")
-      				process.exit(1); 
       			}
 			})
 	}
