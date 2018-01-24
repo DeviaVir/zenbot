@@ -1,9 +1,8 @@
 var bittrex_authed = require('node-bittrex-api'),
   bittrex_public = require('node-bittrex-api'),
-  path = require('path'),
   moment = require('moment'),
-  n = require('numbro'),
-  colors = require('colors')
+  n = require('numbro')
+
 
 
 /**
@@ -32,10 +31,11 @@ module.exports = function container(get, set, clear) {
   }
 
   function retry(method, args, error) {
+    var timeout
     if (error.message.match(/Rate limit exceeded/)) {
-      var timeout = 10000
+      timeout = 10000
     } else {
-      var timeout = 2500
+      timeout = 2500
     }
 
     console.error(('\nBittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
@@ -121,10 +121,6 @@ module.exports = function container(get, set, clear) {
           data.result = err.result
         }
     
-        if (err != null)
-        {
-          console.log(JSON.stringify(err))
-        }
 
         if (typeof data !== 'object' ) {
           console.log('bittrex API (getbalances) had an abnormal response, quitting.')
@@ -204,7 +200,6 @@ module.exports = function container(get, set, clear) {
     },
 
     cancelOrder: function (opts, cb) {
-      var args = [].slice.call(arguments)
       bittrex_authed.cancel({
         uuid: opts.order_id
       }, function( data,err ) {
@@ -264,13 +259,7 @@ module.exports = function container(get, set, clear) {
             }
             return cb(null, returnResult)
           }
-          if (!data.message.match(recoverableErrors))
-          {
-            let returnResult = {
-              reject_reason:err.message,
-              status:'rejected'
-            }
-          }
+         
           
         }
         
@@ -278,24 +267,17 @@ module.exports = function container(get, set, clear) {
           return cb(null, {})
         }
       
-        try{
-          if (err != null)
-          {
-            console.log(JSON.stringify(err))
+      
+ 
+        if(!data.success) {
+          if ( data.message && data.message.match(recoverableErrors)) {
+            return retry('trade', args, data.message)
           }
-          if(!data.success) {
-            if ( data.message && data.message.match(recoverableErrors)) {
-              return retry('trade', args, data.message)
-            }
-            console.log(data.message)
-            return cb(null, [])
-          }
-        } 
-        catch (erro)
-        {
-          console.log(JSON.stringify(erro))
+          console.log(data.message)
           return cb(null, [])
         }
+        
+
         var order = {
           id: data && data.result ? data.result.uuid : null,
           status: 'open',
@@ -314,8 +296,6 @@ module.exports = function container(get, set, clear) {
       if (type === 'buy') {
         if (opts.order_type === 'maker') {
           bittrex_authed.buylimit(params, fn)
-
-   
         }
         if (opts.order_type === 'taker') {
           bittrex_authed.buymarket(params, fn)
@@ -323,9 +303,7 @@ module.exports = function container(get, set, clear) {
       } 
       if (type === 'sell') {
         if (opts.order_type === 'maker') {
-
           bittrex_authed.selllimit(params, fn)
-    
         }
         if (opts.order_type === 'taker') {
           bittrex_authed.sellmarket(params, fn)
