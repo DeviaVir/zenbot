@@ -15,7 +15,7 @@ var bittrex_authed = require('node-bittrex-api'),
  **/
 module.exports = function container(get, set, clear) {
   var c = get('conf')
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded)/)
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/)
   var shownWarning = false
 
   bittrex_authed.options({
