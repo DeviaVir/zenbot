@@ -1,7 +1,7 @@
 var bittrex_authed = require('node-bittrex-api'),
-  bittrex_public = require('node-bittrex-api'),
-  moment = require('moment'),
-  n = require('numbro')
+    bittrex_public = require('node-bittrex-api'),
+    moment = require('moment'),
+    n = require('numbro')
 
 
 
