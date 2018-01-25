@@ -31,13 +31,12 @@ module.exports = function container(get, set, clear) {
   }
 
   function retry(method, args, error) {
-    var timeout
-    if (error.message.match(/Rate limit exceeded/)) {
-      timeout = 10000
-    } else {
-      timeout = 2500
-    }
-
+    var timeout = 2500
+    if (error)
+      if (error.message)
+        if (error.message.match(/Rate limit exceeded/)) {
+          timeout = 10000
+        } 
     console.error(('\nBittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
