@@ -100,16 +100,21 @@ module.exports = function container(get, set, clear) {
 
        
         try {
+          let lastVal = 0
           Object.keys(data.result).forEach(function (i) {
             var trade = data.result[i]
             if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
+              let buySell = 'sell'
+              //todo: unsure about the >. if the price is greater than the last one should this one be a buy or sell. figure it out. 
+              if (parseFloat(trade.C) < lastVal) buySell = 'buy'
               trades.push({
                 trade_id: trade.T,
                 time: new Date(trade.T).getTime(),
                 size: parseFloat(trade.V),
                 price: parseFloat(trade.C),
-                side: 'sell'
+                side: buySell
               })
+              lastVal = parseFloat(trade.C)
             }
           })
         } catch (e) {
@@ -141,9 +146,11 @@ module.exports = function container(get, set, clear) {
   
          
             try {
+        
               Object.keys(data.result).forEach(function (i) {
                 var trade = data.result[i]
                 if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
+             
                   trades.push({
                     trade_id: trade.Id,
                     time: new Date(trade.TimeStamp).getTime(),
