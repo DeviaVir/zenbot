@@ -102,10 +102,10 @@ module.exports = function container(get, set, clear) {
         try {
           Object.keys(data.result).forEach(function (i) {
             var trade = data.result[i]
-            if (isNaN(opts.from) || moment(trade.T) > moment(opts.from)) {
+            if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
               trades.push({
                 trade_id: trade.T,
-                time: moment(trade.T).unix().valueOf(),
+                time: new Date(trade.T).getTime(),
                 size: parseFloat(trade.V),
                 price: parseFloat(trade.C),
                 side: 'sell'
@@ -143,10 +143,10 @@ module.exports = function container(get, set, clear) {
             try {
               Object.keys(data.result).forEach(function (i) {
                 var trade = data.result[i]
-                if (isNaN(opts.from) || moment(trade.T) > moment(opts.from)) {
+                if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
                   trades.push({
                     trade_id: trade.Id,
-                    time: moment(trade.TimeStamp).unix().valueOf(),
+                    time: new Date(trade.TimeStamp).getTime(),
                     size: parseFloat(trade.Quantity),
                     price: parseFloat(trade.Price),
                     side: trade.OrderType || trade.OrderType == 'SELL' ? 'sell': 'buy'
