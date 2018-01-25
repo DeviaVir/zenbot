@@ -106,7 +106,7 @@ module.exports = function container(get, set, clear) {
             if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
               let buySell = 'sell'
               //todo: unsure about the >. if the price is greater than the last one should this one be a buy or sell. figure it out. 
-              if (parseFloat(trade.C) < lastVal) buySell = 'buy'
+              if (parseFloat(trade.C) > lastVal) buySell = 'buy'
               trades.push({
                 trade_id: trade.T,
                 time: new Date(trade.T).getTime(),
