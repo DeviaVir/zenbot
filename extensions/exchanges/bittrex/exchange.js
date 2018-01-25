@@ -48,7 +48,7 @@ module.exports = function container(get, set, clear) {
 
   var exchange = {
     name: 'bittrex',
-    historyScan: 'backward',
+    historyScan: 'forward',
     makerFee: 0.25,
     takerFee: 0.25,
 
