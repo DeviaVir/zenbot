@@ -4,7 +4,7 @@
     "currency": "USD",
     "min_size": "0.002",
     "max_size": "30",
-    "increment": "0.01",
+    "increment": "0.1",
     "label": "BTC/USD"
   },
   {
@@ -12,7 +12,7 @@
     "currency": "USD",
     "min_size": "0.05",
     "max_size": "1000",
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "ETH/USD"
   },
   {
@@ -20,7 +20,7 @@
     "currency": "USD",
     "min_size": "0.02",
     "max_size": "30",
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "BCH/USD"
   },
   {
@@ -28,7 +28,7 @@
     "currency": "USD",
     "min_size": "0.07",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "BTG/USD"
   },
   {
@@ -36,7 +36,7 @@
     "currency": "USD",
     "min_size": "0.03",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "DASH/USD"
   },
   {
@@ -52,7 +52,7 @@
     "currency": "USD",
     "min_size": "0.07",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "ZEC/USD"
   },
   {
@@ -60,7 +60,7 @@
     "currency": "EUR",
     "min_size": "0.002",
     "max_size": "30",
-    "increment": "0.01",
+    "increment": "0.1",
     "label": "BTC/EUR"
   },
   {
@@ -68,7 +68,7 @@
     "currency": "EUR",
     "min_size": "0.05",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "ETH/EUR"
   },
   {
@@ -76,7 +76,7 @@
     "currency": "EUR",
     "min_size": "0.02",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "BCH/EUR"
   },
   {
@@ -84,7 +84,7 @@
     "currency": "EUR",
     "min_size": "0.07",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "BTG/EUR"
   },
   {
@@ -92,7 +92,7 @@
     "currency": "EUR",
     "min_size": "0.03",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "DASH/EUR"
   },
   {
@@ -108,7 +108,7 @@
     "currency": "EUR",
     "min_size": "0.07",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "ZEC/EUR"
   },
   {
@@ -116,7 +116,7 @@
     "currency": "GBP",
     "min_size": "0.002",
     "max_size": null,
-    "increment": "0.01",
+    "increment": "0.1",
     "label": "BTC/GBP"
   },
   {
@@ -124,7 +124,7 @@
     "currency": "GBP",
     "min_size": "0.05",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "ETH/GBP"
   },
   {
@@ -132,7 +132,7 @@
     "currency": "GBP",
     "min_size": "0.02",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "BCH/GBP"
   },
   {
@@ -140,7 +140,7 @@
     "currency": "GBP",
     "min_size": "0.03",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "DASH/GBP"
   },
   {
@@ -148,7 +148,7 @@
     "currency": "GBP",
     "min_size": "0.07",
     "max_size": null,
-    "increment": "0.0001",
+    "increment": "0.01",
     "label": "ZEC/GBP"
   },
   {
@@ -156,7 +156,7 @@
     "currency": "RUB",
     "min_size": "0.001",
     "max_size": null,
-    "increment": "0.01",
+    "increment": "1",
     "label": "BTC/RUB"
   },
   {
@@ -164,7 +164,7 @@
     "currency": "BTC",
     "min_size": "0.025",
     "max_size": "1000",
-    "increment": "0.00000001",
+    "increment": "0.000001",
     "label": "ETH/BTC"
   },
   {
@@ -172,7 +172,7 @@
     "currency": "BTC",
     "min_size": "0.007",
     "max_size": "30",
-    "increment": "0.00000001",
+    "increment": "0.000001",
     "label": "BCH/BTC"
   },
   {
@@ -180,7 +180,7 @@
     "currency": "BTC",
     "min_size": "0.04",
     "max_size": null,
-    "increment": "0.00000001",
+    "increment": "0.000001",
     "label": "BTG/BTC"
   },
   {
@@ -188,7 +188,7 @@
     "currency": "BTC",
     "min_size": "0.015",
     "max_size": null,
-    "increment": "0.00000001",
+    "increment": "0.000001",
     "label": "DASH/BTC"
   },
   {
@@ -204,7 +204,7 @@
     "currency": "BTC",
     "min_size": "0.03",
     "max_size": null,
-    "increment": "0.00000001",
+    "increment": "0.000001",
     "label": "ZEC/BTC"
   },
   {
