@@ -489,6 +489,10 @@ module.exports = function container (get, set, clear) {
     getOrder: function (opts, cb) {
       var order = ws_orders['~' + opts.order_id]
 
+      if(!order) {
+        return cb(new Error('order id ' + opts.order_id + ' not found'))
+      }
+
       if (order.status === 'rejected' && order.reject_reason === 'post only') {
         return cb(null, order)
       } else if (order.status === 'rejected' && order.reject_reason === 'zenbot canceled') {
