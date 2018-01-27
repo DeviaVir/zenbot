@@ -272,6 +272,7 @@ let RangeBoolean = () => {
 
 let strategies = {
   bollinger: {
+    // -- common
     period_length: RangePeriod(1, 120, 'm'),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
@@ -334,7 +335,8 @@ crossover_vwap: {
     // -- common
     period_length: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
-    markup_pct: RangeFloat(0, 5),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
     sell_stop_pct: Range0(1, 50),
     buy_stop_pct: Range0(1, 50),
@@ -372,9 +374,11 @@ crossover_vwap: {
     overbought_rsi: Range(20, 100)
   },
   momentum: {
+    // -- common
     period_length: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 2500),
-    markup_pct: RangeFloat(0, 5),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
     sell_stop_pct: Range0(1, 50),
     buy_stop_pct: Range0(1, 50),
@@ -395,6 +399,7 @@ crossover_vwap: {
     buy_stop_pct: Range0(1, 50),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
+
     // -- strategy
     neurons_1: Range(1, 200),
     activation_1_type: RangeNeuralActivation(),
@@ -486,7 +491,8 @@ crossover_vwap: {
     // reference in extensions is given in ms have not heard of an exchange that supports 500ms thru api so setting min at 1 second
     period_length: RangePeriod(1, 7200, 's'),
     min_periods: Range(1, 2500),
-    markup_pct: RangeFloat(0, 5),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
     sell_stop_pct: Range0(1, 50),
     buy_stop_pct: Range0(1, 50),
@@ -537,6 +543,7 @@ crossover_vwap: {
     overbought_rsi: Range(20, 100)
   },
   trend_bollinger: {
+    // -- common
     period_length: RangePeriod(1, 120, 'm'),
     markdown_buy_pct: RangeFloat(-1, 5),
     markup_sell_pct: RangeFloat(-1, 5),
@@ -611,7 +618,8 @@ crossover_vwap: {
     // -- common
     period_length: RangePeriod(1, 120, 'm'),
     min_periods: Range(1, 200),
-    markup_pct: RangeFloat(0, 5),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
     order_type: RangeMakerTaker(),
     sell_stop_pct: Range0(1, 50),
     buy_stop_pct: Range0(1, 50),
