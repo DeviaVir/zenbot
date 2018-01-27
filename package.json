@@ -83,7 +83,7 @@
     "simple-xmpp": "^1.3.0",
     "sosa_mongo": "^1.0.3",
     "stats-lite": "2.1.0",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.20.0",
     "talib": "drorgl/node-talib#b30dd674e5b11822ea93bb253001169f1bc99e15",
     "timebucket": "^0.4.0",
     "transform-loader": "^0.2.4",
