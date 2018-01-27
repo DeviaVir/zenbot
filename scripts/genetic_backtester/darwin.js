@@ -301,6 +301,7 @@ let strategies = {
     profit_stop_pct: Range(1,20),
 
     // -- strategy
+    ema_acc: RangeFloat(0, 0.5),
     cci_periods: Range(1, 200),
     rsi_periods: Range(1, 200),
     srsi_periods: Range(1, 200),
@@ -346,7 +347,6 @@ crossover_vwap: {
     // -- strategy
     ema_short_period: Range(1, 20),
     ema_long_period: Range(20, 100),
-    signal_period: Range(1, 20),
     up_trend_threshold: Range(0, 50),
     down_trend_threshold: Range(0, 50),
     overbought_rsi_periods: Range(1, 50),
