@@ -2,9 +2,14 @@ var c = module.exports = {}
 
 // mongo configuration
 c.mongo = {}
+c.mongo.db = 'zenbot4'
+
+// Must provide EITHER c.mongo.connectionString OR c.mongo.host,port,username,password
+// c.mongo.connectionString = 'mongodb://u:p@host/db?params'
+
+// The following is not needed when c.mongo.connectionString is provided:
 c.mongo.host = process.env.MONGODB_PORT_27017_TCP_ADDR || 'localhost'
 c.mongo.port = 27017
-c.mongo.db = 'zenbot4'
 c.mongo.username = null
 c.mongo.password = null
 // when using mongodb replication, i.e. when running a mongodb cluster, you can define your replication set here; when you are not using replication (most of the users), just set it to `null` (default).
