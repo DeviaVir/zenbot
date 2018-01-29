@@ -15,7 +15,7 @@ var bittrex_authed = require('node-bittrex-api'),
  **/
 module.exports = function container(get, set, clear) {
   var c = get('conf')
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded)/)
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/)
   var shownWarning = false
 
   bittrex_authed.options({
@@ -31,13 +31,12 @@ module.exports = function container(get, set, clear) {
   }
 
   function retry(method, args, error) {
-    var timeout
-    if (error.message.match(/Rate limit exceeded/)) {
-      timeout = 10000
-    } else {
-      timeout = 2500
-    }
-
+    var timeout = 2500
+    if (error)
+      if (error.message)
+        if (error.message.match(/Rate limit exceeded/)) {
+          timeout = 10000
+        } 
     console.error(('\nBittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
@@ -50,29 +49,41 @@ module.exports = function container(get, set, clear) {
     name: 'bittrex',
     historyScan: 'forward',
     makerFee: 0.25,
+    takerFee: 0.25,
 
     getProducts: function () {
       return require('./products.json')
     },
 
-    getTrades: function (opts, cb) {
+    getTrades:  function  (opts, cb) {
+
+    
+
       var func_args = [].slice.call(arguments)
       var args = {
-        market: joinProduct(opts.product_id)
+        market:joinProduct(opts.product_id),
+        marketName: joinProduct(opts.product_id),
+        tickInterval: 'oneMin'
       }
 
-      bittrex_public.getmarkethistory(args, function( data, err) {
+      //accomplish back trades using 2 calls.
+      //ticks and getMarket and create a hybrid result.
+      var trades = []
+      bittrex_public.getticks(args, function( data, err) {
         if (err != null && data == null)
         {
           data = {}
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
       
         if (!shownWarning) {
-          console.log('please note: the bittrex api does not support backfilling (trade/paper only).')
-          console.log('please note: make sure to set the --period_length=1m to make sure data for trade/paper is fetched.')
+          console.log('Please note: the bittrex api does not support backfilling directly.')
+          console.log('Backfill is indirectly supported thru the use of a hybrid system that combines a low resolution long term market of about 10 days and a short term high res market of the last 1-5 minutes.')
+          console.log('Please note: make sure to set the --period_length=1m to make sure data for trade/paper is fetched.')
           shownWarning = true
         }
         if (typeof data !== 'object') {
@@ -88,25 +99,80 @@ module.exports = function container(get, set, clear) {
           return cb(null, [])
         }
 
-        var trades = []
+       
         try {
+          let lastVal = 0
           Object.keys(data.result).forEach(function (i) {
             var trade = data.result[i]
-            if (isNaN(opts.from) || moment(trade.TimeStamp).valueOf() > opts.from) {
+            if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
+              let buySell = 'sell'
+              //todo: unsure about the >. if the price is greater than the last one should this one be a buy or sell. figure it out. 
+              if (parseFloat(trade.C) > lastVal) buySell = 'buy'
               trades.push({
-                trade_id: trade.Id,
-                time: moment(trade.TimeStamp).valueOf(),
-                size: parseFloat(trade.Quantity),
-                price: parseFloat(trade.Price),
-                side: trade.OrderType == 'BUY' ? 'buy' : 'sell'
+                trade_id: trade.T,
+                time: new Date(trade.T).getTime(),
+                size: parseFloat(trade.V),
+                price: parseFloat(trade.C),
+                side: buySell
               })
+              lastVal = parseFloat(trade.C)
             }
           })
         } catch (e) {
           return retry('getTrades', func_args, {message: 'Error:  ' + e})
         }
-        cb(null, trades)
+        setTimeout(function() {
+          bittrex_public.getmarkethistory(args, function( data, err) {
+            if (err != null && data == null)
+            {
+              data = {}
+              data.message = err.message
+              data.success = err.success
+              data.result = err.result
+              console.log('API Error')
+              console.log(JSON.stringify(err))
+            }
+        
+        
+            if (typeof data !== 'object') {
+              console.log('bittrex API (getmarkethistory) had an abnormal response, quitting.')
+              return cb(null, [])
+            }
+  
+            if(!data.success) {
+              if (data.message && data.message.match(recoverableErrors)) {
+                return retry('getTrades', func_args, data.message)
+              }
+              console.log(data.message)
+              return cb(null, [])
+            }
+  
+         
+            try {
+        
+              Object.keys(data.result).forEach(function (i) {
+                var trade = data.result[i]
+                if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
+             
+                  trades.push({
+                    trade_id: trade.Id,
+                    time: new Date(trade.TimeStamp).getTime(),
+                    size: parseFloat(trade.Quantity),
+                    price: parseFloat(trade.Price),
+                    side: trade.OrderType || trade.OrderType == 'SELL' ? 'sell': 'buy'
+                  })
+                }
+              })
+            } catch (e) {
+              return retry('getTrades', func_args, {message: 'Error:  ' + e})
+            }
+            cb(null, trades)
+          })
+        },3000)
+   
       })
+
+ 
     },
 
     getBalance: function (opts, cb) {
@@ -119,6 +185,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
     
 
@@ -177,6 +245,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
      
         if (typeof data !== 'object') {
@@ -209,6 +279,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
       
 
@@ -247,6 +319,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
         if (err && err.message)
         {
@@ -328,6 +402,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
         
         if (typeof data !== 'object') {
