@@ -76,6 +76,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
       
         if (!shownWarning) {
@@ -127,6 +129,8 @@ module.exports = function container(get, set, clear) {
               data.message = err.message
               data.success = err.success
               data.result = err.result
+              console.log('API Error')
+              console.log(JSON.stringify(err))
             }
         
         
@@ -181,6 +185,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
     
 
@@ -239,6 +245,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
      
         if (typeof data !== 'object') {
@@ -271,6 +279,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
       
 
@@ -309,6 +319,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
         if (err && err.message)
         {
@@ -390,6 +402,8 @@ module.exports = function container(get, set, clear) {
           data.message = err.message
           data.success = err.success
           data.result = err.result
+          console.log('API Error')
+          console.log(JSON.stringify(err))
         }
         
         if (typeof data !== 'object') {
