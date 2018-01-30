@@ -33,8 +33,9 @@ boot(function (err, zenbot) {
     }).filter((file)=>{
       return fs.statSync(file).isFile()
     })
-
-    var command_found = (commands.indexOf(path.join(command_directory, command_name)+'.js') !== -1)
+    
+    if(command_name)
+      var command_found = (commands.indexOf(path.join(command_directory, command_name)+'.js') !== -1)
 
     if(command_found) {
       var command = require(`./commands/${command_name}`)

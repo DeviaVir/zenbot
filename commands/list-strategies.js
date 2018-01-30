@@ -7,10 +7,8 @@ module.exports = function (program, conf) {
     .description('list available strategies')
     .action(function (cmd) {
       var strategies = fs.readdirSync('./extensions/strategies')
-      console.log(strategies)
       strategies.forEach((strategy) => {
         let strat = require(`../extensions/strategies/${strategy}/strategy`)
-        console.log(strat)
         console.log(strat.name.cyan + (strat.name === conf.strategy ? ' (default)'.grey : ''))
         if (strat.description) {
           console.log('  description:'.grey)
