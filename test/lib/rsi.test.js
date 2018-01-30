@@ -1,27 +1,27 @@
-var RSI = require('../../lib/rsi');
+var RSI = require('../../lib/rsi')
 
 describe('RSI (Relative Strength Index)', function () {
 
   it('should calculate RSI with default period', function () {
-    (RSI())(normalData, 'rsi', 14)
+    RSI(normalData, 'rsi', 14)
 
     expect(normalData.period.rsi).toEqual(32.26)
   })
 
   it('should set RSI to 100 when there is no losses for the entire period', function() {
-    (RSI())(noLossData, 'rsi', 14)
+    RSI(noLossData, 'rsi', 14)
 
     expect(noLossData.period.rsi).toEqual(100)
   })
 
   it('should set RSI to 0 when there is no gains for the entire period', function() {
-    (RSI())(noGainData, 'rsi', 14)
+    RSI(noGainData, 'rsi', 14)
 
     expect(noGainData.period.rsi).toEqual(0)
   })
 
   it('should set RSI to 0 when there is no price change for the entire period', function() {
-    (RSI())(noPriceChangeData, 'rsi', 14)
+    RSI(noPriceChangeData, 'rsi', 14)
 
     expect(noPriceChangeData.period.rsi).toEqual(100)
   })
@@ -51,7 +51,7 @@ var normalData = {
     {close: 43.13}
   ],
   period: {}
-};
+}
 
 var noLossData = {
   lookback: [
@@ -76,12 +76,12 @@ var noLossData = {
     {close: 47.88}
   ],
   period: {}
-};
+}
 
 var noGainData = {
   lookback: noLossData.lookback.slice(0).reverse(),
   period: {}
-};
+}
 
 var noPriceChangeData = {
   lookback: [
@@ -106,5 +106,5 @@ var noPriceChangeData = {
     {close: 46.8}
   ],
   period: {}
-};
+}
 

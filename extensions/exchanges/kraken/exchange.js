@@ -5,8 +5,7 @@ var KrakenClient = require('kraken-api'),
   n = require('numbro'),
   colors = require('colors')
 
-module.exports = function container(get, set, clear) {
-  var c = get('conf')
+module.exports = function container(conf) {
   var s = {
     options: minimist(process.argv)
   }
@@ -26,10 +25,10 @@ module.exports = function container(get, set, clear) {
 
   function authedClient() {
     if (!authed_client) {
-      if (!c.kraken || !c.kraken.key || c.kraken.key === 'YOUR-API-KEY') {
+      if (!conf.kraken || !conf.kraken.key || conf.kraken.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Kraken credentials in conf.js')
       }
-      authed_client = new KrakenClient(c.kraken.key, c.kraken.secret)
+      authed_client = new KrakenClient(conf.kraken.key, conf.kraken.secret)
     }
     return authed_client
   }
@@ -48,7 +47,7 @@ module.exports = function container(get, set, clear) {
     if (assetsToFix.indexOf(asset) >= 0 && currency.length > 3) {
       currency = currency.substring(1)
     }
-    return asset + currency;
+    return asset + currency
   }
 
   function retry(method, args, error) {
@@ -241,7 +240,7 @@ module.exports = function container(get, set, clear) {
         type: type,
         ordertype: (opts.order_type === 'taker' ? 'market' : 'limit'),
         volume: opts.size,
-        trading_agreement: c.kraken.tosagree
+        trading_agreement: conf.kraken.tosagree
       }
       if (opts.post_only === true && params.ordertype === 'limit') {
         params.oflags = 'post'

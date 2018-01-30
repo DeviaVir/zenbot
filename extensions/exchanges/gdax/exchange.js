@@ -1,14 +1,12 @@
 var Gdax = require('gdax')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
-
+module.exports = function gdax (conf) {
   var public_client = {}, authed_client, websocket_client = {}, websocket_cache = {}
 
   function publicClient (product_id) {
     if (!public_client[product_id]) {
       websocketClient(product_id)
-      public_client[product_id] = new Gdax.PublicClient(product_id, c.gdax.apiURI)
+      public_client[product_id] = new Gdax.PublicClient(product_id, conf.gdax.apiURI)
     }
     return public_client[product_id]
   }
@@ -20,7 +18,7 @@ module.exports = function container (get, set, clear) {
       try {
         auth = authedClient()
       } catch(e){}
-      websocket_client[product_id] = new Gdax.OrderbookSync([product_id], c.gdax.apiURI, c.gdax.websocketURI, auth, { heartbeat: true })
+      websocket_client[product_id] = new Gdax.OrderbookSync([product_id], conf.gdax.apiURI, conf.gdax.websocketURI, auth, { heartbeat: true })
       // initialize a cache for the websocket connection
       websocket_cache[product_id] = {
         trades: [],
@@ -52,10 +50,10 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.gdax || !c.gdax.key || c.gdax.key === 'YOUR-API-KEY') {
+      if (!conf.gdax || !conf.gdax.key || conf.gdax.key === 'YOUR-API-KEY') {
         throw new Error('please configure your GDAX credentials in conf.js')
       }
-      authed_client = new Gdax.AuthenticatedClient(c.gdax.key, c.gdax.b64secret, c.gdax.passphrase, c.gdax.apiURI)
+      authed_client = new Gdax.AuthenticatedClient(conf.gdax.key, conf.gdax.b64secret, conf.gdax.passphrase, conf.gdax.apiURI)
     }
     return authed_client
   }

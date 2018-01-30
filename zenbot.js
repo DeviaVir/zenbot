@@ -22,19 +22,29 @@ boot(function (err, zenbot) {
   if (err) {
     throw err
   }
-  var commands = zenbot.get('zenbot:commands.list')
-  commands.forEach(function (command) {
-    command(program)
+  var command_directory = './commands'
+  fs.readdir(command_directory, function(err, files){
+    if (err) {
+      throw err
+    }
+    
+    var commands = files.map((file)=>{
+      return path.join(command_directory, file)
+    }).filter((file)=>{
+      return fs.statSync(file).isFile()
+    })
+
+    var command_found = (commands.indexOf(path.join(command_directory, command_name)+'.js') !== -1)
+
+    if(command_found) {
+      var command = require(`./commands/${command_name}`)
+      command(program, zenbot.conf)
+    }
+
+    if (!command_name || !command_found && (!process.argv[2] || !process.argv[2].match(/^-V|--version$/))) {
+      program.help()
+    }
+    program.parse(process.argv)
+    
   })
-  var command_found = false
-  try {
-    zenbot.get('zenbot:commands.' + command_name)
-    command_found = true
-  }
-  catch (e) {
-  }
-  if (!command_name || !command_found && (!process.argv[2] || !process.argv[2].match(/^-V|--version$/))) {
-    program.help()
-  }
-  program.parse(process.argv)
 })

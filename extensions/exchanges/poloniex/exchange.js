@@ -4,22 +4,21 @@ var Poloniex = require('poloniex.js')
   , n = require('numbro')
   , colors = require('colors')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function container (conf) {
 
   var public_client, authed_client
 
   function publicClient (product_id) {
-    if (!public_client) public_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
+    if (!public_client) public_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
     return public_client
   }
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.poloniex || !c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
+      if (!conf.poloniex || !conf.poloniex.key || conf.poloniex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Poloniex credentials in conf.js')
       }
-      authed_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
+      authed_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
     }
     return authed_client
   }

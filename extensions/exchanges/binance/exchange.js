@@ -5,9 +5,7 @@ const ccxt = require('ccxt')
   , _ = require('lodash')
   , n = require('numbro')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
-
+module.exports = function bittrex (conf) {
   var public_client, authed_client
 
   function publicClient () {
@@ -17,10 +15,10 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.binance || !c.binance.key || c.binance.key === 'YOUR-API-KEY') {
+      if (!conf.binance || !conf.binance.key || conf.binance.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Binance credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.binance({ 'apiKey': c.binance.key, 'secret': c.binance.secret })
+      authed_client = new ccxt.binance({ 'apiKey': conf.binance.key, 'secret': conf.binance.secret })
     }
     return authed_client
   }
@@ -32,7 +30,7 @@ module.exports = function container (get, set, clear) {
    * @returns {string}
    */
   function joinProduct(product_id) {
-    let split = product_id.split('-');
+    let split = product_id.split('-')
     return split[0] + '/' + split[1]
   }
 
@@ -62,7 +60,7 @@ module.exports = function container (get, set, clear) {
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
 
-      var args = {};
+      var args = {}
       if (opts.from) {
         args.startTime = opts.from
       }
@@ -145,7 +143,7 @@ module.exports = function container (get, set, clear) {
           // decide if this error is allowed for a retry 
 
           if (err.message && err.message.match(new RegExp(/-2011|UNKNOWN_ORDER/))) {
-            console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + " - " + err).cyan)
+            console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + ' - ' + err).cyan)
           } else {
             // retry is allowed for this error
 
