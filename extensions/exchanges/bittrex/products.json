@@ -280,17 +280,6 @@
     "label": "BTC/XST"
   },
   {
-<<<<<<< HEAD
-    "asset": "BTCD",
-    "currency": "BTC",
-    "min_total": "0.01139371",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BTCD"
-  },
-  {
-=======
->>>>>>> DeviaVir/unstable
     "asset": "VIA",
     "currency": "BTC",
     "min_total": "0.52410901",
@@ -1323,17 +1312,6 @@
     "label": "ETH/GNO"
   },
   {
-<<<<<<< HEAD
-    "asset": "APX",
-    "currency": "BTC",
-    "min_total": "0.18380596",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/APX"
-  },
-  {
-=======
->>>>>>> DeviaVir/unstable
     "asset": "HMQ",
     "currency": "BTC",
     "min_total": "8.10110175",
@@ -1478,25 +1456,6 @@
     "label": "ETH/PTOY"
   },
   {
-<<<<<<< HEAD
-    "asset": "MYST",
-    "currency": "BTC",
-    "min_total": "1.08131488",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/MYST"
-  },
-  {
-    "asset": "MYST",
-    "currency": "ETH",
-    "min_total": "1.86567164",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/MYST"
-  },
-  {
-=======
->>>>>>> DeviaVir/unstable
     "asset": "CFI",
     "currency": "BTC",
     "min_total": "12.89989680",
@@ -2135,5 +2094,14 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/UKG"
+  },
+  {
+    "asset": "IGNIS",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0005",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/IGNIS"
   }
 ]
