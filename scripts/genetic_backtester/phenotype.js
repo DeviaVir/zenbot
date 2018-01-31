@@ -70,9 +70,11 @@ module.exports = {
     if (typeof phenotype.sim === 'undefined') return 0
     
     var vsBuyHoldRate = (phenotype.sim.vsBuyHold / 50)
-    var wlRatio = phenotype.sim.wins - phenotype.sim.losses
-    // 2.71828 is https://en.wikipedia.org/wiki/E_(mathematical_constant)
-    var wlRatioRate = 1.0 / (1.0 + Math.pow(2.71828, wlRatio < 0 ? wlRatio:-(wlRatio)))
+    var wlRatio = phenotype.sim.wins / phenotype.sim.losses
+    if(isNaN(wlRatio)) { // zero trades will result in 0/0 which is NaN
+      wlRatio = 1
+    }
+    var wlRatioRate = 1.0 / (1.0 + Math.pow(Math.E, -wlRatio))
     var rate = vsBuyHoldRate * (wlRatioRate)
     return rate
   },
