@@ -2230,5 +2230,23 @@
     "max_size": "100000.00000000",
     "increment": "1.00000000",
     "label": "IOST/ETH"
+  },
+  {
+    "id": "CHATBTC",
+    "asset": "CHAT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "CHAT/BTC"
+  },
+  {
+    "id": "CHATETH",
+    "asset": "CHAT",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "CHAT/ETH"
   }
 ]
