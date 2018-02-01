@@ -48,6 +48,14 @@
     "label": "XRP/USD"
   },
   {
+    "asset": "XLM",
+    "currency": "USD",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "XLM/USD"
+  },
+  {
     "asset": "ZEC",
     "currency": "USD",
     "min_size": "0.07",
@@ -102,6 +110,14 @@
     "max_size": null,
     "increment": "0.0001",
     "label": "XRP/EUR"
+  },
+  {
+    "asset": "XLM",
+    "currency": "EUR",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "XLM/EUR"
   },
   {
     "asset": "ZEC",
@@ -198,6 +214,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "XRP/BTC"
+  },
+  {
+    "asset": "XLM",
+    "currency": "BTC",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "XLM/BTC"
   },
   {
     "asset": "ZEC",

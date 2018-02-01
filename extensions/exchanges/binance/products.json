@@ -2248,5 +2248,32 @@
     "max_size": "100000.00000000",
     "increment": "1.00000000",
     "label": "CHAT/ETH"
+  },
+  {
+    "id": "STEEMBTC",
+    "asset": "STEEM",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "label": "STEEM/BTC"
+  },
+  {
+    "id": "STEEMETH",
+    "asset": "STEEM",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "label": "STEEM/ETH"
+  },
+  {
+    "id": "STEEMBNB",
+    "asset": "STEEM",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "STEEM/BNB"
   }
 ]
