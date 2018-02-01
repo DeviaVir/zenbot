@@ -16,10 +16,10 @@ let GeneticAlgorithmCtor = require('geneticalgorithm')
 let StripAnsi = require('strip-ansi')
 let moment = require('moment')
 let path = require('path')
-
 let Phenotypes = require('./phenotype.js')
+let argv = require('yargs').argv
 
-let VERSION = 'Zenbot 4 Genetic Backtester v0.2.1'
+let VERSION = 'Zenbot 4 Genetic Backtester v0.2.2'
 
 let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length
 
@@ -39,8 +39,14 @@ let NEUTRAL_RATE_AUTO = false
 
 let iterationCount = 0
 
+let selectedStrategies 
+let pools = {}
+let simArgs
+let populationSize = 0
+let generationCount = 0
+let generationProcessing = false
 
-let runCommand = (taskStrategyName, phenotype, cb) => {
+function  runCommand  (taskStrategyName, phenotype, cb) {
   var cmdArgs = Object.assign({}, phenotype)
   cmdArgs.strategy = taskStrategyName
   Object.assign(cmdArgs, simArgs)
@@ -85,7 +91,7 @@ let runCommand = (taskStrategyName, phenotype, cb) => {
   })
 }
 
-let runUpdate = (days, selector) => {
+function  runUpdate  (days, selector) {
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'
   let command = `${zenbot_cmd} backfill --days=${days} ${selector}`
   console.log('Backfilling (might take some time) ...')
@@ -97,11 +103,11 @@ let runUpdate = (days, selector) => {
   })
 }
 
-let processOutput = (output,taskStrategyName, pheno)=> {
+function processOutput  (output,taskStrategyName, pheno) {
 
 
-  let strippedOutput = StripAnsi(output)
-  let output2 = strippedOutput.substr(strippedOutput.length - 3500)
+  // let strippedOutput = StripAnsi(output)
+  // let output2 = strippedOutput.substr(strippedOutput.length - 3500)
 
   let tFileName = path.resolve(__dirname, '..','..', 'simulations','sim_'+taskStrategyName.replace('_','')+'_'+ pheno.exchangeMarketPair.toLowerCase().replace('_','')+'_'+pheno.backtester_generation+'.json')
   let simulationResults
@@ -147,9 +153,6 @@ let processOutput = (output,taskStrategyName, pheno)=> {
   }
 
 
-  let roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
-
-
   //todo: figure out what this is trying to do.
   let r = params
   delete r.asset_capital
@@ -193,7 +196,6 @@ let processOutput = (output,taskStrategyName, pheno)=> {
     markdown_buy_pct: params.markdown_buy_pct,
     markup_sell_pct: params.markup_sell_pct,
     order_type: params.order_type,
-    roi: roi,
     wlRatio: losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     selector: params.selector,
     strategy: params.strategy,
@@ -202,7 +204,7 @@ let processOutput = (output,taskStrategyName, pheno)=> {
   return results
 }
 
-let Range = (min, max) => {
+function Range  (min, max)  {
   var r = {
     type: 'int',
     min: min,
@@ -211,7 +213,7 @@ let Range = (min, max) => {
   return r
 }
 
-let Range0 = (min, max) => {
+function Range0 (min, max)  {
   var r = {
     type: 'int0',
     min: min,
@@ -220,7 +222,7 @@ let Range0 = (min, max) => {
   return r
 }
 
-let RangeFactor = (min, max, factor) => {
+function RangeFactor  (min, max, factor)  {
   var r = {
     type: 'intfactor',
     min: min,
@@ -231,7 +233,7 @@ let RangeFactor = (min, max, factor) => {
 }
 
 
-let RangeFloat = (min, max) => {
+function RangeFloat  (min, max)  {
   var r = {
     type: 'float',
     min: min,
@@ -240,7 +242,7 @@ let RangeFloat = (min, max) => {
   return r
 }
 
-let RangePeriod = (min, max, period_length) => {
+function RangePeriod  (min, max, period_length)  {
   var r = {
     type: 'period_length',
     min: min,
@@ -250,27 +252,27 @@ let RangePeriod = (min, max, period_length) => {
   return r
 }
 
-let RangeMakerTaker = () => {
+function RangeMakerTaker  ()  {
   var r = {
     type: 'makertaker'
   }
   return r
 }
 
-let RangeNeuralActivation = () => {
+function RangeNeuralActivation  () {
   var r = {
     type: 'sigmoidtanhrelu'
   }
   return r
 }
-let RangeBoolean = () => {
+function RangeBoolean  () {
   var r = {
     type: 'truefalse'
   }
   return r
 }
 
-let strategies = {
+const strategies = {
   bollinger: {
     // -- common
     period_length: RangePeriod(1, 120, 'm'),
@@ -313,7 +315,7 @@ let strategies = {
     overbought_cci: Range(1, 100),
     constant: RangeFloat(0.001, 0.05)
   },
-crossover_vwap: {
+  crossover_vwap: {
     // -- common
     period_length: RangePeriod(1, 400, 'm'),
     min_periods: Range(1, 200),
@@ -637,7 +639,7 @@ crossover_vwap: {
   }
 }
 
-let allStrategyNames = () => {
+function allStrategyNames ()  {
   let r = []
   for (var k in strategies) {
     r.push(k)
@@ -645,91 +647,12 @@ let allStrategyNames = () => {
   return r
 }
 
-console.log(`\n--==${VERSION}==--`)
-console.log(new Date().toUTCString() + '\n')
-
-let argv = require('yargs').argv
-let simArgs = Object.assign({}, argv)
-if (!simArgs.selector)
-  simArgs.selector = 'bitfinex.ETH-USD'
-if (!simArgs.filename)
-  simArgs.filename = 'none'
-delete simArgs.use_strategies
-delete simArgs.population_data
-delete simArgs.population
-delete simArgs['$0'] // This comes in to argv all by itself
-delete simArgs['_']  // This comes in to argv all by itself
-
-let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
-let populationFileName = (argv.population_data) ? argv.population_data : null
-let populationSize = (argv.population) ? argv.population : 100
-
-console.log(`Backtesting strategy ${strategyName} ...`)
-console.log(`Creating population of ${populationSize} ...\n`)
-
-let pools = {}
-let selectedStrategies = (strategyName === 'all') ? allStrategyNames() : strategyName.split(',')
-
-
-let importedPoolData = (populationFileName) ? JSON.parse(fs.readFileSync(populationFileName, 'utf8')) : null
-
-//Clean up any generation files left over in the simulation directory
-//they will be overwritten, but best not to confuse the issue.
-//if it fails.   doesn't matter they will be overwritten anyways. not need to halt the system.
-try
-{
-  let tDirName = path.resolve(__dirname, '..','..', 'simulations')
-  let tFileName = 'sim_'
-  let files = fs.readdirSync(tDirName)
-
-  for(let i = 0; i < files.length; i++)
-  {
-    if (files[i].lastIndexOf(tFileName) == 0)
-    {
-      let filePath = path.resolve(__dirname, '..','..', 'simulations',files[i] )
-      fs.unlinkSync(filePath)
-    }
-
-  }
-} catch (err)
-{
-  console.log('error deleting lint from prior run')
-}
-
-selectedStrategies.forEach(function(v) {
-  let strategyPool = pools[v] = {}
-
-  let evolve = true
-  let population = (importedPoolData && importedPoolData[v]) ? importedPoolData[v] : []
-  for (var i = population.length; i < populationSize; ++i) {
-    population.push(Phenotypes.create(strategies[v]))
-    evolve = false
-  }
-
-  strategyPool['config'] = {
-    mutationFunction: function(phenotype) {
-      return Phenotypes.mutation(phenotype, strategies[v])
-    },
-    crossoverFunction: function(phenotypeA, phenotypeB) {
-      return Phenotypes.crossover(phenotypeA, phenotypeB, strategies[v])
-    },
-    fitnessFunction: Phenotypes.fitness,
-    doesABeatBFunction: Phenotypes.competition,
-    population: population,
-    populationSize: populationSize
-  }
-
-  strategyPool['pool'] = GeneticAlgorithmCtor(strategyPool.config)
-  if (evolve) {
-    strategyPool['pool'].evolve()
-  }
-})
-
-var isUsefulKey = key => {
+function isUsefulKey  (key)  {
   if(key == 'filename' || key == 'show_options' || key == 'sim') return false
   return true
 }
-var generateCommandParams = input => {
+
+function generateCommandParams (input)  {
   input = input.params.replace('module.exports =','')
   input = JSON.parse(input)
 
@@ -749,21 +672,24 @@ var generateCommandParams = input => {
   }
   return result
 }
-var saveGenerationData = function(csvFileName, jsonFileName, dataCSV, dataJSON, callback){
-  fs.writeFile(csvFileName, dataCSV, err => {
+
+function  saveGenerationData (csvFileName, jsonFileName, dataCSV, dataJSON) {
+  fs.writeFileSync(csvFileName, dataCSV, err => {
     if (err) throw err
     console.log('> Finished writing generation csv to ' + csvFileName)
-    callback(1)
+  //  callback(1)
   })
-  fs.writeFile(jsonFileName, dataJSON, err => {
+  fs.writeFileSync(jsonFileName, dataJSON, err => {
     if (err) throw err
     console.log('> Finished writing generation json to ' + jsonFileName)
-    callback(2)
+  //  callback(2)
   })
 }
-let generationCount = 0
 
-let simulateGeneration = () => {
+
+
+function simulateGeneration  () {
+  generationProcessing = true
   console.log(`\n\n=== Simulating generation ${++generationCount} ===\n`)
 
   let days = argv.days
@@ -777,7 +703,8 @@ let simulateGeneration = () => {
       days = moment().diff(end, 'days') + 1
     }
   }
-  runUpdate(days, argv.selector)
+  if (generationCount == 0)
+    runUpdate(days, argv.selector)
 
   iterationCount = 1
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
@@ -815,38 +742,139 @@ let simulateGeneration = () => {
 
     let jsonFileName = `simulations/generation_data_${fileDate}_gen_${generationCount}.json`
     let dataJSON = JSON.stringify(poolData, null, 2)
-    var filesSaved = 0
-    saveGenerationData(csvFileName, jsonFileName, dataCSV, dataJSON, (id)=>{
-      filesSaved++
-      if(filesSaved == 2){
-        console.log('\n\nGeneration\'s Best Results')
-        selectedStrategies.forEach((v)=> {
-          let best = pools[v]['pool'].best()
 
-          if(best.sim){
-            console.log(`\t(${v}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}.`)
-
-          } else {
-            console.log(`\t(${v}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`)
-          }
-
-          // prepare command snippet from top result for this strat
-          let prefix = './zenbot.sh sim '
-          let bestCommand = generateCommandParams(results[0])
-
-          bestCommand = prefix + bestCommand
-          bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
-
-          console.log(bestCommand + '\n')
-
-          let nextGen = pools[v]['pool'].evolve()
-        })
-
-        simulateGeneration()
+    //Display best of the generation
+    console.log('\n\nGeneration\'s Best Results')
+    let bestOverallResult = []
+    let prefix = './zenbot.sh sim '
+    selectedStrategies.forEach((v)=> {
+      let best = pools[v]['pool'].best()
+      let bestCommand 
+      if(best.sim){
+        console.log(`\t(${best.sim.strategy}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}, ROI ${best.sim.roi}.`)
+        bestCommand = generateCommandParams(best.sim)
+        bestOverallResult.push(best.sim)
+      } else {
+        console.log(`\t(${results[0].strategy}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`)
+        bestCommand = generateCommandParams(results[0])
+        bestOverallResult.push(results[0])
       }
+
+      // prepare command snippet from top result for this strat
+
+      bestCommand = prefix + bestCommand
+      bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
+      console.log(bestCommand + '\n')
     })
 
-  })
+    bestOverallResult.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0))
+    if (selectedStrategies.length > 1){
+      console.log(`\t(${bestOverallResult[0].strategy}) Best Overall Fitness ${bestOverallResult[0].fitness}, VS Buy and Hold: ${bestOverallResult[0].vsBuyHold} End Balance: ${bestOverallResult[0].endBalance}, Wins/Losses ${bestOverallResult[0].wins}/${bestOverallResult[0].losses}, ROI ${bestOverallResult[0].roi}.`)
+    }
+    let bestOverallCommand = generateCommandParams(bestOverallResult[0])
+    bestOverallCommand = prefix + bestOverallCommand
+    bestOverallCommand = bestOverallCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
+    if (selectedStrategies.length > 1) {
+      console.log(bestOverallCommand + '\n')
+    }
+
+    saveGenerationData(csvFileName, jsonFileName, dataCSV, dataJSON )
+
+    selectedStrategies.forEach((v)=> {
+      pools[v]['pool'] = pools[v]['pool'].evolve()
+    })
+
+    generationProcessing = false
+
+
+  }) 
 }
 
-simulateGeneration()
+
+console.log(`\n--==${VERSION}==--`)
+console.log(new Date().toUTCString() + '\n')
+
+
+simArgs = Object.assign({}, argv)
+if (!simArgs.selector)
+  simArgs.selector = 'bitfinex.ETH-USD'
+if (!simArgs.filename)
+  simArgs.filename = 'none'
+delete simArgs.use_strategies
+delete simArgs.population_data
+delete simArgs.population
+delete simArgs['$0'] // This comes in to argv all by itself
+delete simArgs['_']  // This comes in to argv all by itself
+
+let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
+let populationFileName = (argv.population_data) ? argv.population_data : null
+populationSize = (argv.population) ? argv.population : 100
+
+console.log(`Backtesting strategy ${strategyName} ...`)
+console.log(`Creating population of ${populationSize} ...\n`)
+
+ 
+selectedStrategies = (strategyName === 'all') ? allStrategyNames() : strategyName.split(',')
+
+
+let importedPoolData = (populationFileName) ? JSON.parse(fs.readFileSync(populationFileName, 'utf8')) : null
+
+//Clean up any generation files left over in the simulation directory
+//they will be overwritten, but best not to confuse the issue.
+//if it fails.   doesn't matter they will be overwritten anyways. not need to halt the system.
+try
+{
+  let tDirName = path.resolve(__dirname, '..','..', 'simulations')
+  let tFileName = 'sim_'
+  let files = fs.readdirSync(tDirName)
+
+  for(let i = 0; i < files.length; i++)
+  {
+    if (files[i].lastIndexOf(tFileName) == 0)
+    {
+      let filePath = path.resolve(__dirname, '..','..', 'simulations',files[i] )
+      fs.unlinkSync(filePath)
+    }
+
+  }
+} catch (err)
+{
+  console.log('error deleting lint from prior run')
+}
+
+  
+for (var i = 0; i < selectedStrategies.length; i++)
+{
+  let v = selectedStrategies[i]
+  let strategyPool = pools[v] = {}
+
+  let evolve = true
+  let population = (importedPoolData && importedPoolData[v]) ? importedPoolData[v] : []
+  for (var i2 = population.length; i2 < populationSize; ++i2) {
+    population.push(Phenotypes.create(strategies[v]))
+    evolve = false
+  }
+
+  strategyPool['config'] = {
+    mutationFunction: function(phenotype) {
+      return Phenotypes.mutation(phenotype, strategies[v])
+    },
+    crossoverFunction: function(phenotypeA, phenotypeB) {
+      return Phenotypes.crossover(phenotypeA, phenotypeB, strategies[v])
+    },
+    fitnessFunction: Phenotypes.fitness,
+    doesABeatBFunction: Phenotypes.competition,
+    population: population,
+    populationSize: populationSize
+  }
+
+  strategyPool['pool'] = GeneticAlgorithmCtor(strategyPool.config)
+  if (evolve) {
+    strategyPool['pool'].evolve()
+  }
+}
+
+
+setInterval( ()=>{
+  if (generationProcessing == false)  simulateGeneration()
+},1000)
