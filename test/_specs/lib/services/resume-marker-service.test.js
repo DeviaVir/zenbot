@@ -192,6 +192,8 @@ describe('Resume Marker Service', function() {
 			expect(instance.getRanges()[0].to).toBe(1300)
 			expect(instance.getRanges()[0].oldest_time).toBe(989988)
 			expect(instance.getRanges()[0].newest_time).toBe(990000)
+
+			expect(instance.getPingCount()).toBe(6);
 		})
 	})
 
@@ -455,6 +457,47 @@ describe('Resume Marker Service', function() {
 
 			expect(opts.mockDeleteManyFunction).toHaveBeenCalled()
 			expect(opts.mockInsertManyFunction).toHaveBeenCalled()
+		})
+	})
+
+	describe('ping count', function() {
+		var mockCollectionService = collectionServiceFactory.get();
+
+		beforeEach(function() {
+			spyOn(foo, 'get').and.returnValues(
+				{},
+				() => { return {normalized: 'tests.BTC-USD'}},
+				mockCollectionService
+				)
+		})
+
+		it('increases, but not when a number is already in range', function() {
+			var instance = service(foo.get, foo.set, foo.clear)
+
+			var trade = {trade_id:1300, time:990000};
+			instance.ping(trade);
+
+			var trade2 = {trade_id:1299, time:989996};
+			instance.ping(trade2);
+
+			// this should already be in range
+			instance.ping(trade);
+			expect(instance.getPingCount()).toBe(2);
+		})
+
+		it('increases when direction is FORWARD, but not when a number is already in range', function() {
+			var instance = service(foo.get, foo.set, foo.clear)
+			instance.setDirection('forward') // TODO: put this in a constants object			
+
+			var trade = {trade_id:1299, time:990000};
+			instance.ping(trade);
+
+			var trade2 = {trade_id:1300, time:989996};
+			instance.ping(trade2);
+
+			// this should already be in range
+			instance.ping(trade);
+			expect(instance.getPingCount()).toBe(2);
 		})
 	})
 
