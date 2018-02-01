@@ -153,8 +153,15 @@ function processOutput  (output,taskStrategyName, pheno) {
   }
 
 
-  let roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
-
+  let roi
+  if  (params.currency_capital == 0.0)
+  {
+    roi = roundp(endBalance, 3 )
+  }
+  else
+  {
+    roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
+  }
 
   //todo: figure out what this is trying to do.
   let r = params
