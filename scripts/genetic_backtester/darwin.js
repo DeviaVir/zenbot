@@ -152,6 +152,15 @@ function processOutput  (output,taskStrategyName, pheno) {
     end = parseInt(simulationResults.end || null)
   }
 
+  let roi
+  if  (params.currency_capital == 0.0)
+  {
+    roi = roundp(endBalance, 3 )
+  }
+  else
+  {
+    roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
+  }
 
   //todo: figure out what this is trying to do.
   let r = params
@@ -197,6 +206,7 @@ function processOutput  (output,taskStrategyName, pheno) {
     markup_sell_pct: params.markup_sell_pct,
     order_type: params.order_type,
     wlRatio: losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
+    roi: roi,
     selector: params.selector,
     strategy: params.strategy,
     frequency: roundp((wins + losses) / days, 3)
