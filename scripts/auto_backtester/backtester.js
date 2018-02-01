@@ -16,11 +16,12 @@ let parallel  = require('run-parallel-limit');
 let json2csv  = require('json2csv');
 let roundp    = require('round-precision');
 let fs        = require('fs');
+let path = require('path')
 let StripAnsi = require('strip-ansi');
 
 let VERSION = 'Zenbot 4.04 Backtester v0.2';
 
-let PARALLEL_LIMIT = require('os').cpus().length;
+let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length;
 
 let TREND_EMA_MIN = 20;
 let TREND_EMA_MAX = 20;
@@ -70,7 +71,7 @@ let objectProduct = obj => {
   });
 };
 
-let runCommand = (strategy, cb) => {
+let runCommand = (strategy, exchangeMarketPair,strategyName, cb) => {
   countArr.push(1);
   let strategyArgs = {
     cci_srsi: `--cci_periods=${strategy.rsi_periods} --rsi_periods=${strategy.srsi_periods} --srsi_periods=${strategy.srsi_periods} --srsi_k=${strategy.srsi_k} --srsi_d=${strategy.srsi_d} --oversold_rsi=${strategy.oversold_rsi} --overbought_rsi=${strategy.overbought_rsi} --oversold_cci=${strategy.oversold_cci} --overbought_cci=${strategy.overbought_cci} --constant=${strategy.constant}`,
@@ -82,8 +83,11 @@ let runCommand = (strategy, cb) => {
     trend_ema: `--trend_ema=${strategy.trend_ema} --oversold_rsi=${strategy.oversold_rsi} --oversold_rsi_periods=${strategy.oversold_rsi_periods} --neutral_rate=${strategy.neutral_rate}`
   };
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'; // Use 'win32' for 64 bit windows too
-  let command = `${zenbot_cmd} sim ${simArgs} ${strategyArgs[strategyName]} --period_length=${strategy.period_length}  --min_periods=${strategy.min_periods}`;
-  console.log(`[ ${countArr.length}/${strategies[strategyName].length} ] ${command}`);
+  let localGen = countArr.length
+  strategy.backtester_generation = localGen
+
+  let command = `${zenbot_cmd} sim ${simArgs} ${strategyArgs[strategyName]} --period_length=${strategy.period_length}  --min_periods=${strategy.min_periods} --backtester_generation=${localGen}`;
+  console.log(`[ ${localGen}/${strategies[strategyName].length} ] ${command}`);
 
   shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
     if (code) {
@@ -91,40 +95,36 @@ let runCommand = (strategy, cb) => {
       console.error(stderr)
       return cb(null, null)
     }
-    cb(null, processOutput(stdout));
+    cb(null, processOutput(stdout,localGen,strategyName, exchangeMarketPair));
   });
 };
 
-let processOutput = output => {
-  let jsonRegexp    = /(\{[\s\S]*?\})\send balance/g;
-  let endBalRegexp  = /end balance: (\d+\.\d+) \(/g;
-  let buyHoldRegexp  = /buy hold: (\d+\.\d+) \(/g;
-  let vsBuyHoldRegexp  = /vs. buy hold: (-?\d+\.\d+)%/g;
-  let wlRegexp      = /win\/loss: (\d+)\/(\d+)/g;
-  let errRegexp     = /error rate: (.*)%/g;
+let processOutput = (output,generation,strategyName, exchangeMarketPair) => {
+  
+  let tFileName = path.resolve(__dirname, '..','..', 'simulations','sim_'+strategyName.replace('_','')+'_'+exchangeMarketPair.replace(' ','')+'_'+generation+'.json')
+  let simulationResults
+  if (fs.existsSync(tFileName))
+  {
+    let jsonBuffer
+    jsonBuffer = fs.readFileSync(tFileName,{encoding:'utf8'})
+    simulationResults = JSON.parse(jsonBuffer)
+    fs.unlinkSync(tFileName)
+  }
 
-  let strippedOutput = StripAnsi(output);
-  let output2 = strippedOutput.substr(strippedOutput.length - 3500);
-
-  let rawParams     = jsonRegexp.exec(output2)[1];
-  let params        = JSON.parse(rawParams);
-  let endBalance    = endBalRegexp.exec(output2)[1];
-  let buyHold       = buyHoldRegexp.exec(output2)[1];
-  let vsBuyHold     = vsBuyHoldRegexp.exec(output2)[1];
-  let wlMatch       = wlRegexp.exec(output2);
-  let errMatch      = errRegexp.exec(output2);
-  let wins          = wlMatch !== null ? parseInt(wlMatch[1]) : 0;
-  let losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0;
-  let errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0;
-  let days          = parseInt(params.days);
-
+  let endBalance    = simulationResults.simresults.currency
+  let buyHold       = simulationResults.simresults.buy_hold
+  let vsBuyHold     = simulationResults.simresults.vs_buy_hold
+  let wins          = simulationResults.simresults.total_sells
+  let losses        = simulationResults.simresults.total_losses
+  let errorRate     = simulationResults.simresults.total_losses / simulationResults.simresults.total_sells
+  let days          = parseInt(simulationResults.days)
   let roi = roundp(
-    ((endBalance - params.currency_capital) / params.currency_capital) * 100,
+    ((endBalance - simulationResults.currency_capital) / simulationResults.currency_capital) * 100,
     3
-  );
+  )
 
   return {
-    params:             rawParams.replace(/[\r\n]/g, ''),
+    params:             JSON.stringify(simulationResults),
     endBalance:         parseFloat(endBalance),
     buyHold:            parseFloat(buyHold),
     vsBuyHold:          parseFloat(vsBuyHold),
@@ -133,64 +133,64 @@ let processOutput = output => {
     errorRate:          parseFloat(errorRate),
 
     // cci_srsi
-    cciPeriods:         params.cci_periods,
-    rsiPeriods:         params.rsi_periods,
-    srsiPeriods:        params.srsi_periods,
-    srsiK:              params.srsi_k,
-    srsiD:              params.srsi_d,
-    oversoldRsi:        params.oversold_rsi,
-    overboughtRsi:      params.overbought_rsi,
-    oversoldCci:        params.oversold_cci,
-    overboughtCci:      params.overbought_cci,
-    constant:           params.consant,
+    cciPeriods:         simulationResults.cci_periods,
+    rsiPeriods:         simulationResults.rsi_periods,
+    srsiPeriods:        simulationResults.srsi_periods,
+    srsiK:              simulationResults.srsi_k,
+    srsiD:              simulationResults.srsi_d,
+    oversoldRsi:        simulationResults.oversold_rsi,
+    overboughtRsi:      simulationResults.overbought_rsi,
+    oversoldCci:        simulationResults.oversold_cci,
+    overboughtCci:      simulationResults.overbought_cci,
+    constant:           simulationResults.consant,
 
     // srsi_macd
-    rsiPeriods:         params.rsi_periods,
-    srsiPeriods:        params.srsi_periods,
-    srsiK:              params.srsi_k,
-    srsiD:              params.srsi_d,
-    oversoldRsi:        params.oversold_rsi,
-    overboughtRsi:      params.overbought_rsi,
-    emaShortPeriod:     params.ema_short_period,
-    emaLongPeriod:      params.ema_long_period,
-    signalPeriod:       params.signal_period,
-    upTrendThreshold:   params.up_trend_threshold,
-    downTrendThreshold: params.down_trend_threshold,
+    rsiPeriods:         simulationResults.rsi_periods,
+    srsiPeriods:        simulationResults.srsi_periods,
+    srsiK:              simulationResults.srsi_k,
+    srsiD:              simulationResults.srsi_d,
+    oversoldRsi:        simulationResults.oversold_rsi,
+    overboughtRsi:      simulationResults.overbought_rsi,
+    emaShortPeriod:     simulationResults.ema_short_period,
+    emaLongPeriod:      simulationResults.ema_long_period,
+    signalPeriod:       simulationResults.signal_period,
+    upTrendThreshold:   simulationResults.up_trend_threshold,
+    downTrendThreshold: simulationResults.down_trend_threshold,
 
     // macd
-    emaShortPeriod:     params.ema_short_period,
-    emaLongPeriod:      params.ema_long_period,
-    signalPeriod:       params.signal_period,
-    upTrendThreshold:   params.up_trend_threshold,
-    downTrendThreshold: params.down_trend_threshold,
-    overboughtRsiPeriods: params.overbought_rsi_periods,
-    overboughtRsi:      params.overbought_rsi,
+    emaShortPeriod:     simulationResults.ema_short_period,
+    emaLongPeriod:      simulationResults.ema_long_period,
+    signalPeriod:       simulationResults.signal_period,
+    upTrendThreshold:   simulationResults.up_trend_threshold,
+    downTrendThreshold: simulationResults.down_trend_threshold,
+    overboughtRsiPeriods: simulationResults.overbought_rsi_periods,
+    overboughtRsi:      simulationResults.overbought_rsi,
 
     // rsi
-    rsiPeriods:         params.rsi_periods,
-    oversoldRsi:        params.oversold_rsi,
-    overboughtRsi:      params.overbought_rsi,
-    rsiRecover:         params.rsi_recover,
-    rsiDrop:            params.rsi_drop,
-    rsiDivsor:          params.rsi_divisor,
+    rsiPeriods:         simulationResults.rsi_periods,
+    oversoldRsi:        simulationResults.oversold_rsi,
+    overboughtRsi:      simulationResults.overbought_rsi,
+    rsiRecover:         simulationResults.rsi_recover,
+    rsiDrop:            simulationResults.rsi_drop,
+    rsiDivsor:          simulationResults.rsi_divisor,
 
     // sar
-    sarAf:              params.sar_af,
-    sarMaxAf:           params.sar_max_af,
+    sarAf:              simulationResults.sar_af,
+    sarMaxAf:           simulationResults.sar_max_af,
 
     // speed
-    baselinePeriods:   params.baseline_periods,
-    triggerFactor:     params.trigger_factor,
+    baselinePeriods:   simulationResults.baseline_periods,
+    triggerFactor:     simulationResults.trigger_factor,
 
     // trend_ema
-    trendEma:           params.trend_ema,
-    neutralRate:        params.neutral_rate,
-    oversoldRsiPeriods: params.oversold_rsi_periods,
-    oversoldRsi:        params.oversold_rsi,
+    trendEma:           simulationResults.trend_ema,
+    neutralRate:        simulationResults.neutral_rate,
+    oversoldRsiPeriods: simulationResults.oversold_rsi_periods,
+    oversoldRsi:        simulationResults.oversold_rsi,
 
     days:               days,
-    period_length:       params.period_length,
-    min_periods:        params.min_periods,
+    period_length:       simulationResults.period_length,
+    min_periods:        simulationResults.min_periods,
     roi:                roi,
     wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     frequency:          roundp((wins + losses) / days, 3)
@@ -270,6 +270,7 @@ let strategies = {
 };
 
 let args = process.argv;
+let exchangeMarketPair = args[2].toLowerCase();
 args.shift();
 args.shift();
 let simArgs = args.join(' ');
@@ -280,7 +281,7 @@ if (args.indexOf('--strategy') !== -1) {
 
 let tasks = strategies[strategyName].map(strategy => {
   return cb => {
-    runCommand(strategy, cb)
+    runCommand(strategy,exchangeMarketPair,strategyName.toLowerCase(), cb)
   }
 });
 
@@ -288,8 +289,31 @@ console.log(`\n--==${VERSION}==--`);
 console.log(new Date().toUTCString());
 console.log(`\nBacktesting [${strategies[strategyName].length}] iterations for strategy ${strategyName}...\n`);
 
+//Clean up any generation files left over in the simulation directory
+//they will be overwritten, but best not to confuse the issue.
+//if it fails.   doesn't matter they will be overwritten anyways. not need to halt the system.
+try
+{
+  let tDirName = path.resolve(__dirname, '..','..', 'simulations')
+  let tFileName = 'sim_'
+  let files = fs.readdirSync(tDirName)
+
+  for(let i = 0; i < files.length; i++)
+  {
+    if (files[i].lastIndexOf(tFileName) == 0)
+    {
+      let filePath = path.resolve(__dirname, '..','..', 'simulations',files[i] )
+      fs.unlinkSync(filePath)
+    }
+
+  }
+} catch (err)
+{
+  console.log('error deleting lint from prior run')
+}
+
 parallel(tasks, PARALLEL_LIMIT, (err, results) => {
-  console.log("\nBacktesting complete, saving results...");
+  console.log('\nBacktesting complete, saving results...');
   results = results.filter(function (r) {
     return !!r
   })

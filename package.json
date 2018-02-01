@@ -59,10 +59,10 @@
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
     "mongodb": "^3.0.1",
+    "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.7",
     "node-sass": "^4.7.2",
     "node-telegram-bot-api": "^0.30.0",
-    "node.bittrex.api": "^1.0.0",
     "number-abbreviate": "^2.0.0",
     "numbro": "highvelocityspace/numbro",
     "path": "^0.12.7",
@@ -84,8 +84,8 @@
     "simple-xmpp": "^1.3.0",
     "sosa_mongo": "^1.0.3",
     "stats-lite": "2.1.0",
-    "style-loader": "^0.19.1",
     "superagent": "^3.8.2",
+    "style-loader": "^0.20.1",
     "talib": "drorgl/node-talib#b30dd674e5b11822ea93bb253001169f1bc99e15",
     "timebucket": "^0.4.0",
     "transform-loader": "^0.2.4",
@@ -105,7 +105,7 @@
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.3",
     "shelljs": "^0.8.0",
-    "yargs": "^10.0.3"
+    "yargs": "^11.0.0"
   },
   "engines": {
     "node": "^8.3.0 || ^9.0.0"

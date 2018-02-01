@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-12">
                     <ol class="breadcrumb">
-                        <li>Running since <%= day_count %> days</li>
+                        <li>Running since <%= moment(boot_time).toNow(true) %></li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -66,48 +66,62 @@
             <!-- ============================================================== -->
             <!-- .row -->
             <div class="row">
-                <div class="col-12">
+                <div class="col-lg-6 col-sm-6 col-12">
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Current Market</h3>
-
-                        <div  class="row">
-
-                            <div class="col-sm-4 col-12">
+                        <div class="row">
+                            <div class="col-lg-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-info">Price</span></li>
-                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-info"></i> <span><%= period.close %></span> <small><%= asset.toUpperCase() %></small></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-info"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(period.close) %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
                             <% if (typeof quote != "undefined") { %>
-                            <div class="col-sm-4 col-12">
+                            <div class="col-lg-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-success">ASK</span></li>
-                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-success"></i> <span><%= quote.ask %></span> <small><%= asset.toUpperCase() %></small></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-success"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(quote.ask) %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
-
-                            <div class="col-sm-4 col-12">
+                            <div class="col-lg-4 col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up"></i> <span class="text-danger">BID</span></li>
-                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-danger"></i> <span><%= quote.bid %></span> <small><%= asset.toUpperCase() %></small></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-danger"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(quote.bid) %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
                             <% } %>
-
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-12">
+                    <div class="white-box analytics-info">
+                        <h3 class="box-title">Captial</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Asset</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false,  minimumFractionDigits: 2, maximumFractionDigits: 8}).format(balance.asset) %></span> <small><%= asset.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Currency</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 8}).format(balance.currency) %></span> <small><%= currency.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-
             <div class="row">
                 <% if (typeof stats != "undefined") { %>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="white-box analytics-info">
-                        <h3 class="box-title">Last balance ( <%= new Intl.NumberFormat("en-US", {style: "percent", minimumSignificantDigits:2}).format( (parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
+                        <h3 class="box-title">Last balance (<%= new Intl.NumberFormat("en-US", {style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2}).format((parseFloat(stats.profit)/100)-(parseFloat(stats.buy_hold_profit)/100) ) %> vs buy hold)</h3>
                         <ul class="list-inline one-part">
-                            <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success"><%= stats.tmp_balance %></span> <small class="text-success"><%= currency.toUpperCase() %></small></li>
-                            <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="text-success"><%= stats.profit %></span> <small class="text-success">of profit</small></li>
+                            <li class="text-right text-success"><i class="ti-arrow-up"></i> <span class="counter"><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(stats.tmp_balance) %></span> <small><%= currency.toUpperCase() %></small></li>
+                            <li class="text-right text-<% if (parseFloat(stats.profit) < 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.profit %></span> <small>of profit</small></li>
                         </ul>
                     </div>
                 </div>
@@ -115,8 +129,8 @@
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Buy hold</h3>
                         <ul class="list-inline one-part">
-                            <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info"><%= stats.buy_hold %></span> <small class="text-info"><%= currency.toUpperCase() %></small></li>
-                            <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="text-info"><%= stats.buy_hold_profit %></span> <small class="text-info">of profit</small></li>
+                            <li class="text-right text-info"><i class="ti-arrow-up"></i> <span class="counter"><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(stats.buy_hold) %></span> <small><%= currency.toUpperCase() %></small></li>
+                            <li class="text-right text-<% if (parseFloat(stats.buy_hold_profit) < 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.buy_hold_profit %></span> <small>of profit</small></li>
                         </ul>
                     </div>
                 </div>
@@ -125,20 +139,22 @@
                         <h3 class="box-title">Trades per day</h3>
                         <ul class="list-inline one-part">
                             <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= stats.trade_per_day %></span></li>
-                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="text-purple"><%= my_trades.length %> trades over <%= day_count %> days</span></li>
+                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="text-purple"><%= my_trades.length %> trade<% if (my_trades.length != 1) { %>s<% } %> over <%= day_count %> day<% if (day_count != 1) { %>s<% } %></span></li>
                         </ul>
                     </div>
                 </div>
+                    <% if (typeof stats.error_rate != "undefined") { %>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Error Rate</h3>
+                            <ul class="list-inline one-part">
+                                <li class="text-right text-<% if (parseFloat(stats.error_rate) > 0) { %>danger<% } else { %>success<% } %>""><i class="ti-arrow-up"></i> <span><%= stats.error_rate %></span></li>
+                                <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple">Win/Loss: <%= stats.win %>/<%= stats.losses %></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <% } %>
                 <% } %>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">Asset / Currency</h3>
-                        <ul class="list-inline one-part">
-                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= balance.asset %></span> <small class="text-purple"><%= asset.toUpperCase() %></small></li>
-                            <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple"><%= balance.currency %></span> <small class="text-purple"><%= currency.toUpperCase() %></small></li>
-                        </ul>
-                    </div>
-                </div>
             </div>
 
             <!--/.row -->
@@ -153,11 +169,11 @@
                         <script src="/assets-wp/plotly.bundle.js" charset="utf8"></script>
                         <script type="text/javascript">
 
-                            function unpack(rows, key) {
+                            function unpack(rows, key, offset) {
                                 return rows.map(function(row) {
                                     if (key == 'time') {
                                         // Plotly’s date format is 'yyyy-mm-dd HH:MM:SS.ssssss'
-                                        return new Date(row.time - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
+                                        return new Date(row.time - offset * 60000).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
                                     } else {
                                         return row[key];
                                     }
@@ -171,12 +187,13 @@
                                     var trades = tradeData.trades;
                                     var lookback = tradeData.lookback;
                                     var my_trades = tradeData.my_trades;
+                                    var offset = tradeData.tz_offset;
 
                                     var price = {
                                         type: "scatter",
                                         name: 'Price',
                                         mode: 'lines+markers',
-                                        x: unpack(trades, 'time'),
+                                        x: unpack(trades, 'time', offset),
                                         y: unpack(trades, 'price')
                                     };
 
@@ -185,7 +202,7 @@
                                         name: 'Volume',
                                         yaxis: 'y2',
                                         opacity: '0.25',
-                                        x: unpack(trades, 'time'),
+                                        x: unpack(trades, 'time', offset),
                                         y: unpack(trades, 'size'),
                                         width: 3600*4
                                     };
@@ -193,7 +210,7 @@
                                     var ohlc = {
                                         type: 'ohlc',
                                         name: 'OHLC',
-                                        x: unpack(lookback, 'time'),
+                                        x: unpack(lookback, 'time', offset),
                                         open: unpack(lookback, 'open'),
                                         high: unpack(lookback, 'high'),
                                         low: unpack(lookback, 'low'),
@@ -205,7 +222,7 @@
                                     var lastTrade = new Date(price.x[price.x.length - 1]);
                                     lastTrade.setMinutes(lastTrade.getMinutes() + 1);
                                     var rangeEnd = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
-                                    lastTrade.setMinutes(lastTrade.getMinutes() - 61);
+                                    lastTrade.setMinutes(lastTrade.getMinutes() - 31);
                                     var rangeStart = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
 
                                     var layout = {
@@ -230,7 +247,7 @@
                                                         count: 1,
                                                         label: '1h',
                                                         step: 'hour',
-                                                        stepmode: 'todate'
+                                                        stepmode: 'backward'
                                                     },
                                                     {
                                                         step: 'all'
@@ -254,7 +271,7 @@
 
                                     for (i = 0; i < my_trades.length; i++) {
                                         layout.annotations.push({
-                                            x: new Date(my_trades[i].time - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, ''),
+                                            x: new Date(my_trades[i].time - offset * 60000).toISOString().replace(/T/g, ' ').replace(/Z/g, ''),
                                             y: my_trades[i].price,
                                             xref: 'x',
                                             yref: 'y',
@@ -292,41 +309,53 @@
                                     <th>TYPE</th>
                                     <th>AMOUNT</th>
                                     <th>PRICE</th>
+                                    <th>TOTAL</th>
+                                    <th>FEE</th>
                                     <th>SLIPPAGE</th>
                                     <th>DATE</th>
-                                    <th>EXECUTED DATE</th>
+                                    <th>EXECUTION TIME</th>
+                                    <th>PROFIT</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <% if (typeof buy_order != "undefined") { %>
                                 <tr>
                                     <td><span class='text-success'>BUY</span></td>
-                                    <td><%= buy_order.size %> <%= asset.toUpperCase() %></td>
-                                    <td><%= buy_order.price %> <%= currency.toUpperCase() %></td>
-                                    <td></td>
-                                    <td><%= new Date(buy_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(buy_order.size) %> <%= asset.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(buy_order.price) %> <%= currency.toUpperCase() %></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td><%= moment(buy_order.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><span class='text-info'>Waiting</span></td>
+                                    <td>-</td>
                                 </tr>
                                 <% } %>
                                 <% if (typeof sell_order != "undefined") { %>
                                 <tr>
                                     <td><span class='text-danger'>SELL</span></td>
-                                    <td><%= sell_order.size %> <%= asset.toUpperCase() %></td>
-                                    <td><%= sell_order.price %> <%= currency.toUpperCase() %></td>
-                                    <td></td>
-                                    <td><%= new Date(sell_order.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(sell_order.size) %> <%= asset.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(sell_order.price) %> <%= currency.toUpperCase() %></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td><%= moment(sell_order.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><span class='text-info'>Waiting</span></td>
+                                    <td>-</td>
                                 </tr>
                                 <% } %>
                                 <% if (my_trades) { %>
-                                <% my_trades.reverse().forEach(function(trade){ %>
+                                <% my_trades.sort(function(a,b){return a.time > b.time ? -1 : 1;}).forEach(function(trade){ %>
                                 <tr>
-                                    <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></td>
-                                    <td><%= trade.size %> <%= asset.toUpperCase() %></td>
-                                    <td><%= trade.price %> <%= currency.toUpperCase() %></td>
-                                    <td><%= new Intl.NumberFormat("en-US", {style: "percent", maximumSignificantDigits: 4}).format(trade.slippage) %></td>
-                                    <td><%= new Date(trade.time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %></td>
-                                    <td><%= new Date(trade.time + trade.execution_time).toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })  %></td>
+                                    <td><span class='text-<% if (trade.type == "buy") { %>success<% } else { %>danger<% } %>'><%= trade.type.toUpperCase() %></span></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(trade.size) %> <%= asset.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(trade.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(trade.size * trade.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 8}).format(trade.fee) %> <% if (trade.type == "buy") { %> <%= asset.toUpperCase() %> <% } else { %> <%= currency.toUpperCase() %> <% } %></td>
+                                    <td><span class="text-<% if (trade.slippage > 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 4, maximumFractionDigits: 4}).format(trade.slippage) %></span></td>
+                                    <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
+                                    <td><%= moment.duration(trade.execution_time).humanize() %></td>
+                                    <td><% if (trade.profit) { %><span class="text-<% if(trade.profit < 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.profit) %></span><% } else { %>-<% } %></td>
                                 </tr>
                                 <% }); %>
                                 <% } %>

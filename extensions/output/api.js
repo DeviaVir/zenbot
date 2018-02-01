@@ -6,6 +6,7 @@ module.exports = function container (get) {
   let app = express()
   let random_port = require('random-port')
   let path = require('path')
+  let moment = require('moment');
 
   let run = function(reporter, tradeObject) {
     if (!reporter.port || reporter.port === 0) {
@@ -33,8 +34,8 @@ module.exports = function container (get) {
     app.use('/assets-zenbot', express.static(__dirname+'/../../assets'));
 
     app.get('/', function (req, res) {
-      let datas = objectWithoutKey(tradeObject, 'options');
-      datas = objectWithoutKey(tradeObject);
+      app.locals.moment = moment;
+      let datas = JSON.parse(JSON.stringify(objectWithoutKey(tradeObject, 'options'))); // deep copy to prevent alteration
       res.render('dashboard', datas);
     });
 
