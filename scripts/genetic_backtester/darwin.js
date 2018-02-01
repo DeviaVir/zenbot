@@ -147,9 +147,6 @@ let processOutput = (output,taskStrategyName, pheno)=> {
   }
 
 
-  let roi = roundp(((endBalance - params.currency_capital) / params.currency_capital) * 100, 3 )
-
-
   //todo: figure out what this is trying to do.
   let r = params
   delete r.asset_capital
@@ -193,7 +190,6 @@ let processOutput = (output,taskStrategyName, pheno)=> {
     markdown_buy_pct: params.markdown_buy_pct,
     markup_sell_pct: params.markup_sell_pct,
     order_type: params.order_type,
-    roi: roi,
     wlRatio: losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
     selector: params.selector,
     strategy: params.strategy,
