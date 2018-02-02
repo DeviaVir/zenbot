@@ -84,7 +84,7 @@
     "sosa_mongo": "^1.0.3",
     "stats-lite": "2.1.0",
     "style-loader": "^0.20.1",
-    "talib": "drorgl/node-talib#b30dd674e5b11822ea93bb253001169f1bc99e15",
+    "talib": "^1.0.4",
     "timebucket": "^0.4.0",
     "transform-loader": "^0.2.4",
     "trend": "0.3.0",
