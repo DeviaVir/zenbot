@@ -32,8 +32,7 @@ module.exports = function api () {
 
     app.get('/', function (req, res) {
       app.locals.moment = moment;
-      let datas = objectWithoutKey(tradeObject, 'options');
-      datas = objectWithoutKey(tradeObject);
+      let datas = JSON.parse(JSON.stringify(objectWithoutKey(tradeObject, 'options'))); // deep copy to prevent alteration
       res.render('dashboard', datas);
     });
 

@@ -2356,5 +2356,14 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/UKG"
+  },
+  {
+    "asset": "IGNIS",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0005",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/IGNIS"
   }
 ]
