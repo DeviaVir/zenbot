@@ -144,7 +144,7 @@ function processOutput  (output,taskStrategyName, pheno) {
     buyHold = simulationResults.simresults.buy_hold
     vsBuyHold = simulationResults.simresults.vs_buy_hold
     wlMatch = (simulationResults.simresults.total_sells - simulationResults.simresults.total_losses) +'/'+ simulationResults.simresults.total_losses
-    wins          = simulationResults.simresults.total_sells
+    wins          = simulationResults.simresults.total_sells - simulationResults.simresults.total_losses
     losses        = simulationResults.simresults.total_losses
     errorRate     = simulationResults.simresults.total_losses / simulationResults.simresults.total_sells
     days = parseInt(simulationResults.days)
