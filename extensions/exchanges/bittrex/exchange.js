@@ -1,16 +1,11 @@
-var bittrex_authed = require('node-bittrex-api'),
-  bittrex_public = require('node-bittrex-api'),
-  n = require('numbro')
+var bittrex_authed = require('node-bittrex-api')
+var bittrex_public = require('node-bittrex-api')
+var n = require('numbro')
 
 
 
 /**
  ** Bittrex API
- ** 
- ** please note: unfortunately getmarkethistory does not work based on time
- ** this means that we cannot do any backfilles, but paper trading should be fine
- ** https://github.com/n0mad01/node.bittrex.api/issues/17
- **
  **/
 module.exports = function container(get, set, clear) {
   let c = get('conf')
@@ -39,7 +34,6 @@ module.exports = function container(get, set, clear) {
         if (error.message.match(/Rate limit exceeded/)) {
           timeout = 10000
         } 
-    // console.error(('\nBittrex API error - unable to call ' + method + ' (' + error.message + '), retrying in ' + timeout / 1000 + 's').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, timeout)
@@ -48,12 +42,8 @@ module.exports = function container(get, set, clear) {
 
   function handleErrors(command, err, data, args, callback) {
 
-    //console.log(JSON.stringify(err))
-  // console.log(JSON.stringify(data)) 
     if (err)
     {
-      //console.log('API Error')
-  
       if (err.message && err.message.match(recoverableErrors)) {
   
         return retry(command, args, err)
@@ -84,7 +74,6 @@ module.exports = function container(get, set, clear) {
       if (data.message && data.message.match(recoverableErrors)) {
         return retry(command, args, data.message)
       }
-      // console.log(data.message)
       return callback(null, [])
     }
 
