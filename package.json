@@ -13,7 +13,8 @@
     "zenbot": "./zenbot.sh"
   },
   "scripts": {
-    "test": "jasmine test/**/**.test.js",
+    "test": "jasmine test/_specs/**/**.test.js",
+    "test-one": "jasmine $PATH_TO_TEST",
     "postinstall": "node post_install.js"
   },
   "dependencies": {
@@ -83,6 +84,7 @@
     "simple-xmpp": "^1.3.0",
     "sosa_mongo": "^1.0.3",
     "stats-lite": "2.1.0",
+    "superagent": "^3.8.2",
     "style-loader": "^0.20.1",
     "talib": "^1.0.4",
     "timebucket": "^0.4.0",
