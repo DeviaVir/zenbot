@@ -30,6 +30,7 @@ module.exports = function () {
 		rtn.getExchange = () => {
 			return {
 				historyScan: direction,
+				historyScanUsesTime: opts.historyScanUsesTime,
 				getTrades: getTradesFunc 
 			}
 		}
