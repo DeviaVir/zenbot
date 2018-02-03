@@ -481,6 +481,24 @@ ta_macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+ta_macd_ext
+  description:
+    Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0) with controllable talib TA types
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --fast_ma_type=<value>  fast_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --slow_ma_type=<value>  slow_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --signal_ma_type=<value>  signal_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --default_ma_type=<value>  set default ma_type for fast, slow and signal. You are able to overwrite single types separately (fast_ma_type, slow_ma_type, signal_ma_type) (default: SMA)
+    --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
+    --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+    
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
