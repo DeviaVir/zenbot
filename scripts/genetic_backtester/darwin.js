@@ -713,10 +713,11 @@ function simulateGeneration  () {
       days = moment().diff(end, 'days') + 1
     }
   }
-  if (generationCount == 0)
+  iterationCount = 1
+  if (iterationCount == 1)
     runUpdate(days, argv.selector)
 
-  iterationCount = 1
+
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
     return cb => {
       phenotype.backtester_generation = iterationCount
