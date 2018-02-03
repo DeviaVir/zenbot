@@ -126,6 +126,39 @@ describe('Trades Service', function() {
 		})
 	})
 
+	describe('getTrades when a tradeId is passed in, but the DB returns no results, and exchange history scan uses time', function() {
+
+		var mockExchangeService = exchangeServiceFactory.get({historyScanUsesTime: true});
+		
+		var mockFindOneFunction = jasmine.createSpy('mockFindOneFunction')
+		var mockCollectionService = collectionServiceFactory.get(
+				{	tradesArray: [ ], 
+					findOneReturnTrade: {id: 'stub.BTC-USD-3000', trade_id: 3000, time: 99992 },
+					mockFindOneFunction: mockFindOneFunction
+				});
+
+		beforeEach(function() {
+			spyOn(foo, 'get').and.returnValues(
+				mockCollectionService,
+				mockExchangeService
+				)
+		})
+
+		it('calls getTrades correctly', function(done) {
+			var instance = service(foo.get, foo.set, foo.clear)
+			var normalizedSelector = mockExchangeService().getSelector().normalized;
+
+			instance.getTrades(3000).then((data) => {
+				expect(mockFindOneFunction).toHaveBeenCalledWith({id: "stub.BTC-USD-3000"});
+
+				expect(data.length === 2).toBe(true)
+				expect(data[0].id).toEqual(normalizedSelector + "-" + 3000)
+				expect(data[1].id).toEqual(normalizedSelector + "-" + 3001)
+				done();
+			})
+		})
+	})
+
 	describe('getTrades when DB returns two trades, and API returns no trades', function() {
 
 		var mockExchangeService = exchangeServiceFactory.get({getTradesFunc: (opts, func) => { }, direction: 'forward'});
