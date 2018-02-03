@@ -493,6 +493,18 @@ trend_ema (default)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
 
+ta_ppo
+  description:
+     PPO - Percentage Price Oscillator with rsi oversold
+  options:
+    --period=<value>  period length, same as --period_length (default: 10m)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --ma_type==<value> moving average type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: SMA)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+    
 trendline
   description:
     Calculate a trendline and trade when trend is positive vs negative.
