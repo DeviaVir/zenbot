@@ -1,6 +1,9 @@
+
+
 var bittrex_authed = require('node-bittrex-api')
 var bittrex_public = require('node-bittrex-api')
 var n = require('numbro')
+var moment = require('moment')
 
 
 
@@ -13,6 +16,10 @@ module.exports = function container(get, set, clear) {
  
   let shownWarning = false
   let fistRun = true
+  let allowGetMarketCall=true
+  let tradeCache = []
+  let marketRefresh = 15000
+
 
 
   bittrex_authed.options({
@@ -110,6 +117,12 @@ module.exports = function container(get, set, clear) {
       var trades = []
       // first run do the full deal.  
       // 2nd run.  only return the last trades
+      if (allowGetMarketCall != true)
+      {
+        cb(null, [])
+        return null
+      }
+
       if (fistRun)
       {
         bittrex_public.getticks(args,  function( data, err) {
@@ -124,21 +137,20 @@ module.exports = function container(get, set, clear) {
             shownWarning = true
           }
 
-
-
           if (res)
           {
             let lastVal = 0
             for (const key in Object.keys(data.result)) {
       
               var trade = data.result[key]
-              if (isNaN(opts.from) || new Date(trade.T).getTime() > opts.from) {
+              moment(trade.TimeStamp).valueOf()
+              if (isNaN(opts.from) || new moment(trade.T).valueOf() > moment(opts.from).valueOf()) {
                 let buySell = 'sell'
                 //todo: unsure about the >. if the price is greater than the last one should this one be a buy or sell. figure it out. 
                 if (parseFloat(trade.C) > lastVal) buySell = 'buy'
                 trades.push({
                   trade_id: trade.T,
-                  time: new Date(trade.T).getTime(),
+                  time: new moment(trade.T).valueOf(),
                   size: parseFloat(trade.V),
                   price: parseFloat(trade.C),
                   side: buySell
@@ -156,11 +168,11 @@ module.exports = function container(get, set, clear) {
               {
                 for (const key in Object.keys(data.result)) {
                   var trade = data.result[key]
-                  if (isNaN(opts.from) || new Date(trade.TimeStamp).getTime() > opts.from) {
+                  if (isNaN(opts.from) || new moment(trade.TimeStamp).valueOf() > new moment(opts.from).valueOf()) {
              
                     trades.push({
                       trade_id: trade.Id,
-                      time: new Date(trade.TimeStamp).getTime(),
+                      time: new moment(trade.TimeStamp).valueOf(),
                       size: parseFloat(trade.Quantity),
                       price: parseFloat(trade.Price),
                       side: trade.OrderType || trade.OrderType == 'SELL' ? 'sell': 'buy'
@@ -168,6 +180,9 @@ module.exports = function container(get, set, clear) {
                   }
                 }
                 fistRun = false
+                tradeCache = trades
+                allowGetMarketCall = false
+                setTimeout(()=>{allowGetMarketCall = true},marketRefresh)
                 cb(null, trades) 
                 
               }
@@ -184,11 +199,11 @@ module.exports = function container(get, set, clear) {
           {
             for (const key in Object.keys(data.result)) {
               var trade = data.result[key]
-              if (isNaN(opts.from) || new Date(trade.TimeStamp).getTime() > opts.from) {
+              if (isNaN(opts.from) || new moment(trade.TimeStamp).valueOf() > new moment(opts.from).valueOf()) {
        
                 trades.push({
                   trade_id: trade.Id,
-                  time: new Date(trade.TimeStamp).getTime(),
+                  time: new moment(trade.TimeStamp).valueOf(),
                   size: parseFloat(trade.Quantity),
                   price: parseFloat(trade.Price),
                   side: trade.OrderType || trade.OrderType == 'SELL' ? 'sell': 'buy'
@@ -197,7 +212,11 @@ module.exports = function container(get, set, clear) {
           
             }
 
-           
+            allowGetMarketCall = false
+            
+            
+            tradeCache = trades
+            setTimeout(()=>{allowGetMarketCall = true},marketRefresh)
             cb(null, trades)
         
           }
