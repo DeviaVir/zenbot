@@ -17,7 +17,7 @@ module.exports = function () {
 		if (opts.tradesArray !== undefined && opts.tradesArray !== null)
 			tradesArray = opts.tradesArray;
 		else
-			tradesArray = [{id: 'stub.BTC-USD-3000', trade_id: 3000}, {id: 'stub.BTC-USD-3001', trade_id: 3001}]
+			tradesArray = [{id: 'stub.BTC-USD-3000', trade_id: 3000, time: 99992 }, {id: 'stub.BTC-USD-3001', trade_id: 3001, time: 99994}]
 
 		var resumeMarkersArray;
 		if (opts.resumeMarkersArray !== undefined && opts.resumeMarkersArray !== null)
@@ -37,9 +37,25 @@ module.exports = function () {
 		if (opts.mockInsertManyFunction !== undefined && opts.mockInsertManyFunction !== null) 
 			mockInsertManyFunction = opts.mockInsertManyFunction;
 
+		var mockFindOneFunction;
+		if (opts.mockFindOneFunction !== undefined && opts.mockFindOneFunction !== null) 
+			mockFindOneFunction = opts.mockFindOneFunction;
+
+		var findOneReturnTrade;
+		if (opts.findOneReturnTrade !== undefined && opts.findOneReturnTrade !== null) 
+			findOneReturnTrade = opts.findOneReturnTrade;
+
 		var rtn = { 
 			getTrades: () => { 
-				return {find: () => { 
+				return {
+				findOne: (query) => { 
+					if (mockFindOneFunction)
+						mockFindOneFunction(query)
+
+					return {then: (func) => {
+						func(findOneReturnTrade)
+					}}},
+				find: () => { 
 					return { limit: (num) => {
 						return { toArray: (func) => {
 							func(null, tradesArray)
