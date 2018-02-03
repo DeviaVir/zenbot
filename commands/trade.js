@@ -51,6 +51,7 @@ module.exports = function (program, conf) {
     .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, conf.poll_trades)
     .option('--currency_increment <amount>', 'Currency increment, if different than the asset increment', String, null)
     .option('--keep_lookback_periods <amount>', 'Keep this many lookback periods max. ', Number, conf.keep_lookback_periods)
+    .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
     .option('--debug', 'output detailed debug info')
@@ -66,6 +67,7 @@ module.exports = function (program, conf) {
       })
       so.currency_increment = cmd.currency_increment
       so.keep_lookback_periods = cmd.keep_lookback_periods
+      so.use_prev_trades = (cmd.use_prev_trades||c.use_prev_trades)
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
@@ -80,6 +82,7 @@ module.exports = function (program, conf) {
       if (!exchange) {
         console.error('cannot trade ' + so.selector.normalized + ': exchange not implemented')
         process.exit(1)
+        
       }
       var engine = engineFactory(s, conf)
 
@@ -392,7 +395,7 @@ module.exports = function (program, conf) {
             },
             sort: {time: 1},
             limit: 1000
-          }
+          }         
           if (db_cursor) {
             opts.query.time = {$gt: db_cursor}
           }
@@ -402,6 +405,14 @@ module.exports = function (program, conf) {
           }
           trades.select(opts, function (err, trades) {
             if (err) throw err
+            if (trades.length && so.use_prev_trades) {
+              my_trades.select({query: {selector: so.selector.normalized, time : {$gte : trades[0].time}}, limit: 0}, function (err, my_prev_trades) {
+                if (err) throw err
+                if (my_prev_trades.length) {
+                  s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time > b.time + b.execution_time ? -1 : 1}) // simple copy, most recent executed first
+                }
+              })
+            }
             if (!trades.length) {
               var head = '------------------------------------------ INITIALIZE  OUTPUT ------------------------------------------'
               console.log(head)

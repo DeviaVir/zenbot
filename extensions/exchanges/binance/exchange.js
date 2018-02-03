@@ -77,7 +77,7 @@ module.exports = function bittrex (conf) {
       }
 
       var client = publicClient()
-      client.fetchTrades(joinProduct(opts.product_id), '',undefined, args).then(result => {
+      client.fetchTrades(joinProduct(opts.product_id), undefined, undefined, args).then(result => {
         var trades = result.map(function (trade) {
           return {
             trade_id: trade.id,
