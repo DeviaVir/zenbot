@@ -521,6 +521,23 @@ trust_distrust
     --buy_threshold=<value>  buy when the bottom increased at least above this percentage (default: 2)
     --buy_threshold_max=<value>  wait for multiple buy signals before buying (kill whipsaw, 0 to disable) (default: 0)
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
+    
+wavetrend
+  description:
+    Buy when (Signal < Oversold) and sell when (Signal > Overbought).
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --period_length=<value>  period length, same as --period (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 21)
+    --wavetrend_channel_length=<value>  wavetrend channel length (default: 10)
+    --wavetrend_average_length=<value>  wavetrend average length (default: 21)
+    --wavetrend_overbought_1=<value>  wavetrend overbought limit 1 (default: 60)
+    --wavetrend_overbought_2=<value>  wavetrend overbought limit 2 (default: 53)
+    --wavetrend_oversold_1=<value>  wavetrend oversold limit 1 (default: -60)
+    --wavetrend_oversold_2=<value>  wavetrend oversold limit 2 (default: -53)
+    --wavetrend_trends=<value>  act on trends instead of limits (default: false)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 9)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 80)
 ```
 
 ## Interactive controls
