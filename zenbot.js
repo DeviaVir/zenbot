@@ -1,5 +1,6 @@
 
 var semver = require('semver')
+var path = require('path')
 var version = require('./package.json').version
 USER_AGENT = 'zenbot/' + version
 var program = require('commander')
@@ -38,7 +39,13 @@ boot(function (err, zenbot) {
       var command_found = (commands.indexOf(path.join(command_directory, command_name)+'.js') !== -1)
 
     if(command_found) {
-      var command = require(`./commands/${command_name}`)
+      var command = require(path.resolve(__dirname, `./commands/${command_name}`))
+      command(program, zenbot.conf)
+    }
+
+    if(command_name === 'new_backfill'){
+      command_found = true
+      command = require(path.resolve(__dirname,'./commands/backfill/backfill'))
       command(program, zenbot.conf)
     }
 

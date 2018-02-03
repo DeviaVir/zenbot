@@ -1,146 +1,85 @@
 
 var service = require('../../../../lib/services/exchange-service')
-	
+    
 describe('Exchange Service', function() {
-	beforeEach(function() {
-		foo = {
-			get: function() { },
-			set: function() { },
-			clear: function() { }
-		}
-	})
+  var normalizedSelector = 'stub.BTC-USD'
+  var exchangeId = '_stub'
+  describe('', function() {
+    var normalizedSelector = 'stub.BTC-USD'
 
-	describe('', function() {
-		normalizedSelector = 'stub.BTC-USD'
-		exchangeId = 'stub'
-		selectorObject = {normalized: normalizedSelector, exchange_id: exchangeId };
+    it('returns undefined the expected exchange when no parameter is passed in', function() {
 
-		beforeEach(function() {
-			spyOn(foo, 'get').and.returnValues(
-				{selector: normalizedSelector}, // conf
-				
-				() => { return selectorObject } // selector object
-				);
-		})
+      var instance = service({selector: normalizedSelector})
+      var rtn = instance.getExchange()
 
-		it('returns undefined the expected exchange when no parameter is passed in', function() {
+      expect(rtn).not.toBeDefined()
+    })
 
-			var instance = service(foo.get, foo.set, foo.clear)
+  })
 
-			var rtn = instance.getExchange()
+  describe('', function() {
+    var selectorObject = {normalized: normalizedSelector, exchange_id: exchangeId }
 
-			expect(rtn).not.toBeDefined();
-		})
+    it('is available', function() {
+      expect(service).not.toBe(undefined)
+    }),
 
-	})
+    it(' returns the expected exchange when no parameter is passed in', function() {
+      var instance = service({selector: selectorObject})
 
-	describe('', function() {
-		normalizedSelector = 'stub.BTC-USD'
-		exchangeId = 'stub'
-		selectorObject = {normalized: normalizedSelector, exchange_id: exchangeId };
+      var rtn = instance.getExchange()
 
-		beforeEach(function() {
-			spyOn(foo, 'get').and.returnValues(
-				{selector: normalizedSelector}, // conf
-				
-				() => { return selectorObject }, // selector object
-				
-				{
-					getName: () => { return exchangeId; }
-				} // the exchange object
+      expect(rtn).toBeDefined()
+      expect(rtn.getName()).toBe('stub')
+    })
 
-				);
-		})
+    it(' returns the expected selector ', function() {
+      var instance = service({selector: selectorObject})
 
-		it('is available', function() {
-			expect(service).not.toBe(undefined);
-		}),
+      var rtn = instance.getSelector()
 
-		it(' returns the expected exchange when no parameter is passed in', function() {
+      expect(rtn).toBeDefined()
+      expect(rtn.normalized).toBe(selectorObject.normalized)
+      expect(rtn.exchangeId).toBe(selectorObject.exchangeId)
+    })
 
-			var instance = service(foo.get, foo.set, foo.clear)
+    it(' has the correct values for backward and forward constants ', function() {
+      var instance = service({selector: selectorObject})
 
-			var rtn = instance.getExchange()
+      expect(instance.BACKWARD).toBe('backward')
+      expect(instance.FORWARD).toBe('forward')
+    })
 
-			expect(rtn).toBeDefined();
-			expect(rtn.getName()).toBe('stub');
-		})
+  })
 
-		it(' returns the expected selector ', function() {
-			var instance = service(foo.get, foo.set, foo.clear)
+  describe('when direction is backward ', function () {
 
-			var rtn = instance.getSelector();
+    it('returns true when given time is less than targetTime and exchange direction is backward ', function() {
+      var instance = service({selector: {normalized: normalizedSelector, exchange_id: exchangeId }})
 
-			expect(rtn).toBeDefined();
-			expect(rtn.normalized).toBe(selectorObject.normalized);
-			expect(rtn.exchangeId).toBe(selectorObject.exchangeId);
-		})
+      expect(instance.isTimeSufficientlyLongAgo(500, 1000)).toBe(true)
+    })
 
-		it(' has the correct values for backward and forward constants ', function() {
-			var instance = service(foo.get, foo.set, foo.clear)
+    it('returns false when given time is greater than targetTime and exchange direction is backward ', function() {
+      var instance = service({selector: {normalized: normalizedSelector, exchange_id: exchangeId }})
 
-			expect(instance.BACKWARD).toBe('backward')
-			expect(instance.FORWARD).toBe('forward')
-		})
+      expect(instance.isTimeSufficientlyLongAgo(1000, 500)).toBe(false)
+    })
+  })
 
-	})
+  describe(' when direction is forward ', function () {
 
-	describe(' when direction is backward ', function () {
-		beforeEach(function() {
-			spyOn(foo, 'get').and.returnValues(
-				{selector: normalizedSelector}, // conf
-				
-				() => { return selectorObject }, // selector object
-				
-				{
-					getName: () => { return exchangeId; },
-					historyScan: 'backward' // TODO: Replace this with exchange.getDirection()
+    it(' returns false when given time is less than targetTime and exchange direction is forward ', function() {
+      var instance = service({selector: {normalized: normalizedSelector, exchange_id: exchangeId }, historyScan: 'forward'})
 
-				} // the exchange object
+      expect(instance.isTimeSufficientlyLongAgo(500, 1000)).toBe(false)
+    })
 
-				);
-		})
+    it(' returns true when given time is greater than targetTime and exchange direction is forward ', function() {
+      var instance = service({selector: {normalized: normalizedSelector, exchange_id: exchangeId }, historyScan: 'forward'})
 
-		it(' returns true when given time is less than targetTime and exchange direction is backward ', function() {
-			var instance = service(foo.get, foo.set, foo.clear)
+      expect(instance.isTimeSufficientlyLongAgo(1000, 500)).toBe(true)
+    })
+  })
 
-			expect(instance.isTimeSufficientlyLongAgo(500, 1000)).toBe(true);
-		})
-
-		it(' returns false when given time is greater than targetTime and exchange direction is backward ', function() {
-			var instance = service(foo.get, foo.set, foo.clear)
-
-			expect(instance.isTimeSufficientlyLongAgo(1000, 500)).toBe(false);
-		})
-	})
-
-	describe(' when direction is forward ', function () {
-		beforeEach(function() {
-			spyOn(foo, 'get').and.returnValues(
-				{selector: normalizedSelector}, // conf
-				
-				() => { return selectorObject }, // selector object
-				
-				{
-					getName: () => { return exchangeId; },
-					historyScan: 'forward' // TODO: Replace this with exchange.getDirection()
-
-				} // the exchange object
-
-				);
-		})
-
-		it(' returns false when given time is less than targetTime and exchange direction is forward ', function() {
-			var instance = service(foo.get, foo.set, foo.clear)
-
-			expect(instance.isTimeSufficientlyLongAgo(500, 1000)).toBe(false);
-		})
-
-		it(' returns true when given time is greater than targetTime and exchange direction is forward ', function() {
-			var instance = service(foo.get, foo.set, foo.clear)
-
-			expect(instance.isTimeSufficientlyLongAgo(1000, 500)).toBe(true);
-		})
-	})
-
-});
+})
