@@ -29,12 +29,6 @@ module.exports = function container (get, set, clear) {
           }
         }
       }
-
-      get('lib.ta_ppo')(s, 'ppo', s.options.ema_long_period, s.options.ema_short_period, s.options.signal_period, s.options.ma_type)
-
-      if (s.period.ppo && s.lookback[0] && s.lookback[0].ppo) {
-        s.period.trend_ppo = s.period.ppo >= 0 ? 'up' : 'down';
-      }
     },
 
     onPeriod: function (s, cb) {
@@ -46,23 +40,34 @@ module.exports = function container (get, set, clear) {
         }
       }
 
-      if (s.period.trend_ppo == 'up') {
-        if (s.trend !== 'up') {
-          s.acted_on_trend = false
+      get('lib.ta_ppo')(s, s.options.ema_long_period, s.options.ema_short_period, s.options.signal_period, s.options.ma_type).then(function(ppoSignal) {
+        s.period['ppo'] = ppoSignal;
+
+        if (s.period.ppo && s.lookback[0] && s.lookback[0].ppo) {
+          s.period.trend_ppo = s.period.ppo >= 0 ? 'up' : 'down';
         }
 
-        s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
-      } else if (s.period.trend_ppo == 'down') {
-        if (s.trend !== 'down') {
-          s.acted_on_trend = false
+        if (s.period.trend_ppo == 'up') {
+          if (s.trend !== 'up') {
+            s.acted_on_trend = false
+          }
+
+          s.trend = 'up'
+          s.signal = !s.acted_on_trend ? 'buy' : null
+        } else if (s.period.trend_ppo == 'down') {
+          if (s.trend !== 'down') {
+            s.acted_on_trend = false
+          }
+
+          s.trend = 'down'
+          s.signal = !s.acted_on_trend ? 'sell' : null
         }
 
-        s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
-      }
-
-      cb()
+        cb()
+      }).catch(function(error) {
+        console.log(error)
+        cb()
+      })
     },
 
     onReport: function (s) {
