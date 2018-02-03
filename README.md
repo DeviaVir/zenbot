@@ -368,6 +368,12 @@ macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+momentum
+  description:
+    MOM = Close(Period) - Close(Length)
+  options:
+    --momentum_size=<value>  number of periods to look back for momentum (default: 5)
+
 neural
   description:
     Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)
