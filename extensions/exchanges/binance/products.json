@@ -2253,9 +2253,9 @@
     "id": "STEEMBTC",
     "asset": "STEEM",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
+    "increment": "0.01000000",
     "label": "STEEM/BTC"
   },
   {
@@ -2275,5 +2275,32 @@
     "max_size": "10000.00000000",
     "increment": "0.01000000",
     "label": "STEEM/BNB"
+  },
+  {
+    "id": "NANOBTC",
+    "asset": "NANO",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "NANO/BTC"
+  },
+  {
+    "id": "NANOETH",
+    "asset": "NANO",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "NANO/ETH"
+  },
+  {
+    "id": "NANOBNB",
+    "asset": "NANO",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "NANO/BNB"
   }
 ]
