@@ -102,9 +102,6 @@ module.exports = function container(get, set, clear) {
     },
 
     getTrades: function  (opts, cb) {
-
-    
-
       var func_args = [].slice.call(arguments)
       var args = {
         market:joinProduct(opts.product_id),
@@ -128,8 +125,6 @@ module.exports = function container(get, set, clear) {
         bittrex_public.getticks(args,  function( data, err) {
           let res = handleErrors('getTrades', err, data, func_args, cb)
 
-
-      
           if (!shownWarning) {
             console.log('Please note: the bittrex api does not support backfilling directly.')
             console.log('Backfill is indirectly supported thru the use of a hybrid system that combines a low resolution long term market of about 10 days and a short term high res market of the last 1-5 minutes.')
@@ -140,19 +135,21 @@ module.exports = function container(get, set, clear) {
           if (res)
           {
             let lastVal = 0
+    
             for (const key in Object.keys(data.result)) {
       
               var trade = data.result[key]
-              moment(trade.TimeStamp).valueOf()
-              if (isNaN(opts.from) || new moment(trade.T).valueOf() > moment(opts.from).valueOf()) {
+              if (isNaN(opts.from) || new Date(trade.T).getTime() > new Date(opts.from).getTime()) {
                 let buySell = 'sell'
                 //todo: unsure about the >. if the price is greater than the last one should this one be a buy or sell. figure it out. 
                 if (parseFloat(trade.C) > lastVal) buySell = 'buy'
                 trades.push({
-                  trade_id: trade.T,
-                  time: new moment(trade.T).valueOf(),
+                  trade_id: new Date(trade.T).getTime(),
+                  time: new Date(trade.T).getTime(),
                   size: parseFloat(trade.V),
                   price: parseFloat(trade.C),
+                  //selector should get overwritten by backfill,  but was a point where it was missing in the backfill function so this was put in so it is never missed
+                  selector: 'bittrex.'+opts.product_id,
                   side: buySell
                 })
                 lastVal = parseFloat(trade.C)
@@ -168,14 +165,18 @@ module.exports = function container(get, set, clear) {
               {
                 for (const key in Object.keys(data.result)) {
                   var trade = data.result[key]
-                  if (isNaN(opts.from) || new moment(trade.TimeStamp).valueOf() > new moment(opts.from).valueOf()) {
+                  if (isNaN(opts.from) || new Date(trade.TimeStamp).getTime() > new Date(opts.from).getTime()) {
              
                     trades.push({
-                      trade_id: trade.Id,
-                      time: new moment(trade.TimeStamp).valueOf(),
+                      //trade_id: trade.Id,
+                      trade_id: new Date(trade.TimeStamp).getTime(),
+                      time: new Date(trade.TimeStamp).getTime(),
                       size: parseFloat(trade.Quantity),
                       price: parseFloat(trade.Price),
+                      //selector should get overwritten by backfill,  but was a point where it was missing in the backfill function so this was put in so it is never missed
+                      selector: 'bittrex.'+opts.product_id,
                       side: trade.OrderType || trade.OrderType == 'SELL' ? 'sell': 'buy'
+                      //selector:
                     })
                   }
                 }
@@ -183,6 +184,13 @@ module.exports = function container(get, set, clear) {
                 tradeCache = trades
                 allowGetMarketCall = false
                 setTimeout(()=>{allowGetMarketCall = true},marketRefresh)
+                //make sure all times come out sorted correctly.  there is a chance they can appear in the array out of order otherwise.
+                trades = trades.sort((a, b) => {
+                  if (a.time < b.time) {return 1}
+                  if (a.time > b.time) {return -1}
+                  return 0
+                }
+                )
                 cb(null, trades) 
                 
               }
@@ -197,15 +205,18 @@ module.exports = function container(get, set, clear) {
         
           if (res2)
           {
+           
             for (const key in Object.keys(data.result)) {
               var trade = data.result[key]
-              if (isNaN(opts.from) || new moment(trade.TimeStamp).valueOf() > new moment(opts.from).valueOf()) {
-       
+              if (isNaN(opts.from) || new Date(trade.TimeStamp).getTime() > new Date(opts.from).getTime()) {
                 trades.push({
-                  trade_id: trade.Id,
-                  time: new moment(trade.TimeStamp).valueOf(),
+                  //trade_id: trade.Id,
+                  trade_id: new Date(trade.TimeStamp).getTime(),
+                  time: new Date(trade.TimeStamp).getTime(),
                   size: parseFloat(trade.Quantity),
                   price: parseFloat(trade.Price),
+                  //selector should get overwritten by backfill,  but was a point where it was missing in the backfill function so this was put in so it is never missed
+                  selector: 'bittrex.'+opts.product_id,
                   side: trade.OrderType || trade.OrderType == 'SELL' ? 'sell': 'buy'
                 })
               }
@@ -217,6 +228,13 @@ module.exports = function container(get, set, clear) {
             
             tradeCache = trades
             setTimeout(()=>{allowGetMarketCall = true},marketRefresh)
+            //Sorting at this point may be redundant.
+            trades = trades.sort((a, b) => {
+              if (a.time < b.time) {return 1}
+              if (a.time > b.time) {return -1}
+              return 0
+            }
+            )
             cb(null, trades)
         
           }
