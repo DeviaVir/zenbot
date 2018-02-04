@@ -481,6 +481,15 @@ ta_macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+ta_trix
+  description:
+    TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
+  options:
+    --period=<value>  period length eg 10m (default: 5m)
+    --timeperiod=<value>  timeperiod for TRIX (default: 30)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
