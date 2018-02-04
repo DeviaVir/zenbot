@@ -113,22 +113,31 @@ describe('Trades Service', function() {
 				)
 		})
 
-		it('calls getTrades correctly', function(done) {
+		it('creates two trades with valid zenbot metadata', function(done) {
 			var instance = service(foo.get, foo.set, foo.clear)
 			var normalizedSelector = mockExchangeService().getSelector().normalized;
 
 			instance.getTrades().then((data) => {
 				expect(data.length === 2).toBe(true)
 				expect(data[0].id).toEqual(normalizedSelector + "-" + 3000)
+				expect(data[0].selector).toEqual(normalizedSelector)
+
 				expect(data[1].id).toEqual(normalizedSelector + "-" + 3001)
+				expect(data[1].selector).toEqual(normalizedSelector)
 				done();
 			})
 		})
 	})
 
-	describe('getTrades when a tradeId is passed in, but the DB returns no results, and exchange history scan uses time', function() {
+	describe('getTrades when a tradeId is passed in, but the DB returns no results, and exchange is forward, and its history scan uses time', function() {
 
-		var mockExchangeService = exchangeServiceFactory.get({historyScanUsesTime: true});
+		var getTradesOptionsObservingFuncSpy = jasmine.createSpy('getTradesOptionsObservingFunc')
+		var mockExchangeService = exchangeServiceFactory.get(
+			{	historyScanUsesTime: true,
+				direction: 'forward',
+				getTradesOptionsObservingFunc: getTradesOptionsObservingFuncSpy,
+				tradeArray: [{trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}]
+			});
 		
 		var mockFindOneFunction = jasmine.createSpy('mockFindOneFunction')
 		var mockCollectionService = collectionServiceFactory.get(
@@ -144,16 +153,20 @@ describe('Trades Service', function() {
 				)
 		})
 
-		it('calls getTrades correctly', function(done) {
+		it('calls the DB to get the trade which has the time which is then passed to the exchange, and returns two valid zenbot trades', function(done) {
 			var instance = service(foo.get, foo.set, foo.clear)
 			var normalizedSelector = mockExchangeService().getSelector().normalized;
 
 			instance.getTrades(3000).then((data) => {
+				expect(getTradesOptionsObservingFuncSpy).toHaveBeenCalledWith({product_id: 'BTC-USD', from: 99992})
 				expect(mockFindOneFunction).toHaveBeenCalledWith({id: "stub.BTC-USD-3000"});
 
 				expect(data.length === 2).toBe(true)
 				expect(data[0].id).toEqual(normalizedSelector + "-" + 3000)
+				expect(data[0].selector).toEqual(normalizedSelector)
+
 				expect(data[1].id).toEqual(normalizedSelector + "-" + 3001)
+				expect(data[1].selector).toEqual(normalizedSelector)
 				done();
 			})
 		})
@@ -171,14 +184,17 @@ describe('Trades Service', function() {
 				)
 		})
 
-		it('calls getTrades correctly', function(done) {
+		it('returns our two existing trades with valid zenbot metadata', function(done) {
 			var instance = service(foo.get, foo.set, foo.clear)
 			var normalizedSelector = mockExchangeService().getSelector().normalized;
 
 			instance.getTrades().then((data) => {
 				expect(data.length === 2).toBe(true)
 				expect(data[0].id).toEqual(normalizedSelector + "-" + 3000)
+				expect(data[0].selector).toEqual(normalizedSelector)
+
 				expect(data[1].id).toEqual(normalizedSelector + "-" + 3001)
+				expect(data[1].selector).toEqual(normalizedSelector)
 				done();
 			})
 		})

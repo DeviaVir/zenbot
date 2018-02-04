@@ -17,7 +17,7 @@ module.exports = function () {
 		if (opts.tradesArray !== undefined && opts.tradesArray !== null)
 			tradesArray = opts.tradesArray;
 		else
-			tradesArray = [{id: 'stub.BTC-USD-3000', trade_id: 3000, time: 99992 }, {id: 'stub.BTC-USD-3001', trade_id: 3001, time: 99994}]
+			tradesArray = [{id: 'stub.BTC-USD-3000', trade_id: 3000, time: 99992, selector: 'stub.BTC-USD' }, {id: 'stub.BTC-USD-3001', trade_id: 3001, time: 99994, selector: 'stub.BTC-USD'}]
 
 		var resumeMarkersArray;
 		if (opts.resumeMarkersArray !== undefined && opts.resumeMarkersArray !== null)
