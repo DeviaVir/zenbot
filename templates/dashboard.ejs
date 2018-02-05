@@ -359,6 +359,21 @@
                                 </tr>
                                 <% }); %>
                                 <% } %>
+                                <% if (my_prev_trades) { %>
+                                <% my_prev_trades.sort(function(a,b){return a.time > b.time ? -1 : 1;}).forEach(function(trade){ %>
+                                <tr class="text-muted">
+                                    <td><%= trade.type.toUpperCase() %></span></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(trade.size) %> <%= asset.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(trade.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 7}).format(trade.size * trade.price) %> <%= currency.toUpperCase() %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 8}).format(trade.fee) %> <% if (trade.type == "buy") { %> <%= asset.toUpperCase() %> <% } else { %> <%= currency.toUpperCase() %> <% } %></td>
+                                    <td><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 4, maximumFractionDigits: 4}).format(trade.slippage) %></td>
+                                    <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
+                                    <td><%= moment.duration(trade.execution_time).humanize() %></td>
+                                    <td><% if (trade.profit) { %><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.profit) %><% } else { %>-<% } %></td>
+                                </tr>
+                                <% }); %>
+                                <% } %>
 
                                 <% if (!(typeof buy_order != "undefined" || typeof sell_order != "undefined") && !my_trades) { %>
                                 <tr><td colspan="6" class="text-center">There is no trades at the moment</td></tr>

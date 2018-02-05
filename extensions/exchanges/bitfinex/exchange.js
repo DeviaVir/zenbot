@@ -265,6 +265,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'bitfinex',
     historyScan: 'backward',
+    historyScanUsesTime: true,
     makerFee: 0.1,
     takerFee: 0.2,
 

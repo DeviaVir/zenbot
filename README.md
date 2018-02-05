@@ -274,6 +274,7 @@ zenbot trade --help
     --rsi_periods <periods>         number of periods to calculate RSI at
     --poll_trades <ms>              poll new trades at this interval in ms
     --currency_increment <amount>   Currency increment, if different than the asset increment; e.g. 0.000001
+    --use_prev_trades               load and use previous trades for stop-order triggers and loss protection
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
     --debug                         output detailed debug info
@@ -366,6 +367,12 @@ macd
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+momentum
+  description:
+    MOM = Close(Period) - Close(Length)
+  options:
+    --momentum_size=<value>  number of periods to look back for momentum (default: 5)
 
 neural
   description:
@@ -499,6 +506,15 @@ ta_macd_ext
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
     
+ta_trix
+  description:
+    TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
+  options:
+    --period=<value>  period length eg 10m (default: 5m)
+    --timeperiod=<value>  timeperiod for TRIX (default: 30)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -538,6 +554,23 @@ trust_distrust
     --buy_threshold=<value>  buy when the bottom increased at least above this percentage (default: 2)
     --buy_threshold_max=<value>  wait for multiple buy signals before buying (kill whipsaw, 0 to disable) (default: 0)
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
+    
+wavetrend
+  description:
+    Buy when (Signal < Oversold) and sell when (Signal > Overbought).
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --period_length=<value>  period length, same as --period (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 21)
+    --wavetrend_channel_length=<value>  wavetrend channel length (default: 10)
+    --wavetrend_average_length=<value>  wavetrend average length (default: 21)
+    --wavetrend_overbought_1=<value>  wavetrend overbought limit 1 (default: 60)
+    --wavetrend_overbought_2=<value>  wavetrend overbought limit 2 (default: 53)
+    --wavetrend_oversold_1=<value>  wavetrend oversold limit 1 (default: -60)
+    --wavetrend_oversold_2=<value>  wavetrend oversold limit 2 (default: -53)
+    --wavetrend_trends=<value>  act on trends instead of limits (default: false)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 9)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 80)
 ```
 
 ## Interactive controls
