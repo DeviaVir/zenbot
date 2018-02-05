@@ -52,6 +52,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'binance',
     historyScan: 'forward',
+    historyScanUsesTime: true,
     makerFee: 0.1,
     takerFee: 0.1,
 
@@ -64,18 +65,18 @@ module.exports = function container (get, set, clear) {
 
       var args = {};
       if (opts.from) {
-        args.startTime = opts.from
+        args.endTime = opts.from
       }
       if (opts.to) {
-        args.endTime = opts.to
+        args.startTime = opts.to
       }
       if (args.startTime && !args.endTime) {
         // add 12 hours
-        args.endTime = args.startTime + 3600000
+        args.endTime = parseInt(args.startTime, 10) + 3600000
       }
       else if (args.endTime && !args.startTime) {
         // subtract 12 hours
-        args.startTime = args.endTime - 3600000
+        args.startTime = parseInt(args.endTime, 10) - 3600000
       }
 
       var client = publicClient()
@@ -128,6 +129,18 @@ module.exports = function container (get, set, clear) {
         .catch(function (error) {
           console.error('An error occurred', error)
           return retry('getQuote', func_args)
+        })
+    },
+
+    getDepth: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
+      var client = publicClient()
+      client.fetchOrderBook(joinProduct(opts.product_id), {limit: opts.limit}).then(result => {
+        cb(null, result)
+      })
+        .catch(function(error) {
+          console.error('An error ocurred', error)
+          return retry('getDepth', func_args)
         })
     },
 

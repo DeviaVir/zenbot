@@ -325,6 +325,7 @@ module.exports = function container (get, set, clear) {
         }
         if (!err) err = statusErr(resp, body)
         if (err) return retry('buy', func_args, err)
+        orders['~' + body.id] = body
         cb(null, body)
       })
     },
@@ -356,6 +357,7 @@ module.exports = function container (get, set, clear) {
         }
         if (!err) err = statusErr(resp, body)
         if (err) return retry('sell', func_args, err)
+        orders['~' + body.id] = body
         cb(null, body)
       })
     },

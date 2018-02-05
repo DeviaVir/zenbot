@@ -2302,5 +2302,32 @@
     "max_size": "100000.00000000",
     "increment": "0.01000000",
     "label": "NANO/BNB"
+  },
+  {
+    "id": "VIABTC",
+    "asset": "VIA",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "VIA/BTC"
+  },
+  {
+    "id": "VIAETH",
+    "asset": "VIA",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "VIA/ETH"
+  },
+  {
+    "id": "VIABNB",
+    "asset": "VIA",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "VIA/BNB"
   }
 ]
