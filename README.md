@@ -274,6 +274,7 @@ zenbot trade --help
     --rsi_periods <periods>         number of periods to calculate RSI at
     --poll_trades <ms>              poll new trades at this interval in ms
     --currency_increment <amount>   Currency increment, if different than the asset increment; e.g. 0.000001
+    --use_prev_trades               load and use previous trades for stop-order triggers and loss protection
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
     --debug                         output detailed debug info
@@ -478,6 +479,15 @@ ta_macd
     --signal_period=<value>  number of periods for the signal EMA (default: 9)
     --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+ta_trix
+  description:
+    TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
+  options:
+    --period=<value>  period length eg 10m (default: 5m)
+    --timeperiod=<value>  timeperiod for TRIX (default: 30)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
