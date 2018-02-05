@@ -32,6 +32,16 @@ describe('Resume Marker Service', function() {
 			expect(instance.getRanges().length).toBe(0);
 		})
 
+		it('sets an id and _id attribute on a newly created range', function() {
+			var instance = service(foo.get, foo.set, foo.clear)
+
+			instance.createNewRange({trade_id:1300, time:990000});
+
+			expect(instance.getRanges().length).toBe(1);
+			expect(instance.getRanges()[0].id).toBeDefined;
+			expect(instance.getRanges()[0]._id).toBeDefined;
+		})
+
 		it('has one range, after creating a range, and it only contains the trade_id we just gave it', function() {
 			var instance = service(foo.get, foo.set, foo.clear)
 			

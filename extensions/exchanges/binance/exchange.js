@@ -52,6 +52,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'binance',
     historyScan: 'forward',
+    historyScanUsesTime: true,
     makerFee: 0.1,
     takerFee: 0.1,
 
@@ -64,10 +65,10 @@ module.exports = function container (get, set, clear) {
 
       var args = {};
       if (opts.from) {
-        args.startTime = opts.from
+        args.endTime = opts.from
       }
       if (opts.to) {
-        args.endTime = opts.to
+        args.startTime = opts.to
       }
       if (args.startTime && !args.endTime) {
         // add 12 hours
