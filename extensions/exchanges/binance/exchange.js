@@ -131,6 +131,18 @@ module.exports = function container (get, set, clear) {
         })
     },
 
+    getDepth: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
+      var client = publicClient()
+      client.fetchOrderBook(joinProduct(opts.product_id), {limit: opts.limit}).then(result => {
+        cb(null, result)
+      })
+        .catch(function(error) {
+          console.error('An error ocurred', error)
+          return retry('getDepth', func_args)
+        })
+    },
+
     cancelOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
