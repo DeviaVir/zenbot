@@ -3,8 +3,7 @@ var path = require('path')
 var n = require('numbro')
 var minimist = require('minimist')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function cexio (conf) {
   var s = {
     options: minimist(process.argv)
   }
@@ -21,10 +20,10 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.cexio || !c.cexio.username || !c.cexio.key || c.cexio.key === 'YOUR-API-KEY') {
+      if (!conf.cexio || !conf.cexio.username || !conf.cexio.key || conf.cexio.key === 'YOUR-API-KEY') {
         throw new Error('please configure your CEX.IO credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new CEX(c.cexio.username, c.cexio.key, c.cexio.secret).rest
+      authed_client = new CEX(conf.cexio.username, conf.cexio.key, conf.cexio.secret).rest
     }
     return authed_client
   }
@@ -44,7 +43,7 @@ module.exports = function container (get, set, clear) {
 
   function refreshFees(args) {
     var skew = 5000 // in ms
-    var now = new Date();
+    var now = new Date()
     var nowUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds())
     var midnightUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()).setHours(24,0,0,0)
     var countdown = midnightUTC - nowUTC + skew

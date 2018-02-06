@@ -1,3 +1,4 @@
-module.exports = function container (get) {
-  return get('db.createCollection')('trades')
+var createCollection = require('./createCollection')
+module.exports = function(conf){
+  return createCollection('trades', null, conf)
 }

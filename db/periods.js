@@ -1,3 +1,4 @@
-module.exports = function container (get) {
-  return get('db.createCollection')('periods')
+var createCollection = require('./createCollection')
+module.exports = function(conf) {
+  return createCollection('periods', null, conf)
 }

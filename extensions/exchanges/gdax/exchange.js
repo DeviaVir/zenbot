@@ -1,16 +1,14 @@
 var Gdax = require('gdax'),
   minimist = require('minimist')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function gdax (conf) {
   var so = minimist(process.argv)
-
   var public_client = {}, authed_client, websocket_client = {}, websocket_cache = {}
 
   function publicClient (product_id) {
     if (!public_client[product_id]) {
       websocketClient(product_id)
-      public_client[product_id] = new Gdax.PublicClient(c.gdax.apiURI)
+      public_client[product_id] = new Gdax.PublicClient(conf.gdax.apiURI)
     }
     return public_client[product_id]
   }
@@ -20,11 +18,11 @@ module.exports = function container (get, set, clear) {
       var auth = null
       var client_state = {}
       auth = {
-        key: c.gdax.key, 
-        secret: c.gdax.b64secret, 
-        passphrase: c.gdax.passphrase
+        key: conf.gdax.key, 
+        secret: conf.gdax.b64secret, 
+        passphrase: conf.gdax.passphrase
       }
-      websocket_client[product_id] = new Gdax.WebsocketClient([product_id], c.gdax.websocketURI, auth, {channels: ['matches', 'user', 'ticker']})
+      websocket_client[product_id] = new Gdax.WebsocketClient([product_id], conf.gdax.websocketURI, auth, {channels: ['matches', 'user', 'ticker']})
       // initialize a cache for the websocket connection
       websocket_cache[product_id] = {
         trades: [],
@@ -99,10 +97,10 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.gdax || !c.gdax.key || c.gdax.key === 'YOUR-API-KEY') {
+      if (!conf.gdax || !conf.gdax.key || conf.gdax.key === 'YOUR-API-KEY') {
         throw new Error('please configure your GDAX credentials in conf.js')
       }
-      authed_client = new Gdax.AuthenticatedClient(c.gdax.key, c.gdax.b64secret, c.gdax.passphrase, c.gdax.apiURI)
+      authed_client = new Gdax.AuthenticatedClient(conf.gdax.key, conf.gdax.b64secret, conf.gdax.passphrase, conf.gdax.apiURI)
     }
     return authed_client
   }

@@ -1,17 +1,12 @@
-
-
-var bittrex_authed = require('node-bittrex-api')
-var bittrex_public = require('node-bittrex-api')
-var n = require('numbro')
-var moment = require('moment')
-
-
+var bittrex_authed = require('node-bittrex-api'),
+  bittrex_public = require('node-bittrex-api'),
+  moment = require('moment'),
+  n = require('numbro')
 
 /**
  ** Bittrex API
  **/
-module.exports = function container(get, set, clear) {
-  let c = get('conf')
+module.exports = function bittrex(conf) {
   let recoverableErrors = new RegExp(/(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/)
  
   let shownWarning = false
@@ -23,8 +18,8 @@ module.exports = function container(get, set, clear) {
 
 
   bittrex_authed.options({
-    'apikey' : c.bittrex.key.trim(),
-    'apisecret' : c.bittrex.secret.trim(),
+    'apikey' : conf.bittrex.key.trim(),
+    'apisecret' : conf.bittrex.secret.trim(),
     'stream': false,
     'cleartext': false,
     'verbose': false

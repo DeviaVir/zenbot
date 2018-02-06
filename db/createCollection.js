@@ -1,7 +1,5 @@
-module.exports = function container (get, set) {
-  return function createCollection (name, options) {
-    return require('sosa_mongo')({
-      db: get('db.mongo')
-    })(name, options)
-  }
+var sosa_mongo = require('sosa_mongo')
+
+module.exports = function createCollection (name, options, conf) {
+  return sosa_mongo({ db: conf.db.mongo })(name, options)
 }
