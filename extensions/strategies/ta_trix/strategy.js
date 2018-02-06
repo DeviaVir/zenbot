@@ -9,6 +9,7 @@ module.exports = {
 
   getOptions: function () {
     this.option('period', 'period length eg 10m', String, '5m')
+    this.option('min_periods', 'min. number of history periods', Number, 52)
     this.option('timeperiod', 'timeperiod for TRIX', Number, 30)
     this.option('overbought_rsi_periods', 'number of periods for overbought RSI', Number, 25)
     this.option('overbought_rsi', 'sold when RSI exceeds this value', Number, 70)
