@@ -8,7 +8,6 @@ describe('Trades Service', function() {
     mock('../../../../lib/services/exchange-service', exchangeServiceFactory)
     mock('../../../../lib/services/collection-service', collectionServiceFactory)
     service = mock.reRequire('../../../../lib/services/trades-service')
-
   })
   afterEach(function() {
     mock.stopAll()
@@ -85,7 +84,7 @@ describe('Trades Service', function() {
   describe('getTrades when DB returns nothing, and API returns two trades', function() {
 
     it('calls getTrades correctly', function(done) {
-      var instance = service({tradesArray: [ ]})
+      var instance = service({})
       var normalizedSelector = exchangeServiceFactory({}).getSelector().normalized
 
       instance.getTrades().then((data) => {
@@ -97,16 +96,70 @@ describe('Trades Service', function() {
     })
   })
 
-  describe('getTrades when DB returns two trades, and API returns no trades', function() {
+  describe('getTrades when DB returns nothing, and API returns two trades', function() {
 
-    it('calls getTrades correctly', function(done) {
+    it('creates two trades with valid zenbot metadata', function(done) {
       var instance = service({getTradesFunc: (opts, func) => { }, direction: 'forward'})
       var normalizedSelector = exchangeServiceFactory({}).getSelector().normalized
 
       instance.getTrades().then((data) => {
         expect(data.length === 2).toBe(true)
         expect(data[0].id).toEqual(normalizedSelector + '-' + 3000)
+        expect(data[0].selector).toEqual(normalizedSelector)
+
         expect(data[1].id).toEqual(normalizedSelector + '-' + 3001)
+        expect(data[1].selector).toEqual(normalizedSelector)
+        done()
+      })
+    })
+  })
+
+  describe('getTrades when a tradeId is passed in, but the DB returns no results, and exchange is forward, and its history scan uses time', function() {
+
+    var getTradesOptionsObservingFuncSpy = jasmine.createSpy('getTradesOptionsObservingFunc')
+    var mockFindOneFunction = jasmine.createSpy('mockFindOneFunction')
+
+    it('calls the DB to get the trade which has the time which is then passed to the exchange, and returns two valid zenbot trades', function(done) {
+      var conf = {
+        historyScanUsesTime: true,
+        direction: 'forward',
+        getTradesOptionsObservingFunc: getTradesOptionsObservingFuncSpy,
+        tradesArray: [],
+        exchangeTradesArray: [{trade_id: 3000, time: 99994}, {trade_id: 3001, time: 99992}],
+        findOneReturnTrade: {id: 'stub.BTC-USD-3000', trade_id: 3000, time: 99992 },
+        mockFindOneFunction: mockFindOneFunction
+      }
+      var instance = service(conf)
+      var normalizedSelector = exchangeServiceFactory(conf).getSelector().normalized
+
+      instance.getTrades(3000).then((data) => {
+        expect(getTradesOptionsObservingFuncSpy).toHaveBeenCalledWith({product_id: 'BTC-USD', from: 99992})
+        expect(mockFindOneFunction).toHaveBeenCalledWith({id: 'stub.BTC-USD-3000'})
+
+        expect(data.length === 2).toBe(true)
+        expect(data[0].id).toEqual(normalizedSelector + '-' + 3000)
+        expect(data[0].selector).toEqual(normalizedSelector)
+
+        expect(data[1].id).toEqual(normalizedSelector + '-' + 3001)
+        expect(data[1].selector).toEqual(normalizedSelector)
+        done()
+      })
+    })
+  })
+
+  describe('getTrades when DB returns two trades, and API returns no trades', function() {
+
+    it('returns our two existing trades with valid zenbot metadata', function(done) {
+      var instance = service({getTradesFunc: (opts, func) => { }, direction: 'forward'})
+      var normalizedSelector = exchangeServiceFactory({}).getSelector().normalized
+
+      instance.getTrades().then((data) => {
+        expect(data.length === 2).toBe(true)
+        expect(data[0].id).toEqual(normalizedSelector + '-' + 3000)
+        expect(data[0].selector).toEqual(normalizedSelector)
+
+        expect(data[1].id).toEqual(normalizedSelector + '-' + 3001)
+        expect(data[1].selector).toEqual(normalizedSelector)
         done()
       })
     })

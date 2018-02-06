@@ -67,7 +67,7 @@ module.exports = function (program, conf) {
       })
       so.currency_increment = cmd.currency_increment
       so.keep_lookback_periods = cmd.keep_lookback_periods
-      so.use_prev_trades = (cmd.use_prev_trades||c.use_prev_trades)
+      so.use_prev_trades = (cmd.use_prev_trades||conf.use_prev_trades)
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'

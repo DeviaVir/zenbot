@@ -48,9 +48,10 @@ module.exports = {
       if (s.overbought) {
         s.overbought = false
         s.trend = 'overbought'
-        s.signal = 'sold'
+        s.signal = 'sell'
         return cb()
       }
+  
     }
 
     if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {

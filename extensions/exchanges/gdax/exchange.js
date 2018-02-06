@@ -323,6 +323,7 @@ module.exports = function gdax (conf) {
         }
         if (!err) err = statusErr(resp, body)
         if (err) return retry('buy', func_args, err)
+        orders['~' + body.id] = body
         cb(null, body)
       })
     },
@@ -354,6 +355,7 @@ module.exports = function gdax (conf) {
         }
         if (!err) err = statusErr(resp, body)
         if (err) return retry('sell', func_args, err)
+        orders['~' + body.id] = body
         cb(null, body)
       })
     },
