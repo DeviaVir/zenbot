@@ -9,7 +9,7 @@ function addProduct(base, quote, minSize, altname) {
     products.push({
         asset: quote,
         currency: base,
-        min_total: minSize,
+        min_size: minSize,
         max_size: '1000000',
         increment: '0.00000001',
         label: base + '/' + quote
