@@ -1,104 +1,84 @@
-
-var theFunction = require('../../../../commands/backfill/backfill.process.function')
-var collectionServiceFactory =   require('../../../../test/_mocks/collectionService.mock.factory')()
-var exchangeServiceFactory = require('../../../../test/_mocks/exchangeService.mock.factory')()
+var mock = require('mock-require')
+var collectionServiceFactory = require('../../../../test/_mocks/collectionService.mock.factory')
+var exchangeServiceFactory = require('../../../../test/_mocks/exchangeService.mock.factory')
 
 describe('The Backfill Process function', function() {
-	beforeEach(function() {
-		foo = {
-			get: function() { },
-			set: function() { },
-			clear: function() { }
-		}
+  var queue
 
-		queue = {
-			enqueue: function() { },
-			dequeue: function() { }
-		}
-	})
+  beforeEach(function() {
+    mock('../../../../lib/services/collection-service', collectionServiceFactory)
+    mock('../../../../lib/services/exchange-service', exchangeServiceFactory)
+    mock('../../../../lib/_data-structures/Queue', queue)
 
-	describe('processes trades ', function() {
+    queue = {
+      enqueue: function() { },
+      dequeue: function() { }
+    }
+  })
 
-		beforeEach(function () {
-			var mockCollectionService = collectionServiceFactory.get();
-			var mockExchangeService = exchangeServiceFactory.get();
+  afterEach(function(){
+    mock.stopAll()
+  })
 
-			spyOn(foo, 'get').and.returnValues(
-				mockCollectionService,
-				mockExchangeService,
-			)
+  describe('processes trades ', function() {
 
-			spyOn(queue, 'dequeue').and.returnValue([{trade_id: 3002, time: 99996}, {trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
-		})
+    beforeEach(function () {
+      spyOn(queue, 'dequeue').and.returnValue([{trade_id: 3002, time: 99996}, {trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
+    })
 
-		it('when all are considered new', function() {
-			var callback = jasmine.createSpy('callback')
-			var instance = theFunction(foo.get, foo.set, foo.clear)
+    it('when all are considered new', function() {
+      var callback = jasmine.createSpy('callback')
+      var instance = mock.reRequire('../../../../commands/backfill/backfill.process.function')({})
 
-			var targetTimeInMillis = 99900
-			instance(targetTimeInMillis, queue, (trade) => { return trade.trade_id; }, callback)
+      var targetTimeInMillis = 99900
+      instance(targetTimeInMillis, queue, (trade) => { return trade.trade_id }, callback)
 
-			expect(queue.dequeue.calls.count()).toEqual(1)
-			expect(callback.calls.count()).toEqual(1) 
-			expect(callback).toHaveBeenCalledWith(null, false, 3000, {trade_id: 3000, time: 99992})
-		})
-	})
+      expect(queue.dequeue.calls.count()).toEqual(1)
+      expect(callback.calls.count()).toEqual(1) 
+      expect(callback).toHaveBeenCalledWith(null, false, 3000, {trade_id: 3000, time: 99992})
+    })
+  })
 
-	describe('indicates exit condition was reached when one of the trades is past our time limit', function() {
-		beforeEach(function () {
-			var mockCollectionService = collectionServiceFactory.get();
-			var mockExchangeService = exchangeServiceFactory.get();
+  describe('indicates exit condition was reached when one of the trades is past our time limit', function() {
+    beforeEach(function () {
+      spyOn(queue, 'dequeue').and.returnValue([{trade_id: 3002, time: 99996}, {trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
+    })
 
-			spyOn(foo, 'get').and.returnValues(
-				mockCollectionService,
-				mockExchangeService,
-			)
+    it('', function() {
+      var callback = jasmine.createSpy('callback')
+      var instance =  mock.reRequire('../../../../commands/backfill/backfill.process.function')({})
 
-			spyOn(queue, 'dequeue').and.returnValue([{trade_id: 3002, time: 99996}, {trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
-		})
+      var targetTimeInMillis = 99993
+      instance(targetTimeInMillis, queue, (trade) => { return trade.trade_id }, callback)
 
-		it('', function() {
-			var callback = jasmine.createSpy('callback')
-			var instance = theFunction(foo.get, foo.set, foo.clear)
+      expect(queue.dequeue.calls.count()).toEqual(1)
+      expect(callback.calls.count()).toEqual(1)
+      expect(callback).toHaveBeenCalledWith(null, true, 3001, {trade_id: 3001, time: 99994})
+    })
+  })
 
-			var targetTimeInMillis = 99993
-			instance(targetTimeInMillis, queue, (trade) => { return trade.trade_id; }, callback)
+    
+  // TODO
+  xdescribe('does not insert records that have already been seen', function() {
+    beforeEach(function () {
 
-			expect(queue.dequeue.calls.count()).toEqual(1)
-			expect(callback.calls.count()).toEqual(1)
-			expect(callback).toHaveBeenCalledWith(null, true, 3001, {trade_id: 3001, time: 99994})
-		})
-	})
+      spyOn(queue, 'dequeue').and.returnValue([{trade_id: 3002, time: 99996}, {trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
+    })
 
-	
-	// TODO
-	xdescribe('does not insert records that have already been seen', function() {
-		beforeEach(function () {
-			var mockCollectionService = collectionServiceFactory.get();
-			var mockExchangeService = exchangeServiceFactory.get();
+    it('', function() {
+      var callback = jasmine.createSpy('callback')
+      var instance =  require('../../../../commands/backfill/backfill.process.function')({})
 
-			spyOn(foo, 'get').and.returnValues(
-				mockCollectionService,
-				mockExchangeService,
-			)
+      var targetTimeInMillis = 99900
+      instance(targetTimeInMillis, queue, callback)
 
-			spyOn(queue, 'dequeue').and.returnValue([{trade_id: 3002, time: 99996}, {trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
-		})
-
-		it('', function() {
-			var callback = jasmine.createSpy('callback')
-			var instance = theFunction(foo.get, foo.set, foo.clear)
-
-			var targetTimeInMillis = 99900
-			instance(targetTimeInMillis, queue, callback)
-
-			expect(queue.dequeue.calls.count()).toEqual(1)
-			expect(callback.calls.count()).toEqual(1)
-			expect(callback).toHaveBeenCalledWith(null, false, {trade_id: 3002, time: 99996})
-			
-			// TODO: How to check that theFunction only called the mockCollectionService twice? 
-			//  Because there should only be two inserts when the third is reported as 'already seen'.
-		})
-	})
+      expect(queue.dequeue.calls.count()).toEqual(1)
+      expect(callback.calls.count()).toEqual(1)
+      expect(callback).toHaveBeenCalledWith(null, false, {trade_id: 3002, time: 99996})
+            
+      // TODO: How to check that theFunction only called the mockCollectionService twice? 
+      //  Because there should only be two inserts when the third is reported as 'already seen'.
+    })
+  })
 
 })

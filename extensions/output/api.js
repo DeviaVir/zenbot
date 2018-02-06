@@ -1,7 +1,4 @@
-
-
-module.exports = function container (get) {
-  let c = get('conf')
+module.exports = function api () {
   let express = require('express')
   let app = express()
   let random_port = require('random-port')

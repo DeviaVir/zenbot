@@ -1,8 +1,7 @@
 const ccxt = require('ccxt')
 var path = require('path')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function container (conf) {
 
   var public_client, authed_client
 
@@ -13,10 +12,10 @@ module.exports = function container (get, set, clear) {
 
   function authedClient() {
     if (!authed_client) {
-      if (!c.hitbtc || !c.hitbtc.key || !c.hitbtc.key === 'YOUR-API-KEY') {
+      if (!conf.hitbtc || !conf.hitbtc.key || !conf.hitbtc.key === 'YOUR-API-KEY') {
         throw new Error('please configure your HitBTC credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.hitbtc2({ 'apiKey': c.hitbtc.key, 'secret': c.hitbtc.secret })
+      authed_client = new ccxt.hitbtc2({ 'apiKey': conf.hitbtc.key, 'secret': conf.hitbtc.secret })
     }
     return authed_client
   }
