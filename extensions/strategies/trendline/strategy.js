@@ -21,7 +21,7 @@ module.exports = {
     this.option('markdown_buy_pct', 'test', Number, 0)
   },
 
-  calculate: function (s) {
+  calculate: function () {
 
   },
 

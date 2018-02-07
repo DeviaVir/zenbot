@@ -1,5 +1,6 @@
 var minimist = require('minimist')
   , n = require('numbro')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , moment = require('moment')
   , engineFactory = require('../lib/engine')
@@ -34,7 +35,7 @@ module.exports = function (program, conf) {
       var engine = engineFactory(s, conf)
       function balance () {
         s.exchange.getBalance(s, function (err, balance) {
-          if (err) return cb(err)
+          if (err) throw err
           s.exchange.getQuote(s, function (err, quote) {
             if (err) throw err
             

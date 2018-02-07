@@ -1,17 +1,7 @@
 const ccxt = require ('ccxt'),
-  path = require('path'),
-  minimist = require('minimist'),
-  moment = require('moment'),
-  colors = require('colors'),
-  n = require('numbro')
+  path = require('path')
 
 module.exports = function container(conf) {
-  var s = {
-    options: minimist(process.argv)
-  }
-  var so = s.options
-
-  var shownWarnings = false
 
   var public_client, authed_client
 

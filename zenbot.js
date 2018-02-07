@@ -2,7 +2,6 @@
 var semver = require('semver')
 var path = require('path')
 var version = require('./package.json').version
-USER_AGENT = 'zenbot/' + version
 var program = require('commander')
 program.version(version)
 program._name = 'zenbot'
@@ -15,7 +14,6 @@ if (semver.gt('8.3.0', versions.node)) {
 }
 
 var fs = require('fs')
-  , path = require('path')
   , boot = require('./boot')
 
 boot(function (err, zenbot) {

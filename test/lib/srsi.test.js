@@ -1,4 +1,3 @@
-var RSI = require('../../lib/rsi')
 var SRSI = require('../../lib/srsi')
 
 describe('SRSI (StochRSI Oscillator)', function () {

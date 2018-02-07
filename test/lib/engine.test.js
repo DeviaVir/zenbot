@@ -104,7 +104,7 @@ describe('Engine', function() {
         })
       })
     })
-		
+    
     describe('when taker in live mode', function(){
       describe('with buy_max_amt set',function(){
         it('and no held assets should use raw buy_max_amt', function(){
@@ -124,7 +124,7 @@ describe('Engine', function() {
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
-				
+        
         it('and held assets should use adjusted buy_max_amt', function(){
           // arrange
           var signal_type = 'buy'
@@ -142,7 +142,7 @@ describe('Engine', function() {
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
-				
+        
         it('and held assets so large adjusted buy_max_amt is below order minimum should not place order', function(){
           // arrange
           var signal_type = 'buy'
@@ -225,13 +225,13 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
   var fake_bid = 0.10
   var fake_ask = 0.11
   var fake_balance = { currency: currency_amount, asset:held_asset}
-	
+  
   var fakes = {
     get: function() { },
     set: function() { },
     clear: function() { }
   }
-	
+  
   var fake_product = {
     'asset': fake_asset,
     'currency': fake_currency,
@@ -239,7 +239,7 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
     'max_size': null,
     'increment': '0.01',
     'label': 'Test TST/BTC'
-	  }
+  }
 
   var fake_return = {
     'conf': {
@@ -258,17 +258,17 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
     }
     },
     'lib.notify': {
-      pushMessage: function(title, message){ }
+      pushMessage: function(/*title, message*/){ }
     }
   }
   var exchange_path = path.resolve(__dirname, '../../extensions/exchanges/test_exchange/exchange')
   mock(exchange_path, fake_return['exchanges.test_exchange'])
   mock('./notify', fake_return['lib.notify'])
-	
+  
   spyOn(fakes,'get').and.callFake(function(param){
     return fake_return[param]
   })
-	
+  
   var input = {
     options: {
       selector: {
@@ -286,6 +286,6 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
     }
   }
   var engine = require('../../lib/engine')
-	
+  
   return engine(input, fake_return['conf'])
 }

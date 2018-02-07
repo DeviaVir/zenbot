@@ -16,7 +16,7 @@ module.exports = function (cb) {
     cb(null, zenbot)
   }
 
-  var authStr = '', authMechanismStr, authMechanism
+  var authStr = '', authMechanism
   
   if(c.mongo.username){
     authStr = encodeURIComponent(c.mongo.username)

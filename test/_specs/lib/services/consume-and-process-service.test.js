@@ -24,7 +24,6 @@ describe('consume-and-process-service', function () {
     it('does what its supposed to', function(done) {
       var instance = service({})
       var numTimesConsumeHappened = 0
-      var numTimesProcessHappended = 0
       var MAX_CONSUME_COUNT = Math.max(1, Math.floor(Math.random() * 10))
 
       var consumeFunc = (record, queue, cb) => {
@@ -53,7 +52,7 @@ describe('consume-and-process-service', function () {
         var lastProcessedIndex = 0
 
         // process the records somehow
-        arrayOfRecords.forEach((r) => { 
+        arrayOfRecords.forEach((/*r*/) => { 
           /* do something */ 
           /* set var if this record passed our targetTimeInMillis */
           /* remember the most recently processed record, so we can pass it back */

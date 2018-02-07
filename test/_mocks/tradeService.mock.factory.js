@@ -15,7 +15,7 @@ module.exports = (opts) => {
  
   return {
     getInitialOptsObject: () => { },
-    getTrades: (tradeSearchOpts) => { return { 
+    getTrades: (/*tradeSearchOpts*/) => { return { 
       then: (cb) => { cb( opts.tradesArray ) } }}
   } // trade service
   

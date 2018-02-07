@@ -33,7 +33,7 @@ module.exports = function (conf) {
           if (skipToTradeId === curr.trade_id) {
             let lastTrade = curr
             let idx = {i: index}
-            collectionServiceInstance.getTrades().insert(curr).then((err, doc) => {
+            collectionServiceInstance.getTrades().insert(curr).then((/*err, doc*/) => {
               if (idx.i === trades.length) {
                 cb(null, false, lastTrade.trade_id, lastTrade) 
               }
