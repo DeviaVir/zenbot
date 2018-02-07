@@ -2329,5 +2329,32 @@
     "max_size": "10000.00000000",
     "increment": "0.01000000",
     "label": "VIA/BNB"
+  },
+  {
+    "id": "BLZBTC",
+    "asset": "BLZ",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "BLZ/BTC"
+  },
+  {
+    "id": "BLZETH",
+    "asset": "BLZ",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "BLZ/ETH"
+  },
+  {
+    "id": "BLZBNB",
+    "asset": "BLZ",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "BLZ/BNB"
   }
 ]
