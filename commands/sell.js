@@ -1,5 +1,6 @@
 var minimist = require('minimist')
   , n = require('numbro')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')

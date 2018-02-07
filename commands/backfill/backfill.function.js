@@ -16,7 +16,7 @@ module.exports = function container (conf) {
     cpService.setOnProcessFunc(backfillProcessFunction(conf))
     cpService.setAfterOnProcessFunc(backfillUpdateScreenFunction)
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve/*, reject*/) => {
       cpService.go(targetTimeInMillis).then((finalTrade) => {
         resolve(finalTrade)
       })

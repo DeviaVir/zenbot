@@ -8,7 +8,6 @@ var tb = require('timebucket')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
   , tradesCollection = require('../db/trades')
-  , _ = require('lodash')
 
 module.exports = function (program, conf) {
   program
@@ -89,7 +88,7 @@ module.exports = function (program, conf) {
       var query_start = so.start ? tb(so.start).resize(so.period_length).subtract(so.min_periods + 2).toMilliseconds() : null
 
       function exitSim () {
-          console.log()
+        console.log()
         if (!s.period) {
           console.error('no trades found! try running `zenbot backfill ' + so.selector.normalized + '` first')
           process.exit(1)
@@ -105,8 +104,8 @@ module.exports = function (program, conf) {
           options[k] = so[k]
         })
           
-          let options_output = options
-          options_output.simresults = {}
+        let options_output = options
+        options_output.simresults = {}
          
         if (s.my_trades.length) {
           s.my_trades.push({
@@ -202,29 +201,29 @@ module.exports = function (program, conf) {
         process.exit(0)
       }
 
-        function getNext () {
-          var opts = {
-            query: {
-              selector: so.selector.normalized
-            },
-            sort: {time: 1},
-            limit: 1000
-          }
-          if (so.end) {
-            opts.query.time = {$lte: so.end}
-          }
-          if (cursor) {
-            if (reversing) {
-              opts.query.time = {}
-              opts.query.time['$lt'] = cursor
-              if (query_start) {
-                opts.query.time['$gte'] = query_start
-              }
-              opts.sort = {time: -1}
+      function getNext () {
+        var opts = {
+          query: {
+            selector: so.selector.normalized
+          },
+          sort: {time: 1},
+          limit: 1000
+        }
+        if (so.end) {
+          opts.query.time = {$lte: so.end}
+        }
+        if (cursor) {
+          if (reversing) {
+            opts.query.time = {}
+            opts.query.time['$lt'] = cursor
+            if (query_start) {
+              opts.query.time['$gte'] = query_start
             }
-            else {
-              if (!opts.query.time) opts.query.time = {}
-              opts.query.time['$gt'] = cursor
+            opts.sort = {time: -1}
+          }
+          else {
+            if (!opts.query.time) opts.query.time = {}
+            opts.query.time['$gt'] = cursor
           }
         }
         else if (query_start) {
@@ -240,26 +239,26 @@ module.exports = function (program, conf) {
               return getNext()
             }
             engine.exit(exitSim)
-            }
-            if (so.symmetrical && reversing) {
-              trades.forEach(function (trade) {
-                trade.orig_time = trade.time
-                trade.time = reverse_point + (reverse_point - trade.time)
-              })
-            }            
-            engine.update(trades, function (err) {
-              if (err) throw err
-              if (reversing) {
-                cursor = trades[trades.length - 1].orig_time
-              }
-              else {
-                cursor = trades[trades.length - 1].time
-              }
-              setImmediate(getNext)
+          }
+          if (so.symmetrical && reversing) {
+            trades.forEach(function (trade) {
+              trade.orig_time = trade.time
+              trade.time = reverse_point + (reverse_point - trade.time)
             })
+          }            
+          engine.update(trades, function (err) {
+            if (err) throw err
+            if (reversing) {
+              cursor = trades[trades.length - 1].orig_time
+            }
+            else {
+              cursor = trades[trades.length - 1].time
+            }
+            setImmediate(getNext)
           })
-        }
-        getNext()
-      })
-  }
+        })
+      }
+      getNext()
+    })
+}
 

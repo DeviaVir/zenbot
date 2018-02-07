@@ -1,10 +1,10 @@
 var tb = require('timebucket')
   , minimist = require('minimist')
-  , n = require('numbro')
   , fs = require('fs')
   , path = require('path')
   , spawn = require('child_process').spawn
   , moment = require('moment')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , analytics = require('forex.analytics')
   , ProgressBar = require('progress')
@@ -86,7 +86,7 @@ module.exports = function (program, conf) {
       if (!so.days_test) { so.days_test = 0 }
       so.strategy = 'noop'
 
-      unknownIndicators = []
+      var unknownIndicators = []
       if (so.indicators) {
         so.indicators.split(',').forEach(function(indicator) {
           if (!fa_availableIndicators.includes(indicator))
@@ -194,7 +194,7 @@ module.exports = function (program, conf) {
         var simulationResult = fs.readFileSync(simulationResultFile).toString()
         simulationResult = simulationResult.substr(simulationResult.length - 512)
 
-        result = {}
+        var result = {}
         if (simulationResult.match(endBalance)) { result.endBalance      = simulationResult.match(endBalance)[1] }
         if (simulationResult.match(buyHold))    { result.buyHold         = simulationResult.match(buyHold)[1] }
         if (simulationResult.match(vsBuyHold))  { result.vsBuyHold       = simulationResult.match(vsBuyHold)[1] }
@@ -300,7 +300,7 @@ module.exports = function (program, conf) {
           }
         )
 
-        return analytics.findStrategy(candlesticks, fa_getTrainOptions(so), function(strategy, fitness, generation) {
+        return analytics.findStrategy(candlesticks, fa_getTrainOptions(so), function(strategy, fitness/*, generation*/) {
           bar.tick({
             'fitness': fitness
           })
@@ -316,7 +316,6 @@ module.exports = function (program, conf) {
         }
         
         var option_keys = Object.keys(so)
-        var output_lines = []
         option_keys.sort(function (a, b) {
           if (a < b) return -1
           return 1

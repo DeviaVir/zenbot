@@ -2,6 +2,7 @@ var QuadrigaCX = require('quadrigacx'),
   path = require('path'),
   minimist = require('minimist'),
   moment = require('moment'),
+  // eslint-disable-next-line no-unused-vars
   colors = require('colors'),
   n = require('numbro')
 

@@ -55,7 +55,7 @@ module.exports = (opts) => {
         },
         find: () => { 
           return { 
-            limit: (num) => {
+            limit: (/* num */) => {
               return { 
                 toArray: (func) => {
                   func(null, tradesArray)
@@ -69,7 +69,7 @@ module.exports = (opts) => {
         }, 
         insert: (trade) => { 
           return { 
-            then: (cb, err) => { // TODO: should this be (err, cb) instead?
+            then: (cb/*, err*/) => { // TODO: should this be (err, cb) instead?
               cb(trade)
             }
           }

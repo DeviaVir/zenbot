@@ -1,8 +1,8 @@
 var KrakenClient = require('kraken-api'),
-  path = require('path'),
   minimist = require('minimist'),
   moment = require('moment'),
   n = require('numbro'),
+  // eslint-disable-next-line no-unused-vars
   colors = require('colors')
 
 module.exports = function container(conf) {
@@ -13,7 +13,7 @@ module.exports = function container(conf) {
 
   var public_client, authed_client
   // var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded|between Cloudflare and the origin web server)/)
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time\-out|The web server reported a bad gateway|525\: SSL handshake failed|Service\:Unavailable|api.kraken.com \| 522\:)/)
+  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time-out|The web server reported a bad gateway|525: SSL handshake failed|Service:Unavailable|api.kraken.com \| 522:)/)
   var silencedRecoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT)/)
 
   function publicClient() {
@@ -31,10 +31,6 @@ module.exports = function container(conf) {
       authed_client = new KrakenClient(conf.kraken.key, conf.kraken.secret)
     }
     return authed_client
-  }
-
-  function joinProduct(product_id) {
-    return product_id.split('-')[0] + product_id.split('-')[1]
   }
 
   // This is to deal with a silly bug where kraken doesn't use a consistent definition for currency
@@ -63,19 +59,19 @@ module.exports = function container(conf) {
       if (error.message.match(/between Cloudflare and the origin web server/)) {
         errorMsg = 'Connection between Cloudflare CDN and api.kraken.com failed'
       }
-      else if (error.message.match(/The web server reported a gateway time\-out/)) {
+      else if (error.message.match(/The web server reported a gateway time-out/)) {
         errorMsg = 'Web server Gateway time-out'
       }
       else if (error.message.match(/The web server reported a bad gateway/)) {
         errorMsg = 'Web server bad Gateway'
       }
-      else if (error.message.match(/525\: SSL handshake failed/)) {
+      else if (error.message.match(/525: SSL handshake failed/)) {
         errorMsg = 'SSL handshake failed'
       }
-      else if (error.message.match(/Service\:Unavailable/)) {
+      else if (error.message.match(/Service:Unavailable/)) {
         errorMsg = 'Service Unavailable'
       }
-      else if (error.message.match(/api.kraken.com \| 522\:/)) {
+      else if (error.message.match(/api.kraken.com \| 522:/)) {
         errorMsg = 'Generic 522 Server error'
       }
 

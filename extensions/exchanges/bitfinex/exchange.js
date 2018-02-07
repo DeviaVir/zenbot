@@ -1,6 +1,5 @@
 const BFX = require('bitfinex-api-node')
-var _ = require('lodash')
-  , minimist = require('minimist')
+var minimist = require('minimist')
   , path = require('path')
   , n = require('numbro')
 
@@ -36,7 +35,7 @@ module.exports = function bitfinex (conf) {
     }
 
     trades.forEach(function (trade) {
-      newTrade = {
+      var newTrade = {
         trade_id: Number(trade.ID),
         time: Number(trade.MTS),
         size: Math.abs(trade.AMOUNT),
@@ -66,7 +65,7 @@ module.exports = function bitfinex (conf) {
   }
 
   function wsUpdateOrder (ws_order) {
-    cid = ws_order[2]
+    var cid = ws_order[2]
 
     // https://bitfinex.readme.io/v2/reference#ws-auth-orders
     var order = ws_orders['~' + cid]
@@ -97,7 +96,7 @@ module.exports = function bitfinex (conf) {
   }
 
   function wsUpdateOrderCancel (ws_order) {
-    cid = ws_order[2]
+    var cid = ws_order[2]
 
     if (!ws_orders['~' + cid]) {
       if (so.debug) console.warn(('\nWarning: Order ' + cid + ' not found in cache for wsUpdateOrderCancel (manual order?).').red)
@@ -118,7 +117,7 @@ module.exports = function bitfinex (conf) {
 
   function wsUpdateReqOrder (error) {
     if (error[6] === 'ERROR' && error[7].match(/^Invalid order: not enough .* balance for/)) {
-      cid = error[4][2]
+      var cid = error[4][2]
 
       if (!ws_orders['~' + cid]) {
         if (so.debug) console.warn(('\nWarning: Order ' + cid + ' not found in cache for wsUpdateReqOrder (manual order?).').red)
@@ -197,7 +196,7 @@ module.exports = function bitfinex (conf) {
     ws_connected = false
 
     if (e.event == 'auth' && e.status == 'FAILED') {
-      errorMessage = ('\nWebSockets Warning: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red
+      var errorMessage = ('\nWebSockets Warning: Authentication ' + e.status + ' (Reason: "' + e.msg + '").').red
       if (e.msg == 'apikey: invalid') errorMessage = errorMessage + '\nEither your API key is invalid or you tried reconnecting to quickly. Wait and/or check your API keys.'
       console.warn(errorMessage)
       ws_client.close()
@@ -277,7 +276,6 @@ module.exports = function bitfinex (conf) {
 
       // Backfilling using the REST API
       if (opts.to || opts.to === null) {
-        var func_args = [].slice.call(arguments)
         var client = publicClient()
         var args = {}
         args.sort = -1 //backward
@@ -313,7 +311,7 @@ module.exports = function bitfinex (conf) {
         // We're live now (i.e. opts.from is set), use websockets
         if (!ws_client) { wsClient() }
         if (typeof(ws_trades) === 'undefined') { return retry('getTrades', opts, cb) }
-        trades = ws_trades.filter(function (trade) { return trade.time >= opts.from })
+        var trades = ws_trades.filter(function (trade) { return trade.time >= opts.from })
         cb(null, trades)
       }
     },
@@ -368,7 +366,7 @@ module.exports = function bitfinex (conf) {
         return waitForCalc('getBalance', opts, cb)
       }
       else {
-        balance = {}
+        var balance = {}
         balance.currency      = ws_balance[opts.currency] && ws_balance[opts.currency].balance   ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
         balance.asset         = ws_balance[opts.asset]    && ws_balance[opts.asset].balance      ? n(ws_balance[opts.asset].balance).format('0.00000000')    : n(0).format('0.00000000')
 
@@ -387,7 +385,7 @@ module.exports = function bitfinex (conf) {
     },
 
     cancelOrder: function (opts, cb) {
-      order = ws_orders['~' + opts.order_id]
+      var order = ws_orders['~' + opts.order_id]
       ws_orders['~' + opts.order_id].reject_reason = 'zenbot cancel'
 
       var ws_cancel_order = [

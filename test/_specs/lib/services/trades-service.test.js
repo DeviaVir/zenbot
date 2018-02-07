@@ -99,7 +99,7 @@ describe('Trades Service', function() {
   describe('getTrades when DB returns nothing, and API returns two trades', function() {
 
     it('creates two trades with valid zenbot metadata', function(done) {
-      var instance = service({getTradesFunc: (opts, func) => { }, direction: 'forward'})
+      var instance = service({getTradesFunc: (/*opts, func*/) => { }, direction: 'forward'})
       var normalizedSelector = exchangeServiceFactory({}).getSelector().normalized
 
       instance.getTrades().then((data) => {
@@ -150,7 +150,7 @@ describe('Trades Service', function() {
   describe('getTrades when DB returns two trades, and API returns no trades', function() {
 
     it('returns our two existing trades with valid zenbot metadata', function(done) {
-      var instance = service({getTradesFunc: (opts, func) => { }, direction: 'forward'})
+      var instance = service({getTradesFunc: (/*opts, func*/) => { }, direction: 'forward'})
       var normalizedSelector = exchangeServiceFactory({}).getSelector().normalized
 
       instance.getTrades().then((data) => {
