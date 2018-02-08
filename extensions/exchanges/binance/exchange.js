@@ -210,7 +210,9 @@ module.exports = function bittrex (conf) {
         
         // decide if this error is allowed for a retry:
         // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
-        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+        // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
+
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL|-2010/))) {
           return cb(null, {
             status: 'rejected',
             reject_reason: 'balance'
