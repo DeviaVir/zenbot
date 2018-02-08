@@ -5,9 +5,6 @@
 // the buy, sell, cancelOrderand getOrderfunctions
 //
 var WEXNZ = require('wexnz')
-  , path = require('path')
-  , colors = require('colors')
-  , numbro = require('numbro')
 
 module.exports = function container (conf) {
   var public_client, authed_client
@@ -123,7 +120,6 @@ module.exports = function container (conf) {
           balance.currency_hold = 0
           balance.asset_hold = 0
           cb(null, balance)
-        } else {
         }
       })
     },

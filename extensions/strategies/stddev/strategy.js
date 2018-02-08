@@ -1,6 +1,5 @@
 var z = require('zero-fill')
 var stats = require('stats-lite')
-var n = require('numbro')
 var math = require('mathjs')
 var ema = require('../../../lib/ema')
 
@@ -14,8 +13,7 @@ module.exports = {
     this.option('trendtrades_2', 'Trades for array 2 to be calculated stddev and mean from', Number, 53)
     this.option('min_periods', 'min_periods', Number, 1250)
   },
-  calculate: function (s) {
-    calculated = null
+  calculate: function () {
   },
   onPeriod: function (s, cb) {
     ema(s, 'stddev', s.options.stddev)

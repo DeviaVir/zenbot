@@ -31,7 +31,7 @@ module.exports =  {
           s.sar = Math.max(s.lookback[1].high, s.lookback[0].high)
           s.sar_ep = s.period.low
           s.sar_af = s.options.sar_af
-          for (var idx = 0; idx < s.lookback.length; idx++) {
+          for (idx = 0; idx < s.lookback.length; idx++) {
             s.sar_ep = Math.min(s.sar_ep, s.lookback[idx].low)
           }
         }

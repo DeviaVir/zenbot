@@ -7,14 +7,14 @@ module.exports = {
     this.option('period_length', 'period length, same as --period', String, '30m')
   },
 
-  calculate: function (s) {
+  calculate: function () {
   },
 
   onPeriod: function (s, cb) {
     cb()
   },
 
-  onReport: function (s) {
+  onReport: function () {
     var cols = []
     return cols
   }

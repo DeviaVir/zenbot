@@ -28,7 +28,7 @@ module.exports = {
   },
     
 
-  calculate: function (s) {
+  calculate: function () {
        
   },
     
@@ -38,9 +38,7 @@ module.exports = {
     ema(s, 'ema1', s.options.emalen1)//green
     sma(s, 'sma1', s.options.smalen1, 'high')//red
     sma(s, 'sma2', s.options.smalen2)//purple
-    let pOpen = s.period.open,
-      pClose = s.period.close,
-      emagreen = s.period.ema1,
+    let emagreen = s.period.ema1,
       smared = s.period.sma1,
       smapurple= s.period.sma2,
       vwapgold = s.period.vwap
@@ -70,11 +68,7 @@ module.exports = {
 
   onReport: function (s) {
     var cols = []
-    let pOpen = s.period.open,
-      pClose = s.period.close,
-      emagreen = s.period.ema1,
-      smared = s.period.sma1,
-      smapurple= s.period.sma2,
+    let emagreen = s.period.ema1,
       vwapgold = s.period.vwap
       
     if (vwapgold && emagreen) {   

@@ -1,11 +1,12 @@
 var fs = require('fs'),
+  // eslint-disable-next-line no-unused-vars
   colors = require('colors')
 
 module.exports = function (program, conf) {
   program
     .command('list-strategies')
     .description('list available strategies')
-    .action(function (cmd) {
+    .action(function (/*cmd*/) {
       var strategies = fs.readdirSync('./extensions/strategies')
       strategies.forEach((strategy) => {
         let strat = require(`../extensions/strategies/${strategy}/strategy`)

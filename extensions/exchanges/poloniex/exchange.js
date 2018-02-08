@@ -1,14 +1,14 @@
 var Poloniex = require('poloniex.js')
-  , path = require('path')
   , moment = require('moment')
   , n = require('numbro')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
 
 module.exports = function container (conf) {
 
   var public_client, authed_client
 
-  function publicClient (product_id) {
+  function publicClient (/*product_id*/) {
     if (!public_client) public_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
     return public_client
   }

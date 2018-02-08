@@ -1,10 +1,8 @@
 var convnetjs = require('convnetjs')
 var z = require('zero-fill')
-var stats = require('stats-lite')
 var n = require('numbro')
 var math = require('mathjs')
 const cluster = require('cluster')
-const numCPUs = require('os').cpus().length
 var ema = require('../../../lib/ema')
 // the below line starts you at 0 threads
 global.forks = 0
@@ -27,8 +25,7 @@ module.exports = {
     this.option('threads', 'Number of processing threads you\'d like to run (best for sim)', Number, 1)
     this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 2)
   },
-  calculate: function (s) {
-    calculated = null
+  calculate: function () {
   },
   onPeriod: function (s, cb) {
     ema(s, 'neural', s.options.neural)
@@ -69,7 +66,7 @@ module.exports = {
               var real_value = [my_data[i + s.neural.neuralDepth]]
               var x = new convnetjs.Vol(data)
               s.neural.trainer.train(x, real_value)
-              var predicted_values = s.neural.net.forward(x)
+              s.neural.net.forward(x)
             }
           }
         }
@@ -106,8 +103,8 @@ module.exports = {
       cb()
     }
   },
-  onReport: function (s) {
-    cols = []
+  onReport: function () {
+    var cols = []
     cols.push(z(8, n(global.mean).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
     cols.push('    ')
     cols.push(z(8, n(global.meanp).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
