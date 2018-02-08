@@ -726,7 +726,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
   }
   
   //write Nix Version
-  let lNixContents = '#!/usr/bin/env node\n'.concat('#fitness=',configuration.fitness,'\n','./zenbot.sh trade ', bestOverallCommand,'\n')
+  let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n','./zenbot.sh trade ', bestOverallCommand,'\n')
   let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n','./zenbot.bat trade ', bestOverallCommand,'\n')
   
   if (Number(configuration.fitness) > Number(lastFitnessLevel))
