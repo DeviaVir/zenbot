@@ -1,6 +1,5 @@
 var bittrex_authed = require('node-bittrex-api'),
   bittrex_public = require('node-bittrex-api'),
-  moment = require('moment'),
   n = require('numbro')
 
 /**
@@ -12,10 +11,7 @@ module.exports = function bittrex(conf) {
   let shownWarning = false
   let fistRun = true
   let allowGetMarketCall=true
-  let tradeCache = []
   let marketRefresh = 15000
-
-
 
   bittrex_authed.options({
     'apikey' : conf.bittrex.key.trim(),
@@ -176,7 +172,6 @@ module.exports = function bittrex(conf) {
                   }
                 }
                 fistRun = false
-                tradeCache = trades
                 allowGetMarketCall = false
                 setTimeout(()=>{allowGetMarketCall = true},marketRefresh)
                 //make sure all times come out sorted correctly.  there is a chance they can appear in the array out of order otherwise.
@@ -221,7 +216,6 @@ module.exports = function bittrex(conf) {
             allowGetMarketCall = false
             
             
-            tradeCache = trades
             setTimeout(()=>{allowGetMarketCall = true},marketRefresh)
             //Sorting at this point may be redundant.
             trades = trades.sort((a, b) => {

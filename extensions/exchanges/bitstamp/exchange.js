@@ -1,6 +1,7 @@
 var Bitstamp = require('bitstamp')
   , path = require('path')
   , Pusher = require('pusher-js/node')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , n = require('numbro')
 

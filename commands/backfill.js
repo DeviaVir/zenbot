@@ -141,12 +141,13 @@ module.exports = function (program, conf) {
                     marker.newest_time = other_marker.newest_time
                   }
                 })
+                var diff
                 if (oldest_time !== marker.oldest_time) {
-                  var diff = tb(oldest_time - marker.oldest_time).resize('1h').value
+                  diff = tb(oldest_time - marker.oldest_time).resize('1h').value
                   console.log('\nskipping ' + diff + ' hrs of previously collected data')
                 }
                 else if (newest_time !== marker.newest_time) {
-                  var diff = tb(marker.newest_time - newest_time).resize('1h').value
+                  diff = tb(marker.newest_time - newest_time).resize('1h').value
                   console.log('\nskipping ' + diff + ' hrs of previously collected data')
                 }
                 resume_markers.save(marker, function (err) {

@@ -1,9 +1,8 @@
-var z = require('zero-fill')
-  , n = require('numbro')
-  , fs = require('fs')
+var fs = require('fs')
   , path = require('path')
   , analytics = require('forex.analytics')
 
+var model
 module.exports =  {
   name: 'forex_analytics',
   description: 'Apply the trained forex analytics model.',
@@ -19,7 +18,7 @@ module.exports =  {
         console.error('No modelfile specified. Please train a model and specify the resulting file.')
         process.exit(1)
       }
-  
+      var modelfile
       if (path.isAbsolute(s.options.modelfile)) {
         modelfile = s.options.modelfile
       } else {
@@ -40,7 +39,7 @@ module.exports =  {
     }
   },
 
-  calculate: function (s) {
+  calculate: function () {
     // Calculations only done at the end of each period
   },
 
@@ -79,7 +78,7 @@ module.exports =  {
     cb()
   },
 
-  onReport: function (s) {
+  onReport: function () {
     var cols = []
     return cols
   }

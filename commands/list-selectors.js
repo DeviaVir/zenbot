@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var colors = require('colors'),
   fs = require('fs')
 
@@ -5,7 +6,7 @@ module.exports = function (program) {
   program
     .command('list-selectors')
     .description('list available selectors')
-    .action(function (cmd) {
+    .action(function (/*cmd*/) {
       var exchanges = fs.readdirSync('./extensions/exchanges')
       exchanges.forEach(function(exchange){
         console.log(`${exchange}:`)

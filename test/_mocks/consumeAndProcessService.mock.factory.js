@@ -14,7 +14,7 @@ module.exports = (opts) => {
     setAfterOnProcessFunc: () => { },
     go: () => { 
       return {
-        then: (cb, err) => { opts.onSuccessFunc(cb) }
+        then: (cb /*, err*/) => { opts.onSuccessFunc(cb) }
       }}
   }
 

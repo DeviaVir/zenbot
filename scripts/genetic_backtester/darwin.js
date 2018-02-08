@@ -13,7 +13,6 @@ let json2csv = require('json2csv')
 let roundp = require('round-precision')
 let fs = require('fs')
 let GeneticAlgorithmCtor = require('geneticalgorithm')
-let StripAnsi = require('strip-ansi')
 let moment = require('moment')
 let path = require('path')
 let Phenotypes = require('./phenotype.js')
@@ -31,11 +30,6 @@ let OVERSOLD_RSI_MAX = 35
 
 let OVERSOLD_RSI_PERIODS_MIN = 15
 let OVERSOLD_RSI_PERIODS_MAX = 25
-
-let NEUTRAL_RATE_MIN = 10
-let NEUTRAL_RATE_MAX = 10
-
-let NEUTRAL_RATE_AUTO = false
 
 let iterationCount = 0
 
@@ -116,8 +110,8 @@ function processOutput  (output,taskStrategyName, pheno) {
   let endBalance
   let buyHold
   let vsBuyHold
-  let wlMatch
-  let errMatch
+  //let wlMatch
+  //let errMatch
   let wins
   let losses
   let errorRate
@@ -143,7 +137,7 @@ function processOutput  (output,taskStrategyName, pheno) {
     endBalance = simulationResults.simresults.currency
     buyHold = simulationResults.simresults.buy_hold
     vsBuyHold = simulationResults.simresults.vs_buy_hold
-    wlMatch = (simulationResults.simresults.total_sells - simulationResults.simresults.total_losses) +'/'+ simulationResults.simresults.total_losses
+    //wlMatch = (simulationResults.simresults.total_sells - simulationResults.simresults.total_losses) +'/'+ simulationResults.simresults.total_losses
     wins          = simulationResults.simresults.total_sells - simulationResults.simresults.total_losses
     losses        = simulationResults.simresults.total_losses
     errorRate     = simulationResults.simresults.total_losses / simulationResults.simresults.total_sells

@@ -26,7 +26,7 @@
   {
     "asset": "BTG",
     "currency": "USD",
-    "min_size": "0.07",
+    "min_size": "0.03",
     "max_size": null,
     "increment": "0.01",
     "label": "BTG/USD"
@@ -90,7 +90,7 @@
   {
     "asset": "BTG",
     "currency": "EUR",
-    "min_size": "0.07",
+    "min_size": "0.03",
     "max_size": null,
     "increment": "0.01",
     "label": "BTG/EUR"
@@ -194,7 +194,7 @@
   {
     "asset": "BTG",
     "currency": "BTC",
-    "min_size": "0.04",
+    "min_size": "0.01",
     "max_size": null,
     "increment": "0.000001",
     "label": "BTG/BTC"

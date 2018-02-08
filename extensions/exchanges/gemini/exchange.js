@@ -1,7 +1,7 @@
 var GeminiAPI = require('gemini-api'),
   path = require('path'),
   minimist = require('minimist'),
-  moment = require('moment'),
+  // eslint-disable-next-line no-unused-vars
   colors = require('colors'),
   n = require('numbro')
 
@@ -10,8 +10,6 @@ module.exports = function gemini (conf) {
     options: minimist(process.argv)
   }
   var so = s.options
-
-  var shownWarnings = false
 
   var public_client, authed_client
 
