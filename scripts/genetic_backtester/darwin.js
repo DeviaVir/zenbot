@@ -13,7 +13,6 @@ let json2csv = require('json2csv')
 let roundp = require('round-precision')
 let fs = require('fs')
 let GeneticAlgorithmCtor = require('geneticalgorithm')
-let StripAnsi = require('strip-ansi')
 let moment = require('moment')
 let path = require('path')
 let Phenotypes = require('./phenotype.js')
@@ -696,9 +695,55 @@ function  saveGenerationData (csvFileName, jsonFileName, dataCSV, dataJSON) {
   })
 }
 
+function saveLaunchFiles(saveLauchFile, configuration ){
+  if (!saveLauchFile) return
+  //let lConfiguration = configuration.replace(' sim ', ' trade ')
+  let lFilenameNix = new String().concat('./gen.',configuration.selector.toLowerCase(),'.sh')
+  let lFinenamewin32 = new String().concat('./gen.',configuration.selector.toLowerCase(),'.bat')
+  delete configuration.generateLaunch
+  delete configuration.backtester_generation
 
+  let bestOverallCommand = generateCommandParams(configuration)
+  let lastFitnessLevel = -9999.0
+  // get prior fitness level nix
+  if (fs.existsSync(lFilenameNix) )
+  {
+    let lFileCont = fs.readFileSync(lFilenameNix,'utf8')
+    let lines = lFileCont.split('\n')
+    if (lines.length > 2) 
+      if (lines[1].includes('fitness='))
+      {
+        let th = lines[1].split('=')
+        lastFitnessLevel = th[1]
+      }
+  }
+  // get prior firness level win32
+  if (fs.existsSync(lFinenamewin32) )
+  {
+    let lFileCont = fs.readFileSync(lFinenamewin32,'utf8')
+    let lines = lFileCont.split('\n')
+    if (lines.length > 1) 
+      if (lines[1].includes('fitness='))
+      {
+        let th = lines[1].split('=')
+        lastFitnessLevel = th[1]
+      }
+  }
+  
+  //write Nix Version
+  let lNixContents = '#!/usr/bin/env node\n'.concat('#fitness=',configuration.fitness,'\n','./zenbot.sh trade ', bestOverallCommand,'\n')
+  let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n','./zenbot.bat trade ', bestOverallCommand,'\n')
+  
+  if (Number(configuration.fitness) > Number(lastFitnessLevel))
+  {
+    fs.writeFileSync(lFilenameNix, lNixContents)
+    fs.writeFileSync(lFinenamewin32, lWin32Contents)
+    fs.chmodSync(lFilenameNix,766)
+    
+  }
+}
 
-function simulateGeneration  () {
+function simulateGeneration  (generateLaunchFile) {
   generationProcessing = true
   console.log(`\n\n=== Simulating generation ${++generationCount} ===\n`)
 
@@ -732,7 +777,7 @@ function simulateGeneration  () {
       return !!r
     })
 
-    results.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0))
+    results.sort((a, b) => (Number(a.fitness) < Number(b.fitness)) ? 1 : ((Number(b.fitness) < Number(a.fitness)) ? -1 : 0))
 
     let fieldsGeneral = ['selector.normalized', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period_length', 'min_periods', 'days', 'params']
     let fieldNamesGeneral = ['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters']
@@ -779,13 +824,19 @@ function simulateGeneration  () {
     })
 
     bestOverallResult.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0))
-    if (selectedStrategies.length > 1){
-      console.log(`\t(${bestOverallResult[0].strategy}) Best Overall Fitness ${bestOverallResult[0].fitness}, VS Buy and Hold: ${bestOverallResult[0].vsBuyHold} End Balance: ${bestOverallResult[0].endBalance}, Wins/Losses ${bestOverallResult[0].wins}/${bestOverallResult[0].losses}, ROI ${bestOverallResult[0].roi}.`)
-    }
+    // if (selectedStrategies.length > 1){
+    //     }
+
+    
     let bestOverallCommand = generateCommandParams(bestOverallResult[0])
     bestOverallCommand = prefix + bestOverallCommand
     bestOverallCommand = bestOverallCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
+    
+    saveLaunchFiles(generateLaunchFile, bestOverallResult[0])
+
     if (selectedStrategies.length > 1) {
+      console.log(`\t(${bestOverallResult[0].strategy}) Best Overall Fitness ${bestOverallResult[0].fitness}, VS Buy and Hold: ${bestOverallResult[0].vsBuyHold} End Balance: ${bestOverallResult[0].endBalance}, Wins/Losses ${bestOverallResult[0].wins}/${bestOverallResult[0].losses}, ROI ${bestOverallResult[0].roi}.`)
+
       console.log(bestOverallCommand + '\n')
     }
 
@@ -800,6 +851,7 @@ function simulateGeneration  () {
 
   }) 
 }
+
 
 
 console.log(`\n--==${VERSION}==--`)
@@ -817,11 +869,12 @@ delete simArgs.population
 delete simArgs['$0'] // This comes in to argv all by itself
 delete simArgs['_']  // This comes in to argv all by itself
 
+let generateLaunchFile = (simArgs.generateLaunch) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
 let populationFileName = (argv.population_data) ? argv.population_data : null
 populationSize = (argv.population) ? argv.population : 100
 
-console.log(`Backtesting strategy ${strategyName} ...`)
+console.log(`Backtesting strategy ${strategyName} ...\n`)
 console.log(`Creating population of ${populationSize} ...\n`)
 
  
@@ -887,5 +940,5 @@ for (var i = 0; i < selectedStrategies.length; i++)
 
 
 setInterval( ()=>{
-  if (generationProcessing == false)  simulateGeneration()
+  if (generationProcessing == false)  simulateGeneration(generateLaunchFile)
 },1000)

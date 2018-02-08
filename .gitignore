@@ -33,4 +33,6 @@ dist/*
 .idea
 *.iml
 simulations/sim_*.json
+gen.*.bat
+gen.*.sh
 
