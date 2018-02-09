@@ -256,7 +256,7 @@
                                                 data: unpack(trades, 'size', offset)
                                             },
                                             {
-                                                name: 'Close',
+                                                name: 'High',
                                                 type: 'candlestick',
                                                 z: 1,
                                                 itemStyle: {
@@ -319,7 +319,7 @@
 
                                     for (i = 0; i < lookback.length; i++) {
                                         options.series[2].data.push({
-                                            value: [ lookback[i].close_time - offset * 60000, lookback[i].open, lookback[i].high, lookback[i].low, lookback[i].close ]
+                                            value: [ lookback[i].close_time - offset * 60000, lookback[i].open, lookback[i].close, lookback[i].low, lookback[i].high ] // OCLH -> OHLC
                                         });
                                     }
 
