@@ -7,7 +7,7 @@ var tb = require('timebucket')
   , colors = require('colors')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
-  , tradesCollection = require('../db/trades')
+  , collectionService = require('../lib/services/collection-service')
 
 module.exports = function (program, conf) {
   program
@@ -50,6 +50,7 @@ module.exports = function (program, conf) {
           so[k] = cmd[k]
         }
       })
+      var tradesCollection = collectionService(conf).getTrades()
 
       if (so.start) {
         so.start = moment(so.start, 'YYYYMMDDhhmm').valueOf()
@@ -172,7 +173,6 @@ module.exports = function (program, conf) {
           fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_'+so.strategy.replace('_','')+'_'+ so.selector.normalized.replace('_','').toLowerCase()+'_'+so.backtester_generation+'.json'),options_json, {encoding: 'utf8'})
         }
 
-
         if (so.filename !== 'none') {
           var html_output = output_lines.map(function (line) {
             return colors.stripColors(line)
@@ -230,7 +230,7 @@ module.exports = function (program, conf) {
           if (!opts.query.time) opts.query.time = {}
           opts.query.time['$gte'] = query_start
         }
-        tradesCollection(conf).select(opts, function (err, trades) {
+        tradesCollection.find(opts.query).sort(opts.sort).limit(opts.limit).toArray(function (err, trades) {
           if (err) throw err
           if (!trades.length) {
             if (so.symmetrical && !reversing) {
