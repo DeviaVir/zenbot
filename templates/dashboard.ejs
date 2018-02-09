@@ -186,11 +186,15 @@
 
                                     var trade_chart = echarts.init(document.getElementById('trade_chart'));
 
-                                    var lastTrade = trades[trades.length < 100 ? 0 : trades.length - 100].time;
+                                    var lastTrade = trades[trades.length < 500 ? 0 : trades.length - 500].time;
                                     var rangeStart = lastTrade - offset * 60000;
 
                                     var options = {
                                         useUTC: true,
+                                        grid: {
+                                            left: 60,
+                                            right: 60
+                                        },
                                         xAxis: [
                                             {
                                                 type: 'time',
@@ -214,6 +218,7 @@
                                         ],
                                         toolbox: {
                                             show: true,
+                                            showTitle: false,
                                             feature: {
                                                 dataZoom: {},
                                                 restore: {},
