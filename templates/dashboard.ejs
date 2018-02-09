@@ -419,7 +419,7 @@
                                     <td><span class="text-<% if (trade.slippage > 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 4, maximumFractionDigits: 4}).format(trade.slippage) %></span></td>
                                     <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><%= moment.duration(trade.execution_time).humanize() %></td>
-                                    <td><% if (trade.profit) { %><span class="text-<% if(trade.profit < 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.profit) %></span><% } else { %>-<% } %></td>
+                                    <td><% if (trade.profit != null) { %><span class="text-<% if(trade.profit < 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.profit) %></span><% } else { %>-<% } %></td>
                                 </tr>
                                 <% }); %>
                                 <% } %>
