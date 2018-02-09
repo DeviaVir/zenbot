@@ -186,7 +186,7 @@
 
                                     var trade_chart = echarts.init(document.getElementById('trade_chart'));
 
-                                    var lastTrade = trades[trades.length < 250 ? 0 : trades.length - 250].time;
+                                    var lastTrade = trades[trades.length < 100 ? 0 : trades.length - 100].time;
                                     var rangeStart = lastTrade - offset * 60000;
 
                                     var options = {
@@ -238,8 +238,6 @@
                                             {
                                                 name: 'Price',
                                                 type: 'line',
-                                                zlevel: 1,
-                                                smooth: true,
                                                 data: unpack(trades, 'price', offset)
                                             },
                                             {
@@ -254,6 +252,7 @@
                                             {
                                                 name: 'Close',
                                                 type: 'candlestick',
+                                                z: 1,
                                                 itemStyle: {
                                                     color: 'rgba(40,167,69,0.5)',  // bullish
                                                     borderColor: '#28a745',
@@ -263,8 +262,20 @@
                                                 data: []
                                             },
                                             {
+                                                type: 'line',
+                                                smooth: true,
+                                                lineStyle: {
+                                                    type: 'dotted'
+                                                },
+                                                data: unpack(my_trades, 'price', offset),
+                                                tooltip: {
+                                                    show: false
+                                                }
+                                            },
+                                            {
                                                 name: 'Buy',
                                                 type: 'scatter',
+                                                symbol: 'triangle',
                                                 data: [],
                                                 itemStyle: {
                                                     color: '#28a745'
@@ -281,6 +292,8 @@
                                             {
                                                 name: 'Sell',
                                                 type: 'scatter',
+                                                symbol: 'triangle',
+                                                symbolRotate: 180,
                                                 data: [],
                                                 itemStyle: {
                                                     color: '#dc3545'
@@ -306,19 +319,19 @@
 
                                     for (i = 0; i < my_trades.length; i++) {
                                         if (my_trades[i].type == 'buy') {
-                                            options.series[3].data.push({
+                                            options.series[4].data.push({
                                                 value: [ my_trades[i].time - offset * 60000, my_trades[i].price ]
                                             });
-                                            options.series[3].markPoint.data.push({
+                                            options.series[4].markPoint.data.push({
                                                 xAxis: my_trades[i].time - offset * 60000,
                                                 yAxis: my_trades[i].price,
                                                 value: 'Bought',
                                             });
                                         } else {
-                                            options.series[4].data.push({
+                                            options.series[5].data.push({
                                                 value: [ my_trades[i].time - offset * 60000, my_trades[i].price ]
                                             });
-                                            options.series[4].markPoint.data.push({
+                                            options.series[5].markPoint.data.push({
                                                 xAxis: my_trades[i].time - offset * 60000,
                                                 yAxis: my_trades[i].price,
                                                 value: 'Sold',
