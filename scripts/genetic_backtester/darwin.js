@@ -1149,28 +1149,28 @@ if (generationCount > 0 && !fs.existsSync(`simulations/${population_data}/gen_${
 
 
     //Display best of the generation
-        console.log('\n\nGeneration\'s Best Results')
+    console.log('\n\nGeneration\'s Best Results')
     let bestOverallResult = []
     let prefix = './zenbot.sh sim '
-        selectedStrategies.forEach((v)=> {
-          let best = pools[v]['pool'].best()
+    selectedStrategies.forEach((v)=> {
+      let best = pools[v]['pool'].best()
       let bestCommand
-          if(best.sim){
-        console.log(`\t(${best.sim.strategy}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}, ROI ${best.sim.roi}.`)
+      if(best.sim){
+        console.log(`(${best.sim.strategy}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${z(5, (n(best.sim.vsBuyHold).format('0.0') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(best.sim.buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(best.sim.endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${best.sim.wins}/${best.sim.losses}, ROI ${z(5, (n(best.sim.roi).format('0.000000')), ' ').yellow}.`)
         bestCommand = generateCommandParams(best.sim)
         bestOverallResult.push(best.sim)
-          } else {
-        console.log(`\t(${results[0].strategy}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`)
+      } else {
+        console.log(`(${results[0].strategy}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${z(5, (n(results[0].vsBuyHold).format('0.0') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(results[0].buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(results[0].endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${results[0].wins}/${results[0].losses}, ROI ${z(5, (n(results.roi).format('0.000000') ), ' ').yellow}.`)
         bestCommand = generateCommandParams(results[0])
         bestOverallResult.push(results[0])
-          }
+      }
 
-          // prepare command snippet from top result for this strat
+      // prepare command snippet from top result for this strat
 
-          bestCommand = prefix + bestCommand
-          bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
-          console.log(bestCommand + '\n')
-        })
+      bestCommand = prefix + bestCommand
+      bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
+      console.log(bestCommand + '\n')
+    })
 
     bestOverallResult.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0))
     // if (selectedStrategies.length > 1){
@@ -1187,10 +1187,10 @@ if (generationCount > 0 && !fs.existsSync(`simulations/${population_data}/gen_${
 
 
     if (selectedStrategies.length > 1) {
-      console.log(`\t(${bestOverallResult[0].strategy}) Best Overall Fitness ${bestOverallResult[0].fitness}, VS Buy and Hold: ${bestOverallResult[0].vsBuyHold} End Balance: ${bestOverallResult[0].endBalance}, Wins/Losses ${bestOverallResult[0].wins}/${bestOverallResult[0].losses}, ROI ${bestOverallResult[0].roi}.`)
+      console.log(`(${bestOverallResult[0].strategy}) Best Overall Fitness ${bestOverallResult[0].fitness}, VS Buy and Hold: ${z(5, (n(bestOverallResult[0].vsBuyHold).format('0.00') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(bestOverallResult[0].buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(bestOverallResult[0].endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${bestOverallResult[0].wins}/${bestOverallResult[0].losses}, ROI ${z(5, (n(bestOverallResult[0].roi).format('0.000000')), ' ').yellow}.`)
 
       console.log(bestOverallCommand + '\n')
-      }
+    }
 
     selectedStrategies.forEach((v)=> {
       pools[v]['pool'] = pools[v]['pool'].evolve()
