@@ -13,12 +13,7 @@ var tb = require('timebucket')
   , output = require('../lib/output')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
-  , sessionsCollection = require('../db/sessions')
-  , myTradesCollection = require('../db/my_trades')
-  , periodsCollection = require('../db/periods')
-  , tradesCollection = require('../db/trades')
-  , balancesCollection = require('../db/balances')
-  , resumeMarkersCollection = require('../db/resume_markers')
+  , collectionService = require('../lib/services/collection-service')
 
 module.exports = function (program, conf) {
   program
@@ -85,7 +80,7 @@ module.exports = function (program, conf) {
         
       }
       var engine = engineFactory(s, conf)
-
+      var collectionServiceInstance = collectionService(conf)
 
       const keyMap = new Map()
       keyMap.set('b', 'limit'.grey + ' BUY'.green)
@@ -350,7 +345,6 @@ module.exports = function (program, conf) {
         }
 
       }
-      /* The end of printTrade */
 
       var order_types = ['maker', 'taker']
       if (!(so.order_type in order_types) || !so.order_type) {
@@ -361,12 +355,10 @@ module.exports = function (program, conf) {
       var query_start = tb().resize(so.period_length).subtract(so.min_periods * 2).toMilliseconds()
       var days = Math.ceil((new Date().getTime() - query_start) / 86400000)
       var session = null
-      var sessions = sessionsCollection(conf)
-      var balances = balancesCollection(conf)
-      var trades = tradesCollection(conf)
-      conf.db.mongo.collection('trades').ensureIndex({selector: 1, time: 1})
-      var resume_markers = resumeMarkersCollection(conf)
-      conf.db.mongo.collection('resume_markers').ensureIndex({selector: 1, to: -1})
+      var sessions = collectionServiceInstance.getSessions()
+      var balances = collectionServiceInstance.getBalances()
+      var trades = collectionServiceInstance.getTrades()
+      var resume_markers = collectionServiceInstance.getResumeMarkers()
       var marker = {
         id: crypto.randomBytes(4).toString('hex'),
         selector: so.selector.normalized,
@@ -374,10 +366,11 @@ module.exports = function (program, conf) {
         to: null,
         oldest_time: null
       }
+      marker._id = marker.id
       var lookback_size = 0
       var my_trades_size = 0
-      var my_trades = myTradesCollection(conf)
-      var periods = periodsCollection(conf)
+      var my_trades = collectionServiceInstance.getMyTrades()
+      var periods = collectionServiceInstance.getPeriods()
 
       console.log('fetching pre-roll data:')
       var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh' // Use 'win32' for 64 bit windows too
@@ -403,10 +396,10 @@ module.exports = function (program, conf) {
             trade_cursor = s.exchange.getCursor(query_start) 
             opts.query.time = {$gte: query_start}
           }
-          trades.select(opts, function (err, trades) {
+          trades.find(opts.query).limit(opts.limit).sort(opts.sort).toArray(function (err, trades) {
             if (err) throw err
             if (trades.length && so.use_prev_trades) {
-              my_trades.select({query: {selector: so.selector.normalized, time : {$gte : trades[0].time}}, limit: 0}, function (err, my_prev_trades) {
+              my_trades.select({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
                 if (err) throw err
                 if (my_prev_trades.length) {
                   s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time > b.time + b.execution_time ? -1 : 1}) // simple copy, most recent executed first
@@ -436,7 +429,8 @@ module.exports = function (program, conf) {
                   mode: so.mode,
                   options: so
                 }
-                sessions.select({query: {selector: so.selector.normalized}, limit: 1, sort: {started: -1}}, function (err, prev_sessions) {
+                session._id = session.id
+                sessions.find({selector: so.selector.normalized}).limit(1).sort({started: -1}).toArray(function (err, prev_sessions) {
                   if (err) throw err
                   var prev_session = prev_sessions[0]
                   if (prev_session && !cmd.reset_profit) {
@@ -561,6 +555,7 @@ module.exports = function (program, conf) {
                 start_capital: session.orig_capital,
                 start_price: session.orig_price,
               }
+              b._id = b.id
               b.consolidated = n(s.balance.asset).multiply(s.period.close).add(s.balance.currency).value()
               b.profit = (b.consolidated - session.orig_capital) / session.orig_capital
               b.buy_hold = s.period.close * (session.orig_capital / session.orig_price)
@@ -645,6 +640,7 @@ module.exports = function (program, conf) {
               if (s.my_trades.length > my_trades_size) {
                 s.my_trades.slice(my_trades_size).forEach(function (my_trade) {
                   my_trade.id = crypto.randomBytes(4).toString('hex')
+                  my_trade._id = my_trade.id
                   my_trade.selector = so.selector.normalized
                   my_trade.session_id = session.id
                   my_trade.mode = so.mode
@@ -663,6 +659,7 @@ module.exports = function (program, conf) {
                   period.selector = so.selector.normalized
                   period.session_id = session.id
                 }
+                period._id = period.id
                 periods.save(period, function (err) {
                   if (err) {
                     console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving my_trade')
