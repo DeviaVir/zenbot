@@ -17,6 +17,7 @@ let StripAnsi = require('strip-ansi')
 let moment = require('moment')
 let tb = require('timebucket')
 let path = require('path')
+// eslint-disable-next-line no-unused-vars
 let colors = require('colors')
 let readline = require('readline')
 const spawn = require('child_process').spawn
