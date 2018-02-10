@@ -289,7 +289,8 @@ let buildCommand = (taskStrategyName, phenotype) => {
   delete cmdArgs.sim
   delete cmdArgs.command
 
-  cmdArgs.filename = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}_result.html`
+  if (argv.include_html)
+    cmdArgs.filename = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}_result.html`
 
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'
   let command = `${zenbot_cmd} sim ${selector}`

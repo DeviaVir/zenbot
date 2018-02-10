@@ -22,13 +22,13 @@ describe('The Backfill Consume function', function() {
     it('', function() {
       var callback = jasmine.createSpy('callback')
             
-      var instance = require('../../../../commands/backfill/backfill.consume.function')({tradesArray: [{trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}]})
+      var instance = require('../../../../commands/backfill/backfill.consume.function')({tradesArray: [{trade_id:3001, time:1517787104902}, {trade_id:3000, time:1517787104900}]})
 
       instance(undefined, queue, callback)
 
       expect(callback.calls.count()).toEqual(1) 
       expect(callback).toHaveBeenCalledWith(null, 'cp_process', 3000)
-      expect(queue.enqueue).toHaveBeenCalledWith([{trade_id: 3001, time: 99994}, {trade_id: 3000, time: 99992}])
+      expect(queue.enqueue).toHaveBeenCalledWith([{trade_id: 3001, time: 1517787104902}, {trade_id: 3000, time: 1517787104900}])
     })
   })
 
@@ -45,6 +45,5 @@ describe('The Backfill Consume function', function() {
       expect(queue.enqueue).not.toHaveBeenCalled()
     })
   })
-
 
 })
