@@ -74,30 +74,30 @@ let darwinMonitor = {
     }
 
     if (so.start && so.end) {
-      var actualStart = moment( tb(so.start.valueOf()).resize(so.period_length).subtract(so.min_periods + 2).toMilliseconds() )
+      var actualStart = moment( tb(so.start.valueOf()).resize(so.period_length).subtract(so.min_periods + 2).toMilliseconds() );
       return {
         start: actualStart,
         end: so.end
       }
     }
 
-    return { start: so.start, end: so.end }
+    return { start: so.start, end: so.end };
   },
 
   reset: function() {
-    this.phenotypes.length = 0
+    this.phenotypes.length = 0;
   },
 
   reportStatus: function() {
-    var genCompleted = 0
-    var genTotal = 0
+    var genCompleted = 0;
+    var genTotal = 0;
 
-    var simsDone = 0
-    var simsActive = 0
-    var simsErrored = 0
+    var simsDone = 0;
+    var simsActive = 0;
+    var simsErrored = 0;
     var simsAll = populationSize * selectedStrategies.length
-    var simsRemaining = simsAll
-    var self = this
+    var simsRemaining = simsAll;
+    var self = this;
     // console.log(`populationSize: ${populationSize}, this.phenotypes: ${this.phenotypes.length}`);
 
     readline.clearLine(process.stdout)
@@ -106,23 +106,23 @@ let darwinMonitor = {
     var inProgress = []
     var inProgressStr = []
 
-    var slowestP = null
-    var slowestEta = null
+    var slowestP = null;
+    var slowestEta = null;
 
-    var bestP = null
-    var bestBalance = null
+    var bestP = null;
+    var bestBalance = null;
 
     this.phenotypes.forEach(function(p) {
       if ('sim' in p) {
         if (Object.keys(p.sim).length === 0) {
-          simsActive++
+          simsActive++;
           inProgress.push(p)
         }
         else {
-          simsDone++
+          simsDone++;
 
           if (!p.command || !p.command.result)
-            simsErrored++
+            simsErrored++;
 
           if (p.command) {
             let balance = p.command.result.endBalance
@@ -138,71 +138,71 @@ let darwinMonitor = {
             }
           }
         }
-        simsRemaining--
+        simsRemaining--;
       }
 
-    })
+    });
 
-    var homeStretchMode = simsActive < (PARALLEL_LIMIT-1) && simsRemaining == 0
+    var homeStretchMode = simsActive < (PARALLEL_LIMIT-1) && simsRemaining == 0;
 
     inProgress.forEach(function(p) {
-      var c = p.command
+      var c = p.command;
 
-      var currentTime
-      if (c.currentTimeString) currentTime = moment(c.currentTimeString, 'YYYY-MM-DD HH:mm:ss')
-      if (currentTime && currentTime.isBefore(c.queryStart)) c.queryStart = currentTime
+      var currentTime;
+      if (c.currentTimeString) currentTime = moment(c.currentTimeString, 'YYYY-MM-DD HH:mm:ss');
+      if (currentTime && currentTime.isBefore(c.queryStart)) c.queryStart = currentTime;
       // console.log(`${c.iteration} currentTime: ${currentTime}, queryStart: ${c.queryStart}, queryEnd: ${c.queryEnd}, current: ${c.currentTimeString}`);
 
       // var timeSoFar = moment().diff(c.startTime);
       // console.log(`remaining: ${time} - ${timeSoFar} = ${time - timeSoFar}`);
       // timeLeft += time - timeSoFar;
       if (currentTime && c.queryStart && c.queryEnd) {
-        var totalTime = c.queryEnd.diff(c.queryStart)
+        var totalTime = c.queryEnd.diff(c.queryStart);
 
         // 2018-01-25 06:18:00
-        var progress = currentTime.diff(c.queryStart)
+        var progress = currentTime.diff(c.queryStart);
 
         // console.log(`totalTime: ${totalTime} vs progress: ${progress}`);
-        var percentage = progress/totalTime
-        genCompleted += percentage
+        var percentage = progress/totalTime;
+        genCompleted += percentage;
 
         var now = moment()
-        var timeElapsed = now.diff(c.startTime)
+        var timeElapsed = now.diff(c.startTime);
         // console.log(`startTime: ${c.startTime}, timeElapsed: ${timeElapsed}, adding: ${timeElapsed / percentage}ms`);
-        var eta = c.startTime.clone().add(timeElapsed / percentage, 'milliseconds')
+        var eta = c.startTime.clone().add(timeElapsed / percentage, "milliseconds");
 
         if (slowestP == null || slowestEta.isBefore(eta)) {
-          slowestP = p
-          slowestEta = eta
+          slowestP = p;
+          slowestEta = eta;
         }
 
         if (homeStretchMode)
-          inProgressStr.push(`${(c.iteration + ':').gray} ${(percentage*100).toFixed(1)}% ETA: ${distanceOfTimeInWords(eta, now)}`)
+          inProgressStr.push(`${(c.iteration + ':').gray} ${(percentage*100).toFixed(1)}% ETA: ${distanceOfTimeInWords(eta, now)}`);
         else
-          inProgressStr.push(`${(c.iteration + ':').gray} ${(percentage*100).toFixed(1)}%`)
+          inProgressStr.push(`${(c.iteration + ':').gray} ${(percentage*100).toFixed(1)}%`);
       }
-    })
+    });
 
 
     // timeLeft /= simsActive; // how many run at one time
     if (inProgressStr.length > 0) {
       // process.stdout.write("\u001b[1000D") // Move left
-      process.stdout.write('\u001b[1A')
-      readline.clearLine(process.stdout)
-      readline.cursorTo(process.stdout, 0)
+      process.stdout.write("\u001b[1A")
+    readline.clearLine(process.stdout)
+    readline.cursorTo(process.stdout, 0)
 
-      process.stdout.write(inProgressStr.join(', '))
-      process.stdout.write('\n')
+      process.stdout.write(inProgressStr.join(', '));
+      process.stdout.write("\n")
     }
 
 
-    var percentage = ((simsDone + genCompleted)/simsAll * 100).toFixed(1)
+    var percentage = ((simsDone + genCompleted)/simsAll * 100).toFixed(1);
     // z(8, n(s.period.trend_ema_rate).format('0.0000'), ' ')[color]
     process.stdout.write(`Done: ${simsDone.toString().green}, Active: ${simsActive.toString().yellow}, Remaining: ${simsRemaining.toString().gray}, `)
     if (simsErrored > 0)
-      process.stdout.write(`Errored: ${simsErrored.toString().red}, `)
+      process.stdout.write(`Errored: ${simsErrored.toString().red}, `);
 
-    process.stdout.write(`Completion: ${z(5, (n(percentage).format('0.0') + '%'), ' ').green} `)
+    process.stdout.write(`Completion: ${z(5, (n(percentage).format('0.0') + '%'), ' ').green} `);
 
     let bestBColor = 'gray'
 
@@ -223,53 +223,53 @@ let darwinMonitor = {
 
     if (inProgressStr.length > 0) {
       if (!homeStretchMode)
-        process.stdout.write(`, Slowest(${slowestP.command.iteration.toString().yellow}) ETA: ${distanceOfTimeInWords(slowestEta, moment()).yellow}`)
+        process.stdout.write(`, Slowest(${slowestP.command.iteration.toString().yellow}) ETA: ${distanceOfTimeInWords(slowestEta, moment()).yellow}`);
 
     }
   },
 
   startMonitor: function() {
     process.stdout.write('\n\n')
-    this.generationStarted = moment()
+    this.generationStarted = moment();
 
     this.reportInterval = setInterval(() => {
       this.reportStatus()
-    }, 1000)
+    }, 1000);
   },
 
   stopMonitor: function() {
-    this.generationEnded = moment()
-    clearInterval(this.reportInterval)
-    var timeStr = distanceOfTimeInWords(this.generationEnded, this.generationStarted)
-    console.log(`\n\nGeneration ${generationCount} completed at ${this.generationEnded.format('YYYY-MM-DD HH:mm:ss')}, took ${timeStr}, results saved to:`)
+    this.generationEnded = moment();
+    clearInterval(this.reportInterval);
+    var timeStr = distanceOfTimeInWords(this.generationEnded, this.generationStarted);
+    console.log(`\n\nGeneration ${generationCount} completed at ${this.generationEnded.format('YYYY-MM-DD HH:mm:ss')}, took ${timeStr}, results saved to:`);
   }
 }
 
 let distanceOfTimeInWords = (timeA, timeB) => {
-  var hourDiff = timeA.diff(timeB, 'hours')
+  var hourDiff = timeA.diff(timeB, 'hours');
   if (hourDiff == 0) {
-    var minDiff = timeA.diff(timeB, 'minutes')
-    var secDiff = timeA.clone().subtract(minDiff, 'minutes').diff(timeB, 'seconds')
+    var minDiff = timeA.diff(timeB, 'minutes');
+    var secDiff = timeA.clone().subtract(minDiff, 'minutes').diff(timeB, 'seconds');
 
-    return `${minDiff}m ${secDiff}s`
+    return `${minDiff}m ${secDiff}s`;
   }
   else {
-    var minDiff = timeA.clone().subtract(hourDiff, 'hours').diff(timeB, 'minutes')
-    return `${hourDiff}h ${minDiff}m`
+    var minDiff = timeA.clone().subtract(hourDiff, 'hours').diff(timeB, 'minutes');
+    return `${hourDiff}h ${minDiff}m`;
   }
 }
 
 let ensureDirectoryExistence = (filePath) => {
-  var dirname = path.dirname(filePath)
+  var dirname = path.dirname(filePath);
   if (fs.existsSync(dirname)) {
-    return true
+    return true;
   }
-  ensureDirectoryExistence(dirname)
-  fs.mkdirSync(dirname)
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
 }
 
 let writeFileAndFolder = (filePath, data) => {
-  ensureDirectoryExistence(filePath)
+  ensureDirectoryExistence(filePath);
   fs.writeFile(filePath, data, err => {
     if (err) throw err
   })
@@ -288,7 +288,7 @@ let buildCommand = (taskStrategyName, phenotype) => {
   delete cmdArgs.sim
   delete cmdArgs.command
 
-  cmdArgs.filename = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}_result.html`
+  cmdArgs.filename = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}_result.html`;
 
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'
   let command = `${zenbot_cmd} sim ${selector}`
@@ -300,7 +300,7 @@ let buildCommand = (taskStrategyName, phenotype) => {
   var actualRange = darwinMonitor.actualRange({
     start: cmdArgs.start, end: cmdArgs.end, days: cmdArgs.days,
     period_length: cmdArgs.period_length, min_periods: (cmdArgs.min_periods || 1)
-  })
+  });
 
   return {
     iteration: iteration,
@@ -311,33 +311,33 @@ let buildCommand = (taskStrategyName, phenotype) => {
 }
 
 let readSimDataFile = (iteration) => {
-  let jsonFileName = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}.json`
+  let jsonFileName = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}.json`;
 
   if (fs.existsSync(jsonFileName)) {
-    let simData = JSON.parse( fs.readFileSync(jsonFileName, { encoding:'utf8' }) )
-    return simData
+    let simData = JSON.parse( fs.readFileSync(jsonFileName, { encoding:'utf8' }) );
+    return simData;
   }
   else {
-    return null
+    return null;
   }
 }
 
 let writeSimDataFile = (iteration, data) => {
-  let jsonFileName = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}.json`
-  writeFileAndFolder(jsonFileName, data)
+  let jsonFileName = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}.json`;
+  writeFileAndFolder(jsonFileName, data);
 }
 
 let runCommand = (taskStrategyName, phenotype, command, cb) => {
   // console.log(`[ ${command.iteration}/${populationSize * selectedStrategies.length} ] ${command.commandString}`)
 
   phenotype['sim'] = {}
-  phenotype['command'] = command
+  phenotype['command'] = command;
 
-  command.startTime = moment()
-  var cmdArgs = command.commandString.split(' ')
-  var cmdName = cmdArgs.shift()
-  const proc = spawn(cmdName, cmdArgs)
-  var endData = ''
+  command.startTime = moment();
+  var cmdArgs = command.commandString.split(' ');
+  var cmdName = cmdArgs.shift();
+  const proc = spawn(cmdName, cmdArgs);
+  var endData = "";
 
   proc.on('exit', () => {
     let result = null
@@ -345,10 +345,10 @@ let runCommand = (taskStrategyName, phenotype, command, cb) => {
     try {
       result = processOutput(stdout,taskStrategyName,phenotype)
 
-      command.endTime = moment()
-      command.result = result
+      command.endTime = moment();
+      command.result = result;
 
-      writeSimDataFile(command.iteration, JSON.stringify(command))
+      writeSimDataFile(command.iteration, JSON.stringify(command));
 
       phenotype['sim'] = result
       result['fitness'] = Phenotypes.fitness(phenotype)
@@ -358,28 +358,28 @@ let runCommand = (taskStrategyName, phenotype, command, cb) => {
     } catch (err) {
       console.log('Bad output detected', err.toString())
       console.log(stdout)
-      console.log(err.stack)
+      console.log(err.stack);
     }
 
     cb(null, result)
-  })
+  });
   proc.stdout.on('data', (data) => {
     if (data.length > 500) {
-      endData = data
+      endData = data;
     }
     else {
-      var str = StripAnsi(data.toString()), lines = str.split(/(\r?\n)/g)
+      var str = StripAnsi(data.toString()), lines = str.split(/(\r?\n)/g);
       for (var i=0; i<lines.length; i++) {
-        var line = lines[i]
-        if (line.indexOf('-') == 4 && line.indexOf(':') == 13) {
-          var timeStr = line.slice(0, 20)
-          command.currentTimeString = timeStr
+        var line = lines[i];
+        if (line.indexOf("-") == 4 && line.indexOf(":") == 13) {
+          var timeStr = line.slice(0, 20);
+          command.currentTimeString = timeStr;
           // console.log(`${command.iteration}: ${command.currentTimeString}`)
         }
       }
 
     }
-  })
+  });
 }
 
 function  runUpdate  (days, selector) {
@@ -1055,10 +1055,14 @@ function saveLaunchFiles(saveLauchFile, configuration ){
 
 function simulateGeneration  (generateLaunchFile) {
 
+// Find the first incomplete generation of this session, where incomplete means no "results" files
+while (fs.existsSync(`simulations/${population_data}/gen_${generationCount}`)) { generationCount++ }
+generationCount--;
+if (generationCount > 0 && !fs.existsSync(`simulations/${population_data}/gen_${generationCount}/results.csv`)) { generationCount-- }
 
   generationProcessing = true
   console.log(`\n\n=== Simulating generation ${++generationCount} ===\n`)
-  darwinMonitor.reset()
+  darwinMonitor.reset();
 
   let days = argv.days
   if (!days) {
@@ -1073,7 +1077,7 @@ function simulateGeneration  (generateLaunchFile) {
   }
   iterationCount = 1
   if (iterationCount == 1)
-    runUpdate(days, argv.selector)
+  runUpdate(days, argv.selector)
 
 
   let tasks = selectedStrategies.map(v => pools[v]['pool'].population().map(phenotype => {
@@ -1081,16 +1085,16 @@ function simulateGeneration  (generateLaunchFile) {
     return cb => {
       phenotype.backtester_generation = iterationCount
       phenotype.exchangeMarketPair = argv.selector
-      darwinMonitor.phenotypes.push(phenotype)
+      darwinMonitor.phenotypes.push(phenotype);
 
-      var command
-      let simData = readSimDataFile(iterationCount)
+      var command;
+      let simData = readSimDataFile(iterationCount);
       if (simData) {
         if (simData.result) {
           // Found a complete and cached sim, don't run anything, just forward the results of it
-          phenotype['sim'] = simData.result
-          iterationCount++
-          return cb(null, simData.result)
+          phenotype['sim'] = simData.result;
+          iterationCount++;
+          return cb(null, simData.result);
         }
         else {
           command = {
@@ -1098,25 +1102,25 @@ function simulateGeneration  (generateLaunchFile) {
             commandString: simData.commandString,
             queryStart: moment(simData.queryStart),
             queryEnd: moment(simData.queryEnd)
-          }
+          };
         }
       }
 
       if (!command) {
         // Default flow, build the command to run, and cache it so there's no need to duplicate work when resuming
-        command = buildCommand(v, phenotype)
-        writeSimDataFile(iterationCount, JSON.stringify(command))
+        command = buildCommand(v, phenotype);
+        writeSimDataFile(iterationCount, JSON.stringify(command));
       }
 
-      iterationCount++
-      runCommand(v, phenotype, command, cb)
+      iterationCount++;
+      runCommand(v, phenotype, command, cb);
     }
   })).reduce((a, b) => a.concat(b))
 
-  darwinMonitor.startMonitor()
+  darwinMonitor.startMonitor();
 
   parallel(tasks, PARALLEL_LIMIT, (err, results) => {
-    darwinMonitor.stopMonitor()
+    darwinMonitor.stopMonitor();
 
     results = results.filter(function(r) {
       return !!r
@@ -1145,28 +1149,28 @@ function simulateGeneration  (generateLaunchFile) {
 
 
     //Display best of the generation
-    console.log('\n\nGeneration\'s Best Results')
+        console.log('\n\nGeneration\'s Best Results')
     let bestOverallResult = []
     let prefix = './zenbot.sh sim '
-    selectedStrategies.forEach((v)=> {
-      let best = pools[v]['pool'].best()
+        selectedStrategies.forEach((v)=> {
+          let best = pools[v]['pool'].best()
       let bestCommand
-      if(best.sim){
+          if(best.sim){
         console.log(`\t(${best.sim.strategy}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${best.sim.vsBuyHold} End Balance: ${best.sim.endBalance}, Wins/Losses ${best.sim.wins}/${best.sim.losses}, ROI ${best.sim.roi}.`)
         bestCommand = generateCommandParams(best.sim)
         bestOverallResult.push(best.sim)
-      } else {
+          } else {
         console.log(`\t(${results[0].strategy}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${results[0].vsBuyHold}, End Balance: ${results[0].endBalance}, Wins/Losses ${results[0].wins}/${results[0].losses}.`)
         bestCommand = generateCommandParams(results[0])
         bestOverallResult.push(results[0])
-      }
+          }
 
-      // prepare command snippet from top result for this strat
+          // prepare command snippet from top result for this strat
 
-      bestCommand = prefix + bestCommand
-      bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
-      console.log(bestCommand + '\n')
-    })
+          bestCommand = prefix + bestCommand
+          bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
+          console.log(bestCommand + '\n')
+        })
 
     bestOverallResult.sort((a, b) => (a.fitness < b.fitness) ? 1 : ((b.fitness < a.fitness) ? -1 : 0))
     // if (selectedStrategies.length > 1){
@@ -1186,7 +1190,7 @@ function simulateGeneration  (generateLaunchFile) {
       console.log(`\t(${bestOverallResult[0].strategy}) Best Overall Fitness ${bestOverallResult[0].fitness}, VS Buy and Hold: ${bestOverallResult[0].vsBuyHold} End Balance: ${bestOverallResult[0].endBalance}, Wins/Losses ${bestOverallResult[0].wins}/${bestOverallResult[0].losses}, ROI ${bestOverallResult[0].roi}.`)
 
       console.log(bestOverallCommand + '\n')
-    }
+      }
 
     selectedStrategies.forEach((v)=> {
       pools[v]['pool'] = pools[v]['pool'].evolve()
@@ -1286,7 +1290,7 @@ for (var i = 0; i < selectedStrategies.length; i++)
 var exitHandler = function(options, exitErr) {
 
   if (generationCount && options.cleanup) {
-    console.log('Resume this backtest later with:')
+    console.log("Resume this backtest later with:")
     var darwin_args = process.argv.slice(2, process.argv.length)
 
     var hasPopData = false
@@ -1295,7 +1299,7 @@ var exitHandler = function(options, exitErr) {
       if (arg === popDataArg) {
         hasPopData = true
       }
-    })
+    });
 
     if (!hasPopData) {
       darwin_args.push(popDataArg)
@@ -1304,20 +1308,20 @@ var exitHandler = function(options, exitErr) {
     console.log(`./scripts/genetic_backtester/darwin.js ${darwin_args.join(' ')}`)
   }
 
-  if (exitErr) console.log(exitErr.stack || exitErr)
-  if (options.exit) process.exit()
+  if (exitErr) console.log(exitErr.stack || exitErr);
+  if (options.exit) process.exit();
 }
-process.on('exit', exitHandler.bind(null,{cleanup:true}))
+process.on('exit', exitHandler.bind(null,{cleanup:true}));
 
 //catches ctrl+c event
-process.on('SIGINT', exitHandler.bind(null, {exit:true}))
+process.on('SIGINT', exitHandler.bind(null, {exit:true}));
 
 // catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler.bind(null, {exit:true}))
-process.on('SIGUSR2', exitHandler.bind(null, {exit:true}))
+process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
+process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
 
 //catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind(null, {exit:true}))
+process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
 // END - exitHandler
 
 
