@@ -1050,8 +1050,8 @@ function saveLaunchFiles(saveLauchFile, configuration ){
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
-    fs.chmodSync(lFilenameNix,777)
-    fs.chmodSync(lFinenamewin32,777)
+    fs.chmodSync(lFilenameNix,0777)
+    fs.chmodSync(lFinenamewin32,0777)
   }
 }
 
