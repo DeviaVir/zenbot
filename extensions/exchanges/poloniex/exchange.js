@@ -115,6 +115,30 @@ module.exports = function container (conf) {
       })
     },
 
+    getOrderBook: function (opts, cb) {
+      var client = publicClient()
+      var params = {
+        currencyPair: joinProduct(opts.product_id),
+        depth: 10
+      }
+      client._public('returnOrderBook', params, function (err,  data) {
+        if (typeof data !== 'object') {
+          return cb(null, [])
+        }
+        if (data.error) {
+          console.error('\ggetOrderBook error:')
+          console.error(data)
+          return retry('getOrderBook', params)
+        }
+        cb(null, {
+          buyOrderRate: data.bids[0][0],
+          buyOrderAmount: data.bids[0][1],
+          sellOrderRate: data.asks[0][0],
+          sellOrderAmount: data.asks[0][1]
+        })
+      })
+    },
+
     getQuote: function (opts, cb) {
       var args = [].slice.call(arguments)
       var client = publicClient()
