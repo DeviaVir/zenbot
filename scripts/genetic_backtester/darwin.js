@@ -91,14 +91,14 @@ let darwinMonitor = {
 
   reportStatus: function() {
     var genCompleted = 0
-    var genTotal = 0
+    //var genTotal = 0
 
     var simsDone = 0
     var simsActive = 0
     var simsErrored = 0
     var simsAll = populationSize * selectedStrategies.length
     var simsRemaining = simsAll
-    var self = this
+    //var self = this
     // console.log(`populationSize: ${populationSize}, this.phenotypes: ${this.phenotypes.length}`);
 
     readline.clearLine(process.stdout)
@@ -248,14 +248,14 @@ let darwinMonitor = {
 
 let distanceOfTimeInWords = (timeA, timeB) => {
   var hourDiff = timeA.diff(timeB, 'hours')
+  let minDiff = 0
   if (hourDiff == 0) {
-    var minDiff = timeA.diff(timeB, 'minutes')
+    minDiff = timeA.diff(timeB, 'minutes')
     var secDiff = timeA.clone().subtract(minDiff, 'minutes').diff(timeB, 'seconds')
-
     return `${minDiff}m ${secDiff}s`
   }
   else {
-    var minDiff = timeA.clone().subtract(hourDiff, 'hours').diff(timeB, 'minutes')
+    minDiff = timeA.clone().subtract(hourDiff, 'hours').diff(timeB, 'minutes')
     return `${hourDiff}h ${minDiff}m`
   }
 }
@@ -1043,15 +1043,20 @@ function saveLaunchFiles(saveLauchFile, configuration ){
   }
   
   //write Nix Version
-  let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n','./zenbot.sh trade ', bestOverallCommand,'\n')
-  let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n','./zenbot.bat trade ', bestOverallCommand,'\n')
+  let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n',
+    'env node zenbot.js trade ', 
+    bestOverallCommand,'\n')
+  let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n',
+    'node zenbot.js trade ', 
+    bestOverallCommand,'\n')
   
   if (Number(configuration.fitness) > Number(lastFitnessLevel))
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
-    fs.chmodSync(lFilenameNix,0777)
-    fs.chmodSync(lFinenamewin32,0777)
+    // using the string instead of octet as eslint compaines about an invalid number if the number starts with 0
+    fs.chmodSync(lFilenameNix, 0777)
+    fs.chmodSync(lFinenamewin32, 0777)
   }
 }
 
@@ -1223,7 +1228,7 @@ delete simArgs['_']  // This comes in to argv all by itself
 
 let generateLaunchFile = (simArgs.generateLaunch) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
-let populationFileName = (argv.population_data) ? argv.population_data : null
+//let populationFileName = (argv.population_data) ? argv.population_data : null
 populationSize = (argv.population) ? argv.population : 100
 
 console.log(`Backtesting strategy ${strategyName} ...\n`)
