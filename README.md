@@ -538,6 +538,18 @@ ta_ppo
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --ma_type==<value> moving average type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: SMA)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+ta_ultosc
+  description:
+    ULTOSC - Ultimate Oscillator with rsi oversold
+  options:
+    --period=<value>  period length eg 10m (default: 5m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --timeperiod1=<value>  talib ULTOSC timeperiod1 (default: 7)
+    --timeperiod2=<value>  talib ULTOSC timeperiod2 (default: 14)
+    --timeperiod3=<value>  talib ULTOSC timeperiod3 (default: 28)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
     
 trendline
   description:
