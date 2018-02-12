@@ -2383,5 +2383,32 @@
     "max_size": "10000.00000000",
     "increment": "0.01000000",
     "label": "AE/BNB"
+  },
+  {
+    "id": "RPXBTC",
+    "asset": "RPX",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "RPX/BTC"
+  },
+  {
+    "id": "RPXETH",
+    "asset": "RPX",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "RPX/ETH"
+  },
+  {
+    "id": "RPXBNB",
+    "asset": "RPX",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "RPX/BNB"
   }
 ]
