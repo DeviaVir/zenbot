@@ -55,7 +55,9 @@ module.exports = function (program, conf) {
       var raw_opts = minimist(process.argv)
       var s = {options: JSON.parse(JSON.stringify(raw_opts))}
       var so = s.options
-      var botStartTime = moment().add(so.run_for,'m')
+      if (so.run_for) {
+        var botStartTime = moment().add(so.run_for, 'm')
+      }
       delete so._
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
@@ -537,8 +539,7 @@ module.exports = function (program, conf) {
               if (err.body) console.error(err.body)
               console.error(err)
             }
-            if (botStartTime - moment() < 0 )
-            {
+            if (botStartTime && botStartTime - moment() < 0 ) {
               // Not sure if I should just handle exit code directly or thru printTrade.  Decided on printTrade being if code is added there for clean exits this can just take advantage of it.
               printTrade(true)
             }
