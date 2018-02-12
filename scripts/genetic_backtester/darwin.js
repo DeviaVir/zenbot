@@ -55,13 +55,13 @@ let darwinMonitor = {
   actualRange: function(so) {
     // Adapted from sim.js logic to similarly figure out how much time is being processed
     if (so.start) {
-      so.start = moment(so.start, 'YYYYMMDDhhmm')
+      so.start = moment(so.start, 'YYYYMMDDHHmm')
       if (so.days && !so.end) {
         so.end = so.start.clone().add(so.days, 'days')
       }
     }
     if (so.end) {
-      so.end = moment(so.end, 'YYYYMMDDhhmm')
+      so.end = moment(so.end, 'YYYYMMDDHHmm')
       if (so.days && !so.start) {
         so.start = so.end.clone().subtract(so.days, 'days')
       }
@@ -91,14 +91,14 @@ let darwinMonitor = {
 
   reportStatus: function() {
     var genCompleted = 0
-    var genTotal = 0
+    //var genTotal = 0
 
     var simsDone = 0
     var simsActive = 0
     var simsErrored = 0
     var simsAll = populationSize * selectedStrategies.length
     var simsRemaining = simsAll
-    var self = this
+    //var self = this
     // console.log(`populationSize: ${populationSize}, this.phenotypes: ${this.phenotypes.length}`);
 
     readline.clearLine(process.stdout)
@@ -248,14 +248,14 @@ let darwinMonitor = {
 
 let distanceOfTimeInWords = (timeA, timeB) => {
   var hourDiff = timeA.diff(timeB, 'hours')
+  let minDiff = 0
   if (hourDiff == 0) {
-    var minDiff = timeA.diff(timeB, 'minutes')
+    minDiff = timeA.diff(timeB, 'minutes')
     var secDiff = timeA.clone().subtract(minDiff, 'minutes').diff(timeB, 'seconds')
-
     return `${minDiff}m ${secDiff}s`
   }
   else {
-    var minDiff = timeA.clone().subtract(hourDiff, 'hours').diff(timeB, 'minutes')
+    minDiff = timeA.clone().subtract(hourDiff, 'hours').diff(timeB, 'minutes')
     return `${hourDiff}h ${minDiff}m`
   }
 }
@@ -478,10 +478,10 @@ function processOutput  (output,taskStrategyName, pheno) {
   r.selector = r.selector.normalized
 
   if (start) {
-    r.start = moment(start).format('YYYYMMDDhhmm')
+    r.start = moment(start).format('YYYYMMDDHHmm')
   }
   if (end) {
-    r.end = moment(end).format('YYYYMMDDhhmm')
+    r.end = moment(end).format('YYYYMMDDHHmm')
   }
   if (!start && !end && params.days) {
     r.days = params.days
@@ -1000,7 +1000,7 @@ function  saveGenerationData (csvFileName, jsonFileName, dataCSV, dataJSON) {
   }
 }
 
-let population_data = argv.population_data || `backtest_${moment().format('YYYYMMDDhhmm')}`
+let population_data = argv.population_data || `backtest_${moment().format('YYYYMMDDHHmm')}`
 
 // Find the first incomplete generation of this session, where incomplete means no "results" files
 while (fs.existsSync(`simulations/${population_data}/gen_${generationCount}`)) { generationCount++ }
@@ -1043,15 +1043,20 @@ function saveLaunchFiles(saveLauchFile, configuration ){
   }
   
   //write Nix Version
-  let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n','./zenbot.sh trade ', bestOverallCommand,'\n')
-  let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n','./zenbot.bat trade ', bestOverallCommand,'\n')
+  let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n',
+    'env node zenbot.js trade ', 
+    bestOverallCommand,'\n')
+  let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n',
+    'node zenbot.js trade ', 
+    bestOverallCommand,'\n')
   
   if (Number(configuration.fitness) > Number(lastFitnessLevel))
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
-    fs.chmodSync(lFilenameNix,777)
-    fs.chmodSync(lFinenamewin32,777)
+    // using the string instead of octet as eslint compaines about an invalid number if the number starts with 0
+    fs.chmodSync(lFilenameNix, '777' )
+    fs.chmodSync(lFinenamewin32, '777' )
   }
 }
 
@@ -1069,11 +1074,11 @@ function simulateGeneration  (generateLaunchFile) {
   let days = argv.days
   if (!days) {
     if (argv.start) {
-      var start = moment(argv.start, 'YYYYMMDDhhmm')
+      var start = moment(argv.start, 'YYYYMMDDHHmm')
       days = Math.max(1, moment().diff(start, 'days'))
     }
     else {
-      var end = moment(argv.end, 'YYYYMMDDhhmm')
+      var end = moment(argv.end, 'YYYYMMDDHHmm')
       days = moment().diff(end, 'days') + 1
     }
   }
@@ -1223,7 +1228,7 @@ delete simArgs['_']  // This comes in to argv all by itself
 
 let generateLaunchFile = (simArgs.generateLaunch) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
-let populationFileName = (argv.population_data) ? argv.population_data : null
+//let populationFileName = (argv.population_data) ? argv.population_data : null
 populationSize = (argv.population) ? argv.population : 100
 
 console.log(`Backtesting strategy ${strategyName} ...\n`)
