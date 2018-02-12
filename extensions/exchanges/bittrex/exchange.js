@@ -273,6 +273,38 @@ module.exports = function bittrex(conf) {
       })
     },
 
+    getOrderBook: function (opts, cb) {
+      var args = {
+        market: joinProduct(opts.product_id),
+        type: 'both',
+        depth: 10
+      }
+      bittrex_public.getorderbook(args, function( data ) {
+        if (typeof data !== 'object') {
+          console.log('bittrex API (getorderbook) had an abnormal response, quitting.')
+          return cb(null, [])
+        }
+
+        if(!data.success) {
+          if (data.message && data.message.match(recoverableErrors)) {
+            return retry('getOrderBook', args, data.message)
+          }
+          console.log(data.message)
+          return cb(null, [])
+        }
+        if(typeof data.result.buy[0].Rate === 'undefined') {
+          console.log(data.message)
+          return cb(null, [])
+        };
+        cb(null, {
+          buyOrderRate: data.result.buy[0].Rate,
+          buyOrderAmount: data.result.buy[0].Quantity,
+          sellOrderRate: data.result.sell[0].Rate,
+          sellOrderAmount: data.result.sell[0].Quantity
+        })
+      })
+    },
+
     getQuote: function (opts, cb) {
       if (opts == null) return
       if (opts.product_id == null) return

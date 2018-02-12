@@ -1,4 +1,6 @@
 var _ = require('lodash')
+var path = require('path')
+var minimist = require('minimist') 
 
 module.exports = function (cb) {
   var zenbot = require('./')
@@ -52,19 +54,13 @@ module.exports = function (cb) {
   })
 
   function getConfiguration() {
+    var args = minimist(process.argv.slice(3))
     var conf = undefined
 
     try {
-      var _allArgs = process.argv.slice()
-      var found = false
-
-      while (!found && _allArgs.length > 0) {
-        found = (_allArgs.shift() == '--conf')
-      }
-
-      if (found) {
+      if(!_.isUndefined(args.conf)){
         try {
-          conf = require(_allArgs[0])
+          conf = require(path.resolve(process.cwd(), args.conf))
         } catch (ee) {
           console.log('Fall back to conf.js, ' + ee)
           conf = require('./conf')
@@ -77,7 +73,8 @@ module.exports = function (cb) {
       console.log('Fall back to sample-conf.js, ' + e)
       conf = {}
     }
-
-    return conf
+    
+    // prevent modifying cached module with a clone
+    return _.cloneDeep(conf)
   }
 }
