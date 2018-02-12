@@ -42,6 +42,7 @@ module.exports = function (program, conf) {
     .option('--enable_stats', 'enable printing order stats')
     .option('--backtester_generation <generation>','creates a json file in simulations with the generation number', Number, -1)
     .option('--verbose', 'print status lines on every period')
+    .option('--silent', 'only output on completion (can speed up sim)')
     .action(function (selector, cmd) {
       var s = { options: minimist(process.argv) }
       var so = s.options
