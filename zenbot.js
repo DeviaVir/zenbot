@@ -1,9 +1,7 @@
 
 var semver = require('semver')
 var path = require('path')
-var version = require('./package.json').version
 var program = require('commander')
-program.version(version)
 program._name = 'zenbot'
 
 var versions = process.versions
@@ -17,10 +15,13 @@ var fs = require('fs')
   , boot = require('./boot')
 
 boot(function (err, zenbot) {
-  var command_name = process.argv[2]
   if (err) {
     throw err
   }
+  program.version(zenbot.version)
+
+  var command_name = process.argv[2]
+  
   var command_directory = './commands'
   fs.readdir(command_directory, function(err, files){
     if (err) {
@@ -51,6 +52,5 @@ boot(function (err, zenbot) {
       program.help()
     }
     program.parse(process.argv)
-    
   })
 })
