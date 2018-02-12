@@ -55,7 +55,7 @@ module.exports = function (program, conf) {
       var raw_opts = minimist(process.argv)
       var s = {options: JSON.parse(JSON.stringify(raw_opts))}
       var so = s.options
-      var botStartTime = moment().add('m',so.run_for)
+      var botStartTime = moment().add(so.run_for,'m')
       delete so._
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
