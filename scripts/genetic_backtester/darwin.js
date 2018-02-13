@@ -1045,18 +1045,18 @@ function saveLaunchFiles(saveLauchFile, configuration ){
   //write Nix Version
   let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n',
     'env node zenbot.js trade ', 
-    bestOverallCommand,'\n')
+    bestOverallCommand,' $@\n')
   let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n',
     'node zenbot.js trade ', 
-    bestOverallCommand,'\n')
+    bestOverallCommand,' %*\n')
   
   if (Number(configuration.fitness) > Number(lastFitnessLevel))
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
     // using the string instead of octet as eslint compaines about an invalid number if the number starts with 0
-    fs.chmodSync(lFilenameNix, 0777)
-    fs.chmodSync(lFinenamewin32, 0777)
+    fs.chmodSync(lFilenameNix, '777')
+    fs.chmodSync(lFinenamewin32, '777')
   }
 }
 
