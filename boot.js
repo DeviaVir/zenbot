@@ -1,4 +1,5 @@
 var _ = require('lodash')
+var path = require('path')
 var minimist = require('minimist')
 var version = require('./package.json').version
 var EventEmitter = require('events')
@@ -10,9 +11,9 @@ module.exports = function (cb) {
 
   if(!_.isUndefined(args.conf)){
     try {
-      conf = require(args.conf)
-    } catch (ee) {
-      console.log('Fall back to conf.js, ' + ee)
+      conf = require(path.resolve(process.cwd(), args.conf))
+    } catch (err) {
+      console.log('Fall back to conf.js, ' + err)
       conf = require('./conf')
     }
   } else {
