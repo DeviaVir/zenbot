@@ -47,6 +47,12 @@ module.exports = function (program, conf) {
       var s = { options: minimist(process.argv) }
       var so = s.options
       delete so._
+      if (cmd.conf) { 
+        var overrides = require(path.resolve(process.cwd(), cmd.conf)) 
+        Object.keys(overrides).forEach(function (k) { 
+          so[k] = overrides[k] 
+        }) 
+      }
       Object.keys(conf).forEach(function (k) {
         if (!_.isUndefined(cmd[k])) {
           so[k] = cmd[k]
