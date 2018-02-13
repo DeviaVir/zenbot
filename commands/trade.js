@@ -49,11 +49,15 @@ module.exports = function (program, conf) {
     .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
+    .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
     .option('--debug', 'output detailed debug info')
     .action(function (selector, cmd) {
       var raw_opts = minimist(process.argv)
       var s = {options: JSON.parse(JSON.stringify(raw_opts))}
       var so = s.options
+      if (so.run_for) {
+        var botStartTime = moment().add(so.run_for, 'm')
+      }
       delete so._
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
@@ -399,7 +403,7 @@ module.exports = function (program, conf) {
           trades.find(opts.query).limit(opts.limit).sort(opts.sort).toArray(function (err, trades) {
             if (err) throw err
             if (trades.length && so.use_prev_trades) {
-              my_trades.select({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
+              my_trades.find({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
                 if (err) throw err
                 if (my_prev_trades.length) {
                   s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time > b.time + b.execution_time ? -1 : 1}) // simple copy, most recent executed first
@@ -534,6 +538,10 @@ module.exports = function (program, conf) {
               if (err.desc) console.error(err.desc)
               if (err.body) console.error(err.body)
               console.error(err)
+            }
+            if (botStartTime && botStartTime - moment() < 0 ) {
+              // Not sure if I should just handle exit code directly or thru printTrade.  Decided on printTrade being if code is added there for clean exits this can just take advantage of it.
+              printTrade(true)
             }
             session.updated = new Date().getTime()
             session.balance = s.balance

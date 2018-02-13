@@ -530,7 +530,7 @@
   {
     "asset": "BAT",
     "currency": "USD",
-    "min_size": "28.0",
+    "min_size": "30.0",
     "max_size": "200000.0",
     "increment": "0.00001",
     "label": "BAT/USD"
@@ -538,7 +538,7 @@
   {
     "asset": "BAT",
     "currency": "BTC",
-    "min_size": "28.0",
+    "min_size": "30.0",
     "max_size": "200000.0",
     "increment": "0.00000001",
     "label": "BAT/BTC"
@@ -546,7 +546,7 @@
   {
     "asset": "BAT",
     "currency": "ETH",
-    "min_size": "28.0",
+    "min_size": "30.0",
     "max_size": "200000.0",
     "increment": "0.00000001",
     "label": "BAT/ETH"
