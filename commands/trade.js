@@ -59,6 +59,12 @@ module.exports = function (program, conf) {
         var botStartTime = moment().add(so.run_for, 'm')
       }
       delete so._
+      if (cmd.conf) {
+        var overrides = require(path.resolve(process.cwd(), cmd.conf))
+        Object.keys(overrides).forEach(function (k) {
+          so[k] = overrides[k]
+        })
+      }
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
           so[k] = cmd[k]
@@ -70,12 +76,7 @@ module.exports = function (program, conf) {
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
-      if (cmd.conf) {
-        var overrides = require(path.resolve(process.cwd(), cmd.conf))
-        Object.keys(overrides).forEach(function (k) {
-          so[k] = overrides[k]
-        })
-      }
+      
       so.selector = objectifySelector(selector || conf.selector)
       s.exchange = require(`../extensions/exchanges/${so.selector.exchange_id}/exchange`)(conf)
       if (!s.exchange) {

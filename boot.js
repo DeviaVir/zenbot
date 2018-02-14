@@ -1,29 +1,38 @@
 var _ = require('lodash')
 var path = require('path')
-var minimist = require('minimist') 
+var minimist = require('minimist')
+var version = require('./package.json').version
+var EventEmitter = require('events')
 
 module.exports = function (cb) {
-  var zenbot = require('./')
-  var c = getConfiguration()
+  var zenbot = { version }
+  var args = minimist(process.argv.slice(3))
+  var conf
 
-  var defaults = require('./conf-sample')
-  Object.keys(defaults).forEach(function (k) {
-    if (typeof c[k] === 'undefined') {
-      c[k] = defaults[k]
+  if(!_.isUndefined(args.conf)){
+    try {
+      conf = require(path.resolve(process.cwd(), args.conf))
+    } catch (err) {
+      console.log('Fall back to conf.js, ' + err)
+      conf = require('./conf')
     }
-  })
-  zenbot.conf = c
-
-  function withMongo () {
-    cb(null, zenbot)
+  } else {
+    conf = require('./conf')
   }
 
-  var authStr = '', authMechanism
-  
-  if(c.mongo.username){
-    authStr = encodeURIComponent(c.mongo.username)
+  var defaults = require('./conf-sample')
+  _.defaultsDeep(conf, defaults)
+  zenbot.conf = conf
 
-    if(c.mongo.password) authStr += ':' + encodeURIComponent(c.mongo.password)
+  var eventBus = new EventEmitter()
+  conf.eventBus = eventBus
+
+  var authStr = '', authMechanism, connectionString
+
+  if(conf.mongo.username){
+    authStr = encodeURIComponent(conf.mongo.username)
+
+    if(conf.mongo.password) authStr += ':' + encodeURIComponent(conf.mongo.password)
 
     authStr += '@'
 
@@ -31,50 +40,24 @@ module.exports = function (cb) {
     authMechanism = 'DEFAULT'
   }
 
-  var u = (function() {
-    if (c.mongo.connectionString) {
-      return c.mongo.connectionString
-    }
-
-    return 'mongodb://' + authStr + c.mongo.host + ':' + c.mongo.port + '/' + c.mongo.db + '?' +
-      (c.mongo.replicaSet ? '&replicaSet=' + c.mongo.replicaSet : '' ) +
+  if (conf.mongo.connectionString) {
+    connectionString = conf.mongo.connectionString
+  } else {
+    connectionString = 'mongodb://' + authStr + conf.mongo.host + ':' + conf.mongo.port + '/' + conf.mongo.db + '?' +
+      (conf.mongo.replicaSet ? '&replicaSet=' + conf.mongo.replicaSet : '' ) +
       (authMechanism ? '&authMechanism=' + authMechanism : '' )
-  })()
-  require('mongodb').MongoClient.connect(u, function (err, client) {
+  }
+
+  require('mongodb').MongoClient.connect(connectionString, function (err, client) {
     if (err) {
-      //zenbot.set('zenbot:db.mongo', null)
       console.error('WARNING: MongoDB Connection Error: ', err)
       console.error('WARNING: without MongoDB some features (such as backfilling/simulation) may be disabled.')
-      console.error('Attempted authentication string: ' + u)
-      return withMongo()
+      console.error('Attempted authentication string: ' + connectionString)
+      cb(null, zenbot)
+      return
     }
-    var db = client.db(c.mongo.db)
+    var db = client.db(conf.mongo.db)
     _.set(zenbot, 'conf.db.mongo', db)
-    withMongo()
+    cb(null, zenbot)
   })
-
-  function getConfiguration() {
-    var args = minimist(process.argv.slice(3))
-    var conf = undefined
-
-    try {
-      if(!_.isUndefined(args.conf)){
-        try {
-          conf = require(path.resolve(process.cwd(), args.conf))
-        } catch (ee) {
-          console.log('Fall back to conf.js, ' + ee)
-          conf = require('./conf')
-        }
-      } else {
-        conf = require('./conf')
-      }
-    }
-    catch (e) {
-      console.log('Fall back to sample-conf.js, ' + e)
-      conf = {}
-    }
-    
-    // prevent modifying cached module with a clone
-    return _.cloneDeep(conf)
-  }
 }
