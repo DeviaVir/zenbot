@@ -376,10 +376,10 @@ module.exports = function (program, conf) {
       var my_trades_size = 0
       var my_trades = collectionServiceInstance.getMyTrades()
       var periods = collectionServiceInstance.getPeriods()
-
+      
       console.log('fetching pre-roll data:')
       var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh' // Use 'win32' for 64 bit windows too
-      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector.normalized, '--days', days])
+      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector.normalized, '--days', days || 1])
       backfiller.stdout.pipe(process.stdout)
       backfiller.stderr.pipe(process.stderr)
       backfiller.on('exit', function (code) {
