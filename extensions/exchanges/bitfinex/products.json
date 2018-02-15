@@ -578,7 +578,7 @@
   {
     "asset": "FUN",
     "currency": "USD",
-    "min_size": "190.0",
+    "min_size": "194.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "FUN/USD"
@@ -586,7 +586,7 @@
   {
     "asset": "FUN",
     "currency": "BTC",
-    "min_size": "190.0",
+    "min_size": "194.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "FUN/BTC"
@@ -594,7 +594,7 @@
   {
     "asset": "FUN",
     "currency": "ETH",
-    "min_size": "190.0",
+    "min_size": "194.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "FUN/ETH"

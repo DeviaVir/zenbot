@@ -77,6 +77,12 @@ module.exports = function (program, conf) {
       var s = {options: minimist(process.argv)}
       var so = s.options
       delete so._
+      if (cmd.conf) {
+        var overrides = require(path.resolve(process.cwd(), cmd.conf))
+        Object.keys(overrides).forEach(function (k) {
+          so[k] = overrides[k]
+        })
+      }
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
           so[k] = cmd[k]
@@ -117,12 +123,7 @@ module.exports = function (program, conf) {
       }
       so.selector = objectifySelector(selector || conf.selector)
       so.mode = 'train'
-      if (cmd.conf) {
-        var overrides = require(path.resolve(process.cwd(), cmd.conf))
-        Object.keys(overrides).forEach(function (k) {
-          so[k] = overrides[k]
-        })
-      }
+      
       var engine = engineFactory(s, conf)
 
       if (!so.min_periods) so.min_periods = 1

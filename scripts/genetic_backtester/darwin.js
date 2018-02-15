@@ -25,6 +25,7 @@ let Phenotypes = require('./phenotype.js')
 let argv = require('yargs').argv
 let z = require('zero-fill')
 let n = require('numbro')
+let _ = require('lodash')
 
 let VERSION = 'Zenbot 4 Genetic Backtester v0.2.2'
 
@@ -91,14 +92,14 @@ let darwinMonitor = {
 
   reportStatus: function() {
     var genCompleted = 0
-    //var genTotal = 0
+    // var genTotal = 0
 
     var simsDone = 0
     var simsActive = 0
     var simsErrored = 0
     var simsAll = populationSize * selectedStrategies.length
     var simsRemaining = simsAll
-    //var self = this
+    // var self = this
     // console.log(`populationSize: ${populationSize}, this.phenotypes: ${this.phenotypes.length}`);
 
     readline.clearLine(process.stdout)
@@ -292,11 +293,18 @@ let buildCommand = (taskStrategyName, phenotype) => {
   if (argv.include_html)
     cmdArgs.filename = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}_result.html`
 
+  if (argv.silent)
+    cmdArgs.silent = true
+
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'
   let command = `${zenbot_cmd} sim ${selector}`
 
   for (const [ key, value ] of Object.entries(cmdArgs)) {
-    command += ` --${key}=${value}`
+    if(_.isBoolean(value)){
+      command += ` --${value ? '' : 'no-'}${key}`
+    } else {
+      command += ` --${key}=${value}`
+    }
   }
 
   var actualRange = darwinMonitor.actualRange({
@@ -1228,15 +1236,13 @@ delete simArgs['_']  // This comes in to argv all by itself
 
 let generateLaunchFile = (simArgs.generateLaunch) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
-//let populationFileName = (argv.population_data) ? argv.population_data : null
+// let populationFileName = (argv.population_data) ? argv.population_data : null
 populationSize = (argv.population) ? argv.population : 100
 
 console.log(`Backtesting strategy ${strategyName} ...\n`)
 console.log(`Creating population of ${populationSize} ...\n`)
 
-
 selectedStrategies = (strategyName === 'all') ? allStrategyNames() : strategyName.split(',')
-
 
 //Clean up any generation files left over in the simulation directory
 //they will be overwritten, but best not to confuse the issue.
