@@ -37,7 +37,7 @@
     "bl": "^1.2.1",
     "bollinger-bands": "^3.0.1",
     "bootstrap": "^4.0.0-beta.2",
-    "ccxt": "^1.10.171",
+    "ccxt": "^1.10.1102",
     "cexio-api-node": "^1.0.8",
     "cliff": "^0.1.10",
     "colors": "^1.1.2",
