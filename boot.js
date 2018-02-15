@@ -7,20 +7,26 @@ var EventEmitter = require('events')
 module.exports = function (cb) {
   var zenbot = { version }
   var args = minimist(process.argv.slice(3))
-  var conf
+  var conf = {}
 
+  // 1. load default config
+  try {
+    defaults = require('./conf')
+  } catch (err) {
+    console.error(err + ', falling back to conf-sample.js')
+    defaults = require('./conf-sample')
+  }
+
+  // 2. load custom config
   if(!_.isUndefined(args.conf)){
     try {
       conf = require(path.resolve(process.cwd(), args.conf))
     } catch (err) {
-      console.log('Fall back to conf.js, ' + err)
-      conf = require('./conf')
+      console.error(err + ', failed to load conf overrides file!')
     }
-  } else {
-    conf = require('./conf')
   }
 
-  var defaults = require('./conf-sample')
+  // 3. Merge them
   _.defaultsDeep(conf, defaults)
   zenbot.conf = _.cloneDeep(conf)
 
