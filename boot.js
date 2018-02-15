@@ -22,10 +22,10 @@ module.exports = function (cb) {
 
   var defaults = require('./conf-sample')
   _.defaultsDeep(conf, defaults)
-  zenbot.conf = conf
+  zenbot.conf = _.cloneDeep(conf)
 
   var eventBus = new EventEmitter()
-  conf.eventBus = eventBus
+  zenbot.conf.eventBus = eventBus
 
   var authStr = '', authMechanism, connectionString
 
