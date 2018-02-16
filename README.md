@@ -270,6 +270,7 @@ zenbot trade --help
     --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
     --profit_stop_pct <pct>         maintain a trailing stop this % below the high-water mark of profit
     --max_sell_loss_pct <pct>       avoid selling at a loss pct under this float
+    --max_buy_loss_pct <pct>        avoid buying at a loss pct over this float
     --max_slippage_pct <pct>        avoid selling at a slippage pct above this float
     --rsi_periods <periods>         number of periods to calculate RSI at
     --poll_trades <ms>              poll new trades at this interval in ms
