@@ -8,16 +8,9 @@ module.exports = function (cb) {
   var zenbot = { version }
   var args = minimist(process.argv.slice(3))
   var conf = {}
+  var config
 
-  // 1. load default config
-  try {
-    defaults = require('./conf')
-  } catch (err) {
-    console.error(err + ', falling back to conf-sample.js')
-    defaults = require('./conf-sample')
-  }
-
-  // 2. load custom config
+  // 1. load conf overrides file if present
   if(!_.isUndefined(args.conf)){
     try {
       conf = require(path.resolve(process.cwd(), args.conf))
@@ -26,8 +19,16 @@ module.exports = function (cb) {
     }
   }
 
-  // 3. Merge them
-  _.defaultsDeep(conf, defaults)
+  // 2. load conf.js if present
+  try {
+    config = require('./conf')
+  } catch (err) {
+    console.error(err + ', falling back to conf-sample')
+  }
+
+  // 3. Load conf-sample.js and merge
+  var defaults = require('./conf-sample')
+  _.defaultsDeep(conf, config, defaults)
   zenbot.conf = _.cloneDeep(conf)
 
   var eventBus = new EventEmitter()
