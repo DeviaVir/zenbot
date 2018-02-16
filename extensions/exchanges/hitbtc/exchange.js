@@ -30,6 +30,7 @@ module.exports = function container (conf) {
     if (method !== 'getTrades') {
       console.error(('\n HitBTC API is down! unable to call ' + method + ', retrying in 5s').red)
     }
+   
     var timeout = 2500
     if (err)
       if (err.message)
@@ -102,23 +103,24 @@ module.exports = function container (conf) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
       {
-        client.fetchTrades(joinProduct(opts.product_id),opts.from,1000).then(result => {
-          var trades = result.map(function (trade) {
-            return {
-              trade_id: trade.timestamp,
-              time: trade.timestamp,
-              size: parseFloat(trade.amount),
-              price: parseFloat(trade.price),
-              selector: 'hitbtc.'+opts.product_id,
-              side: trade.side
-            }
-          })
+        client.fetchTrades(joinProduct(opts.product_id),opts.from)
+          .then(result => {
+            var trades = result.map(function (trade) {
+              return {
+                trade_id: trade.timestamp,
+                time: trade.timestamp,
+                size: parseFloat(trade.amount),
+                price: parseFloat(trade.price),
+                selector: 'hitbtc.'+opts.product_id,
+                side: trade.side
+              }
+            })
 
-          cb(null, trades)
-        })
+            cb(null, trades)
+          })
           .catch(function (error) {
             console.error('An error occurred', error)
-            return retry('getTrades', func_args)
+            return retry('getTrades', func_args,error)
           })
       }
     },
@@ -126,47 +128,51 @@ module.exports = function container (conf) {
     getBalance: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.fetchBalance().then(result => {
-        var balance = {asset: 0, currency: 0}
-        Object.keys(result).forEach(function (key) {
-          if (key === opts.currency) {
-            balance.currency = result[key].free
-            balance.currency_hold = result[key].used
-          }
-          if (key === opts.asset) {
-            balance.asset = result[key].free
-            balance.asset_hold = result[key].used
-          }
+      client.fetchBalance()
+        .then(result => {
+          var balance = {asset: 0, currency: 0}
+          Object.keys(result).forEach(function (key) {
+            if (key === opts.currency) {
+              balance.currency = result[key].free
+              balance.currency_hold = result[key].used
+            }
+            if (key === opts.asset) {
+              balance.asset = result[key].free
+              balance.asset_hold = result[key].used
+            }
+          })
+          cb(null, balance)
         })
-        cb(null, balance)
-      })
         .catch(function (error) {
-          console.error('An error occurred', error)
-          return retry('getBalance', func_args)
+          // console.error('An error occurred', error)
+          return retry('getBalance', func_args,error)
         })
     },
 
     getQuote: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
-      client.fetchTicker(joinProduct(opts.product_id)).then(result => {
-        cb(null, { bid: result.bid, ask: result.ask })
-      })
+      client.fetchTicker(joinProduct(opts.product_id))
+        .then(result => {
+          cb(null, { bid: result.bid, ask: result.ask })
+        })
         .catch(function (error) {
           console.error('An error occurred', error)
-          return retry('getQuote', func_args)
+          return retry('getQuote', func_args,error)
         })
     },
 
     cancelOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.cancelOrder(opts.order_id, function (err, resp, body) {
-        if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
-
-        if (err) return retry('cancelOrder', func_args, err)
-        cb()
-      })
+      client.cancelOrder(opts.order_id,joinProduct(opts.product_id) )
+        .then( (result) => {
+          cb(result)
+        })
+        .catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('getQuote', func_args,error)
+        })
     },
 
     buy: function (opts, cb) {
@@ -193,21 +199,22 @@ module.exports = function container (conf) {
         price: opts.price
       }
      
-      client.createOrder( callParams.symbol, callParams.type, callParams.side, callParams.quantity, callParams.price).then(result => {
-        if (result && result.message === 'Insufficient funds') {
-          var order = {
-            status: 'rejected',
-            reject_reason: 'balance'
+      client.createOrder( callParams.symbol, callParams.type, callParams.side, callParams.quantity, callParams.price)
+        .then(result => {
+          if (result && result.message === 'Insufficient funds') {
+            var order = {
+              status: 'rejected',
+              reject_reason: 'balance'
+            }
+            return cb(null, order)
           }
-          return cb(null, order)
-        }
 
-        orders['~' + result.id] = result
-        cb(null, result)
-      }).catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('buy', func_args)
-      })
+          orders['~' + result.id] = result
+          cb(null, result)
+        }).catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('buy', func_args)
+        })
     },
 
     sell: function (opts, cb) {
@@ -230,63 +237,66 @@ module.exports = function container (conf) {
         quantity: opts.size, 
         price: opts.price
       }
-      client.createOrder(callParams.symbol, callParams.type, callParams.side, callParams.quantity, callParams.price).then(result => {
-        let order = {
-          id: result ? result.id : null,
-          status: 'open',
-          price: opts.price,
-          size: opts.size,
-          post_only: !!opts.post_only,
-          created_at: new Date().getTime(),
-          filled_size: '0',
-          ordertype: opts.order_type
-        }
-        if (result && result.message === 'Insufficient funds') {
-          order = {
-            status: 'rejected',
-            reject_reason: 'balance'
+      
+      client.createOrder(callParams.symbol, callParams.type, callParams.side, callParams.quantity, callParams.price)
+        .then(result => {
+          let order = {
+            id: result ? result.id : null,
+            status: 'open',
+            price: opts.price,
+            size: opts.size,
+            post_only: !!opts.post_only,
+            created_at: new Date().getTime(),
+            filled_size: '0',
+            ordertype: opts.order_type
           }
-          return cb(null, order)
-        }
+          if (result && result.message === 'Insufficient funds') {
+            order = {
+              status: 'rejected',
+              reject_reason: 'balance'
+            }
+            return cb(null, order)
+          }
        
 
-        orders['~' + result.id] = order
-        return cb(null, order)
-      }).catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('sell', func_args)
-      })
+          orders['~' + result.id] = order
+          return cb(null, order)
+        }).catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('sell', func_args, error)
+        })
     },
 
     getOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.fetchOrder(opts.order_id, opts.product_id,{wait:1000}).then( result => {
-        let r = result
-        if (result.status === 'canceled') {
+      client.fetchOrder(opts.order_id, joinProduct(opts.product_id),{wait:10000})
+        .then( result => {
+          let r = result
+          if (result.status === 'canceled') {
           // order was cancelled. recall from cache
     
-          return cb({message:'Order not found',desc:'Order cancel or deleted'})
-        }
-        if (result.status == 'open')
-        {
-          result.status = 'open'
-          result.filled_size = parseFloat(result.amount) - parseFloat(result.remaining)
-          return cb(null, result)
-        }
+            return cb({message:'Order not found',desc:'Order cancel or deleted'})
+          }
+          if (result.status == 'open')
+          {
+            result.status = 'open'
+            result.filled_size = parseFloat(result.amount) - parseFloat(result.remaining)
+            return cb(null, result)
+          }
 
-        if (result.status == 'done') {
-          result.status = 'done'
-          result.done_at = new Date().getTime()
-          result.filled_size = parseFloat(result.amount) - parseFloat(result.remaining)
-          return cb(null, result)
-        }
+          if (result.status == 'done' || result.status == 'closed') {
+            result.status = 'done'
+            result.done_at = new Date().getTime()
+            result.filled_size = parseFloat(result.amount) - parseFloat(result.remaining)
+            return cb(null, result)
+          }
 
-        return cb(null,r)
-      }).catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('getOrder', func_args)
-      }) 
+          return cb(null,r)
+        }).catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('getOrder', func_args,error)
+        }) 
     },
 
     getCursor: function (trade) {
