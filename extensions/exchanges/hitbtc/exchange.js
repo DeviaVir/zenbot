@@ -1,5 +1,6 @@
 const ccxt = require('ccxt')
-var path = require('path')
+const path = require('path')
+
 
 module.exports = function container (conf) {
  
@@ -27,11 +28,15 @@ module.exports = function container (conf) {
   }
 
   function retry (method, args, err) {
-    if (method !== 'getTrades') {
-      console.error(('\n HitBTC API is down! unable to call ' + method + ', retrying in 5s').red)
+    var timeout = 5000
+    if (method == 'getOrder') {
+      // it can take up to 30 seconds for hitbtc to update with an order change.
+      if (err)    
+        if (err.message.match(/not found/)) {
+          timeout = 7000
+        }
     }
-   
-    var timeout = 2500
+
     if (err)
       if (err.message)
         if (err.message.match(/Rate limit exceeded/)) {
@@ -86,16 +91,22 @@ module.exports = function container (conf) {
   // }
 
 
-
-  var orders = {}
-
+  var firstRun = true
   var exchange = {
     name: 'hitbtc',
     historyScan: 'forward',
-    makerFee: -0.01,
+    makerFee:  -0.01,
     takerFee: 0.1,
 
     getProducts: function () {
+      if (firstRun)
+      {
+        firstRun = false
+        var client = publicClient()
+        this.makerFee = client.fees.trading.maker * 100 
+        this.takerFee = client.fees.trading.taker * 100
+      
+      }
       return require('./products.json')
     },
 
@@ -119,7 +130,6 @@ module.exports = function container (conf) {
             cb(null, trades)
           })
           .catch(function (error) {
-            console.error('An error occurred', error)
             return retry('getTrades', func_args,error)
           })
       }
@@ -144,7 +154,6 @@ module.exports = function container (conf) {
           cb(null, balance)
         })
         .catch(function (error) {
-          // console.error('An error occurred', error)
           return retry('getBalance', func_args,error)
         })
     },
@@ -157,7 +166,6 @@ module.exports = function container (conf) {
           cb(null, { bid: result.bid, ask: result.ask })
         })
         .catch(function (error) {
-          console.error('An error occurred', error)
           return retry('getQuote', func_args,error)
         })
     },
@@ -170,8 +178,7 @@ module.exports = function container (conf) {
           cb(result)
         })
         .catch(function (error) {
-          console.error('An error occurred', error)
-          return retry('getQuote', func_args,error)
+          return retry('cancelOrder', func_args,error)
         })
     },
 
@@ -196,23 +203,22 @@ module.exports = function container (conf) {
         type : opts.type,
         side: 'buy', 
         quantity: opts.size, 
-        price: opts.price
+        price: opts.price 
       }
      
       client.createOrder( callParams.symbol, callParams.type, callParams.side, callParams.quantity, callParams.price)
         .then(result => {
-          if (result && result.message === 'Insufficient funds') {
-            var order = {
+       
+          cb(null, result)
+        }).catch(function (error) {
+          if (error.message.match(/Insufficient funds/)) 
+          {
+            let order = {
               status: 'rejected',
               reject_reason: 'balance'
             }
             return cb(null, order)
           }
-
-          orders['~' + result.id] = result
-          cb(null, result)
-        }).catch(function (error) {
-          console.error('An error occurred', error)
           return retry('buy', func_args)
         })
     },
@@ -235,7 +241,7 @@ module.exports = function container (conf) {
         type : opts.type,
         side: 'sell', 
         quantity: opts.size, 
-        price: opts.price
+        price: opts.price 
       }
       
       client.createOrder(callParams.symbol, callParams.type, callParams.side, callParams.quantity, callParams.price)
@@ -250,19 +256,18 @@ module.exports = function container (conf) {
             filled_size: '0',
             ordertype: opts.order_type
           }
-          if (result && result.message === 'Insufficient funds') {
-            order = {
+         
+       
+          return cb(null, order)
+        }).catch(function (error) {
+          if (error.message.match(/Insufficient funds/)) 
+          {
+            let order = {
               status: 'rejected',
               reject_reason: 'balance'
             }
             return cb(null, order)
           }
-       
-
-          orders['~' + result.id] = order
-          return cb(null, order)
-        }).catch(function (error) {
-          console.error('An error occurred', error)
           return retry('sell', func_args, error)
         })
     },
@@ -270,7 +275,8 @@ module.exports = function container (conf) {
     getOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.fetchOrder(opts.order_id, joinProduct(opts.product_id),{wait:10000})
+
+      client.fetchOrder(opts.order_id, joinProduct(opts.product_id),{wait:100000})
         .then( result => {
           let r = result
           if (result.status === 'canceled') {
@@ -282,6 +288,7 @@ module.exports = function container (conf) {
           {
             result.status = 'open'
             result.filled_size = parseFloat(result.amount) - parseFloat(result.remaining)
+          
             return cb(null, result)
           }
 
@@ -294,7 +301,6 @@ module.exports = function container (conf) {
 
           return cb(null,r)
         }).catch(function (error) {
-          console.error('An error occurred', error)
           return retry('getOrder', func_args,error)
         }) 
     },
