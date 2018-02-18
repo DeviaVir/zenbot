@@ -8,12 +8,13 @@ module.exports = function (cb) {
   var zenbot = { version }
   var args = minimist(process.argv.slice(3))
   var conf = {}
-  var config
+  var config = {}
+  var overrides = {}
 
   // 1. load conf overrides file if present
   if(!_.isUndefined(args.conf)){
     try {
-      conf = require(path.resolve(process.cwd(), args.conf))
+      overrides = require(path.resolve(process.cwd(), args.conf))
     } catch (err) {
       console.error(err + ', failed to load conf overrides file!')
     }
@@ -21,25 +22,25 @@ module.exports = function (cb) {
 
   // 2. load conf.js if present
   try {
-    config = require('./conf')
+    conf = require('./conf')
   } catch (err) {
     console.error(err + ', falling back to conf-sample')
   }
 
   // 3. Load conf-sample.js and merge
   var defaults = require('./conf-sample')
-  _.defaultsDeep(conf, config, defaults)
-  zenbot.conf = _.cloneDeep(conf)
+  _.defaultsDeep(config, overrides, conf, defaults)
+  zenbot.conf = config
 
   var eventBus = new EventEmitter()
   zenbot.conf.eventBus = eventBus
 
   var authStr = '', authMechanism, connectionString
 
-  if(conf.mongo.username){
-    authStr = encodeURIComponent(conf.mongo.username)
+  if(zenbot.conf.mongo.username){
+    authStr = encodeURIComponent(zenbot.conf.mongo.username)
 
-    if(conf.mongo.password) authStr += ':' + encodeURIComponent(conf.mongo.password)
+    if(zenbot.conf.mongo.password) authStr += ':' + encodeURIComponent(zenbot.conf.mongo.password)
 
     authStr += '@'
 
@@ -47,11 +48,11 @@ module.exports = function (cb) {
     authMechanism = 'DEFAULT'
   }
 
-  if (conf.mongo.connectionString) {
-    connectionString = conf.mongo.connectionString
+  if (zenbot.conf.mongo.connectionString) {
+    connectionString = zenbot.conf.mongo.connectionString
   } else {
-    connectionString = 'mongodb://' + authStr + conf.mongo.host + ':' + conf.mongo.port + '/' + conf.mongo.db + '?' +
-      (conf.mongo.replicaSet ? '&replicaSet=' + conf.mongo.replicaSet : '' ) +
+    connectionString = 'mongodb://' + authStr + zenbot.conf.mongo.host + ':' + zenbot.conf.mongo.port + '/' + zenbot.conf.mongo.db + '?' +
+      (zenbot.conf.mongo.replicaSet ? '&replicaSet=' + zenbot.conf.mongo.replicaSet : '' ) +
       (authMechanism ? '&authMechanism=' + authMechanism : '' )
   }
 
@@ -63,7 +64,7 @@ module.exports = function (cb) {
       cb(null, zenbot)
       return
     }
-    var db = client.db(conf.mongo.db)
+    var db = client.db(zenbot.conf.mongo.db)
     _.set(zenbot, 'conf.db.mongo', db)
     cb(null, zenbot)
   })
