@@ -17,12 +17,16 @@ module.exports = function gdax (conf) {
     if (!websocket_client[product_id]) {
       var auth = null
       var client_state = {}
-      auth = {
-        key: conf.gdax.key, 
-        secret: conf.gdax.b64secret, 
-        passphrase: conf.gdax.passphrase
+      if(conf.gdax.key && conf.gdax.key !== 'YOUR-API-KEY'){
+        auth = {
+          key: conf.gdax.key, 
+          secret: conf.gdax.b64secret, 
+          passphrase: conf.gdax.passphrase
+        }
       }
-      websocket_client[product_id] = new Gdax.WebsocketClient([product_id], conf.gdax.websocketURI, auth, {channels: ['matches', 'user', 'ticker']})
+      var channels = ['matches', 'ticker']
+      if(auth) { channels.push('user') }
+      websocket_client[product_id] = new Gdax.WebsocketClient([product_id], conf.gdax.websocketURI, auth, {channels})
       // initialize a cache for the websocket connection
       websocket_cache[product_id] = {
         trades: [],
