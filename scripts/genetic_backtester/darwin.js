@@ -1228,16 +1228,42 @@ if (!simArgs.selector)
   simArgs.selector = 'bitfinex.ETH-USD'
 if (!simArgs.filename)
   simArgs.filename = 'none'
+
+if (simArgs.help || !(simArgs.use_strategies)) 
+{
+  console.log('--use_strategies=<stragegy_name>,<stragegy_name>,<stragegy_name>   Min one strategy, can include more than one')
+  console.log('--population_data=<filename>    filename used for continueing backtesting from previous run')
+  console.log('--generateLaunch=<true>|<false>        will genertate .sh and .bat file using the best generation discovered')
+  console.log('--population=<int>    populate per strategy')
+  console.log('--maxCores=<int>    maximum processes to execute at a time default is # of cpu cores in system')
+  console.log('--selector=<exchange.marketPair>  ')
+  console.log('--asset_capital=<float>    amount coin to start sim with ')
+  console.log('--currency_capital=<float>  amount of capital/base currency to start sim with'),
+  console.log('--days=<int>  amount of days to use when backfilling')
+  process.exit(0)
+}
+
+
 delete simArgs.use_strategies
 delete simArgs.population_data
 delete simArgs.population
 delete simArgs['$0'] // This comes in to argv all by itself
 delete simArgs['_']  // This comes in to argv all by itself
 
+if (simArgs.maxCores)
+{
+  if (simArgs.maxCores < 1) PARALLEL_LIMIT = 1
+  else
+    PARALLEL_LIMIT = simArgs.maxCores
+}
+
 let generateLaunchFile = (simArgs.generateLaunch) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
 // let populationFileName = (argv.population_data) ? argv.population_data : null
 populationSize = (argv.population) ? argv.population : 100
+
+
+
 
 console.log(`Backtesting strategy ${strategyName} ...\n`)
 console.log(`Creating population of ${populationSize} ...\n`)
