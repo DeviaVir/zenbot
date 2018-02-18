@@ -9,11 +9,12 @@ module.exports = function (cb) {
   var args = minimist(process.argv.slice(3))
   var conf = {}
   var config = {}
+  var overrides = {}
 
   // 1. load conf overrides file if present
   if(!_.isUndefined(args.conf)){
     try {
-      conf = require(path.resolve(process.cwd(), args.conf))
+      overrides = require(path.resolve(process.cwd(), args.conf))
     } catch (err) {
       console.error(err + ', failed to load conf overrides file!')
     }
@@ -21,16 +22,15 @@ module.exports = function (cb) {
 
   // 2. load conf.js if present
   try {
-    config = require('./conf')
+    conf = require('./conf')
   } catch (err) {
     console.error(err + ', falling back to conf-sample')
   }
 
   // 3. Load conf-sample.js and merge
   var defaults = require('./conf-sample')
-  _.assign(config, conf)
-  _.defaultsDeep(config, defaults)
-  zenbot.conf = _.cloneDeep(config)
+  _.defaultsDeep(config, overrides, conf, defaults)
+  zenbot.conf = config
 
   var eventBus = new EventEmitter()
   zenbot.conf.eventBus = eventBus
