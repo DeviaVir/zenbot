@@ -36,15 +36,6 @@
     "label": "NEO/BTC"
   },
   {
-    "id": "123456",
-    "asset": "123",
-    "currency": "456",
-    "min_size": "0.00100000",
-    "max_size": "100000.00000000",
-    "increment": "0.00100000",
-    "label": "123/456"
-  },
-  {
     "id": "QTUMETH",
     "asset": "QTUM",
     "currency": "ETH",
@@ -226,12 +217,12 @@
   },
   {
     "id": "YOYOBTC",
-    "asset": "YOYO",
+    "asset": "YOYOW",
     "currency": "BTC",
     "min_size": "1.00000000",
     "max_size": "100000.00000000",
     "increment": "1.00000000",
-    "label": "YOYO/BTC"
+    "label": "YOYOW/BTC"
   },
   {
     "id": "OMGBTC",
@@ -829,12 +820,12 @@
   },
   {
     "id": "YOYOETH",
-    "asset": "YOYO",
+    "asset": "YOYOW",
     "currency": "ETH",
     "min_size": "1.00000000",
     "max_size": "100000.00000000",
     "increment": "1.00000000",
-    "label": "YOYO/ETH"
+    "label": "YOYOW/ETH"
   },
   {
     "id": "XRPBTC",
@@ -928,12 +919,12 @@
   },
   {
     "id": "YOYOBNB",
-    "asset": "YOYO",
+    "asset": "YOYOW",
     "currency": "BNB",
     "min_size": "0.01000000",
     "max_size": "10000.00000000",
     "increment": "0.01000000",
-    "label": "YOYO/BNB"
+    "label": "YOYOW/BNB"
   },
   {
     "id": "POWRBNB",
@@ -2278,30 +2269,30 @@
   },
   {
     "id": "NANOBTC",
-    "asset": "NANO",
+    "asset": "XRB",
     "currency": "BTC",
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
     "increment": "0.01000000",
-    "label": "NANO/BTC"
+    "label": "XRB/BTC"
   },
   {
     "id": "NANOETH",
-    "asset": "NANO",
+    "asset": "XRB",
     "currency": "ETH",
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
     "increment": "0.01000000",
-    "label": "NANO/ETH"
+    "label": "XRB/ETH"
   },
   {
     "id": "NANOBNB",
-    "asset": "NANO",
+    "asset": "XRB",
     "currency": "BNB",
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
     "increment": "0.01000000",
-    "label": "NANO/BNB"
+    "label": "XRB/BNB"
   },
   {
     "id": "VIABTC",
