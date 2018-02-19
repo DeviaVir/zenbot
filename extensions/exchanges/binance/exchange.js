@@ -62,10 +62,10 @@ module.exports = function bittrex (conf) {
 
       var args = {}
       if (opts.from) {
-        args.endTime = opts.from
+        args.startTime = opts.from
       }
       if (opts.to) {
-        args.startTime = opts.to
+        args.endTime = opts.to
       }
       if (args.startTime && !args.endTime) {
         // add 12 hours

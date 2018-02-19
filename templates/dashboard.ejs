@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets-zenbot/zenbot_square.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets-zenbot/zenbot_square.png">
 
-    <link rel="manifest" href="/assets/manifest.json">
+    <link rel="manifest" href="assets/manifest.json">
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,12 +17,12 @@
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
+    <link rel="icon" type="image/png" sizes="330x203" href="assets-zenbot/logo.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="330x203" href="assets-zenbot/logo.png">
 
     <title><%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> on <%= exchange.name.toUpperCase() %> - Dashboard</title>
     <!-- Webpack compiled -->
-    <link href="/assets-wp/app.bundle.js" rel="stylesheet">
+    <link href="assets-wp/app.bundle.js" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-6 col-12">
                     <div class="white-box analytics-info">
-                        <h3 class="box-title">Captial</h3>
+                        <h3 class="box-title">Capital</h3>
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <ul class="list-inline two-part">
@@ -166,7 +166,7 @@
                         <h3 class="box-title"><%= exchange.name.toUpperCase() %> <%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> Trade chart</h3>
                         <div id="trade_chart" style="height: 505px;">
                         </div>
-                        <script src="/assets-wp/echarts.bundle.js"></script>
+                        <script src="/assets-wp/echarts.bundle.js" charset="utf8"</script>
                         <script type="text/javascript">
 
                             function unpack(rows, key, offset) {
@@ -353,7 +353,7 @@
                                 }
                             };
 
-                            xmlhttp.open("GET", "/trades", true);
+                            xmlhttp.open("GET", "trades", true);
                             xmlhttp.send();
                         </script>
                     </div>
@@ -495,8 +495,8 @@
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <!-- Webpack compiled -->
-<script src="/assets-wp/app.bundle.js"></script>
-<!--<script src="/assets-wp/common.bundle.js"></script>-->
+<script src="assets-wp/app.bundle.js"></script>
+<!--<script src="assets-wp/common.bundle.js"></script>-->
 
 <script>
 

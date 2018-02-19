@@ -41,6 +41,7 @@ module.exports = function (program, conf) {
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
     .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, conf.profit_stop_pct)
     .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', conf.max_sell_loss_pct)
+    .option('--max_buy_loss_pct <pct>', 'avoid buying at a loss pct over this float', conf.max_buy_loss_pct)
     .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', conf.max_slippage_pct)
     .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, conf.rsi_periods)
     .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, conf.poll_trades)
@@ -49,12 +50,22 @@ module.exports = function (program, conf) {
     .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
+    .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
     .option('--debug', 'output detailed debug info')
     .action(function (selector, cmd) {
       var raw_opts = minimist(process.argv)
       var s = {options: JSON.parse(JSON.stringify(raw_opts))}
       var so = s.options
+      if (so.run_for) {
+        var botStartTime = moment().add(so.run_for, 'm')
+      }
       delete so._
+      if (cmd.conf) {
+        var overrides = require(path.resolve(process.cwd(), cmd.conf))
+        Object.keys(overrides).forEach(function (k) {
+          so[k] = overrides[k]
+        })
+      }
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
           so[k] = cmd[k]
@@ -66,15 +77,10 @@ module.exports = function (program, conf) {
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
-      if (cmd.conf) {
-        var overrides = require(path.resolve(process.cwd(), cmd.conf))
-        Object.keys(overrides).forEach(function (k) {
-          so[k] = overrides[k]
-        })
-      }
+      
       so.selector = objectifySelector(selector || conf.selector)
-      var exchange = require(`../extensions/exchanges/${so.selector.exchange_id}/exchange`)(conf)
-      if (!exchange) {
+      s.exchange = require(`../extensions/exchanges/${so.selector.exchange_id}/exchange`)(conf)
+      if (!s.exchange) {
         console.error('cannot trade ' + so.selector.normalized + ': exchange not implemented')
         process.exit(1)
         
@@ -371,10 +377,14 @@ module.exports = function (program, conf) {
       var my_trades_size = 0
       var my_trades = collectionServiceInstance.getMyTrades()
       var periods = collectionServiceInstance.getPeriods()
-
+      
       console.log('fetching pre-roll data:')
       var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh' // Use 'win32' for 64 bit windows too
-      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector.normalized, '--days', days])
+      var command_args = ['backfill', so.selector.normalized, '--days', days || 1]
+      if (cmd.conf) {
+        command_args.push('--conf', cmd.conf)
+      }
+      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), command_args)
       backfiller.stdout.pipe(process.stdout)
       backfiller.stderr.pipe(process.stderr)
       backfiller.on('exit', function (code) {
@@ -399,7 +409,7 @@ module.exports = function (program, conf) {
           trades.find(opts.query).limit(opts.limit).sort(opts.sort).toArray(function (err, trades) {
             if (err) throw err
             if (trades.length && so.use_prev_trades) {
-              my_trades.select({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
+              my_trades.find({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
                 if (err) throw err
                 if (my_prev_trades.length) {
                   s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time > b.time + b.execution_time ? -1 : 1}) // simple copy, most recent executed first
@@ -510,7 +520,7 @@ module.exports = function (program, conf) {
               return
             }
             db_cursor = trades[trades.length - 1].time
-            trade_cursor = exchange.getCursor(trades[trades.length - 1])
+            trade_cursor = s.exchange.getCursor(trades[trades.length - 1])
             engine.update(trades, true, function (err) {
               if (err) throw err
               setImmediate(getNext)
@@ -534,6 +544,10 @@ module.exports = function (program, conf) {
               if (err.desc) console.error(err.desc)
               if (err.body) console.error(err.body)
               console.error(err)
+            }
+            if (botStartTime && botStartTime - moment() < 0 ) {
+              // Not sure if I should just handle exit code directly or thru printTrade.  Decided on printTrade being if code is added there for clean exits this can just take advantage of it.
+              printTrade(true)
             }
             session.updated = new Date().getTime()
             session.balance = s.balance
@@ -594,7 +608,7 @@ module.exports = function (program, conf) {
           })
         }
         var opts = {product_id: so.selector.product_id, from: trade_cursor}
-        exchange.getTrades(opts, function (err, trades) {
+        s.exchange.getTrades(opts, function (err, trades) {
           if (err) {
             if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND' || err.code === 'ECONNRESET') {
               if (prev_timeout) {
@@ -622,7 +636,7 @@ module.exports = function (program, conf) {
               return 0
             })
             trades.forEach(function (trade) {
-              var this_cursor = exchange.getCursor(trade)
+              var this_cursor = s.exchange.getCursor(trade)
               trade_cursor = Math.max(this_cursor, trade_cursor)
               saveTrade(trade)
             })

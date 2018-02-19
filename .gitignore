@@ -22,6 +22,7 @@ paper_result*
 *_test
 backtesting_*
 generation_data_*
+simulations/*
 models/**/*.json
 models/**/*.html
 *.pyc
@@ -33,4 +34,6 @@ dist/*
 .idea
 *.iml
 simulations/sim_*.json
+gen.*.bat
+gen.*.sh
 

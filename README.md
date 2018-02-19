@@ -270,6 +270,7 @@ zenbot trade --help
     --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
     --profit_stop_pct <pct>         maintain a trailing stop this % below the high-water mark of profit
     --max_sell_loss_pct <pct>       avoid selling at a loss pct under this float
+    --max_buy_loss_pct <pct>        avoid buying at a loss pct over this float
     --max_slippage_pct <pct>        avoid selling at a slippage pct above this float
     --rsi_periods <periods>         number of periods to calculate RSI at
     --poll_trades <ms>              poll new trades at this interval in ms
@@ -538,6 +539,19 @@ ta_ppo
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --ma_type==<value> moving average type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: SMA)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+ta_ultosc
+  description:
+    ULTOSC - Ultimate Oscillator with rsi oversold
+  options:
+    --period=<value>  period length eg 5m (default: 5m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --signal=<value>  Provide signal and indicator "simple" (buy@65, sell@50), "low" (buy@65, sell@30), "trend" (buy@30, sell@70) (default: simple)
+    --timeperiod1=<value>  talib ULTOSC timeperiod1 (default: 7)
+    --timeperiod2=<value>  talib ULTOSC timeperiod2 (default: 14)
+    --timeperiod3=<value>  talib ULTOSC timeperiod3 (default: 28)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
     
 trendline
   description:

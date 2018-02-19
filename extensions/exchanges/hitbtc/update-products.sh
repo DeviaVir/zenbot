@@ -1,21 +1,23 @@
 #!/usr/bin/env node
 const ccxt = require ('ccxt')
 const c = require('../../../conf')
+const n = require('numbro')
 
 const hitbtc = new ccxt.hitbtc2 ({
   'apiKey': c.hitbtc.key,
   'secret': c.hitbtc.secret,
 })
 
-hitbtc.fetch_markets('BTCUSD')
+hitbtc.fetch_markets()
   .then(result =>   {
     var products = []
     result.forEach(function (product) {
-      console.log(product)
       products.push({
         asset: product.base,
         currency: product.quote,
-        increment: product.step.toString(),
+        min_size: product.limits.amount.min,    
+        max_size: product.limits.amount.max, 
+        increment: n(product.step).format('0.000000000000000000'),
         label: product.symbol
       })
     })
