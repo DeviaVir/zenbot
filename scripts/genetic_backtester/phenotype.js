@@ -28,8 +28,8 @@ module.exports = {
       } else if (v.type === 'makertaker') {
         r[k] = (Math.random() > 0.5) ? 'maker' : 'taker'
       } else if (v.type === 'sigmoidtanhrelu') {
-        var items = ['sigmoid', 'tanh', 'relu']
-        var index = Math.floor(Math.random() * items.length)
+        let items = ['sigmoid', 'tanh', 'relu']
+        let index = Math.floor(Math.random() * items.length)
         r[k] = items[index]
       } else if (v.type === 'period_length') {
         var s = Math.floor((Math.random() * (v.max - v.min + 1)) + v.min)
@@ -37,6 +37,16 @@ module.exports = {
       } else if (v.type === 'truefalse') {
         r[k] = (Math.random() > 0.5) ? true : false
       }
+      else if (v.type === 'maType') {
+        let items = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'KAMA', 'MAMA', 'T3']
+        let index = Math.floor(Math.random() * items.length)
+        r[k] = items[index]
+      } else if (v.type === 'uscSignalType') {
+        let items = ['simple', 'low', 'trend']
+        let index = Math.floor(Math.random() * items.length)
+        r[k] = items[index]
+      } 
+      
     }
     return r
   },
