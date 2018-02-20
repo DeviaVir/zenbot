@@ -36,15 +36,6 @@
     "label": "NEO/BTC"
   },
   {
-    "id": "123456",
-    "asset": "123",
-    "currency": "456",
-    "min_size": "0.00100000",
-    "max_size": "100000.00000000",
-    "increment": "0.00100000",
-    "label": "123/456"
-  },
-  {
     "id": "QTUMETH",
     "asset": "QTUM",
     "currency": "ETH",
@@ -226,12 +217,12 @@
   },
   {
     "id": "YOYOBTC",
-    "asset": "YOYO",
+    "asset": "YOYOW",
     "currency": "BTC",
     "min_size": "1.00000000",
     "max_size": "100000.00000000",
     "increment": "1.00000000",
-    "label": "YOYO/BTC"
+    "label": "YOYOW/BTC"
   },
   {
     "id": "OMGBTC",
@@ -829,12 +820,12 @@
   },
   {
     "id": "YOYOETH",
-    "asset": "YOYO",
+    "asset": "YOYOW",
     "currency": "ETH",
     "min_size": "1.00000000",
     "max_size": "100000.00000000",
     "increment": "1.00000000",
-    "label": "YOYO/ETH"
+    "label": "YOYOW/ETH"
   },
   {
     "id": "XRPBTC",
@@ -928,12 +919,12 @@
   },
   {
     "id": "YOYOBNB",
-    "asset": "YOYO",
+    "asset": "YOYOW",
     "currency": "BNB",
     "min_size": "0.01000000",
     "max_size": "10000.00000000",
     "increment": "0.01000000",
-    "label": "YOYO/BNB"
+    "label": "YOYOW/BNB"
   },
   {
     "id": "POWRBNB",
@@ -2253,9 +2244,9 @@
     "id": "STEEMBTC",
     "asset": "STEEM",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
+    "increment": "0.01000000",
     "label": "STEEM/BTC"
   },
   {
@@ -2275,5 +2266,140 @@
     "max_size": "10000.00000000",
     "increment": "0.01000000",
     "label": "STEEM/BNB"
+  },
+  {
+    "id": "NANOBTC",
+    "asset": "XRB",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "XRB/BTC"
+  },
+  {
+    "id": "NANOETH",
+    "asset": "XRB",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "XRB/ETH"
+  },
+  {
+    "id": "NANOBNB",
+    "asset": "XRB",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "XRB/BNB"
+  },
+  {
+    "id": "VIABTC",
+    "asset": "VIA",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "VIA/BTC"
+  },
+  {
+    "id": "VIAETH",
+    "asset": "VIA",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "VIA/ETH"
+  },
+  {
+    "id": "VIABNB",
+    "asset": "VIA",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "VIA/BNB"
+  },
+  {
+    "id": "BLZBTC",
+    "asset": "BLZ",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "BLZ/BTC"
+  },
+  {
+    "id": "BLZETH",
+    "asset": "BLZ",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "BLZ/ETH"
+  },
+  {
+    "id": "BLZBNB",
+    "asset": "BLZ",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "BLZ/BNB"
+  },
+  {
+    "id": "AEBTC",
+    "asset": "AE",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "AE/BTC"
+  },
+  {
+    "id": "AEETH",
+    "asset": "AE",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.01000000",
+    "label": "AE/ETH"
+  },
+  {
+    "id": "AEBNB",
+    "asset": "AE",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "AE/BNB"
+  },
+  {
+    "id": "RPXBTC",
+    "asset": "RPX",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "RPX/BTC"
+  },
+  {
+    "id": "RPXETH",
+    "asset": "RPX",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "1.00000000",
+    "label": "RPX/ETH"
+  },
+  {
+    "id": "RPXBNB",
+    "asset": "RPX",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.01000000",
+    "label": "RPX/BNB"
   }
 ]

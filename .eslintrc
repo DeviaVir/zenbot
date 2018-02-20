@@ -1,7 +1,9 @@
 {
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "jasmine": true,
+        "browser": true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -22,5 +24,11 @@
             "error",
             "never"
         ]
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     }
 }

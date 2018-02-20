@@ -1,18 +1,7 @@
 const ccxt = require ('ccxt'),
-  path = require('path'),
-  minimist = require('minimist'),
-  moment = require('moment'),
-  colors = require('colors'),
-  n = require('numbro')
+  path = require('path')
 
-module.exports = function container(get, set, clear) {
-  var c = get('conf')
-  var s = {
-    options: minimist(process.argv)
-  }
-  var so = s.options
-
-  var shownWarnings = false
+module.exports = function container(conf) {
 
   var public_client, authed_client
 
@@ -23,11 +12,11 @@ module.exports = function container(get, set, clear) {
 
   function authedClient() {
     if (!authed_client) {
-      if (!c.therock || !c.therock.key || !c.therock.key === 'YOUR-API-KEY') {
+      if (!conf.therock || !conf.therock.key || !conf.therock.key === 'YOUR-API-KEY') {
         throw new Error('please configure your TheRockTrading credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
 
-      authed_client = new ccxt.therock ({ 'apiKey': c.therock.key,'secret': c.therock.secret })
+      authed_client = new ccxt.therock ({ 'apiKey': conf.therock.key,'secret': conf.therock.secret })
     }
     return authed_client
   }

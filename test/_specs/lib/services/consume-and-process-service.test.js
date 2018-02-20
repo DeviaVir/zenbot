@@ -1,84 +1,81 @@
+var mock = require('mock-require')
 var service = require('../../../../lib/services/consume-and-process-service')
-var resumeMarkerServiceFactory = require('../../../../test/_mocks/resumeMarkerService.mock.factory')()
+var resumeMarkerServiceFactory = require('../../../../test/_mocks/resumeMarkerService.mock.factory')
 
 describe('consume-and-process-service', function () {
-	beforeEach(function() {
-		foo = {
-			get: function() { },
-			set: function() { },
-			clear: function() { }
-		}
-	})
 
-	describe('', function() {
+  describe('', function() {
 
-		beforeEach(function () {
-			var mockResumeMarkerService = resumeMarkerServiceFactory.get();
+    beforeEach(function () {
+      var mockResumeMarkerService = resumeMarkerServiceFactory
 
-			spyOn(foo, 'get').and.returnValues(
-				mockResumeMarkerService,
-			)
-		})
+      mock('../../../../lib/services/resume-marker-service', mockResumeMarkerService)
+      service = mock.reRequire('../../../../lib/services/consume-and-process-service')
+    })
 
-		it('is available', function() {
-			expect(service).not.toBe(undefined);
-		})
+    afterEach(function(){
+      mock.stopAll()
+    })
 
-		it('does what its supposed to', function(done) {
-			var instance = service(foo.get, foo.set, foo.clear)
-			var numTimesConsumeHappened = 0;
-			var numTimesProcessHappended = 0;
-			var MAX_CONSUME_COUNT = Math.max(1, Math.floor(Math.random() * 10));
+    it('is available', function() {
+      expect(service).not.toBe(undefined)
+    })
 
-			var consumeFunc = (record, queue, cb) => {
-				//
-				// imagine we get some records from somewhere.
-				var arrayOfRecords = [{id: 1, val: "one"}, {id: 2, val: "two"}, {id: 3, val: "three"}]
+    it('does what its supposed to', function(done) {
+      var instance = service({})
+      var numTimesConsumeHappened = 0
+      var MAX_CONSUME_COUNT = Math.max(1, Math.floor(Math.random() * 10))
 
-				// then imagine we push the records on the queue
-				queue.enqueue(arrayOfRecords)
+      var consumeFunc = (record, queue, cb) => {
+        //
+        // imagine we get some records from somewhere.
+        var arrayOfRecords = [{id: 1, val: 'one'}, {id: 2, val: 'two'}, {id: 3, val: 'three'}]
 
-				// decide what to tell our callback function				
-				var exitCondition = ++numTimesConsumeHappened >= MAX_CONSUME_COUNT
-				if (exitCondition)
-					rtn = 'cp_exit'
-				else 
-					rtn = 'cp_process'
+        // then imagine we push the records on the queue
+        queue.enqueue(arrayOfRecords)
 
-				// exit by calling the supplied callback
-				cb(null, rtn, arrayOfRecords[arrayOfRecords.length - 1])
-			}
+        // decide what to tell our callback function				
+        var exitCondition = ++numTimesConsumeHappened >= MAX_CONSUME_COUNT
+        var rtn
+        if (exitCondition)
+          rtn = 'cp_exit'
+        else 
+          rtn = 'cp_process'
 
-			var processFunc = (targetTimeInMillis, queue, nextTradeIdFunc, cb) => {
-				var arrayOfRecords = queue.dequeue();
-				var exitConditionReached = false;
-				var lastProcessedIndex = 0;
+        // exit by calling the supplied callback
+        cb(null, rtn, arrayOfRecords[arrayOfRecords.length - 1])
+      }
 
-				// process the records somehow
-				arrayOfRecords.forEach((r) => { 
-					/* do something */ 
-					/* set var if this record passed our targetTimeInMillis */
-					/* remember the most recently processed record, so we can pass it back */
-				})
+      var processFunc = (targetTimeInMillis, queue, nextTradeIdFunc, cb) => {
+        var arrayOfRecords = queue.dequeue()
+        var exitConditionReached = false
+        var lastProcessedIndex = 0
 
-				if (exitConditionReached)
-					cb(null, true, arrayOfRecords[lastProcessedIndex].trade_id)
-				else
-					cb(null, false, arrayOfRecords[arrayOfRecords.length - 1].trade_id)
-			}
+        // process the records somehow
+        arrayOfRecords.forEach((/*r*/) => { 
+          /* do something */ 
+          /* set var if this record passed our targetTimeInMillis */
+          /* remember the most recently processed record, so we can pass it back */
+        })
 
-			instance.setOnConsumeFunc(consumeFunc);
-			instance.setOnProcessFunc(processFunc);
+        if (exitConditionReached)
+          cb(null, true, arrayOfRecords[lastProcessedIndex].trade_id)
+        else
+          cb(null, false, arrayOfRecords[arrayOfRecords.length - 1].trade_id)
+      }
 
-			var targetTimeInMillis = new Date().getTime() - 10000;
+      instance.setOnConsumeFunc(consumeFunc)
+      instance.setOnProcessFunc(processFunc)
 
-			instance.go(targetTimeInMillis).then((finalRecord) => {
-				expect(finalRecord).toBeDefined();
-				expect(finalRecord.id).toBe(3);
-				expect(finalRecord.val).toBe("three");
-				expect(numTimesConsumeHappened).toEqual(MAX_CONSUME_COUNT)
-				done();
-			})
-		})
-	})
+      var targetTimeInMillis = new Date().getTime() - 10000
+
+      instance.go(targetTimeInMillis).then((finalRecord) => {
+        expect(finalRecord).toBeDefined()
+        expect(finalRecord.id).toBe(3)
+        expect(finalRecord.val).toBe('three')
+        expect(numTimesConsumeHappened).toEqual(MAX_CONSUME_COUNT)
+        done()
+      })
+    })
+  })
 })

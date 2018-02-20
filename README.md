@@ -270,6 +270,7 @@ zenbot trade --help
     --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
     --profit_stop_pct <pct>         maintain a trailing stop this % below the high-water mark of profit
     --max_sell_loss_pct <pct>       avoid selling at a loss pct under this float
+    --max_buy_loss_pct <pct>        avoid buying at a loss pct over this float
     --max_slippage_pct <pct>        avoid selling at a slippage pct above this float
     --rsi_periods <periods>         number of periods to calculate RSI at
     --poll_trades <ms>              poll new trades at this interval in ms
@@ -367,6 +368,12 @@ macd
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+momentum
+  description:
+    MOM = Close(Period) - Close(Length)
+  options:
+    --momentum_size=<value>  number of periods to look back for momentum (default: 5)
 
 neural
   description:
@@ -482,6 +489,33 @@ ta_macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+ta_macd_ext
+  description:
+    Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0) with controllable talib TA types
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --fast_ma_type=<value>  fast_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --slow_ma_type=<value>  slow_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --signal_ma_type=<value>  signal_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --default_ma_type=<value>  set default ma_type for fast, slow and signal. You are able to overwrite single types separately (fast_ma_type, slow_ma_type, signal_ma_type) (default: SMA)
+    --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
+    --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+    
+ta_trix
+  description:
+    TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
+  options:
+    --period=<value>  period length eg 10m (default: 5m)
+    --timeperiod=<value>  timeperiod for TRIX (default: 30)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -494,6 +528,31 @@ trend_ema (default)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
 
+ta_ppo
+  description:
+     PPO - Percentage Price Oscillator with rsi oversold
+  options:
+    --period=<value>  period length, same as --period_length (default: 10m)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --ma_type==<value> moving average type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: SMA)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+ta_ultosc
+  description:
+    ULTOSC - Ultimate Oscillator with rsi oversold
+  options:
+    --period=<value>  period length eg 5m (default: 5m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --signal=<value>  Provide signal and indicator "simple" (buy@65, sell@50), "low" (buy@65, sell@30), "trend" (buy@30, sell@70) (default: simple)
+    --timeperiod1=<value>  talib ULTOSC timeperiod1 (default: 7)
+    --timeperiod2=<value>  talib ULTOSC timeperiod2 (default: 14)
+    --timeperiod3=<value>  talib ULTOSC timeperiod3 (default: 28)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
+    
 trendline
   description:
     Calculate a trendline and trade when trend is positive vs negative.
@@ -521,6 +580,23 @@ trust_distrust
     --buy_threshold=<value>  buy when the bottom increased at least above this percentage (default: 2)
     --buy_threshold_max=<value>  wait for multiple buy signals before buying (kill whipsaw, 0 to disable) (default: 0)
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
+    
+wavetrend
+  description:
+    Buy when (Signal < Oversold) and sell when (Signal > Overbought).
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --period_length=<value>  period length, same as --period (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 21)
+    --wavetrend_channel_length=<value>  wavetrend channel length (default: 10)
+    --wavetrend_average_length=<value>  wavetrend average length (default: 21)
+    --wavetrend_overbought_1=<value>  wavetrend overbought limit 1 (default: 60)
+    --wavetrend_overbought_2=<value>  wavetrend overbought limit 2 (default: 53)
+    --wavetrend_oversold_1=<value>  wavetrend oversold limit 1 (default: -60)
+    --wavetrend_oversold_2=<value>  wavetrend oversold limit 2 (default: -53)
+    --wavetrend_trends=<value>  act on trends instead of limits (default: false)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 9)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 80)
 ```
 
 ## Interactive controls

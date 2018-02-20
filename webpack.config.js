@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-const path = require('path');
+const path = require('path')
 
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
     app: './webpack-src/js/app.js',
-    plotly: './webpack-src/js/plotly.js'
+    echarts: './webpack-src/js/echarts.js'
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -39,7 +39,7 @@ module.exports = {
               return [
                 require('precss'),
                 require('autoprefixer')
-              ];
+              ]
             }
           }
         }, {
@@ -47,10 +47,10 @@ module.exports = {
         }]
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
+      { test: /\.(woff|woff2)$/, loader:'url?prefix=font/&limit=5000' },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
       {
         test: require.resolve('jquery'),
         use: [{
@@ -62,14 +62,10 @@ module.exports = {
         }]
       },
       {
-        test: /\.js$/,
-        use: 'transform-loader?plotly.js/tasks/util/compress_attributes.js',
-      },
-      {
-        test: require.resolve('./webpack-src/js/plotly.js'),
+        test: require.resolve('./webpack-src/js/echarts.js'),
         use: [{
           loader: 'expose-loader',
-          options: 'Plotly'
+          options: 'echarts'
         }]
       }
     ],

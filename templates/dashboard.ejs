@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets-zenbot/zenbot_square.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets-zenbot/zenbot_square.png">
 
-    <link rel="manifest" href="/assets/manifest.json">
+    <link rel="manifest" href="assets/manifest.json">
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,12 +17,12 @@
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="330x203" href="/assets-zenbot/logo.png">
+    <link rel="icon" type="image/png" sizes="330x203" href="assets-zenbot/logo.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="330x203" href="assets-zenbot/logo.png">
 
     <title><%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> on <%= exchange.name.toUpperCase() %> - Dashboard</title>
     <!-- Webpack compiled -->
-    <link href="/assets-wp/app.bundle.js" rel="stylesheet">
+    <link href="assets-wp/app.bundle.js" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-6 col-12">
                     <div class="white-box analytics-info">
-                        <h3 class="box-title">Captial</h3>
+                        <h3 class="box-title">Capital</h3>
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <ul class="list-inline two-part">
@@ -164,23 +164,19 @@
                 <div class="col-md-12 col-lg-12 col-sm-12 col-12">
                     <div class="white-box">
                         <h3 class="box-title"><%= exchange.name.toUpperCase() %> <%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> Trade chart</h3>
-                        <div id="trades_plot" style="height: 505px;">
+                        <div id="trade_chart" style="height: 505px;">
                         </div>
-                        <script src="/assets-wp/plotly.bundle.js" charset="utf8"></script>
+                        <script src="assets-wp/echarts.bundle.js" charset="utf8"></script>
                         <script type="text/javascript">
 
                             function unpack(rows, key, offset) {
                                 return rows.map(function(row) {
-                                    if (key == 'time') {
-                                        // Plotly’s date format is 'yyyy-mm-dd HH:MM:SS.ssssss'
-                                        return new Date(row.time - offset * 60000).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
-                                    } else {
-                                        return row[key];
-                                    }
+                                    return { value: [ row.time - offset * 60000, row[key] ] };
                                 });
                             }
 
                             var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.open("GET", "trades", true);
                             xmlhttp.onreadystatechange = function() {
                                 if (this.readyState == 4 && this.status == 200) {
                                     var tradeData = JSON.parse(this.responseText);
@@ -189,107 +185,174 @@
                                     var my_trades = tradeData.my_trades;
                                     var offset = tradeData.tz_offset;
 
-                                    var price = {
-                                        type: "scatter",
-                                        name: 'Price',
-                                        mode: 'lines+markers',
-                                        x: unpack(trades, 'time', offset),
-                                        y: unpack(trades, 'price')
-                                    };
+                                    var trade_chart = echarts.init(document.getElementById('trade_chart'));
 
-                                    var volume = {
-                                        type: 'bar',
-                                        name: 'Volume',
-                                        yaxis: 'y2',
-                                        opacity: '0.25',
-                                        x: unpack(trades, 'time', offset),
-                                        y: unpack(trades, 'size'),
-                                        width: 3600*4
-                                    };
+                                    var lastTrade = trades[trades.length < 500 ? 0 : trades.length - 500].time;
+                                    var rangeStart = lastTrade - offset * 60000;
 
-                                    var ohlc = {
-                                        type: 'ohlc',
-                                        name: 'OHLC',
-                                        x: unpack(lookback, 'time', offset),
-                                        open: unpack(lookback, 'open'),
-                                        high: unpack(lookback, 'high'),
-                                        low: unpack(lookback, 'low'),
-                                        close: unpack(lookback, 'close') 
-                                    };
-
-                                    var data = [ price, volume, ohlc ];
-
-                                    var lastTrade = new Date(price.x[price.x.length - 1]);
-                                    lastTrade.setMinutes(lastTrade.getMinutes() + 1);
-                                    var rangeEnd = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
-                                    lastTrade.setMinutes(lastTrade.getMinutes() - 31);
-                                    var rangeStart = new Date(lastTrade - ((new Date()).getTimezoneOffset() * 60000)).toISOString().replace(/T/g, ' ').replace(/Z/g, '');
-
-                                    var layout = {
-                                        showlegend: false,
-                                        xaxis: {
-                                            range: [ rangeStart, rangeEnd ],
-                                            rangeselector: {
-                                                buttons: [
-                                                    {
-                                                        count: 5,
-                                                        label: '5m',
-                                                        step: 'minute',
-                                                        stepmode: 'todate'
-                                                    },
-                                                    {
-                                                        count: 30,
-                                                        label: '30m',
-                                                        step: 'minute',
-                                                        stepmode: 'todate'
-                                                    },
-                                                    {
-                                                        count: 1,
-                                                        label: '1h',
-                                                        step: 'hour',
-                                                        stepmode: 'backward'
-                                                    },
-                                                    {
-                                                        step: 'all'
+                                    var options = {
+                                        useUTC: true,
+                                        grid: {
+                                            left: 60,
+                                            right: 60
+                                        },
+                                        xAxis: [
+                                            {
+                                                type: 'time',
+                                                axisLabel: {
+                                                    formatter: function (value) {
+                                                        return echarts.format.formatTime('yyyy-MM-dd hh:mm:ss', value, true);
                                                     }
-                                                ]
+                                                }
+                                            }
+                                        ],
+                                        yAxis: [
+                                            {
+                                                name: 'Price',
+                                                position: 'right',
+                                                scale: true
                                             },
-                                            rangeslider: {},
-                                            type: 'date'
+                                            {
+                                                name: 'Volume',
+                                                scale: true
+                                            }
+                                        ],
+                                        toolbox: {
+                                            show: true,
+                                            showTitle: false,
+                                            feature: {
+                                                dataZoom: {},
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
                                         },
-                                        yaxis: {
-                                            title: 'Price',
-                                            overlaying: 'y2',
-                                            side: 'right'
+                                        tooltip : {
+                                            trigger: 'axis',
+                                            axisPointer: {
+                                                type: 'cross',
+                                            }
                                         },
-                                        yaxis2: { 
-                                            title: 'Volume',
-                                            side: 'left'
-                                        },
-                                        annotations: []
+                                        dataZoom: [
+                                            {
+                                                startValue: rangeStart
+                                            },
+                                            {
+                                                type: 'inside'
+                                            },
+                                        ],
+                                        series: [
+                                            {
+                                                name: 'Price',
+                                                type: 'line',
+                                                data: unpack(trades, 'price', offset)
+                                            },
+                                            {
+                                                name: 'Volume',
+                                                type: 'bar',
+                                                yAxisIndex: 1,
+                                                z: 1,
+                                                itemStyle: {
+                                                    opacity: 0.25
+                                                },
+                                                data: unpack(trades, 'size', offset)
+                                            },
+                                            {
+                                                name: 'High',
+                                                type: 'candlestick',
+                                                z: 1,
+                                                itemStyle: {
+                                                    color: 'rgba(40,167,69,0.5)',  // bullish
+                                                    borderColor: '#28a745',
+                                                    color0: 'rgba(220,53,69,0.5)', // bearish
+                                                    borderColor0: '#dc3545'
+                                                },
+                                                data: []
+                                            },
+                                            {
+                                                type: 'line',
+                                                smooth: true,
+                                                lineStyle: {
+                                                    type: 'dotted'
+                                                },
+                                                data: unpack(my_trades, 'price', offset),
+                                                tooltip: {
+                                                    show: false
+                                                }
+                                            },
+                                            {
+                                                name: 'Buy',
+                                                type: 'scatter',
+                                                symbol: 'triangle',
+                                                data: [],
+                                                itemStyle: {
+                                                    color: '#28a745'
+                                                },
+                                                markPoint: {
+                                                    symbol: 'arrow',
+                                                    itemStyle: {
+                                                        color: '#28a745'
+                                                    },
+                                                    symbolOffset: [ 0, 10 ],
+                                                    data: []
+                                                }
+                                            },
+                                            {
+                                                name: 'Sell',
+                                                type: 'scatter',
+                                                symbol: 'triangle',
+                                                symbolRotate: 180,
+                                                data: [],
+                                                itemStyle: {
+                                                    color: '#dc3545'
+                                                },
+                                                markPoint: {
+                                                    symbol: 'arrow',
+                                                    itemStyle: {
+                                                        color: '#dc3545'
+                                                    },
+                                                    symbolRotate: 180,
+                                                    symbolOffset: [ 0, -10 ],
+                                                    data: []
+                                                }
+                                            }
+                                        ]
                                     };
 
-                                    for (i = 0; i < my_trades.length; i++) {
-                                        layout.annotations.push({
-                                            x: new Date(my_trades[i].time - offset * 60000).toISOString().replace(/T/g, ' ').replace(/Z/g, ''),
-                                            y: my_trades[i].price,
-                                            xref: 'x',
-                                            yref: 'y',
-                                            text: my_trades[i].type,
-                                            ax: 0,
-                                            ay: -50
+                                    for (i = 0; i < lookback.length; i++) {
+                                        options.series[2].data.push({
+                                            value: [ lookback[i].close_time - offset * 60000, lookback[i].open, lookback[i].close, lookback[i].low, lookback[i].high ] // OCLH -> OHLC
                                         });
                                     }
 
-                                    Plotly.newPlot('trades_plot', data, layout);
+                                    for (i = 0; i < my_trades.length; i++) {
+                                        if (my_trades[i].type == 'buy') {
+                                            options.series[4].data.push({
+                                                value: [ my_trades[i].time - offset * 60000, my_trades[i].price ]
+                                            });
+                                            options.series[4].markPoint.data.push({
+                                                xAxis: my_trades[i].time - offset * 60000,
+                                                yAxis: my_trades[i].price,
+                                                value: 'Bought',
+                                            });
+                                        } else {
+                                            options.series[5].data.push({
+                                                value: [ my_trades[i].time - offset * 60000, my_trades[i].price ]
+                                            });
+                                            options.series[5].markPoint.data.push({
+                                                xAxis: my_trades[i].time - offset * 60000,
+                                                yAxis: my_trades[i].price,
+                                                value: 'Sold',
+                                            });
+                                        }
+                                    }
+
+                                    trade_chart.setOption(options);
 
                                     window.onresize = function() {
-                                        Plotly.Plots.resize('trades_plot');
+                                        trade_chart.resize();
                                     };
                                 }
                             };
-
-                            xmlhttp.open("GET", "/trades", true);
                             xmlhttp.send();
                         </script>
                     </div>
@@ -355,7 +418,7 @@
                                     <td><span class="text-<% if (trade.slippage > 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 4, maximumFractionDigits: 4}).format(trade.slippage) %></span></td>
                                     <td><%= moment(trade.time).format('YYYY-MM-DD HH:mm:ss') %></td>
                                     <td><%= moment.duration(trade.execution_time).humanize() %></td>
-                                    <td><% if (trade.profit) { %><span class="text-<% if(trade.profit < 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.profit) %></span><% } else { %>-<% } %></td>
+                                    <td><% if (trade.profit != null) { %><span class="text-<% if(trade.profit < 0) { %>danger<% } else { %>success<% } %>"><%= new Intl.NumberFormat("en-US", {style: "percent", useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2}).format(trade.profit) %></span><% } else { %>-<% } %></td>
                                 </tr>
                                 <% }); %>
                                 <% } %>
@@ -431,8 +494,8 @@
 <!-- All Jquery -->
 <!-- ============================================================== -->
 <!-- Webpack compiled -->
-<script src="/assets-wp/app.bundle.js"></script>
-<!--<script src="/assets-wp/common.bundle.js"></script>-->
+<script src="assets-wp/app.bundle.js"></script>
+<!--<script src="assets-wp/common.bundle.js"></script>-->
 
 <script>
 

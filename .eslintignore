@@ -1,0 +1,5 @@
+scripts/auto_backtester/node_modules/*
+scripts/genetic_backtester/node_modules/*
+scripts/genetic_algo/node_modules/*
+dist
+templates/dashboard_assets/js/*

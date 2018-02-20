@@ -1,6 +1,7 @@
 var Bitstamp = require('bitstamp')
   , path = require('path')
   , Pusher = require('pusher-js/node')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , n = require('numbro')
 
@@ -42,12 +43,11 @@ function joinProduct (product_id) {
 }
 
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function bitstamp (conf) {
 
   function authedClient () {
-    if (c.bitstamp.key && c.bitstamp.key !== 'YOUR-API-KEY') {
-      return new Bitstamp(c.bitstamp.key, c.bitstamp.secret, c.bitstamp.client_id)
+    if (conf.bitstamp.key && conf.bitstamp.key !== 'YOUR-API-KEY') {
+      return new Bitstamp(conf.bitstamp.key, conf.bitstamp.secret, conf.bitstamp.client_id)
     }
     throw new Error('\nPlease configure your Bitstamp credentials in ' + path.resolve(__dirname, 'conf.js'))
   }
@@ -298,7 +298,7 @@ module.exports = function container (get, set, clear) {
             // 'In Queue', 'Open', 'Finished'
             body.status = 'done'
           }
-          if(body.datetime) body.done_at = body.created_at = body.datetime;
+          if(body.datetime) body.done_at = body.created_at = body.datetime
 
           orders['~' + body.id] = body
           cb(null, body)
@@ -339,7 +339,7 @@ module.exports = function container (get, set, clear) {
           body.status = 'done'
 
         if(body.status === 'done'){
-          if(body.transactions && body.transactions[0].datetime) body.done_at = body.transactions[0].datetime;
+          if(body.transactions && body.transactions[0].datetime) body.done_at = body.transactions[0].datetime
         }
 
         cb(null, body)

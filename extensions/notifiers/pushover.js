@@ -1,8 +1,8 @@
 var request = require('request')
 
-module.exports = function container (get, set, clear) {
+module.exports = function pushover (config) {
   var pushover = {
-    pushMessage: function(config, title, message) {
+    pushMessage: function(title, message) {
       var postData = {
         'token': config.token,
         'user': config.user,

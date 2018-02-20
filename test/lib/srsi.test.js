@@ -1,15 +1,14 @@
-var RSI = require('../../lib/rsi');
-var SRSI = require('../../lib/srsi')(RSI);
+var SRSI = require('../../lib/srsi')
 
 describe('SRSI (StochRSI Oscillator)', function () {
 
   it('should calculate SRSI with default period', function () {
-    SRSI(data, 'srsi', 14, 3, 3);
+    SRSI(data, 'srsi', 14, 3, 3)
 
-    expect(data.period.srsi_K).toEqual(19.38);
-    expect(data.period.srsi_D).toEqual(23.18);
+    expect(data.period.srsi_K).toEqual(19.38)
+    expect(data.period.srsi_D).toEqual(23.18)
   })
-});
+})
 
 var data = {
   lookback: [
@@ -34,4 +33,4 @@ var data = {
   period: {
     rsi:  65.61
   }
-};
+}

@@ -1,25 +1,24 @@
 var Poloniex = require('poloniex.js')
-  , path = require('path')
   , moment = require('moment')
   , n = require('numbro')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function container (conf) {
 
   var public_client, authed_client
 
-  function publicClient (product_id) {
-    if (!public_client) public_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
+  function publicClient (/*product_id*/) {
+    if (!public_client) public_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
     return public_client
   }
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.poloniex || !c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
+      if (!conf.poloniex || !conf.poloniex.key || conf.poloniex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Poloniex credentials in conf.js')
       }
-      authed_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
+      authed_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
     }
     return authed_client
   }
@@ -113,6 +112,30 @@ module.exports = function container (get, set, clear) {
           balance.asset_hold = body[opts.asset].onOrders
         }
         cb(null, balance)
+      })
+    },
+
+    getOrderBook: function (opts, cb) {
+      var client = publicClient()
+      var params = {
+        currencyPair: joinProduct(opts.product_id),
+        depth: 10
+      }
+      client._public('returnOrderBook', params, function (err,  data) {
+        if (typeof data !== 'object') {
+          return cb(null, [])
+        }
+        if (data.error) {
+          console.error('\ggetOrderBook error:')
+          console.error(data)
+          return retry('getOrderBook', params)
+        }
+        cb(null, {
+          buyOrderRate: data.bids[0][0],
+          buyOrderAmount: data.bids[0][1],
+          sellOrderRate: data.asks[0][0],
+          sellOrderAmount: data.asks[0][1]
+        })
       })
     },
 
