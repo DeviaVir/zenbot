@@ -66,6 +66,7 @@ module.exports = function cexio (conf) {
     makerFee: 0.16,
     takerFee: 0.25,
     dynamicFees: true,
+    makerBuy100Workaround: true,
 
     getProducts: function () {
       return require('./products.json')
