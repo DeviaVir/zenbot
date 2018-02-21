@@ -30,6 +30,7 @@ module.exports = function (program, conf) {
     .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, conf.markdown_buy_pct)
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
     .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, conf.order_adjust_time)
+    .option('--order_poll_time <ms>', 'poll order status on this interval', Number, conf.order_poll_time)
     .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, conf.sell_stop_pct)
     .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, conf.buy_stop_pct)
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
@@ -39,6 +40,8 @@ module.exports = function (program, conf) {
     .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', conf.max_slippage_pct)
     .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', conf.symmetrical)
     .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, conf.rsi_periods)
+    .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
+    .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--disable_options', 'disable printing of options')
     .option('--enable_stats', 'enable printing order stats')
     .option('--backtester_generation <generation>','creates a json file in simulations with the generation number', Number, -1)
@@ -48,11 +51,11 @@ module.exports = function (program, conf) {
       var s = { options: minimist(process.argv) }
       var so = s.options
       delete so._
-      if (cmd.conf) { 
-        var overrides = require(path.resolve(process.cwd(), cmd.conf)) 
-        Object.keys(overrides).forEach(function (k) { 
-          so[k] = overrides[k] 
-        }) 
+      if (cmd.conf) {
+        var overrides = require(path.resolve(process.cwd(), cmd.conf))
+        Object.keys(overrides).forEach(function (k) {
+          so[k] = overrides[k]
+        })
       }
       Object.keys(conf).forEach(function (k) {
         if (!_.isUndefined(cmd[k])) {
@@ -80,9 +83,9 @@ module.exports = function (program, conf) {
         var d = tb('1d')
         so.start = d.subtract(so.days).toMilliseconds()
       }
-        
+
       so.days = moment(so.end).diff(moment(so.start), 'days')
-      
+
       so.stats = !!cmd.enable_stats
       so.show_options = !cmd.disable_options
       so.verbose = !!cmd.verbose
@@ -110,10 +113,10 @@ module.exports = function (program, conf) {
         option_keys.forEach(function (k) {
           options[k] = so[k]
         })
-          
+
         let options_output = options
         options_output.simresults = {}
-         
+
         if (s.my_trades.length) {
           s.my_trades.push({
             price: s.period.close,
@@ -276,7 +279,7 @@ module.exports = function (program, conf) {
           setImmediate(getNext)
         })
       }
-      
+
       getNext()
     })
 }

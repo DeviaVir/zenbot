@@ -276,6 +276,8 @@ zenbot trade --help
     --poll_trades <ms>              poll new trades at this interval in ms
     --currency_increment <amount>   Currency increment, if different than the asset increment; e.g. 0.000001
     --use_prev_trades               load and use previous trades for stop-order triggers and loss protection
+    --exact_buy_orders              instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all
+    --exact_sell_orders             instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all
     --disable_stats                 disable printing order stats
     --reset_profit                  start new profit calculation from 0
     --debug                         output detailed debug info
@@ -506,7 +508,7 @@ ta_macd_ext
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
-    
+
 ta_trix
   description:
     TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
@@ -552,7 +554,7 @@ ta_ultosc
     --timeperiod3=<value>  talib ULTOSC timeperiod3 (default: 28)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
-    
+
 trendline
   description:
     Calculate a trendline and trade when trend is positive vs negative.
@@ -580,7 +582,7 @@ trust_distrust
     --buy_threshold=<value>  buy when the bottom increased at least above this percentage (default: 2)
     --buy_threshold_max=<value>  wait for multiple buy signals before buying (kill whipsaw, 0 to disable) (default: 0)
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
-    
+
 wavetrend
   description:
     Buy when (Signal < Oversold) and sell when (Signal > Overbought).
