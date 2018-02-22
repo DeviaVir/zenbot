@@ -1,10 +1,12 @@
-var math = require('mathjs')
-var trend = require('trend')
-var z = require('zero-fill')
-var n = require('numbro')
+let math = require('mathjs')
+  , trend = require('trend')
+  , z = require('zero-fill')
+  , n = require('numbro')
+  , stats = require('stats-lite')
+  , ema = require('../../../lib/ema')
+  , Phenotypes = require('../../../lib/phenotype')
 var oldgrowth = 1
-var stats = require('stats-lite')
-var ema = require('../../../lib/ema')
+
 module.exports = {
   name: 'trendline',
   description: 'Calculate a trendline and trade when trend is positive vs negative.',
@@ -101,4 +103,23 @@ module.exports = {
     cols.push(z(8, n(s.options.markup_sell_pct).format('0.00000000'), ' ')[s.accel === true ? 'green' : 'red'])
     return cols
   },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 400, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    lastpoints: Phenotypes.Range(20, 500),
+    avgpoints: Phenotypes.Range(300, 3000),
+    lastpoints2: Phenotypes.Range(5, 300),
+    avgpoints2: Phenotypes.Range(50, 1000),
+  }
 }

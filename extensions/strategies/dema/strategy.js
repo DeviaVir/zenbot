@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , rsi = require('../../../lib/rsi')
   , ema = require('../../../lib/ema')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'dema',
@@ -79,6 +80,27 @@ module.exports = {
       cols.push('         ')
     }
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    ema_short_period: Phenotypes.Range(1, 20),
+    ema_long_period: Phenotypes.Range(20, 100),
+    up_trend_threshold: Phenotypes.Range(0, 50),
+    down_trend_threshold: Phenotypes.Range(0, 50),
+    overbought_rsi_periods: Phenotypes.Range(1, 50),
+    overbought_rsi: Phenotypes.Range(20, 100)
   }
 }
 

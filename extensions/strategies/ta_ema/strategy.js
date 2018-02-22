@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , ta_ema = require('../../../lib/ta_ema')
   , rsi = require('../../../lib/rsi')
   , stddev = require('../../../lib/stddev')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'ta_ema',
@@ -104,6 +105,24 @@ module.exports = {
       }
     }
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 100),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    trend_ema: Phenotypes.Range(1, 40),
+    oversold_rsi_periods: Phenotypes.Range(5, 50),
+    oversold_rsi: Phenotypes.Range(20, 100)
   }
 }
 
