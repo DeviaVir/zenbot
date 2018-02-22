@@ -27,7 +27,12 @@ module.exports = function sim (conf, s) {
     getProducts: real_exchange.getProducts,
 
     getTrades: function (opts, cb) {
-      return cb(null, [])
+      if (so.mode === 'paper') {
+        return real_exchange.getTrades(opts, cb)
+      }
+      else {
+        return cb(null, [])
+      }
     },
 
     getBalance: function (opts, cb) {
@@ -35,10 +40,15 @@ module.exports = function sim (conf, s) {
     },
 
     getQuote: function (opts, cb) {
-      return cb(null, {
-        bid: s.period.close,
-        ask: s.period.close
-      })
+      if (so.mode === 'paper') {
+        return real_exchange.getQuote(opts, cb)
+      }
+      else {
+        return cb(null, {
+          bid: s.period.close,
+          ask: s.period.close
+        })
+      }
     },
 
     cancelOrder: function (opts, cb) {
