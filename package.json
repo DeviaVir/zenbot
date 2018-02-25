@@ -65,7 +65,7 @@
     "kraken-api": "^1.0.0",
     "lint-staged": "^7.0.0",
     "lodash": "^4.17.4",
-    "mathjs": "^3.17.0",
+    "mathjs": "^4.0.0",
     "micro-request": "^666.0.10",
     "mime": "^2.2.0",
     "minimist": "^1.2.0",
