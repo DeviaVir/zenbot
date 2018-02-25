@@ -9,6 +9,7 @@ module.exports = {
   getOptions: function () {
     this.option('period', 'period length, same as --period_length', String, '1h')
     this.option('period_length', 'period length, same as --period', String, '1h')
+    this.option('min_periods', 'min. number of history periods', Number, 20)
     this.option('bollinger_size', 'period size', Number, 20)
     this.option('bollinger_time', 'times of standard deviation between the upper band and the moving averages', Number, 2)
     this.option('bollinger_upper_bound_pct', 'pct the current price should be near the bollinger upper bound before we sell', Number, 0)
