@@ -9,14 +9,16 @@ module.exports = {
     app: './webpack-src/js/app.js',
     echarts: './webpack-src/js/echarts.js'
   },
+  optimization: {
+    minimize: true
+  },
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
-    }),
-    new webpack.optimize.UglifyJsPlugin()
+    })
   ],
   output: {
     publicPath: '/assets-wp/',
