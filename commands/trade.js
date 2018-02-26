@@ -41,11 +41,14 @@ module.exports = function (program, conf) {
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
     .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, conf.profit_stop_pct)
     .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', conf.max_sell_loss_pct)
+    .option('--max_buy_loss_pct <pct>', 'avoid buying at a loss pct over this float', conf.max_buy_loss_pct)
     .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', conf.max_slippage_pct)
     .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, conf.rsi_periods)
     .option('--poll_trades <ms>', 'poll new trades at this interval in ms', Number, conf.poll_trades)
     .option('--currency_increment <amount>', 'Currency increment, if different than the asset increment', String, null)
     .option('--keep_lookback_periods <amount>', 'Keep this many lookback periods max. ', Number, conf.keep_lookback_periods)
+    .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
+    .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
@@ -59,6 +62,12 @@ module.exports = function (program, conf) {
         var botStartTime = moment().add(so.run_for, 'm')
       }
       delete so._
+      if (cmd.conf) {
+        var overrides = require(path.resolve(process.cwd(), cmd.conf))
+        Object.keys(overrides).forEach(function (k) {
+          so[k] = overrides[k]
+        })
+      }
       Object.keys(conf).forEach(function (k) {
         if (typeof cmd[k] !== 'undefined') {
           so[k] = cmd[k]
@@ -70,18 +79,13 @@ module.exports = function (program, conf) {
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
-      if (cmd.conf) {
-        var overrides = require(path.resolve(process.cwd(), cmd.conf))
-        Object.keys(overrides).forEach(function (k) {
-          so[k] = overrides[k]
-        })
-      }
+
       so.selector = objectifySelector(selector || conf.selector)
-      var exchange = require(`../extensions/exchanges/${so.selector.exchange_id}/exchange`)(conf)
-      if (!exchange) {
+      s.exchange = require(`../extensions/exchanges/${so.selector.exchange_id}/exchange`)(conf)
+      if (!s.exchange) {
         console.error('cannot trade ' + so.selector.normalized + ': exchange not implemented')
         process.exit(1)
-        
+
       }
       var engine = engineFactory(s, conf)
       var collectionServiceInstance = collectionService(conf)
@@ -109,7 +113,7 @@ module.exports = function (program, conf) {
           console.log(' ' + key + ' - ' + value)
         })
       }
-      
+
       function listOptions () {
         console.log()
         console.log(s.exchange.name.toUpperCase() + ' exchange active trading options:'.grey)
@@ -144,7 +148,7 @@ module.exports = function (program, conf) {
           z(20, so.profit_stop_pct + '%', ' ')
         ].join('') + '\n')
         process.stdout.write('')
-      }              
+      }
 
       /* Implementing statistical Exit */
       function printTrade (quit, dump, statsonly = false) {
@@ -237,14 +241,14 @@ module.exports = function (program, conf) {
             var out_target_prefix = so.paper ? 'simulations/paper_result_' : 'stats/trade_result_'
             if(dump){
               var dt = new Date().toISOString()
-              
+
               //ymd
               var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10)
               out_target = so.filename || out_target_prefix + so.selector.normalized +'_' + today + '_UTC.html'
               fs.writeFileSync(out_target, out)
             }else
               out_target = so.filename || out_target_prefix + so.selector.normalized +'_' + new Date().toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/-/g, '').replace(/:/g, '').replace(/20/, '') + '_UTC.html'
-            
+
             fs.writeFileSync(out_target, out)
             console.log('\nwrote'.grey, out_target)
           }
@@ -252,7 +256,7 @@ module.exports = function (program, conf) {
         }
       }
       /* The end of printTrade */
-      
+
       /* Implementing statistical status dump every 10 secs */
       var shouldSaveStats = false
       function toggleStats(){
@@ -262,7 +266,7 @@ module.exports = function (program, conf) {
         else
           console.log('Auto stats dump disabled')
       }
-      
+
       function saveStatsLoop(){
         saveStats()
         setTimeout(function () {
@@ -270,13 +274,13 @@ module.exports = function (program, conf) {
         }, 10000)
       }
       saveStatsLoop()
-      
+
       function saveStats () {
         if(!shouldSaveStats) return
-        
+
         var output_lines = []
         var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
-        
+
         var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
         output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
         var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(tmp_balance)
@@ -316,7 +320,7 @@ module.exports = function (program, conf) {
           s.stats.losses = losses
           s.stats.error_rate = (sells ? n(losses).divide(sells).format('0.00%') : '0.00%')
         }
-        
+
         var html_output = output_lines.map(function (line) {
           return colors.stripColors(line)
         }).join('\n')
@@ -339,7 +343,7 @@ module.exports = function (program, conf) {
         if (so.filename !== 'none') {
           var out_target
           var dt = new Date().toISOString()
-          
+
           //ymd
           var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10)
           out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
@@ -378,7 +382,11 @@ module.exports = function (program, conf) {
 
       console.log('fetching pre-roll data:')
       var zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : 'zenbot.sh' // Use 'win32' for 64 bit windows too
-      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), ['backfill', so.selector.normalized, '--days', days])
+      var command_args = ['backfill', so.selector.normalized, '--days', days || 1]
+      if (cmd.conf) {
+        command_args.push('--conf', cmd.conf)
+      }
+      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), command_args)
       backfiller.stdout.pipe(process.stdout)
       backfiller.stderr.pipe(process.stderr)
       backfiller.on('exit', function (code) {
@@ -392,12 +400,12 @@ module.exports = function (program, conf) {
             },
             sort: {time: 1},
             limit: 1000
-          }         
+          }
           if (db_cursor) {
             opts.query.time = {$gt: db_cursor}
           }
           else {
-            trade_cursor = s.exchange.getCursor(query_start) 
+            trade_cursor = s.exchange.getCursor(query_start)
             opts.query.time = {$gte: query_start}
           }
           trades.find(opts.query).limit(opts.limit).sort(opts.sort).toArray(function (err, trades) {
@@ -514,7 +522,7 @@ module.exports = function (program, conf) {
               return
             }
             db_cursor = trades[trades.length - 1].time
-            trade_cursor = exchange.getCursor(trades[trades.length - 1])
+            trade_cursor = s.exchange.getCursor(trades[trades.length - 1])
             engine.update(trades, true, function (err) {
               if (err) throw err
               setImmediate(getNext)
@@ -602,7 +610,7 @@ module.exports = function (program, conf) {
           })
         }
         var opts = {product_id: so.selector.product_id, from: trade_cursor}
-        exchange.getTrades(opts, function (err, trades) {
+        s.exchange.getTrades(opts, function (err, trades) {
           if (err) {
             if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND' || err.code === 'ECONNRESET') {
               if (prev_timeout) {
@@ -630,7 +638,7 @@ module.exports = function (program, conf) {
               return 0
             })
             trades.forEach(function (trade) {
-              var this_cursor = exchange.getCursor(trade)
+              var this_cursor = s.exchange.getCursor(trade)
               trade_cursor = Math.max(this_cursor, trade_cursor)
               saveTrade(trade)
             })

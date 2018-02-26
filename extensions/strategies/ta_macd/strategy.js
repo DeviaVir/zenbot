@@ -30,18 +30,6 @@ module.exports = {
         if (s.options.mode === 'sim' && s.options.verbose) console.log(('\noverbought at ' + s.period.overbought_rsi + ' RSI, preparing to sold\n').cyan)
       }
     }
-
-    // compture MACD
-    /*get('lib.ema')(s, 'ema_short', s.options.ema_short_period)
-      get('lib.ema')(s, 'ema_long', s.options.ema_long_period)
-      if (s.period.ema_short && s.period.ema_long) {
-        s.period.macd = (s.period.ema_short - s.period.ema_long)
-        get('lib.ema')(s, 'signal', s.options.signal_period, 'macd')
-        if (s.period.signal) {
-          s.period.macd_histogram = s.period.macd - s.period.signal
-        }
-      }*/
-    ta_macd(s,'macd','macd_histogram','macd_signal',s.options.ema_long_period,s.options.ema_short_period,s.options.signal_period)
   },
 
   onPeriod: function (s, cb) {
@@ -54,16 +42,32 @@ module.exports = {
       }
     }
 
-    if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {
-      if ((s.period.macd_histogram - s.options.up_trend_threshold) > 0 && (s.lookback[0].macd_histogram - s.options.up_trend_threshold) <= 0) {
-        s.signal = 'buy'
-      } else if ((s.period.macd_histogram + s.options.down_trend_threshold) < 0 && (s.lookback[0].macd_histogram + s.options.down_trend_threshold) >= 0) {
-        s.signal = 'sell'
-      } else {
-        s.signal = null  // hold
+    ta_macd(s, s.options.ema_long_period, s.options.ema_short_period, s.options.signal_period).then(function(signal) {
+      if(!signal) {
+        cb()
+        return
       }
-    }
-    cb()
+
+      s.period['macd'] = signal.macd
+      s.period['macd_histogram'] = signal.macd_histogram
+      s.period['macd_signal'] = signal.macd_signal
+
+      if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {
+        if ((s.period.macd_histogram - s.options.up_trend_threshold) > 0 && (s.lookback[0].macd_histogram - s.options.up_trend_threshold) <= 0) {
+          s.signal = 'buy'
+        } else if ((s.period.macd_histogram + s.options.down_trend_threshold) < 0 && (s.lookback[0].macd_histogram + s.options.down_trend_threshold) >= 0) {
+          s.signal = 'sell'
+        } else {
+          s.signal = null  // hold
+        }
+      }
+
+      cb()
+    }).catch(function(error) {
+      console.log(error)
+      cb()
+    })
+
   },
 
   onReport: function (s) {

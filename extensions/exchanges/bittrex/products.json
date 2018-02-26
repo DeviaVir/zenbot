@@ -2078,5 +2078,85 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/IGNIS"
+  },
+  {
+    "asset": "SRN",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SRN"
+  },
+  {
+    "asset": "SRN",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/SRN"
+  },
+  {
+    "asset": "WAX",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/WAX"
+  },
+  {
+    "asset": "WAX",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/WAX"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ZRX"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/ZRX"
+  },
+  {
+    "asset": "VEE",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VEE"
+  },
+  {
+    "asset": "VEE",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/VEE"
+  },
+  {
+    "asset": "BCPT",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BCPT"
+  },
+  {
+    "asset": "BCPT",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/BCPT"
   }
 ]

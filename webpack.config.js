@@ -7,7 +7,10 @@ const webpack = require('webpack')
 module.exports = {
   entry: {
     app: './webpack-src/js/app.js',
-    plotly: './webpack-src/js/plotly.js'
+    echarts: './webpack-src/js/echarts.js'
+  },
+  optimization: {
+    minimize: true
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -15,8 +18,7 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
-    }),
-    new webpack.optimize.UglifyJsPlugin()
+    })
   ],
   output: {
     publicPath: '/assets-wp/',
@@ -62,14 +64,10 @@ module.exports = {
         }]
       },
       {
-        test: /\.js$/,
-        use: 'transform-loader?plotly.js/tasks/util/compress_attributes.js',
-      },
-      {
-        test: require.resolve('./webpack-src/js/plotly.js'),
+        test: require.resolve('./webpack-src/js/echarts.js'),
         use: [{
           loader: 'expose-loader',
-          options: 'Plotly'
+          options: 'echarts'
         }]
       }
     ],

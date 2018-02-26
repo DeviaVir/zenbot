@@ -31,7 +31,7 @@ module.exports = {
       }
     }
     
-    // compture MACD
+    // compute MACD
     ema(s, 'ema_short', s.options.ema_short_period)
     ema(s, 'ema_long', s.options.ema_long_period)
     if (s.period.ema_short && s.period.ema_long) {

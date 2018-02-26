@@ -8,6 +8,7 @@ var tb = require('timebucket')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
   , collectionService = require('../lib/services/collection-service')
+  , _ = require('lodash')
 
 module.exports = function (program, conf) {
   program
@@ -29,28 +30,42 @@ module.exports = function (program, conf) {
     .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, conf.markdown_buy_pct)
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
     .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, conf.order_adjust_time)
+    .option('--order_poll_time <ms>', 'poll order status on this interval', Number, conf.order_poll_time)
     .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, conf.sell_stop_pct)
     .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, conf.buy_stop_pct)
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
     .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, conf.profit_stop_pct)
     .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', conf.max_sell_loss_pct)
+    .option('--max_buy_loss_pct <pct>', 'avoid buying at a loss pct over this float', conf.max_buy_loss_pct)
     .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', conf.max_slippage_pct)
     .option('--symmetrical', 'reverse time at the end of the graph, normalizing buy/hold to 0', conf.symmetrical)
     .option('--rsi_periods <periods>', 'number of periods to calculate RSI at', Number, conf.rsi_periods)
+    .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
+    .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--disable_options', 'disable printing of options')
     .option('--enable_stats', 'enable printing order stats')
     .option('--backtester_generation <generation>','creates a json file in simulations with the generation number', Number, -1)
     .option('--verbose', 'print status lines on every period')
+    .option('--silent', 'only output on completion (can speed up sim)')
     .action(function (selector, cmd) {
-      var s = {options: minimist(process.argv)}
+      var s = { options: minimist(process.argv) }
       var so = s.options
       delete so._
+      if (cmd.conf) {
+        var overrides = require(path.resolve(process.cwd(), cmd.conf))
+        Object.keys(overrides).forEach(function (k) {
+          so[k] = overrides[k]
+        })
+      }
       Object.keys(conf).forEach(function (k) {
-        if (typeof cmd[k] !== 'undefined') {
+        if (!_.isUndefined(cmd[k])) {
           so[k] = cmd[k]
         }
       })
       var tradesCollection = collectionService(conf).getTrades()
+      var simResults = collectionService(conf).getSimResults()
+
+      var eventBus = conf.eventBus
 
       if (so.start) {
         so.start = moment(so.start, 'YYYYMMDDhhmm').valueOf()
@@ -68,21 +83,15 @@ module.exports = function (program, conf) {
         var d = tb('1d')
         so.start = d.subtract(so.days).toMilliseconds()
       }
-        
+
       so.days = moment(so.end).diff(moment(so.start), 'days')
-      
+
       so.stats = !!cmd.enable_stats
       so.show_options = !cmd.disable_options
       so.verbose = !!cmd.verbose
       so.selector = objectifySelector(selector || conf.selector)
       so.mode = 'sim'
 
-      if (cmd.conf) {
-        var overrides = require(path.resolve(process.cwd(), cmd.conf))
-        Object.keys(overrides).forEach(function (k) {
-          so[k] = overrides[k]
-        })
-      }
       var engine = engineFactory(s, conf)
       if (!so.min_periods) so.min_periods = 1
       var cursor, reversing, reverse_point
@@ -104,10 +113,10 @@ module.exports = function (program, conf) {
         option_keys.forEach(function (k) {
           options[k] = so[k]
         })
-          
+
         let options_output = options
         options_output.simresults = {}
-         
+
         if (s.my_trades.length) {
           s.my_trades.push({
             price: s.period.close,
@@ -198,7 +207,14 @@ module.exports = function (program, conf) {
           console.log('wrote', out_target)
         }
 
-        process.exit(0)
+        simResults.save(options_output)
+          .then(() => {
+            process.exit(0)
+          })
+          .catch((err) => {
+            console.error(err)
+            process.exit(0)
+          })
       }
 
       function getNext () {
@@ -230,34 +246,40 @@ module.exports = function (program, conf) {
           if (!opts.query.time) opts.query.time = {}
           opts.query.time['$gte'] = query_start
         }
-        tradesCollection.find(opts.query).sort(opts.sort).limit(opts.limit).toArray(function (err, trades) {
-          if (err) throw err
-          if (!trades.length) {
+        var collectionCursor = tradesCollection.find(opts.query).sort(opts.sort).stream()
+        var numTrades = 0
+        var lastTrade
+
+        collectionCursor.on('data', function(trade){
+          lastTrade = trade
+          numTrades++
+          if (so.symmetrical && reversing) {
+            trade.orig_time = trade.time
+            trade.time = reverse_point + (reverse_point - trade.time)
+          }
+          eventBus.emit('trade', trade)
+        })
+
+        collectionCursor.on('end', function(){
+          if(numTrades === 0){
             if (so.symmetrical && !reversing) {
               reversing = true
               reverse_point = cursor
               return getNext()
             }
             engine.exit(exitSim)
-          }
-          if (so.symmetrical && reversing) {
-            trades.forEach(function (trade) {
-              trade.orig_time = trade.time
-              trade.time = reverse_point + (reverse_point - trade.time)
-            })
-          }            
-          engine.update(trades, function (err) {
-            if (err) throw err
+          } else {
             if (reversing) {
-              cursor = trades[trades.length - 1].orig_time
+              cursor = lastTrade.orig_time
             }
             else {
-              cursor = trades[trades.length - 1].time
+              cursor = lastTrade.time
             }
-            setImmediate(getNext)
-          })
+          }
+          setImmediate(getNext)
         })
       }
+
       getNext()
     })
 }

@@ -5,6 +5,22 @@
  * 07/01/2017
  *
  * Example: ./darwin.js --selector="bitfinex.ETH-USD" --days="10" --currency_capital="5000" --use_strategies="all | macd,trend_ema,etc" --population="101" --population_data="simulations/generation_data_NUMBERS"
+ * Params: 
+ * --use_strategies=<stragegy_name>,<stragegy_name>,<stragegy_name>   Min one strategy, can include more than one
+ * --population_data=<filename>           filename used for continueing backtesting from previous run
+ * --generateLaunch=<true>|<false>        will generate .sh and .bat file using the best generation discovered
+ * --population=<int>                     populate per strategy
+ * --maxCores=<int>                       maximum processes to execute at a time default is # of cpu cores in system
+ * --selector=<exchange.marketPair>  
+ * --asset_capital=<float>                amount coin to start sim with 
+ * --currency_capital=<float>             amount of capital/base currency to start sim with
+ * --days=<int>                           amount of days to use when backfilling
+ * --noStatSave=<true>|<false>            true:no statistics are saved to the simulation folder
+ * --silent=<true>|<false>                true:can improve performance
+ * 
+ * any parameters for sim and or strategy can be passed in and will override the genetic test generated parameter 
+ * i.e. if --period_length=1m is passed all test will be performed using --period_length=1m instead of trying to find that parameter
+ *
  */
 
 let shell = require('shelljs')
@@ -25,19 +41,17 @@ let Phenotypes = require('./phenotype.js')
 let argv = require('yargs').argv
 let z = require('zero-fill')
 let n = require('numbro')
+let _ = require('lodash')
 
 let VERSION = 'Zenbot 4 Genetic Backtester v0.2.2'
 
 let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length
 
-let TREND_EMA_MIN = 20
-let TREND_EMA_MAX = 20
 
-let OVERSOLD_RSI_MIN = 20
-let OVERSOLD_RSI_MAX = 35
 
-let OVERSOLD_RSI_PERIODS_MIN = 15
-let OVERSOLD_RSI_PERIODS_MAX = 25
+
+
+
 
 let iterationCount = 0
 
@@ -47,6 +61,9 @@ let simArgs
 let populationSize = 0
 let generationCount = 1
 let generationProcessing = false
+let population_data = ''
+let noStatSave = false
+
 
 let darwinMonitor = {
   periodDurations: [],
@@ -91,14 +108,14 @@ let darwinMonitor = {
 
   reportStatus: function() {
     var genCompleted = 0
-    //var genTotal = 0
+    // var genTotal = 0
 
     var simsDone = 0
     var simsActive = 0
     var simsErrored = 0
     var simsAll = populationSize * selectedStrategies.length
     var simsRemaining = simsAll
-    //var self = this
+    // var self = this
     // console.log(`populationSize: ${populationSize}, this.phenotypes: ${this.phenotypes.length}`);
 
     readline.clearLine(process.stdout)
@@ -292,11 +309,18 @@ let buildCommand = (taskStrategyName, phenotype) => {
   if (argv.include_html)
     cmdArgs.filename = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}_result.html`
 
+  if (argv.silent)
+    cmdArgs.silent = true
+
   let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'
   let command = `${zenbot_cmd} sim ${selector}`
 
   for (const [ key, value ] of Object.entries(cmdArgs)) {
-    command += ` --${key}=${value}`
+    if(_.isBoolean(value)){
+      command += ` --${value ? '' : 'no-'}${key}`
+    } else {
+      command += ` --${key}=${value}`
+    }
   }
 
   var actualRange = darwinMonitor.actualRange({
@@ -326,7 +350,8 @@ let readSimDataFile = (iteration) => {
 
 let writeSimDataFile = (iteration, data) => {
   let jsonFileName = `simulations/${population_data}/gen_${generationCount}/sim_${iteration}.json`
-  writeFileAndFolder(jsonFileName, data)
+  if (!noStatSave)
+    writeFileAndFolder(jsonFileName, data)
 }
 
 let runCommand = (taskStrategyName, phenotype, command, cb) => {
@@ -344,9 +369,11 @@ let runCommand = (taskStrategyName, phenotype, command, cb) => {
   proc.on('exit', () => {
     let result = null
     let stdout = endData.toString()
-    try {
+    try {      
       result = processOutput(stdout,taskStrategyName,phenotype)
-
+      if (!result) { 
+        throw 'Error during execution'
+      }
       command.endTime = moment()
       command.result = result
 
@@ -445,7 +472,32 @@ function processOutput  (output,taskStrategyName, pheno) {
     end = parseInt(simulationResults.end || null)
   }
   else {
-    console.log(`Couldn't find simulationResults for ${pheno.backtester_generation}`)
+    console.log(`Couldn't find simulationResults for ${pheno.backtester_generation}` )
+    // this should retun a general bad result but not throw an error
+    // our job here is to use the result.  not diagnose an error at this point so a failing sim should just be ignored.
+    // idea here is to make the fitness of this calculation as bad as possible so darwin won't use the combonation of parameters again.
+    // todo:  make the result its own object, and in this function just set the values don't define the result here.
+    return {
+      params: 'module.exports = {}',
+      endBalance: 0,
+      buyHold: 0,
+      vsBuyHold: 0,
+      wins: 0,
+      losses: -1,
+      errorRate: 100,
+      days: 0,
+      period_length: 0,
+      min_periods: 0,
+      markdown_buy_pct: 0,
+      markup_sell_pct: 0,
+      order_type: 'maker',
+      wlRatio: 'Infinity',
+      roi: -1000,
+      selector: params.selector,
+      strategy: params.strategy,
+      frequency: 0
+    }
+  
   }
 
   let roi
@@ -574,9 +626,23 @@ function RangeNeuralActivation  () {
   }
   return r
 }
+
+function RangeMaType  () {
+  var r = {
+    type: 'maType'
+  }
+  return r
+}
+
 function RangeBoolean  () {
   var r = {
     type: 'truefalse'
+  }
+  return r
+}
+function RangeSignalType () {
+  var r ={
+    type: 'uscSignalType'
   }
   return r
 }
@@ -827,9 +893,9 @@ const strategies = {
     profit_stop_pct: Range(1,20),
 
     // -- strategy
-    trend_ema: Range(TREND_EMA_MIN, TREND_EMA_MAX),
-    oversold_rsi_periods: Range(OVERSOLD_RSI_PERIODS_MIN, OVERSOLD_RSI_PERIODS_MAX),
-    oversold_rsi: Range(OVERSOLD_RSI_MIN, OVERSOLD_RSI_MAX)
+    trend_ema: Range(1, 40),
+    oversold_rsi_periods: Range(5, 50),
+    oversold_rsi: Range(20, 100)
   },
   ta_macd: {
     // -- common
@@ -852,6 +918,84 @@ const strategies = {
     down_trend_threshold: Range(0, 50),
     overbought_rsi_periods: Range(1, 50),
     overbought_rsi: Range(20, 100)
+  },
+  ta_macd_ext:{
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 104),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // have to be minimum 2 because talib will throw an "TA_BAD_PARAM" error
+    ema_short_period: Range(2, 20),
+    ema_long_period: Range(20, 100),
+    signal_period: Range(1, 20),
+    fast_ma_type: RangeMaType(),
+    slow_ma_type: RangeMaType(),
+    signal_ma_type: RangeMaType(),
+    default_ma_type: RangeMaType(),
+    //    this.option('default_ma_type', 'set default ma_type for fast, slow and signal. You are able to overwrite single types separately (fast_ma_type, slow_ma_type, signal_ma_type)', String, 'SMA')
+    up_trend_threshold: Range(0, 50),
+    down_trend_threshold: Range(0, 50),
+    overbought_rsi_periods: Range(1, 50),
+    overbought_rsi: Range(20, 100)    
+  },
+  ta_ppo: {
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 104),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+
+    // have to be minimum 2 because talib will throw an "TA_BAD_PARAM" error
+    ema_short_period: Range(2, 20),
+    ema_long_period: Range(20, 100),
+    signal_period: Range(1, 20),
+    ma_type: RangeMaType(),
+    overbought_rsi_periods: Range(1, 50),
+    overbought_rsi: Range(20, 100)    
+  },
+  ta_trix: {
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 104),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+    
+    timeperiod: Range(1,60),
+    overbought_rsi_periods: Range(1, 50),
+    overbought_rsi: Range(20, 100)   
+  },
+  ta_ultosc:
+  {
+    period_length: RangePeriod(1, 120, 'm'),
+    min_periods: Range(1, 104),
+    markdown_buy_pct: RangeFloat(-1, 5),
+    markup_sell_pct: RangeFloat(-1, 5),
+    order_type: RangeMakerTaker(),
+    sell_stop_pct: Range0(1, 50),
+    buy_stop_pct: Range0(1, 50),
+    profit_stop_enable_pct: Range0(1, 20),
+    profit_stop_pct: Range(1,20),
+    
+    signal:RangeSignalType(),
+    timeperiod1:Range(1,50),
+    timeperiod2:Range(1,50),   
+    timeperiod3:Range(1,50), 
+    overbought_rsi_periods: Range(1, 50),
+    overbought_rsi: Range(20, 100)   
   },
   trend_bollinger: {
     // -- common
@@ -883,9 +1027,9 @@ const strategies = {
     profit_stop_pct: Range(1,20),
 
     // -- strategy
-    trend_ema: Range(TREND_EMA_MIN, TREND_EMA_MAX),
-    oversold_rsi_periods: Range(OVERSOLD_RSI_PERIODS_MIN, OVERSOLD_RSI_PERIODS_MAX),
-    oversold_rsi: Range(OVERSOLD_RSI_MIN, OVERSOLD_RSI_MAX)
+    trend_ema: Range(1, 40),
+    oversold_rsi_periods: Range(5, 50),
+    oversold_rsi: Range(20, 100)
   },
   trendline: {
     // -- common
@@ -962,6 +1106,7 @@ function isUsefulKey  (key)  {
 }
 
 function generateCommandParams (input)  {
+
   input = input.params.replace('module.exports =','')
   input = JSON.parse(input)
 
@@ -1000,7 +1145,7 @@ function  saveGenerationData (csvFileName, jsonFileName, dataCSV, dataJSON) {
   }
 }
 
-let population_data = argv.population_data || `backtest_${moment().format('YYYYMMDDHHmm')}`
+
 
 // Find the first incomplete generation of this session, where incomplete means no "results" files
 while (fs.existsSync(`simulations/${population_data}/gen_${generationCount}`)) { generationCount++ }
@@ -1045,27 +1190,32 @@ function saveLaunchFiles(saveLauchFile, configuration ){
   //write Nix Version
   let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n',
     'env node zenbot.js trade ', 
-    bestOverallCommand,'\n')
+    bestOverallCommand,' $@\n')
   let lWin32Contents = '@echo off\n'.concat('rem fitness=',configuration.fitness,'\n',
     'node zenbot.js trade ', 
-    bestOverallCommand,'\n')
+    bestOverallCommand,' %*\n')
   
   if (Number(configuration.fitness) > Number(lastFitnessLevel))
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
     // using the string instead of octet as eslint compaines about an invalid number if the number starts with 0
-    fs.chmodSync(lFilenameNix, 0777)
-    fs.chmodSync(lFinenamewin32, 0777)
+    fs.chmodSync(lFilenameNix, '777')
+    fs.chmodSync(lFinenamewin32, '777')
   }
 }
-
+let cycleCount = -1
 function simulateGeneration  (generateLaunchFile) {
 
 // Find the first incomplete generation of this session, where incomplete means no "results" files
   while (fs.existsSync(`simulations/${population_data}/gen_${generationCount}`)) { generationCount++ }
   generationCount--
   if (generationCount > 0 && !fs.existsSync(`simulations/${population_data}/gen_${generationCount}/results.csv`)) { generationCount-- }
+
+  if (noStatSave) {
+    cycleCount++
+    generationCount = cycleCount
+  }
 
   generationProcessing = true
   console.log(`\n\n=== Simulating generation ${++generationCount} ===\n`)
@@ -1152,7 +1302,8 @@ function simulateGeneration  (generateLaunchFile) {
 
     let jsonFileName = `simulations/${population_data}/gen_${generationCount}/results.json`
     let dataJSON = JSON.stringify(poolData, null, 2)
-    saveGenerationData(csvFileName, jsonFileName, dataCSV, dataJSON )
+    if (!noStatSave)
+      saveGenerationData(csvFileName, jsonFileName, dataCSV, dataJSON )
 
 
     //Display best of the generation
@@ -1220,23 +1371,49 @@ if (!simArgs.selector)
   simArgs.selector = 'bitfinex.ETH-USD'
 if (!simArgs.filename)
   simArgs.filename = 'none'
+
+if (simArgs.help || !(simArgs.use_strategies)) 
+{
+  console.log('--use_strategies=<stragegy_name>,<stragegy_name>,<stragegy_name>   Min one strategy, can include more than one')
+  console.log('--population_data=<filename>    filename used for continueing backtesting from previous run')
+  console.log('--generateLaunch=<true>|<false>        will genertate .sh and .bat file using the best generation discovered')
+  console.log('--population=<int>    populate per strategy')
+  console.log('--maxCores=<int>    maximum processes to execute at a time default is # of cpu cores in system')
+  console.log('--selector=<exchange.marketPair>  ')
+  console.log('--asset_capital=<float>    amount coin to start sim with ')
+  console.log('--currency_capital=<float>  amount of capital/base currency to start sim with'),
+  console.log('--days=<int>  amount of days to use when backfilling')
+  console.log('--noStatSave=<true>|<false>')
+  process.exit(0)
+}
+
+
 delete simArgs.use_strategies
 delete simArgs.population_data
 delete simArgs.population
 delete simArgs['$0'] // This comes in to argv all by itself
 delete simArgs['_']  // This comes in to argv all by itself
 
+if (simArgs.maxCores)
+{
+  if (simArgs.maxCores < 1) PARALLEL_LIMIT = 1
+  else
+    PARALLEL_LIMIT = simArgs.maxCores
+}
+
 let generateLaunchFile = (simArgs.generateLaunch) ? true : false
+noStatSave = (simArgs.noStatSave) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
-//let populationFileName = (argv.population_data) ? argv.population_data : null
 populationSize = (argv.population) ? argv.population : 100
+
+
+population_data = argv.population_data || `backtest.${simArgs.selector.toLowerCase()}.${moment().format('YYYYMMDDHHmmss')}`
+
 
 console.log(`Backtesting strategy ${strategyName} ...\n`)
 console.log(`Creating population of ${populationSize} ...\n`)
 
-
 selectedStrategies = (strategyName === 'all') ? allStrategyNames() : strategyName.split(',')
-
 
 //Clean up any generation files left over in the simulation directory
 //they will be overwritten, but best not to confuse the issue.
