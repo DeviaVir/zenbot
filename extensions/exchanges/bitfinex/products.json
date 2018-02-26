@@ -338,7 +338,7 @@
   {
     "asset": "AVT",
     "currency": "USD",
-    "min_size": "4.0",
+    "min_size": "6.0",
     "max_size": "50000.0",
     "increment": "0.00001",
     "label": "AVT/USD"
@@ -346,7 +346,7 @@
   {
     "asset": "AVT",
     "currency": "BTC",
-    "min_size": "4.0",
+    "min_size": "6.0",
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "AVT/BTC"
@@ -354,7 +354,7 @@
   {
     "asset": "AVT",
     "currency": "ETH",
-    "min_size": "4.0",
+    "min_size": "6.0",
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "AVT/ETH"
@@ -498,7 +498,7 @@
   {
     "asset": "SNT",
     "currency": "USD",
-    "min_size": "60.0",
+    "min_size": "62.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "SNT/USD"
@@ -506,7 +506,7 @@
   {
     "asset": "SNT",
     "currency": "BTC",
-    "min_size": "60.0",
+    "min_size": "62.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "SNT/BTC"
@@ -514,7 +514,7 @@
   {
     "asset": "SNT",
     "currency": "ETH",
-    "min_size": "60.0",
+    "min_size": "62.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "SNT/ETH"
@@ -626,7 +626,7 @@
   {
     "asset": "TNB",
     "currency": "USD",
-    "min_size": "176.0",
+    "min_size": "180.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "TNB/USD"
@@ -634,7 +634,7 @@
   {
     "asset": "TNB",
     "currency": "BTC",
-    "min_size": "176.0",
+    "min_size": "180.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "TNB/BTC"
@@ -642,7 +642,7 @@
   {
     "asset": "TNB",
     "currency": "ETH",
-    "min_size": "176.0",
+    "min_size": "180.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "TNB/ETH"
@@ -698,7 +698,7 @@
   {
     "asset": "RCN",
     "currency": "USD",
-    "min_size": "68.0",
+    "min_size": "72.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "RCN/USD"
@@ -706,7 +706,7 @@
   {
     "asset": "RCN",
     "currency": "BTC",
-    "min_size": "68.0",
+    "min_size": "72.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "RCN/BTC"
@@ -714,7 +714,7 @@
   {
     "asset": "RCN",
     "currency": "ETH",
-    "min_size": "68.0",
+    "min_size": "72.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "RCN/ETH"

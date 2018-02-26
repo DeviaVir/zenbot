@@ -150,9 +150,9 @@ module.exports = function bittrex (conf) {
       }, function(err){
         // match error against string:
         // "binance {"code":-2011,"msg":"UNKNOWN_ORDER"}"
-        
+
         if (err) {
-          // decide if this error is allowed for a retry 
+          // decide if this error is allowed for a retry
 
           if (err.message && err.message.match(new RegExp(/-2011|UNKNOWN_ORDER/))) {
             console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + ' - ' + err).cyan)
@@ -207,7 +207,7 @@ module.exports = function bittrex (conf) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
-        
+
         // decide if this error is allowed for a retry:
         // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
         // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
@@ -263,10 +263,12 @@ module.exports = function bittrex (conf) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
-        
+
         // decide if this error is allowed for a retry:
         // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
-        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+        // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
+
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL|-2010/))) {
           return cb(null, {
             status: 'rejected',
             reject_reason: 'balance'

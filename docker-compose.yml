@@ -8,6 +8,7 @@ services:
       - ./conf.js:/app/conf.js
       - ./extensions:/app/extensions
       - ./simulations:/app/simulations
+      - ./models:/app/models
     links:
       - mongodb
     command: [ "trade", "--paper" ]
