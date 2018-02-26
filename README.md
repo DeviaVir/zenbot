@@ -32,6 +32,10 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 - Configurable sell stops, buy stops, and (trailing) profit stops
 - Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 15-50/day with 5m period
 
+### Community
+
+Join the Zenbot community on [Reddit](https://reddit.com/r/zenbot)!
+
 ## Disclaimer
 
 - Zenbot is NOT a sure-fire profit machine. Use it AT YOUR OWN RISK.
