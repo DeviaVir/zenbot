@@ -74,8 +74,9 @@ module.exports = function sim (conf, s) {
         price: opts.price,
         size: opts.size,
         orig_size: opts.size,
+        remaining_size: opts.size,
         post_only: !!opts.post_only,
-        filled_size: '0',
+        filled_size: 0,
         ordertype: opts.order_type,
         tradetype: 'buy',
         orig_time: now,
@@ -99,8 +100,9 @@ module.exports = function sim (conf, s) {
         price: opts.price,
         size: opts.size,
         orig_size: opts.size,
+        remaining_size: opts.size,
         post_only: !!opts.post_only,
-        filled_size: '0',
+        filled_size: 0,
         ordertype: opts.order_type,
         tradetype: 'sell',
         orig_time: now,
@@ -132,9 +134,7 @@ module.exports = function sim (conf, s) {
             // Not time yet
           }
           else if (trade.price <= Number(order.price)) {
-            processBuy(order)
-            order.done_at = trade.time
-            delete openOrders[order_id]
+            processBuy(order, trade)
           }
         }
         else if (order.tradetype === 'sell') {
@@ -142,84 +142,106 @@ module.exports = function sim (conf, s) {
             // Not time yet
           }
           else if (trade.price >= order.price) {
-            processSell(order)
-            order.done_at = trade.time
-            delete openOrders[order_id]
+            processSell(order, trade)
           }
         }
       })
     }
   }
 
-  function processBuy (buy_order) {
-    let fee
+  function processBuy (buy_order, trade) {
+    let fee = 0
+    let size = Math.min(buy_order.remaining_size, trade.size)
     let price = buy_order.price
+
+    // Buying, so add asset
+    balance.asset = n(balance.asset).add(size).format('0.00000000')
+
     if (so.order_type === 'maker') {
       if (exchange.makerFee) {
-        fee = n(buy_order.size).multiply(exchange.makerFee / 100).value()
+        fee = n(size).multiply(exchange.makerFee / 100).value()
       }
     }
-    if (so.order_type === 'taker') {
+    else if (so.order_type === 'taker') {
       if (s.exchange.takerFee) {
-        fee = n(buy_order.size).multiply(exchange.takerFee / 100).value()
+        fee = n(size).multiply(exchange.takerFee / 100).value()
       }
     }
-
-    balance.asset = n(balance.asset).add(buy_order.size).format('0.00000000')
     if (so.order_type === 'maker') {
-      price = n(buy_order.price).add(n(buy_order.price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
+      price = n(price).add(n(price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
       if (exchange.makerFee) {
         balance.asset = n(balance.asset).subtract(fee).format('0.00000000')
       }
     }
-    if (so.order_type === 'taker') {
+    else if (so.order_type === 'taker') {
       if (exchange.takerFee) {
         balance.asset = n(balance.asset).subtract(fee).format('0.00000000')
       }
     }
-    let total = n(price).multiply(buy_order.size)
+
+    let total = n(price).multiply(size)
     balance.currency = n(balance.currency).subtract(total).format('0.00000000')
 
+    let order = buy_order
+    order.filled_size = order.filled_size + size
+    order.remaining_size = order.size - order.filled_size
 
-    buy_order.status = 'done'
-    buy_order.filled_size = buy_order.size
-    buy_order.remaining_size = 0
+    if (order.remaining_size <= 0) {
+      order.status = 'done'
+      order.done_at = trade.time
+      delete openOrders['~' + order.id]
+    }
+    else {
+      // console.log('partial fill')
+    }
   }
 
-  function processSell (sell_order) {
-    let fee
+  function processSell (sell_order, trade) {
+    let fee = 0
+    let size = Math.min(sell_order.remaining_size, trade.size)
     let price = sell_order.price
 
-    if (so.order_type === 'maker') {
-      if (exchange.makerFee) {
-        fee = n(sell_order.size).multiply(exchange.makerFee / 100).multiply(price).value()
-      }
-    }
-    if (so.order_type === 'taker') {
-      if (exchange.takerFee) {
-        fee = n(sell_order.size).multiply(exchange.takerFee / 100).multiply(price).value()
-      }
-    }
+    // Selling, so subtract asset
+    balance.asset = n(balance.asset).subtract(size).value()
 
-    balance.asset = n(balance.asset).subtract(sell_order.size).value()
     if (so.order_type === 'maker') {
-      price = n(sell_order.price).subtract(n(sell_order.price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
       if (exchange.makerFee) {
-        fee = n(sell_order.size).multiply(exchange.makerFee / 100).multiply(price).value()
+        fee = n(size).multiply(exchange.makerFee / 100).value()
+      }
+    }
+    else if (so.order_type === 'taker') {
+      if (exchange.takerFee) {
+        fee = n(size).multiply(exchange.takerFee / 100).value()
+      }
+    }
+    if (so.order_type === 'maker') {
+      price = n(price).subtract(n(price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
+      if (exchange.makerFee) {
+        fee = n(size).multiply(exchange.makerFee / 100).multiply(price).value()
         balance.currency = n(balance.currency).subtract(fee).format('0.00000000')
       }
     }
-    if (so.order_type === 'taker') {
+    else if (so.order_type === 'taker') {
       if (exchange.takerFee) {
         balance.currency = n(balance.currency).subtract(fee).format('0.00000000')
       }
     }
-    let total = n(price).multiply(sell_order.size)
-    balance.currency = n(balance.currency).add(total).value()
 
-    sell_order.status = 'done'
-    sell_order.filled_size = sell_order.size
-    sell_order.remaining_size = 0
+    let total = n(price).multiply(size)
+    balance.currency = n(balance.currency).add(total).format('0.00000000')
+
+    let order = sell_order
+    order.filled_size = order.filled_size + size
+    order.remaining_size = order.size - order.filled_size
+
+    if (order.remaining_size <= 0) {
+      order.status = 'done'
+      order.done_at = trade.time
+      delete openOrders['~' + order.id]
+    }
+    else {
+      // console.log('partial fill')
+    }
   }
 
   return exchange
