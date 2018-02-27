@@ -549,7 +549,9 @@ module.exports = function (program, conf) {
             }
             if (botStartTime && botStartTime - moment() < 0 ) {
               // Not sure if I should just handle exit code directly or thru printTrade.  Decided on printTrade being if code is added there for clean exits this can just take advantage of it.
-              printTrade(true)
+              engine.exit(() => {
+                printTrade(true)
+              })
             }
             session.updated = new Date().getTime()
             session.balance = s.balance
