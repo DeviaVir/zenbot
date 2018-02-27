@@ -2,7 +2,7 @@
   {
     "asset": "LTC",
     "currency": "BTC",
-    "min_size": "0.01378854",
+    "min_size": "0.01141553",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LTC"
@@ -10,7 +10,7 @@
   {
     "asset": "DOGE",
     "currency": "BTC",
-    "min_size": "423.72881356",
+    "min_size": "396.82539683",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DOGE"
@@ -18,7 +18,7 @@
   {
     "asset": "VTC",
     "currency": "BTC",
-    "min_size": "0.65884833",
+    "min_size": "0.67193463",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VTC"
@@ -26,7 +26,7 @@
   {
     "asset": "PPC",
     "currency": "BTC",
-    "min_size": "0.61336147",
+    "min_size": "0.79488728",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PPC"
@@ -34,7 +34,7 @@
   {
     "asset": "FTC",
     "currency": "BTC",
-    "min_size": "10.63829787",
+    "min_size": "11.88777936",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FTC"
@@ -42,7 +42,7 @@
   {
     "asset": "RDD",
     "currency": "BTC",
-    "min_size": "324.67532468",
+    "min_size": "250.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RDD"
@@ -50,7 +50,7 @@
   {
     "asset": "NXT",
     "currency": "BTC",
-    "min_size": "11.06194690",
+    "min_size": "12.07729469",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NXT"
@@ -58,7 +58,7 @@
   {
     "asset": "DASH",
     "currency": "BTC",
-    "min_size": "0.00339213",
+    "min_size": "0.00412541",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DASH"
@@ -66,7 +66,7 @@
   {
     "asset": "POT",
     "currency": "BTC",
-    "min_size": "13.77410468",
+    "min_size": "15.75299307",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/POT"
@@ -74,7 +74,7 @@
   {
     "asset": "BLK",
     "currency": "BTC",
-    "min_size": "6.66844492",
+    "min_size": "7.35726898",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BLK"
@@ -82,7 +82,7 @@
   {
     "asset": "EMC2",
     "currency": "BTC",
-    "min_size": "5.50055006",
+    "min_size": "8.33055648",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EMC2"
@@ -90,7 +90,7 @@
   {
     "asset": "XMY",
     "currency": "BTC",
-    "min_size": "179.85611511",
+    "min_size": "213.67521368",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XMY"
@@ -98,7 +98,7 @@
   {
     "asset": "AUR",
     "currency": "BTC",
-    "min_size": "1.25194051",
+    "min_size": "1.45917236",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/AUR"
@@ -106,7 +106,7 @@
   {
     "asset": "EFL",
     "currency": "BTC",
-    "min_size": "8.83704489",
+    "min_size": "11.67133520",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EFL"
@@ -114,7 +114,7 @@
   {
     "asset": "GLD",
     "currency": "BTC",
-    "min_size": "13.15097317",
+    "min_size": "15.16070346",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GLD"
@@ -122,7 +122,7 @@
   {
     "asset": "SLR",
     "currency": "BTC",
-    "min_size": "4.29405703",
+    "min_size": "5.78302105",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SLR"
@@ -130,7 +130,7 @@
   {
     "asset": "PTC",
     "currency": "BTC",
-    "min_size": "39.68253968",
+    "min_size": "48.73294347",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PTC"
@@ -138,7 +138,7 @@
   {
     "asset": "GRS",
     "currency": "BTC",
-    "min_size": "3.35615519",
+    "min_size": "4.28890033",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GRS"
@@ -146,7 +146,7 @@
   {
     "asset": "NLG",
     "currency": "BTC",
-    "min_size": "12.96008294",
+    "min_size": "16.99524133",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NLG"
@@ -154,7 +154,7 @@
   {
     "asset": "RBY",
     "currency": "BTC",
-    "min_size": "2.94152253",
+    "min_size": "3.58680057",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RBY"
@@ -162,7 +162,7 @@
   {
     "asset": "XWC",
     "currency": "BTC",
-    "min_size": "16.76727029",
+    "min_size": "19.37984496",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XWC"
@@ -170,7 +170,7 @@
   {
     "asset": "MONA",
     "currency": "BTC",
-    "min_size": "0.51090266",
+    "min_size": "0.45961797",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MONA"
@@ -178,7 +178,7 @@
   {
     "asset": "THC",
     "currency": "BTC",
-    "min_size": "12.76161307",
+    "min_size": "19.98401279",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/THC"
@@ -186,7 +186,7 @@
   {
     "asset": "ENRG",
     "currency": "BTC",
-    "min_size": "14.01345291",
+    "min_size": "17.24137931",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ENRG"
@@ -194,7 +194,7 @@
   {
     "asset": "ERC",
     "currency": "BTC",
-    "min_size": "2.90023202",
+    "min_size": "3.52063090",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ERC"
@@ -202,7 +202,7 @@
   {
     "asset": "VRC",
     "currency": "BTC",
-    "min_size": "2.34455594",
+    "min_size": "3.37518564",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VRC"
@@ -210,7 +210,7 @@
   {
     "asset": "CURE",
     "currency": "BTC",
-    "min_size": "4.60574797",
+    "min_size": "5.59910414",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CURE"
@@ -218,7 +218,7 @@
   {
     "asset": "XMR",
     "currency": "BTC",
-    "min_size": "0.00865034",
+    "min_size": "0.00893258",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XMR"
@@ -226,7 +226,7 @@
   {
     "asset": "CLOAK",
     "currency": "BTC",
-    "min_size": "0.22789426",
+    "min_size": "0.27795072",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CLOAK"
@@ -234,7 +234,7 @@
   {
     "asset": "START",
     "currency": "BTC",
-    "min_size": "22.32142857",
+    "min_size": "27.65486726",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/START"
@@ -242,7 +242,7 @@
   {
     "asset": "KORE",
     "currency": "BTC",
-    "min_size": "0.66812764",
+    "min_size": "0.85435035",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/KORE"
@@ -250,7 +250,7 @@
   {
     "asset": "XDN",
     "currency": "BTC",
-    "min_size": "103.30578512",
+    "min_size": "129.53367876",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XDN"
@@ -258,7 +258,7 @@
   {
     "asset": "TRUST",
     "currency": "BTC",
-    "min_size": "15.79279848",
+    "min_size": "20.22653722",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TRUST"
@@ -266,7 +266,7 @@
   {
     "asset": "NAV",
     "currency": "BTC",
-    "min_size": "1.36128505",
+    "min_size": "1.44843569",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NAV"
@@ -274,7 +274,7 @@
   {
     "asset": "XST",
     "currency": "BTC",
-    "min_size": "5.41711809",
+    "min_size": "7.84190715",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XST"
@@ -282,7 +282,7 @@
   {
     "asset": "VIA",
     "currency": "BTC",
-    "min_size": "0.73529412",
+    "min_size": "0.98522167",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VIA"
@@ -290,7 +290,7 @@
   {
     "asset": "PINK",
     "currency": "BTC",
-    "min_size": "77.63975155",
+    "min_size": "89.92805755",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PINK"
@@ -298,7 +298,7 @@
   {
     "asset": "IOC",
     "currency": "BTC",
-    "min_size": "0.96150148",
+    "min_size": "1.35457304",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/IOC"
@@ -306,7 +306,7 @@
   {
     "asset": "CANN",
     "currency": "BTC",
-    "min_size": "23.49624060",
+    "min_size": "36.60322108",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CANN"
@@ -314,7 +314,7 @@
   {
     "asset": "SYS",
     "currency": "BTC",
-    "min_size": "4.01284109",
+    "min_size": "4.09567497",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SYS"
@@ -322,7 +322,7 @@
   {
     "asset": "NEOS",
     "currency": "BTC",
-    "min_size": "0.49744314",
+    "min_size": "0.59494062",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NEOS"
@@ -330,7 +330,7 @@
   {
     "asset": "DGB",
     "currency": "BTC",
-    "min_size": "58.54800937",
+    "min_size": "72.88629738",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DGB"
@@ -338,7 +338,7 @@
   {
     "asset": "BURST",
     "currency": "BTC",
-    "min_size": "75.07507508",
+    "min_size": "79.61783439",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BURST"
@@ -346,7 +346,7 @@
   {
     "asset": "EXCL",
     "currency": "BTC",
-    "min_size": "1.71232877",
+    "min_size": "2.08368061",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EXCL"
@@ -354,7 +354,7 @@
   {
     "asset": "SWIFT",
     "currency": "BTC",
-    "min_size": "1.64095832",
+    "min_size": "2.37326751",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SWIFT"
@@ -362,7 +362,7 @@
   {
     "asset": "DOPE",
     "currency": "BTC",
-    "min_size": "23.29916123",
+    "min_size": "37.76435045",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DOPE"
@@ -370,7 +370,7 @@
   {
     "asset": "BLOCK",
     "currency": "BTC",
-    "min_size": "0.07670006",
+    "min_size": "0.08881499",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BLOCK"
@@ -378,7 +378,7 @@
   {
     "asset": "ABY",
     "currency": "BTC",
-    "min_size": "143.67816092",
+    "min_size": "200.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ABY"
@@ -386,7 +386,7 @@
   {
     "asset": "BYC",
     "currency": "BTC",
-    "min_size": "2.41033552",
+    "min_size": "2.85322986",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BYC"
@@ -394,7 +394,7 @@
   {
     "asset": "XMG",
     "currency": "BTC",
-    "min_size": "4.38673451",
+    "min_size": "4.38827453",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XMG"
@@ -402,7 +402,7 @@
   {
     "asset": "BLITZ",
     "currency": "BTC",
-    "min_size": "1.43686419",
+    "min_size": "1.88665006",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BLITZ"
@@ -410,7 +410,7 @@
   {
     "asset": "BAY",
     "currency": "BTC",
-    "min_size": "28.21670429",
+    "min_size": "40.58441558",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BAY"
@@ -418,7 +418,7 @@
   {
     "asset": "FAIR",
     "currency": "BTC",
-    "min_size": "4.15351387",
+    "min_size": "5.87130108",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FAIR"
@@ -426,7 +426,7 @@
   {
     "asset": "SPR",
     "currency": "BTC",
-    "min_size": "3.85030032",
+    "min_size": "5.43596434",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SPR"
@@ -434,7 +434,7 @@
   {
     "asset": "VTR",
     "currency": "BTC",
-    "min_size": "3.25563224",
+    "min_size": "3.79708384",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VTR"
@@ -442,7 +442,7 @@
   {
     "asset": "XRP",
     "currency": "BTC",
-    "min_size": "2.14261227",
+    "min_size": "2.72836407",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XRP"
@@ -450,7 +450,7 @@
   {
     "asset": "GAME",
     "currency": "BTC",
-    "min_size": "0.90370156",
+    "min_size": "1.12902497",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GAME"
@@ -458,7 +458,7 @@
   {
     "asset": "COVAL",
     "currency": "BTC",
-    "min_size": "156.25000000",
+    "min_size": "198.41269841",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/COVAL"
@@ -466,7 +466,7 @@
   {
     "asset": "NXS",
     "currency": "BTC",
-    "min_size": "0.68540096",
+    "min_size": "1.41795701",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NXS"
@@ -474,7 +474,7 @@
   {
     "asset": "XCP",
     "currency": "BTC",
-    "min_size": "0.07482431",
+    "min_size": "0.11363636",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XCP"
@@ -482,7 +482,7 @@
   {
     "asset": "BITB",
     "currency": "BTC",
-    "min_size": "208.33333333",
+    "min_size": "121.95121951",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BITB"
@@ -490,7 +490,7 @@
   {
     "asset": "GEO",
     "currency": "BTC",
-    "min_size": "0.66309480",
+    "min_size": "0.86236633",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GEO"
@@ -498,7 +498,7 @@
   {
     "asset": "FLDC",
     "currency": "BTC",
-    "min_size": "86.80555556",
+    "min_size": "92.59259259",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FLDC"
@@ -506,7 +506,7 @@
   {
     "asset": "GRC",
     "currency": "BTC",
-    "min_size": "34.53038674",
+    "min_size": "38.69969040",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GRC"
@@ -514,7 +514,7 @@
   {
     "asset": "FLO",
     "currency": "BTC",
-    "min_size": "20.59308072",
+    "min_size": "26.42706131",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FLO"
@@ -522,7 +522,7 @@
   {
     "asset": "NBT",
     "currency": "BTC",
-    "min_size": "2.16113416",
+    "min_size": "2.56226299",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NBT"
@@ -530,7 +530,7 @@
   {
     "asset": "MUE",
     "currency": "BTC",
-    "min_size": "14.00560224",
+    "min_size": "17.81895937",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MUE"
@@ -538,7 +538,7 @@
   {
     "asset": "XEM",
     "currency": "BTC",
-    "min_size": "3.75262684",
+    "min_size": "6.50195059",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XEM"
@@ -546,7 +546,7 @@
   {
     "asset": "CLAM",
     "currency": "BTC",
-    "min_size": "0.35971223",
+    "min_size": "0.44166490",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CLAM"
@@ -554,7 +554,7 @@
   {
     "asset": "DMD",
     "currency": "BTC",
-    "min_size": "0.16339869",
+    "min_size": "0.18062279",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DMD"
@@ -562,7 +562,7 @@
   {
     "asset": "GAM",
     "currency": "BTC",
-    "min_size": "0.16296412",
+    "min_size": "0.19230621",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GAM"
@@ -570,7 +570,7 @@
   {
     "asset": "SPHR",
     "currency": "BTC",
-    "min_size": "0.60975610",
+    "min_size": "0.90389761",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SPHR"
@@ -578,7 +578,7 @@
   {
     "asset": "OK",
     "currency": "BTC",
-    "min_size": "7.93650794",
+    "min_size": "10.84598698",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OK"
@@ -586,7 +586,7 @@
   {
     "asset": "SNRG",
     "currency": "BTC",
-    "min_size": "1.08761855",
+    "min_size": "1.33304895",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SNRG"
@@ -594,7 +594,7 @@
   {
     "asset": "PKB",
     "currency": "BTC",
-    "min_size": "2.66666667",
+    "min_size": "3.66300366",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PKB"
@@ -602,7 +602,7 @@
   {
     "asset": "CPC",
     "currency": "BTC",
-    "min_size": "3.80575430",
+    "min_size": "4.95245642",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CPC"
@@ -610,7 +610,7 @@
   {
     "asset": "AEON",
     "currency": "BTC",
-    "min_size": "0.66135817",
+    "min_size": "0.75734626",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/AEON"
@@ -618,7 +618,7 @@
   {
     "asset": "ETH",
     "currency": "BTC",
-    "min_size": "0.00249817",
+    "min_size": "0.00292842",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ETH"
@@ -626,7 +626,7 @@
   {
     "asset": "GCR",
     "currency": "BTC",
-    "min_size": "18.51851852",
+    "min_size": "20.45826514",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GCR"
@@ -634,7 +634,7 @@
   {
     "asset": "TX",
     "currency": "BTC",
-    "min_size": "2.02823300",
+    "min_size": "2.54712175",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TX"
@@ -642,7 +642,7 @@
   {
     "asset": "BCY",
     "currency": "BTC",
-    "min_size": "4.36986541",
+    "min_size": "5.35905681",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BCY"
@@ -650,7 +650,7 @@
   {
     "asset": "EXP",
     "currency": "BTC",
-    "min_size": "0.73110104",
+    "min_size": "0.95891987",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EXP"
@@ -658,7 +658,7 @@
   {
     "asset": "INFX",
     "currency": "BTC",
-    "min_size": "2.27066303",
+    "min_size": "10.54407423",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/INFX"
@@ -666,7 +666,7 @@
   {
     "asset": "OMNI",
     "currency": "BTC",
-    "min_size": "0.06241231",
+    "min_size": "0.06537708",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OMNI"
@@ -674,7 +674,7 @@
   {
     "asset": "AMP",
     "currency": "BTC",
-    "min_size": "5.74712644",
+    "min_size": "8.27266711",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/AMP"
@@ -682,7 +682,7 @@
   {
     "asset": "AGRS",
     "currency": "BTC",
-    "min_size": "0.90197352",
+    "min_size": "2.84738041",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/AGRS"
@@ -690,7 +690,7 @@
   {
     "asset": "XLM",
     "currency": "BTC",
-    "min_size": "5.52730489",
+    "min_size": "7.13470320",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XLM"
@@ -698,7 +698,7 @@
   {
     "asset": "BTC",
     "currency": "USDT",
-    "min_size": "0.00035398",
+    "min_size": "0.00029283",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/BTC"
@@ -706,7 +706,7 @@
   {
     "asset": "CLUB",
     "currency": "BTC",
-    "min_size": "1.75957207",
+    "min_size": "2.30946882",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CLUB"
@@ -714,7 +714,7 @@
   {
     "asset": "VOX",
     "currency": "BTC",
-    "min_size": "13.22751323",
+    "min_size": "19.77848101",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VOX"
@@ -722,7 +722,7 @@
   {
     "asset": "EMC",
     "currency": "BTC",
-    "min_size": "0.55458196",
+    "min_size": "0.69442515",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EMC"
@@ -730,7 +730,7 @@
   {
     "asset": "FCT",
     "currency": "BTC",
-    "min_size": "0.07917431",
+    "min_size": "0.07859436",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FCT"
@@ -738,7 +738,7 @@
   {
     "asset": "MAID",
     "currency": "BTC",
-    "min_size": "5.25099769",
+    "min_size": "6.96184907",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MAID"
@@ -746,7 +746,7 @@
   {
     "asset": "EGC",
     "currency": "BTC",
-    "min_size": "7.13877784",
+    "min_size": "7.81250000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EGC"
@@ -754,7 +754,7 @@
   {
     "asset": "SLS",
     "currency": "BTC",
-    "min_size": "0.04408837",
+    "min_size": "0.07028612",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SLS"
@@ -762,7 +762,7 @@
   {
     "asset": "RADS",
     "currency": "BTC",
-    "min_size": "0.33602602",
+    "min_size": "0.43881975",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RADS"
@@ -770,7 +770,7 @@
   {
     "asset": "DCR",
     "currency": "BTC",
-    "min_size": "0.02777781",
+    "min_size": "0.03405531",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DCR"
@@ -778,7 +778,7 @@
   {
     "asset": "BSD",
     "currency": "BTC",
-    "min_size": "2.14022772",
+    "min_size": "2.81531532",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BSD"
@@ -786,7 +786,7 @@
   {
     "asset": "XVG",
     "currency": "BTC",
-    "min_size": "37.93626707",
+    "min_size": "41.66666667",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XVG"
@@ -794,7 +794,7 @@
   {
     "asset": "PIVX",
     "currency": "BTC",
-    "min_size": "0.36695632",
+    "min_size": "0.47860630",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PIVX"
@@ -802,7 +802,7 @@
   {
     "asset": "XVC",
     "currency": "BTC",
-    "min_size": "3.48383501",
+    "min_size": "4.34782609",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XVC"
@@ -810,7 +810,7 @@
   {
     "asset": "MEME",
     "currency": "BTC",
-    "min_size": "4.68867217",
+    "min_size": "7.45823389",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MEME"
@@ -818,7 +818,7 @@
   {
     "asset": "STEEM",
     "currency": "BTC",
-    "min_size": "0.51299940",
+    "min_size": "0.74183976",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/STEEM"
@@ -826,7 +826,7 @@
   {
     "asset": "2GIVE",
     "currency": "BTC",
-    "min_size": "190.83969466",
+    "min_size": "217.39130435",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/2GIVE"
@@ -834,7 +834,7 @@
   {
     "asset": "LSK",
     "currency": "BTC",
-    "min_size": "0.07864281",
+    "min_size": "0.12460749",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LSK"
@@ -842,7 +842,7 @@
   {
     "asset": "PDC",
     "currency": "BTC",
-    "min_size": "25.12562814",
+    "min_size": "27.74694784",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PDC"
@@ -850,7 +850,7 @@
   {
     "asset": "BRK",
     "currency": "BTC",
-    "min_size": "6.17131572",
+    "min_size": "8.33333333",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BRK"
@@ -858,7 +858,7 @@
   {
     "asset": "WAVES",
     "currency": "BTC",
-    "min_size": "0.38331800",
+    "min_size": "0.37886824",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/WAVES"
@@ -866,7 +866,7 @@
   {
     "asset": "LBC",
     "currency": "BTC",
-    "min_size": "5.90876861",
+    "min_size": "7.12656784",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LBC"
@@ -874,7 +874,7 @@
   {
     "asset": "SBD",
     "currency": "BTC",
-    "min_size": "0.46753441",
+    "min_size": "0.68311610",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SBD"
@@ -882,7 +882,7 @@
   {
     "asset": "BRX",
     "currency": "BTC",
-    "min_size": "1.85116623",
+    "min_size": "2.35338417",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BRX"
@@ -890,7 +890,7 @@
   {
     "asset": "ETC",
     "currency": "BTC",
-    "min_size": "0.08833922",
+    "min_size": "0.07176484",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ETC"
@@ -898,7 +898,7 @@
   {
     "asset": "ETC",
     "currency": "ETH",
-    "min_size": "0.17533875",
+    "min_size": "0.12210012",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ETC"
@@ -906,7 +906,7 @@
   {
     "asset": "STRAT",
     "currency": "BTC",
-    "min_size": "0.28233275",
+    "min_size": "0.34626039",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/STRAT"
@@ -914,7 +914,7 @@
   {
     "asset": "UNB",
     "currency": "BTC",
-    "min_size": "2.31481481",
+    "min_size": "3.70425248",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UNB"
@@ -922,7 +922,7 @@
   {
     "asset": "SYNX",
     "currency": "BTC",
-    "min_size": "3.08756330",
+    "min_size": "3.27396543",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SYNX"
@@ -930,7 +930,7 @@
   {
     "asset": "EBST",
     "currency": "BTC",
-    "min_size": "7.41399763",
+    "min_size": "8.07232806",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EBST"
@@ -938,7 +938,7 @@
   {
     "asset": "VRM",
     "currency": "BTC",
-    "min_size": "0.40114245",
+    "min_size": "0.61574838",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VRM"
@@ -946,7 +946,7 @@
   {
     "asset": "SEQ",
     "currency": "BTC",
-    "min_size": "8.38082467",
+    "min_size": "11.37915339",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SEQ"
@@ -954,7 +954,7 @@
   {
     "asset": "REP",
     "currency": "BTC",
-    "min_size": "0.03970605",
+    "min_size": "0.05548035",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/REP"
@@ -962,7 +962,7 @@
   {
     "asset": "SHIFT",
     "currency": "BTC",
-    "min_size": "0.69444444",
+    "min_size": "0.89564002",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SHIFT"
@@ -970,7 +970,7 @@
   {
     "asset": "ARDR",
     "currency": "BTC",
-    "min_size": "4.38904494",
+    "min_size": "6.17894217",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ARDR"
@@ -978,7 +978,7 @@
   {
     "asset": "XZC",
     "currency": "BTC",
-    "min_size": "0.03827827",
+    "min_size": "0.04594161",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XZC"
@@ -986,7 +986,7 @@
   {
     "asset": "NEO",
     "currency": "BTC",
-    "min_size": "0.01992032",
+    "min_size": "0.01917647",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NEO"
@@ -994,7 +994,7 @@
   {
     "asset": "ZEC",
     "currency": "BTC",
-    "min_size": "0.00447495",
+    "min_size": "0.00627983",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ZEC"
@@ -1002,7 +1002,7 @@
   {
     "asset": "ZCL",
     "currency": "BTC",
-    "min_size": "0.02133761",
+    "min_size": "0.02155172",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ZCL"
@@ -1010,7 +1010,7 @@
   {
     "asset": "IOP",
     "currency": "BTC",
-    "min_size": "0.67385445",
+    "min_size": "0.78616352",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/IOP"
@@ -1018,7 +1018,7 @@
   {
     "asset": "GOLOS",
     "currency": "BTC",
-    "min_size": "15.61524047",
+    "min_size": "17.56851722",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GOLOS"
@@ -1026,7 +1026,7 @@
   {
     "asset": "UBQ",
     "currency": "BTC",
-    "min_size": "0.76494707",
+    "min_size": "1.05440742",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UBQ"
@@ -1034,7 +1034,7 @@
   {
     "asset": "KMD",
     "currency": "BTC",
-    "min_size": "0.52009653",
+    "min_size": "0.66237448",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/KMD"
@@ -1042,7 +1042,7 @@
   {
     "asset": "GBG",
     "currency": "BTC",
-    "min_size": "20.19386107",
+    "min_size": "22.87282708",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GBG"
@@ -1050,7 +1050,7 @@
   {
     "asset": "SIB",
     "currency": "BTC",
-    "min_size": "1.08558774",
+    "min_size": "1.21247393",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SIB"
@@ -1058,7 +1058,7 @@
   {
     "asset": "ION",
     "currency": "BTC",
-    "min_size": "0.70625459",
+    "min_size": "1.05409622",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ION"
@@ -1066,7 +1066,7 @@
   {
     "asset": "LMC",
     "currency": "BTC",
-    "min_size": "27.99552072",
+    "min_size": "36.23188406",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LMC"
@@ -1074,7 +1074,7 @@
   {
     "asset": "QWARK",
     "currency": "BTC",
-    "min_size": "14.26126640",
+    "min_size": "17.61804087",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QWARK"
@@ -1082,7 +1082,7 @@
   {
     "asset": "CRW",
     "currency": "BTC",
-    "min_size": "0.78139651",
+    "min_size": "1.08908734",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CRW"
@@ -1090,7 +1090,7 @@
   {
     "asset": "SWT",
     "currency": "BTC",
-    "min_size": "0.82508251",
+    "min_size": "1.36866309",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SWT"
@@ -1098,7 +1098,7 @@
   {
     "asset": "MLN",
     "currency": "BTC",
-    "min_size": "0.01934179",
+    "min_size": "0.02373058",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MLN"
@@ -1106,7 +1106,7 @@
   {
     "asset": "ARK",
     "currency": "BTC",
-    "min_size": "0.52976203",
+    "min_size": "0.66700462",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ARK"
@@ -1114,7 +1114,7 @@
   {
     "asset": "DYN",
     "currency": "BTC",
-    "min_size": "0.79445786",
+    "min_size": "1.08700378",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DYN"
@@ -1122,7 +1122,7 @@
   {
     "asset": "TKS",
     "currency": "BTC",
-    "min_size": "0.64602822",
+    "min_size": "0.64935065",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TKS"
@@ -1130,7 +1130,7 @@
   {
     "asset": "MUSIC",
     "currency": "BTC",
-    "min_size": "101.62601626",
+    "min_size": "128.20512821",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MUSIC"
@@ -1138,7 +1138,7 @@
   {
     "asset": "DTB",
     "currency": "BTC",
-    "min_size": "3.38478202",
+    "min_size": "3.71581451",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DTB"
@@ -1146,7 +1146,7 @@
   {
     "asset": "INCNT",
     "currency": "BTC",
-    "min_size": "6.97934115",
+    "min_size": "9.60430273",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/INCNT"
@@ -1154,7 +1154,7 @@
   {
     "asset": "GBYTE",
     "currency": "BTC",
-    "min_size": "0.00416627",
+    "min_size": "0.00577821",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GBYTE"
@@ -1162,7 +1162,7 @@
   {
     "asset": "GNT",
     "currency": "BTC",
-    "min_size": "6.32911392",
+    "min_size": "6.48676700",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GNT"
@@ -1170,7 +1170,7 @@
   {
     "asset": "NXC",
     "currency": "BTC",
-    "min_size": "8.33333333",
+    "min_size": "12.31527094",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NXC"
@@ -1178,7 +1178,7 @@
   {
     "asset": "EDG",
     "currency": "BTC",
-    "min_size": "2.46087213",
+    "min_size": "2.78582572",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EDG"
@@ -1186,7 +1186,7 @@
   {
     "asset": "LGD",
     "currency": "BTC",
-    "min_size": "2.61889797",
+    "min_size": "3.28385656",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LGD"
@@ -1194,7 +1194,7 @@
   {
     "asset": "TRST",
     "currency": "BTC",
-    "min_size": "5.93824228",
+    "min_size": "8.31117021",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TRST"
@@ -1202,7 +1202,7 @@
   {
     "asset": "GNT",
     "currency": "ETH",
-    "min_size": "12.66015091",
+    "min_size": "10.97815347",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/GNT"
@@ -1210,7 +1210,7 @@
   {
     "asset": "REP",
     "currency": "ETH",
-    "min_size": "0.07855543",
+    "min_size": "0.09503935",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/REP"
@@ -1218,7 +1218,7 @@
   {
     "asset": "ETH",
     "currency": "USDT",
-    "min_size": "0.00353870",
+    "min_size": "0.00343249",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ETH"
@@ -1226,7 +1226,7 @@
   {
     "asset": "WINGS",
     "currency": "ETH",
-    "min_size": "6.79634085",
+    "min_size": "5.50000550",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/WINGS"
@@ -1234,7 +1234,7 @@
   {
     "asset": "WINGS",
     "currency": "BTC",
-    "min_size": "3.36292709",
+    "min_size": "3.27653997",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/WINGS"
@@ -1242,7 +1242,7 @@
   {
     "asset": "RLC",
     "currency": "BTC",
-    "min_size": "1.51929505",
+    "min_size": "1.79881997",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RLC"
@@ -1250,7 +1250,7 @@
   {
     "asset": "GNO",
     "currency": "BTC",
-    "min_size": "0.01508753",
+    "min_size": "0.01875235",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GNO"
@@ -1258,7 +1258,7 @@
   {
     "asset": "GUP",
     "currency": "BTC",
-    "min_size": "5.80855019",
+    "min_size": "8.92857143",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GUP"
@@ -1266,7 +1266,7 @@
   {
     "asset": "LUN",
     "currency": "BTC",
-    "min_size": "0.11429669",
+    "min_size": "0.12356846",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LUN"
@@ -1274,7 +1274,7 @@
   {
     "asset": "GUP",
     "currency": "ETH",
-    "min_size": "11.77218468",
+    "min_size": "15.22255374",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/GUP"
@@ -1282,7 +1282,7 @@
   {
     "asset": "RLC",
     "currency": "ETH",
-    "min_size": "3.07115875",
+    "min_size": "3.06759758",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/RLC"
@@ -1290,7 +1290,7 @@
   {
     "asset": "LUN",
     "currency": "ETH",
-    "min_size": "0.22761632",
+    "min_size": "0.21892837",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/LUN"
@@ -1298,7 +1298,7 @@
   {
     "asset": "GNO",
     "currency": "ETH",
-    "min_size": "0.02967779",
+    "min_size": "0.03222470",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/GNO"
@@ -1306,7 +1306,7 @@
   {
     "asset": "HMQ",
     "currency": "BTC",
-    "min_size": "11.13089938",
+    "min_size": "12.05981669",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/HMQ"
@@ -1314,7 +1314,7 @@
   {
     "asset": "HMQ",
     "currency": "ETH",
-    "min_size": "21.86748305",
+    "min_size": "21.18823629",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/HMQ"
@@ -1322,7 +1322,7 @@
   {
     "asset": "ANT",
     "currency": "BTC",
-    "min_size": "0.48926551",
+    "min_size": "0.67081679",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ANT"
@@ -1330,7 +1330,7 @@
   {
     "asset": "TRST",
     "currency": "ETH",
-    "min_size": "12.08868258",
+    "min_size": "14.23933474",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/TRST"
@@ -1338,7 +1338,7 @@
   {
     "asset": "ANT",
     "currency": "ETH",
-    "min_size": "0.98561981",
+    "min_size": "1.17189331",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ANT"
@@ -1346,7 +1346,7 @@
   {
     "asset": "SC",
     "currency": "BTC",
-    "min_size": "88.96797153",
+    "min_size": "114.15525114",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SC"
@@ -1354,7 +1354,7 @@
   {
     "asset": "BAT",
     "currency": "ETH",
-    "min_size": "11.85086867",
+    "min_size": "11.84946440",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BAT"
@@ -1362,7 +1362,7 @@
   {
     "asset": "BAT",
     "currency": "BTC",
-    "min_size": "5.97657184",
+    "min_size": "6.95410292",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BAT"
@@ -1370,7 +1370,7 @@
   {
     "asset": "ZEN",
     "currency": "BTC",
-    "min_size": "0.05707046",
+    "min_size": "0.07036604",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ZEN"
@@ -1378,7 +1378,7 @@
   {
     "asset": "1ST",
     "currency": "BTC",
-    "min_size": "4.32451133",
+    "min_size": "8.86524823",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/1ST"
@@ -1386,7 +1386,7 @@
   {
     "asset": "QRL",
     "currency": "BTC",
-    "min_size": "1.51920272",
+    "min_size": "2.25002250",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QRL"
@@ -1394,7 +1394,7 @@
   {
     "asset": "1ST",
     "currency": "ETH",
-    "min_size": "8.62068966",
+    "min_size": "15.37231753",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/1ST"
@@ -1402,7 +1402,7 @@
   {
     "asset": "QRL",
     "currency": "ETH",
-    "min_size": "3.00574699",
+    "min_size": "3.82845461",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/QRL"
@@ -1410,7 +1410,7 @@
   {
     "asset": "CRB",
     "currency": "BTC",
-    "min_size": "5.55679040",
+    "min_size": "7.25689405",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CRB"
@@ -1418,7 +1418,7 @@
   {
     "asset": "CRB",
     "currency": "ETH",
-    "min_size": "10.77562984",
+    "min_size": "12.73723093",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/CRB"
@@ -1426,7 +1426,7 @@
   {
     "asset": "LGD",
     "currency": "ETH",
-    "min_size": "5.34005468",
+    "min_size": "5.68491905",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/LGD"
@@ -1434,7 +1434,7 @@
   {
     "asset": "PTOY",
     "currency": "BTC",
-    "min_size": "10.64735945",
+    "min_size": "12.62626263",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PTOY"
@@ -1442,7 +1442,7 @@
   {
     "asset": "PTOY",
     "currency": "ETH",
-    "min_size": "21.92982456",
+    "min_size": "21.72401807",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/PTOY"
@@ -1450,7 +1450,7 @@
   {
     "asset": "CFI",
     "currency": "BTC",
-    "min_size": "20.40816327",
+    "min_size": "28.63688431",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CFI"
@@ -1458,7 +1458,7 @@
   {
     "asset": "CFI",
     "currency": "ETH",
-    "min_size": "40.39751151",
+    "min_size": "48.64759681",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/CFI"
@@ -1466,7 +1466,7 @@
   {
     "asset": "BNT",
     "currency": "BTC",
-    "min_size": "0.41947013",
+    "min_size": "0.50479556",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BNT"
@@ -1474,7 +1474,7 @@
   {
     "asset": "BNT",
     "currency": "ETH",
-    "min_size": "0.83610083",
+    "min_size": "0.86340426",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BNT"
@@ -1482,7 +1482,7 @@
   {
     "asset": "NMR",
     "currency": "BTC",
-    "min_size": "0.11187985",
+    "min_size": "0.12499938",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NMR"
@@ -1490,7 +1490,7 @@
   {
     "asset": "NMR",
     "currency": "ETH",
-    "min_size": "0.22520615",
+    "min_size": "0.21599000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/NMR"
@@ -1498,7 +1498,7 @@
   {
     "asset": "LTC",
     "currency": "ETH",
-    "min_size": "0.02719504",
+    "min_size": "0.01948764",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/LTC"
@@ -1506,7 +1506,7 @@
   {
     "asset": "XRP",
     "currency": "ETH",
-    "min_size": "4.27251831",
+    "min_size": "4.68766114",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/XRP"
@@ -1514,7 +1514,7 @@
   {
     "asset": "SNT",
     "currency": "BTC",
-    "min_size": "9.58588957",
+    "min_size": "15.02403846",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SNT"
@@ -1522,7 +1522,7 @@
   {
     "asset": "SNT",
     "currency": "ETH",
-    "min_size": "18.64141376",
+    "min_size": "25.56760074",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SNT"
@@ -1530,7 +1530,7 @@
   {
     "asset": "DCT",
     "currency": "BTC",
-    "min_size": "2.31331544",
+    "min_size": "3.49357183",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DCT"
@@ -1538,7 +1538,7 @@
   {
     "asset": "XEL",
     "currency": "BTC",
-    "min_size": "7.68049155",
+    "min_size": "9.06782735",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XEL"
@@ -1546,7 +1546,7 @@
   {
     "asset": "MCO",
     "currency": "BTC",
-    "min_size": "0.29166424",
+    "min_size": "0.35334191",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MCO"
@@ -1554,7 +1554,7 @@
   {
     "asset": "MCO",
     "currency": "ETH",
-    "min_size": "0.59171528",
+    "min_size": "0.59378192",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/MCO"
@@ -1562,7 +1562,7 @@
   {
     "asset": "ADT",
     "currency": "BTC",
-    "min_size": "26.12330199",
+    "min_size": "41.18616145",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ADT"
@@ -1570,7 +1570,7 @@
   {
     "asset": "ADT",
     "currency": "ETH",
-    "min_size": "52.53204455",
+    "min_size": "70.53180985",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ADT"
@@ -1578,7 +1578,7 @@
   {
     "asset": "PAY",
     "currency": "BTC",
-    "min_size": "1.18562079",
+    "min_size": "1.58027813",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PAY"
@@ -1586,7 +1586,7 @@
   {
     "asset": "PAY",
     "currency": "ETH",
-    "min_size": "2.39694342",
+    "min_size": "2.78238417",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/PAY"
@@ -1594,7 +1594,7 @@
   {
     "asset": "STORJ",
     "currency": "BTC",
-    "min_size": "2.15554406",
+    "min_size": "2.78955590",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/STORJ"
@@ -1602,7 +1602,7 @@
   {
     "asset": "STORJ",
     "currency": "ETH",
-    "min_size": "4.25941544",
+    "min_size": "4.72585325",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/STORJ"
@@ -1610,7 +1610,7 @@
   {
     "asset": "ADX",
     "currency": "BTC",
-    "min_size": "1.44508671",
+    "min_size": "1.70998632",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ADX"
@@ -1618,7 +1618,7 @@
   {
     "asset": "ADX",
     "currency": "ETH",
-    "min_size": "2.89388695",
+    "min_size": "2.90290930",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ADX"
@@ -1626,7 +1626,7 @@
   {
     "asset": "DASH",
     "currency": "ETH",
-    "min_size": "0.00677187",
+    "min_size": "0.00708175",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/DASH"
@@ -1634,7 +1634,7 @@
   {
     "asset": "SC",
     "currency": "ETH",
-    "min_size": "177.11654269",
+    "min_size": "197.00551615",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SC"
@@ -1642,7 +1642,7 @@
   {
     "asset": "ZEC",
     "currency": "ETH",
-    "min_size": "0.00890954",
+    "min_size": "0.01082682",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ZEC"
@@ -1650,7 +1650,7 @@
   {
     "asset": "ZEC",
     "currency": "USDT",
-    "min_size": "0.00632104",
+    "min_size": "0.00735640",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ZEC"
@@ -1658,7 +1658,7 @@
   {
     "asset": "LTC",
     "currency": "USDT",
-    "min_size": "0.01956691",
+    "min_size": "0.01333333",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/LTC"
@@ -1666,7 +1666,7 @@
   {
     "asset": "ETC",
     "currency": "USDT",
-    "min_size": "0.12655375",
+    "min_size": "0.08391608",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ETC"
@@ -1674,7 +1674,7 @@
   {
     "asset": "XRP",
     "currency": "USDT",
-    "min_size": "3.03030303",
+    "min_size": "3.21543408",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XRP"
@@ -1682,7 +1682,7 @@
   {
     "asset": "OMG",
     "currency": "BTC",
-    "min_size": "0.17313259",
+    "min_size": "0.14800256",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OMG"
@@ -1690,7 +1690,7 @@
   {
     "asset": "OMG",
     "currency": "ETH",
-    "min_size": "0.34717376",
+    "min_size": "0.25322315",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/OMG"
@@ -1698,7 +1698,7 @@
   {
     "asset": "CVC",
     "currency": "BTC",
-    "min_size": "4.74113408",
+    "min_size": "7.12250712",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CVC"
@@ -1706,7 +1706,7 @@
   {
     "asset": "CVC",
     "currency": "ETH",
-    "min_size": "9.50154875",
+    "min_size": "12.21329295",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/CVC"
@@ -1714,7 +1714,7 @@
   {
     "asset": "PART",
     "currency": "BTC",
-    "min_size": "0.08548850",
+    "min_size": "0.11826985",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PART"
@@ -1722,7 +1722,7 @@
   {
     "asset": "QTUM",
     "currency": "BTC",
-    "min_size": "0.07552322",
+    "min_size": "0.09091438",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QTUM"
@@ -1730,7 +1730,7 @@
   {
     "asset": "QTUM",
     "currency": "ETH",
-    "min_size": "0.15058862",
+    "min_size": "0.15579343",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/QTUM"
@@ -1738,7 +1738,7 @@
   {
     "asset": "XMR",
     "currency": "ETH",
-    "min_size": "0.01732582",
+    "min_size": "0.01531146",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/XMR"
@@ -1746,7 +1746,7 @@
   {
     "asset": "XEM",
     "currency": "ETH",
-    "min_size": "7.53341068",
+    "min_size": "11.12644087",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/XEM"
@@ -1754,7 +1754,7 @@
   {
     "asset": "XLM",
     "currency": "ETH",
-    "min_size": "11.03825860",
+    "min_size": "12.19512195",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/XLM"
@@ -1762,7 +1762,7 @@
   {
     "asset": "NEO",
     "currency": "ETH",
-    "min_size": "0.03984116",
+    "min_size": "0.03281596",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/NEO"
@@ -1770,7 +1770,7 @@
   {
     "asset": "XMR",
     "currency": "USDT",
-    "min_size": "0.01234049",
+    "min_size": "0.01047916",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XMR"
@@ -1778,7 +1778,7 @@
   {
     "asset": "DASH",
     "currency": "USDT",
-    "min_size": "0.00483827",
+    "min_size": "0.00485437",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DASH"
@@ -1786,7 +1786,7 @@
   {
     "asset": "BCC",
     "currency": "ETH",
-    "min_size": "0.00329247",
+    "min_size": "0.00354537",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BCC"
@@ -1794,7 +1794,7 @@
   {
     "asset": "BCC",
     "currency": "USDT",
-    "min_size": "0.00235479",
+    "min_size": "0.00241432",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/BCC"
@@ -1802,7 +1802,7 @@
   {
     "asset": "BCC",
     "currency": "BTC",
-    "min_size": "0.00166443",
+    "min_size": "0.00205900",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BCC"
@@ -1810,7 +1810,7 @@
   {
     "asset": "DNT",
     "currency": "BTC",
-    "min_size": "26.26050420",
+    "min_size": "31.60556258",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DNT"
@@ -1818,7 +1818,7 @@
   {
     "asset": "DNT",
     "currency": "ETH",
-    "min_size": "50.26641198",
+    "min_size": "53.79814934",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/DNT"
@@ -1826,7 +1826,7 @@
   {
     "asset": "NEO",
     "currency": "USDT",
-    "min_size": "0.02832861",
+    "min_size": "0.02248876",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/NEO"
@@ -1834,7 +1834,7 @@
   {
     "asset": "WAVES",
     "currency": "ETH",
-    "min_size": "0.75872534",
+    "min_size": "0.64935149",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/WAVES"
@@ -1842,7 +1842,7 @@
   {
     "asset": "STRAT",
     "currency": "ETH",
-    "min_size": "0.55645640",
+    "min_size": "0.58892815",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/STRAT"
@@ -1850,7 +1850,7 @@
   {
     "asset": "DGB",
     "currency": "ETH",
-    "min_size": "116.87704535",
+    "min_size": "124.22360248",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/DGB"
@@ -1858,7 +1858,7 @@
   {
     "asset": "FCT",
     "currency": "ETH",
-    "min_size": "0.15636879",
+    "min_size": "0.13389053",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/FCT"
@@ -1866,7 +1866,7 @@
   {
     "asset": "OMG",
     "currency": "USDT",
-    "min_size": "0.24590164",
+    "min_size": "0.17347961",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/OMG"
@@ -1874,7 +1874,7 @@
   {
     "asset": "ADA",
     "currency": "BTC",
-    "min_size": "5.61797753",
+    "min_size": "7.77121542",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ADA"
@@ -1882,7 +1882,7 @@
   {
     "asset": "MANA",
     "currency": "BTC",
-    "min_size": "18.75468867",
+    "min_size": "22.62443439",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MANA"
@@ -1890,7 +1890,7 @@
   {
     "asset": "MANA",
     "currency": "ETH",
-    "min_size": "39.03505348",
+    "min_size": "38.08073115",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/MANA"
@@ -1898,7 +1898,7 @@
   {
     "asset": "SALT",
     "currency": "BTC",
-    "min_size": "0.47984645",
+    "min_size": "0.59547912",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SALT"
@@ -1906,7 +1906,7 @@
   {
     "asset": "SALT",
     "currency": "ETH",
-    "min_size": "0.96209166",
+    "min_size": "1.02452718",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SALT"
@@ -1914,7 +1914,7 @@
   {
     "asset": "TIX",
     "currency": "BTC",
-    "min_size": "2.77438686",
+    "min_size": "4.24592391",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TIX"
@@ -1922,7 +1922,7 @@
   {
     "asset": "TIX",
     "currency": "ETH",
-    "min_size": "5.43478261",
+    "min_size": "7.31678764",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/TIX"
@@ -1930,7 +1930,7 @@
   {
     "asset": "RCN",
     "currency": "BTC",
-    "min_size": "12.08313195",
+    "min_size": "17.60563380",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RCN"
@@ -1938,7 +1938,7 @@
   {
     "asset": "RCN",
     "currency": "ETH",
-    "min_size": "23.65855967",
+    "min_size": "30.09147809",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/RCN"
@@ -1946,7 +1946,7 @@
   {
     "asset": "VIB",
     "currency": "BTC",
-    "min_size": "8.51788756",
+    "min_size": "11.11111111",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VIB"
@@ -1954,7 +1954,7 @@
   {
     "asset": "VIB",
     "currency": "ETH",
-    "min_size": "17.39614501",
+    "min_size": "19.21008145",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/VIB"
@@ -1962,7 +1962,7 @@
   {
     "asset": "MER",
     "currency": "BTC",
-    "min_size": "4.49559432",
+    "min_size": "7.20046083",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MER"
@@ -1970,7 +1970,7 @@
   {
     "asset": "POWR",
     "currency": "BTC",
-    "min_size": "2.86139407",
+    "min_size": "4.19956325",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/POWR"
@@ -1978,7 +1978,7 @@
   {
     "asset": "POWR",
     "currency": "ETH",
-    "min_size": "5.59196546",
+    "min_size": "7.20346919",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/POWR"
@@ -1986,7 +1986,7 @@
   {
     "asset": "BTG",
     "currency": "BTC",
-    "min_size": "0.01739043",
+    "min_size": "0.02214176",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BTG"
@@ -1994,7 +1994,7 @@
   {
     "asset": "BTG",
     "currency": "ETH",
-    "min_size": "0.03540396",
+    "min_size": "0.03798059",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BTG"
@@ -2002,7 +2002,7 @@
   {
     "asset": "BTG",
     "currency": "USDT",
-    "min_size": "0.02459016",
+    "min_size": "0.02597403",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/BTG"
@@ -2010,7 +2010,7 @@
   {
     "asset": "ADA",
     "currency": "ETH",
-    "min_size": "11.20975697",
+    "min_size": "13.35077835",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ADA"
@@ -2018,7 +2018,7 @@
   {
     "asset": "ENG",
     "currency": "BTC",
-    "min_size": "0.75759872",
+    "min_size": "1.00660332",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ENG"
@@ -2026,7 +2026,7 @@
   {
     "asset": "ENG",
     "currency": "ETH",
-    "min_size": "1.49476831",
+    "min_size": "1.67567060",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ENG"
@@ -2034,7 +2034,7 @@
   {
     "asset": "ADA",
     "currency": "USDT",
-    "min_size": "7.97448166",
+    "min_size": "9.15712454",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ADA"
@@ -2042,7 +2042,7 @@
   {
     "asset": "XVG",
     "currency": "USDT",
-    "min_size": "53.57130421",
+    "min_size": "49.18030368",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XVG"
@@ -2050,7 +2050,7 @@
   {
     "asset": "NXT",
     "currency": "USDT",
-    "min_size": "15.51685239",
+    "min_size": "14.28571429",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/NXT"
@@ -2058,7 +2058,7 @@
   {
     "asset": "UKG",
     "currency": "BTC",
-    "min_size": "4.91352201",
+    "min_size": "7.37898465",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UKG"
@@ -2066,7 +2066,7 @@
   {
     "asset": "UKG",
     "currency": "ETH",
-    "min_size": "9.60725540",
+    "min_size": "12.82051282",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/UKG"
@@ -2074,7 +2074,7 @@
   {
     "asset": "IGNIS",
     "currency": "BTC",
-    "min_size": "8.90947969",
+    "min_size": "12.46882793",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/IGNIS"
@@ -2082,7 +2082,7 @@
   {
     "asset": "SRN",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "3.73357228",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SRN"
@@ -2090,7 +2090,7 @@
   {
     "asset": "SRN",
     "currency": "ETH",
-    "min_size": "0.00000001",
+    "min_size": "6.40196668",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SRN"
@@ -2098,7 +2098,7 @@
   {
     "asset": "WAX",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "7.88643533",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/WAX"
@@ -2106,7 +2106,7 @@
   {
     "asset": "WAX",
     "currency": "ETH",
-    "min_size": "0.00000001",
+    "min_size": "13.71855022",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/WAX"
@@ -2114,7 +2114,7 @@
   {
     "asset": "ZRX",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "2.42036983",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ZRX"
@@ -2122,7 +2122,7 @@
   {
     "asset": "ZRX",
     "currency": "ETH",
-    "min_size": "0.00000001",
+    "min_size": "4.10741717",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ZRX"
@@ -2130,7 +2130,7 @@
   {
     "asset": "VEE",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "34.96503497",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VEE"
@@ -2138,7 +2138,7 @@
   {
     "asset": "VEE",
     "currency": "ETH",
-    "min_size": "0.00000001",
+    "min_size": "58.90669180",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/VEE"
@@ -2146,7 +2146,7 @@
   {
     "asset": "BCPT",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "2.12947189",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BCPT"
@@ -2154,7 +2154,7 @@
   {
     "asset": "BCPT",
     "currency": "ETH",
-    "min_size": "0.00000001",
+    "min_size": "3.66294999",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BCPT"
