@@ -8,7 +8,8 @@
  * Params: 
  * --use_strategies=<stragegy_name>,<stragegy_name>,<stragegy_name>   Min one strategy, can include more than one
  * --population_data=<filename>           filename used for continueing backtesting from previous run
- * --generateLaunch=<true>|<false>        will generate .sh and .bat file using the best generation discovered  
+ * --generateLaunch=<true>|<false>        will generate .sh and .bat file using the best generation discovered
+ * --ignoreLaunchFitness=<true>|<false>   if used with --generateLaunch it will always write a new launch file regardless if latest fitness is greater 
  * --floatScanWindow                      Time widow used for analyzing data be adjusted every generation      
  * --population=<int>                     populate per strategy 
  * --maxCores=<int>                       maximum processes to execute at a time default is # of cpu cores in system
@@ -66,6 +67,7 @@ let generationProcessing = false
 let population_data = ''
 let noStatSave = false
 let floatScanWindow = false
+let ignoreLaunchFitness = false
 
 
 let darwinMonitor = {
@@ -1171,6 +1173,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
 
   let bestOverallCommand = generateCommandParams(configuration)
   let lastFitnessLevel = -9999.0
+
   // get prior fitness level nix
   if (fs.existsSync(lFilenameNix) )
   {
@@ -1195,7 +1198,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
         lastFitnessLevel = th[1]
       }
   }
-  
+
   //write Nix Version
   let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n',
     'env node zenbot.js trade ', 
@@ -1204,7 +1207,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
     'node zenbot.js trade ', 
     bestOverallCommand,' %*\n')
   
-  if (Number(configuration.fitness) > Number(lastFitnessLevel))
+  if ( ((Number(configuration.fitness) > Number(lastFitnessLevel)) || (ignoreLaunchFitness)) &&  Number(configuration.fitness) > 0.0 )
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
@@ -1415,6 +1418,7 @@ noStatSave = (simArgs.noStatSave) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
 populationSize = (argv.population) ? argv.population : 100
 floatScanWindow = (argv.floatScanWindow) ? argv.floatScanWindow : false
+ignoreLaunchFitness = (argv.ignoreLaunchFitness) ? argv.ignoreLaunchFitness : false
 
 
 population_data = argv.population_data || `backtest.${simArgs.selector.toLowerCase()}.${moment().format('YYYYMMDDHHmmss')}`
