@@ -128,7 +128,7 @@ module.exports = function sim (conf, s) {
     processTrade: function(trade) {
       now = trade.time
 
-      _.each(openOrders, function(order, order_id) {
+      _.each(openOrders, function(order) {
         if (order.tradetype === 'buy') {
           if (trade.time - order.time < so.order_adjust_time) {
             // Not time yet
