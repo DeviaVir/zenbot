@@ -15,6 +15,7 @@ module.exports = function sim (conf, s) {
   var last_order_id = 1001
   var orders = {}
   var openOrders = {}
+  var last_trade
 
   var exchange = {
     name: 'sim',
@@ -44,10 +45,18 @@ module.exports = function sim (conf, s) {
         return real_exchange.getQuote(opts, cb)
       }
       else {
-        return cb(null, {
-          bid: s.period.close,
-          ask: s.period.close
-        })
+        if (last_trade) {
+          return cb(null, {
+            bid: last_trade.price,
+            ask: last_trade.price
+          })
+        }
+        else {
+          return cb(null, {
+            bid: s.period.close,
+            ask: s.period.close
+          })
+        }
       }
     },
 
@@ -124,6 +133,7 @@ module.exports = function sim (conf, s) {
     },
 
     processTrade: function(trade) {
+      last_trade = trade
       now = trade.time
 
       _.each(openOrders, function(order, order_id) {
