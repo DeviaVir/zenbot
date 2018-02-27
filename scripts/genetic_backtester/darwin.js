@@ -9,7 +9,9 @@
  * --use_strategies=<stragegy_name>,<stragegy_name>,<stragegy_name>   Min one strategy, can include more than one
  * --population_data=<filename>           filename used for continueing backtesting from previous run
  * --generateLaunch=<true>|<false>        will generate .sh and .bat file using the best generation discovered
- * --population=<int>                     populate per strategy
+ * --ignoreLaunchFitness=<true>|<false>   if used with --generateLaunch it will always write a new launch file regardless if latest fitness is greater 
+ * --floatScanWindow                      Time widow used for analyzing data be adjusted every generation      
+ * --population=<int>                     populate per strategy 
  * --maxCores=<int>                       maximum processes to execute at a time default is # of cpu cores in system
  * --selector=<exchange.marketPair>  
  * --asset_capital=<float>                amount coin to start sim with 
@@ -17,6 +19,7 @@
  * --days=<int>                           amount of days to use when backfilling
  * --noStatSave=<true>|<false>            true:no statistics are saved to the simulation folder
  * --silent=<true>|<false>                true:can improve performance
+ * 
  * 
  * any parameters for sim and or strategy can be passed in and will override the genetic test generated parameter 
  * i.e. if --period_length=1m is passed all test will be performed using --period_length=1m instead of trying to find that parameter
@@ -63,6 +66,8 @@ let generationCount = 1
 let generationProcessing = false
 let population_data = ''
 let noStatSave = false
+let floatScanWindow = false
+let ignoreLaunchFitness = false
 
 
 let darwinMonitor = {
@@ -515,7 +520,6 @@ function processOutput  (output,taskStrategyName, pheno) {
   delete r.asset_capital
   delete r.buy_pct
   delete r.currency_capital
-  delete r.days
   delete r.mode
   delete r.order_adjust_time
   delete r.population
@@ -530,14 +534,21 @@ function processOutput  (output,taskStrategyName, pheno) {
   r.selector = r.selector.normalized
 
   if (start) {
-    r.start = moment(start).format('YYYYMMDDHHmm')
+    if (floatScanWindow)
+      r.start = moment().subtract(r.days,'d').format('YYYYMMDDHHmm')
+    else
+      r.start = moment(start).format('YYYYMMDDHHmm')
   }
   if (end) {
-    r.end = moment(end).format('YYYYMMDDHHmm')
+    if (floatScanWindow)
+      r.end = moment().format('YYYYMMDDHHmm')
+    else
+      r.end = moment(end).format('YYYYMMDDHHmm')
   }
   if (!start && !end && params.days) {
     r.days = params.days
   }
+  delete r.days
 
   let results = {
     params: 'module.exports = ' + JSON.stringify(r),
@@ -1162,6 +1173,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
 
   let bestOverallCommand = generateCommandParams(configuration)
   let lastFitnessLevel = -9999.0
+
   // get prior fitness level nix
   if (fs.existsSync(lFilenameNix) )
   {
@@ -1186,7 +1198,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
         lastFitnessLevel = th[1]
       }
   }
-  
+
   //write Nix Version
   let lNixContents = '#!/bin/bash\n'.concat('#fitness=',configuration.fitness,'\n',
     'env node zenbot.js trade ', 
@@ -1195,7 +1207,7 @@ function saveLaunchFiles(saveLauchFile, configuration ){
     'node zenbot.js trade ', 
     bestOverallCommand,' %*\n')
   
-  if (Number(configuration.fitness) > Number(lastFitnessLevel))
+  if ( ((Number(configuration.fitness) > Number(lastFitnessLevel)) || (ignoreLaunchFitness)) &&  Number(configuration.fitness) > 0.0 )
   {
     fs.writeFileSync(lFilenameNix, lNixContents)
     fs.writeFileSync(lFinenamewin32, lWin32Contents)
@@ -1405,6 +1417,8 @@ let generateLaunchFile = (simArgs.generateLaunch) ? true : false
 noStatSave = (simArgs.noStatSave) ? true : false
 let strategyName = (argv.use_strategies) ? argv.use_strategies : 'all'
 populationSize = (argv.population) ? argv.population : 100
+floatScanWindow = (argv.floatScanWindow) ? argv.floatScanWindow : false
+ignoreLaunchFitness = (argv.ignoreLaunchFitness) ? argv.ignoreLaunchFitness : false
 
 
 population_data = argv.population_data || `backtest.${simArgs.selector.toLowerCase()}.${moment().format('YYYYMMDDHHmmss')}`
