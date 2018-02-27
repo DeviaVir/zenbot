@@ -1,6 +1,6 @@
 let path = require('path')
   , n = require('numbro')
-  , _ = require('underscore')
+  , _ = require('lodash')
 
 
 module.exports = function sim (conf, s) {
@@ -117,9 +117,7 @@ module.exports = function sim (conf, s) {
       cb(null, order)
     },
 
-    getCursor: function (trade) {
-      return (trade.time || trade)
-    },
+    getCursor: real_exchange.getCursor,
 
     getTime: function() {
       return now

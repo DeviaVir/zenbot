@@ -80,13 +80,7 @@ module.exports = function (program, conf) {
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
 
-      so.selector = objectifySelector(selector || conf.selector)
-      s.exchange = require(`../extensions/exchanges/${so.selector.exchange_id}/exchange`)(conf)
-      if (!s.exchange) {
-        console.error('cannot trade ' + so.selector.normalized + ': exchange not implemented')
-        process.exit(1)
-
-      }
+      so.selector = objectifySelector(selector || conf.selector)      
       var engine = engineFactory(s, conf)
       var collectionServiceInstance = collectionService(conf)
 
