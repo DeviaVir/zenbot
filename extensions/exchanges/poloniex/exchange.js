@@ -126,7 +126,7 @@ module.exports = function container (conf) {
           return cb(null, [])
         }
         if (data.error) {
-          console.error('\ggetOrderBook error:')
+          console.error('getOrderBook error:')
           console.error(data)
           return retry('getOrderBook', params)
         }

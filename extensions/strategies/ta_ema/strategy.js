@@ -51,9 +51,9 @@ module.exports = {
     // we add all maybe we need more indicators
     Promise.all([ta_ema(s, s.options.trend_ema)]).then(result => {
       if(result && result.outReal) {
-        s.period.trend_ema = result.outReal;
+        s.period.trend_ema = result.outReal
       }
-    });
+    })
 
     // calculate ema rate
     if (s.period.trend_ema && s.lookback[0] && s.lookback[0].trend_ema) {
