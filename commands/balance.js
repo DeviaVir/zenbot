@@ -31,6 +31,7 @@ module.exports = function (program, conf) {
       })
       so.selector = s.selector
       so.debug = cmd.debug
+      so.mode = 'live'
       var engine = engineFactory(s, conf)
       function balance () {
         s.exchange.getBalance(s, function (err, balance) {
