@@ -2158,5 +2158,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BCPT"
+  },
+  {
+    "asset": "TRX",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TRX"
+  },
+  {
+    "asset": "TRX",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/TRX"
   }
 ]
