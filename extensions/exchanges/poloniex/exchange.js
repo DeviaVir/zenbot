@@ -9,7 +9,7 @@ module.exports = function container (conf) {
   var public_client, authed_client
 
   function publicClient (/*product_id*/) {
-    if (!public_client) public_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
+    if (!public_client) public_client = new Poloniex()
     return public_client
   }
 
@@ -212,6 +212,8 @@ module.exports = function container (conf) {
           order.status = 'rejected'
           order.reject_reason = 'balance'
           return cb(null, order)
+        } else if (result && result.error && result.error.match(/^Nonce must be greater/)) {
+            return retry('trade', args)
         }
         if (!err && result.error) {
           err = new Error('unable to ' + type)

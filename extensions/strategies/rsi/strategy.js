@@ -1,6 +1,7 @@
 var z = require('zero-fill')
   , n = require('numbro')
   , rsi = require('../../../lib/rsi')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'rsi',
@@ -69,6 +70,27 @@ module.exports = {
       cols.push(z(4, n(s.period.rsi).format('0'), ' ')[color])
     }
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    rsi_periods: Phenotypes.Range(1, 200),
+    oversold_rsi: Phenotypes.Range(1, 100),
+    overbought_rsi: Phenotypes.Range(1, 100),
+    rsi_recover: Phenotypes.Range(1, 100),
+    rsi_drop: Phenotypes.Range(0, 100),
+    rsi_divisor: Phenotypes.Range(1, 10)
   }
 }
 
