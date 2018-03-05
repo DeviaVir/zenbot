@@ -1,9 +1,11 @@
-var convnetjs = require('convnetjs')
-var z = require('zero-fill')
-var n = require('numbro')
-var math = require('mathjs')
+let convnetjs = require('convnetjs')
+  , z = require('zero-fill')
+  , n = require('numbro')
+  , math = require('mathjs')
+  , ema = require('../../../lib/ema')
+  , Phenotypes = require('../../../lib/phenotype')
 const cluster = require('cluster')
-var ema = require('../../../lib/ema')
+
 // the below line starts you at 0 threads
 global.forks = 0
 // the below line is for calculating the last mean vs the now mean.
@@ -110,5 +112,27 @@ module.exports = {
     cols.push(z(8, n(global.meanp).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
     return cols
   },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    neurons_1: Phenotypes.Range(1, 200),
+    activation_1_type: Phenotypes.ListOption(['sigmoid', 'tanh', 'relu']),
+    depth: Phenotypes.Range(1, 100),
+    min_predict: Phenotypes.Range(1, 100),
+    momentum: Phenotypes.Range(0, 100),
+    decay: Phenotypes.Range(1, 10),
+    learns: Phenotypes.Range(1, 200)
+  }
 }
 

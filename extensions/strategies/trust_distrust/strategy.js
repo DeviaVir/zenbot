@@ -1,5 +1,6 @@
 var z = require('zero-fill')
   , n = require('numbro')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'trust_distrust',
@@ -131,6 +132,27 @@ module.exports = {
     cols.push(z(8, n(s.period.high).format('0.0000'), ' ')[color])
     cols.push(z(8, n(s.trust_distrust_start).format('0.0000'), ' ').grey)
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 100),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    sell_threshold: Phenotypes.Range(1, 100),
+    sell_threshold_max: Phenotypes.Range0(1, 100),
+    sell_min: Phenotypes.Range(1, 100),
+    buy_threshold: Phenotypes.Range(1, 100),
+    buy_threshold_max: Phenotypes.Range0(1, 100),
+    greed: Phenotypes.Range(1, 100)
   }
 }
 

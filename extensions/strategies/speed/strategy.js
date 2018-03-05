@@ -1,7 +1,8 @@
 var z = require('zero-fill')
   , n = require('numbro')
   , ema = require('../../../lib/ema')
-  
+  , Phenotypes = require('../../../lib/phenotype')
+
 module.exports = {
   name: 'speed',
   description: 'Trade when % change from last two 1m periods is higher than average.',
@@ -51,6 +52,23 @@ module.exports = {
       cols.push(z(8, n(s.period.baseline).format('0.0000'), ' ').grey)
     }
     return cols
+  },
+
+  speed: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 100),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    baseline_periods: Phenotypes.Range(1, 5000),
+    trigger_factor: Phenotypes.RangeFloat(0.1, 10)
   }
 }
 
