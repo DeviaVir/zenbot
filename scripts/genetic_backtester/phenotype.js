@@ -45,8 +45,8 @@ module.exports = {
         let items = ['simple', 'low', 'trend']
         let index = Math.floor(Math.random() * items.length)
         r[k] = items[index]
-      } 
-      
+      }
+
     }
     return r
   },
@@ -78,8 +78,8 @@ module.exports = {
 
   fitness: function(phenotype) {
     if (typeof phenotype.sim === 'undefined') return 0
-    
-    var vsBuyHoldRate = (phenotype.sim.vsBuyHold / 50)
+
+    var vsBuyHoldRate = ( (phenotype.sim.vsBuyHold + 100) / 50)
     var wlRatio = phenotype.sim.wins / phenotype.sim.losses
     if(isNaN(wlRatio)) { // zero trades will result in 0/0 which is NaN
       wlRatio = 1
