@@ -2174,5 +2174,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/TRX"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TUSD"
   }
 ]
