@@ -498,7 +498,7 @@
   {
     "asset": "SNT",
     "currency": "USD",
-    "min_size": "62.0",
+    "min_size": "64.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "SNT/USD"
@@ -506,7 +506,7 @@
   {
     "asset": "SNT",
     "currency": "BTC",
-    "min_size": "62.0",
+    "min_size": "64.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "SNT/BTC"
@@ -514,7 +514,7 @@
   {
     "asset": "SNT",
     "currency": "ETH",
-    "min_size": "62.0",
+    "min_size": "64.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "SNT/ETH"
@@ -626,7 +626,7 @@
   {
     "asset": "TNB",
     "currency": "USD",
-    "min_size": "186.0",
+    "min_size": "192.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "TNB/USD"
@@ -634,7 +634,7 @@
   {
     "asset": "TNB",
     "currency": "BTC",
-    "min_size": "186.0",
+    "min_size": "192.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "TNB/BTC"
@@ -642,7 +642,7 @@
   {
     "asset": "TNB",
     "currency": "ETH",
-    "min_size": "186.0",
+    "min_size": "192.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "TNB/ETH"

@@ -1,7 +1,8 @@
 var z = require('zero-fill')
-var stats = require('stats-lite')
-var math = require('mathjs')
-var ema = require('../../../lib/ema')
+  , stats = require('stats-lite')
+  , math = require('mathjs')
+  , ema = require('../../../lib/ema')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'stddev',
@@ -32,7 +33,7 @@ module.exports = {
     if (s.sig1 === 'Down') {
       s.signal = 'sell'
     }
-    else if (s.sig0 === 'Up' && s.sig1 === 'Up') {   
+    else if (s.sig0 === 'Up' && s.sig1 === 'Up') {
       s.signal = 'buy'
     }
     cb()
@@ -42,5 +43,23 @@ module.exports = {
     cols.push(z(s.signal, ' ')[s.signal === false ? 'red' : 'green'])
     return cols
   },
+
+  phenotypes: {
+    // -- common
+    // reference in extensions is given in ms have not heard of an exchange that supports 500ms thru api so setting min at 1 second
+    period_length: Phenotypes.RangePeriod(1, 7200, 's'),
+    min_periods: Phenotypes.Range(1, 2500),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    trendtrades_1: Phenotypes.Range(2, 20),
+    trendtrades_2: Phenotypes.Range(4, 100)
+  }
 }
 

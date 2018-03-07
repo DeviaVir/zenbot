@@ -9,6 +9,8 @@ module.exports = function (program) {
     .action(function (/*cmd*/) {
       var exchanges = fs.readdirSync('./extensions/exchanges')
       exchanges.forEach(function(exchange){
+        if (exchange === 'sim' || exchange === '_stub') return
+
         console.log(`${exchange}:`)
         var products = require(`../extensions/exchanges/${exchange}/products.json`)
         products.sort(function (a, b) {

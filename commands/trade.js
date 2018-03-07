@@ -52,6 +52,7 @@ module.exports = function (program, conf) {
     .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
+    .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
     .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
     .option('--debug', 'output detailed debug info')
     .action(function (selector, cmd) {
@@ -349,7 +350,7 @@ module.exports = function (program, conf) {
       }
 
       var order_types = ['maker', 'taker']
-      if (!(so.order_type in order_types) || !so.order_type) {
+      if (!order_types.includes(so.order_type)) {
         so.order_type = 'maker'
       }
 

@@ -5,6 +5,9 @@ node_js:
 before_install:
   - npm install -g node-gyp
   - if [ "$TRAVIS_NODE_VERSION" = "9" ]; then npm install -g greenkeeper-lockfile@1; fi
+script:
+  - npm run lint
+  - npm test
 after_success:
   - if [ "$TRAVIS_NODE_VERSION" = "9" ]; then greenkeeper-lockfile-update; fi
 after_script:

@@ -31,7 +31,7 @@ module.exports = function (program, conf) {
       so.sell_pct = cmd.pct
       so.selector = objectifySelector(selector || conf.selector)
       var order_types = ['maker', 'taker']
-      if (!(so.order_type in order_types) || !so.order_type) {
+      if (!order_types.includes(so.order_type)) {
         so.order_type = 'maker'
       }
       so.mode = 'live'
