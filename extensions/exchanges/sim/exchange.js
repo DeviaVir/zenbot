@@ -172,13 +172,19 @@ module.exports = function sim (conf, s) {
 
       _.each(openOrders, function(order) {
         if (order.tradetype === 'buy') {
-          if (trade.price <= Number(order.price)) {
+          if (trade.time - order.time < so.order_adjust_time) {
+            // Not time yet
+          }
+          else if (trade.price <= Number(order.price)) {
             processBuy(order, trade)
             orders_changed = true
           }
         }
         else if (order.tradetype === 'sell') {
-          if (trade.price >= order.price) {
+          if (trade.time - order.time < so.order_adjust_time) {
+            // Not time yet
+          }
+          else if (trade.price >= order.price) {
             processSell(order, trade)
             orders_changed = true
           }
@@ -220,6 +226,7 @@ module.exports = function sim (conf, s) {
         balance.asset = n(balance.asset).subtract(fee).format('0.00000000')
       }
     }
+
     let total = n(price).multiply(size)
     balance.currency = n(balance.currency).subtract(total).format('0.00000000')
 
