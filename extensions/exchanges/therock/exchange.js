@@ -51,20 +51,28 @@ module.exports = function container(conf) {
       let _this = this
       let client = publicClient()
       let market = client.market(args.id)
-      client.request(
-        `funds/${args.id}/trades?after=${args.after}&per_page=${args.per_page}&page=${args.page}&id=${args.id}`,
-        'public', 'GET', args
-      ).then(function(response) {
-        console.log(`Fetched page ${args.page} of ${response['meta'].last.page}`)
-        trades = trades.concat(response['trades'])
-        if (response['meta'].current.page < response['meta'].last.page) {
-          args['page'] = response['meta'].next.page
-          return _this.getTradesTheRock(args, cb, trades)
-        }
-        else {
+
+      try {
+        client.request(
+          `funds/${args.id}/trades?after=${args.after}&per_page=${args.per_page}&page=${args.page}&id=${args.id}`,
+          'public', 'GET', args
+        ).then(function(response) {
+          trades = trades.concat(response['trades'])
+
+          if (response['trades'].length > 0 && response['meta'].current.page < response['meta'].next.page) {
+            args['page'] = response['meta'].next.page
+            return _this.getTradesTheRock(args, cb, trades)
+          }
+
           return cb(client.parseTrades (trades, market))
-        }
-      })
+        }).catch(function(error) {
+          console.log('Retrying...', error)
+          return _this.getTradesTheRock(args, cb, trades)
+        })
+      } catch(error) {
+        console.log('Retrying...', error)
+        return _this.getTradesTheRock(args, cb, trades)
+      }
     },
 
     getTrades: function (opts, cb) {
