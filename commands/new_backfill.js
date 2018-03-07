@@ -1,12 +1,12 @@
 var minimist = require('minimist')
   , tb = require('timebucket')
-  , exchangeService = require('../../lib/services/exchange-service')
-  , objectifySelector = require('../../lib/objectify-selector')
-  , backfillFunction = require('./backfill.function')
+  , exchangeService = require('../lib/services/exchange-service')
+  , objectifySelector = require('../lib/objectify-selector')
+  , backfillFunction = require('./backfill/backfill.function')
 
 module.exports = function(program, conf) {
   program
-    .command('backfill [selector]')
+    .command('new_backfill [selector]')
     .description('download historical trades for analysis')
     .option('-d, --days <days>', 'number of days to acquire (default: ' + conf.days + ')', Number, conf.days)
     .action(function (selector, cmd) {
