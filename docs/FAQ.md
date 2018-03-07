@@ -90,20 +90,21 @@ There is also a shared Google Doc spreadsheet containing community sim results a
 
 Yes, Zenbot can be installed on Windows, although it is recommended that Linux or macOS is used instead.
 
-To install Zenbot on Windows it is at the moment Visual Studio 2015 needed (caused by analytic forex).
-Anyway with Windows 10 is an alternative way possible:
+Please note that these instructions are for Windows 10.
+
+To install Zenbot on Windows it is currently required to have Visual Studio 2015 installed (because of the analytic-forex package).
 
 1. Install the "Bash on Windows subsystem" (see https://msdn.microsoft.com/en-us/commandline/wsl/about for more information)
 
-> Note: You can then choose between Ubuntu, Fedora and OpenSUSE in Windows store. 
+> Note: You can then choose between Ubuntu, Fedora and OpenSUSE in the Windows store. 
 
-2. Open the terminal window, your disks will now be mounted under `/mnt/*`. So for example navigate to your directory (example: `cd /mnt/c/zenbot`)
+2. Open a terminal window, your disks will now be mounted under `/mnt/*`. So for example navigate to your directory (example: `cd /mnt/c/zenbot`)
 
 3. Install node (`curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -; sudo apt-get install nodejs`)
 
 4. Run zenbot as you would otherwise
 
-> Note: MongoDB is not working in this subsystem, please use the windows version!
+> Note: MongoDB is not working in this subsystem, please use the Windows version!
 
 
 
