@@ -409,7 +409,7 @@ module.exports = function (program, conf) {
               my_trades.find({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
                 if (err) throw err
                 if (my_prev_trades.length) {
-                  s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time > b.time + b.execution_time ? -1 : 1}) // simple copy, most recent executed first
+                  s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time < b.time + b.execution_time ? -1 : 1}) // simple copy, less recent executed first
                 }
               })
             }
