@@ -27,7 +27,7 @@
     ]
   },
   "dependencies": {
-    "@slack/client": "^3.14.0",
+    "@slack/client": "^4.0.0",
     "async": "^2.5.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
