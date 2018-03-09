@@ -165,11 +165,54 @@ module.exports = function gdax (conf) {
   }
 
   function handleOrderDone(update, product_id) {
-    var cached_order = websocket_cache[product_id].orders['~'+update.order_id]
+    let cached_order = websocket_cache[product_id].orders['~'+update.order_id]
     if(cached_order){
+      /*
+      order canceled by user or on platform: which must be retried see "reason":
+      { type: 'done',
+        side: 'sell',
+        order_id: 'xxxx',
+        reason: 'canceled',
+        product_id: 'LTC-EUR',
+        price: '142.33000000',
+        remaining_size: '1.24390150',
+        sequence: 1337,
+        user_id: '5a2aeXXX',
+        profile_id: 'xxx',
+        time: '2018-03-09T16:28:49.293000Z'
+      }
+
+      complete order response; no further action:
+      { type: 'done',
+        side: 'sell',
+        order_id: 'xxxx',
+        reason: 'filled',
+        product_id: 'LTC-EUR',
+        price: '142.81000000',
+        remaining_size: '0.00000000',
+        sequence: 1337,
+        user_id: '5a2aeXXX',
+        profile_id: 'xxx',
+        time: '2018-03-09T16:56:39.352000Z'
+      }
+      */
+
+      // get order "reason":
+      //  - "canceled" by user or platform
+      //  - "filled" order successfully placed and filled
+      let reason = update.reason
+
       cached_order.status = 'done'
+
+      // "canceled" is not a success order instead it must be retried
+      // force zenbot a order retry; see "engine.js" for possible retry conditions
+      if (reason && reason == 'canceled') {
+        cached_order.status = 'rejected'
+        cached_order.reject_reason = 'post only'
+      }
+
       cached_order.done_at = update.time
-      cached_order.done_reason = update.reason,
+      cached_order.done_reason = reason
       cached_order.settled = true
     }
   }
