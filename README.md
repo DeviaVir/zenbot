@@ -563,6 +563,16 @@ ta_ultosc
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
 
+ti_hma
+  description:
+    HMA - Hull Moving Average
+  options:
+    --period=<value>  period length eg 10m (default: 15m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --trend_hma=<value>  number of periods for trend hma (default: 36)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trendline
   description:
     Calculate a trendline and trade when trend is positive vs negative.
