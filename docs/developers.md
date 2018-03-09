@@ -287,6 +287,5 @@ Zenbot offers various extensions, arguably it is what makes zenbot so awesome.
 If you wish to add a new notifier, please follow these steps:
 
 - create a your-service-name.js in `/extensions/notifiers/` make sure to use the same function returns as other notifiers
-- add `'notifiers.your-service-name': require('./your-service-name')` to `/extensions/notifiers/_codemap.js`
 - add config bootstrap to `/conf-sample.js`
 - send us a PR with your new service :)

@@ -12,9 +12,19 @@ $ docker-compose up
 $ docker-compose exec server bash
 ```
 
-On docker host:
+On docker host (or without docker):
 ```
 $ fab backfill_local:<days>
 $ cd scripts/genetic_algo
 $ python -m scoop main.py <product> <days> <individuals> <strategy>
 ```
+
+example:
+```
+$ fab backfill_local:5
+$ cd scripts/genetic_algo
+$ python -m scoop main.py BTC-CUR 3
+```
+
+Important: before usage, create directory
+scripts/genetic_algo/logs/hof

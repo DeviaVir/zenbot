@@ -1,8 +1,8 @@
 var simplexmpp = require('simple-xmpp')
 
-module.exports = function container (get, set, clear) {
+module.exports = function xmpp (config) {
   var xmpp = {
-    pushMessage: function(config, title, message) {
+    pushMessage: function(title, message) {
       if (!simplexmpp.conn) {
         simplexmpp.connect({
           jid       : config.jid,

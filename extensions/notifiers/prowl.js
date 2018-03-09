@@ -1,8 +1,8 @@
 var Prowl = require('node-prowl')
 
-module.exports = function container (get, set, clear) {
+module.exports = function prowl (config) {
   var prowl = {
-    pushMessage: function(config, title, message) {
+    pushMessage: function(title, message) {
       var p = new Prowl(config.key)
       p.push(message, title, function(err) {
         if (err) {

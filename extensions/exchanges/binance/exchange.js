@@ -1,13 +1,10 @@
 const ccxt = require('ccxt')
   , path = require('path')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
-  , moment = require('moment')
   , _ = require('lodash')
-  , n = require('numbro')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
-
+module.exports = function bittrex (conf) {
   var public_client, authed_client
 
   function publicClient () {
@@ -17,16 +14,23 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.binance || !c.binance.key || c.binance.key === 'YOUR-API-KEY') {
+      if (!conf.binance || !conf.binance.key || conf.binance.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Binance credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.binance({ 'apiKey': c.binance.key, 'secret': c.binance.secret })
+      authed_client = new ccxt.binance({ 'apiKey': conf.binance.key, 'secret': conf.binance.secret })
     }
     return authed_client
   }
 
+  /**
+   * Convert BNB-BTC to BNB/BTC
+   *
+   * @param product_id BNB-BTC
+   * @returns {string}
+   */
   function joinProduct(product_id) {
-    return product_id.split('-')[0] + '/' + product_id.split('-')[1]
+    let split = product_id.split('-')
+    return split[0] + '/' + split[1]
   }
 
   function retry (method, args, err) {
@@ -45,6 +49,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'binance',
     historyScan: 'forward',
+    historyScanUsesTime: true,
     makerFee: 0.1,
     takerFee: 0.1,
 
@@ -55,7 +60,7 @@ module.exports = function container (get, set, clear) {
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
 
-      var args = {};
+      var args = {}
       if (opts.from) {
         args.startTime = opts.from
       }
@@ -64,15 +69,15 @@ module.exports = function container (get, set, clear) {
       }
       if (args.startTime && !args.endTime) {
         // add 12 hours
-        args.endTime = args.startTime + 3600000
+        args.endTime = parseInt(args.startTime, 10) + 3600000
       }
       else if (args.endTime && !args.startTime) {
         // subtract 12 hours
-        args.startTime = args.endTime - 3600000
+        args.startTime = parseInt(args.endTime, 10) - 3600000
       }
 
       var client = publicClient()
-      client.fetchTrades(joinProduct(opts.product_id), '','', args).then(result => {
+      client.fetchTrades(joinProduct(opts.product_id), undefined, undefined, args).then(result => {
         var trades = result.map(function (trade) {
           return {
             trade_id: trade.id,
@@ -124,14 +129,40 @@ module.exports = function container (get, set, clear) {
         })
     },
 
+    getDepth: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
+      var client = publicClient()
+      client.fetchOrderBook(joinProduct(opts.product_id), {limit: opts.limit}).then(result => {
+        cb(null, result)
+      })
+        .catch(function(error) {
+          console.error('An error ocurred', error)
+          return retry('getDepth', func_args)
+        })
+    },
+
     cancelOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancelOrder(opts.order_id, joinProduct(opts.product_id)).then(function (body) {
         if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
         cb(null)
-      },function(err){
-        if (err) return retry('cancelOrder', func_args, err)
+      }, function(err){
+        // match error against string:
+        // "binance {"code":-2011,"msg":"UNKNOWN_ORDER"}"
+
+        if (err) {
+          // decide if this error is allowed for a retry
+
+          if (err.message && err.message.match(new RegExp(/-2011|UNKNOWN_ORDER/))) {
+            console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + ' - ' + err).cyan)
+          } else {
+            // retry is allowed for this error
+
+            return retry('cancelOrder', func_args, err)
+          }
+        }
+
         cb()
       })
     },
@@ -176,6 +207,18 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
+
+        // decide if this error is allowed for a retry:
+        // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
+        // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
+
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL|-2010/))) {
+          return cb(null, {
+            status: 'rejected',
+            reject_reason: 'balance'
+          })
+        }
+
         return retry('buy', func_args)
       })
     },
@@ -220,6 +263,18 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
+
+        // decide if this error is allowed for a retry:
+        // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
+        // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
+
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL|-2010/))) {
+          return cb(null, {
+            status: 'rejected',
+            reject_reason: 'balance'
+          })
+        }
+
         return retry('sell', func_args)
       })
     },

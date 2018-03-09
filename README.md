@@ -3,7 +3,7 @@
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
 
-# Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot)
+# Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot) [![Greenkeeper badge](https://badges.greenkeeper.io/DeviaVir/zenbot.svg)](https://greenkeeper.io/)
 
 ## Current Status
 
@@ -31,6 +31,10 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 - "Paper" trading mode, operates on a simulated balance while watching the live market
 - Configurable sell stops, buy stops, and (trailing) profit stops
 - Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 15-50/day with 5m period
+
+### Community
+
+Join the Zenbot community on [Reddit](https://reddit.com/r/zenbot)!
 
 ## Disclaimer
 
@@ -86,7 +90,9 @@ npm link
 ```
 
 ### Ubuntu 16.04 Step-By-Step
-https://youtu.be/BEhU55W9pBI
+[Video](https://youtu.be/BEhU55W9pBI)
+[Blog Post](https://jaynagpaul.com/algorithmic-crypto-trading?utm_source=zenbot)
+
 ```
 sudo apt-get update
 sudo apt-get upgrade -y
@@ -248,39 +254,60 @@ zenbot trade --help
 
   Options:
 
-    --conf <path>                   path to optional conf overrides file
-    --strategy <name>               strategy to use
-    --order_type <type>             order type to use (maker/taker)
-    --paper                         use paper trading mode (no real trades will take place)
-    --manual                        watch price and account balance, but do not perform trades automatically
-    --currency_capital <amount>     for paper trading, amount of start capital in currency
-    --asset_capital <amount>        for paper trading, amount of start capital in asset
-    --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
-    --buy_pct <pct>                 buy with this % of currency balance
-    --buy_max_amt <amt>             buy with up to this amount of currency balance
-    --sell_pct <pct>                sell with this % of asset balance
-    --markdown_buy_pct <pct>        % to mark down buy price (previously the --markup_pct property)
-    --markup_sell_pct <pct>         % to mark up sell price (previously the --markup_pct property)
-    --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
-    --order_poll_time <ms>          poll order status on this interval
-    --sell_stop_pct <pct>           sell if price drops below this % of bought price
-    --buy_stop_pct <pct>            buy if price surges above this % of sold price
-    --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
-    --profit_stop_pct <pct>         maintain a trailing stop this % below the high-water mark of profit
-    --max_sell_loss_pct <pct>       avoid selling at a loss pct under this float
-    --max_slippage_pct <pct>        avoid selling at a slippage pct above this float
-    --rsi_periods <periods>         number of periods to calculate RSI at
-    --poll_trades <ms>              poll new trades at this interval in ms
-    --disable_stats                 disable printing order stats
-    --reset_profit                  start new profit calculation from 0
-    --debug                         output detailed debug info
-    -h, --help                      output usage information
+    --conf <path>                     path to optional conf overrides file
+    --strategy <name>                 strategy to use
+    --order_type <type>               order type to use (maker/taker)
+    --paper                           use paper trading mode (no real trades will take place)
+    --manual                          watch price and account balance, but do not perform trades automatically
+    --non_interactive                 disable keyboard inputs to the bot
+    --currency_capital <amount>       for paper trading, amount of start capital in currency
+    --asset_capital <amount>          for paper trading, amount of start capital in asset
+    --avg_slippage_pct <pct>          avg. amount of slippage to apply to paper trades
+    --buy_pct <pct>                   buy with this % of currency balance
+    --buy_max_amt <amt>               buy with up to this amount of currency balance
+    --sell_pct <pct>                  sell with this % of asset balance
+    --markdown_buy_pct <pct>          % to mark down buy price
+    --markup_sell_pct <pct>           % to mark up sell price
+    --order_adjust_time <ms>          adjust bid/ask on this interval to keep orders competitive
+    --order_poll_time <ms>            poll order status on this interval
+    --sell_stop_pct <pct>             sell if price drops below this % of bought price
+    --buy_stop_pct <pct>              buy if price surges above this % of sold price
+    --profit_stop_enable_pct <pct>    enable trailing sell stop when reaching this % profit
+    --profit_stop_pct <pct>           maintain a trailing stop this % below the high-water mark of profit
+    --max_sell_loss_pct <pct>         avoid selling at a loss pct under this float
+    --max_buy_loss_pct <pct>          avoid buying at a loss pct over this float
+    --max_slippage_pct <pct>          avoid selling at a slippage pct above this float
+    --rsi_periods <periods>           number of periods to calculate RSI at
+    --poll_trades <ms>                poll new trades at this interval in ms
+    --currency_increment <amount>     Currency increment, if different than the asset increment
+    --keep_lookback_periods <amount>  Keep this many lookback periods max.
+    --exact_buy_orders                instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all
+    --exact_sell_orders               instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all
+    --use_prev_trades                 load and use previous trades for stop-order triggers and loss protection
+    --disable_stats                   disable printing order stats
+    --reset_profit                    start new profit calculation from 0
+    --use_fee_asset                   Using separated asset to pay for fees. Such as binance's BNB or Huobi's HT
+    --run_for <minutes>               Execute for a period of minutes then exit with status 0 (default: null)
+    --debug                           output detailed debug info
+    -h, --help                        output usage information
 ```
 
 and also:
 
 ```
 zenbot list-strategies
+
+bollinger
+  description:
+    Buy when (Signal ≤ Lower Bollinger Band) and sell when (Signal ≥ Upper Bollinger Band).
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --period_length=<value>  period length, same as --period (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --bollinger_size=<value>  period size (default: 20)
+    --bollinger_time=<value>  times of standard deviation between the upper band and the moving averages (default: 2)
+    --bollinger_upper_bound_pct=<value>  pct the current price should be near the bollinger upper bound before we sell (default: 0)
+    --bollinger_lower_bound_pct=<value>  pct the current price should be near the bollinger lower bound before we buy (default: 0)
 
 cci_srsi
   description:
@@ -351,6 +378,12 @@ macd
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+momentum
+  description:
+    MOM = Close(Period) - Close(Length)
+  options:
+    --momentum_size=<value>  number of periods to look back for momentum (default: 5)
 
 neural
   description:
@@ -466,6 +499,33 @@ ta_macd
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
+ta_macd_ext
+  description:
+    Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0) with controllable talib TA types
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --fast_ma_type=<value>  fast_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --slow_ma_type=<value>  slow_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --signal_ma_type=<value>  signal_ma_type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: null)
+    --default_ma_type=<value>  set default ma_type for fast, slow and signal. You are able to overwrite single types separately (fast_ma_type, slow_ma_type, signal_ma_type) (default: SMA)
+    --up_trend_threshold=<value>  threshold to trigger a buy signal (default: 0)
+    --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+ta_trix
+  description:
+    TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
+  options:
+    --period=<value>  period length eg 10m (default: 5m)
+    --timeperiod=<value>  timeperiod for TRIX (default: 30)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trend_ema (default)
   description:
     Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.
@@ -477,6 +537,41 @@ trend_ema (default)
     --neutral_rate=<value>  avoid trades if abs(trend_ema) under this float (0 to disable, "auto" for a variable filter) (default: auto)
     --oversold_rsi_periods=<value>  number of periods for oversold RSI (default: 14)
     --oversold_rsi=<value>  buy when RSI reaches this value (default: 10)
+
+ta_ppo
+  description:
+     PPO - Percentage Price Oscillator with rsi oversold
+  options:
+    --period=<value>  period length, same as --period_length (default: 10m)
+    --ema_short_period=<value>  number of periods for the shorter EMA (default: 12)
+    --ema_long_period=<value>  number of periods for the longer EMA (default: 26)
+    --signal_period=<value>  number of periods for the signal EMA (default: 9)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --ma_type==<value> moving average type of talib: SMA, EMA, WMA, DEMA, TEMA, TRIMA, KAMA, MAMA, T3 (default: SMA)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
+ta_ultosc
+  description:
+    ULTOSC - Ultimate Oscillator with rsi oversold
+  options:
+    --period=<value>  period length eg 5m (default: 5m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --signal=<value>  Provide signal and indicator "simple" (buy@65, sell@50), "low" (buy@65, sell@30), "trend" (buy@30, sell@70) (default: simple)
+    --timeperiod1=<value>  talib ULTOSC timeperiod1 (default: 7)
+    --timeperiod2=<value>  talib ULTOSC timeperiod2 (default: 14)
+    --timeperiod3=<value>  talib ULTOSC timeperiod3 (default: 28)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
+
+ti_hma
+  description:
+    HMA - Hull Moving Average
+  options:
+    --period=<value>  period length eg 10m (default: 15m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --trend_hma=<value>  number of periods for trend hma (default: 36)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
 
 trendline
   description:
@@ -505,6 +600,23 @@ trust_distrust
     --buy_threshold=<value>  buy when the bottom increased at least above this percentage (default: 2)
     --buy_threshold_max=<value>  wait for multiple buy signals before buying (kill whipsaw, 0 to disable) (default: 0)
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
+
+wavetrend
+  description:
+    Buy when (Signal < Oversold) and sell when (Signal > Overbought).
+  options:
+    --period=<value>  period length, same as --period_length (default: 1h)
+    --period_length=<value>  period length, same as --period (default: 1h)
+    --min_periods=<value>  min. number of history periods (default: 21)
+    --wavetrend_channel_length=<value>  wavetrend channel length (default: 10)
+    --wavetrend_average_length=<value>  wavetrend average length (default: 21)
+    --wavetrend_overbought_1=<value>  wavetrend overbought limit 1 (default: 60)
+    --wavetrend_overbought_2=<value>  wavetrend overbought limit 2 (default: 53)
+    --wavetrend_oversold_1=<value>  wavetrend oversold limit 1 (default: -60)
+    --wavetrend_oversold_2=<value>  wavetrend oversold limit 2 (default: -53)
+    --wavetrend_trends=<value>  act on trends instead of limits (default: false)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 9)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 80)
 ```
 
 ## Interactive controls
@@ -621,7 +733,7 @@ Trade when % change from last two 1m periods is higher than average.
 
 - Trade frequency is adjusted with a combination of `--period` and `--trend_ema`. For example, if you want more frequent trading, try `--period=5m` or `--trend_ema=15` or both. If you get too many ping-pong trades or losses from fees, try increasing `period` or `trend_ema` or increasing `neutral_rate`.
 - Sometimes it's tempting to tell the bot trade very often. Try to resist this urge, and go for quality over quantity, since each trade comes with a decent amount of slippage and whipsaw risk.
-- `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss of the price continues to fall.
+- `--oversold_rsi=<rsi>` will try to buy when the price dives. This is one of the ways to get profit above buy/hold, but setting it too high might result in a loss if the price continues to fall.
 - In a market with predictable price surges and corrections, `--profit_stop_enable_pct=10` will try to sell when the last buy hits 10% profit and then drops to 9% (the drop % is set with `--profit_stop_pct`). However in strong, long uptrends this option may end up causing a sell too early.
 - For Kraken and GDAX you may wish to use `--order_type="taker"`, this uses market orders instead of limit orders. You usually pay a higher fee, but you can be sure that your order is filled instantly. This means that the sim will more closely match your live trading. Please note that GDAX does not charge maker fees (limit orders), so you will need to choose between not paying fees and running the risk orders do not get filled on time, or paying somewhat high % of fees and making sure your orders are always filled on time.
 
@@ -731,8 +843,8 @@ Thanks!
 
 ### License: MIT
 
-- Copyright (C) 2017 Carlos Rodriguez
-- Copyright (C) 2017 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
+- Copyright (C) 2018 Carlos Rodriguez
+- Copyright (C) 2018 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the &quot;Software&quot;), to deal

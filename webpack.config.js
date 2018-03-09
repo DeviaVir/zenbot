@@ -1,12 +1,16 @@
-'use strict';
+'use strict'
 
-const path = require('path');
+const path = require('path')
 
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
     app: './webpack-src/js/app.js',
+    echarts: './webpack-src/js/echarts.js'
+  },
+  optimization: {
+    minimize: true
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -14,8 +18,7 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
-    }),
-    new webpack.optimize.UglifyJsPlugin()
+    })
   ],
   output: {
     publicPath: '/assets-wp/',
@@ -24,7 +27,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/, query: { presets: ['es2015'] } },
+      { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/, query: { presets: ['env'] } },
       {
         test: /\.(scss)$/,
         use: [{
@@ -38,7 +41,7 @@ module.exports = {
               return [
                 require('precss'),
                 require('autoprefixer')
-              ];
+              ]
             }
           }
         }, {
@@ -46,10 +49,10 @@ module.exports = {
         }]
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
+      { test: /\.(woff|woff2)$/, loader:'url?prefix=font/&limit=5000' },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
       {
         test: require.resolve('jquery'),
         use: [{
@@ -60,6 +63,13 @@ module.exports = {
           options: '$'
         }]
       },
+      {
+        test: require.resolve('./webpack-src/js/echarts.js'),
+        use: [{
+          loader: 'expose-loader',
+          options: 'echarts'
+        }]
+      }
     ],
   },
 }

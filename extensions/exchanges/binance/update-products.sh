@@ -1,26 +1,38 @@
 #!/usr/bin/env node
-var request = require('micro-request')
-request('https://www.binance.com/exchange/public/product', {headers: {'User-Agent': 'zenbot/4'}}, function (err, resp, body) {
-  if (err) throw err
-  if (resp.statusCode !== 200) {
-    var err = new Error('non-200 status: ' + resp.statusCode)
-    err.code = 'HTTP_STATUS'
-    err.body = body
-    console.error(err)
-    process.exit(1)
-  }
+let ccxt = require('ccxt')
+
+new ccxt.binance().fetch_markets().then(function(markets) {
   var products = []
-  body.data.forEach(function (product) {
+
+  markets.forEach(function (market) {
+    var currStepSize = market.info.filters[0].tickSize
+    for (i = currStepSize.length - 1; i > 0; i--) {
+      if (currStepSize[i] === '0')
+        currStepSize = currStepSize.slice(0, i)
+      else
+        break;
+    }
+
+    var assetStepSize = market.info.filters[1].stepSize
+    for (i = assetStepSize.length - 1; i > 0; i--) {
+      if (assetStepSize[i] === '0')
+        assetStepSize = assetStepSize.slice(0, i)
+      else
+        break
+    }
+
     products.push({
-      id: product.symbol,
-      asset: product.baseAsset,
-      currency: product.quoteAsset,
-      min_size: product.minTrade,
-      max_size: '100000',
-      increment: product.tickSize,
-      label: product.baseAsset + '/' + product.quoteAsset
+      id: market.id,
+      asset: market.base,
+      currency: market.quote,
+      min_size: market.info.filters[1].minQty,
+      max_size: market.info.filters[0].maxPrice,
+      increment: currStepSize,
+      asset_increment: assetStepSize,
+      label: market.base + '/' + market.quote
     })
   })
+
   var target = require('path').resolve(__dirname, 'products.json')
   require('fs').writeFileSync(target, JSON.stringify(products, null, 2))
   console.log('wrote', target)

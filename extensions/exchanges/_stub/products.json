@@ -1,0 +1,10 @@
+[
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.002",
+    "max_size": "2000.0",
+    "increment": "0.001",
+    "label": "BTC/USD"
+  }
+]

@@ -1,38 +1,35 @@
 var GeminiAPI = require('gemini-api'),
   path = require('path'),
   minimist = require('minimist'),
-  moment = require('moment'),
+  // eslint-disable-next-line no-unused-vars
   colors = require('colors'),
   n = require('numbro')
 
-module.exports = function container(get, set, clear) {
-  var c = get('conf')
+module.exports = function gemini (conf) {
   var s = {
     options: minimist(process.argv)
   }
   var so = s.options
 
-  var shownWarnings = false
-
   var public_client, authed_client
 
   function publicClient() {
     if (!public_client) public_client = new GeminiAPI.default({
-      sandbox: c.gemini.sandbox || false
+      sandbox: conf.gemini.sandbox || false
     })
     return public_client
   }
 
   function authedClient() {
     if (!authed_client) {
-      if (!c.gemini || !c.gemini.key || !c.gemini.key === 'YOUR-API-KEY') {
+      if (!conf.gemini || !conf.gemini.key || !conf.gemini.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Gemini credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
 
       authed_client = new GeminiAPI.default({
-        key: c.gemini.key,
-        secret: c.gemini.secret,
-        sandbox: c.gemini.sandbox
+        key: conf.gemini.key,
+        secret: conf.gemini.secret,
+        sandbox: conf.gemini.sandbox
       })
     }
     return authed_client
@@ -50,7 +47,7 @@ module.exports = function container(get, set, clear) {
 
     if (method !== 'getTrades') {
       console.error((`\nGemini API is down: (${method}) ${error.message}`).red)
-      console.log((`Retrying in 30 sseconds ...`).yellow);
+      console.log(('Retrying in 30 sseconds ...').yellow)
     }
 
     debugOut(error)
@@ -120,7 +117,7 @@ module.exports = function container(get, set, clear) {
             currency_hold: n(currency.amount).subtract(currency.available).format('0.00')
           }
 
-          debugOut(`Balance/Hold:`)
+          debugOut('Balance/Hold:')
           debugOut(`  ${currency.currency} (${balance.currency}/${balance.currency_hold})`)
           debugOut(`  ${asset.currency} (${balance.asset}/${balance.asset_hold})`)
 
@@ -193,7 +190,7 @@ module.exports = function container(get, set, clear) {
 
           if (opts.post_only && body.is_cancelled) {
             order.status = 'rejected',
-              order.reject_reason = 'post only'
+            order.reject_reason = 'post only'
           }
 
           debugOut(`    Purchase ID: ${body.id}`)
@@ -238,7 +235,7 @@ module.exports = function container(get, set, clear) {
 
           if (opts.post_only && body.is_cancelled) {
             order.status = 'rejected',
-              order.reject_reason = 'post only'
+            order.reject_reason = 'post only'
           }
 
           debugOut(`    Purchase ID: ${body.id}`)

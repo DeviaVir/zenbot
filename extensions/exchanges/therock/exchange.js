@@ -1,18 +1,7 @@
 const ccxt = require ('ccxt'),
-  path = require('path'),
-  minimist = require('minimist'),
-  moment = require('moment'),
-  colors = require('colors'),
-  n = require('numbro')
+  path = require('path')
 
-module.exports = function container(get, set, clear) {
-  var c = get('conf')
-  var s = {
-    options: minimist(process.argv)
-  }
-  var so = s.options
-
-  var shownWarnings = false
+module.exports = function container(conf) {
 
   var public_client, authed_client
 
@@ -23,11 +12,11 @@ module.exports = function container(get, set, clear) {
 
   function authedClient() {
     if (!authed_client) {
-      if (!c.therock || !c.therock.key || !c.therock.key === 'YOUR-API-KEY') {
+      if (!conf.therock || !conf.therock.key || !conf.therock.key === 'YOUR-API-KEY') {
         throw new Error('please configure your TheRockTrading credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
 
-      authed_client = new ccxt.therock ({ 'apiKey': c.therock.key,'secret': c.therock.secret })
+      authed_client = new ccxt.therock ({ 'apiKey': conf.therock.key,'secret': conf.therock.secret })
     }
     return authed_client
   }
@@ -62,20 +51,28 @@ module.exports = function container(get, set, clear) {
       let _this = this
       let client = publicClient()
       let market = client.market(args.id)
-      client.request(
-        `funds/${args.id}/trades?after=${args.after}&per_page=${args.per_page}&page=${args.page}&id=${args.id}`,
-        'public', 'GET', args
-      ).then(function(response) {
-        console.log(`Fetched page ${args.page} of ${response['meta'].last.page}`)
-        trades = trades.concat(response['trades'])
-        if (response['meta'].current.page < response['meta'].last.page) {
-          args['page'] = response['meta'].next.page
-          return _this.getTradesTheRock(args, cb, trades)
-        }
-        else {
+
+      try {
+        client.request(
+          `funds/${args.id}/trades?after=${args.after}&per_page=${args.per_page}&page=${args.page}&id=${args.id}`,
+          'public', 'GET', args
+        ).then(function(response) {
+          trades = trades.concat(response['trades'])
+
+          if (response['trades'].length > 0 && response['meta'].current.page < response['meta'].next.page) {
+            args['page'] = response['meta'].next.page
+            return _this.getTradesTheRock(args, cb, trades)
+          }
+
           return cb(client.parseTrades (trades, market))
-        }
-      })
+        }).catch(function(error) {
+          console.log('Retrying...', error)
+          return _this.getTradesTheRock(args, cb, trades)
+        })
+      } catch(error) {
+        console.log('Retrying...', error)
+        return _this.getTradesTheRock(args, cb, trades)
+      }
     },
 
     getTrades: function (opts, cb) {

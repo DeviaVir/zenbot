@@ -3,7 +3,7 @@
     "asset": "BTC",
     "currency": "USD",
     "min_size": "0.001",
-    "max_size": "50000",
+    "max_size": "500000",
     "increment": "0.0001",
     "label": "BTC/USD"
   },
@@ -11,7 +11,7 @@
     "asset": "BTC",
     "currency": "RUR",
     "min_size": "0.001",
-    "max_size": "3000000",
+    "max_size": "30000000",
     "increment": "0.0001",
     "label": "BTC/RUR"
   },
@@ -19,7 +19,7 @@
     "asset": "BTC",
     "currency": "EUR",
     "min_size": "0.001",
-    "max_size": "50000",
+    "max_size": "500000",
     "increment": "0.0001",
     "label": "BTC/EUR"
   },
@@ -34,8 +34,8 @@
   {
     "asset": "LTC",
     "currency": "USD",
-    "min_size": "0.1",
-    "max_size": "1000",
+    "min_size": "0.01",
+    "max_size": "10000",
     "increment": "0.0001",
     "label": "LTC/USD"
   },
@@ -43,7 +43,7 @@
     "asset": "LTC",
     "currency": "RUR",
     "min_size": "0.01",
-    "max_size": "100000",
+    "max_size": "1000000",
     "increment": "0.0001",
     "label": "LTC/RUR"
   },
@@ -51,7 +51,7 @@
     "asset": "LTC",
     "currency": "EUR",
     "min_size": "0.01",
-    "max_size": "1000",
+    "max_size": "10000",
     "increment": "0.0001",
     "label": "LTC/EUR"
   },
@@ -67,7 +67,7 @@
     "asset": "NMC",
     "currency": "USD",
     "min_size": "0.1",
-    "max_size": "100",
+    "max_size": "1000",
     "increment": "0.0001",
     "label": "NMC/USD"
   },
@@ -123,7 +123,7 @@
     "asset": "PPC",
     "currency": "USD",
     "min_size": "0.1",
-    "max_size": "100",
+    "max_size": "1000",
     "increment": "0.0001",
     "label": "PPC/USD"
   },
@@ -139,7 +139,7 @@
     "asset": "DSH",
     "currency": "USD",
     "min_size": "0.01",
-    "max_size": "5000",
+    "max_size": "50000",
     "increment": "0.0001",
     "label": "DSH/USD"
   },
@@ -147,7 +147,7 @@
     "asset": "DSH",
     "currency": "RUR",
     "min_size": "0.01",
-    "max_size": "300000",
+    "max_size": "3000000",
     "increment": "0.0001",
     "label": "DSH/RUR"
   },
@@ -155,7 +155,7 @@
     "asset": "DSH",
     "currency": "EUR",
     "min_size": "0.01",
-    "max_size": "5000",
+    "max_size": "50000",
     "increment": "0.0001",
     "label": "DSH/EUR"
   },
@@ -163,7 +163,7 @@
     "asset": "DSH",
     "currency": "LTC",
     "min_size": "0.01",
-    "max_size": "600",
+    "max_size": "1000",
     "increment": "0.0001",
     "label": "DSH/LTC"
   },
@@ -171,9 +171,17 @@
     "asset": "DSH",
     "currency": "ETH",
     "min_size": "0.01",
-    "max_size": "600",
+    "max_size": "1000",
     "increment": "0.0001",
     "label": "DSH/ETH"
+  },
+  {
+    "asset": "DSH",
+    "currency": "ZEC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "DSH/ZEC"
   },
   {
     "asset": "ETH",
@@ -187,7 +195,7 @@
     "asset": "ETH",
     "currency": "USD",
     "min_size": "0.01",
-    "max_size": "5000",
+    "max_size": "50000",
     "increment": "0.0001",
     "label": "ETH/USD"
   },
@@ -195,7 +203,7 @@
     "asset": "ETH",
     "currency": "EUR",
     "min_size": "0.01",
-    "max_size": "5000",
+    "max_size": "50000",
     "increment": "0.0001",
     "label": "ETH/EUR"
   },
@@ -211,15 +219,23 @@
     "asset": "ETH",
     "currency": "RUR",
     "min_size": "0.01",
-    "max_size": "300000",
+    "max_size": "3000000",
     "increment": "0.0001",
     "label": "ETH/RUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "ZEC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "ETH/ZEC"
   },
   {
     "asset": "BCH",
     "currency": "USD",
     "min_size": "0.001",
-    "max_size": "10000",
+    "max_size": "100000",
     "increment": "0.0001",
     "label": "BCH/USD"
   },
@@ -235,7 +251,7 @@
     "asset": "BCH",
     "currency": "RUR",
     "min_size": "0.01",
-    "max_size": "600000",
+    "max_size": "6000000",
     "increment": "0.0001",
     "label": "BCH/RUR"
   },
@@ -243,7 +259,7 @@
     "asset": "BCH",
     "currency": "EUR",
     "min_size": "0.01",
-    "max_size": "10000",
+    "max_size": "100000",
     "increment": "0.0001",
     "label": "BCH/EUR"
   },
@@ -272,6 +288,14 @@
     "label": "BCH/DSH"
   },
   {
+    "asset": "BCH",
+    "currency": "ZEC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "BCH/ZEC"
+  },
+  {
     "asset": "ZEC",
     "currency": "BTC",
     "min_size": "0.01",
@@ -283,9 +307,17 @@
     "asset": "ZEC",
     "currency": "USD",
     "min_size": "0.01",
-    "max_size": "3000",
+    "max_size": "30000",
     "increment": "0.0001",
     "label": "ZEC/USD"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "LTC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.0001",
+    "label": "ZEC/LTC"
   },
   {
     "asset": "USDET",
@@ -374,5 +406,13 @@
     "max_size": "1",
     "increment": "0.0001",
     "label": "BCHET/BCH"
+  },
+  {
+    "asset": "USDT",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "2",
+    "increment": "0.0001",
+    "label": "USDT/USD"
   }
 ]
