@@ -656,14 +656,6 @@
     "label": "BTC/EXP"
   },
   {
-    "asset": "INFX",
-    "currency": "BTC",
-    "min_size": "10.55743243",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/INFX"
-  },
-  {
     "asset": "OMNI",
     "currency": "BTC",
     "min_size": "0.06833476",
@@ -678,14 +670,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/AMP"
-  },
-  {
-    "asset": "AGRS",
-    "currency": "BTC",
-    "min_size": "1.44508671",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/AGRS"
   },
   {
     "asset": "XLM",
@@ -734,14 +718,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FCT"
-  },
-  {
-    "asset": "MAID",
-    "currency": "BTC",
-    "min_size": "6.36780438",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/MAID"
   },
   {
     "asset": "EGC",
@@ -1376,28 +1352,12 @@
     "label": "BTC/ZEN"
   },
   {
-    "asset": "1ST",
-    "currency": "BTC",
-    "min_size": "6.99105145",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/1ST"
-  },
-  {
     "asset": "QRL",
     "currency": "BTC",
     "min_size": "2.25978487",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QRL"
-  },
-  {
-    "asset": "1ST",
-    "currency": "ETH",
-    "min_size": "11.84300907",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/1ST"
   },
   {
     "asset": "QRL",
