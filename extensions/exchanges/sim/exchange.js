@@ -162,7 +162,7 @@ module.exports = function sim (conf, s) {
     },
 
     setFees: function(opts) {
-      if (so.mode === 'paper' && real_exchange.dynamicFees) {
+      if (so.mode === 'paper') {
         return real_exchange.setFees(opts)
       }
     },
