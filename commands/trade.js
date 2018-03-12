@@ -30,7 +30,7 @@ module.exports = function (program, conf) {
     .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, conf.asset_capital)
     .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, conf.avg_slippage_pct)
     .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, conf.buy_pct)
-    .option('--buy_max_amt <amt>', 'buy with up to this amount of currency balance', Number, conf.buy_max_amt)
+    .option('--deposit <amt>', 'absolute initial capital (in currency) at the bots disposal (previously --buy_max_amt)', Number, conf.deposit)
     .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, conf.sell_pct)
     .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, conf.markdown_buy_pct)
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
@@ -80,6 +80,10 @@ module.exports = function (program, conf) {
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
+      if (so.buy_max_amt) {
+        console.log(('--buy_max_amt is deprecated, use --deposit instead!\n').red)
+        so.deposit = so.buy_max_amt
+      }
 
       so.selector = objectifySelector(selector || conf.selector)      
       var engine = engineFactory(s, conf)
