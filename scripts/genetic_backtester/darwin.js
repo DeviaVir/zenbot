@@ -10,7 +10,7 @@
  * --population_data=<filename>           filename used for continueing backtesting from previous run
  * --generateLaunch=<true>|<false>        will generate .sh and .bat file using the best generation discovered
  * --ignoreLaunchFitness=<true>|<false>   if used with --generateLaunch it will always write a new launch file regardless if latest fitness is greater
- * --floatScanWindow                      Time widow used for analyzing data be adjusted every generation
+ * --floatScanWindow                      Time window used for analyzing data be adjusted every generation
  * --population=<int>                     populate per strategy
  * --maxCores=<int>                       maximum processes to execute at a time default is # of cpu cores in system
  * --selector=<exchange.marketPair>
@@ -88,8 +88,8 @@ let writeSimDataFile = (iteration, data) => {
 function allStrategyNames ()  {
   let pathName = path.resolve(__dirname, '..','..', 'extensions', 'strategies')
   return fs.readdirSync(pathName).filter(function (file) {
-    return fs.statSync(pathName+'/'+file).isDirectory();
-  });
+    return fs.statSync(pathName+'/'+file).isDirectory()
+  })
 }
 
 function isUsefulKey  (key)  {
@@ -407,7 +407,7 @@ for (var i = 0; i < selectedStrategies.length; i++) {
     let evolve = true
     let population = []
     for (var i2 = population.length; i2 < populationSize; ++i2) {
-        population.push(Phenotypes.create(strategyPhenotypes))
+      population.push(Phenotypes.create(strategyPhenotypes))
       evolve = false
     }
 
