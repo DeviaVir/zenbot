@@ -39,6 +39,7 @@ module.exports = {
         layer_defs : [
           {type:'input', out_sx:1, out_sy:1, out_depth:s.options.depth},
           {type:'fc', num_neurons: s.options.neurons_1, activation: s.options.activation_1_type},
+          {type:'fc', num_neurons: s.options.neurons_2, activation: s.options.activation_2_type},
           {type:'regression', num_neurons:1}
         ],
         neuralDepth: s.options.depth
