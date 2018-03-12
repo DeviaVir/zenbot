@@ -14,18 +14,19 @@ module.exports = {
   name: 'neural',
   description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
   getOptions: function () {
-    this.option('period', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period_length', String, '1h')
-    this.option('period_length', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '1h')
+    this.option('period', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period_length', String, '30m')
+    this.option('period_length', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '30m')
     this.option('activation_1_type', 'Neuron Activation Type: sigmoid, tanh, relu', String, 'sigmoid')
-    this.option('neurons_1', 'Neurons in layer 1 Shoot for atleast 100', Number, 5)
+    this.option('neurons_1', 'Neurons in layer 1 Shoot for atleast 10', Number, 5)
+    this.option('activation_2_type', 'Neuron Activation Type: sigmoid, tanh, relu', String, 'sigmoid')
+    this.option('neurons_2', 'Neurons in layer 1 Shoot for atleast 10', Number, 5)
     this.option('depth', 'Number of decisions 2 for up or down', Number, 2)
-    this.option('selector', 'Selector', String, 'Gdax.BTC-USD')
-    this.option('min_periods', 'Periods to calculate learn from', Number, 1000)
+    this.option('min_periods', 'Periods to calculate learn from', Number, 2000)
     this.option('min_predict', 'Periods to predict next number from', Number, 200)
     this.option('momentum', 'momentum of prediction using stock', Number, 0.0)
     this.option('decay', 'decay of prediction, use teeny tiny increments', Number, 0.001)
     this.option('threads', 'Number of processing threads you\'d like to run (best for sim)', Number, 1)
-    this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 5)
+    this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 10)
   },
   calculate: function () {
   },
