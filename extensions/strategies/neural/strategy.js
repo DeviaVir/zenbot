@@ -14,18 +14,18 @@ module.exports = {
   name: 'neural',
   description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
   getOptions: function () {
-    this.option('period', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period_length', String, '1m')
-    this.option('period_length', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '1m')
+    this.option('period', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period_length', String, '1h')
+    this.option('period_length', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '1h')
     this.option('activation_1_type', 'Neuron Activation Type: sigmoid, tanh, relu', String, 'sigmoid')
-    this.option('neurons_1', 'Neurons in layer 1 Shoot for atleast 100', Number, 1)
-    this.option('depth', 'Rows of data to predict ahead for matches/learning', Number, 1)
+    this.option('neurons_1', 'Neurons in layer 1 Shoot for atleast 100', Number, 5)
+    this.option('depth', 'Number of decisions 2 for up or down', Number, 2)
     this.option('selector', 'Selector', String, 'Gdax.BTC-USD')
     this.option('min_periods', 'Periods to calculate learn from', Number, 1000)
-    this.option('min_predict', 'Periods to predict next number from', Number, 1)
-    this.option('momentum', 'momentum of prediction', Number, 0.9)
-    this.option('decay', 'decay of prediction, use teeny tiny increments', Number, 0.1)
+    this.option('min_predict', 'Periods to predict next number from', Number, 200)
+    this.option('momentum', 'momentum of prediction using stock', Number, 0.0)
+    this.option('decay', 'decay of prediction, use teeny tiny increments', Number, 0.001)
     this.option('threads', 'Number of processing threads you\'d like to run (best for sim)', Number, 1)
-    this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 2)
+    this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 5)
   },
   calculate: function () {
   },
@@ -80,15 +80,11 @@ module.exports = {
         learn()
         var item = tlp.reverse()
         s.prediction = predict(item)
-        s.mean = s.lookback[0].close
-        s.meanp = math.mean(s.prediction, oldmean)
-        oldmean = s.prediction
       }
       // NORMAL onPeriod STUFF here
-      global.meanp = s.meanp
-      global.mean = s.mean
+      global.predi = s.prediction
       //something strange is going on here
-      global.sig0 = global.meanp < global.mean
+      global.sig0 = global.predi > oldmean
       if (
         global.sig0 === false
       )
@@ -102,14 +98,13 @@ module.exports = {
       {
         s.signal = 'buy'
       }
+      oldmean = global.predi
       cb()
     }
   },
   onReport: function () {
     var cols = []
-    cols.push(z(8, n(global.mean).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
-    cols.push('    ')
-    cols.push(z(8, n(global.meanp).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
+    cols.push(z(8, n(global.predi).format('0000.000000000'), ' '))
     return cols
   },
 
@@ -135,4 +130,3 @@ module.exports = {
     learns: Phenotypes.Range(1, 200)
   }
 }
-
