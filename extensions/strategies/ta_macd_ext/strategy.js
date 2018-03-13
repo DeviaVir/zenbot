@@ -120,7 +120,7 @@ module.exports = {
     return cols
   },
 
-  ta_macd_ext: {
+  phenotypes: {
     period_length: Phenotypes.RangePeriod(1, 120, 'm'),
     min_periods: Phenotypes.Range(1, 104),
     markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
