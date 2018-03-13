@@ -132,9 +132,9 @@ module.exports = {
     depth: Phenotypes.Range(1, 200),
     min_predict: Phenotypes.Range(1, 200),
     // momentum and decay and learning rate are decimals?
-    momentum: Phenotypes.Range(0, 1),
-    decay: Phenotypes.Range(0, 1),
+    momentum: Phenotypes.RangeFloat(0, 1),
+    decay: Phenotypes.RangeFloat(0, 1),
     learns: Phenotypes.Range(1, 500),
-    learningrate: Phenotypes.Range(0, 1)
+    learningrate: Phenotypes.RangeFloat(0, 1)
   }
 }
