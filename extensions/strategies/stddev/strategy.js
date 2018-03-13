@@ -13,7 +13,7 @@ module.exports = {
     this.option('period_length', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period', String, '5m')
     this.option('trendtrades', 'Trades for array 2 to be calculated stddev and mean from', Number, 1000)
     this.option('min_periods', 'min_periods', Number, 1001)
-	this.option('order_adjust_time' 'Order Adjust Time', Number, 999999)
+    this.option('order_adjust_time', 'Order Adjust Time', Number, 999999)
   },
   calculate: function () {
   },
