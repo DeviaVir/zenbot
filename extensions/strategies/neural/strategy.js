@@ -14,18 +14,20 @@ module.exports = {
   name: 'neural',
   description: 'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',
   getOptions: function () {
-    this.option('period', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period_length', String, '1m')
-    this.option('period_length', 'period length - make sure to lower your poll trades time to lower than this value. Same as --period', String, '1m')
+    this.option('period', 'Period length - longer gets a better average', String, '30m')
+    this.option('period_length', 'Period length set same as --period', String, '30m')
     this.option('activation_1_type', 'Neuron Activation Type: sigmoid, tanh, relu', String, 'sigmoid')
-    this.option('neurons_1', 'Neurons in layer 1 Shoot for atleast 100', Number, 1)
-    this.option('depth', 'Rows of data to predict ahead for matches/learning', Number, 1)
-    this.option('selector', 'Selector', String, 'Gdax.BTC-USD')
-    this.option('min_periods', 'Periods to calculate learn from', Number, 1000)
-    this.option('min_predict', 'Periods to predict next number from', Number, 1)
-    this.option('momentum', 'momentum of prediction', Number, 0.9)
-    this.option('decay', 'decay of prediction, use teeny tiny increments', Number, 0.1)
-    this.option('threads', 'Number of processing threads you\'d like to run (best for sim)', Number, 1)
-    this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 2)
+    this.option('neurons_1', 'Neurons in layer 1', Number, 5)
+    this.option('activation_2_type', 'Neuron Activation Type: sigmoid, tanh, relu', String, 'sigmoid')
+    this.option('neurons_2', 'Neurons in layer 2', Number, 5)
+    this.option('depth', 'Generally the same as min_predict for accuracy', Number, 50)
+    this.option('min_periods', 'Periods to train neural network with from', Number, 2000)
+    this.option('min_predict', 'Periods to predict next number from less than min_periods', Number, 50)
+    this.option('momentum', 'momentum of prediction between 0 and 1 - 0 is stock', Number, 0.0)
+    this.option('decay', 'decay of prediction, use teeny tiny increments beteween 0 and 1 - stock', Number, 0.001)
+    this.option('threads', 'Number of processing threads you\'d like to run (best for sim - Possibly broken', Number, 1)
+    this.option('learns', 'Number of times to \'learn\' the neural network with past data', Number, 10)
+    this.option('learningrate', 'The learning rate of the neural network between 0 and 1 - 0.01 is stock', Number, 0.01)
   },
   calculate: function () {
   },
@@ -38,12 +40,13 @@ module.exports = {
         layer_defs : [
           {type:'input', out_sx:1, out_sy:1, out_depth:s.options.depth},
           {type:'fc', num_neurons: s.options.neurons_1, activation: s.options.activation_1_type},
+          {type:'fc', num_neurons: s.options.neurons_2, activation: s.options.activation_2_type},
           {type:'regression', num_neurons:1}
         ],
         neuralDepth: s.options.depth
       }
       s.neural.net.makeLayers(s.neural.layer_defs)
-      s.neural.trainer = new convnetjs.SGDTrainer(s.neural.net, {learning_rate:0.01, momentum:s.options.momentum, batch_size:1, l2_decay:s.options.decay})
+      s.neural.trainer = new convnetjs.SGDTrainer(s.neural.net, {learning_rate:s.options.learningrate, momentum:s.options.momentum, batch_size:1, l2_decay:s.options.decay})
     }
     if (cluster.isMaster) {
       ema(s, 'neural', s.options.neural)
@@ -55,7 +58,8 @@ module.exports = {
       // do the network thing
       var tlp = []
       var tll = []
-      if (s.lookback[s.options.min_periods]) {
+      // this thing is crazy run with trendline placed here. But there needs to be a coin lock so you dont buy late!
+      if (!s.in_preroll) {
         var min_predict = s.options.min_predict > s.options.min_periods ? s.options.min_periods : s.options.min_predict
         for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
         for (let i = 0; i < min_predict; i++) { tlp.push(s.lookback[i].close) }
@@ -80,15 +84,11 @@ module.exports = {
         learn()
         var item = tlp.reverse()
         s.prediction = predict(item)
-        s.mean = s.lookback[0].close
-        s.meanp = math.mean(s.prediction, oldmean)
-        oldmean = s.prediction
       }
       // NORMAL onPeriod STUFF here
-      global.meanp = s.meanp
-      global.mean = s.mean
+      global.predi = s.prediction
       //something strange is going on here
-      global.sig0 = global.meanp < global.mean
+      global.sig0 = global.predi > oldmean
       if (
         global.sig0 === false
       )
@@ -102,14 +102,13 @@ module.exports = {
       {
         s.signal = 'buy'
       }
+      oldmean = global.predi
       cb()
     }
   },
   onReport: function () {
     var cols = []
-    cols.push(z(8, n(global.mean).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
-    cols.push('    ')
-    cols.push(z(8, n(global.meanp).format('0.000000000'), ' ')[global.meanp > global.mean ? 'green' : 'red'])
+    cols.push(z(8, n(global.predi).format('0000.000000000'), ' '))
     return cols
   },
 
@@ -126,13 +125,16 @@ module.exports = {
     profit_stop_pct: Phenotypes.Range(1,20),
 
     // -- strategy
-    neurons_1: Phenotypes.Range(1, 200),
+    neurons_1: Phenotypes.Range(1, 20),
+    neurons_2: Phenotypes.Range(1, 20),
     activation_1_type: Phenotypes.ListOption(['sigmoid', 'tanh', 'relu']),
-    depth: Phenotypes.Range(1, 100),
-    min_predict: Phenotypes.Range(1, 100),
-    momentum: Phenotypes.Range(0, 100),
-    decay: Phenotypes.Range(1, 10),
-    learns: Phenotypes.Range(1, 200)
+    activation_2_type: Phenotypes.ListOption(['sigmoid', 'tanh', 'relu']),
+    depth: Phenotypes.Range(1, 200),
+    min_predict: Phenotypes.Range(1, 200),
+    // momentum and decay and learning rate are decimals?
+    momentum: Phenotypes.RangeFloat(0, 1),
+    decay: Phenotypes.RangeFloat(0, 1),
+    learns: Phenotypes.Range(1, 500),
+    learningrate: Phenotypes.RangeFloat(0, 1)
   }
 }
-
