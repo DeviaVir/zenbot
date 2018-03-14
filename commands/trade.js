@@ -151,7 +151,7 @@ module.exports = function (program, conf) {
 
       /* Implementing statistical Exit */
       function printTrade (quit, dump, statsonly = false) {
-        var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var tmp_balance = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
         if (quit) {
           if (s.my_trades.length) {
             s.my_trades.push({
@@ -278,7 +278,7 @@ module.exports = function (program, conf) {
         if(!shouldSaveStats) return
 
         var output_lines = []
-        var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var tmp_balance = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
 
         var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
         output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
@@ -574,7 +574,7 @@ module.exports = function (program, conf) {
                 start_price: session.orig_price,
               }
               b._id = b.id
-              b.consolidated = n(s.balance.asset).multiply(s.period.close).add(s.balance.currency).value()
+              b.consolidated = n(s.balance.asset).multiply(s.period.close).add(s.net_currency).value()
               b.profit = (b.consolidated - session.orig_capital) / session.orig_capital
               b.buy_hold = s.period.close * (session.orig_capital / session.orig_price)
               b.buy_hold_profit = (b.buy_hold - session.orig_capital) / session.orig_capital
