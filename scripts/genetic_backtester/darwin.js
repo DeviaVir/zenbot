@@ -42,7 +42,7 @@ let z = require('zero-fill')
 let n = require('numbro')
 let _ = require('lodash')
 
-let VERSION = 'Zenbot 4 Genetic Backtester v0.2.2'
+let VERSION = 'Zenbot 4 Genetic Backtester v0.2.3'
 
 let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length
 
