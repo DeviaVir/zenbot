@@ -38,7 +38,7 @@ The following parameters are available when executing darwin.js:
 --use_strategies="all | strategy1,strategy2"                                            # With this parameter, you can choose to test all, some (comma separated), or just one of the available strategies defined within darwin.
 --population="150"                                                                      # Optional - Number of simulation per generation
 --population_data="./simulations/backtest_[simtimestamp]"                               # Optional - Resume backtesting on a previously terminated backtesting session.
---runGeneraions										# Optional - Makes it possible to stop after a number of generations
+--runGenerations									# Optional - Makes it possible to stop after a number of generations
 ```
 
 ## Results
