@@ -304,6 +304,7 @@ function simulateGeneration(generateLaunchFile) {
       if (bestCommand != '') {
         bestCommand = prefix + bestCommand
         bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
+        console.log(bestCommand + '\n')
       }
     })
 
