@@ -370,7 +370,7 @@ if (simArgs.help || !(simArgs.use_strategies)) {
   console.log('--currency_capital=<float>  amount of capital/base currency to start sim with')
   console.log('--days=<int>  amount of days to use when backfilling')
   console.log('--noStatSave=<true>|<false>')
-  console.log('--generations=<int>  if used run this number of generations, will be shown 1 less due to generations starts at 0')
+  console.log('--runGenerations=<int>  if used run this number of generations, will be shown 1 less due to generations starts at 0')
   process.exit(0)
 }
 
