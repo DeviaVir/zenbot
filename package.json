@@ -16,7 +16,7 @@
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
     "precommit": "lint-staged",
-    "test": "jasmine test/_specs/**/**.test.js",
+    "test": "jasmine test/**/**.test.js",
     "test-one": "jasmine $PATH_TO_TEST",
     "postinstall": "node post_install.js"
   },
