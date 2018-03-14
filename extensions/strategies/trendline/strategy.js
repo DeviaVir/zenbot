@@ -10,7 +10,7 @@ var z = require('zero-fill')
   var trending_up = false
 module.exports = {
   name: 'stddev',
-  description: 'Buy when standard deviation and mean increase, sell on mean decrease.',
+  description: 'Buy when standard deviation and mean increase, sell on mean decrease. Make sure to set --days when backtesting period.',
   getOptions: function () {
     this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period_length', String, '1h')
     this.option('period_length', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period', String, '1h')
@@ -71,7 +71,10 @@ module.exports = {
 
     // -- strategy
     // trendtrades_1: Phenotypes.Range(2, 20),
-    trendtrades: Phenotypes.Range(4, 10000)
+    avgpoints: Phenotypes.Range(10, 10000)
+    lastpoints: Phenotypes.Range(10, 10000)
+    order_adjust_time: Phenotypes.Range(1000, 100000)
+    
   }
 }
 
