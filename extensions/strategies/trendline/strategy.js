@@ -24,7 +24,7 @@ module.exports = {
   onPeriod: function (s, cb) {
     ema(s, 'stddev', s.options.stddev)
     var tl1 = []
-	  var tls = []
+    var tls = []
     if (s.lookback[s.options.min_periods]) {
       for (let i = 0; i < s.options.avgpoints + 10; i++) { tl1.push(s.lookback[i].close) }
       for (let i = 0; i < s.options.lastpoints; i++) { tls.push(s.lookback[i].close) }
