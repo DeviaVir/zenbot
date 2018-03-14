@@ -9,8 +9,8 @@ var z = require('zero-fill')
 
   var trending_up = false
 module.exports = {
-  name: 'stddev',
-  description: 'Buy when standard deviation and mean increase, sell on mean decrease. Make sure to set --days when backtesting period.',
+  name: 'trendline',
+  description: 'Buy on positive trendline above 1.1 Make sure to set --days when backtesting period.',
   getOptions: function () {
     this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period_length', String, '1h')
     this.option('period_length', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period', String, '1h')
@@ -18,13 +18,14 @@ module.exports = {
     this.option('lastpoints', 'Trades for array 2 to be calculated stddev and mean from', Number, 5)
     this.option('min_periods', 'min_periods', Number, 150)
     this.option('order_adjust_time', 'Order Adjust Time', Number, 30000)
+    this.option('trend', 'Float number 1-2 would be increasing trend', Number, 1.1)
   },
   calculate: function () {
   },
   onPeriod: function (s, cb) {
     ema(s, 'stddev', s.options.stddev)
     var tl1 = []
-	var tls = []
+	  var tls = []
     if (s.lookback[s.options.min_periods]) {
       for (let i = 0; i < s.options.avgpoints + 10; i++) { tl1.push(s.lookback[i].close) }
       for (let i = 0; i < s.options.lastpoints; i++) { tls.push(s.lookback[i].close) }
@@ -38,8 +39,8 @@ module.exports = {
         reversed: false
       })
     
-    global.direc = growth > 1.1
-	global.gradient = growth
+      global.direc = growth > s.options.trend
+      global.gradient = growth
     }
     if (global.direc === false) {
       s.signal = 'sell'
@@ -71,9 +72,10 @@ module.exports = {
 
     // -- strategy
     // trendtrades_1: Phenotypes.Range(2, 20),
-    avgpoints: Phenotypes.Range(10, 10000)
-    lastpoints: Phenotypes.Range(10, 10000)
-    order_adjust_time: Phenotypes.Range(1000, 100000)
+    avgpoints: Phenotypes.Range(10, 10000),
+    lastpoints: Phenotypes.Range(10, 10000),
+    order_adjust_time: Phenotypes.Range(1000, 100000),
+    trend: Phenotypes.RangeFloat(1, 2)
     
   }
 }
