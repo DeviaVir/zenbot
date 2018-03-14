@@ -304,10 +304,6 @@ function simulateGeneration(generateLaunchFile) {
       if (bestCommand != '') {
         bestCommand = prefix + bestCommand
         bestCommand = bestCommand + ' --asset_capital=' + argv.asset_capital + ' --currency_capital=' + argv.currency_capital
-        console.log(bestCommand + '\n')
-      }
-      else {
-        console.log('Best command was empty')
       }
     })
 
@@ -360,7 +356,7 @@ if (simArgs.help || !(simArgs.use_strategies)) {
   console.log('--selector=<exchange.marketPair>  ')
   console.log('--asset_capital=<float>    amount coin to start sim with ')
   console.log('--currency_capital=<float>  amount of capital/base currency to start sim with'),
-    console.log('--days=<int>  amount of days to use when backfilling')
+  console.log('--days=<int>  amount of days to use when backfilling')
   console.log('--noStatSave=<true>|<false>')
   process.exit(0)
 }
