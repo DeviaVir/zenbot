@@ -7,7 +7,6 @@ var z = require('zero-fill')
   , trend = require('trend')
   , n = require('numbro')
 
-  var trending_up = false
 module.exports = {
   name: 'trendline',
   description: 'Buy on positive trendline above 1.1 Make sure to set --days when backtesting period.',
