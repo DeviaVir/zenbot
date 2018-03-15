@@ -10,7 +10,7 @@ module.exports = function sim (conf, s) {
   let real_exchange = require(path.resolve(__dirname, `../${exchange_id}/exchange`))(conf)
 
   var now
-  var balance = { asset: so.asset_capital, currency: so.currency_capital, asset_hold: 0, currency_hold: 0 }
+  var balance = { asset: so.asset_capital, currency: so.currency_capital, asset_hold: 0, currency_hold: 0, deposit: 0 }
 
   var last_order_id = 1001
   var orders = {}
@@ -87,8 +87,8 @@ module.exports = function sim (conf, s) {
 
     buy: function (opts, cb) {
       setTimeout(function() {
-        if (debug) console.log(`buying ${opts.size * opts.price} vs on hold: ${balance.currency} - ${balance.currency_hold} = ${balance.currency - balance.currency_hold}`)
-        if (opts.size * opts.price > (balance.currency - balance.currency_hold)) {
+        if (debug) console.log(`buying ${opts.size * opts.price} vs on hold: ${balance.deposit} - ${balance.currency_hold} = ${balance.deposit - balance.currency_hold}`)
+        if (opts.size * opts.price > (balance.deposit - balance.currency_hold)) {
           if (debug) console.log('nope')
           return cb(null, { status: 'rejected', reject_reason: 'balance'})
         }
@@ -235,6 +235,7 @@ module.exports = function sim (conf, s) {
 
     let total = n(price).multiply(size)
     balance.currency = n(balance.currency).subtract(total).format('0.00000000')
+    balance.deposit = n(balance.deposit).subtract(total).format('0.00000000')
 
     // Process existing order size changes
     let order = buy_order
@@ -276,16 +277,19 @@ module.exports = function sim (conf, s) {
       if (exchange.makerFee) {
         fee = n(size).multiply(exchange.makerFee / 100).multiply(price).value()
         balance.currency = n(balance.currency).subtract(fee).format('0.00000000')
+        balance.deposit = n(balance.deposit).subtract(fee).format('0.00000000')
       }
     }
     else if (so.order_type === 'taker') {
       if (exchange.takerFee) {
         balance.currency = n(balance.currency).subtract(fee).format('0.00000000')
+        balance.deposit = n(balance.deposit).subtract(fee).format('0.00000000')
       }
     }
 
     let total = n(price).multiply(size)
     balance.currency = n(balance.currency).add(total).format('0.00000000')
+    balance.deposit = n(balance.deposit).add(total).format('0.00000000')
 
     // Process existing order size changes
     let order = sell_order
