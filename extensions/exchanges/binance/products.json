@@ -295,7 +295,7 @@
     "currency": "BTC",
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.000001",
+    "increment": "0.0000001",
     "asset_increment": "0.01",
     "label": "STRAT/BTC"
   },
@@ -505,7 +505,7 @@
     "currency": "BTC",
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.000001",
+    "increment": "0.0000001",
     "asset_increment": "0.01",
     "label": "SALT/BTC"
   },
