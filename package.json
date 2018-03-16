@@ -16,9 +16,11 @@
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
     "precommit": "lint-staged",
-    "test": "jasmine test/_specs/**/**.test.js",
+    "test": "snyk test && jasmine test/_specs/**/**.test.js",
     "test-one": "jasmine $PATH_TO_TEST",
-    "postinstall": "node post_install.js"
+    "postinstall": "node post_install.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "lint-staged": {
     "*.js": [
@@ -60,7 +62,7 @@
     "idgen": "^2.0.2",
     "imports-loader": "^0.8.0",
     "ip": "~1.1.5",
-    "jasmine": "^2.8.0",
+    "jasmine": "^3.1.0",
     "jquery": "^3.2.1",
     "kraken-api": "^1.0.0",
     "lint-staged": "^7.0.0",
@@ -121,5 +123,6 @@
   },
   "engines": {
     "node": "^8.3.0 || ^9.0.0"
-  }
+  },
+  "snyk": true
 }
