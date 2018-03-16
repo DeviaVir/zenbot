@@ -696,12 +696,12 @@
     "label": "BTC/CLUB"
   },
   {
-    "asset": "VOX",
+    "asset": "RVR",
     "currency": "BTC",
     "min_size": "19.53125000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/VOX"
+    "label": "BTC/RVR"
   },
   {
     "asset": "EMC",
