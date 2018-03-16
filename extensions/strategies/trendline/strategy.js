@@ -1,41 +1,33 @@
-let math = require('mathjs')
-  , trend = require('trend')
-  , z = require('zero-fill')
-  , n = require('numbro')
+var z = require('zero-fill')
   , stats = require('stats-lite')
+  , math = require('mathjs')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
-var oldgrowth = 1
+  , regression = require('regression')
+  , trend = require('trend')
+  , n = require('numbro')
 
 module.exports = {
   name: 'trendline',
-  description: 'Calculate a trendline and trade when trend is positive vs negative.',
-
+  description: 'Buy on positive trendline above 1.1 Make sure to set --days when backtesting period.',
   getOptions: function () {
-    this.option('period', 'period length', String, '30s')
-    this.option('periodLength', 'period length', String, '30s')
-    this.option('lastpoints', 'Number of trades for short trend average', Number, 100)
-    this.option('avgpoints', 'Number of trades for long trend average', Number, 1000)
-    this.option('lastpoints2', 'Number of trades for short trend average', Number, 10)
-    this.option('avgpoints2', 'Number of trades for long trend average', Number, 100)
-    this.option('min_periods', 'Basically avgpoints + a BUNCH of more preroll periods for anything less than 5s period', Number, 15000)
-    this.option('markup_sell_pct', 'test', Number, 0)
-    this.option('markdown_buy_pct', 'test', Number, 0)
+    this.option('period', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period_length', String, '1h')
+    this.option('period_length', 'period length, set poll trades to 100ms, poll order 1000ms. Same as --period', String, '1h')
+    this.option('avgpoints', 'Trades for array 2 to be calculated stddev and mean from', Number, 100)
+    this.option('lastpoints', 'Trades for array 2 to be calculated stddev and mean from', Number, 5)
+    this.option('min_periods', 'min_periods', Number, 150)
+    this.option('order_adjust_time', 'Order Adjust Time', Number, 30000)
+    this.option('trend', 'Float number 1-2 would be increasing trend', Number, 1.1)
   },
-
   calculate: function () {
-
   },
-
   onPeriod: function (s, cb) {
-    ema(s, 'trendline', s.options.trendline)
+    ema(s, 'stddev', s.options.stddev)
     var tl1 = []
     var tls = []
-    var tll = []
-    if (s.lookback[s.options.avgpoints + 2000]) {
-      for (let i = 0; i < s.options.avgpoints + 1000; i++) { tl1.push(s.lookback[i].close) }
+    if (s.lookback[s.options.min_periods]) {
+      for (let i = 0; i < s.options.avgpoints + 10; i++) { tl1.push(s.lookback[i].close) }
       for (let i = 0; i < s.options.lastpoints; i++) { tls.push(s.lookback[i].close) }
-      for (let i = 0; i < s.options.avgpoints; i++) { tll.push(s.lookback[i].close) }
 
       var chart = tl1
 
@@ -43,71 +35,32 @@ module.exports = {
         lastPoints: s.options.lastpoints,
         avgPoints: s.options.avgpoints,
         avgMinimum: 0,
-        reversed: true
+        reversed: false
       })
-      var growth2 = trend(chart, {
-        lastPoints: s.options.lastpoints2,
-        avgPoints: s.options.avgpoints2,
-        avgMinimum: 0,
-        reversed: true
-      })
-
-      s.stats = growth
-      s.growth = growth > 1
-      s.stats2 = growth2
-      s.growth2 = growth2 > 1
-      s.stdevs = stats.stdev(tls)
-      s.stdevl = stats.stdev(tll)
-      s.means = math.mean(tls)
-      s.meanl = math.mean(tll)
-      s.pcts = s.stdevs / s.means
-      s.pctl = s.stdevl / s.meanl
-      s.options.markup_sell_pct = math.mean(s.pcts, s.pctl) * 100
-      s.options.markdown_buy_pct = math.mean(s.pcts, s.pctl) * 100
-      s.accel = growth > oldgrowth
-      oldgrowth = growth
+    
+      global.direc = growth > s.options.trend
+      global.gradient = growth
     }
-
-    if (
-      s.growth === true &&
-         s.growth2 === true
-    )
-    {
+    if (global.direc === false) {
+      s.signal = 'sell'
+    }
+    else if (global.direc === true) {
       s.signal = 'buy'
     }
-    else if (
-      s.growth === false |
-         s.growth2 === false |
-         s.accel === false
-    )
-    {
-      //s.signal = 'sell'
-    }
+	global.oldgrowth = global.gradient
     cb()
   },
   onReport: function (s) {
     var cols = []
-    cols.push(' ')
-    cols.push(z(8, n(s.stats).format('0.00000000'), ' ')[s.growth === true ? 'green' : 'red'])
-    cols.push(' ')
-    cols.push(z(8, n(s.stats2).format('0.00000000'), ' ')[s.growth2 === true ? 'green' : 'red'])
-    cols.push(' ')
-    cols.push(z(8, n(s.stdevs).format('0.00000000'), ' ')[s.accel === true ? 'green' : 'red'])
-    cols.push(' ')
-    cols.push(z(8, n(s.stdevl).format('0.00000000'), ' ')[s.accel === true ? 'green' : 'red'])
-    cols.push(' ')
-    cols.push(z(8, n(s.means).format('0.00000000'), ' ')[s.accel === true ? 'green' : 'red'])
-    cols.push(' ')
-    cols.push(z(8, n(s.meanl).format('0.00000000'), ' ')[s.accel === true ? 'green' : 'red'])
-    cols.push(' ')
-    cols.push(z(8, n(s.options.markup_sell_pct).format('0.00000000'), ' ')[s.accel === true ? 'green' : 'red'])
+    cols.push(z(8, n(global.gradient).format('0.00000000'), ' ')[global.gradient === true ? 'green' : 'red'])
     return cols
   },
 
   phenotypes: {
     // -- common
-    period_length: Phenotypes.RangePeriod(1, 400, 'm'),
-    min_periods: Phenotypes.Range(1, 200),
+    // reference in extensions is given in ms have not heard of an exchange that supports 500ms thru api so setting min at 1 second
+    period_length: Phenotypes.RangePeriod(1, 7200, 's'),
+    min_periods: Phenotypes.Range(1, 2500),
     markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
     markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
     order_type: Phenotypes.ListOption(['maker', 'taker']),
@@ -117,9 +70,12 @@ module.exports = {
     profit_stop_pct: Phenotypes.Range(1,20),
 
     // -- strategy
-    lastpoints: Phenotypes.Range(20, 500),
-    avgpoints: Phenotypes.Range(300, 3000),
-    lastpoints2: Phenotypes.Range(5, 300),
-    avgpoints2: Phenotypes.Range(50, 1000),
+    // trendtrades_1: Phenotypes.Range(2, 20),
+    avgpoints: Phenotypes.Range(10, 10000),
+    lastpoints: Phenotypes.Range(10, 10000),
+    order_adjust_time: Phenotypes.Range(1000, 100000),
+    trend: Phenotypes.RangeFloat(1, 2)
+    
   }
 }
+
