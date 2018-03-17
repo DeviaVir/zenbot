@@ -574,7 +574,7 @@ module.exports = function (program, conf) {
                 start_price: session.orig_price,
               }
               b._id = b.id
-              b.consolidated = n(s.balance.asset).multiply(s.period.close).add(s.net_currency).value()
+              b.consolidated = n(s.balance.asset).multiply(s.period.close).add(s.balance.currency).value()
               b.profit = (b.consolidated - session.orig_capital) / session.orig_capital
               b.buy_hold = s.period.close * (session.orig_capital / session.orig_price)
               b.buy_hold_profit = (b.buy_hold - session.orig_capital) / session.orig_capital
