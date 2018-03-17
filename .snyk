@@ -5,15 +5,15 @@ ignore: {}
 patch:
   'npm:hawk:20160119':
     - poloniex.js > request > hawk:
-        patched: '2018-03-16T23:02:59.142Z'
+        patched: '2018-03-17T00:12:30.663Z'
   'npm:qs:20140806':
     - poloniex.js > request > qs:
-        patched: '2018-03-16T23:02:59.142Z'
+        patched: '2018-03-17T00:12:30.663Z'
   'npm:qs:20140806-1':
     - poloniex.js > request > qs:
-        patched: '2018-03-16T23:02:59.142Z'
+        patched: '2018-03-17T00:12:30.663Z'
   'npm:request:20160119':
     - poloniex.js > request:
-        patched: '2018-03-16T23:02:59.142Z'
+        patched: '2018-03-17T00:12:30.663Z'
     - node-prowl > request:
-        patched: '2018-03-16T23:02:59.142Z'
+        patched: '2018-03-17T00:12:30.663Z'
