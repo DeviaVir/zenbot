@@ -15,5 +15,7 @@ patch:
   'npm:request:20160119':
     - poloniex.js > request:
         patched: '2018-03-17T00:12:30.663Z'
+      node-prowl > request:
+        patched: '2018-03-17T00:46:06.430Z'
     - node-prowl > request:
         patched: '2018-03-17T00:12:30.663Z'
