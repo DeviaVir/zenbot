@@ -16,7 +16,7 @@
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
     "precommit": "lint-staged",
-    "test": "snyk test && jasmine test/_specs/**/**.test.js",
+    "test": "jasmine test/_specs/**/**.test.js",
     "test-one": "jasmine $PATH_TO_TEST",
     "postinstall": "node post_install.js",
     "snyk-protect": "snyk protect",
