@@ -4,7 +4,7 @@
 > – Zen Proverb
 
 # Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot) [![Greenkeeper badge](https://badges.greenkeeper.io/DeviaVir/zenbot.svg)](https://greenkeeper.io/)
-[![Known Vulnerabilities](https://snyk.io/test/github/moongem/{zenbot/badge.svg)](https://snyk.io/test/github/moongem/zenbot)
+[![Known Vulnerabilities](https://snyk.io/test/github/moongem/zenbot/badge.svg)](https://snyk.io/test/github/moongem/zenbot)
 
 ## Current Status
 
