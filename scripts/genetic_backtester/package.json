@@ -7,7 +7,7 @@
     "json2csv": "^3.7.3",
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.3",
-    "shelljs": "shelljs/shelljs#924c85d21f08683d80a98a89eaae8932be259768",
+    "shelljs": "shelljs/shelljs#pull/524",
     "yargs": "^8.0.2",
     "strip-ansi": "^4.0.0"
   }
