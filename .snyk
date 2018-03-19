@@ -1,0 +1,23 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.2
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:hawk:20160119':
+    - poloniex.js > request > hawk:
+        patched: '2018-03-17T00:12:30.663Z'
+  'npm:qs:20140806':
+    - poloniex.js > request > qs:
+        patched: '2018-03-17T00:12:30.663Z'
+  'npm:qs:20140806-1':
+    - poloniex.js > request > qs:
+        patched: '2018-03-17T00:12:30.663Z'
+  'npm:request:20160119':
+    - poloniex.js > request:
+        patched: '2018-03-17T00:12:30.663Z'
+      node-prowl > request:
+        patched: '2018-03-17T01:21:07.111Z'
+    - node-prowl > request:
+        patched: '2018-03-17T00:12:30.663Z'
+    - node-prowl > request:
+        patched: '2018-03-17T00:46:06.430Z'
