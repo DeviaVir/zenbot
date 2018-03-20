@@ -2158,5 +2158,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/LRC"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/TUSD"
   }
 ]
