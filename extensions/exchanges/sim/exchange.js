@@ -162,7 +162,9 @@ module.exports = function sim (conf, s) {
     },
 
     setFees: function(opts) {
-      return real_exchange.setFees(opts)
+      if (so.mode === 'paper') {
+        return real_exchange.setFees(opts)
+      }
     },
 
     getCursor: real_exchange.getCursor,
