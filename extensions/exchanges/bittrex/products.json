@@ -2166,5 +2166,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/TUSD"
+  },
+  {
+    "asset": "UP",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UP"
+  },
+  {
+    "asset": "UP",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/UP"
   }
 ]
