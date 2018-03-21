@@ -2818,5 +2818,25 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "STORM/BNB"
+  },
+  {
+    "id": "QTUMBNB",
+    "asset": "QTUM",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "QTUM/BNB"
+  },
+  {
+    "id": "QTUMUSDT",
+    "asset": "QTUM",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "QTUM/USDT"
   }
 ]

@@ -62,6 +62,7 @@
     "ip": "~1.1.5",
     "jasmine": "^2.8.0",
     "jquery": "^3.2.1",
+    "keltnerchannel": "^1.4.2",
     "kraken-api": "^1.0.0",
     "lint-staged": "^7.0.0",
     "lodash": "^4.17.4",

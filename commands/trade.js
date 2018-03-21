@@ -341,7 +341,8 @@ module.exports = function (program, conf) {
 
           //ymd
           var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10)
-          out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
+          let out_target_prefix = so.paper ? 'simulations/paper_result_' : 'stats/trade_result_'
+          out_target = so.filename || out_target_prefix + so.selector.normalized +'_' + today + '_UTC.html'
 
           fs.writeFileSync(out_target, out)
           //console.log('\nwrote'.grey, out_target)
