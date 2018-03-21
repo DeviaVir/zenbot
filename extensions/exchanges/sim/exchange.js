@@ -161,6 +161,12 @@ module.exports = function sim (conf, s) {
       }, latency)
     },
 
+    setFees: function(opts) {
+      if (so.mode === 'paper') {
+        return real_exchange.setFees(opts)
+      }
+    },
+
     getCursor: real_exchange.getCursor,
 
     getTime: function() {
