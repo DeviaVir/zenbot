@@ -9,7 +9,7 @@ module.exports = {
 
   getOptions: function () {
     this.option('period_length', 'period length', String, '4h')
-    this.option('min_periods', 'min periods', Number, 56)
+    this.option('min_periods', 'min periods (should be >= senkou_b option)', Number, 52)
     this.option('tenkan', 'Tenkan (conversion) line', Number, 9)
     this.option('kijun','Kijun (base) line', Number, 26)
     this.option('senkou_b','Senkou (leading) span B', Number, 52)
