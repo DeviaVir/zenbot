@@ -431,7 +431,7 @@
                                 <% }); %>
                                 <% } %>
                                 <% if (my_prev_trades) { %>
-                                <% my_prev_trades.forEach(function(trade){ %>
+                                <% my_prev_trades.reverse().forEach(function(trade){ %>
                                 <tr class="text-muted">
                                     <td><%= trade.type.toUpperCase() %></span></td>
                                     <td><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 8, maximumFractionDigits: 8}).format(trade.size) %> <%= asset.toUpperCase() %></td>
