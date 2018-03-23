@@ -2868,5 +2868,35 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "XEM/BNB"
+  },
+  {
+    "id": "WANBTC",
+    "asset": "WAN",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "WAN/BTC"
+  },
+  {
+    "id": "WANETH",
+    "asset": "WAN",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "WAN/ETH"
+  },
+  {
+    "id": "WANBNB",
+    "asset": "WAN",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "WAN/BNB"
   }
 ]
