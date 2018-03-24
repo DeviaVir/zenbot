@@ -24,17 +24,17 @@ describe('Engine', function() {
         it('and held assets should use adjusted deposit', function(){
           // arrange
           var signal_type = 'buy'
-          var currency_amount = 3.0
+          var currency_amount = 1.0
           var buy_pct = 50
           var deposit = 0.25
           var order_type = 'maker'
-          var held_asset = 0.75
+          var held_asset = 0.25
           var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, deposit, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '1.85925185'
+          var expected = '1.23487623'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
@@ -133,17 +133,17 @@ describe('Engine', function() {
         it('and held assets should use adjusted deposit', function(){
           // arrange
           var signal_type = 'buy'
-          var currency_amount = 3.0
+          var currency_amount = 1.0
           var buy_pct = 50
           var deposit = 0.25
           var order_type = 'taker'
-          var held_asset = 0.75
+          var held_asset = 0.25
           var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, deposit, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '1.85739631'
+          var expected = '1.23364382'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
