@@ -170,6 +170,8 @@ c.avg_slippage_pct = 0.045
 c.cancel_after = 'day'
 // load and use previous trades for stop-order triggers and loss protection (live/paper mode only)
 c.use_prev_trades = false
+// minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead
+c.min_prev_trades = 0
 
 // Notifiers:
 c.notifiers = {}

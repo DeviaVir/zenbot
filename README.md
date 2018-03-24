@@ -284,6 +284,7 @@ zenbot trade --help
     --exact_buy_orders                instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all
     --exact_sell_orders               instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all
     --use_prev_trades                 load and use previous trades for stop-order triggers and loss protection
+    --min_prev_trades                 minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead
     --disable_stats                   disable printing order stats
     --reset_profit                    start new profit calculation from 0
     --use_fee_asset                   Using separated asset to pay for fees. Such as binance's BNB or Huobi's HT
