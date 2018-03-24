@@ -17,7 +17,7 @@ describe('Engine', function() {
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '2.77500277'
+          var expected = '1.38750138'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
@@ -125,7 +125,7 @@ describe('Engine', function() {
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '2.77223331'
+          var expected = '1.38611665'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
