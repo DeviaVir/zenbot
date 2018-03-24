@@ -600,14 +600,6 @@
     "label": "BTC/PKB"
   },
   {
-    "asset": "CPC",
-    "currency": "BTC",
-    "min_size": "5.07202272",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CPC"
-  },
-  {
     "asset": "AEON",
     "currency": "BTC",
     "min_size": "0.77160494",
@@ -622,14 +614,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ETH"
-  },
-  {
-    "asset": "GCR",
-    "currency": "BTC",
-    "min_size": "20.69536424",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/GCR"
   },
   {
     "asset": "TX",
@@ -814,14 +798,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LSK"
-  },
-  {
-    "asset": "PDC",
-    "currency": "BTC",
-    "min_size": "28.80184332",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/PDC"
   },
   {
     "asset": "BRK",
