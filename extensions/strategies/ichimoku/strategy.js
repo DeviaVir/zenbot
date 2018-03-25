@@ -1,7 +1,8 @@
 var z = require('zero-fill'),
 n = require('numbro'),
 highest = require('../../../lib/highest'),
-lowest = require('../../../lib/lowest')
+lowest = require('../../../lib/lowest'),
+Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'ichimoku',
