@@ -1,7 +1,8 @@
 var z = require('zero-fill'),
 n = require('numbro'),
 highest = require('../../../lib/highest'),
-lowest = require('../../../lib/lowest')
+lowest = require('../../../lib/lowest'),
+Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'ichimoku',
@@ -34,6 +35,10 @@ module.exports = {
       s.period.senkou_b = ((s.period.senkou_high + s.period.senkou_low) / 2)
       s.period.chikou = s.lookback[s.options.chikou - 1].close
 
+      // The below lines cause the bot to buy when the price is above the kumo cloud and sell when the price is inside
+      // or below the kumo cloud. There are many different ways to trade the Ichimoku Cloud and all of them can be
+      // implemented using the indicators above.
+
       if (s.period.close > Math.max(s.period.senkou_a, s.period.senkou_b)) {
         if (s.trend !== 'up') {
           s.acted_on_trend = false
@@ -55,5 +60,24 @@ module.exports = {
   onReport: function (s) {
     var cols = []
     return cols
+  },
+
+  phenotypes: {
+    //General Options
+    period_length: Phenotypes.RangePeriod(5, 120, 'm'),
+    min_periods: Phenotypes.Range(150, 150), //(should be >= senkou_b option)
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    //Strategy Specific
+    tenkan: Phenotypes.RangeFactor(5, 30, 1),
+    kijun: Phenotypes.RangeFactor(25, 75, 1),
+    senkou_b: Phenotypes.RangeFactor(50, 150, 1),
+    chikou: Phenotypes.RangeFactor(20, 40, 1)
   }
 }
