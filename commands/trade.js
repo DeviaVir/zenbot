@@ -446,7 +446,7 @@ module.exports = function (program, conf) {
                   if (err) throw err
                   var prev_session = prev_sessions[0]
                   if (prev_session && !cmd.reset_profit) {
-                    if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                    if (prev_session.orig_capital && prev_session.orig_price && prev_session.deposit === so.deposit && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                       s.orig_capital = session.orig_capital = prev_session.orig_capital
                       s.orig_price = session.orig_price = prev_session.orig_price
                       if (so.mode === 'paper') {
@@ -558,6 +558,7 @@ module.exports = function (program, conf) {
             session.start_capital = s.start_capital
             session.start_price = s.start_price
             session.num_trades = s.my_trades.length
+            if (so.deposit) session.deposit = so.deposit
             if (!session.orig_capital) session.orig_capital = s.start_capital
             if (!session.orig_price) session.orig_price = s.start_price
             if (s.period) {
