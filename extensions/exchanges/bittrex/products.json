@@ -2158,5 +2158,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/UP"
+  },
+  {
+    "asset": "DMT",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DMT"
+  },
+  {
+    "asset": "DMT",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/DMT"
   }
 ]

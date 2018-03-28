@@ -2918,5 +2918,35 @@
     "increment": "0.00000001",
     "asset_increment": "1.",
     "label": "QLC/ETH"
+  },
+  {
+    "id": "SYSBTC",
+    "asset": "SYS",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "SYS/BTC"
+  },
+  {
+    "id": "SYSETH",
+    "asset": "SYS",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "SYS/ETH"
+  },
+  {
+    "id": "SYSBNB",
+    "asset": "SYS",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "SYS/BNB"
   }
 ]
