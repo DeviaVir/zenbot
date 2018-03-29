@@ -50,7 +50,7 @@ module.exports = function (program, conf) {
     .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
     .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
-    .option('--min_prev_trades', 'minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead')
+    .option('--min_prev_trades <number>', 'minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead', Number, conf.min_prev_trades)
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
     .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
@@ -78,7 +78,7 @@ module.exports = function (program, conf) {
       so.currency_increment = cmd.currency_increment
       so.keep_lookback_periods = cmd.keep_lookback_periods
       so.use_prev_trades = (cmd.use_prev_trades||conf.use_prev_trades)
-      so.min_prev_trades = parseInt(cmd.min_prev_trades||conf.min_prev_trades)
+      so.min_prev_trades = cmd.min_prev_trades
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
