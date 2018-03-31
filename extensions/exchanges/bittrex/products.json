@@ -232,14 +232,6 @@
     "label": "BTC/CLOAK"
   },
   {
-    "asset": "START",
-    "currency": "BTC",
-    "min_size": "116.82242991",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/START"
-  },
-  {
     "asset": "KORE",
     "currency": "BTC",
     "min_size": "0.82004855",
@@ -414,14 +406,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BAY"
-  },
-  {
-    "asset": "FAIR",
-    "currency": "BTC",
-    "min_size": "10.03613007",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/FAIR"
   },
   {
     "asset": "SPR",
@@ -670,14 +654,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/BTC"
-  },
-  {
-    "asset": "CLUB",
-    "currency": "BTC",
-    "min_size": "4.61084471",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CLUB"
   },
   {
     "asset": "RVR",
