@@ -2978,5 +2978,25 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "QLC/BNB"
+  },
+  {
+    "id": "GRSBTC",
+    "asset": "GRS",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "GRS/BTC"
+  },
+  {
+    "id": "GRSETH",
+    "asset": "GRS",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "GRS/ETH"
   }
 ]
