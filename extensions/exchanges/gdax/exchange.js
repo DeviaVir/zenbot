@@ -24,9 +24,16 @@ module.exports = function gdax (conf) {
           passphrase: conf.gdax.passphrase
         }
       }
+
       var channels = ['matches', 'ticker']
-      if(auth) { channels.push('user') }
+
+      // subscribe to user channels which need fully auth data
+      if (auth) {
+        channels.push('user')
+      }
+
       websocket_client[product_id] = new Gdax.WebsocketClient([product_id], conf.gdax.websocketURI, auth, {channels})
+
       // initialize a cache for the websocket connection
       websocket_cache[product_id] = {
         trades: [],
@@ -36,12 +43,18 @@ module.exports = function gdax (conf) {
       }
 
       websocket_client[product_id].on('open', () => {
-        if(so.debug) console.log('websocket connection to '+product_id+' opened') 
+        if (so.debug) {
+          console.log('websocket connection to ' + product_id + ' opened')
+        }
       })
 
       websocket_client[product_id].on('message', (message) => {
         // all messages with user_id are related to trades for current authenticated user
         if(message.user_id){
+          if (so.debug) {
+            console.log('websocket user channel income', message)
+          }
+
           switch (message.type) {
           case 'open':
             handleOrderOpen(message, product_id)
@@ -59,6 +72,7 @@ module.exports = function gdax (conf) {
             break
           }
         }
+
         switch (message.type) {
         case 'open':
           break
@@ -79,7 +93,11 @@ module.exports = function gdax (conf) {
 
       websocket_client[product_id].on('error', (err) => {
         client_state.errored = true
-        if(so.debug) console.error('websocket error: ', err, 'restarting websocket connection')
+
+        if (so.debug) {
+          console.error('websocket error: ', err, 'restarting websocket connection')
+        }
+
         websocket_client[product_id].disconnect()
         websocket_client[product_id] = null
         websocket_cache[product_id] = null
@@ -87,11 +105,15 @@ module.exports = function gdax (conf) {
       })
       
       websocket_client[product_id].on('close', () => {
-        if(client_state.errored){
+        if (client_state.errored){
           client_state.errored = false
           return
         }
-        if(so.debug) console.error('websocket connection to '+product_id+' closed, attempting reconnect')
+
+        if (so.debug) {
+          console.error('websocket connection to '+product_id+' closed, attempting reconnect')
+        }
+
         websocket_client[product_id] = null
         websocket_client[product_id] = websocketClient(product_id)
       })
@@ -143,11 +165,54 @@ module.exports = function gdax (conf) {
   }
 
   function handleOrderDone(update, product_id) {
-    var cached_order = websocket_cache[product_id].orders['~'+update.order_id]
+    let cached_order = websocket_cache[product_id].orders['~'+update.order_id]
     if(cached_order){
+      /*
+      order canceled by user or on platform: which must be retried see "reason":
+      { type: 'done',
+        side: 'sell',
+        order_id: 'xxxx',
+        reason: 'canceled',
+        product_id: 'LTC-EUR',
+        price: '142.33000000',
+        remaining_size: '1.24390150',
+        sequence: 1337,
+        user_id: '5a2aeXXX',
+        profile_id: 'xxx',
+        time: '2018-03-09T16:28:49.293000Z'
+      }
+
+      complete order response; no further action:
+      { type: 'done',
+        side: 'sell',
+        order_id: 'xxxx',
+        reason: 'filled',
+        product_id: 'LTC-EUR',
+        price: '142.81000000',
+        remaining_size: '0.00000000',
+        sequence: 1337,
+        user_id: '5a2aeXXX',
+        profile_id: 'xxx',
+        time: '2018-03-09T16:56:39.352000Z'
+      }
+      */
+
+      // get order "reason":
+      //  - "canceled" by user or platform
+      //  - "filled" order successfully placed and filled
+      let reason = update.reason
+
       cached_order.status = 'done'
+
+      // "canceled" is not a success order instead it must be retried
+      // force zenbot a order retry; see "engine.js" for possible retry conditions
+      if (reason && reason == 'canceled') {
+        cached_order.status = 'rejected'
+        cached_order.reject_reason = 'post only'
+      }
+
       cached_order.done_at = update.time
-      cached_order.done_reason = update.reason,
+      cached_order.done_reason = reason
       cached_order.settled = true
     }
   }
@@ -247,7 +312,11 @@ module.exports = function gdax (conf) {
     getBalance: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if(so.debug) console.log('getaccounts call')
+
+      if (so.debug) {
+        console.log('getaccounts call')
+      }
+
       client.getAccounts(function (err, resp, body) {
         if (!err) err = statusErr(resp, body)
         if (err) return retry('getBalance', func_args, err)
@@ -291,11 +360,24 @@ module.exports = function gdax (conf) {
     cancelOrder: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if(so.debug) console.log('cancelorder call')
+
+      if (so.debug) {
+        console.log('cancelorder call')
+      }
+
       client.cancelOrder(opts.order_id, function (err, resp, body) {
-        if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
-        if (!err) err = statusErr(resp, body)
-        if (err) return retry('cancelOrder', func_args, err)
+        if (body && (body.message === 'Order already done' || body.message === 'order not found')) {
+          return cb()
+        }
+
+        if (!err) {
+          err = statusErr(resp, body)
+        }
+
+        if (err) {
+          return retry('cancelOrder', func_args, err)
+        }
+
         cb()
       })
     },
@@ -316,17 +398,27 @@ module.exports = function gdax (conf) {
         opts.time_in_force = 'GTT'
       }
       delete opts.order_type
-      if(so.debug) console.log('buy call')
+
+      if (so.debug) {
+        console.log('buy call')
+      }
+
       client.buy(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
-          var order = {
+          return cb(null, {
             status: 'rejected',
             reject_reason: 'balance'
-          }
-          return cb(null, order)
+          })
         }
-        if (!err) err = statusErr(resp, body)
-        if (err) return retry('buy', func_args, err)
+
+        if (!err) {
+          err = statusErr(resp, body)
+        }
+
+        if (err) {
+          return retry('buy', func_args, err)
+        }
+
         orders['~' + body.id] = body
         cb(null, body)
       })
@@ -335,9 +427,11 @@ module.exports = function gdax (conf) {
     sell: function (opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
+
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
+
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
@@ -348,40 +442,67 @@ module.exports = function gdax (conf) {
         opts.time_in_force = 'GTT'
       }
       delete opts.order_type
-      if(so.debug) console.log('sell call')
+
+      if (so.debug) {
+        console.log('sell call')
+      }
+
       client.sell(opts, function (err, resp, body) {
         if (body && body.message === 'Insufficient funds') {
-          var order = {
+          return cb(null, {
             status: 'rejected',
             reject_reason: 'balance'
-          }
-          return cb(null, order)
+          })
         }
-        if (!err) err = statusErr(resp, body)
-        if (err) return retry('sell', func_args, err)
+
+        if (!err) {
+          err = statusErr(resp, body)
+        }
+
+        if (err) {
+          return retry('sell', func_args, err)
+        }
+
         orders['~' + body.id] = body
         cb(null, body)
       })
     },
 
     getOrder: function (opts, cb) {
-      if(websocket_cache[opts.product_id] &&
-        websocket_cache[opts.product_id].orders['~'+opts.order_id]){
-        cb(null, websocket_cache[opts.product_id].orders['~'+opts.order_id])
+      if(websocket_cache[opts.product_id] && websocket_cache[opts.product_id].orders['~' + opts.order_id]) {
+        let order_cache = websocket_cache[opts.product_id].orders['~' + opts.order_id]
+
+        if (so.debug) {
+          console.log('getOrder websocket cache', order_cache)
+        }
+
+        cb(null, order_cache)
         return
       }
+
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      if(so.debug) console.log('getorder call')
+
+      if (so.debug) {
+        console.log('getorder call')
+      }
+
       client.getOrder(opts.order_id, function (err, resp, body) {
-        if (!err && resp.statusCode !== 404) err = statusErr(resp, body)
-        if (err) return retry('getOrder', func_args, err)
+        if (!err && resp.statusCode !== 404) {
+          err = statusErr(resp, body)
+        }
+
+        if (err) {
+          return retry('getOrder', func_args, err)
+        }
+
         if (resp.statusCode === 404) {
           // order was cancelled. recall from cache
           body = orders['~' + opts.order_id]
           body.status = 'done'
           body.done_reason = 'canceled'
         }
+
         cb(null, body)
       })
     },

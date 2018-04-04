@@ -3,6 +3,7 @@ let z = require('zero-fill')
   , ema = require('../../../lib/ema')
   , srsi = require('../../../lib/srsi')
   , cci = require('../../../lib/cci')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'cci_srsi',
@@ -103,6 +104,32 @@ module.exports = {
       cols.push('         ')
     }
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    ema_acc: Phenotypes.RangeFloat(0, 0.5),
+    cci_periods: Phenotypes.Range(1, 200),
+    rsi_periods: Phenotypes.Range(1, 200),
+    srsi_periods: Phenotypes.Range(1, 200),
+    srsi_k: Phenotypes.Range(1, 50),
+    srsi_d: Phenotypes.Range(1, 50),
+    oversold_rsi: Phenotypes.Range(1, 100),
+    overbought_rsi: Phenotypes.Range(1, 100),
+    oversold_cci: Phenotypes.Range(-100, 100),
+    overbought_cci: Phenotypes.Range(1, 100),
+    constant: Phenotypes.RangeFloat(0.001, 0.05)
   }
 }
 

@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , rsi = require('../../../lib/rsi')
   , ultosc = require('../../../lib/ta_ultosc')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'ta_ultosc',
@@ -81,10 +82,10 @@ module.exports = {
           }
         }
 
-        signals.bottom = s.period.ultosc < 30 ? signals.bottom + 1 : 0;
-        signals.top = s.period.ultosc > 70 ? signals.top + 1 : 0;
+        signals.bottom = s.period.ultosc < 30 ? signals.bottom + 1 : 0
+        signals.top = s.period.ultosc > 70 ? signals.top + 1 : 0
 
-        s.signales = signals;
+        s.signales = signals
       }
 
       if (s.period.trend_ultosc == 'up') {
@@ -114,7 +115,7 @@ module.exports = {
     let cols = []
 
     if (typeof s.period.ultosc === 'number') {
-      let signal = z(8, n(s.period.ultosc).format('0.0000'), ' ');
+      let signal = z(8, n(s.period.ultosc).format('0.0000'), ' ')
 
       if (s.period.ultosc <= 30) {
         cols.push(signal.red)
@@ -128,6 +129,25 @@ module.exports = {
     }
 
     return cols
+  },
+
+  phenotypes: {
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 104),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    signal: Phenotypes.ListOption(['simple', 'low', 'trend']),
+    timeperiod1: Phenotypes.Range(1,50),
+    timeperiod2: Phenotypes.Range(1,50),
+    timeperiod3: Phenotypes.Range(1,50),
+    overbought_rsi_periods: Phenotypes.Range(1, 50),
+    overbought_rsi: Phenotypes.Range(20, 100)
   }
 }
 

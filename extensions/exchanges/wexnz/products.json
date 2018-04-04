@@ -406,5 +406,13 @@
     "max_size": "1",
     "increment": "0.0001",
     "label": "BCHET/BCH"
+  },
+  {
+    "asset": "USDT",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "2",
+    "increment": "0.0001",
+    "label": "USDT/USD"
   }
 ]

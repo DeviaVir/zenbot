@@ -295,7 +295,7 @@ module.exports = function bittrex(conf) {
         if(typeof data.result.buy[0].Rate === 'undefined') {
           console.log(data.message)
           return cb(null, [])
-        };
+        }
         cb(null, {
           buyOrderRate: data.result.buy[0].Rate,
           buyOrderAmount: data.result.buy[0].Quantity,

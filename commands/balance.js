@@ -3,8 +3,8 @@ var minimist = require('minimist')
   // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , moment = require('moment')
-  , engineFactory = require('../lib/engine')
   , objectifySelector = require('../lib/objectify-selector')
+  , { formatCurrency } = require('../lib/format')
 
 module.exports = function (program, conf) {
   program
@@ -17,7 +17,6 @@ module.exports = function (program, conf) {
     .action(function (selector, cmd) {
       var s = {options: minimist(process.argv)}
       s.selector = objectifySelector(selector || conf.selector)
-      s.exchange = require(`../extensions/exchanges/${s.selector.exchange_id}/exchange`)(conf)
       s.product_id = s.selector.product_id
       s.asset = s.selector.asset
       s.currency = s.selector.currency
@@ -32,14 +31,14 @@ module.exports = function (program, conf) {
       })
       so.selector = s.selector
       so.debug = cmd.debug
-      var engine = engineFactory(s, conf)
+      so.mode = 'live'
       function balance () {
         s.exchange.getBalance(s, function (err, balance) {
           if (err) throw err
           s.exchange.getQuote(s, function (err, quote) {
             if (err) throw err
             
-            var bal = moment().format('YYYY-MM-DD HH:mm:ss').grey + ' ' + engine.formatCurrency(quote.ask, true, true, false) + ' ' + (s.product_id).grey + '\n'
+            var bal = moment().format('YYYY-MM-DD HH:mm:ss').grey + ' ' + formatCurrency(quote.ask, s.currency, true, true, false) + ' ' + (s.product_id).grey + '\n'
             bal += moment().format('YYYY-MM-DD HH:mm:ss').grey + ' Asset: '.grey + balance.asset.white + ' Available: '.grey + n(balance.asset).subtract(balance.asset_hold).value().toString().yellow + '\n'
             bal += moment().format('YYYY-MM-DD HH:mm:ss').grey + ' Asset Value: '.grey + n(balance.asset).multiply(quote.ask).value().toString().white + '\n'
             bal += moment().format('YYYY-MM-DD HH:mm:ss').grey + ' Currency: '.grey + balance.currency.white + ' Available: '.grey + n(balance.currency).subtract(balance.currency_hold).value().toString().yellow + '\n'

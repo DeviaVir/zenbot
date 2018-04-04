@@ -24,14 +24,14 @@ module.exports =  {
       } else {
         modelfile = path.resolve(__dirname, '../../../', s.options.modelfile)
       }
-        
+
       if (fs.existsSync(modelfile)) {
         model = require(modelfile)
       } else {
         console.error('Modelfile ' + modelfile + ' does not exist.')
-        process.exit(1)          
+        process.exit(1)
       }
-        
+
       if (s.options.period !== model.period) {
         console.error(('Error: Period in model training was ' + model.period + ', now you specified ' + s.options.period + '.').red)
         process.exit(1)
@@ -55,7 +55,7 @@ module.exports =  {
         time: s.period.time / 1000
       }
       candlesticks.unshift(candlestick)
-        
+
       s.lookback.slice(0, s.lookback.length).map(function (period) {
         var candlestick = {
           open: period.open,
@@ -66,12 +66,12 @@ module.exports =  {
         }
         candlesticks.unshift(candlestick)
       })
-        
+
       var result = analytics.getMarketStatus(candlesticks, {'strategy': model.strategy})
       if (result.shouldSell) {
         s.signal = 'sell'
       } else if (result.shouldBuy) {
-        s.signal = 'buy'          
+        s.signal = 'buy'
       }
     }
 
@@ -81,6 +81,8 @@ module.exports =  {
   onReport: function () {
     var cols = []
     return cols
-  }
+  },
+
+  phenotypes: null
 }
 

@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , ema = require('../../../lib/ema')
   , rsi = require('../../../lib/rsi')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'macd',
@@ -30,8 +31,8 @@ module.exports = {
         if (s.options.mode === 'sim' && s.options.verbose) console.log(('\noverbought at ' + s.period.overbought_rsi + ' RSI, preparing to sold\n').cyan)
       }
     }
-    
-    // compture MACD
+
+    // compute MACD
     ema(s, 'ema_short', s.options.ema_short_period)
     ema(s, 'ema_long', s.options.ema_long_period)
     if (s.period.ema_short && s.period.ema_long) {
@@ -42,7 +43,7 @@ module.exports = {
       }
     }
   },
-  
+
   onPeriod: function (s, cb) {
     if (!s.in_preroll && typeof s.period.overbought_rsi === 'number') {
       if (s.overbought) {
@@ -51,7 +52,7 @@ module.exports = {
         s.signal = 'sell'
         return cb()
       }
-  
+
     }
 
     if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {
@@ -83,6 +84,28 @@ module.exports = {
       cols.push('         ')
     }
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    ema_short_period: Phenotypes.Range(1, 20),
+    ema_long_period: Phenotypes.Range(20, 100),
+    signal_period: Phenotypes.Range(1, 20),
+    up_trend_threshold: Phenotypes.Range(0, 50),
+    down_trend_threshold: Phenotypes.Range(0, 50),
+    overbought_rsi_periods: Phenotypes.Range(1, 50),
+    overbought_rsi: Phenotypes.Range(20, 100)
   }
 }
 

@@ -1,3 +1,5 @@
+var EventEmitter = require('events')
+
 describe('Engine', function() {
   describe('executeSignal', function() {
     describe('when maker in live mode', function(){
@@ -10,12 +12,12 @@ describe('Engine', function() {
           var buy_max_amt = 0.25
           var order_type = 'maker'
           var held_asset = 0
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '2.77500000'
+          var expected = '2.77500277'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
@@ -27,12 +29,12 @@ describe('Engine', function() {
           var buy_max_amt = 0.25
           var order_type = 'maker'
           var held_asset = 0.75
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '1.85925000'
+          var expected = '1.85925185'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
@@ -44,7 +46,7 @@ describe('Engine', function() {
           var buy_max_amt = 0.25
           var order_type = 'maker'
           var held_asset = 2.0
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
@@ -60,16 +62,18 @@ describe('Engine', function() {
           var buy_pct = 50
           var buy_max_amt = undefined
           var order_type = 'maker'
-          var held_asset = 0				
-          var buy_spy = jasmine.createSpy()
+          var held_asset = 0
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '5.55000000'
+          var expected = '5.55000555'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
+        // no longer taking held assets into account with no buy_max
+        /*
         it('and held assets should use adjusted buy_pct', function(){
           // arrange
           var signal_type = 'buy'
@@ -77,8 +81,8 @@ describe('Engine', function() {
           var buy_pct = 50
           var buy_max_amt = undefined
           var order_type = 'maker'
-          var held_asset = 0.5				
-          var buy_spy = jasmine.createSpy()
+          var held_asset = 0.5
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
@@ -94,14 +98,15 @@ describe('Engine', function() {
           var buy_pct = 50
           var buy_max_amt = undefined
           var order_type = 'maker'
-          var held_asset = 5.25				
-          var buy_spy = jasmine.createSpy()
+          var held_asset = 10.25				
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
           expect(buy_spy).not.toHaveBeenCalled()
         })
+        */
       })
     })
     
@@ -115,12 +120,12 @@ describe('Engine', function() {
           var buy_max_amt = 0.25
           var order_type = 'taker'
           var held_asset = 0
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '2.77222222'
+          var expected = '2.77223331'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
@@ -133,12 +138,12 @@ describe('Engine', function() {
           var buy_max_amt = 0.25
           var order_type = 'taker'
           var held_asset = 0.75
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '1.85738888'
+          var expected = '1.85739631'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
@@ -151,7 +156,7 @@ describe('Engine', function() {
           var buy_max_amt = 0.25
           var order_type = 'taker'
           var held_asset = 2.0
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
@@ -168,15 +173,16 @@ describe('Engine', function() {
           var buy_max_amt = undefined
           var order_type = 'taker'
           var held_asset = 0
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
-          var expected = '5.54444444'
+          var expected = '5.54446662'
           var buyArgs = buy_spy.calls.mostRecent().args[0]
           expect(buyArgs.size).toBe(expected)
         })
+        /*
         it('and held assets should use adjusted buy_pct', function(){
           // arrange
           var signal_type = 'buy'
@@ -185,7 +191,7 @@ describe('Engine', function() {
           var buy_max_amt = undefined
           var order_type = 'taker'
           var held_asset = 0.5				
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
@@ -202,13 +208,14 @@ describe('Engine', function() {
           var buy_max_amt = undefined
           var order_type = 'taker'
           var held_asset = 5.25				
-          var buy_spy = jasmine.createSpy()
+          var buy_spy = jasmine.createSpy('buy')
           var sut = createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_asset, buy_spy)
           // act
           sut.executeSignal(signal_type)
           // assert
           expect(buy_spy).not.toHaveBeenCalled()
         })
+        */
       })
     })
   })
@@ -224,13 +231,7 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
   var fake_project = 'test_product'
   var fake_bid = 0.10
   var fake_ask = 0.11
-  var fake_balance = { currency: currency_amount, asset:held_asset}
-  
-  var fakes = {
-    get: function() { },
-    set: function() { },
-    clear: function() { }
-  }
+  var fake_balance = { currency: currency_amount, asset: held_asset }
   
   var fake_product = {
     'asset': fake_asset,
@@ -243,6 +244,7 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
 
   var fake_return = {
     'conf': {
+      eventBus: new EventEmitter(),
       output: {
         api: {}
       }
@@ -264,10 +266,6 @@ function createEngine(currency_amount, buy_pct, buy_max_amt, order_type, held_as
   var exchange_path = path.resolve(__dirname, '../../extensions/exchanges/test_exchange/exchange')
   mock(exchange_path, fake_return['exchanges.test_exchange'])
   mock('./notify', fake_return['lib.notify'])
-  
-  spyOn(fakes,'get').and.callFake(function(param){
-    return fake_return[param]
-  })
   
   var input = {
     options: {

@@ -32,6 +32,10 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 - Configurable sell stops, buy stops, and (trailing) profit stops
 - Flexible sampling period and trade frequency - averages 1-2 trades/day with 1h period, 15-50/day with 5m period
 
+### Community
+
+Join the Zenbot community on [Reddit](https://reddit.com/r/zenbot)!
+
 ## Disclaimer
 
 - Zenbot is NOT a sure-fire profit machine. Use it AT YOUR OWN RISK.
@@ -250,36 +254,43 @@ zenbot trade --help
 
   Options:
 
-    --conf <path>                   path to optional conf overrides file
-    --strategy <name>               strategy to use
-    --order_type <type>             order type to use (maker/taker)
-    --paper                         use paper trading mode (no real trades will take place)
-    --manual                        watch price and account balance, but do not perform trades automatically
-    --currency_capital <amount>     for paper trading, amount of start capital in currency
-    --asset_capital <amount>        for paper trading, amount of start capital in asset
-    --avg_slippage_pct <pct>        avg. amount of slippage to apply to paper trades
-    --buy_pct <pct>                 buy with this % of currency balance
-    --buy_max_amt <amt>             buy with up to this amount of currency balance
-    --sell_pct <pct>                sell with this % of asset balance
-    --markdown_buy_pct <pct>        % to mark down buy price (previously the --markup_pct property)
-    --markup_sell_pct <pct>         % to mark up sell price (previously the --markup_pct property)
-    --order_adjust_time <ms>        adjust bid/ask on this interval to keep orders competitive
-    --order_poll_time <ms>          poll order status on this interval
-    --sell_stop_pct <pct>           sell if price drops below this % of bought price
-    --buy_stop_pct <pct>            buy if price surges above this % of sold price
-    --profit_stop_enable_pct <pct>  enable trailing sell stop when reaching this % profit
-    --profit_stop_pct <pct>         maintain a trailing stop this % below the high-water mark of profit
-    --max_sell_loss_pct <pct>       avoid selling at a loss pct under this float
-    --max_buy_loss_pct <pct>        avoid buying at a loss pct over this float
-    --max_slippage_pct <pct>        avoid selling at a slippage pct above this float
-    --rsi_periods <periods>         number of periods to calculate RSI at
-    --poll_trades <ms>              poll new trades at this interval in ms
-    --currency_increment <amount>   Currency increment, if different than the asset increment; e.g. 0.000001
-    --use_prev_trades               load and use previous trades for stop-order triggers and loss protection
-    --disable_stats                 disable printing order stats
-    --reset_profit                  start new profit calculation from 0
-    --debug                         output detailed debug info
-    -h, --help                      output usage information
+    --conf <path>                     path to optional conf overrides file
+    --strategy <name>                 strategy to use
+    --order_type <type>               order type to use (maker/taker)
+    --paper                           use paper trading mode (no real trades will take place)
+    --manual                          watch price and account balance, but do not perform trades automatically
+    --non_interactive                 disable keyboard inputs to the bot
+    --currency_capital <amount>       for paper trading, amount of start capital in currency
+    --asset_capital <amount>          for paper trading, amount of start capital in asset
+    --avg_slippage_pct <pct>          avg. amount of slippage to apply to paper trades
+    --buy_pct <pct>                   buy with this % of currency balance
+    --buy_max_amt <amt>               buy with up to this amount of currency balance
+    --sell_pct <pct>                  sell with this % of asset balance
+    --markdown_buy_pct <pct>          % to mark down buy price
+    --markup_sell_pct <pct>           % to mark up sell price
+    --order_adjust_time <ms>          adjust bid/ask on this interval to keep orders competitive
+    --order_poll_time <ms>            poll order status on this interval
+    --sell_stop_pct <pct>             sell if price drops below this % of bought price
+    --buy_stop_pct <pct>              buy if price surges above this % of sold price
+    --profit_stop_enable_pct <pct>    enable trailing sell stop when reaching this % profit
+    --profit_stop_pct <pct>           maintain a trailing stop this % below the high-water mark of profit
+    --max_sell_loss_pct <pct>         avoid selling at a loss pct under this float
+    --max_buy_loss_pct <pct>          avoid buying at a loss pct over this float
+    --max_slippage_pct <pct>          avoid selling at a slippage pct above this float
+    --rsi_periods <periods>           number of periods to calculate RSI at
+    --poll_trades <ms>                poll new trades at this interval in ms
+    --currency_increment <amount>     Currency increment, if different than the asset increment
+    --keep_lookback_periods <amount>  Keep this many lookback periods max.
+    --exact_buy_orders                instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all
+    --exact_sell_orders               instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all
+    --use_prev_trades                 load and use previous trades for stop-order triggers and loss protection
+    --min_prev_trades                 minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead
+    --disable_stats                   disable printing order stats
+    --reset_profit                    start new profit calculation from 0
+    --use_fee_asset                   Using separated asset to pay for fees. Such as binance's BNB or Huobi's HT
+    --run_for <minutes>               Execute for a period of minutes then exit with status 0 (default: null)
+    --debug                           output detailed debug info
+    -h, --help                        output usage information
 ```
 
 and also:
@@ -506,7 +517,7 @@ ta_macd_ext
     --down_trend_threshold=<value>  threshold to trigger a sold signal (default: 0)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
-    
+
 ta_trix
   description:
     TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold
@@ -552,7 +563,17 @@ ta_ultosc
     --timeperiod3=<value>  talib ULTOSC timeperiod3 (default: 28)
     --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
     --overbought_rsi=<value>  sold when RSI exceeds this value (default: 90)
-    
+
+ti_hma
+  description:
+    HMA - Hull Moving Average
+  options:
+    --period=<value>  period length eg 10m (default: 15m)
+    --min_periods=<value>  min. number of history periods (default: 52)
+    --trend_hma=<value>  number of periods for trend hma (default: 36)
+    --overbought_rsi_periods=<value>  number of periods for overbought RSI (default: 25)
+    --overbought_rsi=<value>  sold when RSI exceeds this value (default: 70)
+
 trendline
   description:
     Calculate a trendline and trade when trend is positive vs negative.
@@ -580,7 +601,7 @@ trust_distrust
     --buy_threshold=<value>  buy when the bottom increased at least above this percentage (default: 2)
     --buy_threshold_max=<value>  wait for multiple buy signals before buying (kill whipsaw, 0 to disable) (default: 0)
     --greed=<value>  sell if we reach this much profit (0 to be greedy and either win or lose) (default: 0)
-    
+
 wavetrend
   description:
     Buy when (Signal < Oversold) and sell when (Signal > Overbought).

@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , wto = require('../../../lib/wto')
   , ema = require('../../../lib/ema')
+  , Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'wavetrend',
@@ -168,6 +169,28 @@ module.exports = {
       cols.push('         ')
     }
     return cols
+  },
+
+  phenotypes: {
+    // -- common
+    period_length: Phenotypes.RangePeriod(1, 120, 'm'),
+    min_periods: Phenotypes.Range(1, 200),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 5),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 5),
+    order_type: Phenotypes.ListOption(['maker', 'taker']),
+    sell_stop_pct: Phenotypes.Range0(1, 50),
+    buy_stop_pct: Phenotypes.Range0(1, 50),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.Range(1,20),
+
+    // -- strategy
+    wavetrend_channel_length: Phenotypes.Range(1,20),
+    wavetrend_average_length: Phenotypes.Range(1,42),
+    wavetrend_overbought_1: Phenotypes.Range(1, 100),
+    wavetrend_overbought_2: Phenotypes.Range(1,100),
+    wavetrend_oversold_1: Phenotypes.Range(-100,0),
+    wavetrend_oversold_2: Phenotypes.Range(-100,0),
+    wavetrend_trends: Phenotypes.ListOption([true, false])
   }
 }
 
