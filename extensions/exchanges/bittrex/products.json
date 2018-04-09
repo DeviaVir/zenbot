@@ -576,14 +576,6 @@
     "label": "BTC/SNRG"
   },
   {
-    "asset": "PKB",
-    "currency": "BTC",
-    "min_size": "14.64557704",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/PKB"
-  },
-  {
     "asset": "AEON",
     "currency": "BTC",
     "min_size": "1.05223284",
