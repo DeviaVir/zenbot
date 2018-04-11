@@ -563,10 +563,10 @@
     "id": "EOSBTC",
     "asset": "EOS",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
     "label": "EOS/BTC"
   },
   {
@@ -2743,20 +2743,20 @@
     "id": "ONTBTC",
     "asset": "ONT",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
     "label": "ONT/BTC"
   },
   {
     "id": "ONTETH",
     "asset": "ONT",
     "currency": "ETH",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
+    "increment": "0.000001",
+    "asset_increment": "0.01",
     "label": "ONT/ETH"
   },
   {
@@ -2853,20 +2853,20 @@
     "id": "WANBTC",
     "asset": "WAN",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
     "label": "WAN/BTC"
   },
   {
     "id": "WANETH",
     "asset": "WAN",
     "currency": "ETH",
-    "min_size": "1.00000000",
+    "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
+    "increment": "0.000001",
+    "asset_increment": "0.01",
     "label": "WAN/ETH"
   },
   {
