@@ -946,7 +946,7 @@
   {
     "asset": "IOS",
     "currency": "USD",
-    "min_size": "294.0",
+    "min_size": "324.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "IOS/USD"
@@ -954,7 +954,7 @@
   {
     "asset": "IOS",
     "currency": "BTC",
-    "min_size": "294.0",
+    "min_size": "324.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "IOS/BTC"
@@ -962,7 +962,7 @@
   {
     "asset": "IOS",
     "currency": "ETH",
-    "min_size": "294.0",
+    "min_size": "324.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "IOS/ETH"
@@ -1114,7 +1114,7 @@
   {
     "asset": "CFI",
     "currency": "USD",
-    "min_size": "132.0",
+    "min_size": "142.0",
     "max_size": "40000.0",
     "increment": "0.0000001",
     "label": "CFI/USD"
@@ -1122,7 +1122,7 @@
   {
     "asset": "CFI",
     "currency": "BTC",
-    "min_size": "132.0",
+    "min_size": "142.0",
     "max_size": "40000.0",
     "increment": "0.0000000001",
     "label": "CFI/BTC"
@@ -1130,7 +1130,7 @@
   {
     "asset": "CFI",
     "currency": "ETH",
-    "min_size": "132.0",
+    "min_size": "142.0",
     "max_size": "40000.0",
     "increment": "0.0000000001",
     "label": "CFI/ETH"
