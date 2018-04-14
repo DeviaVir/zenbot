@@ -42,7 +42,7 @@ module.exports = {
 
     // this.option('mama_periods', '', Number, 5)
     this.option('mama_fastlimit', '', Number, 0.5)
-    this.option('mama_slowlimit', '', Number, 0.09)
+    this.option('mama_slowlimit', '', Number, 0.05)
     this.option('price_source', '', String, 'HAohlc4')
 
   },
@@ -73,17 +73,22 @@ module.exports = {
     }
 
     if (s.lookback.length > s.options.min_periods) {
+      /*
       if(!s.options.price_source || s.options.price_source === 'close'){
-        s.mama.src.unshift(s.period.close)
+        s.mama.src.unshift(s.period, s.lookback[0])
       } else if (s.options.price_source === 'hl2'){
-        s.mama.src.unshift(tv.hl2(s.period))
+        s.mama.src.unshift(tv.hl2(s.period, s.lookback[0]))
       } else if (s.options.price_source === 'hlc3'){
-        s.mama.src.unshift(tv.hlc3(s.period))
+        s.mama.src.unshift(tv.hlc3(s.period, s.lookback[0]))
       } else if (s.options.price_source === 'ohlc4'){
-        s.mama.src.unshift(tv.ohlc4(s.period))
+        s.mama.src.unshift(tv.ohlc4(s.period, s.lookback[0]))
+      } else if (s.options.price_source === 'HAhlc3'){
+        s.mama.src.unshift(tv.HAhlc3(s.period, s.lookback[0]))
       } else if (s.options.price_source === 'HAohlc4'){
-        s.mama.src.unshift(tv.HAohlc4(s))
-      }
+        s.mama.src.unshift(tv.HAohlc4(s.period, s.lookback[0]))
+      }*/
+
+      s.mama.src.unshift(tv.src(s.options.price_source, s.period, s.lookback[0]))
 
       //s.mama.src.unshift((s.period.high + s.period.low) / 2)
       s.mama.sp.unshift((4 * s.mama.src[0] + 3 * s.mama.src[1] + 2 * s.mama.src[2] + s.mama.src[3]) / 10.0)
@@ -114,7 +119,9 @@ module.exports = {
       s.mama.fama.unshift(.5 * alpha * s.mama.mama[0] + (1 - .5 * alpha) * nz(s.mama.fama[0]))
 
       s.period.mama = s.mama.mama[0]
+      if (s.options.debug) {console.log('s.mama.mama: ' + s.mama.mama[0])}
       s.period.fama = s.mama.fama[0]
+      if (s.options.debug) {console.log('s.mama.fama: ' + s.mama.fama[0])}
 
       if (s.mama.src.length > 7)
         Object.keys(s.mama).forEach(k => {
@@ -139,33 +146,31 @@ module.exports = {
   onReport: function(s) {
     var cols = []
     let color = 'cyan'
+    let FamaMamaDelta = (s.period.mama - s.period.fama) / s.period.mama * 100
+
     if (s.period.fama < s.period.mama) {
       color = 'green'
     } else if (s.period.fama > s.period.mama) {
       color = 'red'
     }
-    cols.push(z(10, 'M[' + n(s.period.mama).format('###.0') + ']', '')[color])
-    cols.push(z(10, ' F[' + n(s.period.fama).format('###.0') + ']', '')[color])
+    cols.push(z(10, '[' + n(FamaMamaDelta).format('#00.##') + '%]', '')[color])
 
     return cols
   },
 
   phenotypes: {
 
-    //General Options
-    period_length: Phenotypes.RangePeriod(5, 240, 'm'),
-    min_periods: Phenotypes.Range(10, 10),
-    markdown_buy_pct: Phenotypes.RangeFloat(0, 0),
-    markup_sell_pct: Phenotypes.RangeFloat(0, 0),
+    // -- common
+    period_length: Phenotypes.RangePeriod(15, 120, 'm'),
+    markdown_buy_pct: Phenotypes.RangeFloat(-1, 3),
+    markup_sell_pct: Phenotypes.RangeFloat(-1, 3),
     order_type: Phenotypes.ListOption(['maker', 'taker']),
-    sell_stop_pct: Phenotypes.Range0(1, 50),
-    buy_stop_pct: Phenotypes.Range0(1, 50),
-    profit_stop_enable_pct: Phenotypes.Range(1, 20),
-    profit_stop_pct: Phenotypes.Range(1, 10),
+    profit_stop_enable_pct: Phenotypes.Range0(1, 20),
+    profit_stop_pct: Phenotypes.RangeFloat(1,20),
 
     //Strategy Specific
-    mama_fastlimit: Phenotypes.RangeFactor(0.1, 0.9, 0.1),
-    mama_slow_limit: Phenotypes.RangeFactor(0.01, 0.09, 0.01),
-    price_source: Phenotypes.ListOption(['hl2', 'hlc3', 'ohlc4', 'HAohlc4'])
+    mama_fastlimit: Phenotypes.RangeFloat(0.1, 0.9),
+    mama_slowlimit: Phenotypes.RangeFloat(0.01, 0.09),
+    price_source: Phenotypes.ListOption(['hl2', 'hlc3', 'ohlc4','HAhlc3', 'HAohlc4'])
   }
 }
