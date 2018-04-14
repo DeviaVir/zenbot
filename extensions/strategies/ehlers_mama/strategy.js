@@ -73,20 +73,6 @@ module.exports = {
     }
 
     if (s.lookback.length > s.options.min_periods) {
-      /*
-      if(!s.options.price_source || s.options.price_source === 'close'){
-        s.mama.src.unshift(s.period, s.lookback[0])
-      } else if (s.options.price_source === 'hl2'){
-        s.mama.src.unshift(tv.hl2(s.period, s.lookback[0]))
-      } else if (s.options.price_source === 'hlc3'){
-        s.mama.src.unshift(tv.hlc3(s.period, s.lookback[0]))
-      } else if (s.options.price_source === 'ohlc4'){
-        s.mama.src.unshift(tv.ohlc4(s.period, s.lookback[0]))
-      } else if (s.options.price_source === 'HAhlc3'){
-        s.mama.src.unshift(tv.HAhlc3(s.period, s.lookback[0]))
-      } else if (s.options.price_source === 'HAohlc4'){
-        s.mama.src.unshift(tv.HAohlc4(s.period, s.lookback[0]))
-      }*/
 
       s.mama.src.unshift(tv.src(s.options.price_source, s.period, s.lookback[0]))
 
