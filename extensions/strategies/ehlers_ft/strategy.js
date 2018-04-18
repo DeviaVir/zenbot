@@ -135,7 +135,7 @@ module.exports = {
 
     //Strategy Specific
     length: Phenotypes.Range(1, 30),
-    fish_pct_change: Phenotypes.RangeFactor(-25, 75, 1),
+    fish_pct_change: Phenotypes.Range(-25, 75),
     pos_length: Phenotypes.Range(1, 6),
     src: Phenotypes.ListOption(['close', 'hl2', 'hlc3', 'ohlc4', 'HAhlc3', 'HAohlc4'])
   }
