@@ -23,14 +23,14 @@ If pos_length > 1, make sure pos_length number of previous periods have opposite
 Sample sim command:
 zenbot sim gdax.LTC-USD --strategy ehlers_ft --period_length 15m --days 3 --order_type maker --fish_pct_change 0 --length 10 --pos_length 1 --src HAohlc4 --min_periods 20 
 
-Please direct feedback concerning this strategy to the zenbot strategies discord channel @Travis: 
-https://discordapp.com/channels/316120967200112642/383023593942155274
-
 If you have found this strategy useful and would like to show your appreciation, please consider donating 
 ETH, BTC, or LTC to the developer, Travis.  
 ETH: 0xdA963A127BeCB08227583d11f912F400D5347060 
 BTC: 3KKHdBJpEGxghxGazoE4X7ihyr2q6nHUvW
 LTC: MSePEwGJF8W4wvGCbJBqMtatwdBGYhT8FM
+
+Please direct feedback concerning this strategy to the zenbot strategies discord channel @Travis: 
+https://discordapp.com/channels/316120967200112642/383023593942155274
 
 */
 
@@ -80,12 +80,6 @@ module.exports = {
       tv.iff(s.eft.fish[0] > tv.nz(s.eft.fish[1] * (1 + s.options.fish_pct_change / 100)), 1,
         tv.iff(s.eft.fish[0] < tv.nz(s.eft.fish[1] * (1 - s.options.fish_pct_change / 100)), -1, tv.nz(s.eft.pos[0], 0))))
 
-
-    if (s.eft.pos.length > s.eft_max_elements)
-      Object.keys(s.eft).forEach(k => {
-        s.eft[k].pop()
-      })
-
     if (!s.in_preroll) {
       if (s.options.pos_length === 1) {
         if (s.eft.pos[0] === 1) {
@@ -109,6 +103,12 @@ module.exports = {
           s.signal = null
       }
     }
+
+    // cleanup
+    if (s.eft.pos.length > s.eft_max_elements)
+      Object.keys(s.eft).forEach(k => {
+        s.eft[k].pop()
+      })
 
     cb()
   },
