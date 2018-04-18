@@ -2998,5 +2998,25 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "ADA/BNB"
+  },
+  {
+    "id": "CLOAKBTC",
+    "asset": "CLOAK",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "CLOAK/BTC"
+  },
+  {
+    "id": "CLOAKETH",
+    "asset": "CLOAK",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.000001",
+    "asset_increment": "0.01",
+    "label": "CLOAK/ETH"
   }
 ]
