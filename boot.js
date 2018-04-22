@@ -53,7 +53,7 @@ module.exports = function (cb) {
   } else {
     connectionString = 'mongodb://' + authStr + zenbot.conf.mongo.host + ':' + zenbot.conf.mongo.port + '/' + zenbot.conf.mongo.db + '?' +
       (zenbot.conf.mongo.replicaSet ? '&replicaSet=' + zenbot.conf.mongo.replicaSet : '' ) +
-      (authMechanism ? '&authMechanism=' + authMechanism : '' )
+      (zenbot.conf.mongo.authMechanism ? '&authMechanism=' + authMechanism : '' )
   }
 
   require('mongodb').MongoClient.connect(connectionString, function (err, client) {
