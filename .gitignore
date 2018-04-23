@@ -1,4 +1,5 @@
 .DS_Store
+.env
 *.tar.gz
 *.log.*
 t.js
