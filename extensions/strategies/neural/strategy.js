@@ -1,7 +1,6 @@
 let convnetjs = require('convnetjs')
   , z = require('zero-fill')
   , n = require('numbro')
-  , math = require('mathjs')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
 const cluster = require('cluster')

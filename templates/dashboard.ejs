@@ -97,13 +97,21 @@
                     <div class="white-box analytics-info">
                         <h3 class="box-title">Capital</h3>
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-lg-<% if (typeof deposit != 'undefined') { %>4<% } else { %>6<% } %> col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Asset</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false,  minimumFractionDigits: 2, maximumFractionDigits: 8}).format(balance.asset) %></span> <small><%= asset.toUpperCase() %></small></li>
                                 </ul>
                             </div>
-                            <div class="col-lg-6 col-12">
+                            <% if (typeof deposit != "undefined") { %>
+                            <div class="col-lg-4 col-12">
+                                <ul class="list-inline two-part">
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Deposit</span></li>
+                                    <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false,  minimumFractionDigits: 2, maximumFractionDigits: 8}).format(balance.deposit) %></span> <small><%= currency.toUpperCase() %></small></li>
+                                </ul>
+                            </div>
+                            <% } %>
+                            <div class="col-lg-<% if (typeof deposit != 'undefined') { %>4<% } else { %>6<% } %> col-12">
                                 <ul class="list-inline two-part">
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span class="text-purple">Currency</span></li>
                                     <li class="text-left" style="display:inline"><i class="ti-arrow-up text-purple"></i> <span><%= new Intl.NumberFormat("en-US", {useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 8}).format(balance.currency) %></span> <small><%= currency.toUpperCase() %></small></li>
