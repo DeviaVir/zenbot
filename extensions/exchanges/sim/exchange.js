@@ -52,6 +52,7 @@ module.exports = function sim (conf, s) {
 
     getBalance: function (opts, cb) {
       setTimeout(function() {
+        s.sim_asset = balance.asset
         return cb(null, balance)
       }, latency)
     },
