@@ -45,7 +45,7 @@ module.exports = function (cb) {
     authStr += '@'
 
     // authMechanism could be a conf.js parameter to support more mongodb authentication methods
-    authMechanism = 'DEFAULT'
+    authMechanism = zenbot.conf.mongo.authMechanism || 'DEFAULT'
   }
 
   if (zenbot.conf.mongo.connectionString) {
