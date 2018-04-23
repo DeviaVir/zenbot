@@ -114,6 +114,7 @@ module.exports = {
       s.mama.fama.unshift(.5 * alpha * s.mama.mama[0] + (1 - .5 * alpha) * nz(s.mama.fama[0]))
 
       s.period.mama = s.mama.mama[0]
+      if (s.options.debug) {console.log('s.mama.mama: ' + s.mama.mama[0])}
       s.period.fama = s.mama.fama[0]
 
       if (s.mama.src.length > 7)
@@ -139,11 +140,16 @@ module.exports = {
   onReport: function(s) {
     var cols = []
     let color = 'cyan'
+    let FamaMamaDelta = (s.period.mama - s.period.fama) / s.period.mama * 100
+    
     if (s.period.fama < s.period.mama) {
       color = 'green'
     } else if (s.period.fama > s.period.mama) {
       color = 'red'
     }
+
+    cols.push(z(10, '[' + n(FamaMamaDelta).format('#00.##') + '%]', '')[color])
+
     cols.push(z(10, 'M[' + n(s.period.mama).format('###.0') + ']', '')[color])
     cols.push(z(10, ' F[' + n(s.period.fama).format('###.0') + ']', '')[color])
 
@@ -151,7 +157,6 @@ module.exports = {
   },
 
   phenotypes: {
-
     //General Options
     period_length: Phenotypes.RangePeriod(5, 240, 'm'),
     min_periods: Phenotypes.Range(10, 10),
