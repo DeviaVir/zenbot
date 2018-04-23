@@ -125,7 +125,7 @@ module.exports = function (program, conf) {
             time: s.period.time
           })
         }
-        s.balance.currency = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        s.balance.currency = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
 
         s.balance.asset = 0
         s.lookback.unshift(s.period)

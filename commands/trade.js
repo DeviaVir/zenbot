@@ -30,7 +30,7 @@ module.exports = function (program, conf) {
     .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, conf.asset_capital)
     .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, conf.avg_slippage_pct)
     .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, conf.buy_pct)
-    .option('--buy_max_amt <amt>', 'buy with up to this amount of currency balance', Number, conf.buy_max_amt)
+    .option('--deposit <amt>', 'absolute initial capital (in currency) at the bots disposal (previously --buy_max_amt)', Number, conf.deposit)
     .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, conf.sell_pct)
     .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, conf.markdown_buy_pct)
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
@@ -82,6 +82,10 @@ module.exports = function (program, conf) {
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
+      if (so.buy_max_amt) {
+        console.log(('--buy_max_amt is deprecated, use --deposit instead!\n').red)
+        so.deposit = so.buy_max_amt
+      }
 
       so.selector = objectifySelector(selector || conf.selector)      
       var engine = engineFactory(s, conf)
@@ -149,7 +153,7 @@ module.exports = function (program, conf) {
 
       /* Implementing statistical Exit */
       function printTrade (quit, dump, statsonly = false) {
-        var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var tmp_balance = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
         if (quit) {
           if (s.my_trades.length) {
             s.my_trades.push({
@@ -276,7 +280,7 @@ module.exports = function (program, conf) {
         if(!shouldSaveStats) return
 
         var output_lines = []
-        var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var tmp_balance = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
 
         var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
         output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
@@ -453,7 +457,7 @@ module.exports = function (program, conf) {
                   if (err) throw err
                   var prev_session = prev_sessions[0]
                   if (prev_session && !cmd.reset_profit) {
-                    if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                    if (prev_session.orig_capital && prev_session.orig_price && prev_session.deposit === so.deposit && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                       s.orig_capital = session.orig_capital = prev_session.orig_capital
                       s.orig_price = session.orig_price = prev_session.orig_price
                       if (so.mode === 'paper') {
@@ -565,6 +569,7 @@ module.exports = function (program, conf) {
             session.start_capital = s.start_capital
             session.start_price = s.start_price
             session.num_trades = s.my_trades.length
+            if (so.deposit) session.deposit = so.deposit
             if (!session.orig_capital) session.orig_capital = s.start_capital
             if (!session.orig_price) session.orig_price = s.start_price
             if (s.period) {
