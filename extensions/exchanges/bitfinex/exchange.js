@@ -238,10 +238,83 @@ module.exports = function bitfinex (conf) {
         .on('ou', wsUpdateOrder)
         .on('oc', wsUpdateOrderCancel)
         .on('miu', marginSymbolWebsocket)
+        .on('ps', assetPositionMargin)
+
+      // we need also more position updates here, but messages are completely undocumented
+      // https://bitfinex.readme.io/v1/reference#ws-auth-position-updates
+      // <pn|pu|pc> possible only "pu" for update
 
       setInterval(function() {
         wsConnect()
       }, ws_retry)
+    }
+  }
+
+  /**
+   *
+   * @param position ['tXRPUSD']
+   * @returns {string}
+   */
+  function assetPositionMarginAssetExtract(position) {
+    let pair = position[0]
+
+    // tXRPUSD
+    if (pair.substring(0, 1) === 't') {
+      pair = pair.substring(1)
+    }
+
+    return pair.substring(0, pair.length - 3)
+  }
+
+  /**
+   * We have no wallet on margin orders; fake current asset capital via open position
+   *
+   * @param positions
+   * @see https://bitfinex.readme.io/v1/reference#ws-auth-position-snapshot
+   */
+  function assetPositionMargin(positions) {
+    // skip non margin
+    if(conf.bitfinex.wallet !== 'margin') {
+      return
+    }
+
+    // current positions in request
+    // we need it for clear
+    let assets = []
+
+    positions.filter(function (position) {
+      return position.length > 2
+    }).forEach(function (position) {
+      let asset = assetPositionMarginAssetExtract(position)
+      if (!ws_balance[asset]) {
+        ws_balance[asset] = {}
+      }
+
+      assets.push(asset)
+
+      let action = position[1].toLowerCase()
+
+      if(action === 'active') {
+        ws_balance[asset].balance = position[2]
+        ws_balance[asset].available = position[2]
+        ws_balance[asset].wallet = 'margin'
+      } else if(action === 'closed') {
+        ws_balance[asset].balance = 0
+        ws_balance[asset].available = 0
+        ws_balance[asset].wallet = 'margin'
+      }
+    })
+
+    // clear non open positions; which are not existing anymore
+    for(let key in ws_balance) {
+      if(assets.indexOf(key) < 0 && ws_balance[key]) {
+        ws_balance[key].balance = 0
+        ws_balance[key].available = 0
+
+        if(so.debug) {
+          console.log('Clear asset: ' + JSON.stringify(ws_balance[key]))
+        }
+      }
     }
   }
 
@@ -272,10 +345,10 @@ module.exports = function bitfinex (conf) {
     /*
     [ 'sym',
     'tBTCUSD',
-    [ 103.11144665, // all ?
-      103.11144665, // all ?
-      23.11144665, // with active orders
-      23.11144665, // with active position
+    [ 101.11144665, // "all" - "active positions"
+      179.11144665, // "all"
+      78.11144665, // "all" - "active positions" - "active unfilled orders"
+      78.11144665, // "all" - "active positions" - "active unfilled orders" ?
       null,
       null,
       null,
@@ -300,8 +373,8 @@ module.exports = function bitfinex (conf) {
     let currency = symbol[1].substring(symbol[1].length - 3)
 
     // which array index to use to get available balance? :)
-    ws_balance[currency].available = symbol[2][1]
-    ws_balance[currency].balance = symbol[2][1]
+    ws_balance[currency].available = symbol[2][0]
+    ws_balance[currency].balance = symbol[2][0]
 
     ws_walletCalcDone[pair] = true
   }
