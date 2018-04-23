@@ -30,7 +30,7 @@ module.exports = function (program, conf) {
     .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, conf.asset_capital)
     .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, conf.avg_slippage_pct)
     .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, conf.buy_pct)
-    .option('--buy_max_amt <amt>', 'buy with up to this amount of currency balance', Number, conf.buy_max_amt)
+    .option('--deposit <amt>', 'absolute initial capital (in currency) at the bots disposal (previously --buy_max_amt)', Number, conf.deposit)
     .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, conf.sell_pct)
     .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, conf.markdown_buy_pct)
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
@@ -50,6 +50,7 @@ module.exports = function (program, conf) {
     .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
     .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--use_prev_trades', 'load and use previous trades for stop-order triggers and loss protection')
+    .option('--min_prev_trades <number>', 'minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead', Number, conf.min_prev_trades)
     .option('--disable_stats', 'disable printing order stats')
     .option('--reset_profit', 'start new profit calculation from 0')
     .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
@@ -77,9 +78,14 @@ module.exports = function (program, conf) {
       so.currency_increment = cmd.currency_increment
       so.keep_lookback_periods = cmd.keep_lookback_periods
       so.use_prev_trades = (cmd.use_prev_trades||conf.use_prev_trades)
+      so.min_prev_trades = cmd.min_prev_trades
       so.debug = cmd.debug
       so.stats = !cmd.disable_stats
       so.mode = so.paper ? 'paper' : 'live'
+      if (so.buy_max_amt) {
+        console.log(('--buy_max_amt is deprecated, use --deposit instead!\n').red)
+        so.deposit = so.buy_max_amt
+      }
 
       so.selector = objectifySelector(selector || conf.selector)      
       var engine = engineFactory(s, conf)
@@ -147,7 +153,7 @@ module.exports = function (program, conf) {
 
       /* Implementing statistical Exit */
       function printTrade (quit, dump, statsonly = false) {
-        var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var tmp_balance = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
         if (quit) {
           if (s.my_trades.length) {
             s.my_trades.push({
@@ -274,7 +280,7 @@ module.exports = function (program, conf) {
         if(!shouldSaveStats) return
 
         var output_lines = []
-        var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
+        var tmp_balance = n(s.net_currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
 
         var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
         output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
@@ -341,7 +347,8 @@ module.exports = function (program, conf) {
 
           //ymd
           var today = dt.slice(2, 4) + dt.slice(5, 7) + dt.slice(8, 10)
-          out_target = so.filename || 'simulations/trade_result_' + so.selector.normalized +'_' + today + '_UTC.html'
+          let out_target_prefix = so.paper ? 'simulations/paper_result_' : 'stats/trade_result_'
+          out_target = so.filename || out_target_prefix + so.selector.normalized +'_' + today + '_UTC.html'
 
           fs.writeFileSync(out_target, out)
           //console.log('\nwrote'.grey, out_target)
@@ -406,10 +413,19 @@ module.exports = function (program, conf) {
           trades.find(opts.query).limit(opts.limit).sort(opts.sort).toArray(function (err, trades) {
             if (err) throw err
             if (trades.length && so.use_prev_trades) {
-              my_trades.find({selector: so.selector.normalized, time : {$gte : trades[0].time}}).limit(0).toArray(function (err, my_prev_trades) {
+              let prevOpts = {
+                query: {
+                  selector: so.selector.normalized
+                },
+                limit: so.min_prev_trades
+              }
+              if (!so.min_prev_trades) {
+                prevOpts.query.time = {$gte : trades[0].time}
+              }
+              my_trades.find(prevOpts.query).sort({$natural:-1}).limit(prevOpts.limit).toArray(function (err, my_prev_trades) {
                 if (err) throw err
                 if (my_prev_trades.length) {
-                  s.my_prev_trades = my_prev_trades.slice(0).sort(function(a,b){return a.time + a.execution_time > b.time + b.execution_time ? -1 : 1}) // simple copy, most recent executed first
+                  s.my_prev_trades = my_prev_trades.reverse().slice(0) // simple copy, less recent executed first
                 }
               })
             }
@@ -441,7 +457,7 @@ module.exports = function (program, conf) {
                   if (err) throw err
                   var prev_session = prev_sessions[0]
                   if (prev_session && !cmd.reset_profit) {
-                    if (prev_session.orig_capital && prev_session.orig_price && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
+                    if (prev_session.orig_capital && prev_session.orig_price && prev_session.deposit === so.deposit && ((so.mode === 'paper' && !raw_opts.currency_capital && !raw_opts.asset_capital) || (so.mode === 'live' && prev_session.balance.asset == s.balance.asset && prev_session.balance.currency == s.balance.currency))) {
                       s.orig_capital = session.orig_capital = prev_session.orig_capital
                       s.orig_price = session.orig_price = prev_session.orig_price
                       if (so.mode === 'paper') {
@@ -553,6 +569,7 @@ module.exports = function (program, conf) {
             session.start_capital = s.start_capital
             session.start_price = s.start_price
             session.num_trades = s.my_trades.length
+            if (so.deposit) session.deposit = so.deposit
             if (!session.orig_capital) session.orig_capital = s.start_capital
             if (!session.orig_price) session.orig_price = s.start_price
             if (s.period) {

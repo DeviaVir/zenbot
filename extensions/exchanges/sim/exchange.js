@@ -52,6 +52,7 @@ module.exports = function sim (conf, s) {
 
     getBalance: function (opts, cb) {
       setTimeout(function() {
+        s.sim_asset = balance.asset
         return cb(null, balance)
       }, latency)
     },
@@ -159,6 +160,12 @@ module.exports = function sim (conf, s) {
         var order = orders['~' + opts.order_id]
         cb(null, order)
       }, latency)
+    },
+
+    setFees: function(opts) {
+      if (so.mode === 'paper') {
+        return real_exchange.setFees(opts)
+      }
     },
 
     getCursor: real_exchange.getCursor,

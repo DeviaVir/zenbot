@@ -14,6 +14,7 @@ c.mongo.username = null
 c.mongo.password = null
 // when using mongodb replication, i.e. when running a mongodb cluster, you can define your replication set here; when you are not using replication (most of the users), just set it to `null` (default).
 c.mongo.replicaSet = null
+c.mongo.authMechanism = null
 
 // default selector. only used if omitting [selector] argument from a command.
 c.selector = 'gdax.BTC-USD'
@@ -58,7 +59,7 @@ c.bittrex.secret = 'YOUR-SECRET'
 c.bitfinex = {}
 c.bitfinex.key = 'YOUR-API-KEY'
 c.bitfinex.secret = 'YOUR-SECRET'
-// May use 'exchange' or 'trading' wallet balances. However margin trading may not work...read the API documentation.
+// May use 'exchange' or 'margin' wallet balances
 c.bitfinex.wallet = 'exchange'
 
 // to enable Bitstamp trading, enter your API credentials:
@@ -170,6 +171,8 @@ c.avg_slippage_pct = 0.045
 c.cancel_after = 'day'
 // load and use previous trades for stop-order triggers and loss protection (live/paper mode only)
 c.use_prev_trades = false
+// minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead
+c.min_prev_trades = 0
 
 // Notifiers:
 c.notifiers = {}

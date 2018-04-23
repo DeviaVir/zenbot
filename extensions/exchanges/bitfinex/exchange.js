@@ -134,7 +134,7 @@ module.exports = function bitfinex (conf) {
         if (so.debug) console.warn(('\nWarning: Order ' + cid + ' not found in cache for wsUpdateReqOrder (manual order?).').red)
         return
       }
-      
+
       if (so.debug) console.log(ws_orders['~' + cid])
 
       ws_orders['~' + cid].status = 'rejected'
@@ -142,15 +142,20 @@ module.exports = function bitfinex (conf) {
     }
   }
 
-  function updateWallet (wallets) {
+  function updateWallet(wallets) {
     if (typeof(wallets[0]) !== 'object') wallets = [wallets]
 
     wallets.forEach(function (wallet) {
       if (wallet[0] === conf.bitfinex.wallet) {
+
         ws_balance[wallet[1].toUpperCase()] = {}
         ws_balance[wallet[1].toUpperCase()].balance = wallet[2]
         ws_balance[wallet[1].toUpperCase()].available = wallet[4] ? wallet[4] : 0
-        if (wallet[4] !== null) { ws_walletCalcDone[wallet[1]] = true }
+        ws_balance[wallet[1].toUpperCase()].wallet = wallet[0]
+
+        if (wallet[4] !== null) {
+          ws_walletCalcDone[wallet[1]] = true
+        }
       }
     })
   }
@@ -192,6 +197,8 @@ module.exports = function bitfinex (conf) {
   }
 
   function wsError (e) {
+    console.warn(e)
+
     ws_connecting = false
     ws_connected = false
 
@@ -230,10 +237,84 @@ module.exports = function bitfinex (conf) {
         .on('on-req', wsUpdateReqOrder)
         .on('ou', wsUpdateOrder)
         .on('oc', wsUpdateOrderCancel)
+        .on('miu', marginSymbolWebsocket)
+        .on('ps', assetPositionMargin)
+
+      // we need also more position updates here, but messages are completely undocumented
+      // https://bitfinex.readme.io/v1/reference#ws-auth-position-updates
+      // <pn|pu|pc> possible only "pu" for update
 
       setInterval(function() {
         wsConnect()
       }, ws_retry)
+    }
+  }
+
+  /**
+   *
+   * @param position ['tXRPUSD']
+   * @returns {string}
+   */
+  function assetPositionMarginAssetExtract(position) {
+    let pair = position[0]
+
+    // tXRPUSD
+    if (pair.substring(0, 1) === 't') {
+      pair = pair.substring(1)
+    }
+
+    return pair.substring(0, pair.length - 3)
+  }
+
+  /**
+   * We have no wallet on margin orders; fake current asset capital via open position
+   *
+   * @param positions
+   * @see https://bitfinex.readme.io/v1/reference#ws-auth-position-snapshot
+   */
+  function assetPositionMargin(positions) {
+    // skip non margin
+    if(conf.bitfinex.wallet !== 'margin') {
+      return
+    }
+
+    // current positions in request
+    // we need it for clear
+    let assets = []
+
+    positions.filter(function (position) {
+      return position.length > 2
+    }).forEach(function (position) {
+      let asset = assetPositionMarginAssetExtract(position)
+      if (!ws_balance[asset]) {
+        ws_balance[asset] = {}
+      }
+
+      assets.push(asset)
+
+      let action = position[1].toLowerCase()
+
+      if(action === 'active') {
+        ws_balance[asset].balance = position[2]
+        ws_balance[asset].available = position[2]
+        ws_balance[asset].wallet = 'margin'
+      } else if(action === 'closed') {
+        ws_balance[asset].balance = 0
+        ws_balance[asset].available = 0
+        ws_balance[asset].wallet = 'margin'
+      }
+    })
+
+    // clear non open positions; which are not existing anymore
+    for(let key in ws_balance) {
+      if(assets.indexOf(key) < 0 && ws_balance[key]) {
+        ws_balance[key].balance = 0
+        ws_balance[key].available = 0
+
+        if(so.debug) {
+          console.log('Clear asset: ' + JSON.stringify(ws_balance[key]))
+        }
+      }
     }
   }
 
@@ -258,6 +339,87 @@ module.exports = function bitfinex (conf) {
     for (let d in data)
       ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
     return ret.join('&')
+  }
+
+  function marginSymbolWebsocket(symbol) {
+    /*
+    [ 'sym',
+    'tBTCUSD',
+    [ 101.11144665, // "all" - "active positions"
+      179.11144665, // "all"
+      78.11144665, // "all" - "active positions" - "active unfilled orders"
+      78.11144665, // "all" - "active positions" - "active unfilled orders" ?
+      null,
+      null,
+      null,
+      null
+   ]
+    */
+
+    if(symbol[0] !== 'sym') {
+      return
+    }
+
+    // tBTCUSD
+    if(symbol[1].substring(0, 1) !== 't') {
+      return
+    }
+
+    let pair = symbol[1].substring(1)
+
+    // not nice but values are not splitted
+    // "tBTCUSD" extract => "USD"
+    // "tDASHUSD" extract => "USD"
+    let currency = symbol[1].substring(symbol[1].length - 3)
+
+    // which array index to use to get available balance? :)
+    ws_balance[currency].available = symbol[2][0]
+    ws_balance[currency].balance = symbol[2][0]
+
+    ws_walletCalcDone[pair] = true
+  }
+
+  function updateBalance(opts) {
+    switch (conf.bitfinex.wallet) {
+    case 'margin':
+      try {
+        ws_walletCalcDone[opts.asset] = 'inProgress'
+        ws_walletCalcDone[opts.currency] = 'inProgress'
+
+        ws_client.send([0, 'calc', null, [
+          ['margin_base'],
+          ['margin_sym_' + opts.asset.toUpperCase() + opts.currency.toUpperCase()],
+          ['funding_sym_' + opts.currency.toUpperCase()],
+        ]])
+      } catch (e) {
+        if (so.debug) {
+          console.warn(e)
+          console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
+        }
+      }
+
+      break
+
+    case 'exchange':
+      try {
+        ws_walletCalcDone[opts.asset] = 'inProgress'
+        ws_walletCalcDone[opts.currency] = 'inProgress'
+
+        ws_client.send([0, 'calc', null, [
+          ['wallet_exchange_' + opts.currency],
+          ['wallet_exchange_' + opts.wallet + '_' + opts.asset]
+        ]])
+      } catch (e) {
+        if (so.debug) {
+          console.warn(e)
+          console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
+        }
+      }
+
+      break
+    default:
+      console.log('not supported wallet:' + opts.wallet)
+    }
   }
 
   var exchange = {
@@ -317,7 +479,9 @@ module.exports = function bitfinex (conf) {
     },
 
     getBalance: function (opts, cb) {
-      if (!pair) { pair = joinProduct(opts.asset + '-' + opts.currency) }
+      if (!pair) {
+        pair = joinProduct(opts.asset + '-' + opts.currency)
+      }
 
       if (pair && !ws_walletCalcDone) {
         ws_walletCalcDone = {}
@@ -325,7 +489,10 @@ module.exports = function bitfinex (conf) {
         ws_walletCalcDone[opts.currency] = false
       }
 
-      if (!ws_client) { wsClient() }
+      if (!ws_client) {
+        wsClient()
+      }
+
       if (Object.keys(ws_balance).length === 0) {
         if (so.debug && ws_connected === true) {
           console.warn(('WebSockets Warning: Waiting for initial websockets snapshot.').red + ' Retrying in ' + (ws_retry / 1000 + ' seconds').yellow + '.')
@@ -334,44 +501,21 @@ module.exports = function bitfinex (conf) {
       }
 
       if (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === false) {
-        var ws_update_wallet = [
-          0,
-          'calc',
-          null,
-          [
-            ['wallet_exchange_' + opts.currency],
-            ['wallet_exchange_' + opts.asset]
-          ]
-        ]
-
-        try {
-          ws_walletCalcDone[opts.asset] = 'inProgress'
-          ws_walletCalcDone[opts.currency] = 'inProgress'
-
-          ws_client.send(ws_update_wallet)
-        }
-        catch (e) {
-          if (so.debug) {
-            console.warn(e)
-            console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
-          }
-        }
-
+        updateBalance(opts)
         return waitForCalc('getBalance', opts, cb)
-      }
-      else if (
+      } else if (
         (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === true) ||
         (ws_walletCalcDone[opts.asset] === true && ws_walletCalcDone[opts.currency] === false)
       ) {
         return waitForCalc('getBalance', opts, cb)
-      }
-      else {
-        var balance = {}
-        balance.currency      = ws_balance[opts.currency] && ws_balance[opts.currency].balance   ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
-        balance.asset         = ws_balance[opts.asset]    && ws_balance[opts.asset].balance      ? n(ws_balance[opts.asset].balance).format('0.00000000')    : n(0).format('0.00000000')
+      } else {
+        let balance = {}
+
+        balance.currency = ws_balance[opts.currency] && ws_balance[opts.currency].balance ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
+        balance.asset = ws_balance[opts.asset] && ws_balance[opts.asset].balance ? n(ws_balance[opts.asset].balance).format('0.00000000') : n(0).format('0.00000000')
 
         balance.currency_hold = ws_balance[opts.currency] && ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
-        balance.asset_hold    = ws_balance[opts.asset]    && ws_balance[opts.asset].available    ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000')       : n(0).format('0.00000000')
+        balance.asset_hold = ws_balance[opts.asset] && ws_balance[opts.asset].available ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000') : n(0).format('0.00000000')
 
         ws_walletCalcDone[opts.asset] = false
         ws_walletCalcDone[opts.currency] = false
@@ -420,15 +564,19 @@ module.exports = function bitfinex (conf) {
       var amount = action === 'buy' ? opts.size : opts.size * -1
       var price = opts.price
 
+      // only exchange need a prefix; no needed for margin
+      let walletName = conf.bitfinex.wallet.toUpperCase() === 'EXCHANGE' ? 'EXCHANGE ' : ''
+
       if (opts.order_type === 'maker' && typeof opts.type === 'undefined') {
-        opts.type = 'EXCHANGE LIMIT'
+        opts.type = walletName + 'LIMIT'
+      } else if (opts.order_type === 'taker' && typeof opts.type === 'undefined') {
+        opts.type = walletName + 'MARKET'
       }
-      else if (opts.order_type === 'taker' && typeof opts.type === 'undefined') {
-        opts.type = 'EXCHANGE MARKET'
-      }
+
       if (typeof opts.post_only === 'undefined') {
         opts.post_only = true
       }
+
       var type = opts.type
       var is_postonly = opts.post_only
 

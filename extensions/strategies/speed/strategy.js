@@ -54,7 +54,7 @@ module.exports = {
     return cols
   },
 
-  speed: {
+  phenotypes: {
     // -- common
     period_length: Phenotypes.RangePeriod(1, 120, 'm'),
     min_periods: Phenotypes.Range(1, 100),
