@@ -37,10 +37,10 @@ module.exports = {
       s.neural = {
         net : new convnetjs.Net(),
         layer_defs : [
-          {type:'input', out_sx:1, out_sy:1, out_depth:s.options.depth},
+          {type:'input', out_sx:5, out_sy:1, out_depth:s.options.depth},
           {type:'fc', num_neurons: s.options.neurons_1, activation: s.options.activation_1_type},
           {type:'fc', num_neurons: s.options.neurons_2, activation: s.options.activation_2_type},
-          {type:'regression', num_neurons:1}
+          {type:'regression', num_neurons:5}
         ],
         neuralDepth: s.options.depth
       }
@@ -52,33 +52,54 @@ module.exports = {
       if (global.forks < s.options.threads) { cluster.fork(); global.forks++ }
       cluster.on('exit', (code) => { process.exit(code) })
     }
+
     if (cluster.isWorker) {
       ema(s, 'neural', s.options.neural)
-      // do the network thing
       var tlp = []
       var tll = []
       // this thing is crazy run with trendline placed here. But there needs to be a coin lock so you dont buy late!
-      if (!s.in_preroll) {
+      if (!s.in_preroll && s.lookback[s.options.min_periods]) {
         var min_predict = s.options.min_predict > s.options.min_periods ? s.options.min_periods : s.options.min_predict
-        for (let i = 0; i < s.options.min_periods; i++) { tll.push(s.lookback[i].close) }
-        for (let i = 0; i < min_predict; i++) { tlp.push(s.lookback[i].close) }
+        for (let i = 0; i < s.options.min_periods; i++) {
+          tll.push(s.lookback[i])
+        }
+        for (let i = 0; i < min_predict; i++) {
+          tlp.push(s.lookback[i])
+        }
         var my_data = tll.reverse()
         var learn = function () {
           //Learns
           for (var j = 0; j < s.options.learns; j++) {
             for (var i = 0; i < my_data.length - s.neural.neuralDepth; i++) {
               var data = my_data.slice(i, i + s.neural.neuralDepth)
-              var real_value = [my_data[i + s.neural.neuralDepth]]
-              var x = new convnetjs.Vol(data)
-              s.neural.trainer.train(x, real_value)
-              s.neural.net.forward(x)
+              var real_value = my_data[i + s.neural.neuralDepth]
+              var x = new convnetjs.Vol(5, 1, s.neural.neuralDepth, 0)
+
+              for (var k = 0; k < s.neural.neuralDepth; k++) {
+                x.set(0,0,k,data[k].open)
+                x.set(1,0,k,data[k].close)
+                x.set(2,0,k,data[k].high)
+                x.set(3,0,k,data[k].low)
+                x.set(4,0,k,data[k].volume)
+              }
+
+              s.neural.trainer.train(x, [real_value.open, real_value.close, real_value.high, real_value.low, real_value.volume])
             }
           }
         }
         var predict = function(data) {
-          var x = new convnetjs.Vol(data)
+          var x = new convnetjs.Vol(5, 1, s.neural.neuralDepth, 0)
+
+          for (var k = 0; k < s.neural.neuralDepth; k++) {
+            x.set(0,0,k,data[k].open)
+            x.set(1,0,k,data[k].close)
+            x.set(2,0,k,data[k].high)
+            x.set(3,0,k,data[k].low)
+            x.set(4,0,k,data[k].volume)
+          }
+
           var predicted_value = s.neural.net.forward(x)
-          return predicted_value.w[0]
+          return predicted_value.w[1] // close value - x.set(1,0,k,data[k].close)
         }
         learn()
         var item = tlp.reverse()
