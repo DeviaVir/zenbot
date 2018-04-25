@@ -40,6 +40,7 @@ module.exports = function container (conf) {
     historyScan: 'backward',
     makerFee: 0.15,
     takerFee: 0.25,
+    offset: 43200,
 
     getProducts: function () {
       return require('./products.json')
@@ -59,11 +60,11 @@ module.exports = function container (conf) {
       }
       if (args.start && !args.end) {
         // add 12 hours
-        args.end = args.start + 43200
+        args.end = args.start + opts.offset
       }
       else if (args.end && !args.start) {
         // subtract 12 hours
-        args.start = args.end - 43200
+        args.start = args.end - opts.offset
       }
 
       client._public('returnTradeHistory', args, function (err, body) {
@@ -76,6 +77,12 @@ module.exports = function container (conf) {
           console.error(body)
           return retry('getTrades', func_args)
         }
+
+        if (body.length >= 50000) {
+          func_args[0].offset = opts.offset / 2;
+          return retry('getTrades', func_args)
+        }
+
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.tradeID,
