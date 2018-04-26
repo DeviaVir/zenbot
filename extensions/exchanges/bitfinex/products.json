@@ -482,7 +482,7 @@
   {
     "asset": "GNT",
     "currency": "USD",
-    "min_size": "50.0",
+    "min_size": "46.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "GNT/USD"
@@ -490,7 +490,7 @@
   {
     "asset": "GNT",
     "currency": "BTC",
-    "min_size": "50.0",
+    "min_size": "46.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "GNT/BTC"
@@ -498,7 +498,7 @@
   {
     "asset": "GNT",
     "currency": "ETH",
-    "min_size": "50.0",
+    "min_size": "46.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "GNT/ETH"
@@ -1210,7 +1210,7 @@
   {
     "asset": "ODE",
     "currency": "USD",
-    "min_size": "174.0",
+    "min_size": "148.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "ODE/USD"
@@ -1218,7 +1218,7 @@
   {
     "asset": "ODE",
     "currency": "BTC",
-    "min_size": "174.0",
+    "min_size": "148.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ODE/BTC"
@@ -1226,7 +1226,7 @@
   {
     "asset": "ODE",
     "currency": "ETH",
-    "min_size": "174.0",
+    "min_size": "148.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ODE/ETH"
