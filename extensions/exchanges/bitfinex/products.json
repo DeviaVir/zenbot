@@ -682,7 +682,7 @@
   {
     "asset": "TRX",
     "currency": "USD",
-    "min_size": "354.0",
+    "min_size": "340.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "TRX/USD"
@@ -690,7 +690,7 @@
   {
     "asset": "TRX",
     "currency": "BTC",
-    "min_size": "354.0",
+    "min_size": "340.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/BTC"
@@ -698,7 +698,7 @@
   {
     "asset": "TRX",
     "currency": "ETH",
-    "min_size": "354.0",
+    "min_size": "340.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/ETH"
@@ -1210,7 +1210,7 @@
   {
     "asset": "ODE",
     "currency": "USD",
-    "min_size": "148.0",
+    "min_size": "134.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "ODE/USD"
@@ -1218,7 +1218,7 @@
   {
     "asset": "ODE",
     "currency": "BTC",
-    "min_size": "148.0",
+    "min_size": "134.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ODE/BTC"
@@ -1226,9 +1226,105 @@
   {
     "asset": "ODE",
     "currency": "ETH",
-    "min_size": "148.0",
+    "min_size": "134.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ODE/ETH"
+  },
+  {
+    "asset": "ANT",
+    "currency": "USD",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00001",
+    "label": "ANT/USD"
+  },
+  {
+    "asset": "ANT",
+    "currency": "BTC",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00000001",
+    "label": "ANT/BTC"
+  },
+  {
+    "asset": "ANT",
+    "currency": "ETH",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00000001",
+    "label": "ANT/ETH"
+  },
+  {
+    "asset": "DTH",
+    "currency": "USD",
+    "min_size": "90.0",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "DTH/USD"
+  },
+  {
+    "asset": "DTH",
+    "currency": "BTC",
+    "min_size": "90.0",
+    "max_size": "100000.0",
+    "increment": "0.000000001",
+    "label": "DTH/BTC"
+  },
+  {
+    "asset": "DTH",
+    "currency": "ETH",
+    "min_size": "90.0",
+    "max_size": "100000.0",
+    "increment": "0.000000001",
+    "label": "DTH/ETH"
+  },
+  {
+    "asset": "MIT",
+    "currency": "USD",
+    "min_size": "10.0",
+    "max_size": "30000.0",
+    "increment": "0.00001",
+    "label": "MIT/USD"
+  },
+  {
+    "asset": "MIT",
+    "currency": "BTC",
+    "min_size": "10.0",
+    "max_size": "30000.0",
+    "increment": "0.00000001",
+    "label": "MIT/BTC"
+  },
+  {
+    "asset": "MIT",
+    "currency": "ETH",
+    "min_size": "10.0",
+    "max_size": "30000.0",
+    "increment": "0.00000001",
+    "label": "MIT/ETH"
+  },
+  {
+    "asset": "STJ",
+    "currency": "USD",
+    "min_size": "10.0",
+    "max_size": "30000.0",
+    "increment": "0.00001",
+    "label": "STJ/USD"
+  },
+  {
+    "asset": "STJ",
+    "currency": "BTC",
+    "min_size": "10.0",
+    "max_size": "30000.0",
+    "increment": "0.00000001",
+    "label": "STJ/BTC"
+  },
+  {
+    "asset": "STJ",
+    "currency": "ETH",
+    "min_size": "10.0",
+    "max_size": "30000.0",
+    "increment": "0.00000001",
+    "label": "STJ/ETH"
   }
 ]
