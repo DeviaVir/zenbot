@@ -12,19 +12,35 @@ module.exports = function bitfinex (conf) {
   var ws_timeout = 60000
   var ws_retry = 10000
 
-  var pair, public_client, ws_client
+  var pair, public_client, ws_client, rest_client
 
   var ws_trades = []
   var ws_balance = []
   var ws_orders = []
   var ws_ticker = []
   var ws_hb = []
-  var ws_walletCalcDone
+  var ws_walletCalcDone = {}
   var heartbeat_interval
+  var balancePoller
+
+  // save asset globally based on the incoming balance call
+  // TODO: where to find the asset in application flow?
+  var asset, currency
 
   function publicClient () {
     if (!public_client) public_client = new BFX(null,null, {version: 2, transform: true}).rest
     return public_client
+  }
+
+  /**
+   * We need a reset client because websocket does not deliver messages for open position like in the browser
+   */
+  function restClient () {
+    if (!rest_client) {
+      rest_client = new BFX(conf.bitfinex.key, conf.bitfinex.secret, {version: 1, transform: false}).rest
+    }
+
+    return rest_client
   }
 
   function wsUpdateTrades (pair, trades) {
@@ -54,14 +70,9 @@ module.exports = function bitfinex (conf) {
   }
 
   function wsMessage (message) {
-    if (message.event == 'auth' && message.status == 'OK') {
-      if (so.debug) { console.log(('\nWebSockets: We are now fully connected and authenticated.').green) }
-      ws_connecting = false
-      ws_connected = true
-    }
-
-    if (message[0] != 'undefined')
+    if (message[0] != 'undefined') {
       ws_hb[message[0]] = Date.now()
+    }
   }
 
   function wsUpdateOrder (ws_order) {
@@ -146,7 +157,8 @@ module.exports = function bitfinex (conf) {
     if (typeof(wallets[0]) !== 'object') wallets = [wallets]
 
     wallets.forEach(function (wallet) {
-      if (wallet[0] === conf.bitfinex.wallet) {
+      // we block margin here, as this is is this done by websocket pair calc
+      if (wallet[0] !== 'margin' && wallet[0] === conf.bitfinex.wallet) {
 
         ws_balance[wallet[1].toUpperCase()] = {}
         ws_balance[wallet[1].toUpperCase()].balance = wallet[2]
@@ -191,7 +203,9 @@ module.exports = function bitfinex (conf) {
   function wsClose () {
     ws_connecting = false
     ws_connected = false
+
     clearInterval(heartbeat_interval)
+    clearInterval(balancePoller)
 
     console.error(('\nWebSockets Error: Connection closed.').red + ' Retrying every ' + (ws_retry / 1000 + ' seconds').yellow + '.')
   }
@@ -237,8 +251,10 @@ module.exports = function bitfinex (conf) {
         .on('on-req', wsUpdateReqOrder)
         .on('ou', wsUpdateOrder)
         .on('oc', wsUpdateOrderCancel)
-        .on('miu', marginSymbolWebsocket)
-        .on('ps', assetPositionMargin)
+        .on('miu', wsMarginSymbolCalculation)
+        .on('auth', wsOnAuth)
+        .on('ps', wsAssetPositionsMargin)
+        .on('pu', wsAssetPositionMargin)
 
       // we need also more position updates here, but messages are completely undocumented
       // https://bitfinex.readme.io/v1/reference#ws-auth-position-updates
@@ -248,6 +264,31 @@ module.exports = function bitfinex (conf) {
         wsConnect()
       }, ws_retry)
     }
+  }
+
+  function wsOnAuth(message) {
+    if (message.status === 'OK') {
+      if (so.debug) {
+        console.log(('\nWebSockets: We are now fully connected and authenticated.').green)
+      }
+
+      ws_connecting = false
+      ws_connected = true
+    }
+
+    // init call and update balances every 60sec
+    balancePoller = setInterval(function f(){
+      if(!asset || !currency) {
+        console.log('asset / currency missing')
+        return
+      }
+
+      updateBalance({
+        'asset': asset,
+        'currency': currency,
+      })
+      return f
+    }(), 60000)
   }
 
   /**
@@ -272,48 +313,41 @@ module.exports = function bitfinex (conf) {
    * @param positions
    * @see https://bitfinex.readme.io/v1/reference#ws-auth-position-snapshot
    */
-  function assetPositionMargin(positions) {
+  function wsAssetPositionsMargin(positions) {
     // skip non margin
-    if(conf.bitfinex.wallet !== 'margin') {
+    if (conf.bitfinex.wallet !== 'margin') {
       return
     }
 
-    // current positions in request
-    // we need it for clear
-    let assets = []
+    positions.forEach(function(position) {
+      wsAssetPositionMargin(position)
+    })
+  }
 
-    positions.filter(function (position) {
-      return position.length > 2
-    }).forEach(function (position) {
-      let asset = assetPositionMarginAssetExtract(position)
-      if (!ws_balance[asset]) {
-        ws_balance[asset] = {}
-      }
+  /**
+   * We have no wallet on margin orders; fake current asset capital via open position
+   *
+   * @see https://bitfinex.readme.io/v1/reference#ws-auth-position-snapshot
+   */
+  function wsAssetPositionMargin(position) {
+    // skip non margin
+    if (conf.bitfinex.wallet !== 'margin' || position.length < 2 || asset !== assetPositionMarginAssetExtract(position)) {
+      return
+    }
 
-      assets.push(asset)
+    if (so.debug) {
+      console.log('Margin asset balance updated via websocket position: ' + JSON.stringify(position))
+    }
 
+    if (position) {
       let action = position[1].toLowerCase()
 
-      if(action === 'active') {
-        ws_balance[asset].balance = position[2]
-        ws_balance[asset].available = position[2]
-        ws_balance[asset].wallet = 'margin'
-      } else if(action === 'closed') {
-        ws_balance[asset].balance = 0
-        ws_balance[asset].available = 0
-        ws_balance[asset].wallet = 'margin'
-      }
-    })
+      ws_walletCalcDone[asset] = true
 
-    // clear non open positions; which are not existing anymore
-    for(let key in ws_balance) {
-      if(assets.indexOf(key) < 0 && ws_balance[key]) {
-        ws_balance[key].balance = 0
-        ws_balance[key].available = 0
-
-        if(so.debug) {
-          console.log('Clear asset: ' + JSON.stringify(ws_balance[key]))
-        }
+      if (action === 'active') {
+        saveBalance(asset, position[2], position[2])
+      } else if (action === 'closed') {
+        saveBalance(asset, 0, 0)
       }
     }
   }
@@ -341,8 +375,12 @@ module.exports = function bitfinex (conf) {
     return ret.join('&')
   }
 
-  function marginSymbolWebsocket(symbol) {
+  /**
+   * Result for calculated margin currency
+   */
+  function wsMarginSymbolCalculation(symbol) {
     /*
+    Given result will be:
     [ 'sym',
     'tBTCUSD',
     [ 101.11144665, // "all" - "active positions"
@@ -356,36 +394,76 @@ module.exports = function bitfinex (conf) {
    ]
     */
 
-    if(symbol[0] !== 'sym') {
-      return
-    }
-
     // tBTCUSD
-    if(symbol[1].substring(0, 1) !== 't') {
+    if(symbol.length < 2 || symbol[0] !== 'sym' || symbol[1].substring(0, 1) !== 't') {
       return
     }
-
-    let pair = symbol[1].substring(1)
 
     // not nice but values are not splitted
     // "tBTCUSD" extract => "USD"
     // "tDASHUSD" extract => "USD"
-    let currency = symbol[1].substring(symbol[1].length - 3)
+    let myCurrency = symbol[1].substring(symbol[1].length - 3)
+    if(myCurrency.toUpperCase() === currency.toUpperCase()) {
+      // which array index to use to get available balance? :)
 
-    // which array index to use to get available balance? :)
-    ws_balance[currency].available = symbol[2][0]
-    ws_balance[currency].balance = symbol[2][0]
+      saveBalance(currency, symbol[2][0], symbol[2][0])
 
-    ws_walletCalcDone[pair] = true
+      if (so.debug) {
+        console.log('Margin currency balance updated via websocket position: ' + JSON.stringify(symbol))
+      }
+
+    }
+  }
+
+  /**
+   *
+   * @param asset currency or asset value
+   * @param amount
+   * @param available
+   */
+  function saveBalance(asset, amount, available) {
+    if(!ws_balance[asset]) {
+      ws_balance[asset] = {}
+    }
+
+    ws_balance[asset].balance = amount
+    ws_balance[asset].available = available
+
+    ws_walletCalcDone[asset] = true
   }
 
   function updateBalance(opts) {
     switch (conf.bitfinex.wallet) {
     case 'margin':
       try {
-        ws_walletCalcDone[opts.asset] = 'inProgress'
-        ws_walletCalcDone[opts.currency] = 'inProgress'
+        restClient().active_positions(function(err, positions) {
+          if(err) {
+            console.warn(err)
+            return
+          }
 
+          let assetPostion = positions.find(function(position) {
+            if(position['status'].toUpperCase() !== 'ACTIVE') {
+              return false
+            }
+
+            return asset === position['symbol'].substring(0, position['symbol'].length - 3).toUpperCase()
+          })
+
+
+          if (so.debug) {
+            console.log('Margin asset balance updated via reset: ' + JSON.stringify(assetPostion))
+          }
+
+          // clear asset balance or update with amount
+          if(!assetPostion) {
+            saveBalance(asset, 0, 0)
+          } else {
+            saveBalance(asset, assetPostion['amount'], assetPostion['amount'])
+          }
+        })
+
+        // calculate margin balance based the par via websocket call
         ws_client.send([0, 'calc', null, [
           ['margin_base'],
           ['margin_sym_' + opts.asset.toUpperCase() + opts.currency.toUpperCase()],
@@ -402,12 +480,9 @@ module.exports = function bitfinex (conf) {
 
     case 'exchange':
       try {
-        ws_walletCalcDone[opts.asset] = 'inProgress'
-        ws_walletCalcDone[opts.currency] = 'inProgress'
-
         ws_client.send([0, 'calc', null, [
           ['wallet_exchange_' + opts.currency],
-          ['wallet_exchange_' + opts.wallet + '_' + opts.asset]
+          ['wallet_exchange_exchange_' + opts.asset]
         ]])
       } catch (e) {
         if (so.debug) {
@@ -479,14 +554,11 @@ module.exports = function bitfinex (conf) {
     },
 
     getBalance: function (opts, cb) {
+      asset = opts.asset
+      currency = opts.currency
+
       if (!pair) {
         pair = joinProduct(opts.asset + '-' + opts.currency)
-      }
-
-      if (pair && !ws_walletCalcDone) {
-        ws_walletCalcDone = {}
-        ws_walletCalcDone[opts.asset] = false
-        ws_walletCalcDone[opts.currency] = false
       }
 
       if (!ws_client) {
@@ -501,27 +573,18 @@ module.exports = function bitfinex (conf) {
       }
 
       if (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === false) {
-        updateBalance(opts)
         return waitForCalc('getBalance', opts, cb)
-      } else if (
-        (ws_walletCalcDone[opts.asset] === false && ws_walletCalcDone[opts.currency] === true) ||
-        (ws_walletCalcDone[opts.asset] === true && ws_walletCalcDone[opts.currency] === false)
-      ) {
-        return waitForCalc('getBalance', opts, cb)
-      } else {
-        let balance = {}
-
-        balance.currency = ws_balance[opts.currency] && ws_balance[opts.currency].balance ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
-        balance.asset = ws_balance[opts.asset] && ws_balance[opts.asset].balance ? n(ws_balance[opts.asset].balance).format('0.00000000') : n(0).format('0.00000000')
-
-        balance.currency_hold = ws_balance[opts.currency] && ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
-        balance.asset_hold = ws_balance[opts.asset] && ws_balance[opts.asset].available ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000') : n(0).format('0.00000000')
-
-        ws_walletCalcDone[opts.asset] = false
-        ws_walletCalcDone[opts.currency] = false
-
-        cb(null, balance)
       }
+
+      let balance = {}
+
+      balance.currency = ws_balance[opts.currency] && ws_balance[opts.currency].balance ? n(ws_balance[opts.currency].balance).format('0.00000000') : n(0).format('0.00000000')
+      balance.asset = ws_balance[opts.asset] && ws_balance[opts.asset].balance ? n(ws_balance[opts.asset].balance).format('0.00000000') : n(0).format('0.00000000')
+
+      balance.currency_hold = ws_balance[opts.currency] && ws_balance[opts.currency].available ? n(ws_balance[opts.currency].balance).subtract(ws_balance[opts.currency].available).format('0.00000000') : n(0).format('0.00000000')
+      balance.asset_hold = ws_balance[opts.asset] && ws_balance[opts.asset].available ? n(ws_balance[opts.asset].balance).subtract(ws_balance[opts.asset].available).format('0.00000000') : n(0).format('0.00000000')
+
+      cb(null, balance)
     },
 
     getQuote: function (opts, cb) {
