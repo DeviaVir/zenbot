@@ -682,7 +682,7 @@
   {
     "asset": "TRX",
     "currency": "USD",
-    "min_size": "306.0",
+    "min_size": "282.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "TRX/USD"
@@ -690,7 +690,7 @@
   {
     "asset": "TRX",
     "currency": "BTC",
-    "min_size": "306.0",
+    "min_size": "282.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/BTC"
@@ -698,7 +698,7 @@
   {
     "asset": "TRX",
     "currency": "ETH",
-    "min_size": "306.0",
+    "min_size": "282.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/ETH"
@@ -826,7 +826,7 @@
   {
     "asset": "ELF",
     "currency": "USD",
-    "min_size": "16.0",
+    "min_size": "14.0",
     "max_size": "25000.0",
     "increment": "0.00001",
     "label": "ELF/USD"
@@ -834,7 +834,7 @@
   {
     "asset": "ELF",
     "currency": "BTC",
-    "min_size": "16.0",
+    "min_size": "14.0",
     "max_size": "25000.0",
     "increment": "0.00000001",
     "label": "ELF/BTC"
@@ -842,7 +842,7 @@
   {
     "asset": "ELF",
     "currency": "ETH",
-    "min_size": "16.0",
+    "min_size": "14.0",
     "max_size": "25000.0",
     "increment": "0.00000001",
     "label": "ELF/ETH"
@@ -1042,7 +1042,7 @@
   {
     "asset": "LRC",
     "currency": "USD",
-    "min_size": "26.0",
+    "min_size": "24.0",
     "max_size": "50000.0",
     "increment": "0.00001",
     "label": "LRC/USD"
@@ -1050,7 +1050,7 @@
   {
     "asset": "LRC",
     "currency": "BTC",
-    "min_size": "26.0",
+    "min_size": "24.0",
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "LRC/BTC"
@@ -1058,7 +1058,7 @@
   {
     "asset": "LRC",
     "currency": "ETH",
-    "min_size": "26.0",
+    "min_size": "24.0",
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "LRC/ETH"
