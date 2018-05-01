@@ -3,7 +3,7 @@ bittrex_public = require('node-bittrex-api'),
 n = require('numbro')
 
 module.exports = function bittrex(conf) {
-  let recoverableErrors = new RegExp(/(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/)
+  let recoverableErrors = new RegExp(/(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error|INSUFFICIENT_FUNDS)/)
   let shownWarning = false
   let firstRun = true
   let allowGetMarketCall = true
@@ -92,6 +92,7 @@ module.exports = function bittrex(conf) {
         bittrex_public.getticks(args,  function(data, err) {
           let res = handleErrors('getTrades', err, data, func_args, cb)
           if (!shownWarning) {
+            console.log('WARNING: Bittrex API is having problems when selling. Live trading is currently not recommended.')
             console.log('Bittrex backfill is indirectly supported through the use of a hybrid system that combines a low resolution')
             console.log('long term market of about 10 days and a short term high resolution market of the last 1-5 minutes.')
             shownWarning = true
@@ -185,6 +186,9 @@ module.exports = function bittrex(conf) {
   }
 },
 
+    
+// getBalance sometimes returns 0 for the asset balance after a sell readjustment, this will cause the sell to not go through.
+// This may be the only thing preventing the Bittrex API from being fully functional right now. -brucetus
 getBalance: function (opts, cb) {
   var func_args = [].slice.call(arguments)
   bittrex_authed.getbalances(function(data,err ) {
@@ -275,11 +279,11 @@ cancelOrder: function (opts, cb) {
   let args = {
     uuid: opts.order_id
   }
-  bittrex_authed.cancel(args, function (data, err) {
-    if (err) {
-      return retry('cancelOrder', func_args, err)
+  bittrex_authed.cancel(args, function( data,err ) {
+    let res = handleErrors('cancelOrder', err, data, func_args, cb)
+    if (res) {
+      cb(null)
     }
-    cb()
   })
 },
 
@@ -390,7 +394,6 @@ getOrder: function(opts, cb) {
   })
 },
 
-// return the property used for range querying.
 getCursor: function (trade) {
   return (trade.time || trade)
 }
