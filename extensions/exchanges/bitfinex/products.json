@@ -538,7 +538,7 @@
   {
     "asset": "BAT",
     "currency": "USD",
-    "min_size": "54.0",
+    "min_size": "52.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "BAT/USD"
@@ -546,7 +546,7 @@
   {
     "asset": "BAT",
     "currency": "BTC",
-    "min_size": "54.0",
+    "min_size": "52.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "BAT/BTC"
@@ -554,7 +554,7 @@
   {
     "asset": "BAT",
     "currency": "ETH",
-    "min_size": "54.0",
+    "min_size": "52.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "BAT/ETH"
@@ -682,7 +682,7 @@
   {
     "asset": "TRX",
     "currency": "USD",
-    "min_size": "282.0",
+    "min_size": "274.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "TRX/USD"
@@ -690,7 +690,7 @@
   {
     "asset": "TRX",
     "currency": "BTC",
-    "min_size": "282.0",
+    "min_size": "274.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/BTC"
@@ -698,7 +698,7 @@
   {
     "asset": "TRX",
     "currency": "ETH",
-    "min_size": "282.0",
+    "min_size": "274.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/ETH"
@@ -1326,5 +1326,101 @@
     "max_size": "30000.0",
     "increment": "0.00000001",
     "label": "STJ/ETH"
+  },
+  {
+    "asset": "XLM",
+    "currency": "USD",
+    "min_size": "24.0",
+    "max_size": "20000.0",
+    "increment": "0.00001",
+    "label": "XLM/USD"
+  },
+  {
+    "asset": "XLM",
+    "currency": "EUR",
+    "min_size": "24.0",
+    "max_size": "20000.0",
+    "increment": "0.00000001",
+    "label": "XLM/EUR"
+  },
+  {
+    "asset": "XLM",
+    "currency": "JPY",
+    "min_size": "24.0",
+    "max_size": "20000.0",
+    "increment": "0.00000001",
+    "label": "XLM/JPY"
+  },
+  {
+    "asset": "XLM",
+    "currency": "GBP",
+    "min_size": "24.0",
+    "max_size": "20000.0",
+    "increment": "0.00000001",
+    "label": "XLM/GBP"
+  },
+  {
+    "asset": "XLM",
+    "currency": "BTC",
+    "min_size": "24.0",
+    "max_size": "20000.0",
+    "increment": "0.00000001",
+    "label": "XLM/BTC"
+  },
+  {
+    "asset": "XLM",
+    "currency": "ETH",
+    "min_size": "24.0",
+    "max_size": "20000.0",
+    "increment": "0.00000001",
+    "label": "XLM/ETH"
+  },
+  {
+    "asset": "XVG",
+    "currency": "USD",
+    "min_size": "148.0",
+    "max_size": "100000.0",
+    "increment": "0.0000001",
+    "label": "XVG/USD"
+  },
+  {
+    "asset": "XVG",
+    "currency": "EUR",
+    "min_size": "148.0",
+    "max_size": "100000.0",
+    "increment": "0.0000000001",
+    "label": "XVG/EUR"
+  },
+  {
+    "asset": "XVG",
+    "currency": "JPY",
+    "min_size": "148.0",
+    "max_size": "100000.0",
+    "increment": "0.0000000001",
+    "label": "XVG/JPY"
+  },
+  {
+    "asset": "XVG",
+    "currency": "GBP",
+    "min_size": "148.0",
+    "max_size": "100000.0",
+    "increment": "0.0000000001",
+    "label": "XVG/GBP"
+  },
+  {
+    "asset": "XVG",
+    "currency": "BTC",
+    "min_size": "148.0",
+    "max_size": "100000.0",
+    "increment": "0.0000000001",
+    "label": "XVG/BTC"
+  },
+  {
+    "asset": "XVG",
+    "currency": "ETH",
+    "min_size": "148.0",
+    "max_size": "100000.0",
+    "increment": "0.0000000001",
+    "label": "XVG/ETH"
   }
 ]
