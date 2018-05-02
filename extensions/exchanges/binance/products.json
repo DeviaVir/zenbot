@@ -3048,5 +3048,35 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "GNT/BNB"
+  },
+  {
+    "id": "LOOMBTC",
+    "asset": "LOOM",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "LOOM/BTC"
+  },
+  {
+    "id": "LOOMETH",
+    "asset": "LOOM",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "LOOM/ETH"
+  },
+  {
+    "id": "LOOMBNB",
+    "asset": "LOOM",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "LOOM/BNB"
   }
 ]
