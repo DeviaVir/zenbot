@@ -482,25 +482,25 @@
   {
     "asset": "GNT",
     "currency": "USD",
-    "min_size": "34.0",
+    "min_size": "30.0",
     "max_size": "200000.0",
-    "increment": "0.000001",
+    "increment": "0.00001",
     "label": "GNT/USD"
   },
   {
     "asset": "GNT",
     "currency": "BTC",
-    "min_size": "34.0",
+    "min_size": "30.0",
     "max_size": "200000.0",
-    "increment": "0.000000001",
+    "increment": "0.00000001",
     "label": "GNT/BTC"
   },
   {
     "asset": "GNT",
     "currency": "ETH",
-    "min_size": "34.0",
+    "min_size": "30.0",
     "max_size": "200000.0",
-    "increment": "0.000000001",
+    "increment": "0.00000001",
     "label": "GNT/ETH"
   },
   {
@@ -562,7 +562,7 @@
   {
     "asset": "MNA",
     "currency": "USD",
-    "min_size": "134.0",
+    "min_size": "132.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "MNA/USD"
@@ -570,7 +570,7 @@
   {
     "asset": "MNA",
     "currency": "BTC",
-    "min_size": "134.0",
+    "min_size": "132.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "MNA/BTC"
@@ -578,7 +578,7 @@
   {
     "asset": "MNA",
     "currency": "ETH",
-    "min_size": "134.0",
+    "min_size": "132.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "MNA/ETH"
