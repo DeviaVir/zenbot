@@ -36,4 +36,4 @@ dist/*
 simulations/sim_*.json
 gen.*.bat
 gen.*.sh
-
+.env
