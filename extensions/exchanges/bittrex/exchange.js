@@ -3,7 +3,7 @@ bittrex_public = require('node-bittrex-api'),
 n = require('numbro')
 
 module.exports = function bittrex(conf) {
-  let recoverableErrors = new RegExp(/(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/)
+  let recoverableErrors = new RegExp(/(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error|INSUFFICIENT_FUNDS)/)
   let shownWarning = false
   let firstRun = true
   let allowGetMarketCall = true
@@ -202,14 +202,14 @@ getBalance: function (opts, cb) {
             balance.currency_hold = 0
           }
           if (_balance['Currency'] === opts.asset.toUpperCase()) {
-            balance.asset = n(_balance.Available).format('0.00000000'),
-            balance.asset_hold = 0
+            balance.asset = n(_balance.Balance).format('0.00000000'),
+            balance.asset_hold = n(_balance.Pending).format('0.00000000')
           }
         }
         else {
           if (_balance['Currency'] === opts.asset.toUpperCase()) {
-            balance.asset = n(_balance.Available).format('0.00000000'),
-            balance.asset_hold = 0
+            balance.asset = n(_balance.Balance).format('0.00000000'),
+            balance.asset_hold = n(_balance.Pending).format('0.00000000')
           }
           if (_balance['Currency'] === opts.currency.toUpperCase()) {
             balance.currency = n(_balance.Available).format('0.00000000'),
@@ -275,11 +275,11 @@ cancelOrder: function (opts, cb) {
   let args = {
     uuid: opts.order_id
   }
-  bittrex_authed.cancel(args, function (data, err) {
-    if (err) {
-      return retry('cancelOrder', func_args, err)
+  bittrex_authed.cancel(args, function( data,err ) {
+    let res = handleErrors('cancelOrder', err, data, func_args, cb)
+    if (res) {
+      cb(null)
     }
-    cb()
   })
 },
 
@@ -390,7 +390,6 @@ getOrder: function(opts, cb) {
   })
 },
 
-// return the property used for range querying.
 getCursor: function (trade) {
   return (trade.time || trade)
 }
