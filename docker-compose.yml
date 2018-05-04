@@ -24,8 +24,8 @@ services:
     volumes:
       - ./data/db:/data/db
     command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
 
   # Remove below comments to use this container. "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
   #
