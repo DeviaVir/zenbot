@@ -1331,7 +1331,7 @@
     "asset": "XLM",
     "currency": "USD",
     "min_size": "24.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.00001",
     "label": "XLM/USD"
   },
@@ -1339,7 +1339,7 @@
     "asset": "XLM",
     "currency": "EUR",
     "min_size": "24.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "XLM/EUR"
   },
@@ -1347,7 +1347,7 @@
     "asset": "XLM",
     "currency": "JPY",
     "min_size": "24.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "XLM/JPY"
   },
@@ -1355,7 +1355,7 @@
     "asset": "XLM",
     "currency": "GBP",
     "min_size": "24.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "XLM/GBP"
   },
@@ -1363,7 +1363,7 @@
     "asset": "XLM",
     "currency": "BTC",
     "min_size": "24.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "XLM/BTC"
   },
@@ -1371,7 +1371,7 @@
     "asset": "XLM",
     "currency": "ETH",
     "min_size": "24.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "XLM/ETH"
   },
@@ -1379,7 +1379,7 @@
     "asset": "XVG",
     "currency": "USD",
     "min_size": "148.0",
-    "max_size": "100000.0",
+    "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "XVG/USD"
   },
@@ -1387,7 +1387,7 @@
     "asset": "XVG",
     "currency": "EUR",
     "min_size": "148.0",
-    "max_size": "100000.0",
+    "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/EUR"
   },
@@ -1395,7 +1395,7 @@
     "asset": "XVG",
     "currency": "JPY",
     "min_size": "148.0",
-    "max_size": "100000.0",
+    "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/JPY"
   },
@@ -1403,7 +1403,7 @@
     "asset": "XVG",
     "currency": "GBP",
     "min_size": "148.0",
-    "max_size": "100000.0",
+    "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/GBP"
   },
@@ -1411,7 +1411,7 @@
     "asset": "XVG",
     "currency": "BTC",
     "min_size": "148.0",
-    "max_size": "100000.0",
+    "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/BTC"
   },
@@ -1419,7 +1419,7 @@
     "asset": "XVG",
     "currency": "ETH",
     "min_size": "148.0",
-    "max_size": "100000.0",
+    "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/ETH"
   },
@@ -1438,5 +1438,101 @@
     "max_size": "5000.0",
     "increment": "0.00000001",
     "label": "BCI/BTC"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50.0",
+    "increment": "0.001",
+    "label": "MKR/USD"
+  },
+  {
+    "asset": "MKR",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "50.0",
+    "increment": "0.000001",
+    "label": "MKR/BTC"
+  },
+  {
+    "asset": "MKR",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "50.0",
+    "increment": "0.000001",
+    "label": "MKR/ETH"
+  },
+  {
+    "asset": "VEN",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.001",
+    "label": "VEN/USD"
+  },
+  {
+    "asset": "VEN",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.000001",
+    "label": "VEN/BTC"
+  },
+  {
+    "asset": "VEN",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.000001",
+    "label": "VEN/ETH"
+  },
+  {
+    "asset": "KNC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.001",
+    "label": "KNC/USD"
+  },
+  {
+    "asset": "KNC",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.000001",
+    "label": "KNC/BTC"
+  },
+  {
+    "asset": "KNC",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.000001",
+    "label": "KNC/ETH"
+  },
+  {
+    "asset": "POA",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "60000.0",
+    "increment": "0.001",
+    "label": "POA/USD"
+  },
+  {
+    "asset": "POA",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "60000.0",
+    "increment": "0.000001",
+    "label": "POA/BTC"
+  },
+  {
+    "asset": "POA",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "60000.0",
+    "increment": "0.000001",
+    "label": "POA/ETH"
   }
 ]
