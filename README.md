@@ -5,17 +5,23 @@
 
 # Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot) [![Greenkeeper badge](https://badges.greenkeeper.io/DeviaVir/zenbot.svg)](https://greenkeeper.io/)
 
-## Current Status
+## Current Status (UPDATE MAY 13th '18)
 
-Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
+Hey guys!
 
-- Many people are reporting [losses in live trading](https://github.com/carlos8f/zenbot/issues/189) even if the simulation results and/or paper trading is positive.
-- This is my highest priority right now, since an unprofitable bot is not worth much, but please understand that reliably making profit is hard, and so is making a realistic simulator.
-- The losses may be due to the default strategy not working well in sideways (non-trending) market conditions, slippage during limit order execution, or both. Currently I would recommend against using Zenbot on a market that is non-trending or trending generally downwards.
-- The limit-order strategy that Zenbot uses to avoid taker fees, is prone to race conditions and delays. A mode for using market-type orders will probably need to be made, which may make frequent-trade strategies less viable due to fees, but more reliable execution overall.
-- An upcoming feature will allow Zenbot to use a limited amount of your balance, which will help with experimenting with live trading, but mitigating the possible losses from the issues above.
+It's been so long. I'm back, and I have a brand new bot in development. It's code-named **Bot18**, and it's kicking ass so far.
 
-Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
+I wrote a big Medium post detailing what's going on. I'm so excited to explore a brand new engine and the new strategies it makes possible.
+
+I will be developing solely on **Bot18** going forward and probably open-sourcing it soon once it stabilizes. Zenbot can live on, but I won't be updating it anymore. It's in the good hands of @DeviaVir who is the best maintainer I could ask for 👍)
+
+Medium post: https://medium.com/@carlos8f_11468/introducing-bot18-the-new-crypto-trading-bot-to-supersede-zenbot-and-unleash-the-zalgo-da8464b41e53
+
+Issue: https://github.com/DeviaVir/zenbot/issues/1589
+
+![bot18_icon](https://user-images.githubusercontent.com/106763/39973448-ead81bfc-56d4-11e8-9868-16b6d736fc97.png)
+
+~Carlos
 
 ## Questions
 Please ask (programming) questions related to zenbot on stackoverflow. The tag is [zenbot](https://stackoverflow.com/questions/tagged/zenbot).
