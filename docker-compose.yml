@@ -1,19 +1,19 @@
 version: '3.1'
-
 services:
-
   server:
-    image: deviavir/zenbot:unstable
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - ./conf.js:/app/conf.js
-      - ./extensions:/app/extensions
-      - ./simulations:/app/simulations
-      - ./models:/app/models
-    links:
-      - mongodb
-    command: [ "trade", "--paper" ]
+      - ./:/app/
+      - /app/node_modules/
+      - /app/dist/
+      # Avoid syncing database to our server
+      - /app/database/
     restart: always
     tty: true
+    ports:
+      - "17365:17365"
     depends_on:
       - mongodb
     environment:
@@ -22,10 +22,10 @@ services:
   mongodb:
     image: mongo:latest
     volumes:
-      - ./data/db:/data/db
+      - ./database:/data/db
     command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
 
   # Remove below comments to use this container. "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
   #
