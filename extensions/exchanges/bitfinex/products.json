@@ -1258,7 +1258,7 @@
   {
     "asset": "DTH",
     "currency": "USD",
-    "min_size": "122.0",
+    "min_size": "124.0",
     "max_size": "100000.0",
     "increment": "0.000001",
     "label": "DTH/USD"
@@ -1266,7 +1266,7 @@
   {
     "asset": "DTH",
     "currency": "BTC",
-    "min_size": "122.0",
+    "min_size": "124.0",
     "max_size": "100000.0",
     "increment": "0.000000001",
     "label": "DTH/BTC"
@@ -1274,7 +1274,7 @@
   {
     "asset": "DTH",
     "currency": "ETH",
-    "min_size": "122.0",
+    "min_size": "124.0",
     "max_size": "100000.0",
     "increment": "0.000000001",
     "label": "DTH/ETH"
