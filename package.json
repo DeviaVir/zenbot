@@ -53,7 +53,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.6",
     "forex.analytics": "github:mkmarek/forex.analytics#7bc278987700d4204e959af17de61495941d1a14",
-    "gdax": "^0.7.0",
+    "gdax": "^0.8.0",
     "gemini-api": "^2.0.4",
     "glob": "^7.1.1",
     "har-validator": "^5.0.3",
