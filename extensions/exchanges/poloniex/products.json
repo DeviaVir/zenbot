@@ -64,14 +64,6 @@
     "label": "BitCrystals/Bitcoin"
   },
   {
-    "asset": "BELA",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Bela Legacy/Bitcoin"
-  },
-  {
     "asset": "BLK",
     "currency": "BTC",
     "min_total": "0.0001",
