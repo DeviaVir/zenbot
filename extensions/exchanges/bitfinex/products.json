@@ -1258,7 +1258,7 @@
   {
     "asset": "DTH",
     "currency": "USD",
-    "min_size": "124.0",
+    "min_size": "128.0",
     "max_size": "100000.0",
     "increment": "0.000001",
     "label": "DTH/USD"
@@ -1266,7 +1266,7 @@
   {
     "asset": "DTH",
     "currency": "BTC",
-    "min_size": "124.0",
+    "min_size": "128.0",
     "max_size": "100000.0",
     "increment": "0.000000001",
     "label": "DTH/BTC"
@@ -1274,7 +1274,7 @@
   {
     "asset": "DTH",
     "currency": "ETH",
-    "min_size": "124.0",
+    "min_size": "128.0",
     "max_size": "100000.0",
     "increment": "0.000000001",
     "label": "DTH/ETH"
@@ -1282,7 +1282,7 @@
   {
     "asset": "MIT",
     "currency": "USD",
-    "min_size": "12.0",
+    "min_size": "14.0",
     "max_size": "30000.0",
     "increment": "0.00001",
     "label": "MIT/USD"
@@ -1290,7 +1290,7 @@
   {
     "asset": "MIT",
     "currency": "BTC",
-    "min_size": "12.0",
+    "min_size": "14.0",
     "max_size": "30000.0",
     "increment": "0.00000001",
     "label": "MIT/BTC"
@@ -1298,7 +1298,7 @@
   {
     "asset": "MIT",
     "currency": "ETH",
-    "min_size": "12.0",
+    "min_size": "14.0",
     "max_size": "30000.0",
     "increment": "0.00000001",
     "label": "MIT/ETH"
@@ -1378,7 +1378,7 @@
   {
     "asset": "XVG",
     "currency": "USD",
-    "min_size": "184.0",
+    "min_size": "188.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "XVG/USD"
@@ -1386,7 +1386,7 @@
   {
     "asset": "XVG",
     "currency": "EUR",
-    "min_size": "184.0",
+    "min_size": "188.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/EUR"
@@ -1394,7 +1394,7 @@
   {
     "asset": "XVG",
     "currency": "JPY",
-    "min_size": "184.0",
+    "min_size": "188.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/JPY"
@@ -1402,7 +1402,7 @@
   {
     "asset": "XVG",
     "currency": "GBP",
-    "min_size": "184.0",
+    "min_size": "188.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/GBP"
@@ -1410,7 +1410,7 @@
   {
     "asset": "XVG",
     "currency": "BTC",
-    "min_size": "184.0",
+    "min_size": "188.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/BTC"
@@ -1418,7 +1418,7 @@
   {
     "asset": "XVG",
     "currency": "ETH",
-    "min_size": "184.0",
+    "min_size": "188.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "XVG/ETH"
