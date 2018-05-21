@@ -33,7 +33,7 @@ module.exports = function cexio (conf) {
   }
 
   function retry (method, args) {
-    if (so.debug && method !== 'getTrades') {
+    if (so.debug) {
       console.error(('\nCEX.IO API is down! unable to call ' + method + ', retrying in 10s').red)
     }
     setTimeout(function () {
@@ -84,7 +84,7 @@ module.exports = function cexio (conf) {
       var pair = joinProduct(opts.product_id)
       client.trade_history(pair, args, function (err, body) {
         if (so.debug && typeof body === 'string' && body.match(/error/)) console.log(('\ngetTrades ' + body).red)
-        if (err || (typeof body === 'string' && body.match(/error/))) return retry('getTrades', func_args)
+        if (err || (typeof body === 'string' && body.match(/error/))) return cb(err)
         var trades = body.map(function (trade) {
           return {
             trade_id: Number(trade.tid),
