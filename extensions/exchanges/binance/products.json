@@ -3178,5 +3178,35 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "TUSD/BNB"
+  },
+  {
+    "id": "ZENBTC",
+    "asset": "ZEN",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "increment": "0.000001",
+    "asset_increment": "0.001",
+    "label": "ZEN/BTC"
+  },
+  {
+    "id": "ZENETH",
+    "asset": "ZEN",
+    "currency": "ETH",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.001",
+    "label": "ZEN/ETH"
+  },
+  {
+    "id": "ZENBNB",
+    "asset": "ZEN",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "ZEN/BNB"
   }
 ]
