@@ -3208,5 +3208,35 @@
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "ZEN/BNB"
+  },
+  {
+    "id": "SKYBTC",
+    "asset": "SKY",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "increment": "0.000001",
+    "asset_increment": "0.001",
+    "label": "SKY/BTC"
+  },
+  {
+    "id": "SKYETH",
+    "asset": "SKY",
+    "currency": "ETH",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.001",
+    "label": "SKY/ETH"
+  },
+  {
+    "id": "SKYBNB",
+    "asset": "SKY",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "SKY/BNB"
   }
 ]
