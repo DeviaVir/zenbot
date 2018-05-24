@@ -118,7 +118,7 @@ module.exports = function container (conf) {
           .then(result => {
             var trades = result.map(function (trade) {
               return {
-                trade_id: trade.timestamp,
+                trade_id: trade.id,
                 time: trade.timestamp,
                 size: parseFloat(trade.amount),
                 price: parseFloat(trade.price),
