@@ -2262,5 +2262,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/NGC"
+  },
+  {
+    "asset": "GTO",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GTO"
+  },
+  {
+    "asset": "GTO",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/GTO"
+  },
+  {
+    "asset": "DCR",
+    "currency": "USDT",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DCR"
   }
 ]
