@@ -3318,5 +3318,45 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "THETA/BNB"
+  },
+  {
+    "id": "XRPBNB",
+    "asset": "XRP",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "XRP/BNB"
+  },
+  {
+    "id": "TUSDUSDT",
+    "asset": "TUSD",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "TUSD/USDT"
+  },
+  {
+    "id": "IOTAUSDT",
+    "asset": "IOTA",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "IOTA/USDT"
+  },
+  {
+    "id": "XLMUSDT",
+    "asset": "XLM",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "XLM/USDT"
   }
 ]
