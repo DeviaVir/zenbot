@@ -3208,5 +3208,175 @@
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "ZEN/BNB"
+  },
+  {
+    "id": "SKYBTC",
+    "asset": "SKY",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "increment": "0.000001",
+    "asset_increment": "0.001",
+    "label": "SKY/BTC"
+  },
+  {
+    "id": "SKYETH",
+    "asset": "SKY",
+    "currency": "ETH",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.001",
+    "label": "SKY/ETH"
+  },
+  {
+    "id": "SKYBNB",
+    "asset": "SKY",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "SKY/BNB"
+  },
+  {
+    "id": "EOSUSDT",
+    "asset": "EOS",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "EOS/USDT"
+  },
+  {
+    "id": "EOSBNB",
+    "asset": "EOS",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "EOS/BNB"
+  },
+  {
+    "id": "CVCBTC",
+    "asset": "CVC",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "CVC/BTC"
+  },
+  {
+    "id": "CVCETH",
+    "asset": "CVC",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "CVC/ETH"
+  },
+  {
+    "id": "CVCBNB",
+    "asset": "CVC",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "CVC/BNB"
+  },
+  {
+    "id": "THETABTC",
+    "asset": "THETA",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "THETA/BTC"
+  },
+  {
+    "id": "THETAETH",
+    "asset": "THETA",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "THETA/ETH"
+  },
+  {
+    "id": "THETABNB",
+    "asset": "THETA",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "THETA/BNB"
+  },
+  {
+    "id": "XRPBNB",
+    "asset": "XRP",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "XRP/BNB"
+  },
+  {
+    "id": "TUSDUSDT",
+    "asset": "TUSD",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "TUSD/USDT"
+  },
+  {
+    "id": "IOTAUSDT",
+    "asset": "IOTA",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "IOTA/USDT"
+  },
+  {
+    "id": "XLMUSDT",
+    "asset": "XLM",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000.00000000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "XLM/USDT"
+  },
+  {
+    "id": "IOTXBTC",
+    "asset": "IOTX",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "IOTX/BTC"
+  },
+  {
+    "id": "IOTXETH",
+    "asset": "IOTX",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "IOTX/ETH"
   }
 ]

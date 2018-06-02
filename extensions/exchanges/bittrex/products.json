@@ -728,14 +728,6 @@
     "label": "BTC/PIVX"
   },
   {
-    "asset": "XVC",
-    "currency": "BTC",
-    "min_size": "6.01974476",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/XVC"
-  },
-  {
     "asset": "MEME",
     "currency": "BTC",
     "min_size": "6.92137320",
@@ -2262,5 +2254,69 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/NGC"
+  },
+  {
+    "asset": "GTO",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GTO"
+  },
+  {
+    "asset": "GTO",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/GTO"
+  },
+  {
+    "asset": "DCR",
+    "currency": "USDT",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DCR"
+  },
+  {
+    "asset": "OCN",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/OCN"
+  },
+  {
+    "asset": "OCN",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/OCN"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/BTC"
+  },
+  {
+    "asset": "USDT",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/USDT"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/TUSD"
   }
 ]
