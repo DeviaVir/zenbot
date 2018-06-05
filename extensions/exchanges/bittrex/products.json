@@ -2298,7 +2298,7 @@
   {
     "asset": "BTC",
     "currency": "USD",
-    "min_size": "0.00000001",
+    "min_size": "0.00100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/BTC"
@@ -2306,7 +2306,7 @@
   {
     "asset": "USDT",
     "currency": "USD",
-    "min_size": "0.00000001",
+    "min_size": "1.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/USDT"
@@ -2314,9 +2314,17 @@
   {
     "asset": "TUSD",
     "currency": "USD",
-    "min_size": "0.00000001",
+    "min_size": "1.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/TUSD"
+  },
+  {
+    "asset": "TUBE",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TUBE"
   }
 ]
