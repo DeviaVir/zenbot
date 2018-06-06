@@ -392,14 +392,6 @@
     "label": "BTC/XMG"
   },
   {
-    "asset": "BLITZ",
-    "currency": "BTC",
-    "min_size": "2.16882103",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BLITZ"
-  },
-  {
     "asset": "BAY",
     "currency": "BTC",
     "min_size": "30.26634383",
@@ -566,14 +558,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OK"
-  },
-  {
-    "asset": "SNRG",
-    "currency": "BTC",
-    "min_size": "5.11875512",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/SNRG"
   },
   {
     "asset": "AEON",

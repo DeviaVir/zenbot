@@ -1538,7 +1538,7 @@
   {
     "asset": "LYM",
     "currency": "USD",
-    "min_size": "74.0",
+    "min_size": "82.0",
     "max_size": "400000.0",
     "increment": "0.000001",
     "label": "LYM/USD"
@@ -1546,7 +1546,7 @@
   {
     "asset": "LYM",
     "currency": "BTC",
-    "min_size": "74.0",
+    "min_size": "82.0",
     "max_size": "400000.0",
     "increment": "0.000000001",
     "label": "LYM/BTC"
@@ -1554,7 +1554,7 @@
   {
     "asset": "LYM",
     "currency": "ETH",
-    "min_size": "74.0",
+    "min_size": "82.0",
     "max_size": "400000.0",
     "increment": "0.000000001",
     "label": "LYM/ETH"
@@ -1562,7 +1562,7 @@
   {
     "asset": "UTK",
     "currency": "USD",
-    "min_size": "72.0",
+    "min_size": "84.0",
     "max_size": "300000.0",
     "increment": "0.000001",
     "label": "UTK/USD"
@@ -1570,7 +1570,7 @@
   {
     "asset": "UTK",
     "currency": "BTC",
-    "min_size": "72.0",
+    "min_size": "84.0",
     "max_size": "300000.0",
     "increment": "0.000000001",
     "label": "UTK/BTC"
@@ -1578,7 +1578,7 @@
   {
     "asset": "UTK",
     "currency": "ETH",
-    "min_size": "72.0",
+    "min_size": "84.0",
     "max_size": "300000.0",
     "increment": "0.000000001",
     "label": "UTK/ETH"
@@ -1586,7 +1586,7 @@
   {
     "asset": "VEE",
     "currency": "USD",
-    "min_size": "276.0",
+    "min_size": "320.0",
     "max_size": "800000.0",
     "increment": "0.0000001",
     "label": "VEE/USD"
@@ -1594,7 +1594,7 @@
   {
     "asset": "VEE",
     "currency": "BTC",
-    "min_size": "276.0",
+    "min_size": "320.0",
     "max_size": "800000.0",
     "increment": "0.0000000001",
     "label": "VEE/BTC"
@@ -1602,7 +1602,7 @@
   {
     "asset": "VEE",
     "currency": "ETH",
-    "min_size": "276.0",
+    "min_size": "320.0",
     "max_size": "800000.0",
     "increment": "0.0000000001",
     "label": "VEE/ETH"
@@ -1610,7 +1610,7 @@
   {
     "asset": "DAD",
     "currency": "USD",
-    "min_size": "40.0",
+    "min_size": "54.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "DAD/USD"
@@ -1618,7 +1618,7 @@
   {
     "asset": "DAD",
     "currency": "BTC",
-    "min_size": "40.0",
+    "min_size": "54.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "DAD/BTC"
@@ -1626,7 +1626,7 @@
   {
     "asset": "DAD",
     "currency": "ETH",
-    "min_size": "40.0",
+    "min_size": "54.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "DAD/ETH"
