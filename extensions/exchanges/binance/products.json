@@ -3468,5 +3468,35 @@
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "ENJ/BNB"
+  },
+  {
+    "id": "DATABTC",
+    "asset": "DATA",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "DATA/BTC"
+  },
+  {
+    "id": "DATAETH",
+    "asset": "DATA",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "DATA/ETH"
+  },
+  {
+    "id": "ONTUSDT",
+    "asset": "ONT",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "ONT/USDT"
   }
 ]
