@@ -1088,14 +1088,6 @@
     "label": "BTC/LGD"
   },
   {
-    "asset": "TRST",
-    "currency": "BTC",
-    "min_size": "7.05616709",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/TRST"
-  },
-  {
     "asset": "GNT",
     "currency": "ETH",
     "min_size": "5.48769111",
@@ -1222,14 +1214,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ANT"
-  },
-  {
-    "asset": "TRST",
-    "currency": "ETH",
-    "min_size": "9.83961429",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/TRST"
   },
   {
     "asset": "ANT",
