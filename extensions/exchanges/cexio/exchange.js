@@ -221,7 +221,6 @@ module.exports = function cexio (conf) {
     })
   }
 
-  let lastTID
   let exchange = {
     name: 'cexio',
     historyScan: 'forward',
