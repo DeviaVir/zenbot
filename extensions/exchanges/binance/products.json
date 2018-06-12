@@ -3508,5 +3508,25 @@
     "increment": "0.00001",
     "asset_increment": "0.1",
     "label": "TRX/USDT"
+  },
+  {
+    "id": "ETCUSDT",
+    "asset": "ETC",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "ETC/USDT"
+  },
+  {
+    "id": "ETCBNB",
+    "asset": "ETC",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "ETC/BNB"
   }
 ]
