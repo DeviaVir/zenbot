@@ -118,7 +118,7 @@ module.exports = function cexio (conf) {
         ws_client.on('close', function(err) {
           ws_client = null
           ws_subscribed = false
-          if (so.debug) console.log('WebSocket disconnected:', err ? err : ' No reason given')
+          if (so.debug) console.log('WebSocket disconnected:', err ? err : 'No reason given')
         })
       } else {
         switch (ws_client.ws.readyState) {
@@ -150,9 +150,9 @@ module.exports = function cexio (conf) {
         client.once('history', function(trades) {
           resolve(trades)
         })
+      }).catch(function(err) {
+        reject(err)
       })
-    }).catch(function(err) {
-      reject(err)
     })
   }
 
