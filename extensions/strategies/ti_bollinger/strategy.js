@@ -11,7 +11,7 @@ module.exports = {
     this.option('period', 'period length, same as --period_length', String, '5m')
     this.option('period_length', 'period length, same as --period', String, '5m')
     this.option('bollinger_size', 'period size', Number, 14)
-    this.option('bollinger_time', 'times of standard deviation between the upper band and the moving averages', Number, 15)
+    this.option('bollinger_time', 'times of standard deviation between the upper band and the moving averages', Number, 2)
     this.option('bollinger_upper_bound_pct', 'pct the current price should be near the bollinger upper bound before we sell', Number, 0)
     this.option('bollinger_lower_bound_pct', 'pct the current price should be near the bollinger lower bound before we buy', Number, 0)
   },
@@ -33,16 +33,17 @@ module.exports = {
         }
         s.period.report = bollinger
         if (bollinger.UpperBand) {
-          let upperBound = bollinger.UpperBand
-          let lowerBound = bollinger.LowerBand
-          if (s.period.close > (upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct)) {
-            s.signal = 'sell'
-          } else if (s.period.close < (lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct)) {
+          let upperBound =   (bollinger.UpperBand / 100) * (100 - s.options.bollinger_upper_bound_pct)
+          let lowerBound = (bollinger.LowerBand / 100) * (100 + s.options.bollinger_lower_bound_pct)
+          s.signal = null // hold
+          if (s.period.close < lowerBound ) {
             s.signal = 'buy'
-          } else {
-            s.signal = null // hold
-          }
-          
+          } 
+          if (s.period.close > upperBound ) {
+            s.signal = 'sell'
+          } 
+
+
         }
         cb()
       }).catch(function(){
