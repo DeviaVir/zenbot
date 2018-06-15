@@ -12,22 +12,22 @@ module.exports = {
     this.option('period_length', 'period length, same as --period', String, '5m')
     this.option('min_periods', 'min. number of history periods', Number, 200)
     this.option('rsi_periods', 'number of RSI periods', 14)
-    this.option('srsi_periods', 'number of Stochastic RSI periods', 14)
-    this.option('srsi_k', '%D line', Number, 5)
+    this.option('srsi_periods', 'number of Stochastic RSI periods',Number, 9)
+    this.option('srsi_k', '%D line', Number, 3)
     this.option('srsi_d', '%D line', Number, 3)
-    this.option('srsi_k_sell', 'K must be above this before selling', Number, 80)
-    this.option('srsi_k_buy', 'K must be below this before buying', Number, 10)
+    this.option('srsi_k_sell', 'K must be above this before selling', Number, 60)
+    this.option('srsi_k_buy', 'K must be below this before buying', Number, 30)
     this.option('srsi_dType','D type mode : SMA,EMA,WMA,DEMA,TEMA,TRIMA,KAMA,MAMA,T3', String, 'SMA'),
 
     //'SMA','EMA','WMA','DEMA','TEMA','TRIMA','KAMA','MAMA','T3'
     
     
-    this.option('bollinger_size', 'period size', Number, 20)
+    this.option('bollinger_size', 'period size', Number, 14)
     this.option('bollinger_updev', 'Upper Bollinger Time Divisor', Number, 2)
     this.option('bollinger_dndev', 'Lower Bollinger Time Divisor', Number, 2)
     this.option('bollinger_dType','mode: : SMA,EMA,WMA,DEMA,TEMA,TRIMA,KAMA,MAMA,T3', String, 'SMA')
-    this.option('bollinger_upper_bound_pct', 'pct the current price should be near the bollinger upper bound before we sell', Number, 99)
-    this.option('bollinger_lower_bound_pct', 'pct the current price should be near the bollinger lower bound before we buy', Number, 99)
+    this.option('bollinger_upper_bound_pct', 'pct the current price should be near the bollinger upper bound before we sell', Number, 1)
+    this.option('bollinger_lower_bound_pct', 'pct the current price should be near the bollinger lower bound before we buy', Number, 1)
 
 
   },
@@ -78,12 +78,12 @@ module.exports = {
             s.signal = null
             if (_switch != 0  ) 
             {
-              if (s.period.close > midBound && nextdivergent < divergent && _switch == -1 && s.period.srsi_K > s.options.srsi_k_sell) 
+              if (s.period.close > ((upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct))  && nextdivergent < divergent && _switch == -1 && s.period.srsi_K > s.options.srsi_k_sell) 
               {
                 s.signal = 'sell'
               } 
               else
-              if (s.period.close <= ((lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct))   &&  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.srsi_k_buy) 
+              if (s.period.close < ((lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct))   &&  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.srsi_k_buy) 
               {
                 s.signal = 'buy'
               } 
