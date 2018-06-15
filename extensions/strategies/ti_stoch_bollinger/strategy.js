@@ -20,8 +20,8 @@ module.exports = {
 
     this.option('bollinger_size', 'period size', Number, 14)
     this.option('bollinger_time', 'times of standard deviation between the upper band and the moving averages', Number, 2)
-    this.option('bollinger_upper_bound_pct', 'pct the current price should be near the bollinger upper bound before we sell', Number, 99)
-    this.option('bollinger_lower_bound_pct', 'pct the current price should be near the bollinger lower bound before we buy', Number, 99)
+    this.option('bollinger_upper_bound_pct', 'pct the current price should be near the bollinger upper bound before we sell', Number, 0)
+    this.option('bollinger_lower_bound_pct', 'pct the current price should be near the bollinger lower bound before we buy', Number, 0)
   },
  
 
@@ -35,7 +35,7 @@ module.exports = {
 
     ti_bollinger(s,'ti_bollinger', s.options.bollinger_size, s.options.bollinger_time).
       then(function(inbol){
-        ti_stoch(s,'ti_stoch', s.options.rsi_periods, s.options.stoch_k, s.options.stoch_d).
+        ti_stoch(s,'ti_stoch', s.options.stoch_kperiods, s.options.stoch_k, s.options.stoch_d).
           then(function(inres) {
     
             if (!inres) return cb()
