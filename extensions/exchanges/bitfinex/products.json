@@ -1282,7 +1282,7 @@
   {
     "asset": "MIT",
     "currency": "USD",
-    "min_size": "26.0",
+    "min_size": "30.0",
     "max_size": "30000.0",
     "increment": "0.00001",
     "label": "MIT/USD"
@@ -1290,7 +1290,7 @@
   {
     "asset": "MIT",
     "currency": "BTC",
-    "min_size": "26.0",
+    "min_size": "30.0",
     "max_size": "30000.0",
     "increment": "0.00000001",
     "label": "MIT/BTC"
@@ -1298,7 +1298,7 @@
   {
     "asset": "MIT",
     "currency": "ETH",
-    "min_size": "26.0",
+    "min_size": "30.0",
     "max_size": "30000.0",
     "increment": "0.00000001",
     "label": "MIT/ETH"
@@ -1630,5 +1630,125 @@
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "DAD/ETH"
+  },
+  {
+    "asset": "ORS",
+    "currency": "USD",
+    "min_size": "350.0",
+    "max_size": "500000.0",
+    "increment": "0.0000001",
+    "label": "ORS/USD"
+  },
+  {
+    "asset": "ORS",
+    "currency": "BTC",
+    "min_size": "350.0",
+    "max_size": "500000.0",
+    "increment": "0.0000000001",
+    "label": "ORS/BTC"
+  },
+  {
+    "asset": "ORS",
+    "currency": "ETH",
+    "min_size": "350.0",
+    "max_size": "500000.0",
+    "increment": "0.0000000001",
+    "label": "ORS/ETH"
+  },
+  {
+    "asset": "AUC",
+    "currency": "USD",
+    "min_size": "34.0",
+    "max_size": "150000.0",
+    "increment": "0.000001",
+    "label": "AUC/USD"
+  },
+  {
+    "asset": "AUC",
+    "currency": "BTC",
+    "min_size": "34.0",
+    "max_size": "150000.0",
+    "increment": "0.000000001",
+    "label": "AUC/BTC"
+  },
+  {
+    "asset": "AUC",
+    "currency": "ETH",
+    "min_size": "34.0",
+    "max_size": "150000.0",
+    "increment": "0.000000001",
+    "label": "AUC/ETH"
+  },
+  {
+    "asset": "POY",
+    "currency": "USD",
+    "min_size": "22.0",
+    "max_size": "100000.0",
+    "increment": "0.00001",
+    "label": "POY/USD"
+  },
+  {
+    "asset": "POY",
+    "currency": "BTC",
+    "min_size": "22.0",
+    "max_size": "100000.0",
+    "increment": "0.00000001",
+    "label": "POY/BTC"
+  },
+  {
+    "asset": "POY",
+    "currency": "ETH",
+    "min_size": "22.0",
+    "max_size": "100000.0",
+    "increment": "0.00000001",
+    "label": "POY/ETH"
+  },
+  {
+    "asset": "FSN",
+    "currency": "USD",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00001",
+    "label": "FSN/USD"
+  },
+  {
+    "asset": "FSN",
+    "currency": "BTC",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00000001",
+    "label": "FSN/BTC"
+  },
+  {
+    "asset": "FSN",
+    "currency": "ETH",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00000001",
+    "label": "FSN/ETH"
+  },
+  {
+    "asset": "CBT",
+    "currency": "USD",
+    "min_size": "252.0",
+    "max_size": "1000000.0",
+    "increment": "0.0000001",
+    "label": "CBT/USD"
+  },
+  {
+    "asset": "CBT",
+    "currency": "BTC",
+    "min_size": "252.0",
+    "max_size": "1000000.0",
+    "increment": "0.0000000001",
+    "label": "CBT/BTC"
+  },
+  {
+    "asset": "CBT",
+    "currency": "ETH",
+    "min_size": "252.0",
+    "max_size": "1000000.0",
+    "increment": "0.0000000001",
+    "label": "CBT/ETH"
   }
 ]
