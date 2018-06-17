@@ -10,7 +10,7 @@ module.exports = function cexio (conf) {
   }
   let so = s.options
 
-  let public_client, authed_client, ws_client, ws_subscribed, amount_format
+  let public_client, authed_client, ws_client, ws_authed, ws_subscribed, amount_format
   let ws_trades = []
   let orders = {}
 
@@ -74,11 +74,15 @@ module.exports = function cexio (conf) {
           ws_client.auth()
           ws_client.on('auth', function() {
             if (so.debug) console.log('WebSocket authenticated')
+            ws_authed = true
             resolve(ws_client)
           })
         })
         ws_client.on('message', function(msg) {
           switch (msg.e) {
+            case 'disconnecting':
+              if (so.debug) console.log('WebSocket disconnecting:', msg.reason)
+              break
             case 'ping':
               ws_client.send({ e: 'pong' }) // Heartbeat
               break
@@ -101,8 +105,9 @@ module.exports = function cexio (conf) {
                   side: trade[0]
                 })
               })
+              break
             case 'cancel-order':
-              ws_client.emit('cancelOrder')
+              ws_client.emit('cancelOrder', msg.data)
               break
             case 'place-order':
               ws_client.emit('placeOrder', msg.data)
@@ -113,12 +118,13 @@ module.exports = function cexio (conf) {
             }
         })
         ws_client.on('error', function(err) {
-          console.error('WebSocket error:', err)
+          console.error('WebSocket error:', err.Error)
         })
-        ws_client.on('close', function(err) {
+        ws_client.on('close', function() {
           ws_client = null
+          ws_authed = false
           ws_subscribed = false
-          if (so.debug) console.log('WebSocket disconnected:', err ? err : 'No reason given')
+          if (so.debug) console.log('WebSocket disconnected')
         })
       } else {
         switch (ws_client.ws.readyState) {
@@ -126,8 +132,12 @@ module.exports = function cexio (conf) {
             reject('WebSocket connecting')
             break
           case 1:
-            if (so.debug) console.log('WebSocket open')
-            resolve(ws_client)
+            if (ws_authed) {
+              if (so.debug) console.log('WebSocket open')
+              resolve(ws_client)
+            } else {
+              reject('WebSocket auth pending')
+            }
             break
           case 2: 
             reject('WebSocket closing')
@@ -161,7 +171,11 @@ module.exports = function cexio (conf) {
       wsClient().then(function(client) {
         client.getBalance()
         client.once('balance', function(balance) {
-          resolve(balance)
+          if (balance.error) {
+            reject(balance.error)
+          } else {
+            resolve(balance)
+          }
         })
       }).catch(function(err) {
         reject(err)
@@ -174,7 +188,11 @@ module.exports = function cexio (conf) {
       wsClient().then(function(client) {
         client.authTicker(pair)
         client.once('ticker', function(quote) {
-          resolve(quote)
+          if (quote.error) {
+            reject(quote.error)
+          } else {
+            resolve(quote)
+          }
         })
       }).catch(function(err) {
         reject(err)
@@ -186,8 +204,12 @@ module.exports = function cexio (conf) {
     return new Promise(function(resolve, reject) {
       wsClient().then(function(client) {
         client.cancelOrder(order_id)
-        client.once('cancelOrder', function() {
-          resolve()
+        client.once('cancelOrder', function(order) {
+          if (order.error) {
+            reject(order.error)
+          } else {
+            resolve()
+          }
         })
       }).catch(function(err) {
         reject(err)
@@ -200,7 +222,11 @@ module.exports = function cexio (conf) {
       wsClient().then(function(client) {
         client.placeOrder(order.type, order.pair, order.size, order.price)
         client.once('placeOrder', function(order) {
-          resolve(order)
+          if (order.error) {
+            reject(order.error)
+          } else {
+            resolve(order)
+          }
         })
       }).catch(function(err) {
         reject(err)
@@ -213,7 +239,11 @@ module.exports = function cexio (conf) {
       wsClient().then(function(client) {
         client.getOrder(order_id)
         client.once('getOrder', function(order) {
-          resolve(order)
+          if (order.error) {
+            reject(order.error)
+          } else {
+            resolve(order)
+          }
         })
       }).catch(function(err) {
         reject(err)
@@ -316,7 +346,7 @@ module.exports = function cexio (conf) {
         cb()
       }).catch(function(err) {
         if (so.debug) console.log(('\ncancelOrder ' + err).red)
-        return retry('cancelOrder', func_args)
+        if (err !== 'Error: Order not found') return retry('cancelOrder', func_args)
       })
     },
 
