@@ -352,36 +352,64 @@ module.exports = function cexio (conf) {
 
     trade: function (action, opts, cb) {
       let func_args = [].slice.call(arguments)
-      if (opts.order_type === 'taker') {
+      if (opts.order_type === 'taker') { // Looks like WebSocket doesn't support taker/market orders (yet?)
         delete opts.price
         delete opts.post_only
         if (action === 'buy') {
           opts.size = n(opts.size).multiply(opts.orig_price).value() // CEXIO estimates asset size and uses free currency to performe margin buy
         }
-        opts.type = 'market'
-      }
-      wsTrade({
-        type: action,
-        pair: opts.product_id,
-        size: opts.size,
-        price: opts.price
-      }).then(function(data) {
-        let order = {
-          id: data.complete === false ? data.id : null,
-          status: 'open',
-          price: data.price,
+        let client = authedClient()
+        client.place_order(joinProduct(opts.product_id), action, opts.size, opts.price, 'market', function (err, body) {
+          if (err || (typeof body === 'string' && body.match(/error/))) {
+            if (so.debug) console.log(('\ntrade ' + (err ? err : body)).red)
+            if (body === 'error: Error: Place order error: Insufficient funds.') {
+              let order = {
+                status: 'rejected',
+                reject_reason: 'balance'
+              }
+              return cb(null, order)
+            } else {
+              return retry('trade', func_args)
+            }
+          } else {
+            let order = {
+              id: body.id,
+              status: 'open',
+              price: opts.price,
+              size: opts.size,
+              post_only: !!opts.post_only,
+              created_at: body.time,
+              filled_size: '0',
+              ordertype: 'taker'
+            }
+            orders['~' + body.id] = order
+            cb(null, order)
+          }
+        })
+      } else {
+        wsTrade({
+          type: action,
+          pair: opts.product_id,
           size: opts.size,
-          post_only: !!opts.post_only,
-          created_at: data.time,
-          filled_size: data.amount - data.pending,
-          ordertype: opts.order_type
-        }
-        orders['~' + data.id] = order
-        cb(null, order)
-      }).catch(function(err) {
-        if (so.debug) console.log(('\ntrade ' + err).red)
-        return retry('trade', func_args, err)
-      })
+          price: opts.price
+        }).then(function(data) {
+          let order = {
+            id: data.id,
+            status: 'open',
+            price: data.price,
+            size: data.amount,
+            post_only: !!opts.post_only,
+            created_at: data.time,
+            filled_size: data.amount - data.pending,
+            ordertype: 'maker'
+          }
+          orders['~' + data.id] = order
+          cb(null, order)
+        }).catch(function(err) {
+          if (so.debug) console.log(('\ntrade ' + err).red)
+          return retry('trade', func_args, err)
+        })
+      }
     },
 
     buy: function (opts, cb) {
@@ -402,7 +430,7 @@ module.exports = function cexio (conf) {
         } else if ( data.status === 'd' || data.status === 'cd') {
           order.status = 'done'
           order.done_at = new Date().getTime()
-          order.filled_size = n(data.amount).substract(data.remains).format('0.00000000')
+          order.filled_size = n(data.amount).subtract(data.remains).format('0.00000000')
         }
         cb(null, order)
       }).catch(function(err) {
