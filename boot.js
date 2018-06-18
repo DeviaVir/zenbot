@@ -11,6 +11,8 @@ module.exports = function (cb) {
   var config = {}
   var overrides = {}
 
+  module.exports.debug = args.debug
+
   // 1. load conf overrides file if present
   if(!_.isUndefined(args.conf)){
     try {
