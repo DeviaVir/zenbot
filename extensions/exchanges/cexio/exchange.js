@@ -3,6 +3,7 @@ const path = require('path')
 const n = require('numbro')
 const minimist = require('minimist')
 const _ = require('lodash')
+const debug = require('../../../lib/debug')
 
 module.exports = function cexio (conf) {
   let s = {
@@ -36,9 +37,7 @@ module.exports = function cexio (conf) {
   }
 
   function retry (method, args) {
-    if (so.debug) {
-      console.error(('\nCEX.IO API is down! unable to call ' + method + ', retrying in 10s').red)
-    }
+    debug.msg(('CEX.IO API is down! unable to call ' + method + ', retrying in 10s').red)
     setTimeout(function () {
       exchange[method].apply(exchange, args)
     }, 10000)
@@ -50,11 +49,11 @@ module.exports = function cexio (conf) {
     let nowUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds())
     let midnightUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()).setHours(24,0,0,0)
     let countdown = midnightUTC - nowUTC + skew
-    if (so.debug) {
+    if (debug.on) {
       let hours = parseInt((countdown/(1000*60*60))%24)
       let minutes = parseInt((countdown/(1000*60))%60)
       let seconds = parseInt((countdown/1000)%60)
-      console.log('\nRefreshing fees in ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds')
+      debug.msg('Refreshing fees in ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds')
     }
     setTimeout(function() {
       exchange['setFees'].apply(exchange, args)
@@ -70,10 +69,10 @@ module.exports = function cexio (conf) {
         ws_client = new CEX(conf.cexio.key, conf.cexio.secret).ws
         ws_client.open()
         ws_client.on('open', function() {
-          if (so.debug) console.log('WebSocket connected')
+          debug.msg('WebSocket connected')
           ws_client.auth()
           ws_client.on('auth', function() {
-            if (so.debug) console.log('WebSocket authenticated')
+            debug.msg('WebSocket authenticated')
             ws_authed = true
             resolve(ws_client)
           })
@@ -81,7 +80,7 @@ module.exports = function cexio (conf) {
         ws_client.on('message', function(msg) {
           switch (msg.e) {
             case 'disconnecting':
-              if (so.debug) console.log('WebSocket disconnecting:', msg.reason)
+              debug.msg('WebSocket disconnecting:', msg.reason)
               break
             case 'ping':
               ws_client.send({ e: 'pong' }) // Heartbeat
@@ -118,13 +117,13 @@ module.exports = function cexio (conf) {
             }
         })
         ws_client.on('error', function(err) {
-          console.error('WebSocket error:', err.Error)
+          console.error('WebSocket error:', err)
         })
         ws_client.on('close', function() {
           ws_client = null
           ws_authed = false
           ws_subscribed = false
-          if (so.debug) console.log('WebSocket disconnected')
+          debug.msg('WebSocket disconnected')
         })
       } else {
         switch (ws_client.ws.readyState) {
@@ -133,7 +132,6 @@ module.exports = function cexio (conf) {
             break
           case 1:
             if (ws_authed) {
-              if (so.debug) console.log('WebSocket open')
               resolve(ws_client)
             } else {
               reject('WebSocket auth pending')
@@ -271,7 +269,7 @@ module.exports = function cexio (conf) {
         let pair = joinProduct(opts.product_id)
         client.trade_history(pair, opts.from, function (err, body) {
           if (err || (typeof body === 'string' && body.match(/error/))) {
-            if (so.debug) console.log(('\ngetTrades ' + (err ? err : body)).red)
+            debug.msg(('getTrades ' + (err ? err : body)).red)
             return retry('getTrades', func_args)
           }
           let trades = body.map(function (trade) {
@@ -300,7 +298,7 @@ module.exports = function cexio (conf) {
             })
           })
         }).catch(function(err) {
-          if (so.debug) console.log(('\ngetTrades ' + err).red)
+          debug.msg(('getTrades ' + err).red)
           return retry('getTrades', func_args)
         })
         _.remove(ws_trades, function(t) {
@@ -321,7 +319,7 @@ module.exports = function cexio (conf) {
         }
         cb(null, ws_balance)
       }).catch(function(err) {
-        if (so.debug) console.log(('\ngetBalance ' + err).red)
+        debug.msg(('getBalance ' + err).red)
         return retry('getBalance', func_args)
       })
     },
@@ -335,7 +333,7 @@ module.exports = function cexio (conf) {
         }
         cb(null, ws_ticker)
       }).catch(function(err) {
-        if (so.debug) console.log(('\ngetQuote ' + err).red)
+        debug.msg(('getQuote ' + err).red)
         return retry('getQuote', func_args)
       })
     },
@@ -345,7 +343,7 @@ module.exports = function cexio (conf) {
       wsCancelOrder(opts.order_id).then(function() {
         cb()
       }).catch(function(err) {
-        if (so.debug) console.log(('\ncancelOrder ' + err).red)
+        debug.msg(('cancelOrder ' + err).red)
         if (err !== 'Error: Order not found') return retry('cancelOrder', func_args)
       })
     },
@@ -361,7 +359,7 @@ module.exports = function cexio (conf) {
         let client = authedClient()
         client.place_order(joinProduct(opts.product_id), action, opts.size, opts.price, 'market', function (err, body) {
           if (err || (typeof body === 'string' && body.match(/error/))) {
-            if (so.debug) console.log(('\ntrade ' + (err ? err : body)).red)
+            debug.msg(('trade ' + (err ? err : body)).red)
             if (body === 'error: Error: Place order error: Insufficient funds.') {
               let order = {
                 status: 'rejected',
@@ -406,7 +404,7 @@ module.exports = function cexio (conf) {
           orders['~' + data.id] = order
           cb(null, order)
         }).catch(function(err) {
-          if (so.debug) console.log(('\ntrade ' + err).red)
+          debug.msg(('trade ' + err).red)
           return retry('trade', func_args, err)
         })
       }
@@ -434,7 +432,7 @@ module.exports = function cexio (conf) {
         }
         cb(null, order)
       }).catch(function(err) {
-        if (so.debug) console.log(('\ngetOrder ' + err).red)
+        debug.msg(('getOrder ' + err).red)
         return retry('getOrder', func_args)
       })
     },
@@ -444,18 +442,18 @@ module.exports = function cexio (conf) {
       let client = authedClient()
       client.get_my_fee(function (err, body) {
         if (err || (typeof body === 'string' && body.match(/error/))) {
-          if (so.debug) console.log(('\nsetFees ' + (err ? err : body) + ' - using fixed fees!').red)
+          debug.msg(('setFees ' + (err ? err : body) + ' - using fixed fees!').red)
           return retry('setFees', func_args)
         } else {
           let pair = opts.asset + ':' + opts.currency
           let makerFee = (parseFloat(body[pair].buyMaker) + parseFloat(body[pair].sellMaker)) / 2
           let takerFee = (parseFloat(body[pair].buy) + parseFloat(body[pair].sell)) / 2
           if (exchange.makerFee != makerFee) {
-            if (so.debug) console.log('\nMaker fee changed: ' + exchange.makerFee + '% -> ' + makerFee + '%')
+            debug.msg('Maker fee changed: ' + exchange.makerFee + '% -> ' + makerFee + '%')
             exchange.makerFee = makerFee
           }
           if (exchange.takerFee != takerFee) {
-            if (so.debug) console.log('\nTaker fee changed: ' + exchange.takerFee + '% -> ' + takerFee + '%')
+            debug.msg('Taker fee changed: ' + exchange.takerFee + '% -> ' + takerFee + '%')
             exchange.takerFee = takerFee
           }
         }
