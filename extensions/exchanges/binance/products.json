@@ -3568,5 +3568,25 @@
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "SC/BNB"
+  },
+  {
+    "id": "NPXSBTC",
+    "asset": "NPXS",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "NPXS/BTC"
+  },
+  {
+    "id": "NPXSETH",
+    "asset": "NPXS",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "NPXS/ETH"
   }
 ]
