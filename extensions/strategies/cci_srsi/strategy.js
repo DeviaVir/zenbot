@@ -4,6 +4,7 @@ let z = require('zero-fill')
   , srsi = require('../../../lib/srsi')
   , cci = require('../../../lib/cci')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'cci_srsi',
@@ -57,13 +58,15 @@ module.exports = {
         // Buy signal
         if (s.period.cci <= s.options.oversold_cci && /*s.period.srsi_K > s.period.srsi_D &&*/ s.period.srsi_K <= s.options.oversold_rsi) {
           if (!s.cci_fromAbove && !s.rsi_fromAbove) {
-            s.signal = 'buy'
+            if (dupOrderWorkAround.checkForPriorBuy(s)) 
+              s.signal = 'buy'
           }
         }
         // Sell signal
         if (s.period.cci >= s.options.overbought_cci && /*s.period.srsi_K < s.period.srsi_D &&*/ s.period.srsi_K >= s.options.overbought_rsi) {
           if (s.cci_fromAbove || s.rsi_fromAbove) {
-            s.signal = 'sell'
+            if (dupOrderWorkAround.checkForPriorSell(s)) 
+              s.signal = 'sell'
           }
         }
         //cb()
@@ -72,7 +75,8 @@ module.exports = {
       if (s.trend === 'up') {
         if (s.period.cci <= s.options.oversold_cci && /*s.period.srsi_K > s.period.srsi_D &&*/ s.period.srsi_K <= s.options.oversold_rsi) {
           if (!s.cci_fromAbove && !s.rsi_fromAbove) {
-            s.signal = 'buy'
+            if (dupOrderWorkAround.checkForPriorBuy(s)) 
+              s.signal = 'buy'
           }
         }
       }
@@ -80,7 +84,8 @@ module.exports = {
       if (s.trend === 'down') {
         if (s.period.cci >= s.options.overbought_cci && /*s.period.srsi_K < s.period.srsi_D &&*/ s.period.srsi_K >= s.options.overbought_rsi) {
           if (s.cci_fromAbove || s.rsi_fromAbove) {
-            s.signal = 'sell'
+            if (dupOrderWorkAround.checkForPriorSell(s)) 
+              s.signal = 'sell'
           }
         }
       }
