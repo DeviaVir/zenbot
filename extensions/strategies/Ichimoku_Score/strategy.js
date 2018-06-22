@@ -31,6 +31,7 @@ let z = require('zero-fill')
   , Phenotypes = require('../../../lib/phenotype')
   , crossover = require('../../../lib/helpers').crossover
   , crossunder = require('../../../lib/helpers').crossunder
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'ichimoku_score',
@@ -117,7 +118,7 @@ module.exports = {
   onPeriod: function (s, cb) {
 
 
-   //    == Debugging ==
+    //    == Debugging ==
 
     if (s.options.debug) {console.log('\n== Options ==')}
 
@@ -167,10 +168,12 @@ module.exports = {
     if (!s.previousScore) {s.previousScore = 0}
 
     if (s.normalizedScore > s.options.buyLevel && s.previousScore < s.options.buyLevel) {
-      s.signal = 'buy'
+      if (dupOrderWorkAround.checkForPriorBuy(s)) 
+        s.signal = 'buy'
       s.previousScore = s.normalizedScore
     } else if (s.normalizedScore < s.options.sellLevel && s.previousScore > s.options.sellLevel) {
-      s.signal = 'sell'
+      if (dupOrderWorkAround.checkForPriorSell(s)) 
+        s.signal = 'sell'
       s.previousScore = s.normalizedScore
     } else {
       s.signal = null
@@ -271,7 +274,7 @@ function valueAboveKumo(s, val, key1, key2) {
 }
 
 function valueAbove(val, target1, target2) {
-    return val > Math.max(target1, target2)
+  return val > Math.max(target1, target2)
 }
 
 function valueBelow(val, target1, target2) {
