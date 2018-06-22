@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , bollinger = require('../../../lib/bollinger')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'bollinger',
@@ -27,9 +28,11 @@ module.exports = {
         let upperBound = s.period.bollinger.upper[s.period.bollinger.upper.length-1]
         let lowerBound = s.period.bollinger.lower[s.period.bollinger.lower.length-1]
         if (s.period.close > (upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct)) {
-          s.signal = 'sell'
+          if (dupOrderWorkAround.checkForPriorSell(s)) 
+            s.signal = 'sell'
         } else if (s.period.close < (lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct)) {
-          s.signal = 'buy'
+          if (dupOrderWorkAround.checkForPriorBuy(s))
+            s.signal = 'buy'
         } else {
           s.signal = null // hold
         }
