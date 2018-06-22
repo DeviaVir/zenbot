@@ -5,6 +5,7 @@ let z = require('zero-fill')
   , crossunder = require('../../../lib/helpers').crossunder
   , nz = require('../../../lib/helpers').nz
   , tv = require('../../../lib/helpers')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'Ehlers_Trend',
@@ -49,9 +50,15 @@ module.exports = {
 
 
     if(crossover(s, 'trend', 'trigger'))
-      s.signal = 'sell'
+    {
+      if (dupOrderWorkAround.checkForPriorSell(s))
+        s.signal = 'sell'
+    }
     else if(crossunder(s, 'trend', 'trigger'))
-      s.signal = 'buy'
+    {
+      if (dupOrderWorkAround.checkForPriorBuy(s)) 
+        s.signal = 'buy'
+    }
     else
       s.signal = null
 
