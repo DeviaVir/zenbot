@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , kc = require('../../../lib/kc')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'kc',
@@ -27,9 +28,11 @@ module.exports = {
         let upperChannel = s.period.kc.upper[s.period.kc.upper.length-1]
         let lowerChannel = s.period.kc.lower[s.period.kc.lower.length-1]
         if (s.period.close > (upperChannel / 100) * (100 - s.options.kc_upper_channel_pct)) {  
-          s.signal = 'sell'
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
         } else if (s.period.close < (lowerChannel / 100) * (100 + s.options.kc_lower_channel_pct)) {
-          s.signal = 'buy'
+          if (dupOrderWorkAround.checkForPriorBuy(s)) 
+            s.signal = 'buy'
         } else {
           s.signal = null // hold
         }
