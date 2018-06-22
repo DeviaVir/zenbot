@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , wto = require('../../../lib/wto')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'wavetrend',
@@ -54,7 +55,8 @@ module.exports = {
             //console.log('\n')
             //console.log(s.period.hcl3, s.period.wto, s.lookback[0].wto, s.buy_signal_close)
             //console.log('trend reversal, we should sell')
-            s.signal = 'sell'
+            if (dupOrderWorkAround.checkForPriorSell(s)) 
+              s.signal = 'sell'
             s.sell_signal_close = s.period.close
           }
           s.trend = 'up'
@@ -64,7 +66,8 @@ module.exports = {
             //console.log('\n')
             //console.log(s.period.hcl3, s.period.wto, s.lookback[0].wto, s.sell_signal_close)
             //console.log('trend reversal, we should buy')
-            s.signal = 'buy'
+            if (dupOrderWorkAround.checkForPriorBuy(s)) 
+              s.signal = 'buy'
             s.buy_signal_close = s.period.close
           }
           s.trend = 'down'
@@ -78,7 +81,8 @@ module.exports = {
           //console.log('trend reversal, we should sell')
           if (prev_wto > wto && prev_hcl3 > hcl3 && prev_ema > ema) {
             if (s.trend === 'down' && s.buy_signal_close < s.period.close) {
-              s.signal = 'sell'
+              if (dupOrderWorkAround.checkForPriorSell(s)) 
+                s.signal = 'sell'
               s.sell_signal_close = s.period.close
             }
             s.trend = 'up'
@@ -91,7 +95,8 @@ module.exports = {
           //console.log('trend reversal, we should buy')
           if (prev_wto < wto && prev_hcl3 < hcl3 && prev_ema < ema) {
             if (s.trend === 'up' && s.sell_signal_close > s.period.close) {
-              s.signal = 'buy'
+              if (dupOrderWorkAround.checkForPriorBuy(s)) 
+                s.signal = 'buy'
               s.buy_signal_close = s.period.close
             }
             s.trend = 'down'
@@ -104,7 +109,8 @@ module.exports = {
           //console.log('trend reversal, we should sell')
           if (prev_wto > wto && prev_hcl3 > hcl3 && prev_ema > ema) {
             if (s.trend === 'down' && s.buy_signal_close < s.period.close) {
-              s.signal = 'sell'
+              if (dupOrderWorkAround.checkForPriorSell(s)) 
+                s.signal = 'sell'
               s.sell_signal_close = s.period.close
             }
             s.trend = 'up'
@@ -117,7 +123,8 @@ module.exports = {
           //console.log('trend reversal, we should buy')
           if (prev_wto < wto && prev_hcl3 < hcl3 && prev_ema < ema) {
             if (s.trend === 'up' && s.sell_signal_close > s.period.close) {
-              s.signal = 'buy'
+              if (dupOrderWorkAround.checkForPriorBuy(s)) 
+                s.signal = 'buy'
               s.buy_signal_close = s.period.close
             }
             s.trend = 'down'
@@ -131,7 +138,8 @@ module.exports = {
               //console.log('\n')
               //console.log(s.period.hcl3, s.period.wto, s.lookback[0].wto, s.buy_signal_close)
               //console.log('trend reversal, we should sell')
-              s.signal = 'sell'
+              if (dupOrderWorkAround.checkForPriorSell(s)) 
+                s.signal = 'sell'
               s.sell_signal_close = s.period.close
             }
             s.trend = 'up'
@@ -141,7 +149,8 @@ module.exports = {
               //console.log('\n')
               //console.log(s.period.hcl3, s.period.wto, s.lookback[0].wto, s.sell_signal_close)
               //console.log('trend reversal, we should buy')
-              s.signal = 'buy'
+              if (dupOrderWorkAround.checkForPriorBuy(s)) 
+                s.signal = 'buy'
               s.buy_signal_close = s.period.close
             }
             s.trend = 'down'
