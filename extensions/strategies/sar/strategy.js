@@ -1,6 +1,7 @@
 var z = require('zero-fill')
   , n = require('numbro')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports =  {
   name: 'sar',
@@ -51,7 +52,8 @@ module.exports =  {
       if (s.trend === 'down') {
         if (s.period.high >= s.sar && s.period.close > s.lookback[0].close) {
           s.trend = 'up'
-          s.signal = 'buy'
+          if (dupOrderWorkAround.checkForPriorBuy(s)) 
+            s.signal = 'buy'
           s.sar_ep = s.period.low
           s.sar_af = s.options.sar_af
           s.sar = Math.min(s.lookback[0].low, s.period.low, s.sar + (s.sar_af * (s.sar_ep - s.sar)))
@@ -66,7 +68,8 @@ module.exports =  {
       else if (s.trend === 'up') {
         if (s.period.low <= s.sar && s.period.close < s.lookback[0].close) {
           s.trend = 'down'
-          s.signal = 'sell'
+          if (dupOrderWorkAround.checkForPriorSell(s)) 
+            s.signal = 'sell'
           s.sar_ep = s.period.high
           s.sar_af = s.options.sar_af
           s.sar = Math.max(s.lookback[0].high, s.period.high, s.sar - (s.sar_af * (s.sar - s.sar_ep)))
@@ -79,7 +82,7 @@ module.exports =  {
         }
       }
       if (!s.my_trades.length) {
-        s.signal = s.trend === 'up' ? 'buy' : 'sell'
+        s.signal = s.trend === 'up' ? dupOrderWorkAround.checkForPriorBuy(s) ? 'buy' : null : dupOrderWorkAround.checkForPriorSell(s) ? 'sell' : null
       }
     }
     cb()
