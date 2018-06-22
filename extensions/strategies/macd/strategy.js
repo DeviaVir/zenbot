@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , ema = require('../../../lib/ema')
   , rsi = require('../../../lib/rsi')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'macd',
@@ -49,7 +50,8 @@ module.exports = {
       if (s.overbought) {
         s.overbought = false
         s.trend = 'overbought'
-        s.signal = 'sell'
+        if (dupOrderWorkAround.checkForPriorSell(s)) 
+          s.signal = 'sell'
         return cb()
       }
 
@@ -57,9 +59,11 @@ module.exports = {
 
     if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {
       if ((s.period.macd_histogram - s.options.up_trend_threshold) > 0 && (s.lookback[0].macd_histogram - s.options.up_trend_threshold) <= 0) {
-        s.signal = 'buy'
+        if (dupOrderWorkAround.checkForPriorBuy(s)) 
+          s.signal = 'buy'
       } else if ((s.period.macd_histogram + s.options.down_trend_threshold) < 0 && (s.lookback[0].macd_histogram + s.options.down_trend_threshold) >= 0) {
-        s.signal = 'sell'
+        if (dupOrderWorkAround.checkForPriorSell(s))
+          s.signal = 'sell'
       } else {
         s.signal = null  // hold
       }
