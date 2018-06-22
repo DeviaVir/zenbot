@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , bollinger = require('../../../lib/bollinger')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'trend_bollinger',
@@ -53,10 +54,12 @@ module.exports = {
         s.last_hit_close = s.period.close
 
         if (s.trend === 'down') {
-          s.signal = 'sell'
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
           s.trend = null
         } else if (s.trend === 'up') {
-          s.signal = 'buy'
+          if (dupOrderWorkAround.checkForPriorBuy(s)) 
+            s.signal = 'buy'
           s.trend = null
         }
       }
