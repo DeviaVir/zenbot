@@ -5,6 +5,7 @@ let math = require('mathjs')
   , stats = require('stats-lite')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 var oldgrowth = 1
 
 module.exports = {
@@ -73,7 +74,8 @@ module.exports = {
          s.growth2 === true
     )
     {
-      s.signal = 'buy'
+      if (dupOrderWorkAround.checkForPriorBuy(s)) 
+        s.signal = 'buy'
     }
     else if (
       s.growth === false |
@@ -81,7 +83,10 @@ module.exports = {
          s.accel === false
     )
     {
-      //s.signal = 'sell'
+      //This is commented still even though I added the sell check, not sure why it is commented as the stratagy would never sell only buy.  
+      //may be a typo but I havn't checked the function of this stratagy for find out.  --Station
+      //if (dupOrderWorkAround.checkForPriorSell(s)) 
+      //  s.signal = 'sell'
     }
     cb()
   },
