@@ -3,6 +3,8 @@ let convnetjs = require('convnetjs')
   , n = require('numbro')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
+
 const cluster = require('cluster')
 
 // the below line starts you at 0 threads
@@ -109,18 +111,16 @@ module.exports = {
       global.predi = s.prediction
       //something strange is going on here
       global.sig0 = global.predi > oldmean
-      if (
-        global.sig0 === false
-      )
+      if ( global.sig0 === false )
       {
-        s.signal = 'sell'
+        if (dupOrderWorkAround.checkForPriorSell(s)) 
+          s.signal = 'sell'
       }
       else if
-      (
-        global.sig0 === true
-      )
+      ( global.sig0 === true  )
       {
-        s.signal = 'buy'
+        if (dupOrderWorkAround.checkForPriorBuy(s)) 
+          s.signal = 'buy'
       }
       oldmean = global.predi
       cb()
