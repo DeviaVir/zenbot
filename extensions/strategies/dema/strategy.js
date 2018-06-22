@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , rsi = require('../../../lib/rsi')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'dema',
@@ -53,9 +54,15 @@ module.exports = {
       if (s.options.noise_level_pct != 0 && (s.period.ema_short / s.lookback[0].ema_short * 100 < s.options.noise_level_pct)) {
         s.signal = null
       } else if ((s.period.dema_histogram - s.options.up_trend_threshold) > 0 && (s.lookback[0].dema_histogram - s.options.up_trend_threshold) <= 0) {
-        s.signal = 'buy'
+        { 
+          if (dupOrderWorkAround.checkForPriorBuy(s))
+            s.signal = 'buy'
+        }
       } else if ((s.period.dema_histogram + s.options.down_trend_threshold) < 0 && (s.lookback[0].dema_histogram + s.options.down_trend_threshold) >= 0) {
-        s.signal = 'sell'
+        { 
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
+        }
       } else {
         s.signal = null  // hold
       }
