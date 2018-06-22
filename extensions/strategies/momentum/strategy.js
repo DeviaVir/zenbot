@@ -2,6 +2,7 @@ let z = require('zero-fill')
   , n = require('numbro')
   , momentum = require('../../../lib/momentum')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'momentum',
@@ -24,10 +25,12 @@ module.exports = {
     }
 
     if (s.period.mom0 > 0 && s.period.mom1 > 0) {
-      s.signal = 'buy'
+      if (dupOrderWorkAround.checkForPriorBuy(s)) 
+        s.signal = 'buy'
     }
     if (s.period.mom0 < 0 && s.period.mom1 < 0) {
-      s.signal = 'sell'
+      if (dupOrderWorkAround.checkForPriorSell(s))
+        s.signal = 'sell'
     }
     cb()
   },
