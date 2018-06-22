@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , tulip_stoch = require('../../../lib/ti_stoch')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'ti_stoch',
@@ -46,12 +47,14 @@ module.exports = {
         {
           if (_switch == -1 && s.period.srsi_K > s.options.stoch_k_sell) 
           {
-            s.signal = 'sell'
+            if (dupOrderWorkAround.checkForPriorSell(s))
+              s.signal = 'sell'
           } 
           else
           if (  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.stoch_k_buy) 
           {
-            s.signal = 'buy'
+            if (dupOrderWorkAround.checkForPriorBuy(s)) 
+              s.signal = 'buy'
           } 
          
         }
