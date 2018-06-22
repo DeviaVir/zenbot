@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , tulip_bollinger = require('../../../lib/ti_bollinger')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'ti_bollinger',
@@ -37,10 +38,13 @@ module.exports = {
           let lowerBound = (bollinger.LowerBand / 100) * (100 + s.options.bollinger_lower_bound_pct)
           s.signal = null // hold
           if (s.period.close < lowerBound ) {
-            s.signal = 'buy'
+            if (dupOrderWorkAround.checkForPriorBuy(s)) 
+              s.signal = 'buy'
+
           } 
           if (s.period.close > upperBound ) {
-            s.signal = 'sell'
+            if (dupOrderWorkAround.checkForPriorSell(s)) 
+              s.signal = 'sell'
           } 
 
 
