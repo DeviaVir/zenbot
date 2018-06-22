@@ -79,42 +79,42 @@ module.exports = function cexio (conf) {
         })
         ws_client.on('message', function(msg) {
           switch (msg.e) {
-            case 'disconnecting':
-              debug.msg('WebSocket disconnecting:', msg.reason)
-              break
-            case 'ping':
-              ws_client.send({ e: 'pong' }) // Heartbeat
-              break
-            case 'get-balance':
-              ws_client.emit('balance', msg.data)
-              break
-            case 'ticker':
-              ws_client.emit('ticker', msg.data)
-              break
-            case 'history':
-              ws_client.emit('history', msg.data)
-              break
-            case 'history-update':
-              msg.data.forEach(function(trade) {
-                ws_trades.push({
-                  trade_id: Number(trade[4]),
-                  time: Number(trade[1]),
-                  size: Number(n(trade[2]).divide(amount_format).format('0.00000000')),
-                  price: Number(trade[3]),
-                  side: trade[0]
-                })
+          case 'disconnecting':
+            debug.msg('WebSocket disconnecting:', msg.reason)
+            break
+          case 'ping':
+            ws_client.send({ e: 'pong' }) // Heartbeat
+            break
+          case 'get-balance':
+            ws_client.emit('balance', msg.data)
+            break
+          case 'ticker':
+            ws_client.emit('ticker', msg.data)
+            break
+          case 'history':
+            ws_client.emit('history', msg.data)
+            break
+          case 'history-update':
+            msg.data.forEach(function(trade) {
+              ws_trades.push({
+                trade_id: Number(trade[4]),
+                time: Number(trade[1]),
+                size: Number(n(trade[2]).divide(amount_format).format('0.00000000')),
+                price: Number(trade[3]),
+                side: trade[0]
               })
-              break
-            case 'cancel-order':
-              ws_client.emit('cancelOrder', msg.data)
-              break
-            case 'place-order':
-              ws_client.emit('placeOrder', msg.data)
-              break
-            case 'get-order':
-              ws_client.emit('getOrder', msg.data)
-              break
-            }
+            })
+            break
+          case 'cancel-order':
+            ws_client.emit('cancelOrder', msg.data)
+            break
+          case 'place-order':
+            ws_client.emit('placeOrder', msg.data)
+            break
+          case 'get-order':
+            ws_client.emit('getOrder', msg.data)
+            break
+          }
         })
         ws_client.on('error', function(err) {
           console.error('WebSocket error:', err)
@@ -127,22 +127,22 @@ module.exports = function cexio (conf) {
         })
       } else {
         switch (ws_client.ws.readyState) {
-          case 0:
-            reject('WebSocket connecting')
-            break
-          case 1:
-            if (ws_authed) {
-              resolve(ws_client)
-            } else {
-              reject('WebSocket auth pending')
-            }
-            break
-          case 2: 
-            reject('WebSocket closing')
-            break
-          case 3:
-            reject('WebSocket closed')
-            break
+        case 0:
+          reject('WebSocket connecting')
+          break
+        case 1:
+          if (ws_authed) {
+            resolve(ws_client)
+          } else {
+            reject('WebSocket auth pending')
+          }
+          break
+        case 2: 
+          reject('WebSocket closing')
+          break
+        case 3:
+          reject('WebSocket closed')
+          break
         }
       }
     })
@@ -311,7 +311,7 @@ module.exports = function cexio (conf) {
     getBalance: function (opts, cb) {
       let func_args = [].slice.call(arguments)
       wsBalance().then(function(data) {
-        ws_balance = {
+        let ws_balance = {
           currency: n(data.balance[opts.currency]).format('0.00000000'),
           asset: n(data.balance[opts.asset]).format('0.00000000'),
           currency_hold: n(data.obalance[opts.currency]).format('0.00000000'),
@@ -327,7 +327,7 @@ module.exports = function cexio (conf) {
     getQuote: function (opts, cb) {
       let func_args = [].slice.call(arguments)
       wsQuote(opts.product_id).then(function(data) {
-        ws_ticker = {
+        let ws_ticker = {
           ask: data.ask,
           bid: data.bid
         }
