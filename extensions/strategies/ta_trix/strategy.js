@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , rsi = require('../../../lib/rsi')
   , ta_trix = require('../../../lib/ta_trix')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'ta_trix',
@@ -35,7 +36,8 @@ module.exports = {
     if (!s.in_preroll && typeof s.period.overbought_rsi === 'number') {
       if (s.overbought) {
         s.overbought = false
-        s.signal = 'sell'
+        if (dupOrderWorkAround.checkForPriorSell(s)) 
+          s.signal = 'sell'
         return cb()
       }
     }
@@ -53,14 +55,14 @@ module.exports = {
         }
 
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorBuy(s) ? 'buy' : null : null
       } else if (s.period.trend_trix == 'down') {
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
 
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorSell(s) ? 'sell' : null : null
       }
 
       cb()
