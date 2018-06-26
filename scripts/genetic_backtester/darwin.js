@@ -378,6 +378,9 @@ if (simArgs.help || !(simArgs.use_strategies)) {
   console.log('--noStatSave=<true>|<false>')
   console.log('--runGenerations=<int>  if used run this number of generations, will be shown 1 less due to generations starts at 0')
   console.log('--minTrades=<int>  Minimum wins before generation is considured fit to evolve')
+  console.log('--fitnessCalcType=<wl / profit / classic / profitwl> Default: Classic.')
+  console.log('                  wl will score the highes for wins and losses, profit does not care about wins and losses only the higest end balance,')
+  console.log('                  classic uses original claculation / profitwl tries to get the highest profit using the lowest win/loss ratio')
   process.exit(0)
 }
 
