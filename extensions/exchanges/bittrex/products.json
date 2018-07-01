@@ -1272,14 +1272,6 @@
     "label": "BTC/CRB"
   },
   {
-    "asset": "CRB",
-    "currency": "ETH",
-    "min_size": "12.14152158",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/CRB"
-  },
-  {
     "asset": "MORE",
     "currency": "ETH",
     "min_size": "4.61650678",
@@ -1294,14 +1286,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PTOY"
-  },
-  {
-    "asset": "PTOY",
-    "currency": "ETH",
-    "min_size": "15.69316720",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/PTOY"
   },
   {
     "asset": "CFI",
