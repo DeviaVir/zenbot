@@ -1,14 +1,14 @@
-var z = require('zero-fill')
-  , n = require('numbro')
-  , rsi = require('../../../lib/rsi')
-  , ta_macd = require('../../../lib/ta_macd')
-  , Phenotypes = require('../../../lib/phenotype')
+var z = require('zero-fill'),
+  n = require('numbro'),
+  rsi = require('../../../lib/rsi'),
+  ema = require('../../../lib/ema'),
+  Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'ta_macd',
   description: 'Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).',
 
-  getOptions: function () {
+  getOptions: function() {
     this.option('period', 'period length, same as --period_length', String, '1h')
     this.option('period_length', 'period length, same as --period', String, '1h')
     this.option('min_periods', 'min. number of history periods', Number, 52)
@@ -17,74 +17,56 @@ module.exports = {
     this.option('signal_period', 'number of periods for the signal EMA', Number, 9)
     this.option('up_trend_threshold', 'threshold to trigger a buy signal', Number, 0)
     this.option('down_trend_threshold', 'threshold to trigger a sold signal', Number, 0)
-    this.option('overbought_rsi_periods', 'number of periods for overbought RSI', Number, 25)
-    this.option('overbought_rsi', 'sold when RSI exceeds this value', Number, 70)
   },
 
-  calculate: function (s) {
-    if (s.options.overbought_rsi) {
-      // sync RSI display with overbought RSI periods
-      s.options.rsi_periods = s.options.overbought_rsi_periods
-      rsi(s, 'overbought_rsi', s.options.overbought_rsi_periods)
-      if (!s.in_preroll && s.period.overbought_rsi >= s.options.overbought_rsi && !s.overbought) {
-        s.overbought = true
-        if (s.options.mode === 'sim' && s.options.verbose) console.log(('\noverbought at ' + s.period.overbought_rsi + ' RSI, preparing to sold\n').cyan)
-      }
-    }
-  },
+  calculate: function(s) {
+    const { ema_long_period, ema_short_period, signal_period, rsi_periods } = s.options
 
-  onPeriod: function (s, cb) {
-    if (!s.in_preroll && typeof s.period.overbought_rsi === 'number') {
-      if (s.overbought) {
-        s.overbought = false
-        s.trend = 'overbought'
-        s.signal = 'sold'
-        return cb()
-      }
-    }
+    rsi(s, 'rsi', rsi_periods)
 
-    ta_macd(s, s.options.ema_long_period, s.options.ema_short_period, s.options.signal_period).then(function(signal) {
-      if(!signal) {
-        cb()
-        return
-      }
+    ema(s, 'ema_short', ema_short_period)
+    ema(s, 'ema_long', ema_long_period)
 
-      s.period['macd'] = signal.macd
-      s.period['macd_histogram'] = signal.macd_histogram
-      s.period['macd_signal'] = signal.macd_signal
+    if (s.period.ema_short && s.period.ema_long) {
+      s.period.macd = s.period.ema_short - s.period.ema_long
+      ema(s, 'signal', signal_period, 'macd')
+      if (s.period.signal) {
+        s.period.macd_histogram = s.period.macd - s.period.signal
 
-      if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number') {
-        if ((s.period.macd_histogram - s.options.up_trend_threshold) > 0 && (s.lookback[0].macd_histogram - s.options.up_trend_threshold) <= 0) {
-          s.signal = 'buy'
-        } else if ((s.period.macd_histogram + s.options.down_trend_threshold) < 0 && (s.lookback[0].macd_histogram + s.options.down_trend_threshold) >= 0) {
-          s.signal = 'sell'
-        } else {
-          s.signal = null  // hold
+        const {
+          lookback: [lookback],
+          period: { macd_histogram },
+          options: { up_trend_threshold, down_trend_threshold },
+        } = s
+
+        if (typeof macd_histogram === 'number' && typeof lookback.macd_histogram === 'number') {
+          if (macd_histogram - up_trend_threshold > 0 && lookback.macd_histogram - up_trend_threshold <= 0) {
+            s.signal = 'buy'
+          } else if (macd_histogram + down_trend_threshold < 0 && lookback.macd_histogram + down_trend_threshold >= 0) {
+            s.signal = 'sell'
+          } else {
+            s.signal = null // hold
+          }
         }
       }
-
-      cb()
-    }).catch(function(error) {
-      console.log(error)
-      cb()
-    })
-
+    }
   },
 
-  onReport: function (s) {
+  onPeriod: function(s, cb) {
+    cb()
+  },
+
+  onReport: function(s) {
     var cols = []
     if (typeof s.period.macd_histogram === 'number') {
       var color = 'grey'
       if (s.period.macd_histogram > 0) {
         color = 'green'
-      }
-      else if (s.period.macd_histogram < 0) {
+      } else if (s.period.macd_histogram < 0) {
         color = 'red'
       }
       cols.push(z(8, n(s.period.macd_histogram).format('+00.0000'), ' ')[color])
-      cols.push(z(8, n(s.period.overbought_rsi).format('00'), ' ').cyan)
-    }
-    else {
+    } else {
       cols.push('         ')
     }
     return cols
@@ -100,7 +82,7 @@ module.exports = {
     sell_stop_pct: Phenotypes.Range0(1, 50),
     buy_stop_pct: Phenotypes.Range0(1, 50),
     profit_stop_enable_pct: Phenotypes.Range0(1, 20),
-    profit_stop_pct: Phenotypes.Range(1,20),
+    profit_stop_pct: Phenotypes.Range(1, 20),
 
     // -- strategy
     // have to be minimum 2 because talib will throw an "TA_BAD_PARAM" error
@@ -109,7 +91,8 @@ module.exports = {
     signal_period: Phenotypes.Range(1, 20),
     up_trend_threshold: Phenotypes.Range(0, 50),
     down_trend_threshold: Phenotypes.Range(0, 50),
-    overbought_rsi_periods: Phenotypes.Range(1, 50),
-    overbought_rsi: Phenotypes.Range(20, 100)
-  }
+    rsi_periods: Phenotypes.Range(1, 50),
+    overbought_rsi: Phenotypes.Range(20, 100),
+    oversold_rsi: Phenotypes.Range(20, 100),
+  },
 }

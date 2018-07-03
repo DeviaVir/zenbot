@@ -1,0 +1,255 @@
+{
+    "options": {
+        "period": "5m",
+        "strategy": "ta_macd",
+        "sell_stop_pct": 0,
+        "buy_stop_pct": 0,
+        "profit_stop_enable_pct": 0,
+        "profit_stop_pct": 1,
+        "max_slippage_pct": 5,
+        "buy_pct": 100,
+        "sell_pct": 100,
+        "order_adjust_time": 500,
+        "max_sell_loss_pct": 25,
+        "order_poll_time": 500,
+        "markdown_buy_pct": 0,
+        "markup_sell_pct": 0,
+        "order_type": "taker",
+        "poll_trades": 300,
+        "currency_capital": 1000,
+        "asset_capital": 0,
+        "rsi_periods": 25,
+        "avg_slippage_pct": 0.045,
+        "max_buy_loss_pct": 99,
+        "keep_lookback_periods": 50000,
+        "min_prev_trades": 0,
+        "currency_increment": null,
+        "use_prev_trades": false,
+        "stats": true,
+        "mode": "live",
+        "selector": {
+            "exchange_id": "gdax",
+            "product_id": "BTC-USD",
+            "asset": "BTC",
+            "currency": "USD",
+            "normalized": "gdax.BTC-USD"
+        },
+        "period_length": "5m",
+        "min_periods": 52,
+        "ema_short_period": 12,
+        "ema_long_period": 26,
+        "signal_period": 9,
+        "up_trend_threshold": 0,
+        "down_trend_threshold": 0,
+        "overbought_rsi_periods": 25,
+        "overbought_rsi": 70
+    },
+    "exchange": {
+        "name": "gdax",
+        "historyScan": "backward",
+        "makerFee": 0,
+        "takerFee": 0.3,
+        "backfillRateLimit": 335
+    },
+    "product_id": "BTC-USD",
+    "asset": "BTC",
+    "currency": "USD",
+    "asset_capital": 0.0000041860065000000005,
+    "product": {
+        "asset": "BTC",
+        "currency": "USD",
+        "min_size": "0.001",
+        "max_size": "70",
+        "increment": "0.01",
+        "label": "BTC/USD"
+    },
+    "balance": {
+        "asset": "0.0000000006500000",
+        "currency": "1288.1592151305950000",
+        "currency_hold": "0.0000000000000000",
+        "asset_hold": "0.0000000000000000",
+        "deposit": 1288.159215130595
+    },
+    "ctx": {},
+    "lookback": [
+        {
+            "period_id": "5m5102239",
+            "size": "5m",
+            "time": 1530671700000,
+            "open": 6452,
+            "high": 6452,
+            "low": 6442.1,
+            "close": 6442.11,
+            "volume": 8.874228370000003,
+            "close_time": 1530671999999,
+            "latest_trade_time": 1530671989053,
+            "overbought_rsi_avg_gain": 2.140148595902717,
+            "overbought_rsi_avg_loss": 3.8784808313309873,
+            "overbought_rsi": 35.56,
+            "id": "c153ae18",
+            "selector": "gdax.BTC-USD",
+            "session_id": "b9ef83c8",
+            "_id": "c153ae18",
+            "macd": -7.32374154639092,
+            "macd_histogram": 2.0933382026203873,
+            "macd_signal": -9.417079749011307,
+            "rsi_avg_gain": 2.140148595902717,
+            "rsi_avg_loss": 3.8784808313309873,
+            "rsi": 35.56
+        }
+    ],
+    "day_count": 1,
+    "my_trades": [],
+    "my_prev_trades": [],
+    "vol_since_last_blink": 0,
+    "boot_time": 1530671884432,
+    "tz_offset": 240,
+    "last_trade_id": 45775894,
+    "trades": [
+        {
+            "_id": "gdax.BTC-USD-45756216",
+            "trade_id": 45756216,
+            "time": 1530640508194,
+            "size": 0.01717321,
+            "price": 6576.52,
+            "side": "buy",
+            "id": "gdax.BTC-USD-45756216",
+            "selector": "gdax.BTC-USD"
+        }
+    ],
+    "strategy": {
+        "name": "ta_macd",
+        "description": "Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).",
+        "phenotypes": {
+            "period_length": {
+                "type": "period_length",
+                "min": 1,
+                "max": 120,
+                "period_length": "m"
+            },
+            "min_periods": {
+                "type": "int",
+                "min": 1,
+                "max": 200
+            },
+            "markdown_buy_pct": {
+                "type": "float",
+                "min": -1,
+                "max": 5
+            },
+            "markup_sell_pct": {
+                "type": "float",
+                "min": -1,
+                "max": 5
+            },
+            "order_type": {
+                "type": "listOption",
+                "options": ["maker", "taker"]
+            },
+            "sell_stop_pct": {
+                "type": "int0",
+                "min": 1,
+                "max": 50
+            },
+            "buy_stop_pct": {
+                "type": "int0",
+                "min": 1,
+                "max": 50
+            },
+            "profit_stop_enable_pct": {
+                "type": "int0",
+                "min": 1,
+                "max": 20
+            },
+            "profit_stop_pct": {
+                "type": "int",
+                "min": 1,
+                "max": 20
+            },
+            "ema_short_period": {
+                "type": "int",
+                "min": 2,
+                "max": 20
+            },
+            "ema_long_period": {
+                "type": "int",
+                "min": 20,
+                "max": 100
+            },
+            "signal_period": {
+                "type": "int",
+                "min": 1,
+                "max": 20
+            },
+            "up_trend_threshold": {
+                "type": "int",
+                "min": 0,
+                "max": 50
+            },
+            "down_trend_threshold": {
+                "type": "int",
+                "min": 0,
+                "max": 50
+            },
+            "overbought_rsi_periods": {
+                "type": "int",
+                "min": 1,
+                "max": 50
+            },
+            "overbought_rsi": {
+                "type": "int",
+                "min": 20,
+                "max": 100
+            }
+        }
+    },
+    "last_day": 3,
+    "period": {
+        "period_id": "5m5102240",
+        "size": "5m",
+        "time": 1530672000000,
+        "open": 6442.1,
+        "high": 6442.1,
+        "low": 6440,
+        "close": 6440,
+        "volume": 0.15711989,
+        "close_time": 1530672299999,
+        "latest_trade_time": 1530672012310,
+        "overbought_rsi_avg_gain": 2.054542652066608,
+        "overbought_rsi_avg_loss": 3.8077415980777345,
+        "overbought_rsi": 35.05,
+        "rsi_avg_gain": 2.054542652066608,
+        "rsi_avg_loss": 3.8077415980777345,
+        "rsi": 35.05
+    },
+    "marketData": {
+        "open": [],
+        "close": [],
+        "high": [],
+        "low": [],
+        "volume": []
+    },
+    "acted_on_stop": false,
+    "action": null,
+    "signal": null,
+    "port": 20007,
+    "url": "192.168.0.7:20007/",
+    "quote": {
+        "bid": "6440",
+        "ask": "6440.01"
+    },
+    "start_price": 6440.01,
+    "start_capital": 1288.1592193166016,
+    "real_capital": 1288.1592193166016,
+    "net_currency": 1288.159215130595,
+    "orig_capital": 1288.1592194139587,
+    "orig_price": 6589.79,
+    "stats": {
+        "profit": "0.00%",
+        "tmp_balance": "1288.15921931",
+        "buy_hold": "1288.15721907",
+        "buy_hold_profit": "-0.01%",
+        "day_count": 1,
+        "trade_per_day": "0.00"
+    }
+}

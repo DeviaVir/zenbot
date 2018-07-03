@@ -98,7 +98,7 @@
     "stats-lite": "2.1.1",
     "style-loader": "^0.21.0",
     "superagent": "^3.8.2",
-    "talib": "^1.0.4",
+    "talib": "^1.0.5",
     "timebucket": "^0.4.0",
     "trend": "0.3.0",
     "tulind": "^0.8.10",
@@ -112,6 +112,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
+    "@types/mongodb": "^3.1.0",
     "eslint": "^4.19.1",
     "geneticalgorithm": "^0.3.4",
     "json2csv": "^4.0.2",
