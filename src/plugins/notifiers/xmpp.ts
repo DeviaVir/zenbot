@@ -1,4 +1,4 @@
-var simplexmpp = require('simple-xmpp')
+import simplexmpp from 'simple-xmpp'
 
 export const xmpp = (config) => {
   var xmpp = {

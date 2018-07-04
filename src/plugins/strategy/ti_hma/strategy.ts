@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  rsi = require('../../../analysis/rsi'),
-  ti_hma = require('../../../analysis/ti_hma'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import rsi from '../../../analysis/rsi'
+import ti_hma from '../../../analysis/ti_hma'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ti_hma',

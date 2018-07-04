@@ -1,6 +1,7 @@
 // Keltner Channels
-var keltnerchannel = require('keltnerchannel').kc
-export const kc = (s, key, length, source_key) => {
+import * as keltnerchannel from 'keltnerchannel'
+
+export default (s, key, length, source_key?) => {
   if (!source_key) source_key = 'close'
   if (s.lookback.length > length) {
     let data = []
@@ -11,7 +12,7 @@ export const kc = (s, key, length, source_key) => {
         close: s.lookback[i].close,
       })
     }
-    let result = keltnerchannel(data, s.options.kc_size, s.options.kc_multiplier)
+    let result = keltnerchannel.kc(data, s.options.kc_size, s.options.kc_multiplier)
     s.period[key] = result
   }
 }

@@ -1,8 +1,8 @@
-let z = require('zero-fill'),
-  n = require('numbro'),
-  srsi = require('../../../analysis/srsi'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import srsi from '../../../analysis/srsi'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'srsi_macd',

@@ -1,5 +1,6 @@
-var events = require('events'),
-  resumeMarkersService = require('./resume-marker-service')
+import events from 'events'
+import resumeMarkersService from './resume-marker-service'
+import Queue from '../util/queue'
 
 /**
   This service makes it easy do the the two step process of getting a bunch of resources,
@@ -21,8 +22,6 @@ export default (conf) => {
   var onProcessFunc
   var afterOnConsumeFunc
   var afterOnProcessFunc
-
-  var Queue = require('../util/queue')
 
   var _emitter = new events.EventEmitter()
 

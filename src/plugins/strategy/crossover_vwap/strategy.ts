@@ -1,9 +1,9 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  vwap = require('../../../analysis/vwap'),
-  ema = require('../../../analysis/ema'),
-  sma = require('../../../analysis/sma'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import vwap from '../../../analysis/vwap'
+import ema from '../../../analysis/ema'
+import sma from '../../../analysis/sma'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'crossover_vwap',

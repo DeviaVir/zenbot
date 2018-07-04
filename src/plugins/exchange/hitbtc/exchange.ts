@@ -1,7 +1,7 @@
-const ccxt = require('ccxt')
-const path = require('path')
+import ccxt from 'ccxt'
+import path from 'path'
 
-export const container = (conf) => {
+export default (conf) => {
   //let recoverableErrors = new RegExp(/(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/)
 
   var public_client, authed_client

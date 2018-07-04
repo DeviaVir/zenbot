@@ -1,15 +1,7 @@
 import { getMaTypeFromString } from '../util/ma-type'
 const talib = require('talib')
 
-module.exports = function ta_macd_ext(
-  s,
-  slow_period,
-  fast_period,
-  signal_period,
-  fast_ma_type,
-  slow_ma_type,
-  signal_ma_type
-) {
+export default (s, slow_period, fast_period, signal_period, fast_ma_type, slow_ma_type, signal_ma_type) => {
   return new Promise(function(resolve, reject) {
     // create object for talib. only close is used for now but rest might come in handy
     if (!s.marketData) {

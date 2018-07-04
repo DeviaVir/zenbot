@@ -1,4 +1,4 @@
-var request = require('request')
+import request from 'request'
 
 export const pushover = (config) => {
   var pushover = {

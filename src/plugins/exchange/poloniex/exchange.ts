@@ -1,10 +1,10 @@
-var Poloniex = require('poloniex.js'),
-  moment = require('moment'),
-  n = require('numbro'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors')
+import Poloniex from 'poloniex.js'
+import moment from 'moment'
+import n from 'numbro'
+// eslint-disable-next-line no-unused-vars
+import colors from 'colors'
 
-export const container = (conf) => {
+export default (conf) => {
   var public_client, authed_client
 
   function publicClient(/*product_id*/) {

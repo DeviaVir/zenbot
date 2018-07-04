@@ -1,7 +1,7 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  tulip_bollinger = require('../../../analysis/ti_bollinger'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import tulip_bollinger from '../../../analysis/ti_bollinger'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ti_bollinger',
@@ -37,7 +37,7 @@ export default {
 
   onPeriod: function(s, cb) {
     tulip_bollinger(s, 'tulip_bollinger', s.options.bollinger_size, s.options.bollinger_time)
-      .then(function(result) {
+      .then(function(result: Record<string, any>) {
         if (!result) cb()
         let bollinger = {
           LowerBand: result.LowerBand[result.LowerBand.length - 1],

@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  rsi = require('../../../analysis/rsi'),
-  ultosc = require('../../../analysis/ta_ultosc'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import rsi from '../../../analysis/rsi'
+import ultosc from '../../../analysis/ta_ultosc'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ta_ultosc',

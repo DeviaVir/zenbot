@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  wto = require('../../../analysis/wto'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import wto from '../../../analysis/wto'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'wavetrend',

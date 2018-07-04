@@ -1,8 +1,9 @@
-let z = require('zero-fill'),
-  n = require('numbro'),
-  ti_stoch = require('../../../analysis/ti_stoch'),
-  ti_bollinger = require('../../../analysis/ti_bollinger'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ti_stoch from '../../../analysis/ti_stoch'
+import ti_bollinger from '../../../analysis/ti_bollinger'
+import * as Phenotypes from '../../../util/phenotype'
+
 export default {
   name: 'ti_stoch_bollinger',
   description: 'Stochastic BollingerBand Strategy',
@@ -48,9 +49,9 @@ export default {
     if (s.in_preroll) return cb()
 
     ti_bollinger(s, 'ti_bollinger', s.options.bollinger_size, s.options.bollinger_time)
-      .then(function(inbol) {
+      .then(function(inbol: Record<string, any>) {
         ti_stoch(s, 'ti_stoch', s.options.stoch_kperiods, s.options.stoch_k, s.options.stoch_d)
-          .then(function(inres) {
+          .then(function(inres: Record<string, any>) {
             if (!inres) return cb()
             if (inres.k.length == 0) return cb()
             var divergent = inres.k[inres.k.length - 1] - inres.d[inres.d.length - 1]

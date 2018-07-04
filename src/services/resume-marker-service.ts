@@ -1,6 +1,6 @@
-var collectionService = require('./collection-service'),
-  objectifySelector = require('../util/objectify-selector'),
-  crypto = require('crypto')
+import collectionService from './collection-service'
+import objectifySelector from '../util/objectify-selector'
+import crypto from 'crypto'
 
 export default (conf) => {
   // ASSUMES c.selector has been set, for example, with whatever command line parameters there may have been.

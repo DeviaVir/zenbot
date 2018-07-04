@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  rsi = require('../../../analysis/rsi'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import rsi from '../../../analysis/rsi'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'dema',

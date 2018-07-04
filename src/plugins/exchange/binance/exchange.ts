@@ -1,10 +1,9 @@
-const ccxt = require('ccxt'),
-  path = require('path'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors'),
-  _ = require('lodash')
+import ccxt from 'ccxt'
+import path from 'path'
+import colors from 'colors'
+import _ from 'lodash'
 
-export const bittrex = (conf) => {
+export default (conf) => {
   var public_client, authed_client
   let firstRun = true
   let allowGetMarketCall = true

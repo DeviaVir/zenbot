@@ -1,9 +1,9 @@
-let convnetjs = require('convnetjs'),
-  z = require('zero-fill'),
-  n = require('numbro'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
-const cluster = require('cluster')
+import convnetjs from 'convnetjs'
+import z from 'zero-fill'
+import n from 'numbro'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
+import cluster from 'cluster'
 
 // the below line starts you at 0 threads
 global.forks = 0
@@ -60,7 +60,7 @@ export default {
         cluster.fork()
         global.forks++
       }
-      cluster.on('exit', (code) => {
+      cluster.on('exit', (code: number) => {
         process.exit(code)
       })
     }

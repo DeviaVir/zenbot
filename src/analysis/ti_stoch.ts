@@ -1,6 +1,6 @@
-var tulind = require('tulind')
+import tulind from 'tulind'
 
-export const stoch = (s, key, k_periods, sk_periods, d_periods, optMarket) => {
+export default (s, key, k_periods, sk_periods, d_periods, optMarket?) => {
   return new Promise(function(resolve, reject) {
     if (s.lookback.length >= Math.max(k_periods, d_periods, sk_periods)) {
       //dont calculate until we have enough data

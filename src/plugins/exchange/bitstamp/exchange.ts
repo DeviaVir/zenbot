@@ -1,9 +1,10 @@
-var Bitstamp = require('bitstamp'),
-  path = require('path'),
-  Pusher = require('pusher-js/node'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors'),
-  n = require('numbro')
+import Bitstamp from 'bitstamp'
+import path from 'path'
+import Pusher from 'pusher-js/node'
+import colors from 'colors'
+import n from 'numbro'
+import util from 'util'
+import EventEmitter from 'events'
 
 var args = process.argv
 
@@ -42,7 +43,7 @@ function joinProduct(product_id) {
   return product_id.split('-')[0] + product_id.split('-')[1]
 }
 
-export const bitstamp = (conf) => {
+export default (conf) => {
   function authedClient() {
     if (conf.bitstamp.key && conf.bitstamp.key !== 'YOUR-API-KEY') {
       return new Bitstamp(conf.bitstamp.key, conf.bitstamp.secret, conf.bitstamp.client_id)
@@ -93,8 +94,6 @@ export const bitstamp = (conf) => {
     })
   }
 
-  var util = require('util')
-  var EventEmitter = require('events').EventEmitter
   util.inherits(Bitstamp_WS, EventEmitter)
 
   Bitstamp_WS.prototype.subscribe = function() {
@@ -246,9 +245,13 @@ export const bitstamp = (conf) => {
 
         // Dirty hack to avoid engine.js bailing out when balance has 0 value
         // The added amount is small enough to not have any significant effect
+        // @ts-ignore
         balance.currency = n(body[opts.currency.toLowerCase() + '_balance']) + 0.000001
+        // @ts-ignore
         balance.asset = n(body[opts.asset.toLowerCase() + '_balance']) + 0.000001
+        // @ts-ignore
         balance.currency_hold = n(body[opts.currency.toLowerCase() + '_reserved']) + 0.000001
+        // @ts-ignore
         balance.asset_hold = n(body[opts.asset.toLowerCase() + '_reserved']) + 0.000001
 
         if (typeof balance.asset == undefined || typeof balance.currency == undefined) {

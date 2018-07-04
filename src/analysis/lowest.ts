@@ -1,4 +1,4 @@
-export const lowest = (s, key, length) => {
+export default (s, key, length) => {
   if (s.lookback.length < length) {
     s.period[key] = 0
   } else {

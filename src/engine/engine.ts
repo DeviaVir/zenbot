@@ -1,19 +1,18 @@
-let tb = require('timebucket'),
-  moment = require('moment'),
-  z = require('zero-fill'),
-  n = require('numbro'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors'),
-  abbreviate = require('number-abbreviate'),
-  readline = require('readline'),
-  path = require('path'),
-  _ = require('lodash'),
-  notify = require('../util/notify'),
-  rsi = require('../analysis/rsi'),
-  async = require('async'),
-  lolex = require('lolex'),
-  { formatAsset, formatPercent, formatCurrency } = require('../util/format'),
-  debug = require('./debug')
+import tb from 'timebucket'
+import moment from 'moment'
+import z from 'zero-fill'
+import n from 'numbro'
+import colors from 'colors'
+import abbreviate from 'number-abbreviate'
+import readline from 'readline'
+import path from 'path'
+import _ from 'lodash'
+import notify from '../util/notify'
+import rsi from '../analysis/rsi'
+import async from 'async'
+import lolex from 'lolex'
+import { formatAsset, formatPercent, formatCurrency } from '../util/format'
+import * as debug from './debug'
 
 let clock
 let nice_errors = new RegExp(/(slippage protection|loss protection)/)
@@ -137,19 +136,25 @@ export default function(s, conf) {
   }
 
   function nextBuyForQuote(s, quote) {
+    // @ts-ignore
     if (s.next_buy_price) return n(s.next_buy_price).format(s.product.increment, Math.floor)
-    else
+    else {
+      // @ts-ignore
       return n(quote.bid)
         .subtract(n(quote.bid).multiply(s.options.markdown_buy_pct / 100))
         .format(s.product.increment, Math.floor)
+    }
   }
 
   function nextSellForQuote(s, quote) {
+    // @ts-ignore
     if (s.next_sell_price) return n(s.next_sell_price).format(s.product.increment, Math.ceil)
-    else
+    else {
+      // @ts-ignore
       return n(quote.ask)
         .add(n(quote.ask).multiply(s.options.markup_sell_pct / 100))
         .format(s.product.increment, Math.ceil)
+    }
   }
 
   function updatePeriod(trade) {
@@ -219,6 +224,8 @@ export default function(s, conf) {
         s.asset_capital = n(s.balance.asset)
           .multiply(quote.ask)
           .value()
+
+        // @ts-ignore
         let deposit = so.deposit ? Math.max(0, n(so.deposit).subtract(s.asset_capital)) : s.balance.currency // zero on negative
         s.balance.deposit = n(deposit < s.balance.currency ? deposit : s.balance.currency).value()
         if (!s.start_capital) {
@@ -292,6 +299,8 @@ export default function(s, conf) {
         err.order = api_order
         return cb(err)
       }
+
+      // @ts-ignore
       debug.msg(type + ' order placed at ' + formatCurrency(order.price, s.currency))
       order.order_id = api_order.id
       if (!order.time) {
@@ -410,6 +419,7 @@ export default function(s, conf) {
         tradeable_balance = n(s.balance.deposit)
           .divide(100 + fee)
           .multiply(buy_pct)
+        // @ts-ignore
         expected_fee = n(trade_balance)
           .subtract(tradeable_balance)
           .format('0.00000000', Math.ceil) // round up as the exchange will too
@@ -439,10 +449,12 @@ export default function(s, conf) {
             'preparing buy order over ' +
               formatAsset(size, s.asset) +
               ' of ' +
+              // @ts-ignore
               formatCurrency(tradeable_balance, s.currency) +
               ' (' +
               buy_pct +
               '%) tradeable balance with a expected fee of ' +
+              // @ts-ignore
               formatCurrency(expected_fee, s.currency) +
               ' (' +
               fee +
@@ -462,6 +474,7 @@ export default function(s, conf) {
             let err = new Error('\nloss protection')
             err.desc =
               'refusing to buy at ' +
+              // @ts-ignore
               formatCurrency(price, s.currency) +
               ', buy loss of ' +
               formatPercent(buy_loss / 100)
@@ -477,6 +490,7 @@ export default function(s, conf) {
                 let err = new Error('\nslippage protection')
                 err.desc =
                   'refusing to buy at ' +
+                  // @ts-ignore
                   formatCurrency(price, s.currency) +
                   ', slippage of ' +
                   formatPercent(slippage / 100)
@@ -500,6 +514,7 @@ export default function(s, conf) {
                       .value()
                   ) +
                   ' of funds (' +
+                  // @ts-ignore
                   formatCurrency(s.balance.currency_hold, s.currency) +
                   ') on hold'
               )
@@ -512,8 +527,10 @@ export default function(s, conf) {
               pushMessage(
                 'Buying ' + formatAsset(size, s.asset) + ' on ' + s.exchange.name.toUpperCase(),
                 'placing buy order at ' +
+                  // @ts-ignore
                   formatCurrency(price, s.currency) +
                   ', ' +
+                  // @ts-ignore
                   formatCurrency(quote.bid - Number(price), s.currency) +
                   ' under best bid\n'
               )
@@ -560,6 +577,7 @@ export default function(s, conf) {
             let err = new Error('\nloss protection')
             err.desc =
               'refusing to sell at ' +
+              // @ts-ignore
               formatCurrency(price, s.currency) +
               ', sell loss of ' +
               formatPercent(sell_loss / 100)
@@ -575,6 +593,7 @@ export default function(s, conf) {
                 let err = new Error('\nslippage protection')
                 err.desc =
                   'refusing to sell at ' +
+                  // @ts-ignore
                   formatCurrency(price, s.currency) +
                   ', slippage of ' +
                   formatPercent(slippage / 100)
@@ -606,8 +625,10 @@ export default function(s, conf) {
               pushMessage(
                 'Selling ' + formatAsset(size, s.asset) + ' on ' + s.exchange.name.toUpperCase(),
                 'placing sell order at ' +
+                  // @ts-ignore
                   formatCurrency(price, s.currency) +
                   ', ' +
+                  // @ts-ignore
                   formatCurrency(Number(price) - quote.bid, s.currency) +
                   ' over best ask\n'
               )
@@ -717,12 +738,15 @@ export default function(s, conf) {
           ':\n\n' +
           formatAsset(my_trade.size, s.asset) +
           ' at ' +
+          // @ts-ignore
           formatCurrency(my_trade.price, s.currency) +
           '\ntotal ' +
+          // @ts-ignore
           formatCurrency(my_trade.size * my_trade.price, s.currency) +
           '\n' +
           n(my_trade.slippage).format('0.0000%') +
           ' slippage (orig. price ' +
+          // @ts-ignore
           formatCurrency(s.buy_order.orig_price, s.currency) +
           ')\nexecution: ' +
           moment.duration(my_trade.execution_time).humanize() +
@@ -790,12 +814,15 @@ export default function(s, conf) {
           ':\n\n' +
           formatAsset(my_trade.size, s.asset) +
           ' at ' +
+          // @ts-ignore
           formatCurrency(my_trade.price, s.currency) +
           '\ntotal ' +
+          // @ts-ignore
           formatCurrency(my_trade.size * my_trade.price, s.currency) +
           '\n' +
           n(my_trade.slippage).format('0.0000%') +
           ' slippage (orig. price ' +
+          // @ts-ignore
           formatCurrency(s.sell_order.orig_price, s.currency) +
           ')\nexecution: ' +
           moment.duration(my_trade.execution_time).humanize() +
@@ -841,7 +868,7 @@ export default function(s, conf) {
         writeReport(true, false)
       }, 800)
     }
-    readline.clearLine(process.stdout)
+    readline.clearLine(process.stdout, 0)
     readline.cursorTo(process.stdout, 0)
     process.stdout.write(
       moment(
@@ -869,7 +896,7 @@ export default function(s, conf) {
       let half = 5
       let bar = ''
       let stars = 0
-      let rsi = n(s.period.rsi).format('00.00')
+      let rsi = n(s.period.rsi).format('00.00') as any
       if (s.period.rsi >= 50) {
         stars = Math.min(Math.round(((s.period.rsi - 50) / 50) * half) + 1, half)
         bar += ' '.repeat(half - (rsi < 100 ? 3 : 4))
@@ -1148,7 +1175,7 @@ export default function(s, conf) {
     }
   }
 
-  function onTrades(trades, is_preroll, cb) {
+  function onTrades(trades, is_preroll, cb?) {
     if (_.isFunction(is_preroll)) {
       cb = is_preroll
       is_preroll = false

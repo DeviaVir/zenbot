@@ -1,5 +1,5 @@
 // ADX + DI
-export const adx = (s, key, length) => {
+export default (s, key, length) => {
   if (s.lookback[0] != undefined) {
     let TrueRange = Math.max(
       Math.max(s.period.high - s.period.low, Math.abs(s.period.high - s.lookback[0].close)),

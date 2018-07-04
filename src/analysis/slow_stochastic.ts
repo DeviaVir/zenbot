@@ -1,4 +1,4 @@
-export const slow_stochastic = (s, key, k, d) => {
+export default (s, key, k, d) => {
   if (!k) k = 14
   if (!d) d = 3
   if (s.lookback.length >= k + d * 2) {

@@ -5,7 +5,7 @@
 
 const talib = require('talib')
 
-export const volume = (s, min_periods, indicator, fastperiod, slowperiod) => {
+export default (s, min_periods, indicator, fastperiod, slowperiod) => {
   return new Promise(function(resolve, reject) {
     // create object for talib. only close is used for now but rest might come in handy
     if (!s.marketData) {

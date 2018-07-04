@@ -1,6 +1,7 @@
 // Bollinger Bands
-var bollingerbands = require('bollinger-bands')
-export const bollinger = (s, key, length, source_key) => {
+import bollingerbands from 'bollinger-bands'
+
+export default (s, key, length, source_key?) => {
   if (!source_key) source_key = 'close'
   if (s.lookback.length > length) {
     let data = []

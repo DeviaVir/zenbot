@@ -1,7 +1,7 @@
-var mathjs = require('mathjs')
-var rsi = require('./rsi')
+import mathjs from 'mathjs'
+import rsi from './rsi'
 
-export const srsi = (s, key, rsi_periods, k_periods, d_periods) => {
+export default (s, key, rsi_periods, k_periods, d_periods) => {
   let samplesRequiredForStochRSI = rsi_periods + k_periods + 1
 
   if (s.lookback.length >= samplesRequiredForStochRSI - 1) {

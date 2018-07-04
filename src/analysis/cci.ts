@@ -1,4 +1,4 @@
-export const cci = (s, key, length, c) => {
+export default (s, key, length, c) => {
   s.period['TP'] = (s.period.high + s.period.low + s.period.close) / 3
   if (s.lookback.length >= length) {
     let avg_TP = s.lookback.slice(0, length).reduce((sum, tp) => {

@@ -1,7 +1,7 @@
-let z = require('zero-fill'),
-  n = require('numbro'),
-  momentum = require('../../../analysis/momentum'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import momentum from '../../../analysis/momentum'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'momentum',

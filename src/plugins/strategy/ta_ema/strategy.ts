@@ -1,9 +1,9 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  ta_ema = require('../../../analysis/ta_ema'),
-  rsi = require('../../../analysis/rsi'),
-  stddev = require('../../../analysis/stddev'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ta_ema from '../../../analysis/ta_ema'
+import rsi from '../../../analysis/rsi'
+import stddev from '../../../analysis/stddev'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ta_ema',

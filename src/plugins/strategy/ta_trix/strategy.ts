@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  rsi = require('../../../analysis/rsi'),
-  ta_trix = require('../../../analysis/ta_trix'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import rsi from '../../../analysis/rsi'
+import ta_trix from '../../../analysis/ta_trix'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ta_trix',

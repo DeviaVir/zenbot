@@ -1,4 +1,4 @@
-var Prowl = require('node-prowl')
+import Prowl from 'node-prowl'
 
 export const prowl = (config) => {
   var prowl = {

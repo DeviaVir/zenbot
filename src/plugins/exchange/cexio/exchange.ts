@@ -1,11 +1,11 @@
-const CEX = require('cexio-api-node')
-const path = require('path')
-const n = require('numbro')
-const minimist = require('minimist')
-const _ = require('lodash')
-const debug = require('../../../lib/debug')
+import CEX from 'cexio-api-node'
+import path from 'path'
+import n from 'numbro'
+import minimist from 'minimist'
+import _ from 'lodash'
+import * as debug from '../../../engine/debug'
 
-export const cexio = (conf) => {
+export default (conf) => {
   let s = {
     options: minimist(process.argv),
   }
@@ -96,7 +96,7 @@ export const cexio = (conf) => {
         ws_client.on('message', function(msg) {
           switch (msg.e) {
             case 'disconnecting':
-              debug.msg('WebSocket disconnecting:', msg.reason)
+              debug.msg('WebSocket disconnecting:' + msg.reason)
               break
             case 'ping':
               ws_client.send({ e: 'pong' }) // Heartbeat

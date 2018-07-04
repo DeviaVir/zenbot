@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  highest = require('../../../analysis/highest'),
-  lowest = require('../../../analysis/lowest'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import highest from '../../../analysis/highest'
+import lowest from '../../../analysis/lowest'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ichimoku',

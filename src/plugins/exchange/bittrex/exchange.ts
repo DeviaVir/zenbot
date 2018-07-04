@@ -1,8 +1,8 @@
-var bittrex_authed = require('node-bittrex-api'),
-  bittrex_public = require('node-bittrex-api'),
-  n = require('numbro')
+import bittrex_authed from 'node-bittrex-api'
+import bittrex_public from 'node-bittrex-api'
+import n from 'numbro'
 
-export const bittrex = (conf) => {
+export default (conf) => {
   let recoverableErrors = new RegExp(
     /(ESOCKETTIMEOUT|ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|Invalid nonce|Rate limit exceeded|URL request error)/
   )

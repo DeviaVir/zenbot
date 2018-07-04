@@ -1,11 +1,11 @@
-var GeminiAPI = require('gemini-api'),
-  path = require('path'),
-  minimist = require('minimist'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors'),
-  n = require('numbro')
+import GeminiAPI from 'gemini-api'
+import path from 'path'
+import minimist from 'minimist'
+// eslint-disable-next-line no-unused-vars
+import colors from 'colors'
+import n from 'numbro'
 
-export const gemini = (conf) => {
+export default (conf) => {
   var s = {
     options: minimist(process.argv),
   }

@@ -1,9 +1,9 @@
-const BFX = require('bitfinex-api-node')
-var minimist = require('minimist'),
-  path = require('path'),
-  n = require('numbro')
+import BFX from 'bitfinex-api-node'
+import minimist from 'minimist'
+import path from 'path'
+import n from 'numbro'
 
-export const bitfinex = (conf) => {
+export default (conf) => {
   var s = { options: minimist(process.argv) }
   var so = s.options
 

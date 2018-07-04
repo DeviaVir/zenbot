@@ -1,9 +1,9 @@
 // Hull Moving Average:
 // https://tulipindicators.org/hma
 
-var ti = require('tulind')
+import ti from 'tulind'
 
-export const hma = (s, min_periods, trend_full) => {
+export default (s, min_periods, trend_full) => {
   return new Promise(function(resolve) {
     if (!s.marketData) {
       s.marketData = { close: [] }

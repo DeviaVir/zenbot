@@ -1,11 +1,11 @@
-var KrakenClient = require('kraken-api'),
-  minimist = require('minimist'),
-  moment = require('moment'),
-  n = require('numbro'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors')
+import KrakenClient from 'kraken-api'
+import minimist from 'minimist'
+import moment from 'moment'
+import n from 'numbro'
+// eslint-disable-next-line no-unused-vars
+import colors from 'colors'
 
-export const container = (conf) => {
+export default (conf) => {
   var s = {
     options: minimist(process.argv),
   }
@@ -123,6 +123,7 @@ export const container = (conf) => {
         var trades = []
         Object.keys(data.result[args.pair]).forEach(function(i) {
           var trade = data.result[args.pair][i]
+          // @ts-ignore
           if (!opts.from || Number(opts.from) < moment.unix(trade[2].valueOf())) {
             trades.push({
               trade_id: trade[2] + trade[1] + trade[0],

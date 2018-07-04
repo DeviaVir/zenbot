@@ -1,5 +1,5 @@
-var collectionService = require('./collection-service'),
-  exchangeService = require('./exchange-service')
+import collectionService from './collection-service'
+import exchangeService from './exchange-service'
 
 export default (conf) => {
   var collectionServiceInstance = collectionService(conf)

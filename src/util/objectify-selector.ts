@@ -1,4 +1,5 @@
-var normalizeSelector = require('./normalize-selector')
+import normalizeSelector from './normalize-selector'
+
 export default (selector) => {
   var rtn
 

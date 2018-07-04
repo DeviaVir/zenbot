@@ -1,9 +1,12 @@
 declare interface String {
   green: string
   gray: string
+  grey: string
   yellow: string
   red: string
   cyan: string
+  black: string
+  inverse: string
   bgGreen: string
   bgRed: string
 }
@@ -20,4 +23,9 @@ declare namespace NodeJS {
     predi: number
     sig0: boolean
   }
+}
+
+declare module '*.json' {
+  const value: any
+  export default value
 }

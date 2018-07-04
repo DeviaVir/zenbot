@@ -1,6 +1,6 @@
 // Variable Moving Average, by Tushar S. Chande
 // VMA automatically adjusts its smoothing constant on the basis of Market Volatility
-export const vma = (s, key, length, source_key) => {
+export default (s, key, length, source_key) => {
   if (!source_key) source_key = 'close'
   let k = 1.0 / length
   if (s.lookback[0] != undefined) {

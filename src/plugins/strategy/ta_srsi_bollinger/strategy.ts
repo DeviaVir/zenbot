@@ -1,8 +1,9 @@
-let z = require('zero-fill'),
-  n = require('numbro'),
-  ta_srsi = require('../../../analysis/ta_stochrsi'),
-  ta_bollinger = require('../../../analysis/ta_bollinger'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ta_srsi from '../../../analysis/ta_stochrsi'
+import ta_bollinger from '../../../analysis/ta_bollinger'
+import * as Phenotypes from '../../../util/phenotype'
+
 export default {
   name: 'srsi_bollinger',
   description: 'Stochastic RSI BollingerBand Strategy',
@@ -54,9 +55,9 @@ export default {
       s.options.bollinger_dndev,
       s.options.bollinger_dType
     )
-      .then(function(inbol) {
+      .then(function(inbol: Record<string, any>) {
         ta_srsi(s, 'srsi', s.options.srsi_periods, s.options.srsi_k, s.options.srsi_d, s.options.srsi_dType)
-          .then(function(inres) {
+          .then(function(inres: Record<string, any>) {
             if (!inres) return cb()
             var divergent = inres.outFastK[inres.outFastK.length - 1] - inres.outFastD[inres.outFastD.length - 1]
             s.period.srsi_D = inres.outFastD[inres.outFastD.length - 1]

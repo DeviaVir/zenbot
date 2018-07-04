@@ -1,4 +1,4 @@
-var pusher = require('pushbullet')
+import pusher from 'pushbullet'
 
 export const pushbullet = (config) => {
   var pushbullet = {

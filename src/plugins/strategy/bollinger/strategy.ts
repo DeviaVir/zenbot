@@ -1,7 +1,7 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  bollinger = require('../../../analysis/bollinger'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import bollinger from '../../../analysis/bollinger'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'bollinger',

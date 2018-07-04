@@ -1,15 +1,10 @@
-const boot = require('../../boot')
-const moment = require('moment')
+import boot from '../../boot'
+import moment from 'moment'
 
 let debug = boot.debug
-export default {
-  flip: function() {
-    module.exports.on = debug = !debug
-  },
-  msg: function(str) {
-    if (debug) {
-      console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - ' + str)
-    }
-  },
-  on: debug,
-}
+
+export const flip = () => (on = debug = !debug)
+
+export const msg = (str) => debug && console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - ' + str)
+
+export let on = debug

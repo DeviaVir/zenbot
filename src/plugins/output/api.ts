@@ -1,9 +1,11 @@
-export const api = () => {
-  let express = require('express')
+import express from 'express'
+import random_port from 'random-port'
+import path from 'path'
+import moment from 'moment'
+import IP from 'ip'
+
+export default () => {
   let app = express()
-  let random_port = require('random-port')
-  let path = require('path')
-  let moment = require('moment')
 
   let run = function(reporter, tradeObject) {
     if (!reporter.port || reporter.port === 0) {
@@ -51,7 +53,7 @@ export const api = () => {
       tradeObject.url = ip + ':' + port + '/'
     } else {
       app.listen(port)
-      tradeObject.url = require('ip').address() + ':' + port + '/'
+      tradeObject.url = IP.address() + ':' + port + '/'
     }
     console.log('Web GUI running on http://' + tradeObject.url)
   }

@@ -1,4 +1,4 @@
-export const momentum = (s, key, source_key, length) => {
+export default (s, key, source_key, length) => {
   if (s.lookback == null || s.lookback.length < length || s.period == null || s.period[source_key] == null) {
     s.period[key] = 0
   } else {

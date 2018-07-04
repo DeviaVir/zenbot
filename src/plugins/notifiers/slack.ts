@@ -1,4 +1,4 @@
-var IncomingWebhook = require('@slack/client').IncomingWebhook
+import { IncomingWebhook } from '@slack/client'
 
 export const slack = (config) => {
   var slack = {

@@ -1,7 +1,7 @@
-const ccxt = require('ccxt'),
-  path = require('path')
+import ccxt from 'ccxt'
+import path from 'path'
 
-export const container = (conf) => {
+export default (conf) => {
   var public_client, authed_client
 
   function publicClient() {

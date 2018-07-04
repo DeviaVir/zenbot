@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  rsi = require('../../../analysis/rsi'),
-  ta_macd_ext = require('../../../analysis/ta_macd_ext'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import rsi from '../../../analysis/rsi'
+import ta_macd_ext from '../../../analysis/ta_macd_ext'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ta_macd_ext',
@@ -84,7 +84,7 @@ export default {
       types['slow_ma_type'],
       types['signal_ma_type']
     )
-      .then(function(signal) {
+      .then(function(signal: Record<string, any>) {
         if (!signal) {
           cb()
           return

@@ -1,4 +1,4 @@
-export const vwap = (s, key, length, max_period, source_key) => {
+export default (s, key, length, max_period, source_key?) => {
   if (!source_key) source_key = 'close'
 
   if (s.lookback.length >= length) {

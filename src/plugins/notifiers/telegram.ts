@@ -1,6 +1,6 @@
 process.env['NTBA_FIX_319'] = '1'
 
-var TelegramBot = require('node-telegram-bot-api')
+import TelegramBot from 'node-telegram-bot-api'
 
 export const telegram = (config) => {
   var telegram = {

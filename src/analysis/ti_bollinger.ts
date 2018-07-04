@@ -1,6 +1,6 @@
-var tulind = require('tulind')
+import tulind from 'tulind'
 
-export const ti_bollinger = (s, key, rsi_periods, StdDev, optMarket) => {
+export default (s, key, rsi_periods, StdDev, optMarket?) => {
   return new Promise(function(resolve, reject) {
     //dont calculate until we have enough data
 

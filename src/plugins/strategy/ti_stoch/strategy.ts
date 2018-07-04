@@ -1,7 +1,7 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  tulip_stoch = require('../../../analysis/ti_stoch'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import tulip_stoch from '../../../analysis/ti_stoch'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ti_stoch',
@@ -26,7 +26,7 @@ export default {
   onPeriod: function(s, cb) {
     if (s.in_preroll) return cb()
     tulip_stoch(s, 'tulip_stoch', s.options.rsi_periods, s.options.stoch_k, s.options.stoch_d)
-      .then(function(result) {
+      .then(function(result: Record<string, any>) {
         if (!result) return cb()
         if (result.k.length == 0) return cb()
         var divergent = result.k[result.k.length - 1] - result.d[result.d.length - 1]

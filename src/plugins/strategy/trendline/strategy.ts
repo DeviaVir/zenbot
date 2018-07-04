@@ -1,10 +1,11 @@
-let math = require('mathjs'),
-  trend = require('trend'),
-  z = require('zero-fill'),
-  n = require('numbro'),
-  stats = require('stats-lite'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
+import math from 'mathjs'
+import trend from 'trend'
+import z from 'zero-fill'
+import n from 'numbro'
+import stats from 'stats-lite'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
+
 var oldgrowth = 1
 
 export default {

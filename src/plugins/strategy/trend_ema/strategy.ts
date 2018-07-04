@@ -1,9 +1,9 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  ema = require('../../../analysis/ema'),
-  rsi = require('../../../analysis/rsi'),
-  stddev = require('../../../analysis/stddev'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ema from '../../../analysis/ema'
+import rsi from '../../../analysis/rsi'
+import stddev from '../../../analysis/stddev'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'trend_ema',

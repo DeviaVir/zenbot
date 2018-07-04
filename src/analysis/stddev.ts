@@ -1,4 +1,4 @@
-export const stddev = (s, key, length, source_key) => {
+export default (s, key, length, source_key) => {
   if (typeof s.period[source_key] === 'number') {
     var sum = s.period[source_key]
     var sum_len = 1

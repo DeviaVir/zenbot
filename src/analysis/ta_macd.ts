@@ -1,6 +1,6 @@
 const talib = require('talib')
 
-export const macd = (s, slow_period, fast_period, signal_period) => {
+export default (s, slow_period, fast_period, signal_period) => {
   return new Promise(function(resolve, reject) {
     // check parameters
     // if (fast_period > slow_period) {

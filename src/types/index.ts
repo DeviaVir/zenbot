@@ -1,42 +1,56 @@
-interface State {
-  options: Options
-  exchange: Exchange
+import { Db } from 'mongodb'
+
+export interface IZenbotConfig {
+  version: string
+  ROOT: string
+  conf: {
+    eventBus: NodeJS.EventEmitter
+    db: {
+      mongo: Db
+    }
+    [key: string]: any
+  }
+}
+
+export interface IZenbotRuntime {
+  options: IOptions
+  exchange: IExchange
   product_id: string
   asset: string
   currency: string
   asset_capital: number
-  product: Product
-  balance: Balance
-  ctx: Ctx
-  lookback: Lookback[]
+  product: IProduct
+  balance: IBalance
+  ctx: ICtx
+  lookback: ILookback[]
   day_count: number
-  my_trades: Trade[]
-  my_prev_trades: Trade[]
+  my_trades: ITrade[]
+  my_prev_trades: ITrade[]
   vol_since_last_blink: number
   boot_time: number
   tz_offset: number
   last_trade_id: number
-  trades: Trade[]
-  strategy: Strategy
+  trades: ITrade[]
+  strategy: IStrategy
   last_day: number
-  period: Period
-  marketData: MarketData
+  period: IPeriod
+  marketData: IMarketData
   acted_on_stop: boolean
   action?: string
   signal?: string
   port: number
   url: string
-  quote: Quote
+  quote: IQuote
   start_price: number
   start_capital: number
   real_capital: number
   net_currency: number
   orig_capital: number
   orig_price: number
-  stats: Stats
+  stats: IStats
 }
 
-interface Stats {
+export interface IStats {
   profit: string
   tmp_balance: string
   buy_hold: string
@@ -45,12 +59,12 @@ interface Stats {
   trade_per_day: string
 }
 
-interface Quote {
+export interface IQuote {
   bid: string
   ask: string
 }
 
-interface MarketData {
+export interface IMarketData {
   open: number[]
   close: number[]
   high: number[]
@@ -58,7 +72,7 @@ interface MarketData {
   volume: number[]
 }
 
-interface Period {
+export interface IPeriod {
   period_id: string
   size: string
   time: number
@@ -77,50 +91,50 @@ interface Period {
   rsi: number
 }
 
-interface Strategy {
+export interface IStrategy {
   name: string
   description: string
-  phenotypes: Phenotypes
+  phenotypes: IPhenotypes
 }
 
-interface Phenotypes {
-  period_length: Periodlength
-  min_periods: Minperiods
-  markdown_buy_pct: Minperiods
-  markup_sell_pct: Minperiods
-  order_type: Ordertype
-  sell_stop_pct: Minperiods
-  buy_stop_pct: Minperiods
-  profit_stop_enable_pct: Minperiods
-  profit_stop_pct: Minperiods
-  ema_short_period: Minperiods
-  ema_long_period: Minperiods
-  signal_period: Minperiods
-  up_trend_threshold: Minperiods
-  down_trend_threshold: Minperiods
-  overbought_rsi_periods: Minperiods
-  overbought_rsi: Minperiods
+export interface IPhenotypes {
+  period_length: IPeriodlength
+  min_periods: IMinperiods
+  markdown_buy_pct: IMinperiods
+  markup_sell_pct: IMinperiods
+  order_type: IOrdertype
+  sell_stop_pct: IMinperiods
+  buy_stop_pct: IMinperiods
+  profit_stop_enable_pct: IMinperiods
+  profit_stop_pct: IMinperiods
+  ema_short_period: IMinperiods
+  ema_long_period: IMinperiods
+  signal_period: IMinperiods
+  up_trend_threshold: IMinperiods
+  down_trend_threshold: IMinperiods
+  overbought_rsi_periods: IMinperiods
+  overbought_rsi: IMinperiods
 }
 
-interface Ordertype {
+export interface IOrdertype {
   type: string
   options: string[]
 }
 
-interface Minperiods {
+export interface IMinperiods {
   type: string
   min: number
   max: number
 }
 
-interface Periodlength {
+export interface IPeriodlength {
   type: string
   min: number
   max: number
   period_length: string
 }
 
-interface Trade {
+export interface ITrade {
   _id: string
   trade_id: number
   time: number
@@ -131,7 +145,7 @@ interface Trade {
   selector: string
 }
 
-interface Lookback {
+export interface ILookback {
   period_id: string
   size: string
   time: number
@@ -157,9 +171,9 @@ interface Lookback {
   rsi: number
 }
 
-interface Ctx {}
+export interface ICtx {}
 
-interface Balance {
+export interface IBalance {
   asset: string
   currency: string
   currency_hold: string
@@ -167,7 +181,7 @@ interface Balance {
   deposit: number
 }
 
-interface Product {
+export interface IProduct {
   asset: string
   currency: string
   min_size: string
@@ -176,7 +190,7 @@ interface Product {
   label: string
 }
 
-interface Exchange {
+export interface IExchange {
   name: string
   historyScan: string
   makerFee: number
@@ -184,7 +198,7 @@ interface Exchange {
   backfillRateLimit: number
 }
 
-interface Options {
+export interface IOptions {
   period: string
   strategy: string
   sell_stop_pct: number
@@ -212,7 +226,7 @@ interface Options {
   use_prev_trades: boolean
   stats: boolean
   mode: string
-  selector: Selector
+  selector: ISelector
   period_length: string
   min_periods: number
   ema_short_period: number
@@ -224,7 +238,7 @@ interface Options {
   overbought_rsi: number
 }
 
-interface Selector {
+export interface ISelector {
   exchange_id: string
   product_id: string
   asset: string

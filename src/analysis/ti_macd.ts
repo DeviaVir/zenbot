@@ -1,6 +1,6 @@
-var tulind = require('tulind')
+import tulind from 'tulind'
 
-export const macd = (s, key, shortPeriod, longPeriod, signalPeriod, optMarket) => {
+export default (s, key, shortPeriod, longPeriod, signalPeriod, optMarket) => {
   return new Promise(function(resolve, reject) {
     if (s.lookback.length >= Math.max(shortPeriod, longPeriod)) {
       let tmpMarket = optMarket

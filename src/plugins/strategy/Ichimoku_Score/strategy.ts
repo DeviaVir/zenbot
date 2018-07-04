@@ -24,11 +24,10 @@ Travis      ETH = 0xdA963A127BeCB08227583d11f912F400D5347060 , BTC = 3KKHdBJpEGx
 
 */
 
-let z = require('zero-fill'),
-  n = require('numbro'),
-  Phenotypes = require('../../../util/phenotype'),
-  crossover = require('../../../util/helpers').crossover,
-  crossunder = require('../../../util/helpers').crossunder
+import z from 'zero-fill'
+import n from 'numbro'
+import * as Phenotypes from '../../../util/phenotype'
+import { crossover, crossunder } from '../../../util/helpers'
 
 export default {
   name: 'ichimoku_score',

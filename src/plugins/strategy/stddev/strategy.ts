@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-  stats = require('stats-lite'),
-  math = require('mathjs'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import stats from 'stats-lite'
+import math from 'mathjs'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'stddev',

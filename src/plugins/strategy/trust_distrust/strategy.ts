@@ -1,6 +1,6 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'trust_distrust',

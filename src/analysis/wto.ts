@@ -1,4 +1,4 @@
-export const wto = (s, key, length, source_key) => {
+export default (s, key, length, source_key?) => {
   if (!source_key) source_key = 'close'
 
   let ema = function(x, y, p) {

@@ -1,8 +1,9 @@
-let z = require('zero-fill'),
-  n = require('numbro'),
-  ta_stoch = require('../../../analysis/ta_stoch'),
-  ta_bollinger = require('../../../analysis/ta_bollinger'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ta_stoch from '../../../analysis/ta_stoch'
+import ta_bollinger from '../../../analysis/ta_bollinger'
+import * as Phenotypes from '../../../util/phenotype'
+
 export default {
   name: 'ta_stoch_bollinger',
   description: 'Stochastic BollingerBand Strategy',
@@ -63,7 +64,7 @@ export default {
       s.options.bollinger_dndev,
       s.options.bollinger_dType
     )
-      .then(function(inbol) {
+      .then(function(inbol: Record<string, any>) {
         ta_stoch(
           s,
           'stoch',
@@ -73,7 +74,7 @@ export default {
           s.options.stoch_d,
           s.options.stoch_d_ma_type
         )
-          .then(function(inres) {
+          .then(function(inres: Record<string, any>) {
             if (!inres) return cb()
             var divergent = inres.k[inres.k.length - 1] - inres.d[inres.k.length - 1]
             s.period.stoch_D = inres.d[inres.d.length - 1]

@@ -1,4 +1,4 @@
-export const notifier = (conf) => {
+export default (conf) => {
   var active_notifiers = []
   for (var notifier in conf.notifiers) {
     if (conf.notifiers[notifier].on) {

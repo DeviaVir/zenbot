@@ -4,9 +4,9 @@
 // In particular this is the case for
 // the buy, sell, cancelOrderand getOrderfunctions
 //
-var WEXNZ = require('wexnz')
+import WEXNZ from 'wexnz'
 
-export const container = (conf) => {
+export default (conf) => {
   var public_client, authed_client
 
   function publicClient() {

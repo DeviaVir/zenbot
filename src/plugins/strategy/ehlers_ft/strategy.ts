@@ -34,10 +34,10 @@ https://discordapp.com/channels/316120967200112642/383023593942155274
 
 */
 
-const z = require('zero-fill'),
-  n = require('numbro'),
-  tv = require('../../../util/helpers'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import * as tv from '../../../util/helpers'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'ehlers_fisher_transform',

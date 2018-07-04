@@ -2,7 +2,7 @@
 
 const talib = require('talib')
 
-export const ppo = (s, min_periods, timeperiod) => {
+export default (s, min_periods, timeperiod) => {
   return new Promise(function(resolve, reject) {
     // create object for talib. only close is used for now but rest might come in handy
     if (!s.marketData) {

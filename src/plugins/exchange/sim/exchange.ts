@@ -1,8 +1,8 @@
-let path = require('path'),
-  n = require('numbro'),
-  _ = require('lodash')
+import path from 'path'
+import n from 'numbro'
+import _ from 'lodash'
 
-export const sim = (conf, s) => {
+export default (conf, s) => {
   let latency = 100 // In milliseconds, enough to be realistic without being disruptive
   let so = s.options
   let exchange_id = so.selector.exchange_id

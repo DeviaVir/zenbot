@@ -1,6 +1,6 @@
 const talib = require('talib')
 
-export const ultosc = (s, min_periods, timeperiod1, timeperiod2, timeperiod3) => {
+export default (s, min_periods, timeperiod1, timeperiod2, timeperiod3) => {
   return new Promise(function(resolve, reject) {
     // create object for talib. only close is used for now but rest might come in handy
     if (!s.marketData) {

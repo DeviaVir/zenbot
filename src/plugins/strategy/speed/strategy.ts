@@ -1,7 +1,7 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  ema = require('../../../analysis/ema'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ema from '../../../analysis/ema'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'speed',

@@ -1,5 +1,5 @@
 // Trend Continuation Factor, by M.H. Pee
-export const tcf = (s, key, length, source_key) => {
+export default (s, key, length, source_key) => {
   if (!source_key) source_key = 'close'
   if (s.lookback[0] != undefined) {
     let xChange = s.period[source_key] - s.lookback[0][source_key]

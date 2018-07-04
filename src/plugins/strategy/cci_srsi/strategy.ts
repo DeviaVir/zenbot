@@ -1,9 +1,9 @@
-let z = require('zero-fill'),
-  n = require('numbro'),
-  ema = require('../../../analysis/ema'),
-  srsi = require('../../../analysis/srsi'),
-  cci = require('../../../analysis/cci'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import ema from '../../../analysis/ema'
+import srsi from '../../../analysis/srsi'
+import cci from '../../../analysis/cci'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'cci_srsi',

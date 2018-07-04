@@ -1,6 +1,6 @@
-var fs = require('fs'),
-  path = require('path'),
-  analytics = require('forex.analytics')
+import fs from 'fs'
+import path from 'path'
+import analytics from 'forex.analytics'
 
 var model
 export default {

@@ -1,5 +1,5 @@
 // Chaikin Money Flow
-export const cmf = (s, key, length) => {
+export default (s, key, length) => {
   if (s.lookback.length >= length) {
     let MFV = 0,
       SOV = 0

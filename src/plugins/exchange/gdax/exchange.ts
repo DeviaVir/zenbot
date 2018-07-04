@@ -1,7 +1,7 @@
-var Gdax = require('gdax'),
-  minimist = require('minimist')
+import Gdax from 'gdax'
+import minimist from 'minimist'
 
-export const gdax = (conf) => {
+export default (conf) => {
   var so = minimist(process.argv)
   var public_client = {},
     authed_client,

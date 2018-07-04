@@ -1,12 +1,12 @@
-var QuadrigaCX = require('quadrigacx'),
-  path = require('path'),
-  minimist = require('minimist'),
-  moment = require('moment'),
-  // eslint-disable-next-line no-unused-vars
-  colors = require('colors'),
-  n = require('numbro')
+import QuadrigaCX from 'quadrigacx'
+import path from 'path'
+import minimist from 'minimist'
+import moment from 'moment'
+// eslint-disable-next-line no-unused-vars
+import colors from 'colors'
+import n from 'numbro'
 
-export const container = (conf) => {
+export default (conf) => {
   var s = {
     options: minimist(process.argv),
   }

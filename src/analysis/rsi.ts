@@ -2,7 +2,7 @@ var precisionRound = function(number, precision) {
   var factor = Math.pow(10, precision)
   return Math.round(number * factor) / factor
 }
-export const rsi = (s, key, length) => {
+export default (s, key, length) => {
   if (s.lookback.length >= length) {
     var avg_gain = s.lookback[0][key + '_avg_gain']
     var avg_loss = s.lookback[0][key + '_avg_loss']

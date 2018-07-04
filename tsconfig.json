@@ -1,22 +1,16 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "outDir": "build/dist",
-        "module": "commonjs",
         "target": "esnext",
-        "sourceMap": true,
-        "allowJs": true,
-        "jsx": "react",
+        "module": "commonjs",
         "moduleResolution": "node",
-        "rootDir": ".",
-        "forceConsistentCasingInFileNames": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "noUnusedLocals": true,
-        "strictNullChecks": false,
-        "types": ["node"],
-        "baseUrl": "."
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@types": ["./src/types/index.ts"]
+        }
     }
 }

@@ -22,14 +22,11 @@ Travis      ETH = 0xdA963A127BeCB08227583d11f912F400D5347060 , BTC = 3KKHdBJpEGx
 
 */
 
-let z = require('zero-fill'),
-  n = require('numbro'),
-  Phenotypes = require('../../../util/phenotype'),
-  crossover = require('../../../util/helpers').crossover,
-  crossunder = require('../../../util/helpers').crossunder,
-  nz = require('../../../util/helpers').nz,
-  iff = require('../../../util/helpers').iff,
-  tv = require('../../../util/helpers')
+import z from 'zero-fill'
+import n from 'numbro'
+import * as Phenotypes from '../../../util/phenotype'
+import { crossover, crossunder, nz, iff } from '../../../util/helpers'
+import * as tv from '../../../util/helpers'
 
 export default {
   name: 'Ehlers MAMA',

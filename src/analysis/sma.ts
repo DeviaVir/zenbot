@@ -1,4 +1,4 @@
-export const sma = (s, key, length, source_key) => {
+export default (s, key, length, source_key?) => {
   if (!source_key) source_key = 'close'
   if (s.lookback.length >= length) {
     let SMA = s.lookback.slice(0, length).reduce((sum, cur) => {

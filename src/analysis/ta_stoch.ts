@@ -1,7 +1,7 @@
 import { getMaTypeFromString } from '../util/ma-type'
 const talib = require('talib')
 
-export const stoch = (s, key, k_periods, sk_periods, k_ma_type, d_periods, d_ma_type, optMarket) => {
+export default (s, key, k_periods, sk_periods, k_ma_type, d_periods, d_ma_type, optMarket?) => {
   return new Promise(function(resolve, reject) {
     let tmpMarket = optMarket
     if (!tmpMarket) {

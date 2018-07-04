@@ -1,6 +1,7 @@
 // Linear Regression Curve
-var regression = require('regression')
-export const lrc = (s, key, length, source_key) => {
+import regression from 'regression'
+
+export default (s, key, length, source_key) => {
   if (!source_key) source_key = 'close'
   if (s.lookback.length > length) {
     let data = []

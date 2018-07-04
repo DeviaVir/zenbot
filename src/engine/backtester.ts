@@ -1,18 +1,18 @@
-let _ = require('lodash'),
-  moment = require('moment'),
-  argv = require('yargs').argv,
-  tb = require('timebucket'),
-  readline = require('readline'),
-  z = require('zero-fill'),
-  n = require('numbro'),
-  shell = require('shelljs'),
-  StripAnsi = require('strip-ansi'),
-  path = require('path'),
-  fs = require('fs'),
-  roundp = require('round-precision'),
-  Phenotypes = require('../util/phenotype')
+import _ from 'lodash'
+import moment from 'moment'
+import { argv } from 'yargs'
+import tb from 'timebucket'
+import readline from 'readline'
+import z from 'zero-fill'
+import n from 'numbro'
+import shell from 'shelljs'
+import StripAnsi from 'strip-ansi'
+import path from 'path'
+import fs from 'fs'
+import roundp from 'round-precision'
+import * as Phenotypes from '../util/phenotype'
 
-const spawn = require('child_process').spawn
+import { spawn } from 'child_process'
 
 let simArgs, simTotalCount, parallelLimit, writeFile
 
@@ -305,7 +305,7 @@ let monitor: Record<string, any> = {
     // var self = this
     // console.log(`simsAll: ${simsAll}, this.phenotypes: ${this.phenotypes.length}`);
 
-    readline.clearLine(process.stdout)
+    readline.clearLine(process.stdout, 0)
     readline.cursorTo(process.stdout, 0)
 
     var inProgress = []
@@ -392,7 +392,7 @@ let monitor: Record<string, any> = {
     if (inProgressStr.length > 0) {
       // process.stdout.write("\u001b[1000D") // Move left
       process.stdout.write('\u001b[1A')
-      readline.clearLine(process.stdout)
+      readline.clearLine(process.stdout, 0)
       readline.cursorTo(process.stdout, 0)
 
       process.stdout.write(inProgressStr.join(', '))
@@ -590,7 +590,7 @@ export default {
 
       cb(null, result)
     })
-    proc.stdout.on('data', (data) => {
+    proc.stdout.on('data', (data: string) => {
       if (data.length > 500) {
         endData = data
         // console.log(`${command.iteration}: ${data}`)

@@ -1,4 +1,4 @@
-export const sar = (s, key, initAccel, deltaAccel, accelMax) => {
+export default (s, key, initAccel, deltaAccel, accelMax) => {
   if (s.lookback.length < 2) {
     return
   }

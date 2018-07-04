@@ -1,6 +1,6 @@
 const talib = require('talib')
 
-export const ta_ema = (s, length) => {
+export default (s, length) => {
   return new Promise(function(resolve, reject) {
     // create object for talib. only close is used for now but rest might come in handy
     if (!s.marketData) {

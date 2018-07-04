@@ -1,7 +1,7 @@
-var z = require('zero-fill'),
-  n = require('numbro'),
-  kc = require('../../../analysis/kc'),
-  Phenotypes = require('../../../util/phenotype')
+import z from 'zero-fill'
+import n from 'numbro'
+import kc from '../../../analysis/kc'
+import * as Phenotypes from '../../../util/phenotype'
 
 export default {
   name: 'kc',
