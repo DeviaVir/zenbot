@@ -5,7 +5,7 @@
 // ...
 // s.period.hl2 = tv.hl2(s.period)
 
-module.exports = {
+export default {
   crossover: function(s, key1, key2) {
     return s.period[key1] > s.period[key2] && s.lookback[0][key1] <= s.lookback[0][key2]
   },

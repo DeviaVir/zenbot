@@ -2,7 +2,7 @@ var z = require('zero-fill'),
   n = require('numbro'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'trust_distrust',
   description:
     'Sell when price higher than $sell_min% and highest point - $sell_threshold% is reached. Buy when lowest price point + $buy_threshold% reached.',

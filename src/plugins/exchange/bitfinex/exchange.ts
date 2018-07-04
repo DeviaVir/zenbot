@@ -3,7 +3,7 @@ var minimist = require('minimist'),
   path = require('path'),
   n = require('numbro')
 
-module.exports = function bitfinex(conf) {
+export const bitfinex = (conf) => {
   var s = { options: minimist(process.argv) }
   var so = s.options
 
@@ -17,7 +17,7 @@ module.exports = function bitfinex(conf) {
   var ws_trades = []
   var ws_balance = []
   var ws_orders = []
-  var ws_ticker = []
+  var ws_ticker: Record<string, any> = {}
   var ws_hb = []
   var ws_walletCalcDone
   var heartbeat_interval
@@ -465,7 +465,7 @@ module.exports = function bitfinex(conf) {
       // Backfilling using the REST API
       if (opts.to || opts.to === null) {
         var client = publicClient()
-        var args = {}
+        var args: Record<string, any> = {}
         args.sort = -1 //backward
         args.limit = 1000
         if (opts.from) {
@@ -543,7 +543,7 @@ module.exports = function bitfinex(conf) {
       ) {
         return waitForCalc('getBalance', opts, cb)
       } else {
-        let balance = {}
+        let balance: Record<string, any> = {}
 
         balance.currency =
           ws_balance[opts.currency] && ws_balance[opts.currency].balance
@@ -618,7 +618,7 @@ module.exports = function bitfinex(conf) {
         wsClient()
       }
 
-      var cid = Math.round(new Date().getTime().toString() * Math.random())
+      var cid = Math.round(new Date().getTime() * Math.random())
       var amount = action === 'buy' ? opts.size : opts.size * -1
       var price = opts.price
 
@@ -638,7 +638,7 @@ module.exports = function bitfinex(conf) {
       var type = opts.type
       var is_postonly = opts.post_only
 
-      var order = {
+      var order: Record<string, any> = {
         id: cid,
         bitfinex_id: null,
         status: 'open',

@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ema = require('../../../analysis/ema'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'dema',
   description: 'Buy when (short ema > long ema) and sell when (short ema < long ema).',
 

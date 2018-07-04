@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ema = require('../../../analysis/ema'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'wavetrend',
   description: 'Buy when (Signal < Oversold) and sell when (Signal > Overbought).',
 

@@ -1,9 +1,9 @@
-var Bitstamp = require('bitstamp')
-  , path = require('path')
-  , Pusher = require('pusher-js/node')
+var Bitstamp = require('bitstamp'),
+  path = require('path'),
+  Pusher = require('pusher-js/node'),
   // eslint-disable-next-line no-unused-vars
-  , colors = require('colors')
-  , n = require('numbro')
+  colors = require('colors'),
+  n = require('numbro')
 
 var args = process.argv
 
@@ -11,8 +11,8 @@ var wsOpts = {
   encrypted: true,
   pairOk: false,
   currencyPair: 'btcusd',
-  trades: {evType: 'trade', channel: 'live_trades'},
-  quotes: {evType: 'data', channel: 'order_book'}
+  trades: { evType: 'trade', channel: 'live_trades' },
+  quotes: { evType: 'data', channel: 'order_book' },
 }
 
 // The use of bitstamp-ws  requires that
@@ -38,14 +38,12 @@ args.forEach(function(value) {
   }
 })
 
-function joinProduct (product_id) {
+function joinProduct(product_id) {
   return product_id.split('-')[0] + product_id.split('-')[1]
 }
 
-
-module.exports = function bitstamp (conf) {
-
-  function authedClient () {
+export const bitstamp = (conf) => {
+  function authedClient() {
     if (conf.bitstamp.key && conf.bitstamp.key !== 'YOUR-API-KEY') {
       return new Bitstamp(conf.bitstamp.key, conf.bitstamp.secret, conf.bitstamp.client_id)
     }
@@ -67,7 +65,7 @@ module.exports = function bitstamp (conf) {
     }
 
     this.client = new Pusher(BITSTAMP_PUSHER_KEY, {
-      encrypted: this.opts.encrypted
+      encrypted: this.opts.encrypted,
       //encrypted: true
     })
 
@@ -75,7 +73,7 @@ module.exports = function bitstamp (conf) {
     // make sure we only subscribe to each channel once
     this.bound = {
       trade: false,
-      data: false
+      data: false,
     }
 
     this.subscribe()
@@ -85,7 +83,7 @@ module.exports = function bitstamp (conf) {
     this._post(market, direction, callback, {
       amount: amount,
       price: price,
-      daily_order: true
+      daily_order: true,
     })
   }
 
@@ -99,7 +97,6 @@ module.exports = function bitstamp (conf) {
   var EventEmitter = require('events').EventEmitter
   util.inherits(Bitstamp_WS, EventEmitter)
 
-
   Bitstamp_WS.prototype.subscribe = function() {
     if (wsOpts.pairOk) {
       this.client.subscribe(wsOpts.trades.channel)
@@ -110,59 +107,57 @@ module.exports = function bitstamp (conf) {
   }
 
   Bitstamp_WS.prototype.broadcast = function(name) {
-    if(this.bound[name])
-      return function noop() {}
+    if (this.bound[name]) return function noop() {}
     this.bound[name] = true
     return function(e) {
       this.emit(name, e)
     }.bind(this)
   }
   // Placeholders
-  var wsquotes = {bid: 0, ask: 0}
-  var wstrades =
-  [
+  var wsquotes = { bid: 0, ask: 0 }
+  var wstrades: Record<string, any>[] = [
     {
       trade_id: 0,
-      time:1000,
+      time: 1000,
       size: 0,
       price: 0,
-      side: ''
-    }
+      side: '',
+    },
   ]
 
   var wsTrades = new Bitstamp_WS({
     channel: wsOpts.trades.channel,
-    evType: 'trade'
+    evType: 'trade',
   })
 
   var wsQuotes = new Bitstamp_WS({
     channel: wsOpts.quotes.channel,
-    evType: 'data'
+    evType: 'data',
   })
 
   wsQuotes.on('data', function(data) {
     wsquotes = {
       bid: data.bids[0][0],
-      ask: data.asks[0][0]
+      ask: data.asks[0][0],
     }
   })
 
   wsTrades.on('trade', function(data) {
-    wstrades.push( {
+    wstrades.push({
       trade_id: data.id,
       time: Number(data.timestamp) * 1000,
       size: data.amount,
       price: data.price,
-      side: data.type === 0 ? 'buy' : 'sell'
+      side: data.type === 0 ? 'buy' : 'sell',
     })
-    if (wstrades.length > 30) wstrades.splice(0,10)
+    if (wstrades.length > 30) wstrades.splice(0, 10)
   })
   //-----------------------------------------------------
 
-  function statusErr (err, body) {
+  function statusErr(err, body) {
     if (typeof body === 'undefined') {
-      var ret = {}
-      var res = err.toString().split(':',2)
+      var ret: Record<string, any> = {}
+      var res = err.toString().split(':', 2)
       ret.status = res[1]
       return new Error(ret.status)
     } else {
@@ -174,17 +169,17 @@ module.exports = function bitstamp (conf) {
     }
   }
 
-  function retry (method, args) {
+  function retry(method, args) {
     var to = args.wait
     if (method !== 'getTrades') {
       console.error(('\nBitstamp API is not answering! unable to call ' + method + ', retrying in ' + to + 's').red)
     }
-    setTimeout(function () {
+    setTimeout(function() {
       exchange[method].apply(exchange, args)
     }, to * 1000)
   }
 
-  var lastBalance = {asset: 0, currency: 0}
+  var lastBalance: Record<string, any> = { asset: 0, currency: 0 }
   var orders = {}
 
   var exchange = {
@@ -193,7 +188,7 @@ module.exports = function bitstamp (conf) {
     makerFee: 0.25,
     takerFee: 0.25,
 
-    getProducts: function () {
+    getProducts: function() {
       return require('./products.json')
     },
 
@@ -204,25 +199,25 @@ module.exports = function bitstamp (conf) {
     // but rather pulled from the "wstrades" and "wsquotes" JSOM objects
     // Those objects are populated by the websockets event handlers
 
-    getTrades: function (opts, cb) {
+    getTrades: function(opts, cb) {
       var args = {
-        wait: 2,   // Seconds
-        product_id: wsOpts.currencyPair
+        wait: 2, // Seconds
+        product_id: wsOpts.currencyPair,
       }
-      if (typeof wstrades.time == undefined) return retry('getTrades', args)
+      if (!wstrades.length) return retry('getTrades', args)
       var t = wstrades
-      var trades = t.map(function (trade) {
-        return (trade)
+      var trades = t.map(function(trade) {
+        return trade
       })
       cb(null, trades)
     },
 
-    getQuote: function (opts, cb) {
+    getQuote: function(opts, cb) {
       var args = {
-        wait: 2,   // Seconds
-        currencyPair: wsOpts.currencyPair
+        wait: 2, // Seconds
+        currencyPair: wsOpts.currencyPair,
       }
-      if (typeof wsquotes.bid == undefined) return retry('getQuote', args )
+      if (typeof wsquotes.bid == undefined) return retry('getQuote', args)
       cb(null, wsquotes)
     },
 
@@ -230,23 +225,23 @@ module.exports = function bitstamp (conf) {
     // Private (authenticated) functions
     //
 
-    getBalance: function (opts, cb) {
+    getBalance: function(opts, cb) {
       var args = {
         currency: opts.currency.toLowerCase(),
         asset: opts.asset.toLowerCase(),
-        wait: 10
+        wait: 10,
       }
       var client = authedClient()
-      client.balance(null, function (err, body) {
-        body = statusErr(err,body)
+      client.balance(null, function(err, body) {
+        body = statusErr(err, body)
         if (body.status === 'error') {
           return retry('getBalance', args)
         }
-        var balance = {
+        var balance: Record<string, any> = {
           asset: '0',
           asset_hold: '0',
           currency: '0',
-          currency_hold: '0'
+          currency_hold: '0',
         }
 
         // Dirty hack to avoid engine.js bailing out when balance has 0 value
@@ -266,30 +261,29 @@ module.exports = function bitstamp (conf) {
       })
     },
 
-    cancelOrder: function (opts, cb) {
+    cancelOrder: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.cancel_order(opts.order_id, function (err, body) {
-
-        body = statusErr(err,body)
+      client.cancel_order(opts.order_id, function(err, body) {
+        body = statusErr(err, body)
         if (body.status === 'error') {
-          return retry('cancelOrder', func_args, err)
+          return retry('cancelOrder', func_args)
         }
         cb()
       })
     },
 
-    trade: function (type,opts, cb) {
+    trade: function(type, opts, cb) {
       var client = authedClient()
       var currencyPair = joinProduct(opts.product_id).toLowerCase()
-      if (typeof opts.order_type === 'undefined' ) {
+      if (typeof opts.order_type === 'undefined') {
         opts.order_type = 'maker'
       }
       // Bitstamp has no "post only" trade type
       opts.post_only = false
       if (opts.order_type === 'maker') {
-        client.tradeDaily(type, currencyPair, opts.size, opts.price, function (err, body) {
-          body = statusErr(err,body)
+        client.tradeDaily(type, currencyPair, opts.size, opts.price, function(err, body) {
+          body = statusErr(err, body)
           if (body.status === 'error') {
             var order = { status: 'rejected', reject_reason: 'balance' }
             return cb(null, order)
@@ -298,14 +292,15 @@ module.exports = function bitstamp (conf) {
             // 'In Queue', 'Open', 'Finished'
             body.status = 'done'
           }
-          if(body.datetime) body.done_at = body.created_at = body.datetime
+          if (body.datetime) body.done_at = body.created_at = body.datetime
 
           orders['~' + body.id] = body
           cb(null, body)
         })
-      } else { // order_type === taker
-        client.tradeMarket(type, currencyPair, opts.size, function (err, body) {
-          body = statusErr(err,body)
+      } else {
+        // order_type === taker
+        client.tradeMarket(type, currencyPair, opts.size, function(err, body) {
+          body = statusErr(err, body)
           if (body.status === 'error') {
             var order = { status: 'rejected', reject_reason: 'balance' }
             return cb(null, order)
@@ -318,28 +313,26 @@ module.exports = function bitstamp (conf) {
       }
     },
 
-    buy: function (opts, cb) {
+    buy: function(opts, cb) {
       exchange.trade('buy', opts, cb)
     },
 
-    sell: function (opts, cb) {
+    sell: function(opts, cb) {
       exchange.trade('sell', opts, cb)
     },
 
-    getOrder: function (opts, cb) {
+    getOrder: function(opts, cb) {
       var client = authedClient()
-      client.order_status(opts.order_id, function (err, body) {
-
-        body = statusErr(err,body)
+      client.order_status(opts.order_id, function(err, body) {
+        body = statusErr(err, body)
         if (body.status === 'error') {
           body = orders['~' + opts.order_id]
           body.status = 'done'
           body.done_reason = 'canceled'
-        } else if(body.status === 'Finished')
-          body.status = 'done'
+        } else if (body.status === 'Finished') body.status = 'done'
 
-        if(body.status === 'done'){
-          if(body.transactions && body.transactions[0].datetime) body.done_at = body.transactions[0].datetime
+        if (body.status === 'done') {
+          if (body.transactions && body.transactions[0].datetime) body.done_at = body.transactions[0].datetime
         }
 
         cb(null, body)
@@ -347,9 +340,9 @@ module.exports = function bitstamp (conf) {
     },
 
     // return the property used for range querying.
-    getCursor: function (trade) {
+    getCursor: function(trade) {
       return trade.trade_id
-    }
+    },
   }
   return exchange
 }

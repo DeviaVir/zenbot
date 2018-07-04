@@ -1,6 +1,6 @@
 var Prowl = require('node-prowl')
 
-module.exports = function prowl (config) {
+export const prowl = (config) => {
   var prowl = {
     pushMessage: function(title, message) {
       var p = new Prowl(config.key)
@@ -10,7 +10,7 @@ module.exports = function prowl (config) {
           return
         }
       })
-    }
+    },
   }
   return prowl
 }

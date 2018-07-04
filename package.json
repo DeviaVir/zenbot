@@ -18,7 +18,7 @@
     "precommit": "lint-staged",
     "test": "jasmine test/**/**.test.js",
     "test-one": "jasmine $PATH_TO_TEST",
-    "postinstall": "node post_install.js"
+    "_postinstall": "node post_install.js"
   },
   "lint-staged": {
     "*.js": [
@@ -112,6 +112,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
+    "@types/moment": "^2.13.0",
     "@types/mongodb": "^3.1.0",
     "eslint": "^4.19.1",
     "geneticalgorithm": "^0.3.4",

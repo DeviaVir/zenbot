@@ -166,7 +166,7 @@ export default function(s, conf) {
     }
   }
 
-  function executeStop(do_sell_stop) {
+  function executeStop(do_sell_stop?) {
     let stop_signal
     if (s.my_trades.length || s.my_prev_trades.length) {
       var last_trade
@@ -326,7 +326,7 @@ export default function(s, conf) {
   // 7. record order ID and start poll timer
   // 8. if not filled after timer, repeat process
   // 9. if filled, record order stats
-  function executeSignal(signal, _cb, size, is_reorder, is_taker) {
+  function executeSignal(signal, _cb?, size?, is_reorder?, is_taker?) {
     let price, expected_fee, buy_pct, sell_pct, trades
     delete s[(signal === 'buy' ? 'sell' : 'buy') + '_order']
     s.last_signal = signal
@@ -337,7 +337,7 @@ export default function(s, conf) {
       return
     }
     s.acted_on_trend = true
-    let cb = function(err, order) {
+    let cb = function(err, order?) {
       if (!order) {
         if (signal === 'buy') delete s.buy_order
         else delete s.sell_order
@@ -822,7 +822,7 @@ export default function(s, conf) {
     return new Date().getTime()
   }
 
-  function writeReport(is_progress, blink_off) {
+  function writeReport(is_progress?, blink_off?) {
     if ((so.mode === 'sim' || so.mode === 'train') && !so.verbose) {
       if (so.silent) return
       is_progress = true

@@ -4,7 +4,7 @@ let z = require('zero-fill'),
   ema = require('../../../analysis/ema'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'srsi_macd',
   description: 'Stochastic MACD Strategy',
 

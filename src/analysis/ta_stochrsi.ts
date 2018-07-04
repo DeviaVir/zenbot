@@ -1,5 +1,5 @@
 import { getMaTypeFromString } from '../util/ma-type'
-import talib from 'talib'
+const talib = require('talib')
 
 export const srsi = (s, key, rsi_periods, k_periods, d_periods, d_ma_type, optMarket) => {
   return new Promise(function(resolve, reject) {

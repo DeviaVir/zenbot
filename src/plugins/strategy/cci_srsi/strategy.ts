@@ -5,7 +5,7 @@ let z = require('zero-fill'),
   cci = require('../../../analysis/cci'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'cci_srsi',
   description: 'Stochastic CCI Strategy',
 

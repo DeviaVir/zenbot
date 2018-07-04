@@ -1,26 +1,24 @@
-const ccxt = require ('ccxt'),
+const ccxt = require('ccxt'),
   path = require('path')
 
-module.exports = function container(conf) {
-
+export const container = (conf) => {
   var public_client, authed_client
 
   function publicClient() {
-    if (!public_client) public_client = new ccxt.therock ({'apiKey': '', 'secret': '' })
+    if (!public_client) public_client = new ccxt.therock({ apiKey: '', secret: '' })
     return public_client
   }
 
   function authedClient() {
     if (!authed_client) {
-      if (!conf.therock || !conf.therock.key || !conf.therock.key === 'YOUR-API-KEY') {
+      if (!conf.therock || !conf.therock.key || (!conf.therock.key as any) === 'YOUR-API-KEY') {
         throw new Error('please configure your TheRockTrading credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
 
-      authed_client = new ccxt.therock ({ 'apiKey': conf.therock.key,'secret': conf.therock.secret })
+      authed_client = new ccxt.therock({ apiKey: conf.therock.key, secret: conf.therock.secret })
     }
     return authed_client
   }
-
 
   function joinProduct(product_id) {
     return product_id.split('-')[0] + product_id.split('-')[1]
@@ -30,7 +28,7 @@ module.exports = function container(conf) {
     if (method !== 'getTrades') {
       console.error(('\n TheRockTrading API is down! unable to call ' + method + ', retrying in 10s').red)
     }
-    setTimeout(function () {
+    setTimeout(function() {
       exchange[method].apply(exchange, args)
     }, 20000)
   }
@@ -43,48 +41,53 @@ module.exports = function container(conf) {
     makerFee: 0.3,
     takerFee: 0.2,
 
-    getProducts: function () {
+    getProducts: function() {
       return require('./products.json')
     },
 
-    getTradesTheRock: function (args, cb, trades=[]) {
+    getTradesTheRock: function(args, cb, trades = []) {
       let _this = this
       let client = publicClient()
       let market = client.market(args.id)
 
       try {
-        client.request(
-          `funds/${args.id}/trades?after=${args.after}&per_page=${args.per_page}&page=${args.page}&id=${args.id}`,
-          'public', 'GET', args
-        ).then(function(response) {
-          trades = trades.concat(response['trades'])
+        client
+          .request(
+            `funds/${args.id}/trades?after=${args.after}&per_page=${args.per_page}&page=${args.page}&id=${args.id}`,
+            'public',
+            'GET',
+            args
+          )
+          .then(function(response) {
+            trades = trades.concat(response['trades'])
 
-          if (response['trades'].length > 0 && response['meta'].current.page < response['meta'].next.page) {
-            args['page'] = response['meta'].next.page
+            if (response['trades'].length > 0 && response['meta'].current.page < response['meta'].next.page) {
+              args['page'] = response['meta'].next.page
+              return _this.getTradesTheRock(args, cb, trades)
+            }
+
+            return cb(client.parseTrades(trades, market))
+          })
+          .catch(function(error) {
+            console.log('Retrying...', error)
             return _this.getTradesTheRock(args, cb, trades)
-          }
-
-          return cb(client.parseTrades (trades, market))
-        }).catch(function(error) {
-          console.log('Retrying...', error)
-          return _this.getTradesTheRock(args, cb, trades)
-        })
-      } catch(error) {
+          })
+      } catch (error) {
         console.log('Retrying...', error)
         return _this.getTradesTheRock(args, cb, trades)
       }
     },
 
-    getTrades: function (opts, cb) {
-      var args = {
+    getTrades: function(opts, cb) {
+      var args: Record<string, any> = {
         id: joinProduct(opts.product_id),
         per_page: 200,
-        page: 1
+        page: 1,
       }
       if (opts.from) {
         args.after = new Date(opts.from).toISOString()
       }
-      if(opts.to){
+      if (opts.to) {
         args.before = new Date(opts.to).toISOString()
       }
 
@@ -102,54 +105,57 @@ module.exports = function container(conf) {
       })
     },
 
-    getBalance: function (opts, cb) {
+    getBalance: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.fetchBalance().then(result =>{
-        var balance = {asset: 0, currency: 0}
-        Object.keys(result).forEach(function(key){
-          if(key === opts.currency){
-            balance.currency = result[key].free
-            balance.currency_hold = result[key].used
-          }
-          if(key === opts.asset){
-            balance.asset = result[key].free
-            balance.asset_hold = result[key].used
-          }
-          cb(null, balance)
+      client
+        .fetchBalance()
+        .then((result) => {
+          var balance: Record<string, any> = { asset: 0, currency: 0 }
+          Object.keys(result).forEach(function(key) {
+            if (key === opts.currency) {
+              balance.currency = result[key].free
+              balance.currency_hold = result[key].used
+            }
+            if (key === opts.asset) {
+              balance.asset = result[key].free
+              balance.asset_hold = result[key].used
+            }
+            cb(null, balance)
+          })
         })
-      })
-        .catch(function (error) {
+        .catch(function(error) {
           console.error('An error occurred', error)
           return retry('getBalance', func_args)
         })
     },
 
-
-    getQuote: function (opts, cb) {
+    getQuote: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
-      client.fetchTicker({id: joinProduct(opts.product_id)}).then(result =>{
-        cb(null, { bid: result.bid, ask: result.ask })
-      })
-        .catch(function (error) {
+      client
+        .fetchTicker({ id: joinProduct(opts.product_id) })
+        .then((result) => {
+          cb(null, { bid: result.bid, ask: result.ask })
+        })
+        .catch(function(error) {
           console.error('An error occurred', error)
           return retry('getQuote', func_args)
         })
     },
 
-    cancelOrder: function (opts, cb) {
+    cancelOrder: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.cancelOrder(opts.order_id, function (err, resp, body) {
+      client.cancelOrder(opts.order_id, function(err, resp, body) {
         if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
 
-        if (err) return retry('cancelOrder', func_args, err)
+        if (err) return retry('cancelOrder', func_args)
         cb()
       })
     },
 
-    buy: function (opts, cb) {
+    buy: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       if (typeof opts.post_only === 'undefined') {
@@ -162,24 +168,27 @@ module.exports = function container(conf) {
       }
       opts.side = 'buy'
       delete opts.order_type
-      client.createOrder(opts.market, opts.type, opts.side, opts.amount, opts.price, opts).then(result =>{
-        if (result && result.message === 'Insufficient funds') {
-          var order = {
-            status: 'rejected',
-            reject_reason: 'balance'
+      client
+        .createOrder(opts.market, opts.type, opts.side, opts.amount, opts.price, opts)
+        .then((result) => {
+          if (result && result.message === 'Insufficient funds') {
+            var order = {
+              status: 'rejected',
+              reject_reason: 'balance',
+            }
+            return cb(null, order)
           }
-          return cb(null, order)
-        }
 
-        orders['~' + result.id] = result
-        cb(null, result)
-      }).catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('buy', func_args)
-      })
+          orders['~' + result.id] = result
+          cb(null, result)
+        })
+        .catch(function(error) {
+          console.error('An error occurred', error)
+          return retry('buy', func_args)
+        })
     },
 
-    sell: function (opts, cb) {
+    sell: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       if (typeof opts.post_only === 'undefined') {
@@ -192,29 +201,31 @@ module.exports = function container(conf) {
       }
       opts.side = 'sell'
       delete opts.order_type
-      client.createOrder(opts.market, opts.type, opts.side, opts.amount, opts.price, opts).then(result =>{
-        if (result && result.message === 'Insufficient funds') {
-          var order = {
-            status: 'rejected',
-            reject_reason: 'balance'
+      client
+        .createOrder(opts.market, opts.type, opts.side, opts.amount, opts.price, opts)
+        .then((result) => {
+          if (result && result.message === 'Insufficient funds') {
+            var order = {
+              status: 'rejected',
+              reject_reason: 'balance',
+            }
+            return cb(null, order)
           }
-          return cb(null, order)
-        }
 
-        orders['~' + result.id] = result
-        cb(null, result)
-      }).catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('buy', func_args)
-      })
+          orders['~' + result.id] = result
+          cb(null, result)
+        })
+        .catch(function(error) {
+          console.error('An error occurred', error)
+          return retry('buy', func_args)
+        })
     },
 
-    getOrder: function (opts, cb) {
+    getOrder: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = authedClient()
-      client.getOrder(opts.order_id, function (err, resp, body) {
-
-        if (err) return retry('getOrder', func_args, err)
+      client.getOrder(opts.order_id, function(err, resp, body) {
+        if (err) return retry('getOrder', func_args)
         if (resp.statusCode === 404) {
           // order was cancelled. recall from cache
           body = orders['~' + opts.order_id]
@@ -225,8 +236,8 @@ module.exports = function container(conf) {
       })
     },
 
-    getCursor: function (trade) {
-      return (trade.time || trade)
+    getCursor: function(trade) {
+      return trade.time || trade
     },
   }
   return exchange

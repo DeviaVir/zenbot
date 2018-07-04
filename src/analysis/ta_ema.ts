@@ -1,4 +1,4 @@
-import talib from 'talib'
+const talib = require('talib')
 
 export const ta_ema = (s, length) => {
   return new Promise(function(resolve, reject) {

@@ -3,7 +3,7 @@
 // ADOSC - Chaikin A/D Oscillator
 // OBV - On Balance Volume
 
-import talib from 'talib'
+const talib = require('talib')
 
 export const volume = (s, min_periods, indicator, fastperiod, slowperiod) => {
   return new Promise(function(resolve, reject) {

@@ -1,4 +1,4 @@
-import talib from 'talib'
+const talib = require('talib')
 
 export const ultosc = (s, min_periods, timeperiod1, timeperiod2, timeperiod3) => {
   return new Promise(function(resolve, reject) {

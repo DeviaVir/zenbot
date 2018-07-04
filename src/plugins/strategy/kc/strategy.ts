@@ -3,7 +3,7 @@ var z = require('zero-fill'),
   kc = require('../../../analysis/kc'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'kc',
   description: 'Buy when (Signal ≤ Lower Keltner Channel) and sell when (Signal ≥ Upper Keltner Channel).',
 

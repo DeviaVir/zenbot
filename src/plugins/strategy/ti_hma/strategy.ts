@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ti_hma = require('../../../analysis/ti_hma'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ti_hma',
   description: 'HMA - Hull Moving Average',
 

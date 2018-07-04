@@ -2,14 +2,14 @@ var collectionService = require('./collection-service'),
   objectifySelector = require('../util/objectify-selector'),
   crypto = require('crypto')
 
-module.exports = function(conf) {
+export default (conf) => {
   // ASSUMES c.selector has been set, for example, with whatever command line parameters there may have been.
   //  Not that this class would know anything about command line parameters. It just assumes.
   var selector = objectifySelector(conf.selector)
 
   var collectionServiceInstance = collectionService(conf)
 
-  var theService = {}
+  var theService: Record<string, any> = {}
 
   var ranges = []
   var direction = 'backward'
@@ -25,7 +25,7 @@ module.exports = function(conf) {
   }
 
   function _createNewRange(obj) {
-    var range = {
+    var range: Record<string, any> = {
       from: obj.trade_id,
       to: obj.trade_id,
       oldest_time: obj.time,

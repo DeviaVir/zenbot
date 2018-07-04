@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ultosc = require('../../../analysis/ta_ultosc'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ta_ultosc',
   description: 'ULTOSC - Ultimate Oscillator with rsi oversold',
 

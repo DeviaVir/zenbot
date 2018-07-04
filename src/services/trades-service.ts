@@ -1,11 +1,11 @@
 var collectionService = require('./collection-service'),
   exchangeService = require('./exchange-service')
 
-module.exports = function(conf) {
+export default (conf) => {
   var collectionServiceInstance = collectionService(conf)
   var exchangeServiceInstance = exchangeService(conf)
 
-  var theService = {}
+  var theService: Record<string, any> = {}
 
   theService.getTrades = function(tradeId, queryAttributes, exchangeAttributes) {
     if (queryAttributes === undefined) queryAttributes = _getInitialQueryAttributes(tradeId)
@@ -71,7 +71,7 @@ module.exports = function(conf) {
   }
 
   function _getInitialQueryAttributes(tradeId) {
-    var q = {}
+    var q: Record<string, any> = {}
 
     var selectorNormalized = exchangeServiceInstance.getSelector().normalized
 
@@ -83,7 +83,7 @@ module.exports = function(conf) {
   }
 
   function _getInitialExchangeAttributes(tradeId) {
-    var q = {}
+    var q: Record<string, any> = {}
 
     q.product_id = exchangeServiceInstance.getSelector().asset + '-' + exchangeServiceInstance.getSelector().currency
 

@@ -30,7 +30,7 @@ let z = require('zero-fill'),
   crossover = require('../../../util/helpers').crossover,
   crossunder = require('../../../util/helpers').crossunder
 
-module.exports = {
+export default {
   name: 'ichimoku_score',
   description: 'Associate various ichimoku signals with a score.',
 

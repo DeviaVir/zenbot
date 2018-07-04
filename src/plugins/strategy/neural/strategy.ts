@@ -7,9 +7,11 @@ const cluster = require('cluster')
 
 // the below line starts you at 0 threads
 global.forks = 0
+
 // the below line is for calculating the last mean vs the now mean.
 var oldmean = 0
-module.exports = {
+
+export default {
   name: 'neural',
   description:
     'Use neural learning to predict future price. Buy = mean(last 3 real prices) < mean(current & last prediction)',

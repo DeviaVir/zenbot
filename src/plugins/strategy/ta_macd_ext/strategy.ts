@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ta_macd_ext = require('../../../analysis/ta_macd_ext'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ta_macd_ext',
   description: 'Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0) with controllable talib TA types',
 

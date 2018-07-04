@@ -8,7 +8,7 @@ let PROPERTY_RANDOM_CHANCE = 0.3 // Chance of a Mutation to spawn a new species 
 let PROPERTY_MUTATION_CHANCE = 0.3 // Chance of a Mutation in an aspect of the species
 let PROPERTY_CROSSOVER_CHANCE = 0.5 // Chance of a aspect being inherited by another species
 
-module.exports = {
+export default {
   create: function(strategy) {
     var r = {}
     for (var k in strategy) {

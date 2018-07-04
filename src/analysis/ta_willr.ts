@@ -1,6 +1,6 @@
 // tablib: WILLR - Williams' %R https://mrjbq7.github.io/ta-lib/func_groups/momentum_indicators.html
 
-import talib from 'talib'
+const talib = require('talib')
 
 export const ppo = (s, min_periods, timeperiod) => {
   return new Promise(function(resolve, reject) {

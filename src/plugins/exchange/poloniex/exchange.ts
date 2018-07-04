@@ -1,19 +1,18 @@
-var Poloniex = require('poloniex.js')
-  , moment = require('moment')
-  , n = require('numbro')
+var Poloniex = require('poloniex.js'),
+  moment = require('moment'),
+  n = require('numbro'),
   // eslint-disable-next-line no-unused-vars
-  , colors = require('colors')
+  colors = require('colors')
 
-module.exports = function container (conf) {
-
+export const container = (conf) => {
   var public_client, authed_client
 
-  function publicClient (/*product_id*/) {
+  function publicClient(/*product_id*/) {
     if (!public_client) public_client = new Poloniex()
     return public_client
   }
 
-  function authedClient () {
+  function authedClient() {
     if (!authed_client) {
       if (!conf.poloniex || !conf.poloniex.key || conf.poloniex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Poloniex credentials in conf.js')
@@ -23,12 +22,12 @@ module.exports = function container (conf) {
     return authed_client
   }
 
-  function joinProduct (product_id) {
+  function joinProduct(product_id) {
     return product_id.split('-')[1] + '_' + product_id.split('-')[0]
   }
 
-  function retry (method, args) {
-    setTimeout(function () {
+  function retry(method, args) {
+    setTimeout(function() {
       exchange[method].apply(exchange, args)
     }, 1)
   }
@@ -41,15 +40,15 @@ module.exports = function container (conf) {
     makerFee: 0.15,
     takerFee: 0.25,
 
-    getProducts: function () {
+    getProducts: function() {
       return require('./products.json')
     },
 
-    getTrades: function (opts, cb) {
+    getTrades: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
-      var args = {
-        currencyPair: joinProduct(opts.product_id)
+      var args: Record<string, any> = {
+        currencyPair: joinProduct(opts.product_id),
       }
       if (opts.from) {
         args.start = opts.from
@@ -60,13 +59,12 @@ module.exports = function container (conf) {
       if (args.start && !args.end) {
         // add 12 hours
         args.end = args.start + 43200
-      }
-      else if (args.end && !args.start) {
+      } else if (args.end && !args.start) {
         // subtract 12 hours
         args.start = args.end - 43200
       }
 
-      client._public('returnTradeHistory', args, function (err, body) {
+      client._public('returnTradeHistory', args, function(err, body) {
         if (err) return cb(err)
         if (typeof body === 'string') {
           return retry('getTrades', func_args)
@@ -76,25 +74,25 @@ module.exports = function container (conf) {
           console.error(body)
           return retry('getTrades', func_args)
         }
-        var trades = body.map(function (trade) {
+        var trades = body.map(function(trade) {
           return {
             trade_id: trade.tradeID,
             time: moment.utc(trade.date).valueOf(),
             size: Number(trade.amount),
             price: Number(trade.rate),
-            side: trade.type
+            side: trade.type,
           }
         })
         cb(null, trades)
       })
     },
 
-    getBalance: function (opts, cb) {
+    getBalance: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
-      client.returnCompleteBalances(function (err, body) {
+      client.returnCompleteBalances(function(err, body) {
         if (err) return cb(err)
-        var balance = {asset: 0, currency: 0}
+        var balance: Record<string, any> = { asset: 0, currency: 0 }
         if (typeof body === 'string') {
           return retry('getBalance', args)
         }
@@ -104,24 +102,28 @@ module.exports = function container (conf) {
           return retry('getBalance', args)
         }
         if (body[opts.currency]) {
-          balance.currency = n(body[opts.currency].available).add(body[opts.currency].onOrders).format('0.00000000')
+          balance.currency = n(body[opts.currency].available)
+            .add(body[opts.currency].onOrders)
+            .format('0.00000000')
           balance.currency_hold = body[opts.currency].onOrders
         }
         if (body[opts.asset]) {
-          balance.asset = n(body[opts.asset].available).add(body[opts.asset].onOrders).format('0.00000000')
+          balance.asset = n(body[opts.asset].available)
+            .add(body[opts.asset].onOrders)
+            .format('0.00000000')
           balance.asset_hold = body[opts.asset].onOrders
         }
         cb(null, balance)
       })
     },
 
-    getOrderBook: function (opts, cb) {
+    getOrderBook: function(opts, cb) {
       var client = publicClient()
       var params = {
         currencyPair: joinProduct(opts.product_id),
-        depth: 10
+        depth: 10,
       }
-      client._public('returnOrderBook', params, function (err,  data) {
+      client._public('returnOrderBook', params, function(err, data) {
         if (typeof data !== 'object') {
           return cb(null, [])
         }
@@ -134,16 +136,16 @@ module.exports = function container (conf) {
           buyOrderRate: data.bids[0][0],
           buyOrderAmount: data.bids[0][1],
           sellOrderRate: data.asks[0][0],
-          sellOrderAmount: data.asks[0][1]
+          sellOrderAmount: data.asks[0][1],
         })
       })
     },
 
-    getQuote: function (opts, cb) {
+    getQuote: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = publicClient()
       var product_id = joinProduct(opts.product_id)
-      client.getTicker(function (err, body) {
+      client.getTicker(function(err, body) {
         if (err) return cb(err)
         if (typeof body === 'string') {
           return retry('getQuote', args)
@@ -163,10 +165,10 @@ module.exports = function container (conf) {
       })
     },
 
-    cancelOrder: function (opts, cb) {
+    cancelOrder: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
-      client._private('cancelOrder', {orderNumber: opts.order_id}, function (err, result) {
+      client._private('cancelOrder', { orderNumber: opts.order_id }, function(err, result) {
         if (typeof result === 'string') {
           return retry('cancelOrder', args)
         }
@@ -181,39 +183,38 @@ module.exports = function container (conf) {
       })
     },
 
-    trade: function (type, opts, cb) {
+    trade: function(type, opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
       var params = {
         currencyPair: joinProduct(opts.product_id),
         rate: opts.price,
         amount: opts.size,
-        postOnly: opts.post_only === false ? '0' : '1'
+        postOnly: opts.post_only === false ? '0' : '1',
       }
-      client._private(type, params, function (err, result) {
+      client._private(type, params, function(err, result) {
         if (typeof result === 'string') {
           return retry('trade', args)
         }
-        var order = {
+        var order: Record<string, any> = {
           id: result ? result.orderNumber : null,
           status: 'open',
           price: opts.price,
           size: opts.size,
           post_only: !!opts.post_only,
           created_at: new Date().getTime(),
-          filled_size: '0'
+          filled_size: '0',
         }
         if (result && result.error === 'Unable to place post-only order at this price.') {
           order.status = 'rejected'
           order.reject_reason = 'post only'
           return cb(null, order)
-        }
-        else if (result && result.error && result.error.match(/^Not enough/)) {
+        } else if (result && result.error && result.error.match(/^Not enough/)) {
           order.status = 'rejected'
           order.reject_reason = 'balance'
           return cb(null, order)
         } else if (result && result.error && result.error.match(/^Nonce must be greater/)) {
-            return retry('trade', args)
+          return retry('trade', args)
         }
         if (!err && result.error) {
           err = new Error('unable to ' + type)
@@ -225,23 +226,23 @@ module.exports = function container (conf) {
       })
     },
 
-    buy: function (opts, cb) {
+    buy: function(opts, cb) {
       exchange.trade('buy', opts, cb)
     },
 
-    sell: function (opts, cb) {
+    sell: function(opts, cb) {
       exchange.trade('sell', opts, cb)
     },
 
-    getOrder: function (opts, cb) {
+    getOrder: function(opts, cb) {
       var args = [].slice.call(arguments)
       var order = orders['~' + opts.order_id]
       if (!order) return cb(new Error('order not found in cache'))
       var client = authedClient()
       var params = {
-        currencyPair: joinProduct(opts.product_id)
+        currencyPair: joinProduct(opts.product_id),
       }
-      client._private('returnOpenOrders', params, function (err, body) {
+      client._private('returnOpenOrders', params, function(err, body) {
         if (err) return cb(err)
         if (typeof body === 'string' || !body) {
           return retry('getOrder', args)
@@ -251,13 +252,12 @@ module.exports = function container (conf) {
           console.error('\nreturnOpenOrders odd result in checking state of order, trying again')
           //console.error(body)
           return retry('getOrder', args)
-        }
-        else {
-          body.forEach(function (api_order) {
+        } else {
+          body.forEach(function(api_order) {
             if (api_order.orderNumber == opts.order_id) active = true
           })
         }
-        client.returnOrderTrades(opts.order_id, function (err, body) {
+        client.returnOrderTrades(opts.order_id, function(err, body) {
           if (typeof body === 'string' || !body) {
             return retry('getOrder', args)
           }
@@ -267,8 +267,10 @@ module.exports = function container (conf) {
             return cb(null, order)
           }
           order.filled_size = '0'
-          body.forEach(function (trade) {
-            order.filled_size = n(order.filled_size).add(trade.amount).format('0.00000000')
+          body.forEach(function(trade) {
+            order.filled_size = n(order.filled_size)
+              .add(trade.amount)
+              .format('0.00000000')
           })
           if (n(order.filled_size).value() == n(order.size).value()) {
             order.status = 'done'
@@ -280,9 +282,9 @@ module.exports = function container (conf) {
     },
 
     // return the property used for range querying.
-    getCursor: function (trade) {
+    getCursor: function(trade) {
       return Math.floor((trade.time || trade) / 1000)
-    }
+    },
   }
   return exchange
 }

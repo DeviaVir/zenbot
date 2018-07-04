@@ -1,7 +1,7 @@
 let n = require('numbro')
 
 let max_fc_width = 0
-module.exports = {
+export default {
   formatAsset: function formatAsset(amt, asset) {
     return n(amt).format('0.00000000') + ' ' + asset
   },

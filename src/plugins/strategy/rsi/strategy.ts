@@ -3,7 +3,7 @@ var z = require('zero-fill'),
   rsi = require('../../../analysis/rsi'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'rsi',
   description: 'Attempts to buy low and sell high by tracking RSI high-water readings.',
 

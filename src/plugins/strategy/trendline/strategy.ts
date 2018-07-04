@@ -7,7 +7,7 @@ let math = require('mathjs'),
   Phenotypes = require('../../../util/phenotype')
 var oldgrowth = 1
 
-module.exports = {
+export default {
   name: 'trendline',
   description: 'Calculate a trendline and trade when trend is positive vs negative.',
 
@@ -79,7 +79,7 @@ module.exports = {
 
     if (s.growth === true && s.growth2 === true) {
       s.signal = 'buy'
-    } else if ((s.growth === false) | (s.growth2 === false) | (s.accel === false)) {
+    } else if (s.growth === false || s.growth2 === false || s.accel === false) {
       //s.signal = 'sell'
     }
     cb()

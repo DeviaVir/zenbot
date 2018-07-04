@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ta_trix = require('../../../analysis/ta_trix'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ta_trix',
   description: 'TRIX - 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA with rsi oversold',
 

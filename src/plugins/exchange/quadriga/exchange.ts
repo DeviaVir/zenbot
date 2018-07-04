@@ -6,9 +6,9 @@ var QuadrigaCX = require('quadrigacx'),
   colors = require('colors'),
   n = require('numbro')
 
-module.exports = function container(conf) {
+export const container = (conf) => {
   var s = {
-    options: minimist(process.argv)
+    options: minimist(process.argv),
   }
   var so = s.options
 
@@ -23,7 +23,7 @@ module.exports = function container(conf) {
 
   function authedClient() {
     if (!authed_client) {
-      if (!conf.quadriga || !conf.quadriga.key || !conf.quadriga.key === 'YOUR-API-KEY') {
+      if (!conf.quadriga || !conf.quadriga.key || (!conf.quadriga.key as any) === 'YOUR-API-KEY') {
         throw new Error('please configure your Quadriga credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
 
@@ -38,13 +38,13 @@ module.exports = function container(conf) {
 
   function retry(method, args, error) {
     if (error.code === 200) {
-      console.error((`\nQuadrigaCX API rate limit exceeded! unable to call ${method}, aborting`).red)
+      console.error(`\nQuadrigaCX API rate limit exceeded! unable to call ${method}, aborting`.red)
       return
     }
 
     if (method !== 'getTrades') {
-      console.error((`\nQuadrigaCX API is down: (${method}) ${error.message}`).red)
-      console.error(('Retrying in 30 seconds ...').yellow)
+      console.error(`\nQuadrigaCX API is down: (${method}) ${error.message}`.red)
+      console.error('Retrying in 30 seconds ...'.yellow)
     }
 
     setTimeout(function() {
@@ -72,7 +72,7 @@ module.exports = function container(conf) {
       var func_args = [].slice.call(arguments)
       var args = {
         book: joinProduct(opts.product_id),
-        time: 'hour'
+        time: 'hour',
       }
 
       var client = publicClient()
@@ -86,17 +86,20 @@ module.exports = function container(conf) {
         if (err) return retry('getTrades', func_args, err)
         if (body.error) return retry('getTrades', func_args, body.error)
 
-        var trades = body.filter(t => {
-          return (typeof opts.from === 'undefined') ? true : (moment.unix(t.date).valueOf() > opts.from)
-        }).reverse().map(function(trade) {
-          return {
-            trade_id: trade.tid,
-            time: moment.unix(trade.date).valueOf(),
-            size: Number(trade.amount),
-            price: Number(trade.price),
-            side: trade.side
-          }
-        })
+        var trades = body
+          .filter((t) => {
+            return typeof opts.from === 'undefined' ? true : moment.unix(t.date).valueOf() > opts.from
+          })
+          .reverse()
+          .map(function(trade) {
+            return {
+              trade_id: trade.tid,
+              time: moment.unix(trade.date).valueOf(),
+              size: Number(trade.amount),
+              price: Number(trade.price),
+              side: trade.side,
+            }
+          })
 
         cb(null, trades)
       })
@@ -112,9 +115,9 @@ module.exports = function container(conf) {
         var currency = opts.currency.toLowerCase()
         var asset = opts.asset.toLowerCase()
 
-        var balance = {
+        var balance: Record<string, any> = {
           asset: 0,
-          currency: 0
+          currency: 0,
         }
 
         balance.currency = n(wallet[currency + '_balance']).format('0.00')
@@ -124,8 +127,14 @@ module.exports = function container(conf) {
         balance.asset_hold = n(wallet[asset + '_reserved']).format('0.00000000')
 
         debugOut('Balance/Reserve/Hold:')
-        debugOut(`  ${currency} (${wallet[currency + '_balance']}/${wallet[currency + '_reserved']}/${wallet[currency + '_available']})`)
-        debugOut(`  ${asset} (${wallet[asset + '_balance']}/${wallet[asset + '_reserved']}/${wallet[asset + '_available']})`)
+        debugOut(
+          `  ${currency} (${wallet[currency + '_balance']}/${wallet[currency + '_reserved']}/${
+            wallet[currency + '_available']
+          })`
+        )
+        debugOut(
+          `  ${asset} (${wallet[asset + '_balance']}/${wallet[asset + '_reserved']}/${wallet[asset + '_available']})`
+        )
 
         cb(null, balance)
       })
@@ -135,7 +144,7 @@ module.exports = function container(conf) {
       var func_args = [].slice.call(arguments)
 
       var params = {
-        book: joinProduct(opts.product_id)
+        book: joinProduct(opts.product_id),
       }
 
       var client = publicClient()
@@ -145,7 +154,7 @@ module.exports = function container(conf) {
 
         var r = {
           bid: String(quote.bid),
-          ask: String(quote.ask)
+          ask: String(quote.ask),
         }
 
         cb(null, r)
@@ -155,7 +164,7 @@ module.exports = function container(conf) {
     cancelOrder: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var params = {
-        id: opts.order_id
+        id: opts.order_id,
       }
 
       debugOut(`Cancelling order ${opts.order_id}`)
@@ -169,9 +178,9 @@ module.exports = function container(conf) {
     },
 
     buy: function(opts, cb) {
-      var params = {
+      var params: Record<string, any> = {
         amount: opts.size,
-        book: joinProduct(opts.product_id)
+        book: joinProduct(opts.product_id),
       }
 
       if (opts.order_type === 'maker') {
@@ -182,14 +191,14 @@ module.exports = function container(conf) {
 
       var client = authedClient()
       client.api('buy', params, function(err, body) {
-        var order = {
+        var order: Record<string, any> = {
           id: null,
           status: 'open',
           price: Number(opts.price),
           size: Number(opts.size),
           created_at: new Date().getTime(),
           filled_size: 0,
-          ordertype: opts.order_type
+          ordertype: opts.order_type,
         }
 
         if (err) return cb(err)
@@ -205,7 +214,8 @@ module.exports = function container(conf) {
             var order_count = body.orders_matched.length
             for (var idx = 0; idx < order_count; idx++) {
               asset_total = asset_total + Number(body.orders_matched[idx].amount)
-              price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
+              price_total =
+                price_total + Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price)
             }
 
             order.price = price_total / asset_total
@@ -225,9 +235,9 @@ module.exports = function container(conf) {
     },
 
     sell: function(opts, cb) {
-      var params = {
+      var params: Record<string, any> = {
         amount: opts.size,
-        book: joinProduct(opts.product_id)
+        book: joinProduct(opts.product_id),
       }
 
       if (opts.order_type === 'maker' && typeof opts.type === 'undefined') {
@@ -238,14 +248,14 @@ module.exports = function container(conf) {
 
       var client = authedClient()
       client.api('sell', params, function(err, body) {
-        var order = {
+        var order: Record<string, any> = {
           id: null,
           status: 'open',
           price: Number(opts.price),
           size: Number(opts.size),
           created_at: new Date().getTime(),
           filled_size: 0,
-          ordertype: opts.order_type
+          ordertype: opts.order_type,
         }
 
         if (err) return cb(err)
@@ -261,7 +271,8 @@ module.exports = function container(conf) {
             var order_count = body.orders_matched.length
             for (var idx = 0; idx < order_count; idx++) {
               asset_total = asset_total + Number(body.orders_matched[idx].amount)
-              price_total = price_total + (Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price))
+              price_total =
+                price_total + Number(body.orders_matched[idx].amount) * Number(body.orders_matched[idx].price)
             }
 
             order.price = price_total / asset_total
@@ -283,7 +294,7 @@ module.exports = function container(conf) {
     getOrder: function(opts, cb) {
       var order = orders['~' + opts.order_id]
       var params = {
-        id: opts.order_id
+        id: opts.order_id,
       }
 
       var client = authedClient()
@@ -310,8 +321,8 @@ module.exports = function container(conf) {
 
     // return the property used for range querying.
     getCursor: function(trade) {
-      return (trade.time || trade)
-    }
+      return trade.time || trade
+    },
   }
   return exchange
 }

@@ -5,15 +5,17 @@ var KrakenClient = require('kraken-api'),
   // eslint-disable-next-line no-unused-vars
   colors = require('colors')
 
-module.exports = function container(conf) {
+export const container = (conf) => {
   var s = {
-    options: minimist(process.argv)
+    options: minimist(process.argv),
   }
   var so = s.options
 
   var public_client, authed_client
   // var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|API:Rate limit exceeded|between Cloudflare and the origin web server)/)
-  var recoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time-out|The web server reported a bad gateway|525: SSL handshake failed|Service:Unavailable|api.kraken.com \| 522:)/)
+  var recoverableErrors = new RegExp(
+    /(ESOCKETTIMEDOUT|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|API:Invalid nonce|between Cloudflare and the origin web server|The web server reported a gateway time-out|The web server reported a bad gateway|525: SSL handshake failed|Service:Unavailable|api.kraken.com \| 522:)/
+  )
   var silencedRecoverableErrors = new RegExp(/(ESOCKETTIMEDOUT|ETIMEDOUT)/)
 
   function publicClient() {
@@ -58,27 +60,23 @@ module.exports = function container(conf) {
     if (so.debug || !error.message.match(silencedRecoverableErrors)) {
       if (error.message.match(/between Cloudflare and the origin web server/)) {
         errorMsg = 'Connection between Cloudflare CDN and api.kraken.com failed'
-      }
-      else if (error.message.match(/The web server reported a gateway time-out/)) {
+      } else if (error.message.match(/The web server reported a gateway time-out/)) {
         errorMsg = 'Web server Gateway time-out'
-      }
-      else if (error.message.match(/The web server reported a bad gateway/)) {
+      } else if (error.message.match(/The web server reported a bad gateway/)) {
         errorMsg = 'Web server bad Gateway'
-      }
-      else if (error.message.match(/525: SSL handshake failed/)) {
+      } else if (error.message.match(/525: SSL handshake failed/)) {
         errorMsg = 'SSL handshake failed'
-      }
-      else if (error.message.match(/Service:Unavailable/)) {
+      } else if (error.message.match(/Service:Unavailable/)) {
         errorMsg = 'Service Unavailable'
-      }
-      else if (error.message.match(/api.kraken.com \| 522:/)) {
+      } else if (error.message.match(/api.kraken.com \| 522:/)) {
         errorMsg = 'Generic 522 Server error'
-      }
-
-      else {
+      } else {
         errorMsg = error
       }
-      console.warn(('\nKraken API warning - unable to call ' + method + ' (' + errorMsg + '), retrying in ' + timeout / 1000 + 's').yellow)
+      console.warn(
+        ('\nKraken API warning - unable to call ' + method + ' (' + errorMsg + '), retrying in ' + timeout / 1000 + 's')
+          .yellow
+      )
     }
     setTimeout(function() {
       exchange[method].apply(exchange, args)
@@ -102,8 +100,8 @@ module.exports = function container(conf) {
     getTrades: function(opts, cb) {
       var func_args = [].slice.call(arguments)
       var client = publicClient()
-      var args = {
-        pair: joinProductFormatted(opts.product_id)
+      var args: Record<string, any> = {
+        pair: joinProductFormatted(opts.product_id),
       }
       if (opts.from) {
         args.since = Number(opts.from) * 1000000
@@ -114,7 +112,7 @@ module.exports = function container(conf) {
           return retry('getTrades', func_args, error)
         }
         if (error) {
-          console.error(('\nTrades error:').red)
+          console.error('\nTrades error:'.red)
           console.error(error)
           return cb(null, [])
         }
@@ -125,13 +123,13 @@ module.exports = function container(conf) {
         var trades = []
         Object.keys(data.result[args.pair]).forEach(function(i) {
           var trade = data.result[args.pair][i]
-          if (!opts.from || (Number(opts.from) < moment.unix((trade[2]).valueOf()))) {
+          if (!opts.from || Number(opts.from) < moment.unix(trade[2].valueOf())) {
             trades.push({
               trade_id: trade[2] + trade[1] + trade[0],
               time: moment.unix(trade[2]).valueOf(),
               size: parseFloat(trade[1]),
               price: parseFloat(trade[0]),
-              side: trade[3] == 'b' ? 'buy' : 'sell'
+              side: trade[3] == 'b' ? 'buy' : 'sell',
             })
           }
         })
@@ -148,14 +146,14 @@ module.exports = function container(conf) {
           asset: '0',
           asset_hold: '0',
           currency: '0',
-          currency_hold: '0'
+          currency_hold: '0',
         }
 
         if (error) {
           if (error.message.match(recoverableErrors)) {
             return retry('getBalance', args, error)
           }
-          console.error(('\ngetBalance error:').red)
+          console.error('\ngetBalance error:'.red)
           console.error(error)
           return cb(error)
         }
@@ -182,61 +180,69 @@ module.exports = function container(conf) {
       var args = [].slice.call(arguments)
       var client = publicClient()
       var pair = joinProductFormatted(opts.product_id)
-      client.api('Ticker', {
-        pair: pair
-      }, function(error, data) {
-        if (error) {
-          if (error.message.match(recoverableErrors)) {
-            return retry('getQuote', args, error)
+      client.api(
+        'Ticker',
+        {
+          pair: pair,
+        },
+        function(error, data) {
+          if (error) {
+            if (error.message.match(recoverableErrors)) {
+              return retry('getQuote', args, error)
+            }
+            console.error('\ngetQuote error:'.red)
+            console.error(error)
+            return cb(error)
           }
-          console.error(('\ngetQuote error:').red)
-          console.error(error)
-          return cb(error)
+          if (data.error.length) {
+            return cb(data.error.join(','))
+          }
+          cb(null, {
+            bid: data.result[pair].b[0],
+            ask: data.result[pair].a[0],
+          })
         }
-        if (data.error.length) {
-          return cb(data.error.join(','))
-        }
-        cb(null, {
-          bid: data.result[pair].b[0],
-          ask: data.result[pair].a[0],
-        })
-      })
+      )
     },
 
     cancelOrder: function(opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
-      client.api('CancelOrder', {
-        txid: opts.order_id
-      }, function(error, data) {
-        if (error) {
-          if (error.message.match(recoverableErrors)) {
-            return retry('cancelOrder', args, error)
+      client.api(
+        'CancelOrder',
+        {
+          txid: opts.order_id,
+        },
+        function(error, data) {
+          if (error) {
+            if (error.message.match(recoverableErrors)) {
+              return retry('cancelOrder', args, error)
+            }
+            console.error('\ncancelOrder error:'.red)
+            console.error(error)
+            return cb(error)
           }
-          console.error(('\ncancelOrder error:').red)
-          console.error(error)
-          return cb(error)
+          if (data.error.length) {
+            return cb(data.error.join(','))
+          }
+          if (so.debug) {
+            console.log('\nFunction: cancelOrder')
+            console.log(data)
+          }
+          cb(error)
         }
-        if (data.error.length) {
-          return cb(data.error.join(','))
-        }
-        if (so.debug) {
-          console.log('\nFunction: cancelOrder')
-          console.log(data)
-        }
-        cb(error)
-      })
+      )
     },
 
     trade: function(type, opts, cb) {
       var args = [].slice.call(arguments)
       var client = authedClient()
-      var params = {
+      var params: Record<string, any> = {
         pair: joinProductFormatted(opts.product_id),
         type: type,
-        ordertype: (opts.order_type === 'taker' ? 'market' : 'limit'),
+        ordertype: opts.order_type === 'taker' ? 'market' : 'limit',
         volume: opts.size,
-        trading_agreement: conf.kraken.tosagree
+        trading_agreement: conf.kraken.tosagree,
       }
       if (opts.post_only === true && params.ordertype === 'limit') {
         params.oflags = 'post'
@@ -253,13 +259,13 @@ module.exports = function container(conf) {
           return retry('trade', args, error)
         }
 
-        var order = {
+        var order: Record<string, any> = {
           id: data && data.result ? data.result.txid[0] : null,
           status: 'open',
           price: opts.price,
           size: opts.size,
           created_at: new Date().getTime(),
-          filled_size: '0'
+          filled_size: '0',
         }
 
         if (opts.order_type === 'maker') {
@@ -281,13 +287,13 @@ module.exports = function container(conf) {
             order.reject_reason = 'balance'
             return cb(null, order)
           } else if (error.message.length) {
-            console.error(('\nUnhandeld AddOrder error:').red)
+            console.error('\nUnhandeld AddOrder error:'.red)
             console.error(error)
             order.status = 'rejected'
             order.reject_reason = error.message
             return cb(null, order)
           } else if (data.error.length) {
-            console.error(('\nUnhandeld AddOrder error:').red)
+            console.error('\nUnhandeld AddOrder error:'.red)
             console.error(data.error)
             order.status = 'rejected'
             order.reject_reason = data.error.join(',')
@@ -313,14 +319,14 @@ module.exports = function container(conf) {
       if (!order) return cb(new Error('order not found in cache'))
       var client = authedClient()
       var params = {
-        txid: opts.order_id
+        txid: opts.order_id,
       }
       client.api('QueryOrders', params, function(error, data) {
         if (error) {
           if (error.message.match(recoverableErrors)) {
             return retry('getOrder', args, error)
           }
-          console.error(('\ngetOrder error:').red)
+          console.error('\ngetOrder error:'.red)
           console.error(error)
           return cb(error)
         }
@@ -345,7 +351,10 @@ module.exports = function container(conf) {
           return cb(null, order)
         }
 
-        if (orderData.status === 'closed' || (orderData.status === 'canceled' && orderData.reason === 'User canceled')) {
+        if (
+          orderData.status === 'closed' ||
+          (orderData.status === 'canceled' && orderData.reason === 'User canceled')
+        ) {
           order.status = 'done'
           order.done_at = new Date().getTime()
           order.filled_size = n(orderData.vol_exec).format('0.00000000')
@@ -359,8 +368,8 @@ module.exports = function container(conf) {
 
     // return the property used for range querying.
     getCursor: function(trade) {
-      return (trade.time || trade)
-    }
+      return trade.time || trade
+    },
   }
   return exchange
 }

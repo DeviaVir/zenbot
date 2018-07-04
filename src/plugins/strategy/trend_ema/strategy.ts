@@ -5,7 +5,7 @@ var z = require('zero-fill'),
   stddev = require('../../../analysis/stddev'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'trend_ema',
   description: 'Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.',
 

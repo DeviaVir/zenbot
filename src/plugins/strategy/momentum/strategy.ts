@@ -3,7 +3,7 @@ let z = require('zero-fill'),
   momentum = require('../../../analysis/momentum'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'momentum',
   description: 'MOM = Close(Period) - Close(Length)',
 

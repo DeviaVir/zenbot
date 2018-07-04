@@ -3,7 +3,7 @@ var z = require('zero-fill'),
   tulip_bollinger = require('../../../analysis/ti_bollinger'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ti_bollinger',
   description: 'Buy when (Signal ≤ Lower Bollinger Band) and sell when (Signal ≥ Upper Bollinger Band).',
 

@@ -1,4 +1,4 @@
-module.exports = function(conf) {
+export default (conf) => {
   return {
     getTrades: () => {
       conf.db.mongo.collection('trades').ensureIndex({ selector: 1, time: 1 })

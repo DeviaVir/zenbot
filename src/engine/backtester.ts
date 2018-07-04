@@ -232,7 +232,7 @@ let ensureDirectoryExistence = function(filePath) {
   fs.mkdirSync(dirname)
 }
 
-let monitor = {
+let monitor: Record<string, any> = {
   periodDurations: [],
   phenotypes: [],
 

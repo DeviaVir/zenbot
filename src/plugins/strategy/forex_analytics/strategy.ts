@@ -3,7 +3,7 @@ var fs = require('fs'),
   analytics = require('forex.analytics')
 
 var model
-module.exports = {
+export default {
   name: 'forex_analytics',
   description: 'Apply the trained forex analytics model.',
 

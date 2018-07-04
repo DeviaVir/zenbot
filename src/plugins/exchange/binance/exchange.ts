@@ -4,7 +4,7 @@ const ccxt = require('ccxt'),
   colors = require('colors'),
   _ = require('lodash')
 
-module.exports = function bittrex(conf) {
+export const bittrex = (conf) => {
   var public_client, authed_client
   let firstRun = true
   let allowGetMarketCall = true
@@ -35,7 +35,7 @@ module.exports = function bittrex(conf) {
     return split[0] + '/' + split[1]
   }
 
-  function retry(method, args, err) {
+  function retry(method, args, err?) {
     if (method !== 'getTrades') {
       console.error(('\nBinance API is down! unable to call ' + method + ', retrying in 20s').red)
       if (err) console.error(err)
@@ -64,7 +64,7 @@ module.exports = function bittrex(conf) {
         trades = [],
         maxTime = 0
       var client = publicClient()
-      var args = {}
+      var args: Record<string, any> = {}
       if (opts.from) args.startTime = opts.from
       if (opts.to) args.endTime = opts.to
       if (args.startTime && !args.endTime) {
@@ -134,7 +134,7 @@ module.exports = function bittrex(conf) {
       client
         .fetchBalance()
         .then((result) => {
-          var balance = { asset: 0, currency: 0 }
+          var balance: Record<string, any> = { asset: 0, currency: 0 }
           Object.keys(result).forEach(function(key) {
             if (key === opts.currency) {
               balance.currency = result[key].free + result[key].used
@@ -217,7 +217,7 @@ module.exports = function bittrex(conf) {
         opts.post_only = true
       }
       opts.type = 'limit'
-      var args = {}
+      var args: Record<string, any> = {}
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only
@@ -283,7 +283,7 @@ module.exports = function bittrex(conf) {
         opts.post_only = true
       }
       opts.type = 'limit'
-      var args = {}
+      var args: Record<string, any> = {}
       if (opts.order_type === 'taker') {
         delete opts.price
         delete opts.post_only

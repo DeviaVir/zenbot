@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   lowest = require('../../../analysis/lowest'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ichimoku',
   description: 'Ichimoku Cloud',
 

@@ -1,4 +1,4 @@
-import talib from 'talib'
+const talib = require('talib')
 
 export const trix = (s, timeperiod) => {
   return new Promise(function(resolve, reject) {

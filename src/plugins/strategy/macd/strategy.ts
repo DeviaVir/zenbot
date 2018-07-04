@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   rsi = require('../../../analysis/rsi'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'macd',
   description: 'Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).',
 

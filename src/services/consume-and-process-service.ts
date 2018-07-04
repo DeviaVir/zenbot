@@ -15,8 +15,8 @@ var events = require('events'),
     consume-and-process process ends.
 **/
 
-module.exports = function(conf) {
-  var theService = {}
+export default (conf) => {
+  var theService: Record<string, any> = {}
   var onConsumeFunc
   var onProcessFunc
   var afterOnConsumeFunc

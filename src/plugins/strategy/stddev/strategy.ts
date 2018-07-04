@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ema = require('../../../analysis/ema'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'stddev',
   description: 'Buy when standard deviation and mean increase, sell on mean decrease.',
   getOptions: function() {

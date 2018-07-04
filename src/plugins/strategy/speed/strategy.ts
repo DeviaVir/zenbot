@@ -3,7 +3,7 @@ var z = require('zero-fill'),
   ema = require('../../../analysis/ema'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'speed',
   description: 'Trade when % change from last two 1m periods is higher than average.',
 

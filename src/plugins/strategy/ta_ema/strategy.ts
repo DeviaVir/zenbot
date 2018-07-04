@@ -5,7 +5,7 @@ var z = require('zero-fill'),
   stddev = require('../../../analysis/stddev'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ta_ema',
   description: 'Buy when (EMA - last(EMA) > 0) and sell when (EMA - last(EMA) < 0). Optional buy on low RSI.',
 
@@ -55,7 +55,7 @@ module.exports = {
 
     // wait for promise to be resolved
     // we add all maybe we need more indicators
-    Promise.all([ta_ema(s, s.options.trend_ema)]).then((result) => {
+    Promise.all([ta_ema(s, s.options.trend_ema)]).then((result: Record<string, any>) => {
       if (result && result.outReal) {
         s.period.trend_ema = result.outReal
       }

@@ -2,7 +2,7 @@ var z = require('zero-fill'),
   n = require('numbro'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'sar',
   description: 'Parabolic SAR',
 

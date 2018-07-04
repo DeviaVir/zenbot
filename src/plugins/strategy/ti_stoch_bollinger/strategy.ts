@@ -3,7 +3,7 @@ let z = require('zero-fill'),
   ti_stoch = require('../../../analysis/ti_stoch'),
   ti_bollinger = require('../../../analysis/ti_bollinger'),
   Phenotypes = require('../../../util/phenotype')
-module.exports = {
+export default {
   name: 'ti_stoch_bollinger',
   description: 'Stochastic BollingerBand Strategy',
 

@@ -1,17 +1,17 @@
 var objectifySelector = require('../util/objectify-selector')
 var path = require('path')
 
-module.exports = function(conf) {
+export default (conf) => {
   // ASSUMES c.selector has been set, for example, with whatever command line parameters there may have been.
   //  Not that this class would know anything about command line parameters. It just assumes.
   var selector = objectifySelector(conf.selector)
 
-  var theService = {}
+  var theService: Record<string, any> = {}
 
   theService.BACKWARD = 'backward'
   theService.FORWARD = 'forward'
 
-  function _getExchange(exchangeId) {
+  function _getExchange(exchangeId?) {
     if (exchangeId === undefined) {
       exchangeId = selector.exchange_id
     }

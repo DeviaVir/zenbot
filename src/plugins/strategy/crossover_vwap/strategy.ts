@@ -5,7 +5,7 @@ var z = require('zero-fill'),
   sma = require('../../../analysis/sma'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'crossover_vwap',
   description: 'Estimate trends by comparing "Volume Weighted Average Price" to the "Exponential Moving Average".',
 

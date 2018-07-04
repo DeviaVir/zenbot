@@ -31,7 +31,7 @@ let z = require('zero-fill'),
   iff = require('../../../util/helpers').iff,
   tv = require('../../../util/helpers')
 
-module.exports = {
+export default {
   name: 'Ehlers MAMA',
   description: 'Ehlers MESA Adaptive Moving Average',
 

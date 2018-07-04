@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ta_ppo = require('../../../analysis/ta_ppo'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ta_ppo',
   description: 'PPO - Percentage Price Oscillator with rsi oversold',
 

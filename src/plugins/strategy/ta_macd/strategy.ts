@@ -4,7 +4,7 @@ var z = require('zero-fill'),
   ema = require('../../../analysis/ema'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ta_macd',
   description: 'Buy when (MACD - Signal > 0) and sell when (MACD - Signal < 0).',
 

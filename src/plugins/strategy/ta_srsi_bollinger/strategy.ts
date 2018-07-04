@@ -3,7 +3,7 @@ let z = require('zero-fill'),
   ta_srsi = require('../../../analysis/ta_stochrsi'),
   ta_bollinger = require('../../../analysis/ta_bollinger'),
   Phenotypes = require('../../../util/phenotype')
-module.exports = {
+export default {
   name: 'srsi_bollinger',
   description: 'Stochastic RSI BollingerBand Strategy',
 

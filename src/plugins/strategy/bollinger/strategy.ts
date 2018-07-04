@@ -3,7 +3,7 @@ var z = require('zero-fill'),
   bollinger = require('../../../analysis/bollinger'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'bollinger',
   description: 'Buy when (Signal ≤ Lower Bollinger Band) and sell when (Signal ≥ Upper Bollinger Band).',
 

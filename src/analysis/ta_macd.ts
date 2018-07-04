@@ -1,4 +1,4 @@
-import talib from 'talib'
+const talib = require('talib')
 
 export const macd = (s, slow_period, fast_period, signal_period) => {
   return new Promise(function(resolve, reject) {

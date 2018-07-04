@@ -1,5 +1,5 @@
-module.exports = {
+export default {
   _ns: 'zenbot',
 
-  'output.api': require('./api')
+  'output.api': require('./api'),
 }

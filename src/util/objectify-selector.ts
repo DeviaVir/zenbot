@@ -1,5 +1,5 @@
 var normalizeSelector = require('./normalize-selector')
-module.exports = function(selector) {
+export default (selector) => {
   var rtn
 
   if (typeof selector == 'string') {

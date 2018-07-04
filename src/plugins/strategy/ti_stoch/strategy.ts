@@ -3,7 +3,7 @@ var z = require('zero-fill'),
   tulip_stoch = require('../../../analysis/ti_stoch'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ti_stoch',
   description:
     'Buy when (Signal ≤ srsi_k_buy) and sell when (Signal ≥ srsi_k_sell).  (this should not be used alone.  you will lose over time)',

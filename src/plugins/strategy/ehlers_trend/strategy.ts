@@ -6,7 +6,7 @@ let z = require('zero-fill'),
   nz = require('../../../util/helpers').nz,
   tv = require('../../../util/helpers')
 
-module.exports = {
+export default {
   name: 'Ehlers_Trend',
   description: 'Ehlers Instantaneous Trend',
 

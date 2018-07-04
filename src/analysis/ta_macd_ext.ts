@@ -1,5 +1,5 @@
 import { getMaTypeFromString } from '../util/ma-type'
-import talib from 'talib'
+const talib = require('talib')
 
 module.exports = function ta_macd_ext(
   s,

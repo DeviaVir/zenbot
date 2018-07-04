@@ -1,4 +1,4 @@
-module.exports = function notifier(conf) {
+export const notifier = (conf) => {
   var active_notifiers = []
   for (var notifier in conf.notifiers) {
     if (conf.notifiers[notifier].on) {

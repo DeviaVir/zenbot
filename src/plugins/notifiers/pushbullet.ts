@@ -1,6 +1,6 @@
 var pusher = require('pushbullet')
 
-module.exports = function pushbullet (config) {
+export const pushbullet = (config) => {
   var pushbullet = {
     pushMessage: function(title, message) {
       var pb = new pusher(config.key)
@@ -10,7 +10,7 @@ module.exports = function pushbullet (config) {
           return
         }
       })
-    }
+    },
   }
   return pushbullet
 }

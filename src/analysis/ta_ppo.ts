@@ -1,5 +1,5 @@
 import { getMaTypeFromString } from '../util/ma-type'
-import talib from 'talib'
+const talib = require('talib')
 
 export const ppo = (s, slow_period, fast_period, signal_period, ma_type) => {
   return new Promise(function(resolve, reject) {

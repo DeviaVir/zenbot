@@ -1,6 +1,6 @@
 var path = require('path')
 
-module.exports = function output(conf) {
+export default (conf) => {
   var initializeOutput = function(tradeObject) {
     for (var output in conf.output) {
       if (conf.output[output].on) {

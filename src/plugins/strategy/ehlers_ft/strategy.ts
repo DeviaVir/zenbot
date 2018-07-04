@@ -39,7 +39,7 @@ const z = require('zero-fill'),
   tv = require('../../../util/helpers'),
   Phenotypes = require('../../../util/phenotype')
 
-module.exports = {
+export default {
   name: 'ehlers_fisher_transform',
   description: '',
 

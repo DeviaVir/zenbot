@@ -78,6 +78,9 @@ export class Trader {
       start_capital,
       start_price,
       deposit,
+      currency,
+      asset,
+      close,
     } = this.settings.options
 
     const opts = {
@@ -89,6 +92,9 @@ export class Trader {
       start_capital,
       start_price,
       deposit,
+      currency,
+      asset,
+      close,
       options: this.settings.options,
     }
 
