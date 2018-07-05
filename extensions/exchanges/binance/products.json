@@ -3648,5 +3648,35 @@
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "NAS/BNB"
+  },
+  {
+    "id": "MFTBTC",
+    "asset": "MFT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "MFT/BTC"
+  },
+  {
+    "id": "MFTETH",
+    "asset": "MFT",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "MFT/ETH"
+  },
+  {
+    "id": "MFTBNB",
+    "asset": "MFT",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "10000.00000000",
+    "increment": "0.000001",
+    "asset_increment": "1.",
+    "label": "MFT/BNB"
   }
 ]
