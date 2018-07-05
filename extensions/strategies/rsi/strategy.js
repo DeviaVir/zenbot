@@ -38,7 +38,7 @@ module.exports = {
           s.rsi_high = s.period.rsi
         }
       }
-      if (s.trend !== 'overbought' && s.trend !== 'short' && s.period.rsi >= s.options.overbought_rsi) {
+      if (s.trend !== 'oversold' && s.trend !== 'long' && s.period.rsi >= s.options.overbought_rsi) {
         s.rsi_high = s.period.rsi
         s.trend = 'long'
       }
