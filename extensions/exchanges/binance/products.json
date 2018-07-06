@@ -2734,7 +2734,7 @@
     "asset": "ZIL",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "10000.00000000",
+    "max_size": "0.03229000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "ZIL/BNB"
@@ -3678,5 +3678,25 @@
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "MFT/BNB"
+  },
+  {
+    "id": "DENTBTC",
+    "asset": "DENT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "DENT/BTC"
+  },
+  {
+    "id": "DENTETH",
+    "asset": "DENT",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.",
+    "label": "DENT/ETH"
   }
 ]
