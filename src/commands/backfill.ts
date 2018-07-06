@@ -3,6 +3,8 @@ import crypto from 'crypto'
 import objectifySelector from '../util/objectify-selector'
 import collectionService from '../services/collection-service'
 
+import { loadExchange } from '../plugins/exchanges'
+
 export default (program, conf) => {
   program
     .command('backfill [selector]')
@@ -11,7 +13,7 @@ export default (program, conf) => {
     .option('-d, --days <days>', 'number of days to acquire (default: ' + conf.days + ')', Number, conf.days)
     .action(function(selector, cmd) {
       selector = objectifySelector(selector || conf.selector)
-      var exchange = require(`../extensions/exchanges/${selector.exchange_id}/exchange`)(conf)
+      var exchange = loadExchange(selector.exchange_id)(conf)
       if (!exchange) {
         console.error('cannot backfill ' + selector.normalized + ': exchange not implemented')
         process.exit(1)

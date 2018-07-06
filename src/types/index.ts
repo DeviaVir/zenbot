@@ -2,12 +2,12 @@ import { Db } from 'mongodb'
 
 export interface IZenbotConfig {
   version: string
-  ROOT: string
   conf: {
     eventBus: NodeJS.EventEmitter
     db: {
       mongo: Db
     }
+    srcRoot: string
     [key: string]: any
   }
 }

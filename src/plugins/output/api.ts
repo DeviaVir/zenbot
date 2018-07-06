@@ -18,7 +18,6 @@ export default () => {
   }
 
   let objectWithoutKey = (object, key) => {
-    // eslint-disable-next-line no-unused-vars
     const { [key]: deletedKey, ...otherKeys } = object
     return otherKeys
   }

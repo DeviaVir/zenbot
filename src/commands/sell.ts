@@ -1,6 +1,7 @@
+import 'colors'
+
 import minimist from 'minimist'
 import n from 'numbro'
-import colors from 'colors'
 import objectifySelector from '../util/objectify-selector'
 import engineFactory from '../engine'
 

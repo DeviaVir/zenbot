@@ -1,6 +1,7 @@
+import 'colors'
+
 import minimist from 'minimist'
 import n from 'numbro'
-import colors from 'colors'
 import moment from 'moment'
 import objectifySelector from '../util/objectify-selector'
 import exchangeService from '../services/exchange-service'

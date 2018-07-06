@@ -1,3 +1,4 @@
+import colors from 'colors'
 import tb from 'timebucket'
 import minimist from 'minimist'
 import n from 'numbro'
@@ -7,7 +8,6 @@ import { spawn } from 'child_process'
 import moment from 'moment'
 import crypto from 'crypto'
 import readline from 'readline'
-import colors from 'colors'
 import z from 'zero-fill'
 import cliff from 'cliff'
 
@@ -182,7 +182,7 @@ export default (program, conf) => {
             '\t' +
             so.strategy +
             '\t' +
-            require(`../extensions/strategies/${so.strategy}/strategy`).description.grey
+            require(`../plugins/strategies/${so.strategy}/strategy`).description.grey
         )
         console.log('\n')
         process.stdout.write(
@@ -580,7 +580,7 @@ export default (program, conf) => {
       if (cmd.conf) {
         command_args.push('--conf', cmd.conf)
       }
-      var backfiller = spawn(path.resolve(__dirname, '..', zenbot_cmd), command_args)
+      var backfiller = spawn(path.join(conf.srcRoot, '..', zenbot_cmd), command_args)
       backfiller.stdout.pipe(process.stdout)
       backfiller.stderr.pipe(process.stderr)
       backfiller.on('exit', function(code) {

@@ -1,5 +1,6 @@
 import objectifySelector from '../util/objectify-selector'
-import path from 'path'
+
+import { loadExchange } from '../plugins/exchanges'
 
 export default (conf) => {
   // ASSUMES c.selector has been set, for example, with whatever command line parameters there may have been.
@@ -17,7 +18,7 @@ export default (conf) => {
     }
     var rtn = undefined
     try {
-      rtn = require(path.resolve(__dirname, `../plugins/exchange/${exchangeId}/exchange`))(conf)
+      rtn = loadExchange(exchangeId)(conf)
     } catch (err) {
       // hold comment
     }

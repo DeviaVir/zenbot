@@ -91,7 +91,7 @@ export const listOptions = (s, so) => {
     '\t' +
     so.strategy +
     '\t' +
-    require(`../../extensions/strategies/${so.strategy}/strategy`).description.grey)
+    require(`../../plugins/strategies/${so.strategy}/strategy`).description.grey)
   console.log('\n')
 
   process.stdout.write([

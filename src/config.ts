@@ -25,5 +25,7 @@ export default () => {
     return { ...config, ...require(file) }
   }, {})
 
-  return { version, conf, ROOT }
+  conf.srcRoot = path.join(ROOT, 'src')
+
+  return { version, conf }
 }

@@ -7,7 +7,9 @@ export default (conf) => {
         if (conf.debug) {
           console.log(`initializing output ${output}`)
         }
-        require(path.resolve(__dirname, `../plugins/output/${output}`))(conf).run(conf.output[output], tradeObject)
+        require(path.resolve(__dirname, `../plugins/output/${output}`))
+          .default(conf)
+          .run(conf.output[output], tradeObject)
       }
     }
   }

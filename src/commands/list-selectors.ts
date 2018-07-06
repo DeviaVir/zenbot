@@ -1,17 +1,20 @@
+import 'colors'
+
 import fs from 'fs'
-import colors from 'colors'
+
+import { getProducts } from '../plugins/exchanges'
 
 export default (program) => {
   program
     .command('list-selectors')
     .description('list available selectors')
     .action(function(/*cmd*/) {
-      var exchanges = fs.readdirSync('./extensions/exchanges')
+      var exchanges = fs.readdirSync('./plugins/exchanges')
       exchanges.forEach(function(exchange) {
         if (exchange === 'sim' || exchange === '_stub') return
 
         console.log(`${exchange}:`)
-        var products = require(`../extensions/exchanges/${exchange}/products.json`)
+        var products = getProducts(exchange)
         products.sort(function(a, b) {
           if (a.asset < b.asset) return -1
           if (a.asset > b.asset) return 1

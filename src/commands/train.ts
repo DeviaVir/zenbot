@@ -1,10 +1,11 @@
+import 'colors'
+
 import tb from 'timebucket'
 import minimist from 'minimist'
 import fs from 'fs'
 import path from 'path'
 import { spawn } from 'child_process'
 import moment from 'moment'
-import colors from 'colors'
 import analytics from 'forex.analytics'
 import ProgressBar from 'progress'
 import crypto from 'crypto'

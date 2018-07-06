@@ -3,7 +3,7 @@ import path from 'path'
 import program from 'commander'
 import fs from 'fs'
 
-import boot from './config'
+import boot from './boot'
 
 program._name = 'zenbot'
 
@@ -27,14 +27,14 @@ const run = async () => {
 
   const commandDirectory = './commands'
 
-  const files = fs.readdirSync(commandDirectory)
+  const files = fs.readdirSync(path.join(zenbot.conf.srcRoot, commandDirectory))
 
   files
-    .map((file) => path.join(zenbot.ROOT, commandDirectory, file))
+    .map((file) => path.join(zenbot.conf.srcRoot, commandDirectory, file))
     .filter((file) => fs.statSync(file).isFile())
-    .map((file) => file.replace('.js', ''))
+    .map((file) => file.replace('.ts', ''))
     .map((file) => require(file))
-    .forEach((command) => command(program, zenbot.conf))
+    .forEach(({ default: command }) => command(program, zenbot.conf))
 
   program.command('*', 'Display help', { noHelp: true }).action((cmd) => {
     console.log('Invalid command: ' + cmd)

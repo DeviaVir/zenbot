@@ -2,7 +2,7 @@ export default (conf) => {
   var active_notifiers = []
   for (var notifier in conf.notifiers) {
     if (conf.notifiers[notifier].on) {
-      active_notifiers.push(require(`../plugins/notifiers/${notifier}`)(conf.notifiers[notifier]))
+      active_notifiers.push(require(`../plugins/notifiers/${notifier}`).default(conf.notifiers[notifier]))
     }
   }
 

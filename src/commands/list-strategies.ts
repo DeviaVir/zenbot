@@ -1,14 +1,17 @@
+import 'colors'
+
 import fs from 'fs'
-import colors from 'colors'
+
+import { loadStrategy } from '../plugins/strategies'
 
 export default (program, conf) => {
   program
     .command('list-strategies')
     .description('list available strategies')
     .action(function(/*cmd*/) {
-      var strategies = fs.readdirSync('./extensions/strategies')
+      var strategies = fs.readdirSync('./plugins/strategies')
       strategies.forEach((strategy) => {
-        let strat = require(`../extensions/strategies/${strategy}/strategy`)
+        let strat = loadStrategy(strategy)
         console.log(strat.name.cyan + (strat.name === conf.strategy ? ' (default)'.grey : ''))
         if (strat.description) {
           console.log('  description:'.grey)

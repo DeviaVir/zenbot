@@ -11,6 +11,7 @@
         "baseUrl": ".",
         "paths": {
             "@types": ["./src/types/index.ts"]
-        }
+        },
+        "typeRoots": ["./node_modules/@types", "./src/types"]
     }
 }
