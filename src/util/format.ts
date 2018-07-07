@@ -10,7 +10,7 @@ export function formatPercent(ratio) {
   return (ratio >= 0 ? '+' : '') + n(ratio).format('0.00%')
 }
 
-export function formatCurrency(amt, currency, omit_currency, color_trick, do_pad) {
+export function formatCurrency(amt, currency, omit_currency?, color_trick?, do_pad?) {
   let str
   let fstr
   amt > 999

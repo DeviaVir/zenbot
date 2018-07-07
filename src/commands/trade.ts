@@ -647,12 +647,7 @@ export default (program, conf) => {
                   )
                 }
                 console.log('Press ' + ' l '.inverse + ' to list available commands.')
-                engine.syncBalance(function(err) {
-                  if (err) {
-                    if (err.desc) console.error(err.desc)
-                    if (err.body) console.error(err.body)
-                    throw err
-                  }
+                engine.syncBalance().then(function() {
                   session = {
                     id: crypto.randomBytes(4).toString('hex'),
                     selector: so.selector.normalized,
@@ -660,7 +655,9 @@ export default (program, conf) => {
                     mode: so.mode,
                     options: so,
                   }
+
                   session._id = session.id
+
                   sessions
                     .find({ selector: so.selector.normalized })
                     .limit(1)
@@ -701,13 +698,13 @@ export default (program, conf) => {
                             engine.executeSignal('buy')
                             console.log('\nmanual'.grey + ' limit ' + 'BUY'.green + ' command executed'.grey)
                           } else if (key === 'B' && !info.ctrl) {
-                            engine.executeSignal('buy', null, null, false, true)
+                            engine.executeSignal('buy', null, false, true)
                             console.log('\nmanual'.grey + ' market ' + 'BUY'.green + ' command executed'.grey)
                           } else if (key === 's' && !info.ctrl) {
                             engine.executeSignal('sell')
                             console.log('\nmanual'.grey + ' limit ' + 'SELL'.red + ' command executed'.grey)
                           } else if (key === 'S' && !info.ctrl) {
-                            engine.executeSignal('sell', null, null, false, true)
+                            engine.executeSignal('sell', null, false, true)
                             console.log('\nmanual'.grey + ' market ' + 'SELL'.red + ' command executed'.grey)
                           } else if ((key === 'c' || key === 'C') && !info.ctrl) {
                             delete s.buy_order
@@ -757,7 +754,7 @@ export default (program, conf) => {
               db_cursor = trades[trades.length - 1].time
               trade_cursor = s.exchange.getCursor(trades[trades.length - 1])
               engine.update(trades, true, function(err) {
-                if (err) throw err
+                // if (err) throw err
                 setImmediate(getNext)
               })
             })
@@ -769,17 +766,7 @@ export default (program, conf) => {
       var prev_timeout = null
       function forwardScan() {
         function saveSession() {
-          engine.syncBalance(function(err) {
-            if (!err && s.balance.asset === undefined) {
-              // TODO not the nicest place to verify the state, but did not found a better one
-              throw new Error('Error during syncing balance. Please check your API-Key')
-            }
-            if (err) {
-              console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error syncing balance')
-              if (err.desc) console.error(err.desc)
-              if (err.body) console.error(err.body)
-              console.error(err)
-            }
+          engine.syncBalance().then(function() {
             if (botStartTime && (botStartTime as any) - (moment() as any) < 0) {
               // Not sure if I should just handle exit code directly or thru printTrade.  Decided on printTrade being if code is added there for clean exits this can just take advantage of it.
               engine.exit(() => {

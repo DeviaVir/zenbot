@@ -16,9 +16,10 @@ import { formatAsset, formatPercent, formatCurrency } from '../util/format'
 
 import { Report } from './report'
 import { Quote } from './quote'
+import { Exchange } from './exchange'
 
 import * as debug from './debug'
-import { resolve } from 'url'
+import { asyncTimeout } from '../util/async'
 
 interface Error {
   desc?: string
@@ -39,6 +40,7 @@ export class Core {
 
   private report: Report
   private quote: Quote
+  private exchange: Exchange
 
   constructor(private s, private conf) {
     this.eventBus = conf.eventBus
@@ -55,6 +57,8 @@ export class Core {
     if (!this.s.exchange)
       throw new Error(`Error: Cannot trade ${this.s.options.selector.normalized} exchange not implemented`)
 
+    this.exchange = new Exchange(this.s.exchange)
+
     this.s.product_id = this.s.options.selector.product_id
     this.s.asset = this.s.options.selector.asset
     this.s.currency = this.s.options.selector.currency
@@ -63,13 +67,13 @@ export class Core {
     if (typeof this.s.options.period_length == 'undefined') this.s.options.period_length = this.s.options.period
     else this.s.options.period = this.s.options.period_length
 
-    this.s.product = this.s.exchange
+    this.s.product = this.exchange
       .getProducts()
       .find((product) => product.asset === this.s.asset && product.currency === this.s.currency)
 
     if (!s.product) throw new Error(`Error: Could not find product "${this.s.product_id}"`)
 
-    if (s.exchange.dynamicFees) this.s.exchange.setFees({ asset: this.s.asset, currency: this.s.currency })
+    if (this.exchange.dynamicFees) this.exchange.setFees({ asset: this.s.asset, currency: this.s.currency })
 
     if (this.s.options.mode === 'sim' || this.s.options.mode === 'paper') {
       this.s.balance = { asset: this.s.options.asset_capital, currency: this.s.options.currency_capital, deposit: 0 }
@@ -161,7 +165,7 @@ export class Core {
     }
   }
 
-  onTrades = (trades, isPreroll, cb) => {
+  onTrades = (trades, isPreroll, cb?) => {
     if (typeof isPreroll === 'function') {
       cb = isPreroll
       isPreroll = false
@@ -181,388 +185,375 @@ export class Core {
   syncBalance = async () => {
     const preAsset = this.s.options.mode === 'sim' ? this.s.sim_asset : this.s.balance.asset
 
-    const balance = await this.getBalance()
-    this.s.balance = balance
+    try {
+      const balance = await this.getBalance()
+      this.s.balance = balance
 
-    const quote = await this.quote.getQuote()
-    this.s.quote = quote
+      const quote = await this.quote.getQuote()
+      this.s.quote = quote
 
-    const diffAsset = n(preAsset).subtract(balance.asset)
-    const postCurrency = n(diffAsset).multiply(quote.ask)
+      const diffAsset = n(preAsset).subtract(balance.asset)
+      const postCurrency = n(diffAsset).multiply(quote.ask)
 
-    this.s.asset_capital = n(this.s.balance.asset)
-      .multiply(quote.ask)
-      .value()
-
-    // prettier-ignore
-    const deposit = this.s.options.deposit
-          // @ts-ignore
-          ? Math.max(0, n(this.s.options.deposit).subtract(this.s.asset_capital))
-          : this.s.balance.currency // zero on negative
-
-    this.s.balance.deposit = n(deposit < this.s.balance.currency ? deposit : this.s.balance.currency).value()
-
-    if (!this.s.start_capital) {
-      this.s.start_price = n(quote.ask).value()
-      this.s.start_capital = n(this.s.balance.deposit)
-        .add(this.s.asset_capital)
+      this.s.asset_capital = n(this.s.balance.asset)
+        .multiply(quote.ask)
         .value()
-      this.s.real_capital = n(this.s.balance.currency)
-        .add(this.s.asset_capital)
-        .value()
-      this.s.net_currency = this.s.balance.deposit
 
-      if (this.s.options.mode !== 'sim') {
-        this.pushMessage(
-          'Balance ' + this.s.exchange.name.toUpperCase(),
-          'sync balance ' + this.s.real_capital + ' ' + this.s.currency + '\n',
-        )
+      // prettier-ignore
+      const deposit = this.s.options.deposit
+        // @ts-ignore
+        ? Math.max(0, n(this.s.options.deposit).subtract(this.s.asset_capital))
+        : this.s.balance.currency // zero on negative
+
+      this.s.balance.deposit = n(deposit < this.s.balance.currency ? deposit : this.s.balance.currency).value()
+
+      if (!this.s.start_capital) {
+        this.s.start_price = n(quote.ask).value()
+        this.s.start_capital = n(this.s.balance.deposit)
+          .add(this.s.asset_capital)
+          .value()
+        this.s.real_capital = n(this.s.balance.currency)
+          .add(this.s.asset_capital)
+          .value()
+        this.s.net_currency = this.s.balance.deposit
+
+        if (this.s.options.mode !== 'sim') {
+          this.pushMessage(
+            'Balance ' + this.exchange.name.toUpperCase(),
+            'sync balance ' + this.s.real_capital + ' ' + this.s.currency + '\n'
+          )
+        }
+      } else {
+        this.s.net_currency = n(this.s.net_currency)
+          .add(postCurrency)
+          .value()
       }
-    } else {
-      this.s.net_currency = n(this.s.net_currency)
-        .add(postCurrency)
-        .value()
-    }
 
-    return { balance, quote }
+      return { balance, quote }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   async getBalance() {
     const opts = { currency: this.s.currency, asset: this.s.asset }
-
-    return new Promise<{ asset: number }>((resolve, reject) =>
-      this.s.exchange.getBalance(opts, (err, balance) => (err ? reject(err) : resolve(balance))),
-    )
+    return this.exchange.getBalance(opts)
   }
 
-  executeSignal = async (signal, _cb?, size?, is_reorder?, is_taker?) => {
-    let trades
+  executeSignal = async (signal, initSize?, isReorder?, isTaker?) => {
     delete this.s[(signal === 'buy' ? 'sell' : 'buy') + '_order']
 
     this.s.last_signal = signal
-    if (!is_reorder && this.s[signal + '_order']) {
-      if (is_taker) this.s[signal + '_order'].order_type = 'taker'
+    if (!isReorder && this.s[signal + '_order']) {
+      if (isTaker) this.s[signal + '_order'].order_type = 'taker'
       // order already placed
-      _cb && _cb(null, null)
       return
     }
 
-    this.s.acted_on_trend = true
-    let cb = (err, order?) => {
-      if (!order) {
-        if (signal === 'buy') delete this.s.buy_order
-        else delete this.s.sell_order
+    try {
+      const { quote } = await this.syncBalance()
+
+      const { reorderPercent, size } = this.getReorderPercent(isReorder, signal, initSize)
+
+      let trades
+      if (this.s.my_prev_trades.length) {
+        trades = [...this.s.my_prev_trades, ...this.s.my_trades]
+      } else {
+        trades = JSON.parse(JSON.stringify(this.s.my_trades))
       }
-      if (err) {
-        if (_cb) {
-          _cb(err)
-        } else if (err.message.match(this.nice_errors)) {
-          console.error((err.message + ': ' + err.desc).red)
-        } else {
-          this.memDump()
-          console.error('\n')
-          console.error(err)
-          console.error('\n')
-        }
-      } else if (_cb) {
-        _cb(null, order)
-      }
-    }
 
-    const { quote } = await this.syncBalance()
-
-    // if (err) {
-    //   debug.msg('error getting balance')
-    // }
-    // if (err) {
-    //   err.desc = 'could not execute ' + signal + ': error fetching quote'
-    //   return cb(err)
-    // }
-
-    let reorder_pct
-
-    if (is_reorder && this.s[signal + '_order']) {
       if (signal === 'buy') {
-        reorder_pct = n(size)
+        await this.executeBuy(quote, isReorder, reorderPercent, size, trades, isTaker)
+        delete this.s.buy_order
+      } else if (signal === 'sell') {
+        await this.executeSell(quote, isReorder, reorderPercent, trades, isTaker)
+        delete this.s.sell_order
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  private getReorderPercent(isReorder: any, signal: any, size: any) {
+    let reorderPercent
+    if (isReorder && this.s[signal + '_order']) {
+      if (signal === 'buy') {
+        reorderPercent = n(size)
           .multiply(this.s.buy_order.price)
           .add(this.s.buy_order.fee)
           .divide(this.s.balance.deposit)
           .multiply(100)
       } else {
-        reorder_pct = n(size)
+        reorderPercent = n(size)
           .divide(this.s.balance.asset)
           .multiply(100)
       }
-      debug.msg('price changed, resizing order, ' + reorder_pct + '% remain')
+      debug.msg('price changed, resizing order, ' + reorderPercent + '% remain')
       size = null
     }
-    if (this.s.my_prev_trades.length) {
-      trades = [...this.s.my_prev_trades, ...this.s.my_trades]
-    } else {
-      trades = JSON.parse(JSON.stringify(this.s.my_trades))
+
+    return { reorderPercent, size }
+  }
+
+  async executeBuy(quote, isReorder, reorderPercent, initSize, trades, isTaker) {
+    const price = this.quote.nextBuyForQuote(quote)
+    const bidPercent = this.getBidPercent(isReorder, reorderPercent)
+    const fee = this.getBidFee(bidPercent)
+    const { tradeBalance, tradeableBalance } = this.getTradableBalance(bidPercent, fee)
+    const expectedFee = this.getExpectedFee(tradeBalance, tradeableBalance)
+    const size = this.getBidSize(bidPercent, fee, initSize, tradeableBalance, price, tradeBalance, expectedFee)
+
+    const isSizeAboveMin = this.s.product.min_size && Number(size) >= Number(this.s.product.min_size)
+    const isSizeAboveTotal =
+      'min_total' in this.s.product &&
+      this.s.product.min_total &&
+      n(size)
+        .multiply(price)
+        .value() >= Number(this.s.product.min_total)
+
+    if (!(isSizeAboveMin || isSizeAboveTotal)) return false
+
+    const finalSize = this.adjustBidSize(size)
+
+    const assetSize = formatAsset(finalSize, this.s.asset)
+    const currencySize = formatCurrency(tradeableBalance, this.s.currency)
+    const feeAmt = formatCurrency(expectedFee, this.s.currency)
+    const buyPrice = formatCurrency(price, this.s.currency)
+
+    debug.msg(
+      `preparing buy order over ${assetSize} of ${currencySize} (${bidPercent}%) tradeable balance with a expected fee of ${feeAmt} (${fee}%)`
+    )
+
+    this.checkBidOrder(trades, price, buyPrice)
+
+    // prettier-ignore
+    const shouldDelay = n(this.s.balance.deposit).subtract(this.s.balance.currency_hold || 0).value() < n(price).multiply(finalSize).value()
+    && this.s.balance.currency_hold > 0
+
+    if (shouldDelay) {
+      // prettier-ignore
+      const depositPercent = formatPercent(n(this.s.balance.currency_hold || 0).divide(this.s.balance.deposit).value())
+      const currencyHold = formatCurrency(this.s.balance.currency_hold, this.s.currency)
+
+      debug.msg(`buy delayed: ${depositPercent} of funds (${currencyHold}) on hold'`)
+
+      if (this.s.last_signal === 'buy')
+        return asyncTimeout(() => this.executeSignal('buy', finalSize, true), this.conf.wait_for_settlement)
+      else throw new Error('Signal changed!')
     }
 
-    if (signal === 'buy') {
-      this.executeBuy(quote, is_reorder, reorder_pct, size, trades, cb, is_taker, _cb)
-    } else if (signal === 'sell') {
-      this.executeSell(quote, is_reorder, reorder_pct, size, trades, cb, is_taker, _cb)
+    const priceUnder = formatCurrency(quote.bid - Number(price), this.s.currency)
+    const title = `Buying ${assetSize} on ${this.exchange.name}`
+    const message = `placing buy order at ${buyPrice}, ${priceUnder} under best bid\n`
+    this.pushMessage(title, message)
+
+    return this.doOrder('buy', finalSize, price, expectedFee, isTaker)
+  }
+
+  private checkBidOrder(trades: any, price: string, buyPrice: string) {
+    // return lowest price
+    const latestLowSell = _
+      .chain(trades)
+      .dropRightWhile(['type', 'buy'])
+      .takeRightWhile(['type', 'sell'])
+      .sortBy(['price'])
+      .head()
+      .value()
+
+    const buyLoss = latestLowSell ? ((latestLowSell.price - Number(price)) / latestLowSell.price) * -100 : null
+
+    if (this.s.options.max_buy_loss_pct != null && buyLoss > this.s.options.max_buy_loss_pct) {
+      const err = new Error('\nloss protection') as Error
+      // const buyLossPercent = formatPercent(buyLoss / 100)
+      // err.desc = `refusing to buy at ${buyPrice}, buy loss of ${buyLossPercent}`
+      throw err
+    }
+
+    if (this.s.buy_order && this.s.options.max_slippage_pct != null) {
+      const slippage = n(price)
+        .subtract(this.s.buy_order.orig_price)
+        .divide(this.s.buy_order.orig_price)
+        .multiply(100)
+        .value()
+
+      if (this.s.options.max_slippage_pct != null && slippage > this.s.options.max_slippage_pct) {
+        const err = new Error('\nslippage protection') as Error
+        // const slippagePercent = formatPercent(slippage / 100)
+        // err.desc = `refusing to buy at ${buyPrice}, slippage of ${slippagePercent}`
+        throw err
+      }
     }
   }
 
-  executeBuy(quote, is_reorder, reorder_pct, size, trades, cb, is_taker, _cb) {
-    let price = this.quote.nextBuyForQuote(quote)
-    let buy_pct, fee, trade_balance, tradeable_balance, expected_fee
-
-    if (is_reorder) {
-      buy_pct = reorder_pct
-    } else {
-      buy_pct = this.s.options.buy_pct
+  private adjustBidSize(size: any) {
+    if (this.s.product.max_size && Number(size) > Number(this.s.product.max_size)) {
+      size = this.s.product.max_size
     }
+    return size
+  }
+
+  private getBidSize(
+    bidPercent: any,
+    fee: any,
+    size: any,
+    tradeableBalance: any,
+    price: string,
+    tradeBalance: any,
+    expectedFee: any
+  ) {
+    if (bidPercent + fee < 100) {
+      size = n(tradeableBalance)
+        .divide(price)
+        .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
+    } else {
+      size = n(tradeBalance)
+        .subtract(expectedFee)
+        .divide(price)
+        .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
+    }
+    return size
+  }
+
+  private getExpectedFee(tradeBalance: any, tradeableBalance: any) {
+    let expected_fee
+    // @ts-ignore
+    expected_fee = n(tradeBalance)
+      .subtract(tradeableBalance)
+      .format('0.00000000', Math.ceil) // round up as the exchange will too
+    return expected_fee
+  }
+
+  private getTradableBalance(bidPercent: any, fee: any) {
+    const tradeBalance = n(this.s.balance.deposit)
+      .divide(100)
+      .multiply(bidPercent)
+    const tradeableBalance = n(this.s.balance.deposit)
+      .divide(100 + fee)
+      .multiply(bidPercent)
+    return { tradeBalance, tradeableBalance }
+  }
+
+  private getBidFee(bidPercent: any) {
+    let fee
     if (this.s.options.use_fee_asset) {
       fee = 0
     } else if (
       this.s.options.order_type === 'maker' &&
-      (buy_pct + this.s.exchange.takerFee < 100 || !this.s.exchange.makerBuy100Workaround)
+      (bidPercent + this.exchange.takerFee < 100 || !this.exchange.makerBuy100Workaround)
     ) {
-      fee = this.s.exchange.makerFee
+      fee = this.exchange.makerFee
     } else {
-      fee = this.s.exchange.takerFee
+      fee = this.exchange.takerFee
     }
-    trade_balance = n(this.s.balance.deposit)
-      .divide(100)
-      .multiply(buy_pct)
-    tradeable_balance = n(this.s.balance.deposit)
-      .divide(100 + fee)
-      .multiply(buy_pct)
-    // @ts-ignore
-    expected_fee = n(trade_balance)
-      .subtract(tradeable_balance)
-      .format('0.00000000', Math.ceil) // round up as the exchange will too
-    if (buy_pct + fee < 100) {
-      size = n(tradeable_balance)
-        .divide(price)
-        .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
-    } else {
-      size = n(trade_balance)
-        .subtract(expected_fee)
-        .divide(price)
-        .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
-    }
-
-    if (
-      (this.s.product.min_size && Number(size) >= Number(this.s.product.min_size)) ||
-      ('min_total' in this.s.product &&
-        this.s.product.min_total &&
-        n(size)
-          .multiply(price)
-          .value() >= Number(this.s.product.min_total))
-    ) {
-      if (this.s.product.max_size && Number(size) > Number(this.s.product.max_size)) {
-        size = this.s.product.max_size
-      }
-      debug.msg(
-        'preparing buy order over ' +
-          formatAsset(size, this.s.asset) +
-          ' of ' +
-          // @ts-ignore
-          formatCurrency(tradeable_balance, this.s.currency) +
-          ' (' +
-          buy_pct +
-          '%) tradeable balance with a expected fee of ' +
-          // @ts-ignore
-          formatCurrency(expected_fee, this.s.currency) +
-          ' (' +
-          fee +
-          '%)',
-      )
-      let latest_low_sell = _
-        .chain(trades)
-        .dropRightWhile(['type', 'buy'])
-        .takeRightWhile(['type', 'sell'])
-        .sortBy(['price'])
-        .head()
-        .value() // return lowest price
-      let buy_loss = latest_low_sell ? ((latest_low_sell.price - Number(price)) / latest_low_sell.price) * -100 : null
-      if (this.s.options.max_buy_loss_pct != null && buy_loss > this.s.options.max_buy_loss_pct) {
-        let err = new Error('\nloss protection') as Error
-        err.desc =
-          'refusing to buy at ' +
-          // @ts-ignore
-          formatCurrency(price, this.s.currency) +
-          ', buy loss of ' +
-          formatPercent(buy_loss / 100)
-        return cb(err)
-      } else {
-        if (this.s.buy_order && this.s.options.max_slippage_pct != null) {
-          let slippage = n(price)
-            .subtract(this.s.buy_order.orig_price)
-            .divide(this.s.buy_order.orig_price)
-            .multiply(100)
-            .value()
-          if (this.s.options.max_slippage_pct != null && slippage > this.s.options.max_slippage_pct) {
-            let err = new Error('\nslippage protection') as Error
-            err.desc =
-              'refusing to buy at ' +
-              // @ts-ignore
-              formatCurrency(price, this.s.currency) +
-              ', slippage of ' +
-              formatPercent(slippage / 100)
-            return cb(err)
-          }
-        }
-        if (
-          n(this.s.balance.deposit)
-            .subtract(this.s.balance.currency_hold || 0)
-            .value() <
-            n(price)
-              .multiply(size)
-              .value() &&
-          this.s.balance.currency_hold > 0
-        ) {
-          debug.msg(
-            'buy delayed: ' +
-              formatPercent(
-                n(this.s.balance.currency_hold || 0)
-                  .divide(this.s.balance.deposit)
-                  .value(),
-              ) +
-              ' of funds (' +
-              // @ts-ignore
-              formatCurrency(this.s.balance.currency_hold, this.s.currency) +
-              ') on hold',
-          )
-          return setTimeout(() => {
-            if (this.s.last_signal === 'buy') {
-              this.executeSignal('buy', cb, size, true)
-            }
-          }, this.conf.wait_for_settlement)
-        } else {
-          this.pushMessage(
-            'Buying ' + formatAsset(size, this.s.asset) + ' on ' + this.s.exchange.name.toUpperCase(),
-            'placing buy order at ' +
-              // @ts-ignore
-              formatCurrency(price, this.s.currency) +
-              ', ' +
-              // @ts-ignore
-              formatCurrency(quote.bid - Number(price), this.s.currency) +
-              ' under best bid\n',
-          )
-          this.doOrder('buy', size, price, expected_fee, is_taker, cb, _cb)
-        }
-      }
-    } else {
-      cb(null, null)
-    }
+    return fee
   }
 
-  executeSell(quote, is_reorder, reorder_pct, size, trades, cb, is_taker, _cb) {
-    let price = this.quote.nextSellForQuote(quote)
-    let sell_pct
-
-    if (is_reorder) {
-      sell_pct = reorder_pct
+  private getBidPercent(isReorder: any, reorderPercent: any) {
+    let bidPercent
+    if (isReorder) {
+      bidPercent = reorderPercent
     } else {
-      sell_pct = this.s.options.sell_pct
+      bidPercent = this.s.options.buy_pct
     }
-    size = n(this.s.balance.asset)
-      .multiply(sell_pct / 100)
+    return bidPercent
+  }
+
+  async executeSell(quote, isReorder, reorderPercent, trades, isTaker) {
+    const price = this.quote.nextSellForQuote(quote)
+    const askPercent = this.getAskPercent(isReorder, reorderPercent)
+
+    const initSize = n(this.s.balance.asset)
+      .multiply(askPercent / 100)
       .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
 
-    if (
-      (this.s.product.min_size && Number(size) >= Number(this.s.product.min_size)) ||
-      (this.s.product.min_total &&
-        n(size)
-          .multiply(price)
-          .value() >= Number(this.s.product.min_total))
-    ) {
-      if (this.s.product.max_size && Number(size) > Number(this.s.product.max_size)) {
-        size = this.s.product.max_size
+    const isSizeAboveMin = this.s.product.min_size && Number(initSize) >= Number(this.s.product.min_size)
+    const isSizeAboveTotal =
+      'min_total' in this.s.product &&
+      this.s.product.min_total &&
+      n(initSize)
+        .multiply(price)
+        .value() >= Number(this.s.product.min_total)
+
+    if (!(isSizeAboveMin || isSizeAboveTotal)) return false
+
+    const size = this.adjustAskSize(initSize)
+
+    const sellPrice = formatCurrency(price, this.s.currency)
+
+    this.checkAskOrder(trades, price, sellPrice)
+
+    // prettier-ignore
+    const shouldDelay = n(this.s.balance.asset).subtract(this.s.balance.asset_hold || 0).value() < n(size).value()
+
+    if (shouldDelay) {
+      // prettier-ignore
+      const assetPercent = formatPercent(n(this.s.balance.asset_hold || 0).divide(this.s.balance.asset).value())
+      const assetHold = formatAsset(this.s.balance.asset_hold, this.s.asset)
+
+      debug.msg(`sell delayed: ${assetPercent} of funds (${assetHold}) on hold'`)
+
+      if (this.s.last_signal === 'sell')
+        return asyncTimeout(() => this.executeSignal('sell', this.adjustAskSize, true), this.conf.wait_for_settlement)
+      else throw new Error('Signal changed!')
+    }
+
+    const assetSize = formatAsset(size, this.s.asset)
+    const priceUnder = formatCurrency(Number(price) - quote.bid, this.s.currency)
+    const title = `Selling ${assetSize} on ${this.exchange.name}`
+    const message = `placing sell order at ${sellPrice}, ${priceUnder} under best ask\n`
+    this.pushMessage(title, message)
+
+    return this.doOrder('sell', size, price, null, isTaker)
+  }
+
+  private checkAskOrder(trades: any, price: string, sellPrice: string) {
+    // return highest price
+    const latestHighBuy = _
+      .chain(trades)
+      .dropRightWhile(['type', 'sell'])
+      .takeRightWhile(['type', 'buy'])
+      .sortBy(['price'])
+      .reverse()
+      .head()
+      .value()
+
+    const sellLoss = latestHighBuy ? ((Number(price) - latestHighBuy.price) / latestHighBuy.price) * -100 : null
+
+    if (this.s.options.max_sell_loss_pct != null && sellLoss > this.s.options.max_sell_loss_pct) {
+      const err = new Error('\nloss protection') as Error
+      // const sellLossPercent = formatPercent(sellLoss / 100)
+      // err.desc = `refusing to sell at ${sellPrice}, sell loss of ${sellLossPercent}`
+      throw err
+    }
+
+    if (this.s.sell_order && this.s.options.max_slippage_pct != null) {
+      const slippage = n(this.s.sell_order.orig_price)
+        .subtract(price)
+        .divide(price)
+        .multiply(100)
+        .value()
+
+      if (slippage > this.s.options.max_slippage_pct) {
+        const err = new Error('\nslippage protection') as Error
+        // const slippagePercent = formatPercent(slippage / 100)
+        // err.desc = `refusing to sell at ${sellPrice}, slippage of ${slippagePercent}`
+        throw err
       }
-      let latest_high_buy = _
-        .chain(trades)
-        .dropRightWhile(['type', 'sell'])
-        .takeRightWhile(['type', 'buy'])
-        .sortBy(['price'])
-        .reverse()
-        .head()
-        .value() // return highest price
-      let sell_loss = latest_high_buy ? ((Number(price) - latest_high_buy.price) / latest_high_buy.price) * -100 : null
-      if (this.s.options.max_sell_loss_pct != null && sell_loss > this.s.options.max_sell_loss_pct) {
-        let err = new Error('\nloss protection') as Error
-        err.desc =
-          'refusing to sell at ' +
-          // @ts-ignore
-          formatCurrency(price, this.s.currency) +
-          ', sell loss of ' +
-          formatPercent(sell_loss / 100)
-        return cb(err)
-      } else {
-        if (this.s.sell_order && this.s.options.max_slippage_pct != null) {
-          let slippage = n(this.s.sell_order.orig_price)
-            .subtract(price)
-            .divide(price)
-            .multiply(100)
-            .value()
-          if (slippage > this.s.options.max_slippage_pct) {
-            let err = new Error('\nslippage protection') as Error
-            err.desc =
-              'refusing to sell at ' +
-              // @ts-ignore
-              formatCurrency(price, this.s.currency) +
-              ', slippage of ' +
-              formatPercent(slippage / 100)
-            return cb(err)
-          }
-        }
-        if (
-          n(this.s.balance.asset)
-            .subtract(this.s.balance.asset_hold || 0)
-            .value() < n(size).value()
-        ) {
-          debug.msg(
-            'sell delayed: ' +
-              formatPercent(
-                n(this.s.balance.asset_hold || 0)
-                  .divide(this.s.balance.asset)
-                  .value(),
-              ) +
-              ' of funds (' +
-              formatAsset(this.s.balance.asset_hold, this.s.asset) +
-              ') on hold',
-          )
-          return setTimeout(() => {
-            if (this.s.last_signal === 'sell') {
-              this.executeSignal('sell', cb, size, true)
-            }
-          }, this.conf.wait_for_settlement)
-        } else {
-          this.pushMessage(
-            'Selling ' + formatAsset(size, this.s.asset) + ' on ' + this.s.exchange.name.toUpperCase(),
-            'placing sell order at ' +
-              // @ts-ignore
-              formatCurrency(price, this.s.currency) +
-              ', ' +
-              // @ts-ignore
-              formatCurrency(Number(price) - quote.bid, this.s.currency) +
-              ' over best ask\n',
-          )
-          this.doOrder('sell', size, price, null, is_taker, cb, _cb)
-        }
-      }
-    } else {
-      cb(null, null)
     }
   }
 
-  doOrder(
-    signal: any,
-    size: any,
-    price: any,
-    expected_fee: any,
-    is_taker: any,
-    cb: (err: any, order?: any) => void,
-    _cb: any,
-  ) {
+  private adjustAskSize(size: string) {
+    if (this.s.product.max_size && Number(size) > Number(this.s.product.max_size)) {
+      size = this.s.product.max_size
+    }
+    return size
+  }
+
+  private getAskPercent(isReorder: any, reorderPercent: any) {
+    return isReorder ? reorderPercent : this.s.options.sell_pct
+  }
+
+  async doOrder(signal: any, size: any, price: any, expected_fee: any, is_taker: any) {
     const order = {
       size: size,
       price: price,
@@ -571,33 +562,32 @@ export class Core {
       cancel_after: this.s.options.cancel_after || 'day',
     }
 
-    this.placeOrder(signal, order, (err, order) => {
-      if (err) {
-        err.desc = 'could not execute ' + signal + ': error placing order'
-        return cb(err)
-      }
-      if (!order) {
-        if (order === false) {
-          // not enough balance, or signal switched.
-          debug.msg('not enough balance, or signal switched, cancel ' + signal)
-          return cb(null, null)
-        }
-        if (this.s.last_signal !== signal) {
-          // order timed out but a new signal is taking its place
-          debug.msg('signal switched, cancel ' + signal)
-          return cb(null, null)
-        }
-        // order timed out and needs adjusting
-        debug.msg(signal + ' order timed out, adjusting price')
-        let remaining_size = this.s[signal + '_order'] ? this.s[signal + '_order'].remaining_size : size
-        if (remaining_size !== size) {
-          debug.msg('remaining size: ' + remaining_size)
-        }
+    const api_order = await this.placeOrder(signal, order)
 
-        return this.executeSignal(signal, _cb, remaining_size, true)
+    if (!api_order) {
+      if (api_order === false) {
+        // not enough balance, or signal switched.
+        debug.msg('not enough balance, or signal switched, cancel ' + signal)
+        return
       }
-      cb(null, order)
-    })
+
+      if (this.s.last_signal !== signal) {
+        // order timed out but a new signal is taking its place
+        debug.msg('signal switched, cancel ' + signal)
+        return
+      }
+
+      // order timed out and needs adjusting
+      debug.msg(signal + ' order timed out, adjusting price')
+      let remaining_size = this.s[signal + '_order'] ? this.s[signal + '_order'].remaining_size : size
+      if (remaining_size !== size) {
+        debug.msg('remaining size: ' + remaining_size)
+      }
+
+      return this.executeSignal(signal, remaining_size, true)
+    }
+
+    return api_order
   }
 
   memDump() {
@@ -678,7 +668,7 @@ export class Core {
           if (this.s.profit_stop && this.s.period.close < this.s.profit_stop && this.s.last_trade_worth > 0) {
             stop_signal = 'sell'
             console.log(
-              ('\nprofit stop triggered at ' + formatPercent(this.s.last_trade_worth) + ' trade worth\n').green,
+              ('\nprofit stop triggered at ' + formatPercent(this.s.last_trade_worth) + ' trade worth\n').green
             )
           }
         } else {
@@ -695,7 +685,7 @@ export class Core {
     }
   }
 
-  placeOrder(type, opts, cb) {
+  async placeOrder(type, opts) {
     if (!this.s[type + '_order']) {
       this.s[type + '_order'] = {
         price: opts.price,
@@ -722,47 +712,43 @@ export class Core {
 
     const orderCopy = JSON.parse(JSON.stringify(order))
 
-    this.s.exchange[type](orderCopy, (err, api_order) => {
-      if (err) return cb(err)
+    const api_order = await this.exchange.placeOrder(type, orderCopy)
 
-      this.s.api_order = api_order
+    this.s.api_order = api_order
 
-      if (api_order.status === 'rejected') {
-        if (api_order.reject_reason === 'post only') {
-          // trigger immediate price adjustment and re-order
-          debug.msg('post-only ' + type + ' failed, re-ordering')
-          return cb(null, null)
-        } else if (api_order.reject_reason === 'balance') {
-          // treat as a no-op.
-          debug.msg('not enough balance for ' + type + ', aborting')
-          return cb(null, false)
-        } else if (api_order.reject_reason === 'price') {
-          // treat as a no-op.
-          debug.msg('invalid price for ' + type + ', aborting')
-          return cb(null, false)
-        }
-        err = new Error('\norder rejected')
-        err.order = api_order
-        return cb(err)
+    if (api_order.status === 'rejected') {
+      if (api_order.reject_reason === 'post only') {
+        // trigger immediate price adjustment and re-order
+        debug.msg('post-only ' + type + ' failed, re-ordering')
+        return null
+      } else if (api_order.reject_reason === 'balance') {
+        // treat as a no-op.
+        debug.msg('not enough balance for ' + type + ', aborting')
+        return false
+      } else if (api_order.reject_reason === 'price') {
+        // treat as a no-op.
+        debug.msg('invalid price for ' + type + ', aborting')
+        return false
       }
+      const err = new Error('\norder rejected') as any
+      err.order = api_order
+      return err
+    }
 
-      // @ts-ignore
-      debug.msg(type + ' order placed at ' + formatCurrency(order.price, this.s.currency))
-      order.order_id = api_order.id
-      if (!order.time) {
-        order.orig_time = new Date(api_order.created_at).getTime()
-      }
-      order.time = new Date(api_order.created_at).getTime()
-      order.local_time = this.now()
-      order.status = api_order.status
+    // @ts-ignore
+    debug.msg(type + ' order placed at ' + formatCurrency(order.price, this.s.currency))
+    order.order_id = api_order.id
+    if (!order.time) {
+      order.orig_time = new Date(api_order.created_at).getTime()
+    }
+    order.time = new Date(api_order.created_at).getTime()
+    order.local_time = this.now()
+    order.status = api_order.status
 
-      setTimeout(() => {
-        this.checkOrder(order, type, cb)
-      }, this.s.options.order_poll_time)
-    })
+    return asyncTimeout(() => this.checkOrder(order, type), this.s.options.order_poll_time)
   }
 
-  executeOrder(trade, type) {
+  completeOrder(trade, type) {
     let price,
       fee = 0
     if (!this.s.options.order_type) {
@@ -776,16 +762,16 @@ export class Core {
     if (this.s.buy_order) {
       price = this.s.buy_order.price
       if (this.s.options.order_type === 'maker') {
-        if (this.s.exchange.makerFee) {
+        if (this.exchange.makerFee) {
           fee = n(this.s.buy_order.size)
-            .multiply(this.s.exchange.makerFee / 100)
+            .multiply(this.exchange.makerFee / 100)
             .value()
         }
       }
       if (this.s.options.order_type === 'taker') {
-        if (this.s.exchange.takerFee) {
+        if (this.exchange.takerFee) {
           fee = n(this.s.buy_order.size)
-            .multiply(this.s.exchange.takerFee / 100)
+            .multiply(this.exchange.takerFee / 100)
             .value()
         }
       }
@@ -834,7 +820,7 @@ export class Core {
           moment.duration(my_trade.execution_time).humanize() +
           '\n'
         console.log(order_complete.cyan)
-        this.pushMessage('Buy ' + this.s.exchange.name.toUpperCase(), order_complete)
+        this.pushMessage('Buy ' + this.exchange.name, order_complete)
       }
       this.s.last_buy_price = my_trade.price
       delete this.s.buy_order
@@ -851,17 +837,17 @@ export class Core {
     } else if (this.s.sell_order) {
       price = this.s.sell_order.price
       if (this.s.options.order_type === 'maker') {
-        if (this.s.exchange.makerFee) {
+        if (this.exchange.makerFee) {
           fee = n(this.s.sell_order.size)
-            .multiply(this.s.exchange.makerFee / 100)
+            .multiply(this.exchange.makerFee / 100)
             .multiply(price)
             .value()
         }
       }
       if (this.s.options.order_type === 'taker') {
-        if (this.s.exchange.takerFee) {
+        if (this.exchange.takerFee) {
           fee = n(this.s.sell_order.size)
-            .multiply(this.s.exchange.takerFee / 100)
+            .multiply(this.exchange.takerFee / 100)
             .multiply(price)
             .value()
         }
@@ -910,7 +896,7 @@ export class Core {
           moment.duration(my_trade.execution_time).humanize() +
           '\n'
         console.log(order_complete.cyan)
-        this.pushMessage('Sell ' + this.s.exchange.name.toUpperCase(), order_complete)
+        this.pushMessage('Sell ' + this.exchange.name, order_complete)
       }
       this.s.last_sell_price = my_trade.price
       delete this.s.sell_order
@@ -963,137 +949,109 @@ export class Core {
     cb()
   }
 
-  cancelOrder(order, type, do_reorder, cb) {
-    this.s.exchange.cancelOrder({ order_id: order.order_id, product_id: this.s.product_id }, () => {
-      const checkHold = (do_reorder, cb) => {
-        this.s.exchange.getOrder(
-          { order_id: order.order_id, product_id: this.s.product_id },
-          async (err, api_order) => {
-            if (api_order) {
-              if (api_order.status === 'done') {
-                order.time = new Date(api_order.done_at).getTime()
-                order.price = api_order.price || order.price // Use actual price if possible. In market order the actual price (api_order.price) could be very different from trade price
-                debug.msg('cancel failed, order done, executing')
-                this.executeOrder(order, type)
-
-                await this.syncBalance()
-                return cb(null, order)
-              }
-
-              this.s.api_order = api_order
-              if (api_order.filled_size) {
-                order.remaining_size = n(order.size)
-                  .subtract(api_order.filled_size)
-                  .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
-              }
-            }
-            await this.syncBalance()
-
-            let on_hold
-            if (type === 'buy') {
-              on_hold =
-                n(this.s.balance.deposit)
-                  .subtract(this.s.balance.currency_hold || 0)
-                  .value() <
-                n(order.price)
-                  .multiply(order.remaining_size)
-                  .value()
-            } else {
-              on_hold =
-                n(this.s.balance.asset)
-                  .subtract(this.s.balance.asset_hold || 0)
-                  .value() < n(order.remaining_size).value()
-            }
-
-            if (on_hold && this.s.balance.currency_hold > 0) {
-              // wait a bit for settlement
-              debug.msg('funds on hold after cancel, waiting 5s')
-              setTimeout(() => {
-                checkHold(do_reorder, cb)
-              }, this.conf.wait_for_settlement)
-            } else {
-              cb(null, do_reorder ? null : false)
-            }
-          },
-        )
-      }
-      checkHold(do_reorder, cb)
-    })
+  async cancelOrder(order, type, doReorder) {
+    const opts = { order_id: order.order_id, product_id: this.s.product_id }
+    await this.exchange.cancelOrder(opts)
+    await this.checkHold(order, type)
   }
 
-  checkOrder(order, type, cb) {
+  async checkHold(order, type) {
+    const opts = { order_id: order.order_id, product_id: this.s.product_id }
+
+    const api_order = await this.exchange.getOrder(opts)
+
+    if (api_order) {
+      if (api_order.status === 'done') {
+        order.time = new Date(api_order.done_at).getTime()
+        // Use actual price if possible. In market order the actual price (api_order.price) could be very different from trade price
+        order.price = api_order.price || order.price
+        debug.msg('cancel failed, order done, executing')
+        this.completeOrder(order, type)
+
+        return await this.syncBalance()
+      }
+
+      this.s.api_order = api_order
+      if (api_order.filled_size) {
+        order.remaining_size = n(order.size)
+          .subtract(api_order.filled_size)
+          .format(this.s.product.asset_increment ? this.s.product.asset_increment : '0.00000000')
+      }
+    }
+
+    await this.syncBalance()
+
+    const on_hold =
+      type === 'buy'
+        ? n(this.s.balance.deposit)
+            .subtract(this.s.balance.currency_hold || 0)
+            .value() <
+          n(order.price)
+            .multiply(order.remaining_size)
+            .value()
+        : n(this.s.balance.asset)
+            .subtract(this.s.balance.asset_hold || 0)
+            .value() < n(order.remaining_size).value()
+
+    if (!on_hold || this.s.balance.currency_hold <= 0) return
+
+    debug.msg('funds on hold after cancel, waiting 5s')
+    return await asyncTimeout(() => this.checkHold(order, type), this.conf.wait_for_settlement)
+  }
+
+  async checkOrder(order, type) {
     if (!this.s[type + '_order']) {
       // signal switched, stop checking order
       debug.msg('signal switched during ' + type + ', aborting')
-      return this.cancelOrder(order, type, false, cb)
+      return this.cancelOrder(order, type, false)
     }
-    this.s.exchange.getOrder({ order_id: order.order_id, product_id: this.s.product_id }, async (err, api_order) => {
-      if (err) return cb(err)
-      this.s.api_order = api_order
-      order.status = api_order.status
-      if (api_order.reject_reason) order.reject_reason = api_order.reject_reason
-      if (api_order.status === 'done') {
-        order.time = new Date(api_order.done_at).getTime()
-        order.price = api_order.price || order.price // Use actual price if possible. In market order the actual price (api_order.price) could be very different from trade price
-        this.executeOrder(order, type)
 
-        await this.syncBalance()
-        return cb(null, order)
-      }
-      if (
-        order.status === 'rejected' &&
-        (order.reject_reason === 'post only' || api_order.reject_reason === 'post only')
-      ) {
-        debug.msg('post-only ' + type + ' failed, re-ordering')
-        return cb(null, null)
-      }
-      if (order.status === 'rejected' && order.reject_reason === 'balance') {
-        debug.msg('not enough balance for ' + type + ', aborting')
-        return cb(null, null)
-      }
-      if (this.now() - order.local_time >= this.s.options.order_adjust_time) {
-        try {
-          const quote = await this.quote.getQuote()
-          this.s.quote = quote
-          let marked_price
-          if (type === 'buy') {
-            marked_price = this.quote.nextBuyForQuote(quote)
-            if (this.s.options.exact_buy_orders && n(order.price).value() != marked_price) {
-              debug.msg(marked_price + ' vs! our ' + order.price)
-              this.cancelOrder(order, type, true, cb)
-            } else if (n(order.price).value() < marked_price) {
-              debug.msg(marked_price + ' vs our ' + order.price)
-              this.cancelOrder(order, type, true, cb)
-            } else {
-              order.local_time = this.now()
-              setTimeout(() => {
-                this.checkOrder(order, type, cb)
-              }, this.s.options.order_poll_time)
-            }
-          } else {
-            marked_price = this.quote.nextSellForQuote(quote)
-            if (this.s.options.exact_sell_orders && n(order.price).value() != marked_price) {
-              debug.msg(marked_price + ' vs! our ' + order.price)
-              this.cancelOrder(order, type, true, cb)
-            } else if (n(order.price).value() > marked_price) {
-              debug.msg(marked_price + ' vs our ' + order.price)
-              this.cancelOrder(order, type, true, cb)
-            } else {
-              order.local_time = this.now()
-              setTimeout(() => {
-                this.checkOrder(order, type, cb)
-              }, this.s.options.order_poll_time)
-            }
-          }
-        } catch (err) {
-          err.desc = 'could not execute ' + type + ': error fetching quote'
-          return cb(err)
-        }
-      } else {
-        setTimeout(() => {
-          this.checkOrder(order, type, cb)
-        }, this.s.options.order_poll_time)
-      }
-    })
+    const opts = { order_id: order.order_id, product_id: this.s.product_id }
+    const api_order = await this.exchange.getOrder(opts)
+
+    this.s.api_order = api_order
+    order.status = api_order.status
+    if (api_order.reject_reason) order.reject_reason = api_order.reject_reason
+
+    if (api_order.status === 'done') {
+      order.time = new Date(api_order.done_at).getTime()
+      // Use actual price if possible. In market order the actual price (api_order.price) could be very different from trade price
+      order.price = api_order.price || order.price
+      this.completeOrder(order, type)
+
+      await this.syncBalance()
+      return order
+    }
+
+    const postFailed =
+      order.status === 'rejected' && (order.reject_reason === 'post only' || api_order.reject_reason === 'post only')
+
+    if (postFailed) {
+      debug.msg(`post-only ${type} failed, re-ordering`)
+      return null
+    }
+
+    if (order.status === 'rejected' && order.reject_reason === 'balance') {
+      debug.msg(`not enough balance for ${type}, aborting`)
+      return null
+    }
+
+    const shouldAdjustOrder = this.now() - order.local_time >= this.s.options.order_adjust_time
+    if (!shouldAdjustOrder) return asyncTimeout(() => this.checkOrder(order, type), this.s.options.order_poll_time)
+
+    const quote = await this.quote.getQuote()
+    this.s.quote = quote
+
+    const markedPrice = type === 'buy' ? this.quote.nextBuyForQuote(quote) : this.quote.nextSellForQuote(quote)
+    const priceMismatch = this.s.options[`exact_${type}_orders`] && n(order.price).value() != markedPrice
+    const priceSlipped = type === 'buy' ? n(order.price).value() < markedPrice : n(order.price).value() > markedPrice
+
+    if (priceMismatch) debug.msg(`${markedPrice} vs! our ${order.price}`)
+    if (priceSlipped) debug.msg(`${markedPrice} vs our ${order.price}`)
+
+    if (priceMismatch || priceSlipped) return this.cancelOrder(order, type, true)
+
+    order.local_time = this.now()
+    return asyncTimeout(() => this.checkOrder(order, type), this.s.options.order_poll_time)
   }
 }
