@@ -322,7 +322,7 @@
   {
     "asset": "USDET",
     "currency": "USD",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "USDET/USD"
@@ -330,7 +330,7 @@
   {
     "asset": "RURET",
     "currency": "RUR",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "RURET/RUR"
@@ -338,7 +338,7 @@
   {
     "asset": "EURET",
     "currency": "EUR",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "EURET/EUR"
@@ -346,7 +346,7 @@
   {
     "asset": "BTCET",
     "currency": "BTC",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "BTCET/BTC"
@@ -354,7 +354,7 @@
   {
     "asset": "LTCET",
     "currency": "LTC",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "LTCET/LTC"
@@ -362,7 +362,7 @@
   {
     "asset": "ETHET",
     "currency": "ETH",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "ETHET/ETH"
@@ -370,7 +370,7 @@
   {
     "asset": "NMCET",
     "currency": "NMC",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "NMCET/NMC"
@@ -378,7 +378,7 @@
   {
     "asset": "NVCET",
     "currency": "NVC",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "NVCET/NVC"
@@ -386,7 +386,7 @@
   {
     "asset": "PPCET",
     "currency": "PPC",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "PPCET/PPC"
@@ -394,7 +394,7 @@
   {
     "asset": "DSHET",
     "currency": "DSH",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "DSHET/DSH"
@@ -402,7 +402,7 @@
   {
     "asset": "BCHET",
     "currency": "BCH",
-    "min_size": "0.0001",
+    "min_size": "0.01",
     "max_size": "1",
     "increment": "0.0001",
     "label": "BCHET/BCH"
