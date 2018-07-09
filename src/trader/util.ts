@@ -1,3 +1,5 @@
+import 'colors'
+
 import minimist from 'minimist'
 import objectifySelector from '../../lib/objectify-selector'
 import path from 'path'
