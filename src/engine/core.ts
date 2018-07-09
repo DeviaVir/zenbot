@@ -21,6 +21,14 @@ import { Exchange } from './exchange'
 import * as debug from './debug'
 import { asyncTimeout } from '../util/async'
 
+enum ORDER_STATUS {
+  LIVE,
+  CANCELED,
+  FAILED,
+  PARTIAL,
+  DONE,
+}
+
 interface Error {
   desc?: string
   code?: string
@@ -319,7 +327,7 @@ export class Core {
       `preparing buy order over ${assetSize} of ${currencySize} (${bidPercent}%) tradeable balance with a expected fee of ${feeAmt} (${fee}%)`
     )
 
-    this.checkBidOrder(trades, price, buyPrice)
+    this.checkBidOrder(trades, price)
 
     // prettier-ignore
     const shouldDelay = n(this.s.balance.deposit).subtract(this.s.balance.currency_hold || 0).value() < n(price).multiply(finalSize).value()
@@ -345,7 +353,7 @@ export class Core {
     return this.doOrder('buy', finalSize, price, expectedFee, isTaker)
   }
 
-  private checkBidOrder(trades: any, price: string, buyPrice: string) {
+  private checkBidOrder(trades: any, price: string) {
     // return lowest price
     const latestLowSell = _
       .chain(trades)
@@ -740,7 +748,7 @@ export class Core {
     order.local_time = this.now()
     order.status = api_order.status
 
-    return asyncTimeout(() => this.checkOrder(order, type), this.s.options.order_poll_time)
+    return await asyncTimeout(() => this.checkOrder(order, type), this.s.options.order_poll_time)
   }
 
   completeOrder(trade, type) {
@@ -944,16 +952,18 @@ export class Core {
     cb()
   }
 
-  async cancelOrder(order, type, doReorder) {
+  async cancelOrder(order, type) {
     const opts = { order_id: order.order_id, product_id: this.s.product_id }
     await this.exchange.cancelOrder(opts)
-    await this.checkHold(order, type)
+    return await this.checkHold(order, type)
   }
 
   async checkHold(order, type) {
     const opts = { order_id: order.order_id, product_id: this.s.product_id }
 
     const api_order = await this.exchange.getOrder(opts)
+
+    if (!api_order) return ORDER_STATUS.FAILED
 
     if (api_order) {
       if (api_order.status === 'done') {
@@ -963,7 +973,8 @@ export class Core {
         debug.msg('cancel failed, order done, executing')
         this.completeOrder(order, type)
 
-        return await this.syncBalance()
+        await this.syncBalance()
+        return ORDER_STATUS.DONE
       }
 
       this.s.api_order = api_order
@@ -988,7 +999,7 @@ export class Core {
             .subtract(this.s.balance.asset_hold || 0)
             .value() < n(order.remaining_size).value()
 
-    if (!on_hold || this.s.balance.currency_hold <= 0) return
+    if (!on_hold || this.s.balance.currency_hold <= 0) return ORDER_STATUS.CANCELED
 
     debug.msg('funds on hold after cancel, waiting 5s')
     return await asyncTimeout(() => this.checkHold(order, type), this.conf.wait_for_settlement)
@@ -998,7 +1009,7 @@ export class Core {
     if (!this.s[type + '_order']) {
       // signal switched, stop checking order
       debug.msg('signal switched during ' + type + ', aborting')
-      return this.cancelOrder(order, type, false)
+      return this.cancelOrder(order, type)
     }
 
     const opts = { order_id: order.order_id, product_id: this.s.product_id }
@@ -1044,7 +1055,10 @@ export class Core {
     if (priceMismatch) debug.msg(`${markedPrice} vs! our ${order.price}`)
     if (priceSlipped) debug.msg(`${markedPrice} vs our ${order.price}`)
 
-    if (priceMismatch || priceSlipped) return this.cancelOrder(order, type, true)
+    if (priceMismatch || priceSlipped) {
+      await this.cancelOrder(order, type)
+      return this.placeOrder(type, order)
+    }
 
     order.local_time = this.now()
     return asyncTimeout(() => this.checkOrder(order, type), this.s.options.order_poll_time)
