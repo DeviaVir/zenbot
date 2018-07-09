@@ -35,7 +35,6 @@ export class Core {
     pushMessage: (title: string, message: string) => void
   }
 
-  private nice_errors = new RegExp(/(slippage protection|loss protection)/)
   private clock: any
 
   private report: Report
@@ -185,54 +184,50 @@ export class Core {
   syncBalance = async () => {
     const preAsset = this.s.options.mode === 'sim' ? this.s.sim_asset : this.s.balance.asset
 
-    try {
-      const balance = await this.getBalance()
-      this.s.balance = balance
+    const balance = await this.getBalance()
+    this.s.balance = balance
 
-      const quote = await this.quote.getQuote()
-      this.s.quote = quote
+    const quote = await this.quote.getQuote()
+    this.s.quote = quote
 
-      const diffAsset = n(preAsset).subtract(balance.asset)
-      const postCurrency = n(diffAsset).multiply(quote.ask)
+    const diffAsset = n(preAsset).subtract(balance.asset)
+    const postCurrency = n(diffAsset).multiply(quote.ask)
 
-      this.s.asset_capital = n(this.s.balance.asset)
-        .multiply(quote.ask)
-        .value()
+    this.s.asset_capital = n(this.s.balance.asset)
+      .multiply(quote.ask)
+      .value()
 
-      // prettier-ignore
-      const deposit = this.s.options.deposit
+    // prettier-ignore
+    const deposit = this.s.options.deposit
         // @ts-ignore
         ? Math.max(0, n(this.s.options.deposit).subtract(this.s.asset_capital))
         : this.s.balance.currency // zero on negative
 
-      this.s.balance.deposit = n(deposit < this.s.balance.currency ? deposit : this.s.balance.currency).value()
+    this.s.balance.deposit = n(deposit < this.s.balance.currency ? deposit : this.s.balance.currency).value()
 
-      if (!this.s.start_capital) {
-        this.s.start_price = n(quote.ask).value()
-        this.s.start_capital = n(this.s.balance.deposit)
-          .add(this.s.asset_capital)
-          .value()
-        this.s.real_capital = n(this.s.balance.currency)
-          .add(this.s.asset_capital)
-          .value()
-        this.s.net_currency = this.s.balance.deposit
+    if (!this.s.start_capital) {
+      this.s.start_price = n(quote.ask).value()
+      this.s.start_capital = n(this.s.balance.deposit)
+        .add(this.s.asset_capital)
+        .value()
+      this.s.real_capital = n(this.s.balance.currency)
+        .add(this.s.asset_capital)
+        .value()
+      this.s.net_currency = this.s.balance.deposit
 
-        if (this.s.options.mode !== 'sim') {
-          this.pushMessage(
-            'Balance ' + this.exchange.name.toUpperCase(),
-            'sync balance ' + this.s.real_capital + ' ' + this.s.currency + '\n'
-          )
-        }
-      } else {
-        this.s.net_currency = n(this.s.net_currency)
-          .add(postCurrency)
-          .value()
+      if (this.s.options.mode !== 'sim') {
+        this.pushMessage(
+          'Balance ' + this.exchange.name.toUpperCase(),
+          'sync balance ' + this.s.real_capital + ' ' + this.s.currency + '\n'
+        )
       }
-
-      return { balance, quote }
-    } catch (err) {
-      console.log(err)
+    } else {
+      this.s.net_currency = n(this.s.net_currency)
+        .add(postCurrency)
+        .value()
     }
+
+    return { balance, quote }
   }
 
   async getBalance() {

@@ -1,4 +1,6 @@
+import crypto from 'crypto'
 import { Collection } from 'mongodb'
+import { MarkerService, Marker } from './marker.service'
 
 interface Exchange {
   getProducts: () => any
@@ -12,31 +14,45 @@ interface Exchange {
   getCursor: (trade) => any
 }
 
-interface TradesOptions {
+interface Trade {
+  id: string
+  _id: string
+  trade_id: string
+  time: number
+  size: number
+  price: number
+  side: 'sell' | 'buy'
   selector: string
+}
+
+interface TradesOptions {
+  selector: Record<string, string>
   usePrevTrades: boolean
-  minPrevTrades: number
   startTime: string
   sort?: { [key: string]: 1 | -1 }
   limit?: number
 }
 
 export class TradesService {
-  public myTrades: any[] = []
-
-  private dbCursor: string = null
+  private dbCursor: number = null
   private tradeCursor: number = null
-  private allTradesCollection: Collection = null
-  private myTradesCollection: Collection = null
+  private allTradesCollection: Collection<Trade> = null
+
+  private markerService: MarkerService
+  private marker: Marker
 
   constructor(private collectionServiceInstance: any, private exchange: Exchange, private opts: TradesOptions) {
     this.allTradesCollection = this.collectionServiceInstance.getTrades()
-    this.myTradesCollection = this.collectionServiceInstance.getMyTrades()
+    this.markerService = new MarkerService(this.collectionServiceInstance, this.opts.selector.normalized)
+    this.marker = this.markerService.newMarker()
+
+    if (!this.opts.sort) this.opts.sort = { time: 1 }
+    if (!this.opts.limit) this.opts.limit = 1000
   }
 
   async getNext() {
     const query = {
-      selector: this.opts.selector,
+      selector: this.opts.selector.normalized,
       time: !this.dbCursor ? { $gte: this.opts.startTime } : { $gt: this.dbCursor },
     }
 
@@ -49,41 +65,25 @@ export class TradesService {
     if (!trades.length) return []
 
     if (this.opts.usePrevTrades) {
-      await this.getMyTrades(trades[0].time)
+      // await this.getMyTrades(trades[0].time)
     }
 
     const lastTrade = trades[trades.length - 1]
     this.dbCursor = lastTrade.time
     this.tradeCursor = this.exchange.getCursor(lastTrade)
 
-    return trades
-  }
-
-  async getMyTrades(firststTradeTime: string) {
-    const query: Record<string, any> = {
-      selector: this.opts.selector,
-    }
-
-    if (!this.opts.minPrevTrades) {
-      query.time = { $gte: firststTradeTime }
-    }
-
-    this.myTrades = await this.myTradesCollection
-      .find(query)
-      .sort({ $natural: -1 })
-      .limit(this.opts.minPrevTrades)
-      .toArray()
+    return trades.concat(await this.getNext())
   }
 
   async getTrades() {
     const opts = {
-      product_id: this.opts.selector,
+      product_id: this.opts.selector.product_id,
       from: this.tradeCursor,
     }
 
     const trades = ((await new Promise((resolve, reject) =>
       this.exchange.getTrades(opts, (err, trades) => (err ? reject(err) : resolve(trades)))
-    )) as any[]).sort(({ time: a }, { time: b }) => (a === b ? 0 : a > b ? -1 : 1))
+    )) as Trade[]).sort(({ time: a }, { time: b }) => (a === b ? 0 : a > b ? -1 : 1))
 
     trades.forEach((trade) => {
       const tradeCursor = this.exchange.getCursor(trade)
@@ -91,15 +91,26 @@ export class TradesService {
       this.saveTrade(trade)
     })
 
+    this.markerService.saveMarker(this.marker)
+
     return trades
   }
 
-  async saveTrade(trade: any) {
+  async saveTrade(trade: Trade) {
     const tradeData = {
       ...trade,
       selector: this.opts.selector,
       id: `selector-${trade.trade_id}`,
     }
+
+    if (!this.marker.from) {
+      this.marker.from = this.tradeCursor
+      this.marker.oldest_time = trade.time
+      this.marker.newest_time = trade.time
+    }
+
+    this.marker.to = this.marker.to ? Math.max(this.marker.to, this.tradeCursor) : this.tradeCursor
+    this.marker.newest_time = Math.max(this.marker.newest_time, trade.time)
 
     try {
       await this.allTradesCollection.save(tradeData)

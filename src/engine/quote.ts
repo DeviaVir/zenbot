@@ -1,6 +1,6 @@
 import n from 'numbro'
 
-interface QuoteResponse {
+export interface QuoteResponse {
   bid: number
   ask: number
 }
@@ -14,7 +14,7 @@ export class Quote {
     return new Promise<QuoteResponse>((resolve, reject) => {
       this.s.exchange.getQuote(
         { product_id },
-        (err: QuoteResponse, quote: QuoteResponse) => (err ? reject(err) : resolve(quote)),
+        (err: QuoteResponse, quote: QuoteResponse) => (err ? reject(err) : resolve(quote))
       )
     })
   }
