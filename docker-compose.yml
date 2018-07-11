@@ -14,15 +14,17 @@ services:
     tty: true
     ports:
       - "17365:17365"
+    expose:
+      - 17365
     depends_on:
       - mongodb
     environment:
       - MONGODB_PORT_27017_TCP_ADDR=mongodb
-
+      - TZ=America/new_york
   mongodb:
     image: mongo:latest
     volumes:
-      - ./database:/data/db
+      - data-volume:/data/db
     command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
     expose:
       - 27017
@@ -41,3 +43,5 @@ services:
   #    - DB_HOST=mongodb
   #    - DB_PORT=27017
   #  command: "npm start"
+volumes:
+  data-volume:
