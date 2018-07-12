@@ -994,7 +994,7 @@
     "asset": "VEN",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.73600000",
+    "max_size": "1.73850000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "VEN/BNB"
@@ -1004,7 +1004,7 @@
     "asset": "YOYOW",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.04483500",
+    "max_size": "0.04261000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "YOYOW/BNB"
@@ -1014,7 +1014,7 @@
     "asset": "POWR",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.22960000",
+    "max_size": "0.21960000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "POWR/BNB"
@@ -1064,7 +1064,7 @@
     "asset": "NULS",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.90050000",
+    "max_size": "2.05200000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "NULS/BNB"
@@ -1094,7 +1094,7 @@
     "asset": "RCN",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.03362000",
+    "max_size": "0.03335000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "RCN/BNB"
@@ -1144,7 +1144,7 @@
     "asset": "RDN",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.62410000",
+    "max_size": "0.59660000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "RDN/BNB"
@@ -1174,7 +1174,7 @@
     "asset": "DLT",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.06930000",
+    "max_size": "0.06770000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "DLT/BNB"
@@ -1184,7 +1184,7 @@
     "asset": "WTC",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "5.48300000",
+    "max_size": "5.55700000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "WTC/BNB"
@@ -1234,7 +1234,7 @@
     "asset": "AMB",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.22900000",
+    "max_size": "0.22440000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "AMB/BNB"
@@ -1264,7 +1264,7 @@
     "asset": "BCH",
     "currency": "BNB",
     "min_size": "0.00001000",
-    "max_size": "558.85000000",
+    "max_size": "560.25000000",
     "increment": "0.01",
     "asset_increment": "0.00001",
     "label": "BCH/BNB"
@@ -1294,7 +1294,7 @@
     "asset": "BAT",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.20580000",
+    "max_size": "0.21995000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "BAT/BNB"
@@ -1324,7 +1324,7 @@
     "asset": "BCPT",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.11870000",
+    "max_size": "0.15170000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "BCPT/BNB"
@@ -1424,7 +1424,7 @@
     "asset": "NEO",
     "currency": "BNB",
     "min_size": "0.00100000",
-    "max_size": "26.66000000",
+    "max_size": "25.86000000",
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "NEO/BNB"
@@ -1474,7 +1474,7 @@
     "asset": "QSP",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.05287000",
+    "max_size": "0.05142000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "QSP/BNB"
@@ -1504,7 +1504,7 @@
     "asset": "BTS",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.12580000",
+    "max_size": "0.12605000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "BTS/BNB"
@@ -1534,7 +1534,7 @@
     "asset": "XZC",
     "currency": "BNB",
     "min_size": "0.00100000",
-    "max_size": "13.24000000",
+    "max_size": "13.20000000",
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "XZC/BNB"
@@ -1564,7 +1564,7 @@
     "asset": "LSK",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "4.08800000",
+    "max_size": "4.10200000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "LSK/BNB"
@@ -1674,7 +1674,7 @@
     "asset": "IOTA",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.78160000",
+    "max_size": "0.78880000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "IOTA/BNB"
@@ -1704,7 +1704,7 @@
     "asset": "ADX",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.29150000",
+    "max_size": "0.29380000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "ADX/BNB"
@@ -1774,7 +1774,7 @@
     "asset": "CMT",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.11270000",
+    "max_size": "0.11340000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "CMT/BNB"
@@ -1804,7 +1804,7 @@
     "asset": "XLM",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.14960000",
+    "max_size": "0.15060000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "XLM/BNB"
@@ -1834,7 +1834,7 @@
     "asset": "CND",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.02293000",
+    "max_size": "0.02347000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "CND/BNB"
@@ -1884,7 +1884,7 @@
     "asset": "WABI",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.27560000",
+    "max_size": "0.27160000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "WABI/BNB"
@@ -1914,7 +1914,7 @@
     "asset": "LTC",
     "currency": "BNB",
     "min_size": "0.00001000",
-    "max_size": "62.90000000",
+    "max_size": "62.50000000",
     "increment": "0.01",
     "asset_increment": "0.00001",
     "label": "LTC/BNB"
@@ -1964,7 +1964,7 @@
     "asset": "WAVES",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "2.11600000",
+    "max_size": "2.15000000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "WAVES/BNB"
@@ -1994,7 +1994,7 @@
     "asset": "GTO",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.11900000",
+    "max_size": "0.11720000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "GTO/BNB"
@@ -2024,7 +2024,7 @@
     "asset": "ICX",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.15495000",
+    "max_size": "1.12535000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "ICX/BNB"
@@ -2104,7 +2104,7 @@
     "asset": "AION",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.72890000",
+    "max_size": "0.72840000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "AION/BNB"
@@ -2134,7 +2134,7 @@
     "asset": "NEBL",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "2.89520000",
+    "max_size": "2.89940000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "NEBL/BNB"
@@ -2164,7 +2164,7 @@
     "asset": "BRD",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.31820000",
+    "max_size": "0.32625000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "BRD/BNB"
@@ -2174,7 +2174,7 @@
     "asset": "MCO",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "5.96330000",
+    "max_size": "5.53435000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "MCO/BNB"
@@ -2244,7 +2244,7 @@
     "asset": "NAV",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.33020000",
+    "max_size": "0.32750000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "NAV/BNB"
@@ -2294,7 +2294,7 @@
     "asset": "TRIG",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.30950000",
+    "max_size": "0.29465000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "TRIG/BNB"
@@ -2324,7 +2324,7 @@
     "asset": "APPC",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.16380000",
+    "max_size": "0.15150000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "APPC/BNB"
@@ -2374,7 +2374,7 @@
     "asset": "RLC",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.59280000",
+    "max_size": "0.57310000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "RLC/BNB"
@@ -2424,7 +2424,7 @@
     "asset": "PIVX",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.41830000",
+    "max_size": "1.35975000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "PIVX/BNB"
@@ -2494,7 +2494,7 @@
     "asset": "STEEM",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.04840000",
+    "max_size": "1.08885000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "STEEM/BNB"
@@ -2524,7 +2524,7 @@
     "asset": "XRB",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.88000000",
+    "max_size": "1.89800000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "XRB/BNB"
@@ -2554,7 +2554,7 @@
     "asset": "VIA",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.80780000",
+    "max_size": "0.80750000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "VIA/BNB"
@@ -2584,7 +2584,7 @@
     "asset": "BLZ",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.20900000",
+    "max_size": "0.20300000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "BLZ/BNB"
@@ -2614,7 +2614,7 @@
     "asset": "AE",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.37590000",
+    "max_size": "1.35090000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "AE/BNB"
@@ -2644,7 +2644,7 @@
     "asset": "RPX",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.02620000",
+    "max_size": "0.02721000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "RPX/BNB"
@@ -2674,7 +2674,7 @@
     "asset": "NCASH",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.00979000",
+    "max_size": "0.00950000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "NCASH/BNB"
@@ -2704,7 +2704,7 @@
     "asset": "POA",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.12810000",
+    "max_size": "0.13005000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "POA/BNB"
@@ -2734,7 +2734,7 @@
     "asset": "ZIL",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.05456000",
+    "max_size": "0.05314000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "ZIL/BNB"
@@ -2764,7 +2764,7 @@
     "asset": "ONT",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "2.87880000",
+    "max_size": "2.65475000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "ONT/BNB"
@@ -2794,7 +2794,7 @@
     "asset": "STORM",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.01338000",
+    "max_size": "0.01275000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "STORM/BNB"
@@ -2804,7 +2804,7 @@
     "asset": "QTUM",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "6.21450000",
+    "max_size": "6.12930000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "QTUM/BNB"
@@ -2844,7 +2844,7 @@
     "asset": "XEM",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.13090000",
+    "max_size": "0.13190000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "XEM/BNB"
@@ -2874,7 +2874,7 @@
     "asset": "WAN",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.66050000",
+    "max_size": "1.63480000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "WAN/BNB"
@@ -2944,7 +2944,7 @@
     "asset": "SYS",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.11660000",
+    "max_size": "0.11640000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "SYS/BNB"
@@ -2954,7 +2954,7 @@
     "asset": "QLC",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.04358000",
+    "max_size": "0.04228000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "QLC/BNB"
@@ -2994,7 +2994,7 @@
     "asset": "ADA",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.10385000",
+    "max_size": "0.10285000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "ADA/BNB"
@@ -3044,7 +3044,7 @@
     "asset": "GNT",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.23810000",
+    "max_size": "0.23490000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "GNT/BNB"
@@ -3074,7 +3074,7 @@
     "asset": "LOOM",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.15750000",
+    "max_size": "0.15090000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "LOOM/BNB"
@@ -3114,7 +3114,7 @@
     "asset": "BCN",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.00223000",
+    "max_size": "0.00224500",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "BCN/BNB"
@@ -3144,7 +3144,7 @@
     "asset": "REP",
     "currency": "BNB",
     "min_size": "0.00100000",
-    "max_size": "25.01000000",
+    "max_size": "25.27000000",
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "REP/BNB"
@@ -3174,7 +3174,7 @@
     "asset": "TUSD",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.78830000",
+    "max_size": "0.83120000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "TUSD/BNB"
@@ -3204,7 +3204,7 @@
     "asset": "ZEN",
     "currency": "BNB",
     "min_size": "0.00100000",
-    "max_size": "16.71000000",
+    "max_size": "16.85000000",
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "ZEN/BNB"
@@ -3234,7 +3234,7 @@
     "asset": "SKY",
     "currency": "BNB",
     "min_size": "0.00100000",
-    "max_size": "5.20000000",
+    "max_size": "5.15000000",
     "increment": "0.001",
     "asset_increment": "0.001",
     "label": "SKY/BNB"
@@ -3254,7 +3254,7 @@
     "asset": "EOS",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "5.65050000",
+    "max_size": "5.47900000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "EOS/BNB"
@@ -3284,7 +3284,7 @@
     "asset": "CVC",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.14050000",
+    "max_size": "0.13960000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "CVC/BNB"
@@ -3314,7 +3314,7 @@
     "asset": "THETA",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.10450000",
+    "max_size": "0.09840000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "THETA/BNB"
@@ -3324,7 +3324,7 @@
     "asset": "XRP",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.35395000",
+    "max_size": "0.35940000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "XRP/BNB"
@@ -3424,7 +3424,7 @@
     "asset": "AGI",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "0.08330000",
+    "max_size": "0.08360000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "AGI/BNB"
@@ -3454,7 +3454,7 @@
     "asset": "NXS",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "1.08400000",
+    "max_size": "1.09600000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "NXS/BNB"
@@ -3464,7 +3464,7 @@
     "asset": "ENJ",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.05019000",
+    "max_size": "0.04842000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "ENJ/BNB"
@@ -3524,7 +3524,7 @@
     "asset": "ETC",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "13.03600000",
+    "max_size": "13.18800000",
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "ETC/BNB"
@@ -3564,7 +3564,7 @@
     "asset": "SC",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.00836000",
+    "max_size": "0.00827000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "SC/BNB"
@@ -3644,7 +3644,7 @@
     "asset": "NAS",
     "currency": "BNB",
     "min_size": "0.01000000",
-    "max_size": "2.83460000",
+    "max_size": "2.61275000",
     "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "NAS/BNB"
@@ -3674,7 +3674,7 @@
     "asset": "MFT",
     "currency": "BNB",
     "min_size": "1.00000000",
-    "max_size": "0.01362000",
+    "max_size": "0.01209000",
     "increment": "0.000001",
     "asset_increment": "1.",
     "label": "MFT/BNB"
