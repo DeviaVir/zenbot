@@ -25,13 +25,6 @@ ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 # Define the full path to this file
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
-# Set docker-compose file selector for windows
-ifneq (,$(findstring WINDOWS,$(PATH)))
-DC_CONFIG=$(ROOT_DIR)/docker-compose-windows.yml
-else
-DC_CONFIG=$(ROOT_DIR)/docker-compose.yml
-endif
-
 # Find or create a home for sensitive environment variables
 # Check my secret place
 CREDS=$(HOME)/.bash/.credentials
@@ -95,7 +88,7 @@ time-sync:
 	docker run --rm --privileged alpine hwclock -s
 
 up:
-	$(SUDO) docker-compose --file=$(DC_CONFIG) up
+	$(SUDO) docker-compose up -d
 
 start:
 	docker-compose start
@@ -113,7 +106,7 @@ rebuild:
 	$(SUDO) docker-compose rm --force mongodb
 	-$(SUDO) docker-compose rm --force adminmongo
 	$(SUDO) docker-compose build --no-cache
-	$(SUDO) docker-compose --file=$(DC_CONFIG) up -d --force-recreate
+	$(SUDO) docker-compose  up -d --force-recreate
 
 
 shell:
