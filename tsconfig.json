@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@types": ["./src/types/index.ts"]
+        },
+        "typeRoots": ["./node_modules/@types", "./src/types"]
+    }
+}
