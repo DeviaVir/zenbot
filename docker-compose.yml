@@ -8,7 +8,7 @@ services:
       - ./:/app/
       - /app/node_modules/
       - /app/dist/
-      # Avoid syncing database to our server
+     # Avoid syncing database to our server
       - /app/database/
     restart: always
     tty: true
@@ -18,7 +18,6 @@ services:
       - mongodb
     environment:
       - MONGODB_PORT_27017_TCP_ADDR=mongodb
-
   mongodb:
     image: mongo:latest
     volumes:

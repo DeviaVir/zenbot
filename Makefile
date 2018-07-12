@@ -91,6 +91,8 @@ zenbot:
 #############################
 # Docker machine states
 #############################
+time-sync:
+	docker run --rm --privileged alpine hwclock -s
 
 up:
 	$(SUDO) docker-compose --file=$(DC_CONFIG) up
