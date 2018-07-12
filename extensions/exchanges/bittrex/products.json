@@ -1200,14 +1200,6 @@
     "label": "BTC/HMQ"
   },
   {
-    "asset": "HMQ",
-    "currency": "ETH",
-    "min_size": "16.37143512",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/HMQ"
-  },
-  {
     "asset": "ANT",
     "currency": "BTC",
     "min_size": "0.54221702",
@@ -1326,14 +1318,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NMR"
-  },
-  {
-    "asset": "NMR",
-    "currency": "ETH",
-    "min_size": "0.17537245",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/NMR"
   },
   {
     "asset": "LTC",
@@ -2294,5 +2278,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NLC2"
+  },
+  {
+    "asset": "BKX",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BKX"
   }
 ]
