@@ -41,6 +41,8 @@ zenbot:
 #############################
 # Docker machine states
 #############################
+time-sync:
+	docker run --rm --privileged alpine hwclock -s
 
 up:
 	sudo docker-compose up -d
@@ -59,7 +61,7 @@ rebuild:
 	sudo docker-compose pull
 	sudo docker-compose rm --force server
 	sudo docker-compose rm --force mongodb
-	sudo docker-compose rm --force adminmongo
+	-sudo docker-compose rm --force adminmongo
 	sudo docker-compose build --no-cache
 	sudo docker-compose up -d --force-recreate
 
