@@ -37,6 +37,7 @@ module.exports = function (program, conf) {
       var target_time, start_time
       var mode = exchange.historyScan
       var last_batch_id, last_batch_opts
+      var offset = exchange.offset
       var markers, trades
       if (!mode) {
         console.error('cannot backfill ' + selector.normalized + ': exchange does not offer historical data')
@@ -73,6 +74,9 @@ module.exports = function (program, conf) {
         else {
           if (marker.to) opts.from = marker.to + 1
           else opts.from = exchange.getCursor(start_time)
+        }
+        if (offset) {
+          opts.offset = offset
         }
         last_batch_opts = opts
         exchange.getTrades(opts, function (err, results) {
