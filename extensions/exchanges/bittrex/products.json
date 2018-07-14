@@ -1113,14 +1113,6 @@
   },
   {
     "asset": "WINGS",
-    "currency": "ETH",
-    "min_size": "5.28412754",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/WINGS"
-  },
-  {
-    "asset": "WINGS",
     "currency": "BTC",
     "min_size": "3.49993000",
     "max_size": "1000000",
@@ -1630,14 +1622,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DNT"
-  },
-  {
-    "asset": "DNT",
-    "currency": "ETH",
-    "min_size": "30.41362530",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/DNT"
   },
   {
     "asset": "NEO",
