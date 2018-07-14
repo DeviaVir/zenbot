@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/Users/jonathanraviotta/Documents/Repos/linode-stack-scripts"
+		},
+		{
+			"uri": "ssh://root@172.104.208.190/",
+			"name": "SSH FS - root@172.104.208.190"
+		}
+	],
+	"settings": {}
+}
