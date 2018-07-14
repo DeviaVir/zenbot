@@ -101,13 +101,16 @@ state:
 
 rebuild:
 	$(SUDO) docker-compose stop
-	$(SUDO) docker-compose pull
 	$(SUDO) docker-compose rm --force server
 	$(SUDO) docker-compose rm --force mongodb
 	-$(SUDO) docker-compose rm --force adminmongo
+	-$(SUDO) docker rmi zenbot_server
+	-$(SUDO) docker rmi mongo
+	-$(SUDO) docker rmi adminmongo
+	$(SUDO) docker volume prune --force
+	$(SUDO) docker-compose pull
 	$(SUDO) docker-compose build --no-cache
 	$(SUDO) docker-compose  up -d --force-recreate
-
 
 shell:
 	docker-compose exec server /bin/sh
