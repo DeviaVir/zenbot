@@ -411,7 +411,7 @@
     "asset": "USDT",
     "currency": "USD",
     "min_size": "0.01",
-    "max_size": "2",
+    "max_size": "10",
     "increment": "0.0001",
     "label": "USDT/USD"
   },
