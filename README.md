@@ -824,12 +824,6 @@ Or to sell 10% of your BTC,
 zenbot sell gdax.BTC-USD --pct=10
 ```
 
-## Chat with other Zenbot users
-
-[![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
-
-Zenbot has a Discord chat! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
-
 ## Donate
 
 P.S., some have asked for how to donate to Zenbot development. We accept donations at **Bitcoin addresses** below:
