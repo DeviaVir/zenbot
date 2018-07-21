@@ -408,14 +408,6 @@
     "label": "BTC/SPR"
   },
   {
-    "asset": "VTR",
-    "currency": "BTC",
-    "min_size": "4.84590037",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/VTR"
-  },
-  {
     "asset": "XRP",
     "currency": "BTC",
     "min_size": "2.56383961",
@@ -1152,14 +1144,6 @@
     "label": "BTC/LUN"
   },
   {
-    "asset": "GUP",
-    "currency": "ETH",
-    "min_size": "6.87162431",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/GUP"
-  },
-  {
     "asset": "RLC",
     "currency": "ETH",
     "min_size": "2.16582416",
@@ -1382,14 +1366,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ADT"
-  },
-  {
-    "asset": "ADT",
-    "currency": "ETH",
-    "min_size": "49.55401388",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/ADT"
   },
   {
     "asset": "PAY",
