@@ -2030,5 +2030,77 @@
     "max_size": "100000.0",
     "increment": "0.0000000001",
     "label": "IQX/EOS"
+  },
+  {
+    "asset": "WPR",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "800000.0",
+    "increment": "0.001",
+    "label": "WPR/USD"
+  },
+  {
+    "asset": "WPR",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "800000.0",
+    "increment": "0.000001",
+    "label": "WPR/BTC"
+  },
+  {
+    "asset": "WPR",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "800000.0",
+    "increment": "0.000001",
+    "label": "WPR/ETH"
+  },
+  {
+    "asset": "ZIL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "500000.0",
+    "increment": "0.001",
+    "label": "ZIL/USD"
+  },
+  {
+    "asset": "ZIL",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "500000.0",
+    "increment": "0.000001",
+    "label": "ZIL/BTC"
+  },
+  {
+    "asset": "ZIL",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "500000.0",
+    "increment": "0.000001",
+    "label": "ZIL/ETH"
+  },
+  {
+    "asset": "BNT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.001",
+    "label": "BNT/USD"
+  },
+  {
+    "asset": "BNT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.000001",
+    "label": "BNT/BTC"
+  },
+  {
+    "asset": "BNT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "20000.0",
+    "increment": "0.000001",
+    "label": "BNT/ETH"
   }
 ]
