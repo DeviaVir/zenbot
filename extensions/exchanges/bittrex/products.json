@@ -1264,14 +1264,6 @@
     "label": "BTC/CFI"
   },
   {
-    "asset": "CFI",
-    "currency": "ETH",
-    "min_size": "29.67006883",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/CFI"
-  },
-  {
     "asset": "BNT",
     "currency": "BTC",
     "min_size": "0.51444563",
@@ -1694,14 +1686,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TIX"
-  },
-  {
-    "asset": "TIX",
-    "currency": "ETH",
-    "min_size": "5.37617066",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/TIX"
   },
   {
     "asset": "RCN",
