@@ -208,6 +208,30 @@
     "label": "Einsteinium/Bitcoin"
   },
   {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "EOS/Bitcoin"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "EOS/Ethereum"
+  },
+  {
+    "asset": "EOS",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "EOS/Tether USD"
+  },
+  {
     "asset": "ETC",
     "currency": "BTC",
     "min_total": "0.0001",
