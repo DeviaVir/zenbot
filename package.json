@@ -84,7 +84,7 @@
     "path": "^0.12.7",
     "poloniex.js": "0.0.9",
     "popper.js": "^1.14.3",
-    "postcss-loader": "^2.1.3",
+    "postcss-loader": "^3.0.0",
     "progress": "^2.0.0",
     "pushbullet": "2.2.0",
     "pusher-js": "^4.1.0",
