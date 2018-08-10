@@ -1,5 +1,21 @@
 [
   {
+    "asset": "ETC",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.01",
+    "label": "ETC/EUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "70",
+    "increment": "0.01",
+    "label": "BTC/USD"
+  },
+  {
     "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.01",
@@ -30,14 +46,6 @@
     "max_size": "20",
     "increment": "0.01",
     "label": "BTC/GBP"
-  },
-  {
-    "asset": "BTC",
-    "currency": "USD",
-    "min_size": "0.001",
-    "max_size": "70",
-    "increment": "0.01",
-    "label": "BTC/USD"
   },
   {
     "asset": "ETH",
@@ -102,14 +110,6 @@
     "max_size": "5000",
     "increment": "0.01",
     "label": "ETC/USD"
-  },
-  {
-    "asset": "ETC",
-    "currency": "EUR",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.01",
-    "label": "ETC/EUR"
   },
   {
     "asset": "ETC",
