@@ -1152,14 +1152,6 @@
     "label": "ETH/RLC"
   },
   {
-    "asset": "LUN",
-    "currency": "ETH",
-    "min_size": "0.23810658",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/LUN"
-  },
-  {
     "asset": "GNO",
     "currency": "ETH",
     "min_size": "0.02995681",
@@ -1696,14 +1688,6 @@
     "label": "BTC/RCN"
   },
   {
-    "asset": "RCN",
-    "currency": "ETH",
-    "min_size": "21.60293800",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/RCN"
-  },
-  {
     "asset": "VIB",
     "currency": "BTC",
     "min_size": "11.19068935",
@@ -1912,14 +1896,6 @@
     "label": "BTC/BCPT"
   },
   {
-    "asset": "BCPT",
-    "currency": "ETH",
-    "min_size": "5.47573156",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/BCPT"
-  },
-  {
     "asset": "TRX",
     "currency": "BTC",
     "min_size": "39.06250000",
@@ -1974,14 +1950,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UP"
-  },
-  {
-    "asset": "UP",
-    "currency": "ETH",
-    "min_size": "13.51351351",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/UP"
   },
   {
     "asset": "DMT",
