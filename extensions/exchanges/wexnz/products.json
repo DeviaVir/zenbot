@@ -422,5 +422,13 @@
     "max_size": "500000",
     "increment": "0.0001",
     "label": "BTC/USDT"
+  },
+  {
+    "asset": "XMR",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.0001",
+    "label": "XMR/USD"
   }
 ]

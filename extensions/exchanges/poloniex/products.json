@@ -336,6 +336,30 @@
     "label": "Huntercoin/Bitcoin"
   },
   {
+    "asset": "KNC",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Kyber/Bitcoin"
+  },
+  {
+    "asset": "KNC",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Kyber/Ethereum"
+  },
+  {
+    "asset": "KNC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Kyber/Tether USD"
+  },
+  {
     "asset": "LBC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -534,6 +558,30 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Siacoin/Bitcoin"
+  },
+  {
+    "asset": "SNT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Status/Bitcoin"
+  },
+  {
+    "asset": "SNT",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Status/Ethereum"
+  },
+  {
+    "asset": "SNT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Status/Tether USD"
   },
   {
     "asset": "STEEM",
