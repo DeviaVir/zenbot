@@ -1515,7 +1515,7 @@
     "asset": "POA",
     "currency": "USD",
     "min_size": "102.0",
-    "max_size": "60000.0",
+    "max_size": "150000.0",
     "increment": "0.000001",
     "label": "POA/USD"
   },
@@ -1523,7 +1523,7 @@
     "asset": "POA",
     "currency": "BTC",
     "min_size": "102.0",
-    "max_size": "60000.0",
+    "max_size": "150000.0",
     "increment": "0.000000001",
     "label": "POA/BTC"
   },
@@ -1531,7 +1531,7 @@
     "asset": "POA",
     "currency": "ETH",
     "min_size": "102.0",
-    "max_size": "60000.0",
+    "max_size": "150000.0",
     "increment": "0.000000001",
     "label": "POA/ETH"
   },
