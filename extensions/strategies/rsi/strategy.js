@@ -26,41 +26,41 @@ module.exports = {
   onPeriod: function (s, cb) {
     if (s.in_preroll) return cb()
     if (typeof s.period.rsi === 'number') {
-    	if (s.period.rsi <= s.options.oversold_rsi || s.period.rsi >= s.options.overbought_rsi) {
-	      if (s.trend === 'undefined' && s.period.rsi <= s.options.oversold_rsi) {
-		s.rsi_low = s.period.rsi
-		s.trend = 'oversold'
-	      }
-	      if (s.trend === 'oversold') {
-		s.rsi_low = Math.min(s.rsi_low, s.period.rsi)
-		if (s.period.rsi >= s.rsi_low + s.options.rsi_recover) {
-		  s.trend = 'long'
-		  s.signal = 'buy'
-		  s.rsi_high = s.period.rsi
-		}
-	      }
-	      if (s.trend !== 'oversold' && s.trend !== 'long' && s.period.rsi >= s.options.overbought_rsi) {
-		s.rsi_high = s.period.rsi
-		s.trend = 'long'
-	      }
-	      if (s.trend === 'long') {
-		s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
-		if (s.period.rsi <= s.rsi_high / s.options.rsi_divisor) {
-		  s.trend = 'short'
-		  s.signal = 'sell'
-		}
-	      }
-	      if (s.trend === 'long' && s.period.rsi >= s.options.overbought_rsi) {
-		s.rsi_high = s.period.rsi
-		s.trend = 'overbought'
-	      }
-	      if (s.trend === 'overbought') {
-		s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
-		if (s.period.rsi <= s.rsi_high - s.options.rsi_drop) {
-		  s.trend = 'short'
-		  s.signal = 'sell'
-		}
-	      }
+        if (s.period.rsi <= s.options.oversold_rsi || s.period.rsi >= s.options.overbought_rsi) {
+              if (s.trend === 'undefined' && s.period.rsi <= s.options.oversold_rsi) {
+                s.rsi_low = s.period.rsi
+                s.trend = 'oversold'
+              }
+              if (s.trend === 'oversold') {
+                s.rsi_low = Math.min(s.rsi_low, s.period.rsi)
+                if (s.period.rsi >= s.rsi_low + s.options.rsi_recover) {
+                  s.trend = 'long'
+                  s.signal = 'buy'
+                  s.rsi_high = s.period.rsi
+                }
+              }
+              if (s.trend !== 'oversold' && s.trend !== 'long' && s.period.rsi >= s.options.overbought_rsi) {
+                s.rsi_high = s.period.rsi
+                s.trend = 'long'
+              }
+              if (s.trend === 'long') {
+                s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
+                if (s.period.rsi <= s.rsi_high / s.options.rsi_divisor) {
+                  s.trend = 'short'
+                  s.signal = 'sell'
+                }
+              }
+              if (s.trend === 'long' && s.period.rsi >= s.options.overbought_rsi) {
+                s.rsi_high = s.period.rsi
+                s.trend = 'overbought'
+              }
+              if (s.trend === 'overbought') {
+                s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
+                if (s.period.rsi <= s.rsi_high - s.options.rsi_drop) {
+                  s.trend = 'short'
+                  s.signal = 'sell'
+                }
+              }
       }
     }
     cb()
