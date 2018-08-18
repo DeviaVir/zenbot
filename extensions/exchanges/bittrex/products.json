@@ -2000,14 +2000,6 @@
     "label": "BTC/PRO"
   },
   {
-    "asset": "PRO",
-    "currency": "ETH",
-    "min_size": "1.61290323",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/PRO"
-  },
-  {
     "asset": "SC",
     "currency": "USDT",
     "min_size": "145.77252392",
@@ -2062,14 +2054,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/AID"
-  },
-  {
-    "asset": "AID",
-    "currency": "ETH",
-    "min_size": "0.00000001",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/AID"
   },
   {
     "asset": "NGC",
