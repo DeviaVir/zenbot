@@ -2222,5 +2222,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RVN"
+  },
+  {
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/XRP"
+  },
+  {
+    "asset": "ETC",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ETC"
   }
 ]
