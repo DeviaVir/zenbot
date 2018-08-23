@@ -53,9 +53,9 @@
     "id": "EOSETH",
     "asset": "EOS",
     "currency": "ETH",
-    "min_size": "0.01000000",
-    "max_size": "0.17738500",
-    "increment": "0.000001",
+    "min_size": "0.1",
+    "max_size": "2000",
+    "increment": "0.00001",
     "asset_increment": "0.01",
     "label": "EOS/ETH"
   },
