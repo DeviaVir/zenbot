@@ -37,7 +37,8 @@ https://discordapp.com/channels/316120967200112642/383023593942155274
 const z = require('zero-fill'),
   n = require('numbro'),
   Phenotypes = require('../../../lib/phenotype'),
-  tv = require('../../../lib/helpers')
+  tv = require('../../../lib/helpers'),
+  dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'ehlers_fisher_transform',
@@ -83,9 +84,11 @@ module.exports = {
     if (!s.in_preroll) {
       if (s.options.pos_length === 1) {
         if (s.eft.pos[0] === 1) {
-          s.signal = 'buy'
+          if (dupOrderWorkAround.checkForPriorBuy(s)) 
+            s.signal = 'buy'
         } else if (s.eft.pos[0] === -1) {
-          s.signal = 'sell'
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
         } else {
           s.signal = null
         }
@@ -96,9 +99,11 @@ module.exports = {
           posDn = s.eft.pos[0] === 1 && pos.every(pos => pos === -1)
 
         if (posUp) {
-          s.signal = 'buy'
+          if (dupOrderWorkAround.checkForPriorBuy(s)) 
+            s.signal = 'buy'
         } else if (posDn) {
-          s.signal = 'sell'
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
         } else
           s.signal = null
       }

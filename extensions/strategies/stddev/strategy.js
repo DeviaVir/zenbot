@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , math = require('mathjs')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'stddev',
@@ -31,10 +32,12 @@ module.exports = {
       s.sig1 = s.mean0 > s.mean1 ? 'Up' : 'Down'
     }
     if (s.sig1 === 'Down') {
-      s.signal = 'sell'
+      if (dupOrderWorkAround.checkForPriorSell(s))
+        s.signal = 'sell'
     }
     else if (s.sig0 === 'Up' && s.sig1 === 'Up') {
-      s.signal = 'buy'
+      if (dupOrderWorkAround.checkForPriorBuy(s)) 
+        s.signal = 'buy'
     }
     cb()
   },

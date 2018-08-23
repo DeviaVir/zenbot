@@ -3,6 +3,8 @@ let z = require('zero-fill')
   , ti_stoch = require('../../../lib/ti_stoch')
   , ti_bollinger = require('../../../lib/ti_bollinger')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
+
 module.exports = {
   name: 'ti_stoch_bollinger',
   description: 'Stochastic BollingerBand Strategy',
@@ -71,12 +73,14 @@ module.exports = {
             {
               if (s.period.close >= MiddleBand && s.period.close >= ((UpperBand / 100) * (100 +  s.options.bollinger_upper_bound_pct)) && nextdivergent < divergent && _switch == -1 && s.period.stoch_K > s.options.stoch_k_sell) 
               {
-                s.signal = 'sell'
+                if (dupOrderWorkAround.checkForPriorSell(s)) 
+                  s.signal = 'sell'
               } 
               else
               if (s.period.close < (LowerBand / 100) * (100 + s.options.bollinger_lower_bound_pct)   &&  nextdivergent >= divergent  && _switch == 1    && s.period.stoch_K < s.options.stoch_k_buy) 
               {
-                s.signal = 'buy'
+                if (dupOrderWorkAround.checkForPriorBuy(s)) 
+                  s.signal = 'buy'
               } 
              
             }

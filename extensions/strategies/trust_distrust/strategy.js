@@ -1,6 +1,7 @@
 var z = require('zero-fill')
   , n = require('numbro')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'trust_distrust',
@@ -59,7 +60,9 @@ module.exports = {
     if (s.trust_distrust_last_action !== 'sell') {
       if ( s.period.high > (s.trust_distrust_start + (s.trust_distrust_start / 100 * s.options.sell_min))) { // we are above minimum we want to sell for, or going so low we should "panic sell"
         if (s.period.high < (s.trust_distrust_highest - (s.trust_distrust_highest / 100 * s.options.sell_threshold))) { // we lost sell_threshold from highest point
-          s.signal = 'sell'
+         
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
 
           s.trust_distrust_last_action = 'sell'
           s.trust_distrust_start = s.period.high
@@ -71,7 +74,8 @@ module.exports = {
       }
 
       if (s.options.sell_threshold_max > 0 && s.period.high < (s.trust_distrust_highest - (s.trust_distrust_highest / 100 * s.options.sell_threshold_max))) { // we panic sell
-        s.signal = 'sell'
+        if (dupOrderWorkAround.checkForPriorSell(s))
+          s.signal = 'sell'
 
         s.trust_distrust_last_action = 'sell'
         s.trust_distrust_start = s.period.high
@@ -83,7 +87,8 @@ module.exports = {
     }
 
     if (s.options.greed > 0 && s.period.high > (s.trust_distrust_start_greed + (s.trust_distrust_start_greed / 100 * s.options.greed))) { // we are not greedy, sell if this profit is reached
-      s.signal = 'sell'
+      if (dupOrderWorkAround.checkForPriorSell(s))
+        s.signal = 'sell'
 
       s.trust_distrust_last_action = 'sell'
       s.trust_distrust_start = s.period.high
@@ -102,7 +107,8 @@ module.exports = {
           return cb()
         }
         s.trust_distrust_buy_threshold_max = 0
-        s.signal = 'buy'
+        if (dupOrderWorkAround.checkForPriorBuy(s))
+          s.signal = 'buy'
 
         s.trust_distrust_last_action = 'buy'
         s.trust_distrust_start = s.period.high

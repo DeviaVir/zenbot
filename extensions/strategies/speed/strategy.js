@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'speed',
@@ -32,14 +33,14 @@ module.exports = {
           s.acted_on_trend = false
         }
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorBuy(s) ? 'buy' : null : null
       }
       else if (s.period.speed <= s.period.baseline * s.options.trigger_factor * -1) {
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorSell(s) ? 'sell' : null : null
       }
     }
     cb()

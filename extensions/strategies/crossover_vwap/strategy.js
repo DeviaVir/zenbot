@@ -4,6 +4,7 @@ var z = require('zero-fill')
   , ema = require('../../../lib/ema')
   , sma = require('../../../lib/sma')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'crossover_vwap',
@@ -50,14 +51,14 @@ module.exports = {
           s.acted_on_trend = false
         }
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorBuy(s) ? 'buy' : null : null
       },
       trendDown = function(s){
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorSell(s) ? 'sell' : null : null
       }
 
     if(emagreen && smared && smapurple && s.period.vwap){

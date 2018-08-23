@@ -30,7 +30,8 @@ let z = require('zero-fill'),
   crossunder = require('../../../lib/helpers').crossunder,
   nz = require('../../../lib/helpers').nz,
   iff = require('../../../lib/helpers').iff,
-  tv = require('../../../lib/helpers')
+  tv = require('../../../lib/helpers'),
+  dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'Ehlers MAMA',
@@ -126,9 +127,15 @@ module.exports = {
       if (!s.in_preroll) {
         
         if (crossover(s, 'mama', 'fama'))
-          s.signal = 'buy'
+        {
+          if (dupOrderWorkAround.checkForPriorBuy(s)) 
+            s.signal = 'buy'
+        }
         else if (crossunder(s, 'mama', 'fama'))
-          s.signal = 'sell'
+        {
+          if (dupOrderWorkAround.checkForPriorSell(s))
+            s.signal = 'sell'
+        }
         else 
           s.signal = null
       }

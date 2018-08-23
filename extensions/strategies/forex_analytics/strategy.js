@@ -1,6 +1,7 @@
 var fs = require('fs')
   , path = require('path')
   , analytics = require('forex.analytics')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 var model
 module.exports =  {
@@ -69,9 +70,15 @@ module.exports =  {
 
       var result = analytics.getMarketStatus(candlesticks, {'strategy': model.strategy})
       if (result.shouldSell) {
-        s.signal = 'sell'
+        {
+          if (dupOrderWorkAround.checkForPriorSell(s)) 
+            s.signal = 'sell'
+        }
       } else if (result.shouldBuy) {
-        s.signal = 'buy'
+        {
+          if (dupOrderWorkAround.checkForPriorBuy(s))
+            s.signal = 'buy'
+        }
       }
     }
 

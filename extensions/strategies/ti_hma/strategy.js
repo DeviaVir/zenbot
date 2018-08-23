@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , rsi = require('../../../lib/rsi')
   , ti_hma = require('../../../lib/ti_hma')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'ti_hma',
@@ -53,14 +54,14 @@ module.exports = {
           s.acted_on_trend = false
         }
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorBuy(s) ?  'buy' : null : null
         s.cancel_down = false
       } else if (!s.cancel_down && s.period.trend_hma_rate < 0) {
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorSell(s) ? 'sell': null : null
       }
 
       cb()

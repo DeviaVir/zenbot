@@ -3,6 +3,7 @@ var z = require('zero-fill')
   , rsi = require('../../../lib/rsi')
   , ta_ppo = require('../../../lib/ta_ppo')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'ta_ppo',
@@ -56,14 +57,14 @@ module.exports = {
         }
 
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorBuy(s) ? 'buy' : null : null
       } else if (s.period.trend_ppo == 'down') {
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
 
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorSell(s) ? 'sell' : null : null
       }
 
       cb()

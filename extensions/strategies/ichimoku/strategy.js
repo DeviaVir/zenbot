@@ -1,8 +1,8 @@
-var z = require('zero-fill'),
-n = require('numbro'),
-highest = require('../../../lib/highest'),
-lowest = require('../../../lib/lowest'),
-Phenotypes = require('../../../lib/phenotype')
+var 
+  highest = require('../../../lib/highest'),
+  lowest = require('../../../lib/lowest'),
+  Phenotypes = require('../../../lib/phenotype'),
+  dupOrderWorkAround = require('../../../lib/duporderworkaround')
 
 module.exports = {
   name: 'ichimoku',
@@ -17,7 +17,7 @@ module.exports = {
     this.option('chikou','Chikou (lagging) span)', Number, 26)
   },
 
-  calculate: function (s) {
+  calculate: function () {
   },
 
   onPeriod: function (s, cb) {
@@ -44,20 +44,20 @@ module.exports = {
           s.acted_on_trend = false
         }
         s.trend = 'up'
-        s.signal = !s.acted_on_trend ? 'buy' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorBuy(s) ? 'buy' : null : null
       }
       if (s.period.close < Math.max(s.period.senkou_a, s.period.senkou_b)) {
         if (s.trend !== 'down') {
           s.acted_on_trend = false
         }
         s.trend = 'down'
-        s.signal = !s.acted_on_trend ? 'sell' : null
+        s.signal = !s.acted_on_trend ? dupOrderWorkAround.checkForPriorSell(s) ? 'sell' : null : null
       }
     }
     cb()
   },
 
-  onReport: function (s) {
+  onReport: function () {
     var cols = []
     return cols
   },

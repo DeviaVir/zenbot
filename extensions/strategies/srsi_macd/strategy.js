@@ -3,6 +3,7 @@ let z = require('zero-fill')
   , srsi = require('../../../lib/srsi')
   , ema = require('../../../lib/ema')
   , Phenotypes = require('../../../lib/phenotype')
+  , dupOrderWorkAround = require('../../../lib/duporderworkaround') 
 
 module.exports = {
   name: 'srsi_macd',
@@ -47,12 +48,14 @@ module.exports = {
       // Buy signal
         if (s.period.macd_histogram >= s.options.up_trend_threshold)
           if (s.period.srsi_K > s.period.srsi_D && s.period.srsi_K > s.lookback[0].srsi_K && s.period.srsi_K < s.options.oversold_rsi)
-            s.signal = 'buy'
+            if (dupOrderWorkAround.checkForPriorBuy(s)) 
+              s.signal = 'buy'
 
     // Sell signal
     if (s.period.macd_histogram < s.options.down_trend_threshold)
       if (s.period.srsi_K < s.period.srsi_D && s.period.srsi_K < s.lookback[0].srsi_K && s.period.srsi_K > s.options.overbought_rsi)
-        s.signal = 'sell'
+        if (dupOrderWorkAround.checkForPriorSell(s)) 
+          s.signal = 'sell'
 
     // Hold
     //s.signal = null;
