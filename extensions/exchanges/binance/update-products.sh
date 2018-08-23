@@ -26,7 +26,6 @@ new ccxt.binance().fetch_markets().then(function(markets) {
     // Orders must be strictly greater than minNotional
     if (min_size <= minNotional) {
       min_size += Number(assetStepSize);
-      console.log('prueba ', min_size, minNotional)
     }
     min_size = min_size.toString();
 
