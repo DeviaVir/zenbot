@@ -1714,7 +1714,7 @@
     "asset": "ADA",
     "currency": "BTC",
     "min_size": "1.00000000",
-    "max_size": "0.00014300",
+    "max_size": "10000",
     "increment": "0.00000001",
     "asset_increment": "1.",
     "label": "ADA/BTC"
