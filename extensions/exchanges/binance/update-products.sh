@@ -21,11 +21,20 @@ new ccxt.binance().fetch_markets().then(function(markets) {
         break
     }
 
+    var min_size    = Number(market.info.filters[1].minQty);
+    var minNotional = Number(market.info.filters[2].minNotional);
+    // Orders must be strictly greater than minNotional
+    if (min_size <= minNotional) {
+      min_size += Number(assetStepSize);
+      console.log('prueba ', min_size, minNotional)
+    }
+    min_size = min_size.toString();
+
     products.push({
       id: market.id,
       asset: market.base,
       currency: market.quote,
-      min_size: market.info.filters[1].minQty,
+      min_size: min_size,
       max_size: market.info.filters[0].maxPrice,
       increment: currStepSize,
       asset_increment: assetStepSize,
