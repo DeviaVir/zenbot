@@ -2024,14 +2024,6 @@
     "label": "BTC/BLT"
   },
   {
-    "asset": "BLT",
-    "currency": "ETH",
-    "min_size": "0.00000001",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/BLT"
-  },
-  {
     "asset": "STORM",
     "currency": "BTC",
     "min_size": "0.00000001",
@@ -2062,14 +2054,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NGC"
-  },
-  {
-    "asset": "NGC",
-    "currency": "ETH",
-    "min_size": "0.00000001",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/NGC"
   },
   {
     "asset": "GTO",
