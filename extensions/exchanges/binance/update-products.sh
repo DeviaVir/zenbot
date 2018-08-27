@@ -34,7 +34,7 @@ new ccxt.binance().fetch_markets().then(function(markets) {
       asset: market.base,
       currency: market.quote,
       min_size: min_size,
-      max_size: market.info.filters[1].maxQty,
+      max_size: market.info.filters[0].maxPrice,
       increment: currStepSize,
       asset_increment: assetStepSize,
       label: market.base + '/' + market.quote
