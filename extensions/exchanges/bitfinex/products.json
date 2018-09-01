@@ -658,7 +658,7 @@
   {
     "asset": "SPK",
     "currency": "USD",
-    "min_size": "232.0",
+    "min_size": "234.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "SPK/USD"
@@ -666,7 +666,7 @@
   {
     "asset": "SPK",
     "currency": "BTC",
-    "min_size": "232.0",
+    "min_size": "234.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "SPK/BTC"
@@ -674,7 +674,7 @@
   {
     "asset": "SPK",
     "currency": "ETH",
-    "min_size": "232.0",
+    "min_size": "234.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "SPK/ETH"
@@ -1778,7 +1778,7 @@
   {
     "asset": "SEN",
     "currency": "USD",
-    "min_size": "1856.0",
+    "min_size": "1882.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "SEN/USD"
@@ -1786,7 +1786,7 @@
   {
     "asset": "SEN",
     "currency": "BTC",
-    "min_size": "1856.0",
+    "min_size": "1882.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "SEN/BTC"
@@ -1794,7 +1794,7 @@
   {
     "asset": "SEN",
     "currency": "ETH",
-    "min_size": "1856.0",
+    "min_size": "1882.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "SEN/ETH"
@@ -1914,7 +1914,7 @@
   {
     "asset": "ESS",
     "currency": "USD",
-    "min_size": "1128.0",
+    "min_size": "1134.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "ESS/USD"
@@ -1922,7 +1922,7 @@
   {
     "asset": "ESS",
     "currency": "BTC",
-    "min_size": "1128.0",
+    "min_size": "1134.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/BTC"
@@ -1930,7 +1930,7 @@
   {
     "asset": "ESS",
     "currency": "ETH",
-    "min_size": "1128.0",
+    "min_size": "1134.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/ETH"

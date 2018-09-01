@@ -200,6 +200,14 @@
     "label": "Dogecoin/Bitcoin"
   },
   {
+    "asset": "DOGE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Dogecoin/Tether USD"
+  },
+  {
     "asset": "EMC2",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -344,6 +352,14 @@
     "label": "Golem/Ethereum"
   },
   {
+    "asset": "GNT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Golem/Tether USD"
+  },
+  {
     "asset": "GRC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -430,6 +446,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Lisk/Ethereum"
+  },
+  {
+    "asset": "LSK",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Lisk/Tether USD"
   },
   {
     "asset": "LTC",
@@ -606,6 +630,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Siacoin/Bitcoin"
+  },
+  {
+    "asset": "SC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Siacoin/Tether USD"
   },
   {
     "asset": "SNT",
@@ -822,5 +854,13 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "0x/Ethereum"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "0x/Tether USD"
   }
 ]
