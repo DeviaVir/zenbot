@@ -32,7 +32,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^8.0.0",
     "babel-preset-env": "^1.6.1",
-    "bitfinex-api-node": "^1.2.0",
+    "bitfinex-api-node": "^2.0.0",
     "bitstamp": "^1.0.4",
     "bl": "^2.0.1",
     "bollinger-bands": "^3.0.1",
