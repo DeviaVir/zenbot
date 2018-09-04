@@ -1464,30 +1464,6 @@
     "label": "MKR/ETH"
   },
   {
-    "asset": "VEN",
-    "currency": "USD",
-    "min_size": "10.0",
-    "max_size": "20000.0",
-    "increment": "0.00001",
-    "label": "VEN/USD"
-  },
-  {
-    "asset": "VEN",
-    "currency": "BTC",
-    "min_size": "10.0",
-    "max_size": "20000.0",
-    "increment": "0.00000001",
-    "label": "VEN/BTC"
-  },
-  {
-    "asset": "VEN",
-    "currency": "ETH",
-    "min_size": "10.0",
-    "max_size": "20000.0",
-    "increment": "0.00000001",
-    "label": "VEN/ETH"
-  },
-  {
     "asset": "KNC",
     "currency": "USD",
     "min_size": "24.0",
@@ -2198,5 +2174,29 @@
     "max_size": "750.0",
     "increment": "0.0000001",
     "label": "DGX/ETH"
+  },
+  {
+    "asset": "VET",
+    "currency": "USD",
+    "min_size": "606.0",
+    "max_size": "200000.0",
+    "increment": "0.0000001",
+    "label": "VET/USD"
+  },
+  {
+    "asset": "VET",
+    "currency": "BTC",
+    "min_size": "606.0",
+    "max_size": "200000.0",
+    "increment": "0.0000000001",
+    "label": "VET/BTC"
+  },
+  {
+    "asset": "VET",
+    "currency": "ETH",
+    "min_size": "606.0",
+    "max_size": "200000.0",
+    "increment": "0.0000000001",
+    "label": "VET/ETH"
   }
 ]
