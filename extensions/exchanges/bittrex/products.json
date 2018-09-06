@@ -2238,5 +2238,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UPP"
+  },
+  {
+    "asset": "ADA",
+    "currency": "USD",
+    "min_size": "0.00100000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ADA"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "USD",
+    "min_size": "0.00100000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ZEC"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "USDT",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DOGE"
   }
 ]
