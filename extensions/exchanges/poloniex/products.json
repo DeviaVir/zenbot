@@ -592,6 +592,30 @@
     "label": "Peercoin/Bitcoin"
   },
   {
+    "asset": "QTUM",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Qtum/Bitcoin"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Qtum/Ethereum"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Qtum/Tether USD"
+  },
+  {
     "asset": "REP",
     "currency": "BTC",
     "min_total": "0.0001",
