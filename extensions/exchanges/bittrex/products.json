@@ -1728,30 +1728,6 @@
     "label": "ETH/POWR"
   },
   {
-    "asset": "BTG",
-    "currency": "BTC",
-    "min_size": "0.02793293",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BTG"
-  },
-  {
-    "asset": "BTG",
-    "currency": "ETH",
-    "min_size": "0.04081633",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/BTG"
-  },
-  {
-    "asset": "BTG",
-    "currency": "USDT",
-    "min_size": "0.03759398",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/BTG"
-  },
-  {
     "asset": "ADA",
     "currency": "ETH",
     "min_size": "11.29943503",
