@@ -1706,7 +1706,7 @@
   {
     "asset": "CBT",
     "currency": "USD",
-    "min_size": "866.0",
+    "min_size": "884.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "CBT/USD"
@@ -1714,7 +1714,7 @@
   {
     "asset": "CBT",
     "currency": "BTC",
-    "min_size": "866.0",
+    "min_size": "884.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "CBT/BTC"
@@ -1722,7 +1722,7 @@
   {
     "asset": "CBT",
     "currency": "ETH",
-    "min_size": "866.0",
+    "min_size": "884.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "CBT/ETH"
@@ -1866,7 +1866,7 @@
   {
     "asset": "SEE",
     "currency": "USD",
-    "min_size": "5064.0",
+    "min_size": "5122.0",
     "max_size": "2000000.0",
     "increment": "0.0000001",
     "label": "SEE/USD"
@@ -1874,7 +1874,7 @@
   {
     "asset": "SEE",
     "currency": "BTC",
-    "min_size": "5064.0",
+    "min_size": "5122.0",
     "max_size": "2000000.0",
     "increment": "0.0000000001",
     "label": "SEE/BTC"
@@ -1882,7 +1882,7 @@
   {
     "asset": "SEE",
     "currency": "ETH",
-    "min_size": "5064.0",
+    "min_size": "5122.0",
     "max_size": "2000000.0",
     "increment": "0.0000000001",
     "label": "SEE/ETH"
@@ -2146,7 +2146,7 @@
   {
     "asset": "NIO",
     "currency": "USD",
-    "min_size": "656.0",
+    "min_size": "676.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "NIO/USD"
@@ -2154,7 +2154,7 @@
   {
     "asset": "NIO",
     "currency": "ETH",
-    "min_size": "656.0",
+    "min_size": "676.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "NIO/ETH"
