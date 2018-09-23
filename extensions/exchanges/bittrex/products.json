@@ -1616,14 +1616,6 @@
     "label": "ETH/DGB"
   },
   {
-    "asset": "FCT",
-    "currency": "ETH",
-    "min_size": "0.10776222",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/FCT"
-  },
-  {
     "asset": "OMG",
     "currency": "USDT",
     "min_size": "0.19083969",
@@ -1854,14 +1846,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VEE"
-  },
-  {
-    "asset": "VEE",
-    "currency": "ETH",
-    "min_size": "55.75379126",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/VEE"
   },
   {
     "asset": "BCPT",
