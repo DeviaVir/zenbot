@@ -454,5 +454,21 @@
     "max_size": "500000",
     "increment": "0.0001",
     "label": "XMR/RUR"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "RUR",
+    "min_size": "0.01",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "label": "ZEC/RUR"
+  },
+  {
+    "asset": "XMR",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.0001",
+    "label": "XMR/EUR"
   }
 ]

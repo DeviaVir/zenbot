@@ -1803,7 +1803,7 @@
     "asset": "CND",
     "currency": "USD",
     "min_size": "606.0",
-    "max_size": "80000.0",
+    "max_size": "100000.0",
     "increment": "0.0000001",
     "label": "CND/USD"
   },
@@ -1811,7 +1811,7 @@
     "asset": "CND",
     "currency": "BTC",
     "min_size": "606.0",
-    "max_size": "80000.0",
+    "max_size": "100000.0",
     "increment": "0.0000000001",
     "label": "CND/BTC"
   },
@@ -1819,7 +1819,7 @@
     "asset": "CND",
     "currency": "ETH",
     "min_size": "606.0",
-    "max_size": "80000.0",
+    "max_size": "100000.0",
     "increment": "0.0000000001",
     "label": "CND/ETH"
   },
