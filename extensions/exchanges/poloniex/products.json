@@ -88,30 +88,6 @@
     "label": "Bitcoin/Tether USD"
   },
   {
-    "asset": "BTCD",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "BitcoinDark/Bitcoin"
-  },
-  {
-    "asset": "BTCD",
-    "currency": "XMR",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "BitcoinDark/Monero"
-  },
-  {
-    "asset": "BTM",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Bitmark/Bitcoin"
-  },
-  {
     "asset": "BTS",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -206,14 +182,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Dogecoin/Tether USD"
-  },
-  {
-    "asset": "EMC2",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Einsteinium/Bitcoin"
   },
   {
     "asset": "EOS",
@@ -360,14 +328,6 @@
     "label": "Golem/Tether USD"
   },
   {
-    "asset": "GRC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Gridcoin Research/Bitcoin"
-  },
-  {
     "asset": "HUC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -504,14 +464,6 @@
     "label": "NAVCoin/Bitcoin"
   },
   {
-    "asset": "NEOS",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Neoscoin/Bitcoin"
-  },
-  {
     "asset": "NMC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -574,14 +526,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "PascalCoin/Bitcoin"
-  },
-  {
-    "asset": "POT",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "PotCoin/Bitcoin"
   },
   {
     "asset": "PPC",
@@ -752,28 +696,12 @@
     "label": "Viacoin/Bitcoin"
   },
   {
-    "asset": "VRC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "VeriCoin/Bitcoin"
-  },
-  {
     "asset": "VTC",
     "currency": "BTC",
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Vertcoin/Bitcoin"
-  },
-  {
-    "asset": "XBC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "BitcoinPlus/Bitcoin"
   },
   {
     "asset": "XCP",
