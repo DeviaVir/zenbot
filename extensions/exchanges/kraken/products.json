@@ -1,5 +1,40 @@
 [
   {
+    "asset": "ADA",
+    "currency": "ZCAD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ADA/CAD"
+  },
+  {
+    "asset": "ADA",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ADA/ETH"
+  },
+  {
+    "asset": "ADA",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ADA/EUR"
+  },
+  {
+    "asset": "ADA",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ADA/USD"
+  },
+  {
+    "asset": "ADA",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ADA/XBT"
+  },
+  {
     "asset": "BCH",
     "currency": "ZEUR",
     "min_size": "0.002",
@@ -96,6 +131,41 @@
     "min_size": "0.03",
     "increment": "0.01",
     "label": "GNO/XBT"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "ZCAD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "QTUM/CAD"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "QTUM/ETH"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "QTUM/EUR"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "QTUM/USD"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "QTUM/XBT"
   },
   {
     "asset": "USDT",
