@@ -3,6 +3,7 @@
 const path = require('path')
 
 const webpack = require('webpack')
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -18,7 +19,8 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
-    })
+    }),
+    new ExtractTextPlugin('[name].bundle.css'),
   ],
   output: {
     publicPath: '/assets-wp/',
@@ -48,7 +50,13 @@ module.exports = {
           loader: 'sass-loader' // compiles SASS to CSS
         }]
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.(woff|woff2)$/, loader:'url?prefix=font/&limit=5000' },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },

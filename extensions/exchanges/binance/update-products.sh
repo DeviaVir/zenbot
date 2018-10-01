@@ -21,12 +21,23 @@ new ccxt.binance().fetch_markets().then(function(markets) {
         break
     }
 
+    // The MIN_NOTIONAL filter defines the minimum notional value allowed for an order on a symbol.
+    // An orders notional value is the price * quantity.
+    // In order to know the Value it is necessary to know the price which does not come on this JSon.
+    // But I have the maxPrice which seems to be: price * 10
+    var maxPrice       = Number(market.info.filters[0].maxPrice);
+    var curPrice       = maxPrice / 10;
+    var minNotional    = Number(market.info.filters[2].minNotional);
+    var minNotionalQty = minNotional / curPrice;
+    var minQty         = Number(market.info.filters[1].minQty);
+    var min_size       = Math.max(minQty, minNotionalQty).toString();
+
     products.push({
       id: market.id,
       asset: market.base,
       currency: market.quote,
-      min_size: market.info.filters[1].minQty,
-      max_size: market.info.filters[0].maxPrice,
+      min_size: min_size,
+      max_size: market.info.filters[1].maxQty,
       increment: currStepSize,
       asset_increment: assetStepSize,
       label: market.base + '/' + market.quote

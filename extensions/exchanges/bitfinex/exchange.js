@@ -407,7 +407,7 @@ module.exports = function bitfinex (conf) {
 
         ws_client.send([0, 'calc', null, [
           ['wallet_exchange_' + opts.currency],
-          ['wallet_exchange_' + opts.wallet + '_' + opts.asset]
+          ['wallet_exchange_' + opts.asset]
         ]])
       } catch (e) {
         if (so.debug) {

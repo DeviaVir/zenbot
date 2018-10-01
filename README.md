@@ -5,20 +5,8 @@
 
 # Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot) [![Greenkeeper badge](https://badges.greenkeeper.io/DeviaVir/zenbot.svg)](https://greenkeeper.io/)
 
-## Current Status
-
-Zenbot 4 is functional, but is having trouble reliably making profit. At this point, **I would recommend against trading with large amounts** until some of these issues can be worked out:
-
-- Many people are reporting [losses in live trading](https://github.com/carlos8f/zenbot/issues/189) even if the simulation results and/or paper trading is positive.
-- This is my highest priority right now, since an unprofitable bot is not worth much, but please understand that reliably making profit is hard, and so is making a realistic simulator.
-- The losses may be due to the default strategy not working well in sideways (non-trending) market conditions, slippage during limit order execution, or both. Currently I would recommend against using Zenbot on a market that is non-trending or trending generally downwards.
-- The limit-order strategy that Zenbot uses to avoid taker fees, is prone to race conditions and delays. A mode for using market-type orders will probably need to be made, which may make frequent-trade strategies less viable due to fees, but more reliable execution overall.
-- An upcoming feature will allow Zenbot to use a limited amount of your balance, which will help with experimenting with live trading, but mitigating the possible losses from the issues above.
-
-Zenbot is a hobby project for me and I'm sorry that I can't devote myself full-time to it. Since I'm getting busier, development may slow down a bit from here, so please be patient if issues aren't fixed right away.
-
 ## Questions
-Please ask (programming) questions related to zenbot on stackoverflow. The tag is [zenbot](https://stackoverflow.com/questions/tagged/zenbot).
+Please ask (programming) questions related to zenbot on reddit. The subreddit is [zenbot](https://reddit.com/r/zenbot).
 
 ## Description
 
@@ -76,7 +64,7 @@ cp conf-sample.js conf.js
 - View and edit `conf.js`.
 - It's possible to use zenbot in "paper trading" mode without making any changes.
 - You must add your exchange API keys to enable real trading however.
-- API keys do NOT need deposit/withdrawl permissions.
+- API keys do NOT need deposit/withdrawal permissions.
 
 If using Docker, skip to section "Docker" below.
 
@@ -818,12 +806,6 @@ Or to sell 10% of your BTC,
 zenbot sell gdax.BTC-USD --pct=10
 ```
 
-## Chat with other Zenbot users
-
-[![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
-
-Zenbot has a Discord chat! You can get in [through this invite link](https://discord.gg/ZdAd2gP).
-
 ## Donate
 
 P.S., some have asked for how to donate to Zenbot development. We accept donations at **Bitcoin addresses** below:
@@ -839,6 +821,11 @@ P.S., some have asked for how to donate to Zenbot development. We accept donatio
 ![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/zenbot_square.png)
 
 Thanks!
+
+## Noteworthy forks
+
+- [bot18](https://medium.com/@carlos8f_11468/introducing-bot18-the-new-crypto-trading-bot-to-supersede-zenbot-and-unleash-the-zalgo-da8464b41e53)
+- [magic8bot](https://github.com/notVitaliy/magic8bot)
 
 - - -
 

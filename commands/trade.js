@@ -14,6 +14,7 @@ var tb = require('timebucket')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
   , collectionService = require('../lib/services/collection-service')
+  , debug = require('../lib/debug')
 
 module.exports = function (program, conf) {
   program
@@ -519,8 +520,8 @@ module.exports = function (program, conf) {
                         console.log('\nDumping statistics...'.grey)
                         toggleStats()
                       } else if (key === 'L' && !info.ctrl) {
-                        so.debug = !so.debug
-                        console.log('\nDEBUG mode: ' + (so.debug ? 'ON'.green.inverse : 'OFF'.red.inverse))
+                        debug.flip()
+                        console.log('\nDEBUG mode: ' + (debug.on ? 'ON'.green.inverse : 'OFF'.red.inverse))
                       } else if (info.name === 'c' && info.ctrl) {
                         // @todo: cancel open orders before exit
                         console.log()

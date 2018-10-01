@@ -4,6 +4,7 @@ var minimist = require('minimist')
   , colors = require('colors')
   , moment = require('moment')
   , objectifySelector = require('../lib/objectify-selector')
+  , exchangeService = require('../lib/services/exchange-service')
   , { formatCurrency } = require('../lib/format')
 
 module.exports = function (program, conf) {
@@ -33,9 +34,18 @@ module.exports = function (program, conf) {
       so.debug = cmd.debug
       so.mode = 'live'
       function balance () {
-        s.exchange.getBalance(s, function (err, balance) {
+        var exchangeServiceInstance = exchangeService(conf)
+        var exchange = exchangeServiceInstance.getExchange()
+
+        var exchangeName = exchange.name // TODO: Refactor all exchanges to be in the format of the stub.exchange, so we can use getName() here.
+        if (exchange === undefined) {
+          console.error('\nSorry, couldn\'t find an exchange named [' + exchangeName + '].')
+          process.exit(1)
+        }
+
+        exchange.getBalance(s, function (err, balance) {
           if (err) throw err
-          s.exchange.getQuote(s, function (err, quote) {
+          exchange.getQuote(s, function (err, quote) {
             if (err) throw err
             
             var bal = moment().format('YYYY-MM-DD HH:mm:ss').grey + ' ' + formatCurrency(quote.ask, s.currency, true, true, false) + ' ' + (s.product_id).grey + '\n'
@@ -46,10 +56,10 @@ module.exports = function (program, conf) {
             console.log(bal)
             
             if (so.calculate_currency) {
-              s.exchange.getQuote({'product_id': s.asset + '-' + so.calculate_currency}, function (err, asset_quote) {
+              exchange.getQuote({'product_id': s.asset + '-' + so.calculate_currency}, function (err, asset_quote) {
                 if (err)  throw err
 
-                s.exchange.getQuote({'product_id': s.currency + '-' + so.calculate_currency}, function (err, currency_quote) {
+                exchange.getQuote({'product_id': s.currency + '-' + so.calculate_currency}, function (err, currency_quote) {
                   if (err)  throw err
                   var asset_total = balance.asset * asset_quote.bid
                   var currency_total = balance.currency * currency_quote.bid

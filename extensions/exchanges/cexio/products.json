@@ -230,13 +230,5 @@
     "max_size": null,
     "increment": "0.000001",
     "label": "ZEC/BTC"
-  },
-  {
-    "asset": "GHS",
-    "currency": "BTC",
-    "min_size": "100",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "GHS/BTC"
   }
 ]

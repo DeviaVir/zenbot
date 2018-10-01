@@ -22,7 +22,7 @@
 
     <title><%= asset.toUpperCase() %>/<%= currency.toUpperCase() %> on <%= exchange.name.toUpperCase() %> - Dashboard</title>
     <!-- Webpack compiled -->
-    <link href="assets-wp/app.bundle.js" rel="stylesheet">
+    <link href="assets-wp/app.bundle.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-12">
                     <ol class="breadcrumb">
-                        <li>Running since <%= moment(boot_time).toNow(true) %></li>
+                        <li>Running for <%= moment(boot_time).toNow(true) %></li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->

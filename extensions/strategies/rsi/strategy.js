@@ -26,7 +26,7 @@ module.exports = {
   onPeriod: function (s, cb) {
     if (s.in_preroll) return cb()
     if (typeof s.period.rsi === 'number') {
-      if (s.trend !== 'oversold' && s.trend !== 'long' && s.period.rsi <= s.options.oversold_rsi) {
+      if (s.trend === undefined && s.period.rsi <= s.options.oversold_rsi) {
         s.rsi_low = s.period.rsi
         s.trend = 'oversold'
       }
@@ -37,6 +37,10 @@ module.exports = {
           s.signal = 'buy'
           s.rsi_high = s.period.rsi
         }
+      }
+      if (s.trend !== 'oversold' && s.trend !== 'long' && s.period.rsi >= s.options.overbought_rsi) {
+        s.rsi_high = s.period.rsi
+        s.trend = 'long'
       }
       if (s.trend === 'long') {
         s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
@@ -66,6 +70,9 @@ module.exports = {
       var color = 'grey'
       if (s.period.rsi <= s.options.oversold_rsi) {
         color = 'green'
+      }
+      if (s.period.rsi >= s.options.overbought_rsi) {
+        color = 'red'
       }
       cols.push(z(4, n(s.period.rsi).format('0'), ' ')[color])
     }

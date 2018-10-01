@@ -22,5 +22,29 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ETH/USD"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ZEC/USD"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "ZEC/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ZEC/ETH"
   }
 ]
