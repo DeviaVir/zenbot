@@ -1210,7 +1210,7 @@
   {
     "asset": "ODE",
     "currency": "USD",
-    "min_size": "76.0",
+    "min_size": "80.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "ODE/USD"
@@ -1218,7 +1218,7 @@
   {
     "asset": "ODE",
     "currency": "BTC",
-    "min_size": "76.0",
+    "min_size": "80.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "ODE/BTC"
@@ -1226,7 +1226,7 @@
   {
     "asset": "ODE",
     "currency": "ETH",
-    "min_size": "76.0",
+    "min_size": "80.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "ODE/ETH"
@@ -1890,7 +1890,7 @@
   {
     "asset": "ESS",
     "currency": "USD",
-    "min_size": "1732.0",
+    "min_size": "1818.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "ESS/USD"
@@ -1898,7 +1898,7 @@
   {
     "asset": "ESS",
     "currency": "BTC",
-    "min_size": "1732.0",
+    "min_size": "1818.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/BTC"
@@ -1906,7 +1906,7 @@
   {
     "asset": "ESS",
     "currency": "ETH",
-    "min_size": "1732.0",
+    "min_size": "1818.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/ETH"
@@ -2258,7 +2258,7 @@
   {
     "asset": "XTZ",
     "currency": "USD",
-    "min_size": "6.0",
+    "min_size": "8.0",
     "max_size": "100000.0",
     "increment": "0.00001",
     "label": "XTZ/USD"
@@ -2266,7 +2266,7 @@
   {
     "asset": "XTZ",
     "currency": "BTC",
-    "min_size": "6.0",
+    "min_size": "8.0",
     "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "XTZ/BTC"
@@ -2274,7 +2274,7 @@
   {
     "asset": "CNN",
     "currency": "USD",
-    "min_size": "21508.0",
+    "min_size": "22466.0",
     "max_size": "20000000.0",
     "increment": "0.0000001",
     "label": "CNN/USD"
@@ -2282,7 +2282,7 @@
   {
     "asset": "CNN",
     "currency": "ETH",
-    "min_size": "21508.0",
+    "min_size": "22466.0",
     "max_size": "20000000.0",
     "increment": "0.0000000001",
     "label": "CNN/ETH"
@@ -2290,7 +2290,7 @@
   {
     "asset": "BOX",
     "currency": "USD",
-    "min_size": "700.0",
+    "min_size": "716.0",
     "max_size": "1500000.0",
     "increment": "0.0000001",
     "label": "BOX/USD"
@@ -2298,7 +2298,7 @@
   {
     "asset": "BOX",
     "currency": "ETH",
-    "min_size": "700.0",
+    "min_size": "716.0",
     "max_size": "1500000.0",
     "increment": "0.0000000001",
     "label": "BOX/ETH"
