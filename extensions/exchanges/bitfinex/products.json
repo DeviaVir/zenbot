@@ -2302,5 +2302,29 @@
     "max_size": "1500000.0",
     "increment": "0.0000000001",
     "label": "BOX/ETH"
+  },
+  {
+    "asset": "TRX",
+    "currency": "EUR",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.000001",
+    "label": "TRX/EUR"
+  },
+  {
+    "asset": "TRX",
+    "currency": "GBP",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.000001",
+    "label": "TRX/GBP"
+  },
+  {
+    "asset": "TRX",
+    "currency": "JPY",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.000001",
+    "label": "TRX/JPY"
   }
 ]

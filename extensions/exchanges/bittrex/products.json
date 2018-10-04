@@ -2286,5 +2286,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/IHT"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.00100000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/BCH"
   }
 ]
