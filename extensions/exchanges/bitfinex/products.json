@@ -1850,7 +1850,7 @@
   {
     "asset": "PAI",
     "currency": "USD",
-    "min_size": "52.0",
+    "min_size": "58.0",
     "max_size": "100000.0",
     "increment": "0.000001",
     "label": "PAI/USD"
@@ -1858,7 +1858,7 @@
   {
     "asset": "PAI",
     "currency": "BTC",
-    "min_size": "52.0",
+    "min_size": "58.0",
     "max_size": "100000.0",
     "increment": "0.000000001",
     "label": "PAI/BTC"
@@ -1890,7 +1890,7 @@
   {
     "asset": "ESS",
     "currency": "USD",
-    "min_size": "1818.0",
+    "min_size": "1892.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "ESS/USD"
@@ -1898,7 +1898,7 @@
   {
     "asset": "ESS",
     "currency": "BTC",
-    "min_size": "1818.0",
+    "min_size": "1892.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/BTC"
@@ -1906,7 +1906,7 @@
   {
     "asset": "ESS",
     "currency": "ETH",
-    "min_size": "1818.0",
+    "min_size": "1892.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/ETH"
@@ -2202,7 +2202,7 @@
   {
     "asset": "UTN",
     "currency": "USD",
-    "min_size": "2206.0",
+    "min_size": "2210.0",
     "max_size": "5000000.0",
     "increment": "0.0000001",
     "label": "UTN/USD"
@@ -2210,7 +2210,7 @@
   {
     "asset": "UTN",
     "currency": "ETH",
-    "min_size": "2206.0",
+    "min_size": "2210.0",
     "max_size": "5000000.0",
     "increment": "0.0000000001",
     "label": "UTN/ETH"
@@ -2274,7 +2274,7 @@
   {
     "asset": "CNN",
     "currency": "USD",
-    "min_size": "22466.0",
+    "min_size": "23668.0",
     "max_size": "20000000.0",
     "increment": "0.0000001",
     "label": "CNN/USD"
@@ -2282,7 +2282,7 @@
   {
     "asset": "CNN",
     "currency": "ETH",
-    "min_size": "22466.0",
+    "min_size": "23668.0",
     "max_size": "20000000.0",
     "increment": "0.0000000001",
     "label": "CNN/ETH"
@@ -2306,25 +2306,25 @@
   {
     "asset": "TRX",
     "currency": "EUR",
-    "min_size": "0.001",
+    "min_size": "438.0",
     "max_size": "1000000.0",
-    "increment": "0.000001",
+    "increment": "0.0000000001",
     "label": "TRX/EUR"
   },
   {
     "asset": "TRX",
     "currency": "GBP",
-    "min_size": "0.001",
+    "min_size": "438.0",
     "max_size": "1000000.0",
-    "increment": "0.000001",
+    "increment": "0.0000000001",
     "label": "TRX/GBP"
   },
   {
     "asset": "TRX",
     "currency": "JPY",
-    "min_size": "0.001",
+    "min_size": "438.0",
     "max_size": "1000000.0",
-    "increment": "0.000001",
+    "increment": "0.0000000001",
     "label": "TRX/JPY"
   }
 ]
