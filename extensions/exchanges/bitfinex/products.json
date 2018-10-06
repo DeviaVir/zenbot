@@ -2326,5 +2326,37 @@
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "TRX/JPY"
+  },
+  {
+    "asset": "MGO",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.001",
+    "label": "MGO/USD"
+  },
+  {
+    "asset": "MGO",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "MGO/ETH"
+  },
+  {
+    "asset": "RTE",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "3000000.0",
+    "increment": "0.001",
+    "label": "RTE/USD"
+  },
+  {
+    "asset": "RTE",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "3000000.0",
+    "increment": "0.000001",
+    "label": "RTE/ETH"
   }
 ]

@@ -512,14 +512,6 @@
     "label": "BTC/XEM"
   },
   {
-    "asset": "CLAM",
-    "currency": "BTC",
-    "min_size": "0.48923679",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CLAM"
-  },
-  {
     "asset": "DMD",
     "currency": "BTC",
     "min_size": "0.25208728",
@@ -1246,14 +1238,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PTOY"
-  },
-  {
-    "asset": "CFI",
-    "currency": "BTC",
-    "min_size": "20.49180328",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CFI"
   },
   {
     "asset": "BNT",
