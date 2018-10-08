@@ -767,6 +767,10 @@ https://www.prowlapp.com/
 Supply zenbot with your TextBelt API key and zenbot will send SMS notifications to your cell phone.
 https://www.textbelt.com/
 
+### Telegram
+Supply zenbot with your Telegram bot token and chat id zenbot will push notifications to your Telegram chat.
+https://telegram.org/
+
 ## Rest API
 
 You can enable a Rest API for Zenbot by enabling the following configuration
