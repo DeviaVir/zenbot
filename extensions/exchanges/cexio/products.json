@@ -48,14 +48,6 @@
     "label": "LTC/USD"
   },
   {
-    "asset": "LTC",
-    "currency": "BTC",
-    "min_size": "1.2",
-    "max_size": null,
-    "increment": "0.000001",
-    "label": "LTC/BTC"
-  },
-  {
     "asset": "XRP",
     "currency": "USD",
     "min_size": "40",
@@ -222,6 +214,14 @@
     "max_size": null,
     "increment": "0.000001",
     "label": "DASH/BTC"
+  },
+  {
+    "asset": "LTC",
+    "currency": "BTC",
+    "min_size": "1.2",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "LTC/BTC"
   },
   {
     "asset": "XRP",
