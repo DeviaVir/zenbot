@@ -120,6 +120,30 @@
     "label": "ETC/BTC"
   },
   {
+    "asset": "ZRX",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "150000.00000000",
+    "increment": "0.01000000",
+    "label": "ZRX/EUR"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "1.00000000",
+    "max_size": "150000.00000000",
+    "increment": "0.01000000",
+    "label": "ZRX/USD"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "150000.00000000",
+    "increment": "0.00000001",
+    "label": "ZRX/BTC"
+  },
+  {
     "asset": "ETC",
     "currency": "GBP",
     "min_size": "0.10000000",
