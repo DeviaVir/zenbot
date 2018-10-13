@@ -24,6 +24,30 @@
     "label": "ETH/USD"
   },
   {
+    "asset": "LTC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LTC/USD"
+  },
+  {
+    "asset": "LTC",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "LTC/BTC"
+  },
+  {
+    "asset": "LTC",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LTC/ETH"
+  },
+  {
     "asset": "ZEC",
     "currency": "USD",
     "min_size": "0.001",
@@ -46,5 +70,13 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ZEC/ETH"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "LTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ZEC/LTC"
   }
 ]
