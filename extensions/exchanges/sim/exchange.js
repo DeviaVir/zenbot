@@ -178,23 +178,16 @@ module.exports = function sim (conf, s) {
       var orders_changed = false
 
       _.each(openOrders, function(order) {
-        if (order.tradetype === 'buy') {
-          if (trade.time - order.time < so.order_adjust_time) {
-            // Not time yet
-          }
-          else if (trade.price <= Number(order.price)) {
-            processBuy(order, trade)
-            orders_changed = true
-          }
+        if (trade.time - order.time < so.order_adjust_time) {
+          return // Not time yet
         }
-        else if (order.tradetype === 'sell') {
-          if (trade.time - order.time < so.order_adjust_time) {
-            // Not time yet
-          }
-          else if (trade.price >= order.price) {
-            processSell(order, trade)
-            orders_changed = true
-          }
+        if (order.tradetype === 'buy' && trade.price <= order.price) {
+          processBuy(order, trade)
+          orders_changed = true
+        }
+        else if (order.tradetype === 'sell' && trade.price >= order.price) {
+          processSell(order, trade)
+          orders_changed = true
         }
       })
 
