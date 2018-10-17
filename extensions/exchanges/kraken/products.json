@@ -322,6 +322,41 @@
     "label": "REP/USD"
   },
   {
+    "asset": "XTZ",
+    "currency": "ZCAD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XTZ/CAD"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XTZ/ETH"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XTZ/EUR"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XTZ/USD"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XTZ/XBT"
+  },
+  {
     "asset": "XXBT",
     "currency": "ZCAD",
     "min_size": "0.01",

@@ -1866,7 +1866,7 @@
   {
     "asset": "SEE",
     "currency": "USD",
-    "min_size": "5642.0",
+    "min_size": "5722.0",
     "max_size": "2000000.0",
     "increment": "0.0000001",
     "label": "SEE/USD"
@@ -1874,7 +1874,7 @@
   {
     "asset": "SEE",
     "currency": "BTC",
-    "min_size": "5642.0",
+    "min_size": "5722.0",
     "max_size": "2000000.0",
     "increment": "0.0000000001",
     "label": "SEE/BTC"
@@ -1882,7 +1882,7 @@
   {
     "asset": "SEE",
     "currency": "ETH",
-    "min_size": "5642.0",
+    "min_size": "5722.0",
     "max_size": "2000000.0",
     "increment": "0.0000000001",
     "label": "SEE/ETH"
@@ -1890,7 +1890,7 @@
   {
     "asset": "ESS",
     "currency": "USD",
-    "min_size": "2848.0",
+    "min_size": "2860.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "ESS/USD"
@@ -1898,7 +1898,7 @@
   {
     "asset": "ESS",
     "currency": "BTC",
-    "min_size": "2848.0",
+    "min_size": "2860.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/BTC"
@@ -1906,7 +1906,7 @@
   {
     "asset": "ESS",
     "currency": "ETH",
-    "min_size": "2848.0",
+    "min_size": "2860.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "ESS/ETH"
@@ -2290,7 +2290,7 @@
   {
     "asset": "BOX",
     "currency": "USD",
-    "min_size": "970.0",
+    "min_size": "1018.0",
     "max_size": "1500000.0",
     "increment": "0.0000001",
     "label": "BOX/USD"
@@ -2298,7 +2298,7 @@
   {
     "asset": "BOX",
     "currency": "ETH",
-    "min_size": "970.0",
+    "min_size": "1018.0",
     "max_size": "1500000.0",
     "increment": "0.0000000001",
     "label": "BOX/ETH"
