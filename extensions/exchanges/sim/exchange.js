@@ -178,23 +178,16 @@ module.exports = function sim (conf, s) {
       var orders_changed = false
 
       _.each(openOrders, function(order) {
-        if (order.tradetype === 'buy') {
-          if (trade.time - order.time < so.order_adjust_time) {
-            // Not time yet
-          }
-          else if (trade.price <= Number(order.price)) {
-            processBuy(order, trade)
-            orders_changed = true
-          }
+        if (trade.time - order.time < so.order_adjust_time) {
+          return // Not time yet
         }
-        else if (order.tradetype === 'sell') {
-          if (trade.time - order.time < so.order_adjust_time) {
-            // Not time yet
-          }
-          else if (trade.price >= order.price) {
-            processSell(order, trade)
-            orders_changed = true
-          }
+        if (order.tradetype === 'buy' && trade.price <= order.price) {
+          processBuy(order, trade)
+          orders_changed = true
+        }
+        else if (order.tradetype === 'sell' && trade.price >= order.price) {
+          processSell(order, trade)
+          orders_changed = true
         }
       })
 
@@ -208,33 +201,23 @@ module.exports = function sim (conf, s) {
     let size = Math.min(buy_order.remaining_size, trade.size)
     let price = buy_order.price
 
-    // Buying, so add asset
-    balance.asset = n(balance.asset).add(size).format('0.00000000')
-
-    // Process balance changes
-    if (so.order_type === 'maker') {
-      if (exchange.makerFee) {
-        fee = n(size).multiply(exchange.makerFee / 100).value()
-      }
-    }
-    else if (so.order_type === 'taker') {
-      if (s.exchange.takerFee) {
-        fee = n(size).multiply(exchange.takerFee / 100).value()
-      }
-    }
+    // Add estimated slippage to price
     if (so.order_type === 'maker') {
       price = n(price).add(n(price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
-      if (exchange.makerFee) {
-        balance.asset = n(balance.asset).subtract(fee).format('0.00000000')
-      }
-    }
-    else if (so.order_type === 'taker') {
-      if (exchange.takerFee) {
-        balance.asset = n(balance.asset).subtract(fee).format('0.00000000')
-      }
     }
 
     let total = n(price).multiply(size)
+
+    // Compute fees
+    if (so.order_type === 'maker' && exchange.makerFee) {
+      fee = n(size).multiply(exchange.makerFee / 100).value()
+    }
+    else if (so.order_type === 'taker' && s.exchange.takerFee) {
+      fee = n(size).multiply(exchange.takerFee / 100).value()
+    }
+
+    // Update balance
+    balance.asset = n(balance.asset).add(size).subtract(fee).format('0.00000000')
     balance.currency = n(balance.currency).subtract(total).format('0.00000000')
 
     // Process existing order size changes
@@ -258,35 +241,24 @@ module.exports = function sim (conf, s) {
     let size = Math.min(sell_order.remaining_size, trade.size)
     let price = sell_order.price
 
-    // Selling, so subtract asset
-    balance.asset = n(balance.asset).subtract(size).value()
-
-    // Process balance changes
-    if (so.order_type === 'maker') {
-      if (exchange.makerFee) {
-        fee = n(size).multiply(exchange.makerFee / 100).value()
-      }
-    }
-    else if (so.order_type === 'taker') {
-      if (exchange.takerFee) {
-        fee = n(size).multiply(exchange.takerFee / 100).value()
-      }
-    }
+    // Add estimated slippage to price
     if (so.order_type === 'maker') {
       price = n(price).subtract(n(price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
-      if (exchange.makerFee) {
-        fee = n(size).multiply(exchange.makerFee / 100).multiply(price).value()
-        balance.currency = n(balance.currency).subtract(fee).format('0.00000000')
-      }
-    }
-    else if (so.order_type === 'taker') {
-      if (exchange.takerFee) {
-        balance.currency = n(balance.currency).subtract(fee).format('0.00000000')
-      }
     }
 
     let total = n(price).multiply(size)
-    balance.currency = n(balance.currency).add(total).format('0.00000000')
+
+    // Compute fees
+    if (so.order_type === 'maker' && exchange.makerFee) {
+      fee = n(total).multiply(exchange.makerFee / 100).value()
+    }
+    else if (so.order_type === 'taker' && exchange.takerFee) {
+      fee = n(total).multiply(exchange.takerFee / 100).value()
+    }
+
+    // Update balance
+    balance.asset = n(balance.asset).subtract(size).value()
+    balance.currency = n(balance.currency).add(total).subtract(fee).format('0.00000000')
 
     // Process existing order size changes
     let order = sell_order
