@@ -72,6 +72,30 @@
     "label": "Bytecoin/Monero"
   },
   {
+    "asset": "BNT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bancor/Bitcoin"
+  },
+  {
+    "asset": "BNT",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bancor/Ethereum"
+  },
+  {
+    "asset": "BNT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bancor/Tether USD"
+  },
+  {
     "asset": "BTC",
     "currency": "USDC",
     "min_total": "0.0001",

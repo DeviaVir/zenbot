@@ -2178,7 +2178,7 @@
   {
     "asset": "VET",
     "currency": "USD",
-    "min_size": "852.0",
+    "min_size": "854.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "VET/USD"
@@ -2186,7 +2186,7 @@
   {
     "asset": "VET",
     "currency": "BTC",
-    "min_size": "852.0",
+    "min_size": "854.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "VET/BTC"
@@ -2194,7 +2194,7 @@
   {
     "asset": "VET",
     "currency": "ETH",
-    "min_size": "852.0",
+    "min_size": "854.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "VET/ETH"
@@ -2358,5 +2358,69 @@
     "max_size": "3000000.0",
     "increment": "0.0000000001",
     "label": "RTE/ETH"
+  },
+  {
+    "asset": "YGG",
+    "currency": "USD",
+    "min_size": "4586.0",
+    "max_size": "8000000.0",
+    "increment": "0.0000001",
+    "label": "YGG/USD"
+  },
+  {
+    "asset": "YGG",
+    "currency": "ETH",
+    "min_size": "4586.0",
+    "max_size": "8000000.0",
+    "increment": "0.0000000001",
+    "label": "YGG/ETH"
+  },
+  {
+    "asset": "MLN",
+    "currency": "USD",
+    "min_size": "1.0",
+    "max_size": "500000.0",
+    "increment": "0.0001",
+    "label": "MLN/USD"
+  },
+  {
+    "asset": "MLN",
+    "currency": "ETH",
+    "min_size": "1.0",
+    "max_size": "500000.0",
+    "increment": "0.0000001",
+    "label": "MLN/ETH"
+  },
+  {
+    "asset": "WTC",
+    "currency": "USD",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00001",
+    "label": "WTC/USD"
+  },
+  {
+    "asset": "WTC",
+    "currency": "ETH",
+    "min_size": "2.0",
+    "max_size": "10000.0",
+    "increment": "0.00000001",
+    "label": "WTC/ETH"
+  },
+  {
+    "asset": "CSX",
+    "currency": "USD",
+    "min_size": "62.0",
+    "max_size": "150000.0",
+    "increment": "0.000001",
+    "label": "CSX/USD"
+  },
+  {
+    "asset": "CSX",
+    "currency": "ETH",
+    "min_size": "62.0",
+    "max_size": "150000.0",
+    "increment": "0.000000001",
+    "label": "CSX/ETH"
   }
 ]
