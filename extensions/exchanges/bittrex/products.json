@@ -96,14 +96,6 @@
     "label": "BTC/XMY"
   },
   {
-    "asset": "AUR",
-    "currency": "BTC",
-    "min_size": "1.55811779",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/AUR"
-  },
-  {
     "asset": "EFL",
     "currency": "BTC",
     "min_size": "11.60631383",
@@ -352,14 +344,6 @@
     "label": "BTC/ABY"
   },
   {
-    "asset": "BYC",
-    "currency": "BTC",
-    "min_size": "3.65070093",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BYC"
-  },
-  {
     "asset": "XMG",
     "currency": "BTC",
     "min_size": "6.11097531",
@@ -374,14 +358,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BAY"
-  },
-  {
-    "asset": "SPR",
-    "currency": "BTC",
-    "min_size": "3.53007625",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/SPR"
   },
   {
     "asset": "XRP",
@@ -558,14 +534,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EXP"
-  },
-  {
-    "asset": "OMNI",
-    "currency": "BTC",
-    "min_size": "0.05636979",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/OMNI"
   },
   {
     "asset": "AMP",
@@ -1174,14 +1142,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QRL"
-  },
-  {
-    "asset": "CRB",
-    "currency": "BTC",
-    "min_size": "8.18866689",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CRB"
   },
   {
     "asset": "MORE",
