@@ -2230,5 +2230,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NPXS"
+  },
+  {
+    "asset": "PMA",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PMA"
+  },
+  {
+    "asset": "BAT",
+    "currency": "USDT",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BAT"
+  },
+  {
+    "asset": "RVN",
+    "currency": "USDT",
+    "min_size": "0.00000001",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/RVN"
   }
 ]
