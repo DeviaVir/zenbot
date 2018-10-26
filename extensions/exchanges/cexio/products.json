@@ -42,7 +42,7 @@
   {
     "asset": "LTC",
     "currency": "USD",
-    "min_size": "1.2",
+    "min_size": "0.5",
     "max_size": null,
     "increment": "0.01",
     "label": "LTC/USD"
@@ -218,7 +218,7 @@
   {
     "asset": "LTC",
     "currency": "BTC",
-    "min_size": "1.2",
+    "min_size": "0.5",
     "max_size": null,
     "increment": "0.000001",
     "label": "LTC/BTC"
