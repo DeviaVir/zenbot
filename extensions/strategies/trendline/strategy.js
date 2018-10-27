@@ -13,7 +13,7 @@ module.exports = {
 
   getOptions: function () {
     this.option('period', 'period length', String, '30s')
-    this.option('periodLength', 'period length', String, '30s')
+    this.option('period_length', 'period length', String, '30s')
     this.option('lastpoints', 'Number of trades for short trend average', Number, 100)
     this.option('avgpoints', 'Number of trades for long trend average', Number, 1000)
     this.option('lastpoints2', 'Number of trades for short trend average', Number, 10)
