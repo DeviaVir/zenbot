@@ -96,14 +96,6 @@
     "label": "BTC/XMY"
   },
   {
-    "asset": "EFL",
-    "currency": "BTC",
-    "min_size": "58.27505828",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/EFL"
-  },
-  {
     "asset": "GLD",
     "currency": "BTC",
     "min_size": "55.30973451",
@@ -160,14 +152,6 @@
     "label": "BTC/THC"
   },
   {
-    "asset": "ENRG",
-    "currency": "BTC",
-    "min_size": "252.52525253",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/ENRG"
-  },
-  {
     "asset": "VRC",
     "currency": "BTC",
     "min_size": "14.87209994",
@@ -214,14 +198,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XDN"
-  },
-  {
-    "asset": "TRUST",
-    "currency": "BTC",
-    "min_size": "240.38461538",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/TRUST"
   },
   {
     "asset": "NAV",
@@ -342,14 +318,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ABY"
-  },
-  {
-    "asset": "XMG",
-    "currency": "BTC",
-    "min_size": "68.49315068",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/XMG"
   },
   {
     "asset": "BAY",
@@ -518,14 +486,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TX"
-  },
-  {
-    "asset": "BCY",
-    "currency": "BTC",
-    "min_size": "58.13953488",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BCY"
   },
   {
     "asset": "EXP",
