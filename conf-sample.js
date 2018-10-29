@@ -179,7 +179,7 @@ c.notifiers = {}
 
 //common
 
-c.notifiers.Only_Completed_Trades = false // Filter to notifier's messages for getting Commpleted Trades info.
+c.notifiers.only_completed_trades = false // Filter to notifier's messages for getting Commpleted Trades info.
 
 // xmpp config
 c.notifiers.xmpp = {}
