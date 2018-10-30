@@ -57,6 +57,7 @@ module.exports = function (program, conf) {
     .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
     .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
     .option('--debug', 'output detailed debug info')
+    .option('--only_completed_trades', 'Message filter for only completed trades to notifier.', Boolean, conf.notifiers.only_completed_trades)
     .action(function (selector, cmd) {
       var raw_opts = minimist(process.argv)
       var s = {options: JSON.parse(JSON.stringify(raw_opts))}
@@ -76,6 +77,7 @@ module.exports = function (program, conf) {
           so[k] = cmd[k]
         }
       })
+      so.only_completed_trades = (cmd.only_completed_trades || conf.only_completed_trades)
       so.currency_increment = cmd.currency_increment
       so.keep_lookback_periods = cmd.keep_lookback_periods
       so.use_prev_trades = (cmd.use_prev_trades||conf.use_prev_trades)
