@@ -76,7 +76,6 @@ module.exports = function (program, conf) {
           so[k] = cmd[k]
         }
       })
-      so.only_completed_trades = conf.only_completed_trades
       so.currency_increment = cmd.currency_increment
       so.keep_lookback_periods = cmd.keep_lookback_periods
       so.use_prev_trades = (cmd.use_prev_trades||conf.use_prev_trades)
