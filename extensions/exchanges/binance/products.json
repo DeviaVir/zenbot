@@ -990,16 +990,6 @@
     "label": "BNB/USDT"
   },
   {
-    "id": "VENBNB",
-    "asset": "VEN",
-    "currency": "BNB",
-    "min_size": "6.66000666000666",
-    "max_size": "10000000.00000000",
-    "increment": "0.0001",
-    "asset_increment": "0.01",
-    "label": "VEN/BNB"
-  },
-  {
     "id": "YOYOBNB",
     "asset": "YOYOW",
     "currency": "BNB",
@@ -1018,26 +1008,6 @@
     "increment": "0.00001",
     "asset_increment": "0.1",
     "label": "POWR/BNB"
-  },
-  {
-    "id": "VENBTC",
-    "asset": "VEN",
-    "currency": "BTC",
-    "min_size": "1",
-    "max_size": "90000000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
-    "label": "VEN/BTC"
-  },
-  {
-    "id": "VENETH",
-    "asset": "VEN",
-    "currency": "ETH",
-    "min_size": "1",
-    "max_size": "90000000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.",
-    "label": "VEN/ETH"
   },
   {
     "id": "KMDBTC",
@@ -3598,16 +3568,6 @@
     "increment": "0.00000001",
     "asset_increment": "1.",
     "label": "NPXS/ETH"
-  },
-  {
-    "id": "VENUSDT",
-    "asset": "VEN",
-    "currency": "USDT",
-    "min_size": "0.01",
-    "max_size": "10000000.00000000",
-    "increment": "0.0001",
-    "asset_increment": "0.01",
-    "label": "VEN/USDT"
   },
   {
     "id": "KEYBTC",
