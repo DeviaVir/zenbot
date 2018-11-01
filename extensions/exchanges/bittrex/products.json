@@ -2194,7 +2194,7 @@
   {
     "asset": "PMA",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "3000.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PMA"
@@ -2202,7 +2202,7 @@
   {
     "asset": "BAT",
     "currency": "USDT",
-    "min_size": "0.00000001",
+    "min_size": "0.00100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/BAT"
@@ -2210,7 +2210,7 @@
   {
     "asset": "RVN",
     "currency": "USDT",
-    "min_size": "0.00000001",
+    "min_size": "0.00100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/RVN"
@@ -2218,7 +2218,7 @@
   {
     "asset": "PAL",
     "currency": "BTC",
-    "min_size": "0.00000001",
+    "min_size": "300.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PAL"
@@ -2230,5 +2230,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/SC"
+  },
+  {
+    "asset": "PAX",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PAX"
+  },
+  {
+    "asset": "PAX",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PAX"
   }
 ]
