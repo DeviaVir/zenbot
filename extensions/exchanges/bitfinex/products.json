@@ -1938,7 +1938,7 @@
   {
     "asset": "HOT",
     "currency": "USD",
-    "min_size": "1070.0",
+    "min_size": "1100.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "HOT/USD"
@@ -1946,7 +1946,7 @@
   {
     "asset": "HOT",
     "currency": "BTC",
-    "min_size": "1070.0",
+    "min_size": "1100.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "HOT/BTC"
@@ -1954,7 +1954,7 @@
   {
     "asset": "HOT",
     "currency": "ETH",
-    "min_size": "1070.0",
+    "min_size": "1100.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "HOT/ETH"
@@ -2202,7 +2202,7 @@
   {
     "asset": "UTN",
     "currency": "USD",
-    "min_size": "2288.0",
+    "min_size": "2368.0",
     "max_size": "5000000.0",
     "increment": "0.0000001",
     "label": "UTN/USD"
@@ -2210,7 +2210,7 @@
   {
     "asset": "UTN",
     "currency": "ETH",
-    "min_size": "2288.0",
+    "min_size": "2368.0",
     "max_size": "5000000.0",
     "increment": "0.0000000001",
     "label": "UTN/ETH"
@@ -2218,7 +2218,7 @@
   {
     "asset": "TKN",
     "currency": "USD",
-    "min_size": "34.0",
+    "min_size": "32.0",
     "max_size": "50000.0",
     "increment": "0.000001",
     "label": "TKN/USD"
@@ -2226,7 +2226,7 @@
   {
     "asset": "TKN",
     "currency": "ETH",
-    "min_size": "34.0",
+    "min_size": "32.0",
     "max_size": "50000.0",
     "increment": "0.000000001",
     "label": "TKN/ETH"
@@ -2274,7 +2274,7 @@
   {
     "asset": "CNN",
     "currency": "USD",
-    "min_size": "24446.0",
+    "min_size": "24650.0",
     "max_size": "20000000.0",
     "increment": "0.0000001",
     "label": "CNN/USD"
@@ -2282,7 +2282,7 @@
   {
     "asset": "CNN",
     "currency": "ETH",
-    "min_size": "24446.0",
+    "min_size": "24650.0",
     "max_size": "20000000.0",
     "increment": "0.0000000001",
     "label": "CNN/ETH"
@@ -2290,7 +2290,7 @@
   {
     "asset": "BOX",
     "currency": "USD",
-    "min_size": "1064.0",
+    "min_size": "1078.0",
     "max_size": "1500000.0",
     "increment": "0.0000001",
     "label": "BOX/USD"
@@ -2298,7 +2298,7 @@
   {
     "asset": "BOX",
     "currency": "ETH",
-    "min_size": "1064.0",
+    "min_size": "1078.0",
     "max_size": "1500000.0",
     "increment": "0.0000000001",
     "label": "BOX/ETH"
@@ -2346,7 +2346,7 @@
   {
     "asset": "RTE",
     "currency": "USD",
-    "min_size": "1696.0",
+    "min_size": "1766.0",
     "max_size": "3000000.0",
     "increment": "0.0000001",
     "label": "RTE/USD"
@@ -2354,7 +2354,7 @@
   {
     "asset": "RTE",
     "currency": "ETH",
-    "min_size": "1696.0",
+    "min_size": "1766.0",
     "max_size": "3000000.0",
     "increment": "0.0000000001",
     "label": "RTE/ETH"
@@ -2362,7 +2362,7 @@
   {
     "asset": "YGG",
     "currency": "USD",
-    "min_size": "7228.0",
+    "min_size": "7466.0",
     "max_size": "8000000.0",
     "increment": "0.0000001",
     "label": "YGG/USD"
@@ -2370,7 +2370,7 @@
   {
     "asset": "YGG",
     "currency": "ETH",
-    "min_size": "7228.0",
+    "min_size": "7466.0",
     "max_size": "8000000.0",
     "increment": "0.0000000001",
     "label": "YGG/ETH"
@@ -2438,5 +2438,53 @@
     "max_size": "20000.0",
     "increment": "0.00000001",
     "label": "OMN/BTC"
+  },
+  {
+    "asset": "INT",
+    "currency": "USD",
+    "min_size": "256.0",
+    "max_size": "500000.0",
+    "increment": "0.0000001",
+    "label": "INT/USD"
+  },
+  {
+    "asset": "INT",
+    "currency": "ETH",
+    "min_size": "256.0",
+    "max_size": "500000.0",
+    "increment": "0.0000000001",
+    "label": "INT/ETH"
+  },
+  {
+    "asset": "DRN",
+    "currency": "USD",
+    "min_size": "48.0",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "DRN/USD"
+  },
+  {
+    "asset": "DRN",
+    "currency": "ETH",
+    "min_size": "48.0",
+    "max_size": "100000.0",
+    "increment": "0.000000001",
+    "label": "DRN/ETH"
+  },
+  {
+    "asset": "PNK",
+    "currency": "USD",
+    "min_size": "1346.0",
+    "max_size": "1000000.0",
+    "increment": "0.0000001",
+    "label": "PNK/USD"
+  },
+  {
+    "asset": "PNK",
+    "currency": "ETH",
+    "min_size": "1346.0",
+    "max_size": "1000000.0",
+    "increment": "0.0000000001",
+    "label": "PNK/ETH"
   }
 ]
