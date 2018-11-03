@@ -16,6 +16,14 @@
     "label": "ETH/USDC"
   },
   {
+    "asset": "BAT",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "300000",
+    "increment": "0.000001",
+    "label": "BAT/USDC"
+  },
+  {
     "asset": "ETC",
     "currency": "EUR",
     "min_size": "0.1",
@@ -148,7 +156,7 @@
     "currency": "BTC",
     "min_size": "1",
     "max_size": "150000",
-    "increment": "1e-8",
+    "increment": "0.00000001",
     "label": "ZRX/BTC"
   },
   {
