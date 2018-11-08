@@ -49,11 +49,51 @@
   },
   {
     "asset": "BCH",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash/USD//Coin"
+  },
+  {
+    "asset": "BCH",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Bitcoin Cash/Tether USD"
+  },
+  {
+    "asset": "BCHABC",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash ABC/Bitcoin"
+  },
+  {
+    "asset": "BCHABC",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash ABC/USD//Coin"
+  },
+  {
+    "asset": "BCHSV",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash SV/Bitcoin"
+  },
+  {
+    "asset": "BCHSV",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash SV/USD//Coin"
   },
   {
     "asset": "BCN",
