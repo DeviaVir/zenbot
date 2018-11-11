@@ -156,7 +156,7 @@
     "currency": "BTC",
     "min_size": "1",
     "max_size": "150000",
-    "increment": "0.00000001",
+    "increment": "1e-8",
     "label": "ZRX/BTC"
   },
   {
