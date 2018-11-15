@@ -16,6 +16,22 @@
     "label": "ETH/USDC"
   },
   {
+    "asset": "ZRX",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.000001",
+    "label": "ZRX/EUR"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.000001",
+    "label": "ZRX/USD"
+  },
+  {
     "asset": "BAT",
     "currency": "USDC",
     "min_size": "1",
@@ -145,27 +161,11 @@
   },
   {
     "asset": "ZRX",
-    "currency": "USD",
-    "min_size": "1",
-    "max_size": "150000",
-    "increment": "0.01",
-    "label": "ZRX/USD"
-  },
-  {
-    "asset": "ZRX",
     "currency": "BTC",
     "min_size": "1",
     "max_size": "150000",
     "increment": "0.00000001",
     "label": "ZRX/BTC"
-  },
-  {
-    "asset": "ZRX",
-    "currency": "EUR",
-    "min_size": "1",
-    "max_size": "150000",
-    "increment": "0.01",
-    "label": "ZRX/EUR"
   },
   {
     "asset": "ETC",
