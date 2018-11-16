@@ -1,6 +1,22 @@
 [
   {
     "asset": "BTC",
+    "currency": "GBP",
+    "min_size": "0.001",
+    "max_size": "20",
+    "increment": "0.01",
+    "label": "BTC/GBP"
+  },
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.001",
+    "max_size": "50",
+    "increment": "0.01",
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "BTC",
     "currency": "USDC",
     "min_size": "0.001",
     "max_size": "70",
@@ -32,12 +48,44 @@
     "label": "ZRX/USD"
   },
   {
+    "asset": "BCH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "200",
+    "increment": "0.00001",
+    "label": "BCH/BTC"
+  },
+  {
     "asset": "BAT",
     "currency": "USDC",
     "min_size": "1",
     "max_size": "300000",
     "increment": "0.000001",
     "label": "BAT/USDC"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "350",
+    "increment": "0.01",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "120",
+    "increment": "0.01",
+    "label": "BCH/EUR"
+  },
+  {
+    "asset": "BCH",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "120",
+    "increment": "0.01",
+    "label": "BCH/GBP"
   },
   {
     "asset": "ETC",
@@ -54,38 +102,6 @@
     "max_size": "70",
     "increment": "0.01",
     "label": "BTC/USD"
-  },
-  {
-    "asset": "BCH",
-    "currency": "BTC",
-    "min_size": "0.01",
-    "max_size": "200",
-    "increment": "0.00001",
-    "label": "BCH/BTC"
-  },
-  {
-    "asset": "BCH",
-    "currency": "USD",
-    "min_size": "0.01",
-    "max_size": "350",
-    "increment": "0.01",
-    "label": "BCH/USD"
-  },
-  {
-    "asset": "BTC",
-    "currency": "EUR",
-    "min_size": "0.001",
-    "max_size": "50",
-    "increment": "0.01",
-    "label": "BTC/EUR"
-  },
-  {
-    "asset": "BTC",
-    "currency": "GBP",
-    "min_size": "0.001",
-    "max_size": "20",
-    "increment": "0.01",
-    "label": "BTC/GBP"
   },
   {
     "asset": "ETH",
@@ -136,14 +152,6 @@
     "label": "LTC/USD"
   },
   {
-    "asset": "BCH",
-    "currency": "EUR",
-    "min_size": "0.01",
-    "max_size": "120",
-    "increment": "0.01",
-    "label": "BCH/EUR"
-  },
-  {
     "asset": "ETC",
     "currency": "USD",
     "min_size": "0.1",
@@ -190,13 +198,5 @@
     "max_size": "1000",
     "increment": "0.01",
     "label": "LTC/GBP"
-  },
-  {
-    "asset": "BCH",
-    "currency": "GBP",
-    "min_size": "0.01",
-    "max_size": "120",
-    "increment": "0.01",
-    "label": "BCH/GBP"
   }
 ]
