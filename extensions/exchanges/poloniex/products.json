@@ -241,6 +241,14 @@
   },
   {
     "asset": "DOGE",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Dogecoin/USD//Coin"
+  },
+  {
+    "asset": "DOGE",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -470,6 +478,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Litecoin/Bitcoin"
+  },
+  {
+    "asset": "LTC",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Litecoin/USD//Coin"
   },
   {
     "asset": "LTC",
@@ -737,6 +753,14 @@
   },
   {
     "asset": "STR",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Stellar/USD//Coin"
+  },
+  {
+    "asset": "STR",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -809,6 +833,14 @@
   },
   {
     "asset": "XMR",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Monero/USD//Coin"
+  },
+  {
+    "asset": "XMR",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -833,6 +865,14 @@
   },
   {
     "asset": "XRP",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ripple/USD//Coin"
+  },
+  {
+    "asset": "XRP",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -854,6 +894,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Zcash/Ethereum"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Zcash/USD//Coin"
   },
   {
     "asset": "ZEC",
