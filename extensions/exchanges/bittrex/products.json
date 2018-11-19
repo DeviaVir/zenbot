@@ -2286,5 +2286,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MEDX"
+  },
+  {
+    "asset": "BSV",
+    "currency": "BTC",
+    "min_size": "0.03000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BSV"
   }
 ]

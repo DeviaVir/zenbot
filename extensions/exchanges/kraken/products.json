@@ -56,6 +56,27 @@
     "label": "BCH/XBT"
   },
   {
+    "asset": "BSV",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BSV/EUR"
+  },
+  {
+    "asset": "BSV",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BSV/USD"
+  },
+  {
+    "asset": "BSV",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BSV/XBT"
+  },
+  {
     "asset": "DASH",
     "currency": "ZEUR",
     "min_size": "0.03",
