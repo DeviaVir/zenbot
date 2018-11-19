@@ -65,7 +65,7 @@
     "jquery": "^3.2.1",
     "keltnerchannel": "^1.4.2",
     "kraken-api": "^1.0.0",
-    "lint-staged": "^7.0.4",
+    "lint-staged": "^8.0.5",
     "lodash": "^4.17.4",
     "lolex": "^3.0.0",
     "mathjs": "^5.0.0",
