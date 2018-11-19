@@ -37,7 +37,8 @@ module.exports = {
   description: 'Associate various ichimoku signals with a score.',
 
   getOptions: function () {
-    this.option('period', 'period length eg 10m', String, '60m')
+    this.option('period', 'period length, same as --period_length', String, '60m')
+    this.option('period_length', 'period length', String, '60m')
     this.option('min_periods', 'min. number of history periods', Number, 150)
 
     // == ichimoku inputs ==
@@ -117,7 +118,7 @@ module.exports = {
   onPeriod: function (s, cb) {
 
 
-   //    == Debugging ==
+    //    == Debugging ==
 
     if (s.options.debug) {console.log('\n== Options ==')}
 
@@ -271,7 +272,7 @@ function valueAboveKumo(s, val, key1, key2) {
 }
 
 function valueAbove(val, target1, target2) {
-    return val > Math.max(target1, target2)
+  return val > Math.max(target1, target2)
 }
 
 function valueBelow(val, target1, target2) {
