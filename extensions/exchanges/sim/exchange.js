@@ -202,7 +202,7 @@ module.exports = function sim (conf, s) {
     let price = buy_order.price
 
     // Add estimated slippage to price
-    if (so.order_type === 'maker') {
+    if (so.order_type === 'taker') {
       price = n(price).add(n(price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
     }
 
@@ -242,7 +242,7 @@ module.exports = function sim (conf, s) {
     let price = sell_order.price
 
     // Add estimated slippage to price
-    if (so.order_type === 'maker') {
+    if (so.order_type === 'taker') {
       price = n(price).subtract(n(price).multiply(so.avg_slippage_pct / 100)).format('0.00000000')
     }
 
