@@ -625,7 +625,10 @@ module.exports = function (program, conf) {
             })
           })
         }
-        var opts = {product_id: so.selector.product_id, from: trade_cursor}
+        var opts = {
+          product_id: so.selector.product_id,
+          from: trade_cursor + 1
+        }
         s.exchange.getTrades(opts, function (err, trades) {
           if (err) {
             if (err.code === 'ETIMEDOUT' || err.code === 'ENOTFOUND' || err.code === 'ECONNRESET') {
