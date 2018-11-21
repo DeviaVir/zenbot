@@ -10,7 +10,7 @@
   {
     "asset": "ETH",
     "currency": "USD",
-    "min_size": "0.05",
+    "min_size": "0.1",
     "max_size": "1000",
     "increment": "0.01",
     "label": "ETH/USD"
@@ -18,7 +18,7 @@
   {
     "asset": "BCH",
     "currency": "USD",
-    "min_size": "0.02",
+    "min_size": "0.05",
     "max_size": "30",
     "increment": "0.01",
     "label": "BCH/USD"
@@ -26,7 +26,7 @@
   {
     "asset": "BTG",
     "currency": "USD",
-    "min_size": "0.03",
+    "min_size": "0.5",
     "max_size": null,
     "increment": "0.01",
     "label": "BTG/USD"
@@ -34,7 +34,7 @@
   {
     "asset": "DASH",
     "currency": "USD",
-    "min_size": "0.03",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "DASH/USD"
@@ -66,7 +66,7 @@
   {
     "asset": "ZEC",
     "currency": "USD",
-    "min_size": "0.07",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "ZEC/USD"
@@ -82,7 +82,7 @@
   {
     "asset": "ETH",
     "currency": "EUR",
-    "min_size": "0.05",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "ETH/EUR"
@@ -90,7 +90,7 @@
   {
     "asset": "BCH",
     "currency": "EUR",
-    "min_size": "0.02",
+    "min_size": "0.05",
     "max_size": null,
     "increment": "0.01",
     "label": "BCH/EUR"
@@ -98,7 +98,7 @@
   {
     "asset": "BTG",
     "currency": "EUR",
-    "min_size": "0.03",
+    "min_size": "0.5",
     "max_size": null,
     "increment": "0.01",
     "label": "BTG/EUR"
@@ -106,7 +106,7 @@
   {
     "asset": "DASH",
     "currency": "EUR",
-    "min_size": "0.03",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "DASH/EUR"
@@ -130,7 +130,7 @@
   {
     "asset": "ZEC",
     "currency": "EUR",
-    "min_size": "0.07",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "ZEC/EUR"
@@ -146,7 +146,7 @@
   {
     "asset": "ETH",
     "currency": "GBP",
-    "min_size": "0.05",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "ETH/GBP"
@@ -154,7 +154,7 @@
   {
     "asset": "BCH",
     "currency": "GBP",
-    "min_size": "0.02",
+    "min_size": "0.05",
     "max_size": null,
     "increment": "0.01",
     "label": "BCH/GBP"
@@ -162,7 +162,7 @@
   {
     "asset": "DASH",
     "currency": "GBP",
-    "min_size": "0.03",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "DASH/GBP"
@@ -170,7 +170,7 @@
   {
     "asset": "ZEC",
     "currency": "GBP",
-    "min_size": "0.07",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "ZEC/GBP"
@@ -202,7 +202,7 @@
   {
     "asset": "BTG",
     "currency": "BTC",
-    "min_size": "0.01",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.000001",
     "label": "BTG/BTC"
@@ -210,7 +210,7 @@
   {
     "asset": "DASH",
     "currency": "BTC",
-    "min_size": "0.015",
+    "min_size": "0.005",
     "max_size": null,
     "increment": "0.000001",
     "label": "DASH/BTC"
