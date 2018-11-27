@@ -11,6 +11,7 @@ module.exports = function bitfinex (conf) {
   var ws_connected = false
   var ws_timeout = 60000
   var ws_retry = 10000
+  const getTrades_timeout = 2000
 
   var pair, public_client, ws_client
 
@@ -23,7 +24,7 @@ module.exports = function bitfinex (conf) {
   var heartbeat_interval
 
   function publicClient () {
-    if (!public_client) public_client = new BFX(null,null, {version: 2, transform: true}).rest
+    if (!public_client) public_client = new BFX().rest(2, {transform: true })
     return public_client
   }
 
@@ -334,13 +335,6 @@ module.exports = function bitfinex (conf) {
     }, 50)
   }
 
-  function encodeQueryData(data) {
-    let ret = []
-    for (let d in data)
-      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]))
-    return ret.join('&')
-  }
-
   function marginSymbolWebsocket(symbol) {
     /*
     [ 'sym',
@@ -438,37 +432,49 @@ module.exports = function bitfinex (conf) {
 
       // Backfilling using the REST API
       if (opts.to || opts.to === null) {
-        var client = publicClient()
-        var args = {}
-        args.sort = -1 //backward
-        args.limit = 1000
-        if (opts.from) {
-          args.start = opts.from
-        }
-        else if (opts.to) {
-          args.end = opts.to
-        }
-        else if (args.start && !args.end) {
-          args.end = args.start + 500000
-        }
-        else if (args.end && !args.start) {
-          args.start = args.end - 500000
-        }
-        var query = encodeQueryData(args)
-        var tpair = 't' + joinProduct(opts.product_id)
-        client.makePublicRequest('trades/' + tpair + '/hist?' + query, function (err, body) {
-          if (err) return retry('getTrades', opts, cb)
-          var trades = body.map(function(trade) {
-            return {
-              trade_id: trade.ID,
-              time: trade.MTS,
-              size: Math.abs(trade.AMOUNT),
-              price: trade.PRICE,
-              side: trade.AMOUNT > 0 ? 'buy' : 'sell'
+        setTimeout(function () {
+          var client = publicClient()
+          var args = {}
+          args.sort = -1 //backward
+          args.limit = 1000 //this is max
+          if (opts.from) {
+            args.start = opts.from
+          }
+          else if (opts.to) {
+            args.end = opts.to
+          }
+          else if (args.start && !args.end) {
+            args.end = args.start + 500000
+          }
+          else if (args.end && !args.start) {
+            args.start = args.end - 500000
+          }
+          const tpair = 't' + joinProduct(opts.product_id)
+          client.trades(tpair, args.start, args.end, args.limit, args.sort, function (err, body) {
+            if (err) {
+              if (err.statusCode !== 500) {
+                console.log(err.message, 'retrying...')
+                return retry('getTrades', opts, cb)
+              } else {
+                cb(err)
+              }
             }
+            var trades = body.map(function (trade) {
+              return {
+                trade_id: trade.id,
+                time: trade.mts,
+                size: Math.abs(trade.amount),
+                price: trade.price,
+                side: trade.amount > 0 ? 'buy' : 'sell'
+              }
+            })
+            if (so.debug && trades.length > 0) console.log(new Date().toISOString(), 'got trade count ', trades.length, ' range: ',
+              new Date(trades[trades.length - 1].time).toISOString(),'-', new Date(trades[0].time).toISOString())
+            cb(null, trades)
           })
-          cb(null, trades)
-        })
+          // only 1 request per second allowed https://bitcoin.stackexchange.com/questions/36952/bitfinex-api-limit
+          // but during testing I have discovered that 1 second is not enough, so double timeout looks better
+        }, getTrades_timeout)
       } else {
         // We're live now (i.e. opts.from is set), use websockets
         if (!ws_client) { wsClient() }

@@ -8,6 +8,7 @@ module.exports = function (program, conf) {
     .command('backfill [selector]')
     .description('download historical trades for analysis')
     .option('--conf <path>', 'path to optional conf overrides file')
+    .option('--debug', 'output detailed debug info')
     .option('-d, --days <days>', 'number of days to acquire (default: ' + conf.days + ')', Number, conf.days)
     .action(function (selector, cmd) {
       selector = objectifySelector(selector || conf.selector)
