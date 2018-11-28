@@ -2310,5 +2310,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XNK"
+  },
+  {
+    "asset": "BSV",
+    "currency": "USDT",
+    "min_size": "0.03000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BSV"
+  },
+  {
+    "asset": "BSV",
+    "currency": "ETH",
+    "min_size": "0.03000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/BSV"
   }
 ]
