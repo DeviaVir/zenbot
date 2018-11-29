@@ -1018,7 +1018,7 @@
   {
     "asset": "LRC",
     "currency": "USD",
-    "min_size": "226.0",
+    "min_size": "228.0",
     "max_size": "50000.0",
     "increment": "0.0000001",
     "label": "LRC/USD"
@@ -1026,7 +1026,7 @@
   {
     "asset": "LRC",
     "currency": "BTC",
-    "min_size": "226.0",
+    "min_size": "228.0",
     "max_size": "50000.0",
     "increment": "0.0000000001",
     "label": "LRC/BTC"
@@ -1034,7 +1034,7 @@
   {
     "asset": "LRC",
     "currency": "ETH",
-    "min_size": "226.0",
+    "min_size": "228.0",
     "max_size": "50000.0",
     "increment": "0.0000000001",
     "label": "LRC/ETH"
@@ -1162,7 +1162,7 @@
   {
     "asset": "MTN",
     "currency": "USD",
-    "min_size": "1126.0",
+    "min_size": "1154.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "MTN/USD"
@@ -1170,7 +1170,7 @@
   {
     "asset": "MTN",
     "currency": "BTC",
-    "min_size": "1126.0",
+    "min_size": "1154.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "MTN/BTC"
@@ -1178,7 +1178,7 @@
   {
     "asset": "MTN",
     "currency": "ETH",
-    "min_size": "1126.0",
+    "min_size": "1154.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "MTN/ETH"
@@ -1682,7 +1682,7 @@
   {
     "asset": "CBT",
     "currency": "USD",
-    "min_size": "1538.0",
+    "min_size": "1546.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "CBT/USD"
@@ -1690,7 +1690,7 @@
   {
     "asset": "CBT",
     "currency": "BTC",
-    "min_size": "1538.0",
+    "min_size": "1546.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "CBT/BTC"
@@ -1698,7 +1698,7 @@
   {
     "asset": "CBT",
     "currency": "ETH",
-    "min_size": "1538.0",
+    "min_size": "1546.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "CBT/ETH"
@@ -1778,7 +1778,7 @@
   {
     "asset": "CND",
     "currency": "USD",
-    "min_size": "792.0",
+    "min_size": "834.0",
     "max_size": "100000.0",
     "increment": "0.0000001",
     "label": "CND/USD"
@@ -1786,7 +1786,7 @@
   {
     "asset": "CND",
     "currency": "BTC",
-    "min_size": "792.0",
+    "min_size": "834.0",
     "max_size": "100000.0",
     "increment": "0.0000000001",
     "label": "CND/BTC"
@@ -1794,7 +1794,7 @@
   {
     "asset": "CND",
     "currency": "ETH",
-    "min_size": "792.0",
+    "min_size": "834.0",
     "max_size": "100000.0",
     "increment": "0.0000000001",
     "label": "CND/ETH"
@@ -2602,7 +2602,7 @@
   {
     "asset": "EUT",
     "currency": "EUR",
-    "min_size": "8.0",
+    "min_size": "10.0",
     "max_size": "100000.0",
     "increment": "0.00000001",
     "label": "EUT/EUR"
@@ -2610,7 +2610,7 @@
   {
     "asset": "EUT",
     "currency": "USD",
-    "min_size": "8.0",
+    "min_size": "10.0",
     "max_size": "100000.0",
     "increment": "0.00001",
     "label": "EUT/USD"

@@ -17,19 +17,19 @@
   },
   {
     "asset": "BCH",
-    "currency": "GBP",
-    "min_size": "0.01",
-    "max_size": "120",
-    "increment": "0.01",
-    "label": "BCH/GBP"
-  },
-  {
-    "asset": "BCH",
     "currency": "EUR",
     "min_size": "0.01",
     "max_size": "120",
     "increment": "0.01",
     "label": "BCH/EUR"
+  },
+  {
+    "asset": "BCH",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "120",
+    "increment": "0.01",
+    "label": "BCH/GBP"
   },
   {
     "asset": "BTC",
