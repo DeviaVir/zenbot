@@ -222,7 +222,7 @@ module.exports = function bitfinex (conf) {
       ws_connecting = true
       ws_connected = false
 
-      ws_client = new BFX(conf.bitfinex.key, conf.bitfinex.secret, {version: 2, transform: true}).ws
+      ws_client = new BFX({apiKey: conf.bitfinex.key, apiSecret: conf.bitfinex.secret, transform: true}).ws()
 
       ws_client
         .on('open', wsOpen)
