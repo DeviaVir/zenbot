@@ -2614,5 +2614,37 @@
     "max_size": "100000.0",
     "increment": "0.00001",
     "label": "EUT/USD"
+  },
+  {
+    "asset": "GSD",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.001",
+    "label": "GSD/USD"
+  },
+  {
+    "asset": "UDC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.001",
+    "label": "UDC/USD"
+  },
+  {
+    "asset": "TSD",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.001",
+    "label": "TSD/USD"
+  },
+  {
+    "asset": "PAX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.001",
+    "label": "PAX/USD"
   }
 ]
