@@ -1,16 +1,14 @@
 const ccxt = require('ccxt')
-, path = require('path')
-// eslint-disable-next-line no-unused-vars
-, colors = require('colors')
-, _ = require('lodash')
+  , path = require('path')
+  // eslint-disable-next-line no-unused-vars
+  , colors = require('colors')
+  , _ = require('lodash')
 
-module.exports = function bittrex (conf) {
+module.exports = function binance (conf) {
   var public_client, authed_client
-  let firstRun = true
-  let allowGetMarketCall = true
 
   function publicClient () {
-    if (!public_client) public_client = new ccxt.binance({ 'apiKey': '', 'secret': '' })
+    if (!public_client) public_client = new ccxt.binance({ 'apiKey': '', 'secret': '', 'options': { 'adjustForTimeDifference': true } })
     return public_client
   }
 
@@ -61,65 +59,47 @@ module.exports = function bittrex (conf) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-      , trades = []
-      , maxTime = 0
       var client = publicClient()
+      var startTime = null
       var args = {}
-      if (opts.from) args.startTime = opts.from
-      if (opts.to) args.endTime = opts.to
-      if (args.startTime && !args.endTime) {
-        // add 12 hours
-        args.endTime = parseInt(args.startTime, 10) + 3600000
+      if (opts.from) {
+        startTime = opts.from
+      } else {
+        startTime = parseInt(opts.to, 10) - 3600000
+        args['endTime'] = opts.to
       }
-      else if (args.endTime && !args.startTime) {
-        // subtract 12 hours
-        args.startTime = parseInt(args.endTime, 10) - 3600000
-      }
-      if (allowGetMarketCall != true) {
-        cb(null, [])
-        return null
-      }
-      if (firstRun) {
-        client.fetchOHLCV(joinProduct(opts.product_id), args.timeframe, opts.from).then(result => {
-          var lastVal = 0
-          trades = result.map(function(trade) {
-            let buySell = parseFloat(trade[4]) > lastVal ? 'buy' : 'sell'
-            lastVal = parseFloat(trade[4])
-            if (Number(trade[0]) > maxTime) maxTime = Number(trade[0])
-            return {
-              trade_id: trade[0]+''+ (trade[5]+'').slice(-2) + (trade[4]+'').slice(-2),
-              time: trade[0],
-              size: parseFloat(trade[5]),
-              price: parseFloat(trade[4]),
-              side: buySell
-            }
-          })
-          cb(null, trades)
-        }).catch(function(error) {
-          firstRun = false
-          allowGetMarketCall = false
-          setTimeout(()=>{allowGetMarketCall = true}, 5000)
-          console.error('[OHLCV] An error occurred', error)
-          return retry('getTrades', func_args, error)
-        })
-      }
-      else {
-        client.fetchTrades(joinProduct(opts.product_id), undefined, undefined, args).then(result => {
-          var trades = result.map(function (trade) {
-            return {
-              trade_id: trade.id,
-              time: trade.timestamp,
-              size: parseFloat(trade.amount),
-              price: parseFloat(trade.price),
-              side: trade.side
-            }
-          })
-          cb(null, trades)
-        }).catch(function (error) {
-          console.error('An error occurred', error)
-          return retry('getTrades', func_args)
-        })
-      }
+
+      const symbol = joinProduct(opts.product_id)
+      client.fetchTrades(symbol, startTime, undefined, args).then(result => {
+
+        if (result.length === 0 && opts.from) {
+          // client.fetchTrades() only returns trades in an 1 hour interval.
+          // So we use fetchOHLCV() to detect trade appart from more than 1h.
+          // Note: it's done only in forward mode.
+          const time_diff = client.options['timeDifference']
+          if (startTime + time_diff < (new Date()).getTime() - 3600000) {
+            // startTime is older than 1 hour ago.
+            return client.fetchOHLCV(symbol, undefined, startTime)
+              .then(ohlcv => {
+                return ohlcv.length ? client.fetchTrades(symbol, ohlcv[0][0]) : []
+              })
+          }
+        }
+        return result
+      }).then(result => {
+        var trades = result.map(trade => ({
+          trade_id: trade.id,
+          time: trade.timestamp,
+          size: parseFloat(trade.amount),
+          price: parseFloat(trade.price),
+          side: trade.side
+        }))
+        cb(null, trades)
+      }).catch(function (error) {
+        console.error('An error occurred', error)
+        return retry('getTrades', func_args)
+      })
+
     },
 
     getBalance: function (opts, cb) {
@@ -139,10 +119,10 @@ module.exports = function bittrex (conf) {
         })
         cb(null, balance)
       })
-      .catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('getBalance', func_args)
-      })
+        .catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('getBalance', func_args)
+        })
     },
 
     getQuote: function (opts, cb) {
@@ -151,10 +131,10 @@ module.exports = function bittrex (conf) {
       client.fetchTicker(joinProduct(opts.product_id)).then(result => {
         cb(null, { bid: result.bid, ask: result.ask })
       })
-      .catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('getQuote', func_args)
-      })
+        .catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('getQuote', func_args)
+        })
     },
 
     getDepth: function (opts, cb) {
@@ -163,10 +143,10 @@ module.exports = function bittrex (conf) {
       client.fetchOrderBook(joinProduct(opts.product_id), {limit: opts.limit}).then(result => {
         cb(null, result)
       })
-      .catch(function(error) {
-        console.error('An error ocurred', error)
-        return retry('getDepth', func_args)
-      })
+        .catch(function(error) {
+          console.error('An error ocurred', error)
+          return retry('getDepth', func_args)
+        })
     },
 
     cancelOrder: function (opts, cb) {
