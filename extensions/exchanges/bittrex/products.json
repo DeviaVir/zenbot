@@ -2342,5 +2342,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SOLVE"
+  },
+  {
+    "asset": "USDS",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/USDS"
+  },
+  {
+    "asset": "PMA",
+    "currency": "USDT",
+    "min_size": "4000.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PMA"
+  },
+  {
+    "asset": "NPXS",
+    "currency": "ETH",
+    "min_size": "5200.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/NPXS"
   }
 ]
