@@ -40,14 +40,6 @@
     "label": "ZEC/USDC"
   },
   {
-    "asset": "CVC",
-    "currency": "USDC",
-    "min_size": "1",
-    "max_size": "150000",
-    "increment": "0.000001",
-    "label": "CVC/USDC"
-  },
-  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.001",
@@ -86,6 +78,14 @@
     "max_size": "150000",
     "increment": "0.000001",
     "label": "MANA/USDC"
+  },
+  {
+    "asset": "CVC",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.000001",
+    "label": "CVC/USDC"
   },
   {
     "asset": "BTC",
