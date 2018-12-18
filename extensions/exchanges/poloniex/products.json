@@ -53,7 +53,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitcoin Cash/USD//Coin"
+    "label": "Bitcoin Cash/USD Coin"
   },
   {
     "asset": "BCH",
@@ -77,7 +77,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitcoin Cash ABC/USD//Coin"
+    "label": "Bitcoin Cash ABC/USD Coin"
   },
   {
     "asset": "BCHSV",
@@ -93,7 +93,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitcoin Cash SV/USD//Coin"
+    "label": "Bitcoin Cash SV/USD Coin"
   },
   {
     "asset": "BCN",
@@ -141,7 +141,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitcoin/USD//Coin"
+    "label": "Bitcoin/USD Coin"
   },
   {
     "asset": "BTC",
@@ -245,7 +245,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Dogecoin/USD//Coin"
+    "label": "Dogecoin/USD Coin"
   },
   {
     "asset": "DOGE",
@@ -317,7 +317,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ethereum/USD//Coin"
+    "label": "Ethereum/USD Coin"
   },
   {
     "asset": "ETH",
@@ -349,7 +349,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Foam/USD//Coin"
+    "label": "Foam/USD Coin"
   },
   {
     "asset": "GAME",
@@ -501,7 +501,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Litecoin/USD//Coin"
+    "label": "Litecoin/USD Coin"
   },
   {
     "asset": "LTC",
@@ -773,7 +773,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Stellar/USD//Coin"
+    "label": "Stellar/USD Coin"
   },
   {
     "asset": "STR",
@@ -805,7 +805,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Tether USD/USD//Coin"
+    "label": "Tether USD/USD Coin"
   },
   {
     "asset": "VIA",
@@ -853,7 +853,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Monero/USD//Coin"
+    "label": "Monero/USD Coin"
   },
   {
     "asset": "XMR",
@@ -885,7 +885,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/USD//Coin"
+    "label": "Ripple/USD Coin"
   },
   {
     "asset": "XRP",
@@ -917,7 +917,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Zcash/USD//Coin"
+    "label": "Zcash/USD Coin"
   },
   {
     "asset": "ZEC",
