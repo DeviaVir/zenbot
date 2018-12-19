@@ -1443,7 +1443,7 @@
     "asset": "KNC",
     "currency": "USD",
     "min_size": "80.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.000001",
     "label": "KNC/USD"
   },
@@ -1459,7 +1459,7 @@
     "asset": "KNC",
     "currency": "ETH",
     "min_size": "80.0",
-    "max_size": "20000.0",
+    "max_size": "100000.0",
     "increment": "0.000000001",
     "label": "KNC/ETH"
   },

@@ -4684,5 +4684,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "USDC/USDT"
+  },
+  {
+    "id": "ADATUSD",
+    "asset": "ADA",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ADA/TUSD"
+  },
+  {
+    "id": "TRXTUSD",
+    "asset": "TRX",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/TUSD"
+  },
+  {
+    "id": "NEOTUSD",
+    "asset": "NEO",
+    "currency": "TUSD",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "NEO/TUSD"
   }
 ]
