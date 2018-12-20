@@ -246,5 +246,21 @@
     "max_size": null,
     "increment": "0.000001",
     "label": "ZEC/BTC"
+  },
+  {
+    "asset": "QASH",
+    "currency": "BTC",
+    "min_size": "40",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "QASH/BTC"
+  },
+  {
+    "asset": "QASH",
+    "currency": "ETH",
+    "min_size": "40",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "QASH/ETH"
   }
 ]

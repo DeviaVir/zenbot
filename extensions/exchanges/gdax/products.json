@@ -40,14 +40,6 @@
     "label": "ZEC/USDC"
   },
   {
-    "asset": "GNT",
-    "currency": "USDC",
-    "min_size": "1",
-    "max_size": "150000",
-    "increment": "0.000001",
-    "label": "GNT/USDC"
-  },
-  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.001",
@@ -64,28 +56,12 @@
     "label": "BTC/EUR"
   },
   {
-    "asset": "DAI",
-    "currency": "USDC",
-    "min_size": "1",
-    "max_size": "100000",
-    "increment": "0.000001",
-    "label": "DAI/USDC"
-  },
-  {
     "asset": "MKR",
     "currency": "USDC",
     "min_size": "0.01",
     "max_size": "1000",
     "increment": "0.01",
     "label": "MKR/USDC"
-  },
-  {
-    "asset": "ZIL",
-    "currency": "USDC",
-    "min_size": "1",
-    "max_size": "150000",
-    "increment": "0.000001",
-    "label": "ZIL/USDC"
   },
   {
     "asset": "DNT",
@@ -118,6 +94,30 @@
     "max_size": "150000",
     "increment": "0.000001",
     "label": "CVC/USDC"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "100000",
+    "increment": "0.000001",
+    "label": "DAI/USDC"
+  },
+  {
+    "asset": "GNT",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.000001",
+    "label": "GNT/USDC"
+  },
+  {
+    "asset": "ZIL",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.000001",
+    "label": "ZIL/USDC"
   },
   {
     "asset": "BTC",

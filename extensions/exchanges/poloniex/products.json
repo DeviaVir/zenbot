@@ -464,6 +464,14 @@
     "label": "LOOM Network/Tether USD"
   },
   {
+    "asset": "LPT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Livepeer/Bitcoin"
+  },
+  {
     "asset": "LSK",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -576,6 +584,14 @@
     "label": "Namecoin/Bitcoin"
   },
   {
+    "asset": "NMR",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Numeraire/Bitcoin"
+  },
+  {
     "asset": "NXT",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -630,6 +646,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "PascalCoin/Bitcoin"
+  },
+  {
+    "asset": "POLY",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Polymath/Bitcoin"
   },
   {
     "asset": "PPC",
