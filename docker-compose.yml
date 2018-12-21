@@ -39,4 +39,5 @@ services:
   #    - CONN_NAME=zenbot_mongodb
   #    - DB_HOST=mongodb
   #    - DB_PORT=27017
+  #    - HOST=0.0.0.0
   #  command: "npm start"
