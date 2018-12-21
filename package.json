@@ -51,7 +51,7 @@
     "expose-loader": "^0.7.5",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^2.0.0",
+    "file-loader": "^3.0.1",
     "forex.analytics": "github:mkmarek/forex.analytics#7bc278987700d4204e959af17de61495941d1a14",
     "gdax": "^0.8.0",
     "gemini-api": "^2.0.4",
