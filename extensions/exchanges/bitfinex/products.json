@@ -994,7 +994,7 @@
   {
     "asset": "RDN",
     "currency": "USD",
-    "min_size": "40.0",
+    "min_size": "44.0",
     "max_size": "20000.0",
     "increment": "0.000001",
     "label": "RDN/USD"
@@ -1002,7 +1002,7 @@
   {
     "asset": "RDN",
     "currency": "BTC",
-    "min_size": "40.0",
+    "min_size": "44.0",
     "max_size": "20000.0",
     "increment": "0.000000001",
     "label": "RDN/BTC"
@@ -1010,7 +1010,7 @@
   {
     "asset": "RDN",
     "currency": "ETH",
-    "min_size": "40.0",
+    "min_size": "44.0",
     "max_size": "20000.0",
     "increment": "0.000000001",
     "label": "RDN/ETH"
@@ -1162,7 +1162,7 @@
   {
     "asset": "MTN",
     "currency": "USD",
-    "min_size": "1840.0",
+    "min_size": "1908.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "MTN/USD"
@@ -1170,7 +1170,7 @@
   {
     "asset": "MTN",
     "currency": "BTC",
-    "min_size": "1840.0",
+    "min_size": "1876.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "MTN/BTC"
@@ -1178,7 +1178,7 @@
   {
     "asset": "MTN",
     "currency": "ETH",
-    "min_size": "1840.0",
+    "min_size": "1876.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "MTN/ETH"
@@ -2106,7 +2106,7 @@
   {
     "asset": "BBN",
     "currency": "USD",
-    "min_size": "4444.0",
+    "min_size": "4866.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "BBN/USD"
@@ -2114,7 +2114,7 @@
   {
     "asset": "BBN",
     "currency": "ETH",
-    "min_size": "4444.0",
+    "min_size": "4866.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "BBN/ETH"
@@ -2450,7 +2450,7 @@
   {
     "asset": "PNK",
     "currency": "USD",
-    "min_size": "2254.0",
+    "min_size": "1162.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "PNK/USD"
@@ -2458,7 +2458,7 @@
   {
     "asset": "PNK",
     "currency": "ETH",
-    "min_size": "2254.0",
+    "min_size": "1162.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "PNK/ETH"
@@ -2546,7 +2546,7 @@
   {
     "asset": "ENJ",
     "currency": "USD",
-    "min_size": "400.0",
+    "min_size": "166.0",
     "max_size": "500000.0",
     "increment": "0.0000001",
     "label": "ENJ/USD"
@@ -2554,7 +2554,7 @@
   {
     "asset": "ENJ",
     "currency": "ETH",
-    "min_size": "400.0",
+    "min_size": "166.0",
     "max_size": "500000.0",
     "increment": "0.0000000001",
     "label": "ENJ/ETH"
