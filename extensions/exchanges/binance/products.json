@@ -4717,5 +4717,27 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NEO/TUSD"
+  },
+  {
+    "id": "TRXXRP",
+    "asset": "TRX",
+    "currency": "XRP",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/XRP"
+  },
+  {
+    "id": "XZCXRP",
+    "asset": "XZC",
+    "currency": "XRP",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "XZC/XRP"
   }
 ]
