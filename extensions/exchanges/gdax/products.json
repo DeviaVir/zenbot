@@ -56,6 +56,14 @@
     "label": "BCH/EUR"
   },
   {
+    "asset": "BTC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "70",
+    "increment": "0.01",
+    "label": "BTC/USD"
+  },
+  {
     "asset": "ZEC",
     "currency": "USDC",
     "min_size": "0.01",
@@ -166,14 +174,6 @@
     "max_size": "150000",
     "increment": "0.000001",
     "label": "ZRX/USD"
-  },
-  {
-    "asset": "BTC",
-    "currency": "USD",
-    "min_size": "0.001",
-    "max_size": "70",
-    "increment": "0.01",
-    "label": "BTC/USD"
   },
   {
     "asset": "ETH",
