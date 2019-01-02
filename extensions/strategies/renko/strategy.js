@@ -13,9 +13,10 @@ module.exports = {
 
 	
   calculate: function (s) {
-    prclose = Math.round(s.lookback[s.options.min_periods].close)
-    propen = Math.round(s.lookback[s.options.min_periods].close)
-		
+    if (s.lookback[s.options.min_periods]) {
+      prclose = Math.round(s.lookback[s.options.min_periods].close)
+      propen = Math.round(s.lookback[s.options.min_periods].close)
+    }
   },
 
   onPeriod: function (s, cb) {
