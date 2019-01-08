@@ -4739,5 +4739,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "XZC/XRP"
+  },
+  {
+    "id": "PAXTUSD",
+    "asset": "PAX",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "PAX/TUSD"
+  },
+  {
+    "id": "USDCTUSD",
+    "asset": "USDC",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "USDC/TUSD"
+  },
+  {
+    "id": "USDCPAX",
+    "asset": "USDC",
+    "currency": "PAX",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "USDC/PAX"
   }
 ]
