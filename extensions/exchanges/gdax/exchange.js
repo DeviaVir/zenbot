@@ -492,15 +492,15 @@ module.exports = function gdax (conf) {
           err = statusErr(resp, body)
         }
 
-        if (err) {
-          return retry('getOrder', func_args, err)
-        }
-
         if (resp.statusCode === 404) {
           // order was cancelled. recall from cache
           body = orders['~' + opts.order_id]
           body.status = 'done'
           body.done_reason = 'canceled'
+        }
+        
+        if (err) {
+          return retry('getOrder', func_args, err)
         }
 
         cb(null, body)
