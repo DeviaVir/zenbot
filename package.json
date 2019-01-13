@@ -86,7 +86,7 @@
     "popper.js": "^1.14.3",
     "postcss-loader": "^3.0.0",
     "progress": "^2.0.0",
-    "pushbullet": "2.3.0",
+    "pushbullet": "2.4.0",
     "pusher-js": "^4.1.0",
     "quadrigacx": "0.0.7",
     "random-port": "^0.1.0",
