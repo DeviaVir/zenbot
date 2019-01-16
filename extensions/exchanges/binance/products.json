@@ -4772,5 +4772,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "USDC/PAX"
+  },
+  {
+    "id": "LINKUSDT",
+    "asset": "LINK",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/USDT"
+  },
+  {
+    "id": "LINKTUSD",
+    "asset": "LINK",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/TUSD"
+  },
+  {
+    "id": "LINKPAX",
+    "asset": "LINK",
+    "currency": "PAX",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/PAX"
+  },
+  {
+    "id": "LINKUSDC",
+    "asset": "LINK",
+    "currency": "USDC",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/USDC"
   }
 ]

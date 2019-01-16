@@ -2454,5 +2454,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/PAX"
+  },
+  {
+    "asset": "VITE",
+    "currency": "BTC",
+    "min_size": "210.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VITE"
   }
 ]
