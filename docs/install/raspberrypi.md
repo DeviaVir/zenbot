@@ -36,13 +36,13 @@ https://hub.docker.com/r/nonoroazoro/rpi-mongo/
 
 `docker pull nonoroazoro/rpi-mongo`
 
-**4.Rename the mongodb dockerfile to "mongo"**
+**4. Rename the mongodb dockerfile to "mongo"**
 
 If you use the above image:
 
 `docker tag nonoroazoro/rpi-mongo mongo`
 
-**6. Run zenbot**
+**5. Run zenbot**
 
 ```
 cd zenbot
@@ -53,5 +53,3 @@ docker-compose up -d
 Commands are the same
 
 `docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server [command]`
-
-
