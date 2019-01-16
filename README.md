@@ -27,7 +27,7 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 
 ## Questions
 
-First read on at the [docs](docs/README.md) and there are also [FAQs](FAQ.md) which may answer your questions.
+First read on at the [docs](docs/) and there are also [FAQs](docs/FAQ.md) which may answer your questions.
 Please ask (programming) questions related to zenbot on reddit. The subreddit is [zenbot](https://reddit.com/r/zenbot).
 
 ### Community
