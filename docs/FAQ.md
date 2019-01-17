@@ -32,9 +32,9 @@ Thanks!
 
 ## Answers
 
-### General <a name="answers-general"></a>
+### General
 
-#### Is there a community to get involved with Zenbot? <a name="community"></a>
+#### Is there a community to get involved with Zenbot?
 
 Of course! Check out our Reddit community ([subreddit zenbot](https://reddit.com/r/zenbot)).
 
@@ -42,9 +42,9 @@ There is also [a shared Google Docs spreadsheet containing community sim results
 
 
 
-### Trading <a name="answers-trading"></a>
+### Trading
 
-#### Will I make money with Zenbot? <a name="money"></a>
+#### Will I make money with Zenbot?
 
 That depends… Different configurations and strategies will yield different results.
 
@@ -52,7 +52,7 @@ The current default config and parameters will likely lose you money, so proceed
 
 
 
-#### Why do simulations, paper trading, and live trading all yield different results? <a name="sim-live-differences"></a>
+#### Why do simulations, paper trading, and live trading all yield different results?
 
 Simulations and paper trading almost always give overly optimistic results compared to live trading. This is because simulations and paper trading both make assumptions about when/if an order is filled.
 
@@ -62,7 +62,7 @@ Also, remember that past results do not guarantee future returns.
 
 
 
-#### Why should I use simulations or paper trading if they do not reflect live trading? <a name="why-sim"></a>
+#### Why should I use simulations or paper trading if they do not reflect live trading?
 
 Simulations are more optimistic than paper trading.
 Paper trading is more optimistic than live trading.
@@ -70,7 +70,7 @@ Therefore, if a simulation does not yield good results, odds are that neither wi
 
 
 
-#### Does Zenbot use Limit (maker) orders or Market (taker) orders? <a name="limit-market-orders"></a>
+#### Does Zenbot use Limit (maker) orders or Market (taker) orders?
 
 Zenbot uses Limit orders by default because on most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there is no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
 
@@ -78,9 +78,9 @@ Check your exchange for fees.
 
 
 
-### Technical <a name="answers-technical"></a>
+### Technical
 
-#### Can I install Zenbot on Windows? <a name="windows"></a>
+#### Can I install Zenbot on Windows?
 
 Yes, Zenbot can be installed on Windows, although it is recommended that Linux or macOS is used instead.
 
@@ -102,7 +102,7 @@ To install Zenbot on Windows it is currently required to have Visual Studio 2015
 
 
 
-#### Is Docker necessary when installing Zenbot? <a name="docker"></a>
+#### Is Docker necessary when installing Zenbot?
 
 No, Docker is often not necessary to run Zenbot. It is often simpler to run Zenbot on a Linux machine (Debian, CentOS, etc.) without Docker.
 
@@ -110,7 +110,7 @@ If running Zenbot on Windows, Docker may be needed.
 
 
 
-#### How do I launch Zenbot? <a name="commands"></a>
+#### How do I launch Zenbot?
 
 After installation, you lauch Zenbot via command line.
 Examples:
@@ -124,7 +124,7 @@ Do not hesitate to copy this file to your Google drive or download it as an spre
 
 
 
-#### How do I update Zenbot? <a name="update"></a>
+#### How do I update Zenbot?
 
 Without Docker:
 ```
@@ -144,9 +144,9 @@ docker-compose up -d
 
 
 
-### Errors <a name="answers-errors"></a>
+### Errors
 
-#### Why do I keep getting a "Nonce" error? <a name="error-1"></a>
+#### Why do I keep getting a "Nonce" error?
 
 This error may occur when multiple instances of Zenbot are used with the same API key. To avoid this, use a different API key for each concurrent instance of Zenbot.
 
