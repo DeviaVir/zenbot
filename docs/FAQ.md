@@ -1,41 +1,53 @@
-## Frequently Asked Questions
+# Frequently Asked Questions
 
 Here are a few questions that have been asked often as well as answers from the community.
 
-If you have a question that is not answered here, feel free to ask in the [Discord](#community) chat and suggest it to be placed here.
+If you have a question that is not answered here, feel free to ask in the [Reddit](#community) community and suggest it to be placed here.
 
 Thanks!
 
 
-### Contents
+## Contents
 
+### [General](#general)
+* [Is there a community to get involved with Zenbot?](#community)
+
+### [Trading](#trading)
 * [Will I make money with Zenbot?](#money)
-* [Is Docker necessary when installing Zenbot?](#docker)
 * [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
 * [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
-* [How do I launch Zenbot?](#commands)
 * [Does Zenbot use Limit orders or Market orders?](#limit-market-orders)
-* [Is there a community to get involved with Zenbot?](#community)
+
+### [Technical](#technical)
+* [Is Docker necessary when installing Zenbot?](#docker)
+* [How do I launch Zenbot?](#commands)
 * [Can I install Zenbot on Windows?](#windows)
 * [How do I update Zenbot?](#update)
+
+### [Errors](#errors)
 * [Why do I keep getting a this "Nonce" error?](#error-1)
 
 
+
+## Answers
+
+### General <a name="general"></a>
+
+**Is there a community to get involved with Zenbot?** <a name="community"></a>
+
+Of course! Check out our Reddit community ([subreddit zenbot](https://reddit.com/r/zenbot)).
+
+There is also [a shared Google Docs spreadsheet containing community sim results and variable descriptions](https://docs.google.com/spreadsheets/d/1WjFKRUY4KpkdIJiA3RVvKqiyNkMe9xtgLSfYESFXk1g/edit#gid=70204991).
+
+
+
+### Trading <a name="trading"></a>
 
 **Will I make money with Zenbot?** <a name="money"></a>
 
 That depends… Different configurations and strategies will yield different results.
 
 The current default config and parameters will likely lose you money, so proceed with caution. Try running simulations and paper trading first to see how the bot acts (see warning below).
-
-
-
-**Is Docker necessary when installing Zenbot?** <a name="docker"></a>
-
-No, Docker is often not necessary to run Zenbot. It is often simpler to run Zenbot on a Linux machine (Ubuntu, CentOS, etc.) without Docker.
-
-If running Zenbot on Windows, Docker may be needed.
-
 
 
 **Why do simulations, paper trading, and live trading all yield different results?** <a name="sim-live-differences"></a>
@@ -55,17 +67,6 @@ Paper trading is more optimistic than live trading.
 Therefore, if a simulation does not yield good results, odds are that neither will paper trading or (by extension) live trading.
 
 
-**How do I launch Zenbot?** <a name="commands"></a>
-
-After installation, you lauch Zenbot via command line.
-Example:
-```
-./zenbot.sh backfill gdax.ETH-BTC
-./zenbot.sh sim gdax.ETH-BTC --days=14 or zenbot sim --days 14 
-```
-[You can generate a command with this google spreadsheet](https://docs.google.com/spreadsheets/d/1HECEHW-I9Evve_FQV3LT_IWGV6FU34tHif9TEouKtfg/edit?usp=sharing).
-Do not hesitate to copy this file to your Google drive or download it as an Excel file, as everybody can modify it simultaneously.
-
 
 **Why does Zenbot use Limit orders by default?** <a name="limit-market-orders"></a>
 
@@ -75,14 +76,27 @@ Check your exchange for fees.
 
 
 
-**Is there a community to get involved with Zenbot?** <a name="community"></a>
+### Technical <a name="technical"></a>
 
-Of course! Check out our Discord channel: 
+**Is Docker necessary when installing Zenbot?** <a name="docker"></a>
 
-[![zenbot logo](https://rawgit.com/carlos8f/zenbot/master/assets/discord.png)](https://discord.gg/ZdAd2gP)
+No, Docker is often not necessary to run Zenbot. It is often simpler to run Zenbot on a Linux machine (Debian, CentOS, etc.) without Docker.
 
-There is also a shared Google Doc spreadsheet containing community sim results and variable descriptions:
-[Click here for the Google Sheet](https://docs.google.com/spreadsheets/d/1WjFKRUY4KpkdIJiA3RVvKqiyNkMe9xtgLSfYESFXk1g/edit#gid=70204991).
+If running Zenbot on Windows, Docker may be needed.
+
+
+
+**How do I launch Zenbot?** <a name="commands"></a>
+
+After installation, you lauch Zenbot via command line.
+Examples:
+```
+./zenbot.sh backfill gdax.ETH-BTC
+./zenbot.sh sim gdax.ETH-BTC --days=14
+zenbot sim --days 14 
+```
+You can [generate a command with this shared Google Docs spreadsheet](https://docs.google.com/spreadsheets/d/1HECEHW-I9Evve_FQV3LT_IWGV6FU34tHif9TEouKtfg/edit?usp=sharing).
+Do not hesitate to copy this file to your Google drive or download it as an spreadsheet, as everybody can modify it simultaneously.
 
 
 
@@ -111,16 +125,13 @@ To install Zenbot on Windows it is currently required to have Visual Studio 2015
 **How do I update Zenbot?** <a name="update"></a>
 
 Without Docker:
-
 ```
 git pull
 npm install
 ./zenbot.sh trade --paper
 ```
 
-
 With Docker:
-
 ```
 git pull
 docker-compose down
@@ -131,8 +142,7 @@ docker-compose up -d
 
 
 
-
-### Errors
+### Errors <a name="errors"></a>
 
 **Why do I keep getting this "Nonce" error? How do I solve it?** <a name="error-1"></a>
 
