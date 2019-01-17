@@ -9,29 +9,29 @@ Thanks!
 
 ## Contents
 
-### [General](#general)
+### [General](#answers-general)
 * [Is there a community to get involved with Zenbot?](#community)
 
-### [Trading](#trading)
+### [Trading](#answers-trading)
 * [Will I make money with Zenbot?](#money)
 * [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
 * [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
 * [Does Zenbot use Limit orders or Market orders?](#limit-market-orders)
 
-### [Technical](#technical)
+### [Technical](#answers-technical)
 * [Is Docker necessary when installing Zenbot?](#docker)
 * [How do I launch Zenbot?](#commands)
 * [Can I install Zenbot on Windows?](#windows)
 * [How do I update Zenbot?](#update)
 
-### [Errors](#errors)
+### [Errors](#answers-errors)
 * [Why do I keep getting a this "Nonce" error?](#error-1)
 
 
 
 ## Answers
 
-### General <a name="general"></a>
+### General <a name="answers-general"></a>
 
 **Is there a community to get involved with Zenbot?** <a name="community"></a>
 
@@ -41,7 +41,7 @@ There is also [a shared Google Docs spreadsheet containing community sim results
 
 
 
-### Trading <a name="trading"></a>
+### Trading <a name="answers-trading"></a>
 
 **Will I make money with Zenbot?** <a name="money"></a>
 
@@ -76,7 +76,7 @@ Check your exchange for fees.
 
 
 
-### Technical <a name="technical"></a>
+### Technical <a name="answers-technical"></a>
 
 **Is Docker necessary when installing Zenbot?** <a name="docker"></a>
 
@@ -142,7 +142,7 @@ docker-compose up -d
 
 
 
-### Errors <a name="errors"></a>
+### Errors <a name="answers-errors"></a>
 
 **Why do I keep getting this "Nonce" error? How do I solve it?** <a name="error-1"></a>
 
