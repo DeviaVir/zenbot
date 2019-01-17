@@ -1,4 +1,4 @@
-![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/logo.png)
+![zenbot logo](assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
 > – Zen Proverb
@@ -25,10 +25,14 @@ Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. I
 - Never leave the bot un-monitored for long periods of time. Zenbot doesn't know when to stop, so be prepared to stop it if too much loss occurs.
 - Often times the default trade parameters will underperform vs. a buy-hold strategy, so run some simulations and find the optimal parameters for your chosen exchange/pair before going "all-in".
 
-## Questions
+## Documentation
 
-First read on at the [docs](docs/) and there are also [FAQs](docs/FAQ.md) which may answer your questions.
-Please ask (programming) questions related to zenbot on reddit. The subreddit is [zenbot](https://reddit.com/r/zenbot).
+The extensive documentation is located at the [docs-folder](docs/).
+
+### Questions
+
+First have a look at the [docs](docs/) and there are also [FAQs](docs/FAQ.md) which may answer your questions.
+If not, please ask (programming) questions related to zenbot on reddit (subreddit [zenbot](https://reddit.com/r/zenbot)).
 
 ### Community
 
@@ -46,7 +50,7 @@ P.S., some have asked for how to donate to Zenbot development. We accept donatio
 
 `3A5g4GQ2vmjNcnEschCweJJB4umzu66sdY`
 
-![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/zenbot_square.png)
+![zenbot logo](assets/zenbot_square.png)
 
 Thanks!
 
@@ -57,7 +61,7 @@ Thanks!
 
 - - -
 
-### License: MIT
+## License: MIT
 
 - Copyright (C) 2018 Carlos Rodriguez
 - Copyright (C) 2018 Terra Eclipse, Inc. (http://www.terraeclipse.com/)
