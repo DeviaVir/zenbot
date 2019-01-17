@@ -17,7 +17,7 @@ Thanks!
 * [Will I make money with Zenbot?](#money)
 * [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
 * [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
-* [Does Zenbot use Limit orders or Market orders?](#limit-market-orders)
+* [Does Zenbot use Limit (maker) orders or Market (taker) orders?](#limit-market-orders)
 
 ### [Technical](#answers-technical)
 * [Can I install Zenbot on Windows?](#windows)
@@ -70,10 +70,9 @@ Therefore, if a simulation does not yield good results, odds are that neither wi
 
 
 
-##Does Zenbot use Limit orders or Market orders?
-**Why does Zenbot use Limit orders by default?** <a name="limit-market-orders"></a>
+#### Does Zenbot use Limit (maker) orders or Market (taker) orders? <a name="limit-market-orders"></a>
 
-On most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there is no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
+Zenbot uses Limit orders by default because on most exchanges, Limit orders result in lower fees than Market orders. For instance, on GDAX there is no fee for a Limit order trade compared to a 0.25% (BTC) or 0.3% (ETH & LTC) trade fee on a Market order.
 
 Check your exchange for fees.
 
