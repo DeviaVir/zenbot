@@ -2,7 +2,7 @@
 
 Here are a few questions that have been asked often as well as answers from the community.
 
-If you have a question that is not answered here, feel free to ask in the [Reddit](#community) community and suggest it to be placed here.
+If you have a question that is not answered here, feel free to ask in the [Reddit](#is-there-a-community-to-get-involved-with-zenbot-) community and suggest it to be placed here.
 
 Thanks!
 
@@ -10,23 +10,23 @@ Thanks!
 
 ## Contents
 
-### [General](#answers-general)
-* [Is there a community to get involved with Zenbot?](#community)
+### [General](#general-)
+* [Is there a community to get involved with Zenbot?](#is-there-a-community-to-get-involved-with-zenbot-)
 
-### [Trading](#answers-trading)
-* [Will I make money with Zenbot?](#money)
-* [Why do simulations, paper trading, and live trading all yield different results?](#sim-live-differences)
-* [Why should I use simulations or paper trading if they do not reflect live trading?](#why-sim)
-* [Does Zenbot use Limit (maker) orders or Market (taker) orders?](#limit-market-orders)
+### [Trading](#trading-)
+* [Will I make money with Zenbot?](#will-i-make-money-with-zenbot-)
+* [Why do simulations, paper trading, and live trading all yield different results?](#why-do-simulations-paper-trading-and-live-trading-all-yield-different-results-)
+* [Why should I use simulations or paper trading if they do not reflect live trading?](#why-should-i-use-simulations-or-paper-trading-if-they-do-not-reflect-live-trading-)
+* [Does Zenbot use Limit (maker) orders or Market (taker) orders?](#does-zenbot-use-limit-maker-orders-or-market-taker-orders-)
 
-### [Technical](#answers-technical)
-* [Can I install Zenbot on Windows?](#windows)
-* [Is Docker necessary when installing Zenbot?](#docker)
-* [How do I launch Zenbot?](#commands)
-* [How do I update Zenbot?](#update)
+### [Technical](#technical-)
+* [Can I install Zenbot on Windows?](#can-i-install-zenbot-on-windows-)
+* [Is Docker necessary when installing Zenbot?](#is-docker-necessary-when-installing-zenbot-)
+* [How do I launch Zenbot?](#how-do-i-launch-zenbot-)
+* [How do I update Zenbot?](#how-do-i-update-zenbot-)
 
-### [Errors](#answers-errors)
-* [Why do I keep getting a "Nonce" error?](#error-1)
+### [Errors](#errors-)
+* [Why do I keep getting a "Nonce" error?](#why-do-i-keep-getting-a-nonce-error-)
 
 
 
