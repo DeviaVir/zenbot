@@ -9,8 +9,8 @@
 
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
-- Fully-automated [technical-analysis](http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
-- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com), [Kraken](https://kraken.com/), [Bittrex](https://bittrex.com/), [Quadriga](https://www.quadrigacs.com), [Gemini](https://www.gemini.com), [Bitfinex](https://www.bitfinex.com), [CEX.IO](https://cex.io/trade) and [Bitstamp](https://www.bitstamp.net/), work on further exchange support is ongoing.
+- Fully-automated [technical-analysis](https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
+- Full support for [GDAX](https://gdax.com/), [Poloniex](https://poloniex.com/), [Kraken](https://www.kraken.com/), [Bittrex](https://bittrex.com/), [QuadrigaCX](https://www.quadrigacx.com/), [Gemini](https://gemini.com/), [Bitfinex](https://www.bitfinex.com/), [CEX.IO](https://cex.io/) and [Bitstamp](https://www.bitstamp.net/), work on further exchange support is ongoing.
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [Backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
 - "Paper" trading mode, operates on a simulated balance while watching the live market
@@ -32,17 +32,17 @@ The extensive documentation is located at the [docs-folder](docs/).
 ### Questions
 
 First have a look at the [docs](docs/) and there are also [FAQs](docs/FAQ.md) which may answer your questions.
-If not, please ask (programming) questions related to zenbot on reddit (subreddit [zenbot](https://reddit.com/r/zenbot)).
+If not, please ask (programming) questions related to Zenbot on Reddit ([subreddit zenbot](https://reddit.com/r/zenbot)).
 
 ### Community
 
-Join the Zenbot community on [Reddit](https://reddit.com/r/zenbot)!
+Join the [Zenbot community on Reddit](https://reddit.com/r/zenbot)!
 
 ## Donate
 
 P.S., some have asked for how to donate to Zenbot development. We accept donations at **Bitcoin addresses** below:
 
-### carlos8f's BTC (original zenbot author)
+### carlos8f's BTC (original Zenbot author)
 
 `187rmNSkSvehgcKpBunre6a5wA5hQQop6W`
 
