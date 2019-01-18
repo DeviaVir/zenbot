@@ -2678,5 +2678,21 @@
     "max_size": "100000.0",
     "increment": "0.000001",
     "label": "PAS/ETH"
+  },
+  {
+    "asset": "VSY",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.001",
+    "label": "VSY/USD"
+  },
+  {
+    "asset": "VSY",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "VSY/BTC"
   }
 ]

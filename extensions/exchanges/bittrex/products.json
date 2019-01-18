@@ -2462,5 +2462,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VITE"
+  },
+  {
+    "asset": "IOTX",
+    "currency": "BTC",
+    "min_size": "420.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/IOTX"
+  },
+  {
+    "asset": "DGB",
+    "currency": "USD",
+    "min_size": "310.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/DGB"
   }
 ]
