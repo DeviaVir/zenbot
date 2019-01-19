@@ -1,22 +1,24 @@
-### Step-by-step for Debian-based OSes
+#### Debian-based OSes (complete guide)
 
 Although this guide was initially created for Ubuntu 16.04, it is reported to also work on newer Ubuntu versions and Debian.
 
-[Video (Ubuntu 16.04)](https://youtu.be/BEhU55W9pBI) & [Blog Post (Ubuntu 16.04)](https://jaynagpaul.com/algorithmic-crypto-trading?utm_source=zenbot)
-
 ```
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install build-essential mongodb -y
 
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt-get install -y git build-essential mongodb nodejs
 
 git clone https://github.com/deviavir/zenbot.git
 cd zenbot
+
 npm install
 
-./zenbot.sh trade --paper
+./zenbot.sh --help
 ```
-Please note: npm link will not work as forex.analytics is built from source.
 
+**Note:** `npm link` will not work as forex.analytics is built from source.
+
+[Blog Post (Ubuntu 16.04)](https://jaynagpaul.com/algorithmic-crypto-trading?utm_source=zenbot)
+[Video (Ubuntu 16.04)](https://youtu.be/BEhU55W9pBI)  
