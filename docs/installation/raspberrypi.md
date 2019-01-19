@@ -41,7 +41,7 @@ Rename the MongoDB docker-file to "mongo" (if you use the above image):
 docker tag nonoroazoro/rpi-mongo mongo
 ```
 
-Install Zenbot, described in the [install guide](install.md).
+Install Zenbot, described in the [installation guide](README.md).
 
 Run Zenbot:
 ```
