@@ -23,7 +23,7 @@ Give user permissions:
 sudo usermod -aG docker <username>
 ```
 
-Reboot, or `sudo systemctl start docker`
+Reboot, or execute `sudo systemctl start docker`.
 
 Install docker-compose:
 ```
@@ -40,6 +40,8 @@ Rename the MongoDB docker-file to "mongo" (if you use the above image):
 ```
 docker tag nonoroazoro/rpi-mongo mongo
 ```
+
+Install Zenbot, described in the [install guide](install.md).
 
 Run Zenbot:
 ```
