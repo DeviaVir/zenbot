@@ -1,55 +1,54 @@
-You can run zenbot on a Raspberry Pi and the default Raspbian OS, but I don't recommend it because mongo has problems with ARM systems as well as 32-bit OSes since it limits the database to 2GB.
+#### Raspberry Pi
 
-**1. Make sure packages are updated**
+You can run Zenbot on a Raspberry Pi and the default Raspbian OS, but it is not recommend because MongoDB has problems with ARM systems as well as 32-bit OSes since it limits the database to 2GB.
 
+Make sure packages are updated:
 ```
-sudo apt update
-sudo apt upgrade
+sudo apt-get update
+sudo apt-get upgrade -y
 ```
 
-**2. Install docker and docker-compose**
-
-Install docker
-
-`curl -sSL https://get.docker.com | sh`
+Install Docker:
+```
+curl -sSL https://get.docker.com | sh
+```
 
 Autostart on startup:
-
-`sudo systemctl enable docker`
+```
+sudo systemctl enable docker
+```
 
 Give user permissions:
-
-`sudo usermod -aG docker <username>`
+```
+sudo usermod -aG docker <username>
+```
 
 Reboot, or `sudo systemctl start docker`
 
 Install docker-compose:
-
 ```
 apt-get install python-pip
 pip install docker-compose
 ```
 
-**3. Install this or another mongodb docker image made for the rapsberry pi** 
+Install a MongoDB Docker image made for the Rapsberry Pi (like https://hub.docker.com/r/nonoroazoro/rpi-mongo/):
+```
+docker pull nonoroazoro/rpi-mongo
+```
 
-https://hub.docker.com/r/nonoroazoro/rpi-mongo/
+Rename the MongoDB docker-file to "mongo" (if you use the above image):
+```
+docker tag nonoroazoro/rpi-mongo mongo
+```
 
-`docker pull nonoroazoro/rpi-mongo`
-
-**4. Rename the mongodb dockerfile to "mongo"**
-
-If you use the above image:
-
-`docker tag nonoroazoro/rpi-mongo mongo`
-
-**5. Run zenbot**
-
+Run Zenbot:
 ```
 cd zenbot
 docker-compose build
 docker-compose up -d
 ```
 
-Commands are the same
-
-`docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server [command]`
+Commands are the same:
+```
+docker run --rm --link zenbot_mongodb_1:mongodb -it zenbot_server [command]
+```
