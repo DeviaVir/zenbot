@@ -30,7 +30,7 @@
  */
 
 let parallel = require('run-parallel-limit')
-let json2csv = require('json2csv')
+let Json2csvParser = require('json2csv').Parser
 let fs = require('fs')
 let GeneticAlgorithmCtor = require('geneticalgorithm')
 let moment = require('moment')
@@ -282,7 +282,7 @@ function simulateGeneration(generateLaunchFile) {
     let fieldsGeneral = ['selector.normalized', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period_length', 'min_periods', 'days', 'params']
     let fieldNamesGeneral = ['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters']
 
-    let dataCSV = json2csv({
+    let dataCSV = new Json2csvParser({
       data: results,
       fields: fieldsGeneral,
       fieldNames: fieldNamesGeneral
