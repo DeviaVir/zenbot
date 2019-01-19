@@ -35,3 +35,8 @@ Install the `zenbot.sh` binary in `/usr/local/bin`:
 ```
 npm link
 ```
+
+Run a Zenbot command:
+```
+zenbot --help
+```
