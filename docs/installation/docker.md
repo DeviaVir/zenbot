@@ -3,7 +3,7 @@
 To run Zenbot under Docker, install Docker, Docker Compose, Docker Machine (if necessary).
 You can follow instructions at https://docs.docker.com/compose/install/.
 
-After [installing Zenbot](install.md):
+After [installing Zenbot](README.md):
 ```
 cd zenbot
 docker-compose up    # -d if you don't want to see the log
