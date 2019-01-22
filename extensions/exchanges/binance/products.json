@@ -4860,5 +4860,71 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "WAVES/USDC"
+  },
+  {
+    "id": "BCHABCTUSD",
+    "asset": "BCHABC",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCHABC/TUSD"
+  },
+  {
+    "id": "BCHABCPAX",
+    "asset": "BCHABC",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCHABC/PAX"
+  },
+  {
+    "id": "BCHABCUSDC",
+    "asset": "BCHABC",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCHABC/USDC"
+  },
+  {
+    "id": "BCHSVTUSD",
+    "asset": "BCHSV",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCHSV/TUSD"
+  },
+  {
+    "id": "BCHSVPAX",
+    "asset": "BCHSV",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCHSV/PAX"
+  },
+  {
+    "id": "BCHSVUSDC",
+    "asset": "BCHSV",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCHSV/USDC"
   }
 ]
