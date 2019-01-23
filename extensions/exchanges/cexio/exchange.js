@@ -405,7 +405,7 @@ module.exports = function cexio (conf) {
           cb(null, order)
         }).catch(function(err) {
           debug.msg(('trade ' + err).red)
-          return retry('trade', func_args, err)
+          return retry('trade', func_args)
         })
       }
     },

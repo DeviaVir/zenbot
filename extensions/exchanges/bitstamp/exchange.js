@@ -273,7 +273,7 @@ module.exports = function bitstamp (conf) {
 
         body = statusErr(err,body)
         if (body.status === 'error') {
-          return retry('cancelOrder', func_args, err)
+          return retry('cancelOrder', func_args)
         }
         cb()
       })
