@@ -14,8 +14,8 @@ module.exports = {
 	
   calculate: function (s) {
     if (s.lookback[s.options.min_periods]) {
-      prclose = Math.round(s.lookback[s.options.min_periods].close)
-      propen = Math.round(s.lookback[s.options.min_periods].close)
+      var prclose = Math.round(s.lookback[s.options.min_periods].close)
+      var propen = Math.round(s.lookback[s.options.min_periods].close)
     }
   },
 
@@ -25,15 +25,16 @@ module.exports = {
       // Sources
       prclose = Math.round(s.lookback[s.options.min_periods].close)
       propen = Math.round(s.lookback[s.options.min_periods].close)
-      for(i = 0; i<s.options.min_periods;i++)
+      for(var i = 0; i<s.options.min_periods;i++)
       {
         prclose = Math.round(renko_close(s, Math.round(s.lookback[i].close), prclose, propen))
         propen = Math.round(renko_close(s, Math.round(s.lookback[i].close), prclose, propen))
       }
       // Renko
-      rclose = renko_close(s, s.period.close, prclose, propen)
+      var rclose = renko_close(s, s.period.close, prclose, propen)
       ropen = renko_open(s, s.period.close, prclose, propen)
-
+      var que
+      
       if (rclose > prclose)
         que = 1
       else if (rclose < prclose)
@@ -79,7 +80,7 @@ module.exports = {
 }
 
 function renko_close(s, close, prclose, propen){
-  type = s.options.bricksize*2	
+  var type = s.options.bricksize*2	
   if (close > (prclose + type)) 
   {
     if (prclose > propen)
@@ -110,7 +111,7 @@ function renko_close(s, close, prclose, propen){
 	
 function renko_open(s,close,prclose,propen)
 {
-  type = s.options.bricksize*2
+  var type = s.options.bricksize*2
   if (close > prclose) 
   {
     if (prclose > propen)
