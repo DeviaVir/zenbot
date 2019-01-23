@@ -1088,30 +1088,6 @@
     "label": "DAI/ETH"
   },
   {
-    "asset": "CFI",
-    "currency": "USD",
-    "min_size": "566.0",
-    "max_size": "40000.0",
-    "increment": "0.0000001",
-    "label": "CFI/USD"
-  },
-  {
-    "asset": "CFI",
-    "currency": "BTC",
-    "min_size": "566.0",
-    "max_size": "40000.0",
-    "increment": "0.0000000001",
-    "label": "CFI/BTC"
-  },
-  {
-    "asset": "CFI",
-    "currency": "ETH",
-    "min_size": "566.0",
-    "max_size": "40000.0",
-    "increment": "0.0000000001",
-    "label": "CFI/ETH"
-  },
-  {
     "asset": "AGI",
     "currency": "USD",
     "min_size": "312.0",
