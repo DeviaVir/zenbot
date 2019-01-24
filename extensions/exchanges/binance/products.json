@@ -4926,5 +4926,60 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "BCHSV/USDC"
+  },
+  {
+    "id": "LTCTUSD",
+    "asset": "LTC",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/TUSD"
+  },
+  {
+    "id": "LTCPAX",
+    "asset": "LTC",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/PAX"
+  },
+  {
+    "id": "LTCUSDC",
+    "asset": "LTC",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/USDC"
+  },
+  {
+    "id": "TRXPAX",
+    "asset": "TRX",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/PAX"
+  },
+  {
+    "id": "TRXUSDC",
+    "asset": "TRX",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/USDC"
   }
 ]
