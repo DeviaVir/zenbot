@@ -101,7 +101,7 @@
     "talib": "^1.0.4",
     "timebucket": "^0.4.0",
     "trend": "0.3.0",
-    "tulind": "BAKfr/tulipnode#fix-node10-build-error",
+    "tulind": "^0.8.14",
     "url-loader": "^1.0.1",
     "uuid": "^3.1.0",
     "waypoints": "^4.0.1",
@@ -121,6 +121,6 @@
     "yargs": "^12.0.1"
   },
   "engines": {
-    "node": "^8.3.0 || ^9.0.0"
+    "node": ">=10.0.0"
   }
 }
