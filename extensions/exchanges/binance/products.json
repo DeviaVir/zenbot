@@ -4445,47 +4445,47 @@
   },
   {
     "id": "BCHABCBTC",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
     "min_total": "0.00100000",
     "increment": "0.00000100",
     "asset_increment": "0.00100000",
-    "label": "BCHABC/BTC"
+    "label": "BCH/BTC"
   },
   {
     "id": "BCHSVBTC",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "BTC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
     "min_total": "0.00100000",
     "increment": "0.00000100",
     "asset_increment": "0.00100000",
-    "label": "BCHSV/BTC"
+    "label": "BSV/BTC"
   },
   {
     "id": "BCHABCUSDT",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "USDT",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHABC/USDT"
+    "label": "BCH/USDT"
   },
   {
     "id": "BCHSVUSDT",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "USDT",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHSV/USDT"
+    "label": "BSV/USDT"
   },
   {
     "id": "BNBPAX",
@@ -4863,69 +4863,69 @@
   },
   {
     "id": "BCHABCTUSD",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "TUSD",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHABC/TUSD"
+    "label": "BCH/TUSD"
   },
   {
     "id": "BCHABCPAX",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "PAX",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHABC/PAX"
+    "label": "BCH/PAX"
   },
   {
     "id": "BCHABCUSDC",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "USDC",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHABC/USDC"
+    "label": "BCH/USDC"
   },
   {
     "id": "BCHSVTUSD",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "TUSD",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHSV/TUSD"
+    "label": "BSV/TUSD"
   },
   {
     "id": "BCHSVPAX",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "PAX",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHSV/PAX"
+    "label": "BSV/PAX"
   },
   {
     "id": "BCHSVUSDC",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "USDC",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHSV/USDC"
+    "label": "BSV/USDC"
   },
   {
     "id": "LTCTUSD",
