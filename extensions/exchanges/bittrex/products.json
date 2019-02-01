@@ -2518,5 +2518,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QNT"
+  },
+  {
+    "asset": "BTU",
+    "currency": "BTC",
+    "min_size": "4.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BTU"
+  },
+  {
+    "asset": "ZEN",
+    "currency": "USD",
+    "min_size": "0.75000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ZEN"
   }
 ]
