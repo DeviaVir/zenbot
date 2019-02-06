@@ -5014,5 +5014,27 @@
     "increment": "0.00000010",
     "asset_increment": "1.00000000",
     "label": "BTT/USDT"
+  },
+  {
+    "id": "BNBUSDS",
+    "asset": "BNB",
+    "currency": "USDS",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BNB/USDS"
+  },
+  {
+    "id": "BTCUSDS",
+    "asset": "BTC",
+    "currency": "USDS",
+    "min_size": "0.00000100",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/USDS"
   }
 ]
