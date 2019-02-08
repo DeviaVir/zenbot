@@ -2550,5 +2550,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BTT"
+  },
+  {
+    "asset": "NKN",
+    "currency": "BTC",
+    "min_size": "105.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/NKN"
+  },
+  {
+    "asset": "KMD",
+    "currency": "USD",
+    "min_size": "5.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/KMD"
   }
 ]
