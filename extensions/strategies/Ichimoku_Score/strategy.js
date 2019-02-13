@@ -117,7 +117,7 @@ module.exports = {
   onPeriod: function (s, cb) {
 
 
-   //    == Debugging ==
+    //    == Debugging ==
 
     if (s.options.debug) {console.log('\n== Options ==')}
 
@@ -271,7 +271,7 @@ function valueAboveKumo(s, val, key1, key2) {
 }
 
 function valueAbove(val, target1, target2) {
-    return val > Math.max(target1, target2)
+  return val > Math.max(target1, target2)
 }
 
 function valueBelow(val, target1, target2) {

@@ -37,8 +37,7 @@ module.exports = {
   description: 'Associate various ichimoku signals with a score.',
 
   getOptions: function () {
-    this.option('period', 'period length, same as --period_length', String, '60m')
-    this.option('period_length', 'period length', String, '60m')
+    this.option('period', 'period length eg 10m', String, '60m')
     this.option('min_periods', 'min. number of history periods', Number, 150)
 
     // == ichimoku inputs ==
