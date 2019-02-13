@@ -3842,11 +3842,11 @@
     "id": "ONTUSDT",
     "asset": "ONT",
     "currency": "USDT",
-    "min_size": "0.00100000",
+    "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00100000",
-    "asset_increment": "0.00100000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
     "label": "ONT/USDT"
   },
   {
@@ -4445,47 +4445,47 @@
   },
   {
     "id": "BCHABCBTC",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
     "min_total": "0.00100000",
     "increment": "0.00000100",
     "asset_increment": "0.00100000",
-    "label": "BCHABC/BTC"
+    "label": "BCH/BTC"
   },
   {
     "id": "BCHSVBTC",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "BTC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
     "min_total": "0.00100000",
     "increment": "0.00000100",
     "asset_increment": "0.00100000",
-    "label": "BCHSV/BTC"
+    "label": "BSV/BTC"
   },
   {
     "id": "BCHABCUSDT",
-    "asset": "BCHABC",
+    "asset": "BCH",
     "currency": "USDT",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHABC/USDT"
+    "label": "BCH/USDT"
   },
   {
     "id": "BCHSVUSDT",
-    "asset": "BCHSV",
+    "asset": "BSV",
     "currency": "USDT",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCHSV/USDT"
+    "label": "BSV/USDT"
   },
   {
     "id": "BNBPAX",
@@ -4717,5 +4717,324 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NEO/TUSD"
+  },
+  {
+    "id": "TRXXRP",
+    "asset": "TRX",
+    "currency": "XRP",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/XRP"
+  },
+  {
+    "id": "XZCXRP",
+    "asset": "XZC",
+    "currency": "XRP",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "XZC/XRP"
+  },
+  {
+    "id": "PAXTUSD",
+    "asset": "PAX",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "PAX/TUSD"
+  },
+  {
+    "id": "USDCTUSD",
+    "asset": "USDC",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "USDC/TUSD"
+  },
+  {
+    "id": "USDCPAX",
+    "asset": "USDC",
+    "currency": "PAX",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "USDC/PAX"
+  },
+  {
+    "id": "LINKUSDT",
+    "asset": "LINK",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/USDT"
+  },
+  {
+    "id": "LINKTUSD",
+    "asset": "LINK",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/TUSD"
+  },
+  {
+    "id": "LINKPAX",
+    "asset": "LINK",
+    "currency": "PAX",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/PAX"
+  },
+  {
+    "id": "LINKUSDC",
+    "asset": "LINK",
+    "currency": "USDC",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/USDC"
+  },
+  {
+    "id": "WAVESUSDT",
+    "asset": "WAVES",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WAVES/USDT"
+  },
+  {
+    "id": "WAVESTUSD",
+    "asset": "WAVES",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WAVES/TUSD"
+  },
+  {
+    "id": "WAVESPAX",
+    "asset": "WAVES",
+    "currency": "PAX",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WAVES/PAX"
+  },
+  {
+    "id": "WAVESUSDC",
+    "asset": "WAVES",
+    "currency": "USDC",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WAVES/USDC"
+  },
+  {
+    "id": "BCHABCTUSD",
+    "asset": "BCH",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/TUSD"
+  },
+  {
+    "id": "BCHABCPAX",
+    "asset": "BCH",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/PAX"
+  },
+  {
+    "id": "BCHABCUSDC",
+    "asset": "BCH",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/USDC"
+  },
+  {
+    "id": "BCHSVTUSD",
+    "asset": "BSV",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BSV/TUSD"
+  },
+  {
+    "id": "BCHSVPAX",
+    "asset": "BSV",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BSV/PAX"
+  },
+  {
+    "id": "BCHSVUSDC",
+    "asset": "BSV",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BSV/USDC"
+  },
+  {
+    "id": "LTCTUSD",
+    "asset": "LTC",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/TUSD"
+  },
+  {
+    "id": "LTCPAX",
+    "asset": "LTC",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/PAX"
+  },
+  {
+    "id": "LTCUSDC",
+    "asset": "LTC",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/USDC"
+  },
+  {
+    "id": "TRXPAX",
+    "asset": "TRX",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/PAX"
+  },
+  {
+    "id": "TRXUSDC",
+    "asset": "TRX",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TRX/USDC"
+  },
+  {
+    "id": "BTTBTC",
+    "asset": "BTT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "BTT/BTC"
+  },
+  {
+    "id": "BTTBNB",
+    "asset": "BTT",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "1.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "BTT/BNB"
+  },
+  {
+    "id": "BTTUSDT",
+    "asset": "BTT",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "BTT/USDT"
+  },
+  {
+    "id": "BNBUSDS",
+    "asset": "BNB",
+    "currency": "USDS",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BNB/USDS"
+  },
+  {
+    "id": "BTCUSDS",
+    "asset": "BTC",
+    "currency": "USDS",
+    "min_size": "0.00000100",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/USDS"
   }
 ]

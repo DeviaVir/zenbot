@@ -820,7 +820,7 @@ P.S., some have asked for how to donate to Zenbot development. We accept donatio
 
 ### DeviaVir's BTC (current maintainer)
 
-`3BZojxm9q8uGWvvsudLCmqfBhtT7ceeSQk`
+`3A5g4GQ2vmjNcnEschCweJJB4umzu66sdY`
 
 ![zenbot logo](https://rawgit.com/deviavir/zenbot/master/assets/zenbot_square.png)
 

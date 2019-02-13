@@ -262,5 +262,21 @@
     "max_size": null,
     "increment": "0.01",
     "label": "QASH/ETH"
+  },
+  {
+    "asset": "GUSD",
+    "currency": "USD",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GUSD/USD"
+  },
+  {
+    "asset": "GUSD",
+    "currency": "EUR",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GUSD/EUR"
   }
 ]
