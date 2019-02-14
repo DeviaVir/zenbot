@@ -1112,14 +1112,6 @@
     "label": "BTC/QRL"
   },
   {
-    "asset": "MORE",
-    "currency": "ETH",
-    "min_size": "7.69230769",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/MORE"
-  },
-  {
     "asset": "PTOY",
     "currency": "BTC",
     "min_size": "61.88118812",
@@ -1534,14 +1526,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SALT"
-  },
-  {
-    "asset": "SALT",
-    "currency": "ETH",
-    "min_size": "2.62765130",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/SALT"
   },
   {
     "asset": "TIX",
