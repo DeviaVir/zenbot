@@ -400,6 +400,22 @@
     "label": "Golem/Tether USD"
   },
   {
+    "asset": "GRIN",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Grin/Bitcoin"
+  },
+  {
+    "asset": "GRIN",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Grin/USD Coin"
+  },
+  {
     "asset": "HUC",
     "currency": "BTC",
     "min_total": "0.0001",

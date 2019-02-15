@@ -5080,5 +5080,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "USDS/USDC"
+  },
+  {
+    "id": "BTTPAX",
+    "asset": "BTT",
+    "currency": "PAX",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "BTT/PAX"
+  },
+  {
+    "id": "BTTTUSD",
+    "asset": "BTT",
+    "currency": "TUSD",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "BTT/TUSD"
+  },
+  {
+    "id": "BTTUSDC",
+    "asset": "BTT",
+    "currency": "USDC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "BTT/USDC"
   }
 ]
