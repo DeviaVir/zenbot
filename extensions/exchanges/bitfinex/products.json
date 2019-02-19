@@ -2694,5 +2694,21 @@
     "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "OMG/DAI"
+  },
+  {
+    "asset": "BTT",
+    "currency": "USD",
+    "min_size": "10000.0",
+    "max_size": "5000000.0",
+    "increment": "0.0000001",
+    "label": "BTT/USD"
+  },
+  {
+    "asset": "BTT",
+    "currency": "BTC",
+    "min_size": "10000.0",
+    "max_size": "5000000.0",
+    "increment": "0.0000000001",
+    "label": "BTT/BTC"
   }
 ]

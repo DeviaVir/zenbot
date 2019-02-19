@@ -5168,5 +5168,16 @@
     "increment": "0.00000010",
     "asset_increment": "1.00000000",
     "label": "HOT/USDT"
+  },
+  {
+    "id": "ZILUSDT",
+    "asset": "ZIL",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ZIL/USDT"
   }
 ]
