@@ -2590,5 +2590,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SERV"
+  },
+  {
+    "asset": "META",
+    "currency": "BTC",
+    "min_size": "555.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/META"
+  },
+  {
+    "asset": "GRIN",
+    "currency": "USDT",
+    "min_size": "0.60000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GRIN"
   }
 ]
