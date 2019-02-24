@@ -202,7 +202,7 @@
   {
     "asset": "SAN",
     "currency": "USD",
-    "min_size": "54.0",
+    "min_size": "44.0",
     "max_size": "200000.0",
     "increment": "0.000001",
     "label": "SAN/USD"
@@ -210,7 +210,7 @@
   {
     "asset": "SAN",
     "currency": "BTC",
-    "min_size": "54.0",
+    "min_size": "44.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "SAN/BTC"
@@ -218,7 +218,7 @@
   {
     "asset": "SAN",
     "currency": "ETH",
-    "min_size": "54.0",
+    "min_size": "44.0",
     "max_size": "200000.0",
     "increment": "0.000000001",
     "label": "SAN/ETH"
@@ -730,7 +730,7 @@
   {
     "asset": "AID",
     "currency": "USD",
-    "min_size": "550.0",
+    "min_size": "528.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "AID/USD"
@@ -738,7 +738,7 @@
   {
     "asset": "AID",
     "currency": "BTC",
-    "min_size": "550.0",
+    "min_size": "528.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "AID/BTC"
@@ -746,7 +746,7 @@
   {
     "asset": "AID",
     "currency": "ETH",
-    "min_size": "550.0",
+    "min_size": "528.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "AID/ETH"
@@ -1658,7 +1658,7 @@
   {
     "asset": "CBT",
     "currency": "USD",
-    "min_size": "1842.0",
+    "min_size": "1736.0",
     "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "CBT/USD"
@@ -1666,7 +1666,7 @@
   {
     "asset": "CBT",
     "currency": "BTC",
-    "min_size": "1842.0",
+    "min_size": "1736.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "CBT/BTC"
@@ -1674,7 +1674,7 @@
   {
     "asset": "CBT",
     "currency": "ETH",
-    "min_size": "1842.0",
+    "min_size": "1736.0",
     "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "CBT/ETH"
@@ -1962,7 +1962,7 @@
   {
     "asset": "WPR",
     "currency": "USD",
-    "min_size": "752.0",
+    "min_size": "820.0",
     "max_size": "800000.0",
     "increment": "0.0000001",
     "label": "WPR/USD"
@@ -1970,7 +1970,7 @@
   {
     "asset": "WPR",
     "currency": "BTC",
-    "min_size": "752.0",
+    "min_size": "820.0",
     "max_size": "800000.0",
     "increment": "0.0000000001",
     "label": "WPR/BTC"
@@ -1978,7 +1978,7 @@
   {
     "asset": "WPR",
     "currency": "ETH",
-    "min_size": "752.0",
+    "min_size": "820.0",
     "max_size": "800000.0",
     "increment": "0.0000000001",
     "label": "WPR/ETH"
@@ -2170,17 +2170,17 @@
   {
     "asset": "TKN",
     "currency": "USD",
-    "min_size": "34.0",
+    "min_size": "26.0",
     "max_size": "50000.0",
-    "increment": "0.000001",
+    "increment": "0.00001",
     "label": "TKN/USD"
   },
   {
     "asset": "TKN",
     "currency": "ETH",
-    "min_size": "34.0",
+    "min_size": "26.0",
     "max_size": "50000.0",
-    "increment": "0.000000001",
+    "increment": "0.00000001",
     "label": "TKN/ETH"
   },
   {
@@ -2698,7 +2698,7 @@
   {
     "asset": "BTT",
     "currency": "USD",
-    "min_size": "10000.0",
+    "min_size": "1232.0",
     "max_size": "5000000.0",
     "increment": "0.0000001",
     "label": "BTT/USD"
@@ -2706,7 +2706,7 @@
   {
     "asset": "BTT",
     "currency": "BTC",
-    "min_size": "10000.0",
+    "min_size": "1232.0",
     "max_size": "5000000.0",
     "increment": "0.0000000001",
     "label": "BTT/BTC"
