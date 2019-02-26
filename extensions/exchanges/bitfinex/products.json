@@ -2131,7 +2131,7 @@
     "asset": "VET",
     "currency": "USD",
     "min_size": "2914.0",
-    "max_size": "200000.0",
+    "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "VET/USD"
   },
@@ -2139,7 +2139,7 @@
     "asset": "VET",
     "currency": "BTC",
     "min_size": "2914.0",
-    "max_size": "200000.0",
+    "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "VET/BTC"
   },
@@ -2147,7 +2147,7 @@
     "asset": "VET",
     "currency": "ETH",
     "min_size": "2914.0",
-    "max_size": "200000.0",
+    "max_size": "1000000.0",
     "increment": "0.0000000001",
     "label": "VET/ETH"
   },
@@ -2659,7 +2659,7 @@
     "asset": "VSY",
     "currency": "USD",
     "min_size": "382.0",
-    "max_size": "50000.0",
+    "max_size": "250000.0",
     "increment": "0.0000001",
     "label": "VSY/USD"
   },
@@ -2667,7 +2667,7 @@
     "asset": "VSY",
     "currency": "BTC",
     "min_size": "382.0",
-    "max_size": "50000.0",
+    "max_size": "250000.0",
     "increment": "0.0000000001",
     "label": "VSY/BTC"
   },

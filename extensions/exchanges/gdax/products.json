@@ -160,6 +160,30 @@
     "label": "ETC/EUR"
   },
   {
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "label": "XRP/USD"
+  },
+  {
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "label": "XRP/EUR"
+  },
+  {
+    "asset": "XRP",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.00000001",
+    "label": "XRP/BTC"
+  },
+  {
     "asset": "BTC",
     "currency": "USDC",
     "min_size": "0.001",
