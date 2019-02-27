@@ -26,6 +26,7 @@ module.exports = function (program, conf) {
     .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, conf.order_type)
     .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
     .option('--manual', 'watch price and account balance, but do not perform trades automatically', Boolean, false)
+    .option('--reverse', 'use this and all your signals(buy/sell) will be switch! TAKE CARE!', Boolean, false)
     .option('--non_interactive', 'disable keyboard inputs to the bot', Boolean, false)
     .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, conf.filename)
     .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, conf.currency_capital)

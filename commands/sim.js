@@ -18,6 +18,7 @@ module.exports = function (program, conf) {
     .option('--conf <path>', 'path to optional conf overrides file')
     .option('--strategy <name>', 'strategy to use', String, conf.strategy)
     .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, conf.order_type)
+    .option('--reverse', 'use this and all your signals(buy/sell) will be switch! TAKE CARE!', Boolean, false)
     .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, conf.filename)
     .option('--start <datetime>', 'start ("YYYYMMDDhhmm")')
     .option('--end <datetime>', 'end ("YYYYMMDDhhmm")')
