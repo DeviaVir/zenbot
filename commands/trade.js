@@ -58,6 +58,7 @@ module.exports = function (program, conf) {
     .option('--reset_profit', 'start new profit calculation from 0')
     .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
     .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
+    .option('--interval_trade <minutes>', 'The interval trade time', Number, conf.interval_trade)
     .option('--debug', 'output detailed debug info')
     .action(function (selector, cmd) {
       var raw_opts = minimist(process.argv)
@@ -65,6 +66,9 @@ module.exports = function (program, conf) {
       var so = s.options
       if (so.run_for) {
         var botStartTime = moment().add(so.run_for, 'm')
+      }
+      if (!so.interval_trade) {
+        so.interval_trade = 10
       }
       delete so._
       if (cmd.conf) {
