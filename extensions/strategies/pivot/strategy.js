@@ -14,6 +14,17 @@ module.exports = {
 
   calculate: function (s) {
     if (s.lookback[s.options.min_periods]) {
+      if (s.lookback[5].high <= s.lookback[1].high && s.lookback[4].high <= s.lookback[1].high && s.lookback[3].high <= s.lookback[1].high && s.lookback[2].high <= s.lookback[1].high && s.lookback[0].high <= s.lookback[1].high && s.period.high <= s.lookback[1].high) {
+        s.pivothigh = s.lookback[1].high
+      }
+      if (s.lookback[3].low >= s.lookback[1].low && s.lookback[2].low >= s.lookback[1].low && s.lookback[0].low >= s.lookback[1].low && s.period.low >= s.lookback[1].low) {
+        s.pivotlow = s.lookback[1].low
+      }
+    }
+  },
+
+  onPeriod: function (s, cb) {
+    if (s.lookback[s.options.min_periods]) {
       if (s.period.high / s.pivothigh > s.options.up) {
         if (s.trend != 'up')
         {
@@ -27,17 +38,6 @@ module.exports = {
           s.signal = 'sell'
         }
         s.trend = 'down'
-      }
-    }
-  },
-
-  onPeriod: function (s, cb) {
-    if (s.lookback[s.options.min_periods]) {
-      if (s.lookback[5].high <= s.lookback[1].high && s.lookback[4].high <= s.lookback[1].high && s.lookback[3].high <= s.lookback[1].high && s.lookback[2].high <= s.lookback[1].high && s.lookback[0].high <= s.lookback[1].high && s.period.high <= s.lookback[1].high) {
-        s.pivothigh = s.lookback[1].high
-      }
-      if (s.lookback[3].low >= s.lookback[1].low && s.lookback[2].low >= s.lookback[1].low && s.lookback[0].low >= s.lookback[1].low && s.period.low >= s.lookback[1].low) {
-        s.pivotlow = s.lookback[1].low
       }
     }
     cb()
