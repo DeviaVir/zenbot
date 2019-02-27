@@ -44,6 +44,7 @@ module.exports = function (program, conf) {
     .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
     .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--disable_options', 'disable printing of options')
+    .option('--quarentine_time <minutes>', 'For loss trade, set quarentine time for cancel buys', Number, conf.quarentine_time)
     .option('--enable_stats', 'enable printing order stats')
     .option('--backtester_generation <generation>','creates a json file in simulations with the generation number', Number, -1)
     .option('--verbose', 'print status lines on every period')
@@ -51,6 +52,10 @@ module.exports = function (program, conf) {
     .action(function (selector, cmd) {
       var s = { options: minimist(process.argv) }
       var so = s.options
+      if (!so.quarentine_time) {
+        so.quarentine_time = 10
+      }
+
       delete so._
       if (cmd.conf) {
         var overrides = require(path.resolve(process.cwd(), cmd.conf))

@@ -59,6 +59,7 @@ module.exports = function (program, conf) {
     .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
     .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
     .option('--interval_trade <minutes>', 'The interval trade time', Number, conf.interval_trade)
+    .option('--quarentine_time <minutes>', 'For loss trade, set quarentine time for cancel buys', Number, conf.quarentine_time)
     .option('--debug', 'output detailed debug info')
     .action(function (selector, cmd) {
       var raw_opts = minimist(process.argv)
@@ -69,6 +70,9 @@ module.exports = function (program, conf) {
       }
       if (!so.interval_trade) {
         so.interval_trade = 10
+      }
+      if (!so.quarentine_time) {
+        so.quarentine_time = 10
       }
       delete so._
       if (cmd.conf) {
