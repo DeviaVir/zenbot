@@ -9,17 +9,13 @@ module.exports = {
     this.option('min_periods', 'min. number of history periods', Number, 50)
   },
 
-  // chamado primeiro, mas sem o lookback, trabalhar em s.period
+  // called first, but without lookback, working on s.period
   calculate: function(s) {
     if(s.lookback && s.lookback[0] && s.lookback[0].vpt){
       //s.period.vpt = s.lookback[0].volume + s.period.volume * ((s.period.close - s.lookback[0].close)/s.lookback[0].close)
       s.period.vpt = s.lookback[0].vpt + s.period.volume * ((s.period.close - s.lookback[0].close)/s.lookback[0].close)
     } else if(s.lookback && s.lookback[0]){
       s.period.vpt = s.period.volume + s.period.volume * ((s.period.close - s.lookback[0].close)/s.lookback[0].close)
-      // if(s.period.open > s.period.close)
-      //   s.trend = 'down'
-      // else
-      //   s.trend = 'up'
     }
   },
 
