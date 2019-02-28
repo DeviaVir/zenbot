@@ -5179,5 +5179,60 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ZIL/USDT"
+  },
+  {
+    "id": "ZRXBNB",
+    "asset": "ZRX",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "1.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ZRX/BNB"
+  },
+  {
+    "id": "ZRXUSDT",
+    "asset": "ZRX",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ZRX/USDT"
+  },
+  {
+    "id": "FETBNB",
+    "asset": "FET",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "1.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "FET/BNB"
+  },
+  {
+    "id": "FETBTC",
+    "asset": "FET",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "FET/BTC"
+  },
+  {
+    "id": "FETUSDT",
+    "asset": "FET",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "FET/USDT"
   }
 ]
