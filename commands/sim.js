@@ -18,6 +18,7 @@ module.exports = function (program, conf) {
     .option('--conf <path>', 'path to optional conf overrides file')
     .option('--strategy <name>', 'strategy to use', String, conf.strategy)
     .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, conf.order_type)
+    .option('--reverse', 'use this and all your signals(buy/sell) will be switch! TAKE CARE!', Boolean, false)
     .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, conf.filename)
     .option('--start <datetime>', 'start ("YYYYMMDDhhmm")')
     .option('--end <datetime>', 'end ("YYYYMMDDhhmm")')
@@ -31,6 +32,7 @@ module.exports = function (program, conf) {
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
     .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, conf.order_adjust_time)
     .option('--order_poll_time <ms>', 'poll order status on this interval', Number, conf.order_poll_time)
+    .option('--sell_cancel_pct <pct>', 'cancels the sale if the price is between this percentage (for more or less)', Number, conf.sell_cancel_pct)
     .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, conf.sell_stop_pct)
     .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, conf.buy_stop_pct)
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
@@ -43,6 +45,7 @@ module.exports = function (program, conf) {
     .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
     .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--disable_options', 'disable printing of options')
+    .option('--quarentine_time <minutes>', 'For loss trade, set quarentine time for cancel buys', Number, conf.quarentine_time)
     .option('--enable_stats', 'enable printing order stats')
     .option('--backtester_generation <generation>','creates a json file in simulations with the generation number', Number, -1)
     .option('--verbose', 'print status lines on every period')
@@ -50,6 +53,10 @@ module.exports = function (program, conf) {
     .action(function (selector, cmd) {
       var s = { options: minimist(process.argv) }
       var so = s.options
+      if (!so.quarentine_time) {
+        so.quarentine_time = 10
+      }
+
       delete so._
       if (cmd.conf) {
         var overrides = require(path.resolve(process.cwd(), cmd.conf))

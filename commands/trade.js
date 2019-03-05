@@ -26,6 +26,7 @@ module.exports = function (program, conf) {
     .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, conf.order_type)
     .option('--paper', 'use paper trading mode (no real trades will take place)', Boolean, false)
     .option('--manual', 'watch price and account balance, but do not perform trades automatically', Boolean, false)
+    .option('--reverse', 'use this and all your signals(buy/sell) will be switch! TAKE CARE!', Boolean, false)
     .option('--non_interactive', 'disable keyboard inputs to the bot', Boolean, false)
     .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, conf.filename)
     .option('--currency_capital <amount>', 'for paper trading, amount of start capital in currency', Number, conf.currency_capital)
@@ -42,6 +43,7 @@ module.exports = function (program, conf) {
     .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, conf.buy_stop_pct)
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
     .option('--profit_stop_pct <pct>', 'maintain a trailing stop this % below the high-water mark of profit', Number, conf.profit_stop_pct)
+    .option('--sell_cancel_pct <pct>', 'cancels the sale if the price is between this percentage (for more or less)', Number, conf.sell_cancel_pct)
     .option('--max_sell_loss_pct <pct>', 'avoid selling at a loss pct under this float', conf.max_sell_loss_pct)
     .option('--max_buy_loss_pct <pct>', 'avoid buying at a loss pct over this float', conf.max_buy_loss_pct)
     .option('--max_slippage_pct <pct>', 'avoid selling at a slippage pct above this float', conf.max_slippage_pct)
@@ -57,6 +59,8 @@ module.exports = function (program, conf) {
     .option('--reset_profit', 'start new profit calculation from 0')
     .option('--use_fee_asset', 'Using separated asset to pay for fees. Such as binance\'s BNB or Huobi\'s HT', Boolean, false)
     .option('--run_for <minutes>', 'Execute for a period of minutes then exit with status 0', String, null)
+    .option('--interval_trade <minutes>', 'The interval trade time', Number, conf.interval_trade)
+    .option('--quarentine_time <minutes>', 'For loss trade, set quarentine time for cancel buys', Number, conf.quarentine_time)
     .option('--debug', 'output detailed debug info')
     .action(function (selector, cmd) {
       var raw_opts = minimist(process.argv)
@@ -64,6 +68,12 @@ module.exports = function (program, conf) {
       var so = s.options
       if (so.run_for) {
         var botStartTime = moment().add(so.run_for, 'm')
+      }
+      if (!so.interval_trade) {
+        so.interval_trade = 10
+      }
+      if (!so.quarentine_time) {
+        so.quarentine_time = 10
       }
       delete so._
       if (cmd.conf) {
