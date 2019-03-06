@@ -2614,5 +2614,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/HST"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "BTC",
+    "min_size": "680.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ANKR"
+  },
+  {
+    "asset": "XLM",
+    "currency": "USDT",
+    "min_size": "35.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XLM"
   }
 ]
