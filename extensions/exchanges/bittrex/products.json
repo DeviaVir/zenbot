@@ -2630,5 +2630,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XLM"
+  },
+  {
+    "asset": "TRAC",
+    "currency": "BTC",
+    "min_size": "110.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TRAC"
+  },
+  {
+    "asset": "CRO",
+    "currency": "BTC",
+    "min_size": "230.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CRO"
   }
 ]
