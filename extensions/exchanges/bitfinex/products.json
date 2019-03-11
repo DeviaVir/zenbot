@@ -2710,5 +2710,21 @@
     "max_size": "5000000.0",
     "increment": "0.0000000001",
     "label": "BTT/BTC"
+  },
+  {
+    "asset": "BTC",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "2000.0",
+    "increment": "0.000001",
+    "label": "BTC/UST"
+  },
+  {
+    "asset": "ETH",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "2000.0",
+    "increment": "0.000001",
+    "label": "ETH/UST"
   }
 ]
