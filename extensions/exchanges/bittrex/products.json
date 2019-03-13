@@ -96,12 +96,12 @@
     "label": "BTC/XMY"
   },
   {
-    "asset": "GLD",
+    "asset": "GLC",
     "currency": "BTC",
     "min_size": "17.63046544",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/GLD"
+    "label": "BTC/GLC"
   },
   {
     "asset": "SLR",
@@ -2646,5 +2646,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CRO"
+  },
+  {
+    "asset": "ONT",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ONT"
+  },
+  {
+    "asset": "SOLVE",
+    "currency": "ETH",
+    "min_size": "60.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/SOLVE"
   }
 ]

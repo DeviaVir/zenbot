@@ -3465,6 +3465,17 @@
     "label": "REP/BNB"
   },
   {
+    "id": "BTCTUSD",
+    "asset": "BTC",
+    "currency": "TUSD",
+    "min_size": "0.00000100",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/TUSD"
+  },
+  {
     "id": "TUSDBTC",
     "asset": "TUSD",
     "currency": "BTC",
@@ -3474,6 +3485,17 @@
     "increment": "0.00000001",
     "asset_increment": "1.00000000",
     "label": "TUSD/BTC"
+  },
+  {
+    "id": "ETHTUSD",
+    "asset": "ETH",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETH/TUSD"
   },
   {
     "id": "TUSDETH",
@@ -4574,6 +4596,17 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "REN/BNB"
+  },
+  {
+    "id": "BNBTUSD",
+    "asset": "BNB",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BNB/TUSD"
   },
   {
     "id": "XRPTUSD",
