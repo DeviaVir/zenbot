@@ -8,6 +8,22 @@
     "label": "Ardor/Bitcoin"
   },
   {
+    "asset": "ATOM",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Cosmos/Bitcoin"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Cosmos/USD Coin"
+  },
+  {
     "asset": "BAT",
     "currency": "BTC",
     "min_total": "0.0001",

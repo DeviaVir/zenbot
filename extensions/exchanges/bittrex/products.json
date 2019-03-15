@@ -2662,5 +2662,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SOLVE"
+  },
+  {
+    "asset": "ONG",
+    "currency": "BTC",
+    "min_size": "5.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ONG"
+  },
+  {
+    "asset": "AERGO",
+    "currency": "BTC",
+    "min_size": "26.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AERGO"
+  },
+  {
+    "asset": "TTC",
+    "currency": "BTC",
+    "min_size": "65.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TTC"
   }
 ]

@@ -96,14 +96,6 @@
     "label": "GNT/USDC"
   },
   {
-    "asset": "XLM",
-    "currency": "EUR",
-    "min_size": "1",
-    "max_size": "600000",
-    "increment": "0.000001",
-    "label": "XLM/EUR"
-  },
-  {
     "asset": "MANA",
     "currency": "USDC",
     "min_size": "1",
@@ -174,6 +166,14 @@
     "max_size": "500000",
     "increment": "0.00000001",
     "label": "XRP/BTC"
+  },
+  {
+    "asset": "XLM",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "600000",
+    "increment": "0.000001",
+    "label": "XLM/EUR"
   },
   {
     "asset": "XLM",
