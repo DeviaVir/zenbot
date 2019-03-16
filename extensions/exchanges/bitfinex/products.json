@@ -706,7 +706,7 @@
   {
     "asset": "RLC",
     "currency": "USD",
-    "min_size": "60.0",
+    "min_size": "56.0",
     "max_size": "25000.0",
     "increment": "0.000001",
     "label": "RLC/USD"
@@ -714,7 +714,7 @@
   {
     "asset": "RLC",
     "currency": "BTC",
-    "min_size": "60.0",
+    "min_size": "56.0",
     "max_size": "25000.0",
     "increment": "0.000000001",
     "label": "RLC/BTC"
@@ -722,7 +722,7 @@
   {
     "asset": "RLC",
     "currency": "ETH",
-    "min_size": "60.0",
+    "min_size": "56.0",
     "max_size": "25000.0",
     "increment": "0.000000001",
     "label": "RLC/ETH"
@@ -730,7 +730,7 @@
   {
     "asset": "AID",
     "currency": "USD",
-    "min_size": "526.0",
+    "min_size": "518.0",
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "AID/USD"
@@ -738,7 +738,7 @@
   {
     "asset": "AID",
     "currency": "BTC",
-    "min_size": "526.0",
+    "min_size": "518.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "AID/BTC"
@@ -746,7 +746,7 @@
   {
     "asset": "AID",
     "currency": "ETH",
-    "min_size": "526.0",
+    "min_size": "518.0",
     "max_size": "200000.0",
     "increment": "0.0000000001",
     "label": "AID/ETH"
@@ -2050,7 +2050,7 @@
   {
     "asset": "XRA",
     "currency": "USD",
-    "min_size": "624.0",
+    "min_size": "632.0",
     "max_size": "500000.0",
     "increment": "0.0000001",
     "label": "XRA/USD"
@@ -2058,7 +2058,7 @@
   {
     "asset": "XRA",
     "currency": "ETH",
-    "min_size": "624.0",
+    "min_size": "632.0",
     "max_size": "500000.0",
     "increment": "0.0000000001",
     "label": "XRA/ETH"
@@ -2642,7 +2642,7 @@
   {
     "asset": "PAS",
     "currency": "USD",
-    "min_size": "3510.0",
+    "min_size": "3646.0",
     "max_size": "100000.0",
     "increment": "0.0000001",
     "label": "PAS/USD"
@@ -2650,7 +2650,7 @@
   {
     "asset": "PAS",
     "currency": "ETH",
-    "min_size": "3510.0",
+    "min_size": "3646.0",
     "max_size": "100000.0",
     "increment": "0.0000000001",
     "label": "PAS/ETH"
@@ -2698,7 +2698,7 @@
   {
     "asset": "BTT",
     "currency": "USD",
-    "min_size": "12946.0",
+    "min_size": "13034.0",
     "max_size": "5000000.0",
     "increment": "0.0000001",
     "label": "BTT/USD"
@@ -2706,7 +2706,7 @@
   {
     "asset": "BTT",
     "currency": "BTC",
-    "min_size": "12946.0",
+    "min_size": "13034.0",
     "max_size": "5000000.0",
     "increment": "0.0000000001",
     "label": "BTT/BTC"
@@ -2730,7 +2730,7 @@
   {
     "asset": "CLO",
     "currency": "USD",
-    "min_size": "2274.0",
+    "min_size": "2496.0",
     "max_size": "50000.0",
     "increment": "0.0000001",
     "label": "CLO/USD"
@@ -2738,7 +2738,7 @@
   {
     "asset": "CLO",
     "currency": "BTC",
-    "min_size": "2274.0",
+    "min_size": "2496.0",
     "max_size": "50000.0",
     "increment": "0.0000000001",
     "label": "CLO/BTC"
