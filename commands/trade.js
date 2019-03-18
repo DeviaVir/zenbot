@@ -98,11 +98,10 @@ module.exports = function (program, conf) {
         console.log(('--buy_max_amt is deprecated, use --deposit instead!\n').red)
         so.deposit = so.buy_max_amt
       }
-      if (!so.min_periods) so.min_periods = 1
-
       so.selector = objectifySelector(selector || conf.selector)      
       var engine = engineFactory(s, conf)
       var collectionServiceInstance = collectionService(conf)
+      if (!so.min_periods) so.min_periods = 1
 
       const keyMap = new Map()
       keyMap.set('b', 'limit'.grey + ' BUY'.green)
