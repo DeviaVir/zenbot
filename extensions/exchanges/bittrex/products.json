@@ -2686,5 +2686,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TTC"
+  },
+  {
+    "asset": "SPND",
+    "currency": "USD",
+    "min_size": "23.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/SPND"
+  },
+  {
+    "asset": "SLT",
+    "currency": "BTC",
+    "min_size": "0.70000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SLT"
   }
 ]
