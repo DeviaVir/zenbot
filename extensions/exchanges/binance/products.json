@@ -5410,5 +5410,49 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "CELR/USDT"
+  },
+  {
+    "id": "ADAPAX",
+    "asset": "ADA",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ADA/PAX"
+  },
+  {
+    "id": "ADAUSDC",
+    "asset": "ADA",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ADA/USDC"
+  },
+  {
+    "id": "NEOPAX",
+    "asset": "NEO",
+    "currency": "PAX",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "NEO/PAX"
+  },
+  {
+    "id": "NEOUSDC",
+    "asset": "NEO",
+    "currency": "USDC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "NEO/USDC"
   }
 ]

@@ -200,6 +200,22 @@
     "label": "LTC/BTC"
   },
   {
+    "asset": "XLM",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "600000",
+    "increment": "0.000001",
+    "label": "XLM/EUR"
+  },
+  {
+    "asset": "XLM",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "600000",
+    "increment": "0.00000001",
+    "label": "XLM/BTC"
+  },
+  {
     "asset": "BTC",
     "currency": "USD",
     "min_size": "0.001",
@@ -222,22 +238,6 @@
     "max_size": "5000",
     "increment": "0.01",
     "label": "ZEC/USDC"
-  },
-  {
-    "asset": "XLM",
-    "currency": "EUR",
-    "min_size": "1",
-    "max_size": "600000",
-    "increment": "0.000001",
-    "label": "XLM/EUR"
-  },
-  {
-    "asset": "XLM",
-    "currency": "BTC",
-    "min_size": "1",
-    "max_size": "600000",
-    "increment": "0.00000001",
-    "label": "XLM/BTC"
   },
   {
     "asset": "DNT",
