@@ -2726,5 +2726,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ANKR"
+  },
+  {
+    "asset": "PLA",
+    "currency": "BTC",
+    "min_size": "1600.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PLA"
+  },
+  {
+    "asset": "ART",
+    "currency": "BTC",
+    "min_size": "55.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ART"
   }
 ]
