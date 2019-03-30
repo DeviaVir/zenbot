@@ -113,7 +113,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "geneticalgorithm": "^0.3.4",
     "json2csv": "^4.0.2",
     "round-precision": "^1.0.0",
