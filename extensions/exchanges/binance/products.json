@@ -5476,5 +5476,38 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "DASH/USDT"
+  },
+  {
+    "id": "NANOUSDT",
+    "asset": "NANO",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "NANO/USDT"
+  },
+  {
+    "id": "OMGBNB",
+    "asset": "OMG",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "1.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "OMG/BNB"
+  },
+  {
+    "id": "OMGUSDT",
+    "asset": "OMG",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "OMG/USDT"
   }
 ]

@@ -2742,5 +2742,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ART"
+  },
+  {
+    "asset": "ORBS",
+    "currency": "BTC",
+    "min_size": "40.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ORBS"
   }
 ]
