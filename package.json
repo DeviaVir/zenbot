@@ -98,7 +98,7 @@
     "simple-xmpp": "^1.3.0",
     "stats-lite": "2.2.0",
     "style-loader": "^0.23.0",
-    "superagent": "^4.0.0",
+    "superagent": "^5.0.2",
     "talib": "^1.0.4",
     "timebucket": "^0.4.0",
     "trend": "0.3.0",
