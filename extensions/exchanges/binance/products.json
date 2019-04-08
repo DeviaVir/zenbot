@@ -89,14 +89,14 @@
   },
   {
     "id": "BCCBTC",
-    "asset": "BCH",
+    "asset": "BCC",
     "currency": "BTC",
     "min_size": "0.00100000",
     "max_size": "100000.00000000",
     "min_total": "0.00100000",
     "increment": "0.00000100",
     "asset_increment": "0.00100000",
-    "label": "BCH/BTC"
+    "label": "BCC/BTC"
   },
   {
     "id": "GASBTC",
@@ -1365,36 +1365,36 @@
   },
   {
     "id": "BCCETH",
-    "asset": "BCH",
+    "asset": "BCC",
     "currency": "ETH",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
     "min_total": "0.01000000",
     "increment": "0.00001000",
     "asset_increment": "0.00100000",
-    "label": "BCH/ETH"
+    "label": "BCC/ETH"
   },
   {
     "id": "BCCUSDT",
-    "asset": "BCH",
+    "asset": "BCC",
     "currency": "USDT",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCH/USDT"
+    "label": "BCC/USDT"
   },
   {
     "id": "BCCBNB",
-    "asset": "BCH",
+    "asset": "BCC",
     "currency": "BNB",
     "min_size": "0.00001000",
     "max_size": "10000000.00000000",
     "min_total": "1.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
-    "label": "BCH/BNB"
+    "label": "BCC/BNB"
   },
   {
     "id": "BATBTC",

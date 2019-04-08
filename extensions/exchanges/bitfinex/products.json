@@ -2699,7 +2699,7 @@
     "asset": "BTT",
     "currency": "USD",
     "min_size": "13034.0",
-    "max_size": "5000000.0",
+    "max_size": "15000000.0",
     "increment": "0.0000001",
     "label": "BTT/USD"
   },
@@ -2707,7 +2707,7 @@
     "asset": "BTT",
     "currency": "BTC",
     "min_size": "13034.0",
-    "max_size": "5000000.0",
+    "max_size": "15000000.0",
     "increment": "0.0000000001",
     "label": "BTT/BTC"
   },
