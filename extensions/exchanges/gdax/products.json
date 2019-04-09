@@ -16,6 +16,54 @@
     "label": "BCH/GBP"
   },
   {
+    "asset": "EOS",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.001",
+    "label": "EOS/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.000001",
+    "label": "EOS/BTC"
+  },
+  {
+    "asset": "EOS",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.001",
+    "label": "EOS/EUR"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USDC",
+    "min_size": "0.01",
+    "max_size": "250",
+    "increment": "0.01",
+    "label": "MKR/USDC"
+  },
+  {
+    "asset": "MKR",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.00001",
+    "label": "MKR/BTC"
+  },
+  {
+    "asset": "REP",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "REP/USD"
+  },
+  {
     "asset": "BCH",
     "currency": "EUR",
     "min_size": "0.01",
@@ -198,6 +246,22 @@
     "max_size": "8000",
     "increment": "0.000001",
     "label": "LTC/BTC"
+  },
+  {
+    "asset": "REP",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "REP/EUR"
+  },
+  {
+    "asset": "REP",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.000001",
+    "label": "REP/BTC"
   },
   {
     "asset": "XLM",
