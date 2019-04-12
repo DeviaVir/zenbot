@@ -2774,5 +2774,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BORA"
+  },
+  {
+    "asset": "CND",
+    "currency": "BTC",
+    "min_size": "185.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CND"
+  },
+  {
+    "asset": "ONT",
+    "currency": "USDT",
+    "min_size": "2.30000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ONT"
   }
 ]
