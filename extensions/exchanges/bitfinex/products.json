@@ -2782,5 +2782,53 @@
     "max_size": "2000.0",
     "increment": "0.000001",
     "label": "BAB/UST"
+  },
+  {
+    "asset": "SCR",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "200000.0",
+    "increment": "0.001",
+    "label": "SCR/USD"
+  },
+  {
+    "asset": "SCR",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "200000.0",
+    "increment": "0.000001",
+    "label": "SCR/ETH"
+  },
+  {
+    "asset": "GNO",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1000.0",
+    "increment": "0.001",
+    "label": "GNO/USD"
+  },
+  {
+    "asset": "GNO",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "1000.0",
+    "increment": "0.000001",
+    "label": "GNO/ETH"
+  },
+  {
+    "asset": "GEN",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.001",
+    "label": "GEN/USD"
+  },
+  {
+    "asset": "GEN",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "GEN/ETH"
   }
 ]
