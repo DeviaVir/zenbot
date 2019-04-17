@@ -68,7 +68,7 @@
     "kraken-api": "^1.0.0",
     "lint-staged": "^8.0.5",
     "lodash": "^4.17.4",
-    "lolex": "^3.0.0",
+    "lolex": "^4.0.1",
     "mathjs": "^5.0.0",
     "micro-request": "^666.0.10",
     "mime": "^2.2.2",
