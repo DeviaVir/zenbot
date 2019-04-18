@@ -75,7 +75,7 @@
     "asset": "REP",
     "currency": "USD",
     "min_size": "0.1",
-    "max_size": "10000",
+    "max_size": "5000",
     "increment": "0.01",
     "label": "REP/USD"
   },
@@ -264,6 +264,22 @@
     "label": "CVC/USDC"
   },
   {
+    "asset": "REP",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.000001",
+    "label": "REP/BTC"
+  },
+  {
+    "asset": "DNT",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "10000000",
+    "increment": "0.000001",
+    "label": "DNT/USDC"
+  },
+  {
     "asset": "EOS",
     "currency": "BTC",
     "min_size": "0.1",
@@ -278,14 +294,6 @@
     "max_size": "5000",
     "increment": "0.001",
     "label": "EOS/EUR"
-  },
-  {
-    "asset": "REP",
-    "currency": "BTC",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.000001",
-    "label": "REP/BTC"
   },
   {
     "asset": "XLM",
@@ -326,14 +334,6 @@
     "max_size": "5000",
     "increment": "0.01",
     "label": "ZEC/USDC"
-  },
-  {
-    "asset": "DNT",
-    "currency": "USDC",
-    "min_size": "1",
-    "max_size": "10000000",
-    "increment": "0.000001",
-    "label": "DNT/USDC"
   },
   {
     "asset": "DAI",
