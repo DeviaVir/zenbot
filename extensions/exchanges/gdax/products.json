@@ -1,5 +1,21 @@
 [
   {
+    "asset": "REP",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.01",
+    "label": "REP/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.001",
+    "label": "EOS/USD"
+  },
+  {
     "asset": "BTC",
     "currency": "USDC",
     "min_size": "0.001",
@@ -62,22 +78,6 @@
     "max_size": "8000",
     "increment": "0.000001",
     "label": "LTC/BTC"
-  },
-  {
-    "asset": "EOS",
-    "currency": "USD",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.001",
-    "label": "EOS/USD"
-  },
-  {
-    "asset": "REP",
-    "currency": "USD",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.01",
-    "label": "REP/USD"
   },
   {
     "asset": "MKR",
@@ -232,6 +232,30 @@
     "label": "MKR/USDC"
   },
   {
+    "asset": "DAI",
+    "currency": "USDC",
+    "min_size": "1",
+    "max_size": "100000",
+    "increment": "0.000001",
+    "label": "DAI/USDC"
+  },
+  {
+    "asset": "EOS",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.001",
+    "label": "EOS/EUR"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.000001",
+    "label": "EOS/BTC"
+  },
+  {
     "asset": "LOOM",
     "currency": "USDC",
     "min_size": "1",
@@ -264,14 +288,6 @@
     "label": "CVC/USDC"
   },
   {
-    "asset": "REP",
-    "currency": "BTC",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.000001",
-    "label": "REP/BTC"
-  },
-  {
     "asset": "DNT",
     "currency": "USDC",
     "min_size": "1",
@@ -280,20 +296,12 @@
     "label": "DNT/USDC"
   },
   {
-    "asset": "EOS",
+    "asset": "REP",
     "currency": "BTC",
     "min_size": "0.1",
     "max_size": "5000",
     "increment": "0.000001",
-    "label": "EOS/BTC"
-  },
-  {
-    "asset": "EOS",
-    "currency": "EUR",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.001",
-    "label": "EOS/EUR"
+    "label": "REP/BTC"
   },
   {
     "asset": "XLM",
@@ -334,14 +342,6 @@
     "max_size": "5000",
     "increment": "0.01",
     "label": "ZEC/USDC"
-  },
-  {
-    "asset": "DAI",
-    "currency": "USDC",
-    "min_size": "1",
-    "max_size": "100000",
-    "increment": "0.000001",
-    "label": "DAI/USDC"
   },
   {
     "asset": "ETH",

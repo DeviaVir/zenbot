@@ -5531,5 +5531,16 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ENJ/USDT"
+  },
+  {
+    "id": "MITHUSDT",
+    "asset": "MITH",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "MITH/USDT"
   }
 ]
