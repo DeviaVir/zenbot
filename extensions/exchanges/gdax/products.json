@@ -80,14 +80,6 @@
     "label": "LTC/BTC"
   },
   {
-    "asset": "MKR",
-    "currency": "BTC",
-    "min_size": "0.01",
-    "max_size": "1000",
-    "increment": "0.00001",
-    "label": "MKR/BTC"
-  },
-  {
     "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.01",
@@ -225,6 +217,30 @@
   },
   {
     "asset": "MKR",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1000",
+    "increment": "0.00001",
+    "label": "MKR/BTC"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.000001",
+    "label": "EOS/BTC"
+  },
+  {
+    "asset": "EOS",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "5000",
+    "increment": "0.001",
+    "label": "EOS/EUR"
+  },
+  {
+    "asset": "MKR",
     "currency": "USDC",
     "min_size": "0.01",
     "max_size": "1000",
@@ -238,22 +254,6 @@
     "max_size": "100000",
     "increment": "0.000001",
     "label": "DAI/USDC"
-  },
-  {
-    "asset": "EOS",
-    "currency": "EUR",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.001",
-    "label": "EOS/EUR"
-  },
-  {
-    "asset": "EOS",
-    "currency": "BTC",
-    "min_size": "0.1",
-    "max_size": "5000",
-    "increment": "0.000001",
-    "label": "EOS/BTC"
   },
   {
     "asset": "LOOM",
