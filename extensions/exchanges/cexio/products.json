@@ -72,6 +72,14 @@
     "label": "ZEC/USD"
   },
   {
+    "asset": "OMG",
+    "currency": "USD",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "OMG/USD"
+  },
+  {
     "asset": "BTC",
     "currency": "EUR",
     "min_size": "0.002",
@@ -134,6 +142,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "ZEC/EUR"
+  },
+  {
+    "asset": "OMG",
+    "currency": "EUR",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "OMG/EUR"
   },
   {
     "asset": "BTC",
@@ -246,6 +262,14 @@
     "max_size": null,
     "increment": "0.000001",
     "label": "ZEC/BTC"
+  },
+  {
+    "asset": "OMG",
+    "currency": "BTC",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "OMG/BTC"
   },
   {
     "asset": "QASH",

@@ -24,6 +24,14 @@
     "label": "Cosmos/USD Coin"
   },
   {
+    "asset": "ATOM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Cosmos/Tether USD"
+  },
+  {
     "asset": "BAT",
     "currency": "BTC",
     "min_total": "0.0001",
