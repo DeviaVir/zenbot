@@ -2798,5 +2798,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TRIO"
+  },
+  {
+    "asset": "FX",
+    "currency": "BTC",
+    "min_size": "100.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FX"
+  },
+  {
+    "asset": "FX",
+    "currency": "ETH",
+    "min_size": "100.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/FX"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "BTC",
+    "min_size": "0.65000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ATOM"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "USDT",
+    "min_size": "0.65000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ATOM"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "ETH",
+    "min_size": "0.65000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/ATOM"
   }
 ]
