@@ -720,14 +720,6 @@
     "label": "BTC/EBST"
   },
   {
-    "asset": "VRM",
-    "currency": "BTC",
-    "min_size": "2.52372300",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/VRM"
-  },
-  {
     "asset": "SEQ",
     "currency": "BTC",
     "min_size": "78.36990596",
@@ -800,14 +792,6 @@
     "label": "BTC/IOP"
   },
   {
-    "asset": "GOLOS",
-    "currency": "BTC",
-    "min_size": "111.11111111",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/GOLOS"
-  },
-  {
     "asset": "UBQ",
     "currency": "BTC",
     "min_size": "4.26621160",
@@ -822,14 +806,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/KMD"
-  },
-  {
-    "asset": "GBG",
-    "currency": "BTC",
-    "min_size": "109.17030568",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/GBG"
   },
   {
     "asset": "SIB",
