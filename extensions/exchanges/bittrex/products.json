@@ -416,14 +416,6 @@
     "label": "BTC/FLO"
   },
   {
-    "asset": "NBT",
-    "currency": "BTC",
-    "min_size": "15.95405233",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/NBT"
-  },
-  {
     "asset": "MUE",
     "currency": "BTC",
     "min_size": "62.03473945",
@@ -446,14 +438,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DMD"
-  },
-  {
-    "asset": "GAM",
-    "currency": "BTC",
-    "min_size": "0.67516474",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/GAM"
   },
   {
     "asset": "SPHR",
@@ -640,14 +624,6 @@
     "label": "BTC/LSK"
   },
   {
-    "asset": "BRK",
-    "currency": "BTC",
-    "min_size": "35.31073446",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BRK"
-  },
-  {
     "asset": "WAVES",
     "currency": "BTC",
     "min_size": "0.36316095",
@@ -670,14 +646,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SBD"
-  },
-  {
-    "asset": "BRX",
-    "currency": "BTC",
-    "min_size": "10.44713748",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BRX"
   },
   {
     "asset": "ETC",
