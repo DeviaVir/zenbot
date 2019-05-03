@@ -80,6 +80,22 @@
     "label": "LTC/BTC"
   },
   {
+    "asset": "BAT",
+    "currency": "ETH",
+    "min_size": "1",
+    "max_size": "300000",
+    "increment": "0.00000001",
+    "label": "BAT/ETH"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1500",
+    "increment": "0.000001",
+    "label": "ZEC/BTC"
+  },
+  {
     "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.01",

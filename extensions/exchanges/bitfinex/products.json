@@ -2854,5 +2854,53 @@
     "max_size": "100000.0",
     "increment": "0.0000001",
     "label": "ATO/ETH"
+  },
+  {
+    "asset": "WBT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10.0",
+    "increment": "0.001",
+    "label": "WBT/USD"
+  },
+  {
+    "asset": "XCH",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "30000.0",
+    "increment": "0.001",
+    "label": "XCH/USD"
+  },
+  {
+    "asset": "EUS",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "30000.0",
+    "increment": "0.001",
+    "label": "EUS/USD"
+  },
+  {
+    "asset": "WBT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10.0",
+    "increment": "0.000001",
+    "label": "WBT/ETH"
+  },
+  {
+    "asset": "XCH",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "30000.0",
+    "increment": "0.000001",
+    "label": "XCH/ETH"
+  },
+  {
+    "asset": "EUS",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "30000.0",
+    "increment": "0.000001",
+    "label": "EUS/ETH"
   }
 ]

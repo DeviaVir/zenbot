@@ -2782,5 +2782,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ATOM"
+  },
+  {
+    "asset": "XYO",
+    "currency": "BTC",
+    "min_size": "1600.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/XYO"
   }
 ]
