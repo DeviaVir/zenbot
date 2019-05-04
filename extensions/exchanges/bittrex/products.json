@@ -2790,5 +2790,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XYO"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "BTC",
+    "min_size": "25.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/OCEAN"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "USDT",
+    "min_size": "25.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/OCEAN"
   }
 ]
