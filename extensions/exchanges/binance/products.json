@@ -5608,5 +5608,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ATOM/USDT"
+  },
+  {
+    "id": "ATOMUSDC",
+    "asset": "ATOM",
+    "currency": "USDC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ATOM/USDC"
+  },
+  {
+    "id": "ATOMPAX",
+    "asset": "ATOM",
+    "currency": "PAX",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ATOM/PAX"
+  },
+  {
+    "id": "ATOMTUSD",
+    "asset": "ATOM",
+    "currency": "TUSD",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ATOM/TUSD"
   }
 ]
