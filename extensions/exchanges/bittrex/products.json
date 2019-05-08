@@ -2806,5 +2806,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/OCEAN"
+  },
+  {
+    "asset": "WIB",
+    "currency": "BTC",
+    "min_size": "2310.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/WIB"
+  },
+  {
+    "asset": "BWX",
+    "currency": "BTC",
+    "min_size": "32.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BWX"
   }
 ]
