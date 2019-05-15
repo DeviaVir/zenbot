@@ -2830,5 +2830,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BWX"
+  },
+  {
+    "asset": "SNX",
+    "currency": "BTC",
+    "min_size": "35.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SNX"
+  },
+  {
+    "asset": "SUSD",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SUSD"
   }
 ]
