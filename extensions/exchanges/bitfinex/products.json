@@ -2934,5 +2934,45 @@
     "max_size": "30000.0",
     "increment": "0.00000001",
     "label": "EUS/ETH"
+  },
+  {
+    "asset": "LEO",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.001",
+    "label": "LEO/USD"
+  },
+  {
+    "asset": "LEO",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "LEO/BTC"
+  },
+  {
+    "asset": "LEO",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "LEO/UST"
+  },
+  {
+    "asset": "LEO",
+    "currency": "EOS",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "LEO/EOS"
+  },
+  {
+    "asset": "LEO",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "LEO/ETH"
   }
 ]
