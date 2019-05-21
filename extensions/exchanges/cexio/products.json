@@ -302,5 +302,21 @@
     "max_size": null,
     "increment": "0.01",
     "label": "GUSD/EUR"
+  },
+  {
+    "asset": "MHC",
+    "currency": "BTC",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "MHC/BTC"
+  },
+  {
+    "asset": "MHC",
+    "currency": "ETH",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MHC/ETH"
   }
 ]
