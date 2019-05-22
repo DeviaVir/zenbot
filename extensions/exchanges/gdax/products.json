@@ -232,14 +232,6 @@
     "label": "XRP/BTC"
   },
   {
-    "asset": "MKR",
-    "currency": "BTC",
-    "min_size": "0.01",
-    "max_size": "1000",
-    "increment": "0.00001",
-    "label": "MKR/BTC"
-  },
-  {
     "asset": "DAI",
     "currency": "USDC",
     "min_size": "1",
@@ -286,14 +278,6 @@
     "max_size": "10000000",
     "increment": "0.000001",
     "label": "DNT/USDC"
-  },
-  {
-    "asset": "MKR",
-    "currency": "USDC",
-    "min_size": "0.01",
-    "max_size": "1000",
-    "increment": "0.01",
-    "label": "MKR/USDC"
   },
   {
     "asset": "EOS",

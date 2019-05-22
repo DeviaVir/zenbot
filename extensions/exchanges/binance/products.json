@@ -3283,7 +3283,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ADA/USDT"
@@ -3393,7 +3393,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XRP/USDT"
@@ -3888,7 +3888,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "TRX/USDT"
@@ -4548,7 +4548,7 @@
     "currency": "PAX",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XRP/PAX"
@@ -4614,7 +4614,7 @@
     "currency": "TUSD",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XRP/TUSD"
@@ -4680,7 +4680,7 @@
     "currency": "USDC",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XRP/USDC"
@@ -4702,7 +4702,7 @@
     "currency": "USDC",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XLM/USDC"
@@ -4724,7 +4724,7 @@
     "currency": "TUSD",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ADA/TUSD"
@@ -4735,7 +4735,7 @@
     "currency": "TUSD",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "TRX/TUSD"
@@ -4757,7 +4757,7 @@
     "currency": "XRP",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "TRX/XRP"
@@ -4999,7 +4999,7 @@
     "currency": "PAX",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "TRX/PAX"
@@ -5010,7 +5010,7 @@
     "currency": "USDC",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "TRX/USDC"
@@ -5208,7 +5208,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ZIL/USDT"
@@ -5406,7 +5406,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "CELR/USDT"
@@ -5417,7 +5417,7 @@
     "currency": "PAX",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ADA/PAX"
@@ -5428,7 +5428,7 @@
     "currency": "USDC",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ADA/USDC"
@@ -5516,7 +5516,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "THETA/USDT"
@@ -5527,7 +5527,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ENJ/USDT"
@@ -5538,7 +5538,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "MITH/USDT"
@@ -5571,7 +5571,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "MATIC/USDT"
