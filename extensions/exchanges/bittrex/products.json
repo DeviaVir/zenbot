@@ -288,14 +288,6 @@
     "label": "BTC/EXCL"
   },
   {
-    "asset": "BITS",
-    "currency": "BTC",
-    "min_size": "9.70873786",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BITS"
-  },
-  {
     "asset": "DOPE",
     "currency": "BTC",
     "min_size": "167.78523490",
@@ -536,12 +528,12 @@
     "label": "BTC/FCT"
   },
   {
-    "asset": "EGC",
+    "asset": "MAID",
     "currency": "BTC",
-    "min_size": "34.91620112",
+    "min_size": "15.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/EGC"
+    "label": "BTC/MAID"
   },
   {
     "asset": "SLS",
@@ -856,14 +848,6 @@
     "label": "BTC/MUSIC"
   },
   {
-    "asset": "DTB",
-    "currency": "BTC",
-    "min_size": "26.17801047",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/DTB"
-  },
-  {
     "asset": "INCNT",
     "currency": "BTC",
     "min_size": "7.25478816",
@@ -886,14 +870,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GNT"
-  },
-  {
-    "asset": "NXC",
-    "currency": "BTC",
-    "min_size": "119.04761905",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/NXC"
   },
   {
     "asset": "EDG",

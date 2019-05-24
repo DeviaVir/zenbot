@@ -1556,7 +1556,7 @@
     "currency": "USDT",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NEO/USDT"
@@ -3096,7 +3096,7 @@
     "currency": "USDT",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "QTUM/USDT"
@@ -4746,7 +4746,7 @@
     "currency": "TUSD",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NEO/TUSD"
@@ -4768,7 +4768,7 @@
     "currency": "XRP",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "XZC/XRP"
@@ -5439,7 +5439,7 @@
     "currency": "PAX",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NEO/PAX"
@@ -5450,7 +5450,7 @@
     "currency": "USDC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NEO/USDC"
@@ -5604,7 +5604,7 @@
     "currency": "USDT",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ATOM/USDT"
@@ -5615,7 +5615,7 @@
     "currency": "USDC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ATOM/USDC"
@@ -5626,7 +5626,7 @@
     "currency": "PAX",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ATOM/PAX"
@@ -5637,7 +5637,7 @@
     "currency": "TUSD",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ATOM/TUSD"
@@ -5648,7 +5648,7 @@
     "currency": "USDC",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ETC/USDC"
@@ -5659,7 +5659,7 @@
     "currency": "PAX",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ETC/PAX"
@@ -5670,7 +5670,7 @@
     "currency": "TUSD",
     "min_size": "0.00100000",
     "max_size": "10000000.00000000",
-    "min_total": "1.00000000",
+    "min_total": "10.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "ETC/TUSD"
@@ -5707,5 +5707,126 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "BAT/TUSD"
+  },
+  {
+    "id": "PHBBNB",
+    "asset": "PHB",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "PHB/BNB"
+  },
+  {
+    "id": "PHBBTC",
+    "asset": "PHB",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "PHB/BTC"
+  },
+  {
+    "id": "PHBUSDC",
+    "asset": "PHB",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "PHB/USDC"
+  },
+  {
+    "id": "PHBTUSD",
+    "asset": "PHB",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "PHB/TUSD"
+  },
+  {
+    "id": "PHBPAX",
+    "asset": "PHB",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "PHB/PAX"
+  },
+  {
+    "id": "TFUELBNB",
+    "asset": "TFUEL",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "TFUEL/BNB"
+  },
+  {
+    "id": "TFUELBTC",
+    "asset": "TFUEL",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "TFUEL/BTC"
+  },
+  {
+    "id": "TFUELUSDT",
+    "asset": "TFUEL",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TFUEL/USDT"
+  },
+  {
+    "id": "TFUELUSDC",
+    "asset": "TFUEL",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TFUEL/USDC"
+  },
+  {
+    "id": "TFUELTUSD",
+    "asset": "TFUEL",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TFUEL/TUSD"
+  },
+  {
+    "id": "TFUELPAX",
+    "asset": "TFUEL",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TFUEL/PAX"
   }
 ]
