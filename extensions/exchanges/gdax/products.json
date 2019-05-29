@@ -72,6 +72,14 @@
     "label": "LTC/USD"
   },
   {
+    "asset": "ETH",
+    "currency": "DAI",
+    "min_size": "0.01",
+    "max_size": "700",
+    "increment": "0.01",
+    "label": "ETH/DAI"
+  },
+  {
     "asset": "LTC",
     "currency": "BTC",
     "min_size": "0.1",
@@ -94,14 +102,6 @@
     "max_size": "1500",
     "increment": "0.000001",
     "label": "ZEC/BTC"
-  },
-  {
-    "asset": "ETH",
-    "currency": "DAI",
-    "min_size": "0.01",
-    "max_size": "700",
-    "increment": "0.01",
-    "label": "ETH/DAI"
   },
   {
     "asset": "BCH",
