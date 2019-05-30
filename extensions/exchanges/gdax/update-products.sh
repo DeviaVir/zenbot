@@ -17,6 +17,7 @@ request('https://api.gdax.com/products', {headers: {'User-Agent': 'zenbot/4'}}, 
       min_size: product.base_min_size,
       max_size: product.base_max_size,
       increment: product.quote_increment,
+      asset_increment: product.base_increment,
       label: product.display_name
     })
   })
