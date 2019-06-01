@@ -5828,5 +5828,71 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "TFUEL/PAX"
+  },
+  {
+    "id": "ONEBNB",
+    "asset": "ONE",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "ONE/BNB"
+  },
+  {
+    "id": "ONEBTC",
+    "asset": "ONE",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "ONE/BTC"
+  },
+  {
+    "id": "ONEUSDT",
+    "asset": "ONE",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ONE/USDT"
+  },
+  {
+    "id": "ONETUSD",
+    "asset": "ONE",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ONE/TUSD"
+  },
+  {
+    "id": "ONEPAX",
+    "asset": "ONE",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ONE/PAX"
+  },
+  {
+    "id": "ONEUSDC",
+    "asset": "ONE",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ONE/USDC"
   }
 ]

@@ -240,14 +240,6 @@
     "label": "BTC/IOC"
   },
   {
-    "asset": "CANN",
-    "currency": "BTC",
-    "min_size": "172.41379310",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CANN"
-  },
-  {
     "asset": "SYS",
     "currency": "BTC",
     "min_size": "17.18213058",
@@ -286,14 +278,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/EXCL"
-  },
-  {
-    "asset": "DOPE",
-    "currency": "BTC",
-    "min_size": "167.78523490",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/DOPE"
   },
   {
     "asset": "BLOCK",
@@ -344,28 +328,12 @@
     "label": "BTC/GAME"
   },
   {
-    "asset": "COVAL",
-    "currency": "BTC",
-    "min_size": "675.67567568",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/COVAL"
-  },
-  {
     "asset": "NXS",
     "currency": "BTC",
     "min_size": "2.55414794",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NXS"
-  },
-  {
-    "asset": "XCP",
-    "currency": "BTC",
-    "min_size": "0.50033022",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/XCP"
   },
   {
     "asset": "BITB",
@@ -600,14 +568,6 @@
     "label": "BTC/STEEM"
   },
   {
-    "asset": "2GIVE",
-    "currency": "BTC",
-    "min_size": "806.45161290",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/2GIVE"
-  },
-  {
     "asset": "LSK",
     "currency": "BTC",
     "min_size": "0.65703022",
@@ -678,14 +638,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SYNX"
-  },
-  {
-    "asset": "EBST",
-    "currency": "BTC",
-    "min_size": "57.33944954",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/EBST"
   },
   {
     "asset": "SEQ",
@@ -1448,14 +1400,6 @@
     "label": "ETH/MANA"
   },
   {
-    "asset": "SALT",
-    "currency": "BTC",
-    "min_size": "6.78794461",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/SALT"
-  },
-  {
     "asset": "TIX",
     "currency": "BTC",
     "min_size": "45.45454545",
@@ -1862,14 +1806,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TUBE"
-  },
-  {
-    "asset": "CBC",
-    "currency": "BTC",
-    "min_size": "153.37423313",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/CBC"
   },
   {
     "asset": "CMCT",
