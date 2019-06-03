@@ -135,7 +135,7 @@ zenbot backfill <selector> --days <days>
 You can also select start and end date:
 
 ```
-zenbot backfill <selector> --start="YYYYMMDDhhmm" --end="YYYYMMDDhhmm"
+zenbot backfill <selector> --start="Unixtime in ms" --end="Unixtime in ms"
 ```
 Note you can use them separately.
 
