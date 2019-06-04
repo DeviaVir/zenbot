@@ -51,8 +51,8 @@ module.exports = function (program, conf) {
       }
       else {
         if(cmd.start >= 0 && cmd.end >= 0){
-          start_time = cmd.start;
-          target_time = cmd.end;
+          start_time = cmd.start
+          target_time = cmd.end
         } else {
           target_time = new Date().getTime()
           start_time = new Date().getTime() - (86400000 * cmd.days)
