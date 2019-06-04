@@ -80,6 +80,14 @@
     "label": "OMG/USD"
   },
   {
+    "asset": "MHC",
+    "currency": "USD",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MHC/USD"
+  },
+  {
     "asset": "BTC",
     "currency": "EUR",
     "min_size": "0.002",
@@ -152,6 +160,14 @@
     "label": "OMG/EUR"
   },
   {
+    "asset": "MHC",
+    "currency": "EUR",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MHC/EUR"
+  },
+  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.002",
@@ -190,6 +206,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "ZEC/GBP"
+  },
+  {
+    "asset": "MHC",
+    "currency": "GBP",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MHC/GBP"
   },
   {
     "asset": "BTC",
