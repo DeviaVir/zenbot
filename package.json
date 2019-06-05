@@ -103,7 +103,7 @@
     "timebucket": "^0.4.0",
     "trend": "0.3.0",
     "tulind": "^0.8.14",
-    "url-loader": "^1.0.1",
+    "url-loader": "^2.0.0",
     "uuid": "^3.1.0",
     "waypoints": "^4.0.1",
     "webpack": "^4.28.1",
