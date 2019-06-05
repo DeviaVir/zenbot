@@ -10,6 +10,8 @@ module.exports = function (program, conf) {
     .option('--conf <path>', 'path to optional conf overrides file')
     .option('--debug', 'output detailed debug info')
     .option('-d, --days <days>', 'number of days to acquire (default: ' + conf.days + ')', Number, conf.days)
+    .option('--start <unix_in_ms>', 'lower bound as unix time in ms', Number, -1)
+    .option('--end <unix_in_ms>', 'upper bound as unix time in ms', Number, -1)
     .action(function (selector, cmd) {
       selector = objectifySelector(selector || conf.selector)
       var exchange = require(`../extensions/exchanges/${selector.exchange_id}/exchange`)(conf)
@@ -48,8 +50,13 @@ module.exports = function (program, conf) {
         target_time = new Date().getTime() - (86400000 * cmd.days)
       }
       else {
-        target_time = new Date().getTime()
-        start_time = new Date().getTime() - (86400000 * cmd.days)
+        if(cmd.start >= 0 && cmd.end >= 0){
+          start_time = cmd.start
+          target_time = cmd.end
+        } else {
+          target_time = new Date().getTime()
+          start_time = new Date().getTime() - (86400000 * cmd.days)
+        }
       }
       resume_markers.find({selector: selector.normalized}).toArray(function (err, results) {
         if (err) throw err
@@ -185,14 +192,18 @@ module.exports = function (program, conf) {
           console.log('\n' + selector.normalized, 'saved', day_trade_counter, 'trades', current_days_left, 'days left')
           day_trade_counter = 0
           days_left = current_days_left
-        }
-        else {
+        } else {
           process.stdout.write('.')
         }
+
         if (mode === 'backward' && marker.oldest_time <= target_time) {
           console.log('\ndownload complete!\n')
           process.exit(0)
+        } else if(cmd.start >= 0 && cmd.end >= 0 && target_time <= marker.newest_time){
+          console.log('\ndownload of span ('+cmd.start+' - '+cmd.end+') complete!\n')
+          process.exit(0)
         }
+
         if (exchange.backfillRateLimit) {
           setTimeout(getNext, exchange.backfillRateLimit)
         } else {
@@ -227,4 +238,3 @@ module.exports = function (program, conf) {
       }
     })
 }
-
