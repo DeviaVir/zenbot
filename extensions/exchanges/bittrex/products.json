@@ -2822,5 +2822,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ITM"
+  },
+  {
+    "asset": "LAMB",
+    "currency": "BTC",
+    "min_size": "45.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LAMB"
   }
 ]
