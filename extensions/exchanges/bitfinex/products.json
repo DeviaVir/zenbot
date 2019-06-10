@@ -3038,5 +3038,37 @@
     "max_size": "25000.0",
     "increment": "0.00000001",
     "label": "ZBT/UST"
+  },
+  {
+    "asset": "OKB",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.001",
+    "label": "OKB/USD"
+  },
+  {
+    "asset": "USK",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.001",
+    "label": "USK/USD"
+  },
+  {
+    "asset": "GTX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.001",
+    "label": "GTX/USD"
+  },
+  {
+    "asset": "KAN",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.001",
+    "label": "KAN/USD"
   }
 ]
