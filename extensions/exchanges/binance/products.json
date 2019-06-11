@@ -5894,5 +5894,71 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "ONE/USDC"
+  },
+  {
+    "id": "FTMBNB",
+    "asset": "FTM",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "FTM/BNB"
+  },
+  {
+    "id": "FTMBTC",
+    "asset": "FTM",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "FTM/BTC"
+  },
+  {
+    "id": "FTMUSDT",
+    "asset": "FTM",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "FTM/USDT"
+  },
+  {
+    "id": "FTMTUSD",
+    "asset": "FTM",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "FTM/TUSD"
+  },
+  {
+    "id": "FTMPAX",
+    "asset": "FTM",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "FTM/PAX"
+  },
+  {
+    "id": "FTMUSDC",
+    "asset": "FTM",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "FTM/USDC"
   }
 ]
