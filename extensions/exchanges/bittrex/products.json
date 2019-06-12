@@ -2830,5 +2830,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LAMB"
+  },
+  {
+    "asset": "STPT",
+    "currency": "BTC",
+    "min_size": "300.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/STPT"
   }
 ]
