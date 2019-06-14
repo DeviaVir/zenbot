@@ -2838,5 +2838,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/STPT"
+  },
+  {
+    "asset": "FET",
+    "currency": "BTC",
+    "min_size": "16.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FET"
   }
 ]
