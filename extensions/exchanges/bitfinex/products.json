@@ -3142,5 +3142,13 @@
     "max_size": "10000.0",
     "increment": "0.0000000001",
     "label": "KAN/UST"
+  },
+  {
+    "asset": "AMP",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "25000.0",
+    "increment": "0.001",
+    "label": "AMP/USD"
   }
 ]

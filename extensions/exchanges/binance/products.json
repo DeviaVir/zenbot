@@ -5960,5 +5960,16 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "FTM/USDC"
+  },
+  {
+    "id": "BTCBBTC",
+    "asset": "BTCB",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00100000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "BTCB/BTC"
   }
 ]
