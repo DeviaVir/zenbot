@@ -3712,7 +3712,7 @@
     "currency": "USDT",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "0.10000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XLM/USDT"
@@ -4570,7 +4570,7 @@
     "currency": "PAX",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "0.10000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XLM/PAX"
@@ -4636,7 +4636,7 @@
     "currency": "TUSD",
     "min_size": "0.10000000",
     "max_size": "90000000.00000000",
-    "min_total": "0.10000000",
+    "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "XLM/TUSD"
@@ -5971,5 +5971,38 @@
     "increment": "0.00000100",
     "asset_increment": "0.00100000",
     "label": "BTCB/BTC"
+  },
+  {
+    "id": "BCPTTUSD",
+    "asset": "BCPT",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BCPT/TUSD"
+  },
+  {
+    "id": "BCPTPAX",
+    "asset": "BCPT",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BCPT/PAX"
+  },
+  {
+    "id": "BCPTUSDC",
+    "asset": "BCPT",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BCPT/USDC"
   }
 ]

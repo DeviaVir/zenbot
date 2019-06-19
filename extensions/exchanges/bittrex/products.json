@@ -2846,5 +2846,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FET"
+  },
+  {
+    "asset": "MKR",
+    "currency": "BTC",
+    "min_size": "0.00410000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/MKR"
+  },
+  {
+    "asset": "MKR",
+    "currency": "ETH",
+    "min_size": "0.00410000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/MKR"
+  },
+  {
+    "asset": "DAI",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DAI"
+  },
+  {
+    "asset": "DAI",
+    "currency": "ETH",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/DAI"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DAI"
   }
 ]
