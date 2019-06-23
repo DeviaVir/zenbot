@@ -166,7 +166,7 @@ module.exports = function (program, conf) {
         }
         options_output.simresults.start_capital = s.start_capital
         options_output.simresults.last_buy_price = s.last_buy_price
-        options_output.simresults.last_assest_value = s.trades[s.trades.length-1].price
+        options_output.simresults.last_assest_value = s.period.close
         options_output.net_currency = s.net_currency
         options_output.simresults.asset_capital = s.asset_capital
         options_output.simresults.currency = n(s.balance.currency).value()
