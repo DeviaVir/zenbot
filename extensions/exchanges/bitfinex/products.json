@@ -3174,5 +3174,61 @@
     "max_size": "25000.0",
     "increment": "0.000001",
     "label": "ALG/UST"
+  },
+  {
+    "asset": "BTC",
+    "currency": "XCH",
+    "min_size": "0.001",
+    "max_size": "25000.0",
+    "increment": "0.000001",
+    "label": "BTC/XCH"
+  },
+  {
+    "asset": "SWM",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.001",
+    "label": "SWM/USD"
+  },
+  {
+    "asset": "SWM",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "SWM/ETH"
+  },
+  {
+    "asset": "TRI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "2000000.0",
+    "increment": "0.001",
+    "label": "TRI/USD"
+  },
+  {
+    "asset": "TRI",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "2000000.0",
+    "increment": "0.000001",
+    "label": "TRI/ETH"
+  },
+  {
+    "asset": "LOO",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "150000.0",
+    "increment": "0.001",
+    "label": "LOO/USD"
+  },
+  {
+    "asset": "LOO",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "150000.0",
+    "increment": "0.000001",
+    "label": "LOO/ETH"
   }
 ]
