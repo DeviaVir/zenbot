@@ -192,22 +192,6 @@
     "label": "BCH/GBP"
   },
   {
-    "asset": "DASH",
-    "currency": "GBP",
-    "min_size": "0.1",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "DASH/GBP"
-  },
-  {
-    "asset": "ZEC",
-    "currency": "GBP",
-    "min_size": "0.1",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "ZEC/GBP"
-  },
-  {
     "asset": "MHC",
     "currency": "GBP",
     "min_size": "200",
