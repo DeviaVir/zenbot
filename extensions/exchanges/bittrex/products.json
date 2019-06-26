@@ -2894,5 +2894,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CPT"
+  },
+  {
+    "asset": "ABT",
+    "currency": "BTC",
+    "min_size": "6.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ABT"
   }
 ]
