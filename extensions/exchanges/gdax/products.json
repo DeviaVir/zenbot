@@ -1,5 +1,14 @@
 [
   {
+    "asset": "LINK",
+    "currency": "ETH",
+    "min_size": "1",
+    "max_size": "90000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "LINK/ETH"
+  },
+  {
     "asset": "ZEC",
     "currency": "BTC",
     "min_size": "0.01",
@@ -115,6 +124,15 @@
     "increment": "0.01",
     "asset_increment": "0.00000001",
     "label": "BTC/USDC"
+  },
+  {
+    "asset": "LINK",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "90000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "LINK/USD"
   },
   {
     "asset": "ETH",
