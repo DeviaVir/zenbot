@@ -144,7 +144,7 @@ module.exports = function container(conf) {
       client.cancelOrder(opts.order_id, function (err, resp, body) {
         if (body && (body.message === 'Order already done' || body.message === 'order not found')) return cb()
 
-        if (err) return retry('cancelOrder', func_args, err)
+        if (err) return retry('cancelOrder', func_args)
         cb()
       })
     },
@@ -214,7 +214,7 @@ module.exports = function container(conf) {
       var client = authedClient()
       client.getOrder(opts.order_id, function (err, resp, body) {
 
-        if (err) return retry('getOrder', func_args, err)
+        if (err) return retry('getOrder', func_args)
         if (resp.statusCode === 404) {
           // order was cancelled. recall from cache
           body = orders['~' + opts.order_id]

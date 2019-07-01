@@ -30,7 +30,7 @@
  */
 
 let parallel = require('run-parallel-limit')
-let json2csv = require('json2csv')
+let Json2csvParser = require('json2csv').Parser
 let fs = require('fs')
 let GeneticAlgorithmCtor = require('geneticalgorithm')
 let moment = require('moment')
@@ -279,16 +279,72 @@ function simulateGeneration(generateLaunchFile) {
 
     results.sort((a, b) => (Number(a.fitness) < Number(b.fitness)) ? 1 : ((Number(b.fitness) < Number(a.fitness)) ? -1 : 0))
 
-    let fieldsGeneral = ['selector.normalized', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period_length', 'min_periods', 'days', 'params']
-    let fieldNamesGeneral = ['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Full Parameters']
+    const fields = [
+      {
+        "label": "Selector",
+        "value": "selector"
+      },
+      {
+        "label": "Fitness",
+        "value": "fitness"
+      },
+      {
+        "label": "VS Buy Hold (%)",
+        "value": "vsBuyHold"
+      },
+      {
+        "label": "Win/Loss Ratio",
+        "value": "wlRatio"
+      },
+      {
+        "label": "# Trades/Day",
+        "value": "frequency"
+      },
+      {
+        "label": "Strategy",
+        "value": "strategy"
+      },
+      {
+        "label": "Order Type",
+        "value": "order_type"
+      },
+      {
+        "label": "Ending Balance ($)",
+        "value": "endBalance"
+      },
+      {
+        "label": "Buy Hold ($)",
+        "value": "buyHold"
+      },
+      {
+        "label": "# Wins",
+        "value": "wins"
+      },
+      {
+        "label": "# Losses",
+        "value": "losses"
+      },
+      {
+        "label": "Period",
+        "value": "period_length"
+      },
+      {
+        "label": "Min Periods",
+        "value": "min_periods"
+      },
+      {
+        "label": "# Days",
+        "value": "days"
+      },
+      {
+        "label": "Full Parameters",
+        "value": "params"
+      }
+    ]
 
-    let dataCSV = json2csv({
-      data: results,
-      fields: fieldsGeneral,
-      fieldNames: fieldNamesGeneral
-    })
+    let json2csvParser = new Json2csvParser({ fields })
+    let dataCSV = json2csvParser.parse(results)
     let csvFileName = `simulations/${population_data}/gen_${generationCount}/results.csv`
-
     let poolData = {}
     selectedStrategies.forEach(function (v) {
       poolData[v] = pools[v]['pool'].population()

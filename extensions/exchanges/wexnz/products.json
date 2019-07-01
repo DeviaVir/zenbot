@@ -411,8 +411,64 @@
     "asset": "USDT",
     "currency": "USD",
     "min_size": "0.01",
-    "max_size": "2",
+    "max_size": "10",
     "increment": "0.0001",
     "label": "USDT/USD"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USDT",
+    "min_size": "0.001",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "label": "BTC/USDT"
+  },
+  {
+    "asset": "XMR",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.0001",
+    "label": "XMR/USD"
+  },
+  {
+    "asset": "XMR",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1",
+    "increment": "0.0001",
+    "label": "XMR/BTC"
+  },
+  {
+    "asset": "XMR",
+    "currency": "ETH",
+    "min_size": "0.01",
+    "max_size": "30",
+    "increment": "0.0001",
+    "label": "XMR/ETH"
+  },
+  {
+    "asset": "XMR",
+    "currency": "RUR",
+    "min_size": "0.01",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "label": "XMR/RUR"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "RUR",
+    "min_size": "0.01",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "label": "ZEC/RUR"
+  },
+  {
+    "asset": "XMR",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.0001",
+    "label": "XMR/EUR"
   }
 ]

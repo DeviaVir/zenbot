@@ -4,33 +4,24 @@ let ccxt = require('ccxt')
 new ccxt.binance().fetch_markets().then(function(markets) {
   var products = []
 
-  markets.forEach(function (market) {
-    var currStepSize = market.info.filters[0].tickSize
-    for (i = currStepSize.length - 1; i > 0; i--) {
-      if (currStepSize[i] === '0')
-        currStepSize = currStepSize.slice(0, i)
-      else
-        break;
-    }
+  var products = markets.map(function (market) {
+    const filters = market.info.filters
+    const price_filter = filters.find(f => f.filterType === 'PRICE_FILTER')
+    const lot_size_filter = filters.find(f => f.filterType === 'LOT_SIZE')
+    const notional_filter = filters.find(f => f.filterType === 'MIN_NOTIONAL')
 
-    var assetStepSize = market.info.filters[1].stepSize
-    for (i = assetStepSize.length - 1; i > 0; i--) {
-      if (assetStepSize[i] === '0')
-        assetStepSize = assetStepSize.slice(0, i)
-      else
-        break
-    }
-
-    products.push({
+    // NOTE: price_filter also contains minPrice and maxPrice
+    return {
       id: market.id,
       asset: market.base,
       currency: market.quote,
-      min_size: market.info.filters[1].minQty,
-      max_size: market.info.filters[0].maxPrice,
-      increment: currStepSize,
-      asset_increment: assetStepSize,
+      min_size: lot_size_filter.minQty,
+      max_size: lot_size_filter.maxQty,
+      min_total: notional_filter.minNotional,
+      increment: price_filter.tickSize,
+      asset_increment: lot_size_filter.stepSize,
       label: market.base + '/' + market.quote
-    })
+    }
   })
 
   var target = require('path').resolve(__dirname, 'products.json')
