@@ -6092,5 +6092,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "USDSB/USDS"
+  },
+  {
+    "id": "GTOUSDT",
+    "asset": "GTO",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "GTO/USDT"
+  },
+  {
+    "id": "GTOPAX",
+    "asset": "GTO",
+    "currency": "PAX",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "GTO/PAX"
+  },
+  {
+    "id": "GTOTUSD",
+    "asset": "GTO",
+    "currency": "TUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "GTO/TUSD"
+  },
+  {
+    "id": "GTOUSDC",
+    "asset": "GTO",
+    "currency": "USDC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "GTO/USDC"
   }
 ]
