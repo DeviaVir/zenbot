@@ -2019,7 +2019,7 @@
     "asset": "ZIL",
     "currency": "USD",
     "min_size": "212.0",
-    "max_size": "500000.0",
+    "max_size": "1500000.0",
     "increment": "0.0000001",
     "label": "ZIL/USD"
   },
@@ -2027,7 +2027,7 @@
     "asset": "ZIL",
     "currency": "BTC",
     "min_size": "212.0",
-    "max_size": "500000.0",
+    "max_size": "1500000.0",
     "increment": "0.0000000001",
     "label": "ZIL/BTC"
   },
@@ -2035,7 +2035,7 @@
     "asset": "ZIL",
     "currency": "ETH",
     "min_size": "212.0",
-    "max_size": "500000.0",
+    "max_size": "1500000.0",
     "increment": "0.0000000001",
     "label": "ZIL/ETH"
   },
@@ -2603,7 +2603,7 @@
     "asset": "UST",
     "currency": "USD",
     "min_size": "4.0",
-    "max_size": "100000.0",
+    "max_size": "1000000.0",
     "increment": "0.00001",
     "label": "UST/USD"
   },
