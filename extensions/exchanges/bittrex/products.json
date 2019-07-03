@@ -2910,5 +2910,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PROM"
+  },
+  {
+    "asset": "FTM",
+    "currency": "BTC",
+    "min_size": "128.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FTM"
+  },
+  {
+    "asset": "ABYSS",
+    "currency": "BTC",
+    "min_size": "98.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ABYSS"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_size": "0.43000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/EOS"
+  },
+  {
+    "asset": "EOS",
+    "currency": "ETH",
+    "min_size": "0.43000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/EOS"
+  },
+  {
+    "asset": "EOS",
+    "currency": "USDT",
+    "min_size": "0.43000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/EOS"
   }
 ]
