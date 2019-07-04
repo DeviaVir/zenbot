@@ -8,6 +8,7 @@ var tb = require('timebucket')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
   , collectionService = require('../lib/services/collection-service')
+  , jsonexport = require('jsonexport')
   , _ = require('lodash')
 
 module.exports = function (program, conf) {
@@ -191,6 +192,13 @@ module.exports = function (program, conf) {
         if (so.backtester_generation >= 0)
         {
           fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_'+so.strategy.replace('_','')+'_'+ so.selector.normalized.replace('_','').toLowerCase()+'_'+so.backtester_generation+'.json'),options_json, {encoding: 'utf8'})
+          var trades_json = JSON.stringify(s.my_trades, null, 2)
+          var trades_name = 'simtrades_'+so.strategy.replace('_','')+'_'+ so.selector.normalized.replace('_','').toLowerCase()+'_'+so.backtester_generation
+          fs.writeFileSync(path.resolve(__dirname, '..', 'simulations',trades_name+'.json'),trades_json, {encoding: 'utf8'})
+          jsonexport(s.my_trades,function(err, csv){
+            if(err) return console.log(err)
+            fs.writeFileSync(path.resolve(__dirname, '..', 'simulations',trades_name+'.csv'),csv, {encoding: 'utf8'})
+          })
         }
 
         if (so.filename !== 'none') {
