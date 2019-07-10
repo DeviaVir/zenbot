@@ -72,6 +72,14 @@
     "label": "Bitcoin Cash/USD Coin"
   },
   {
+    "asset": "BCHABC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash/Tether USD"
+  },
+  {
     "asset": "BCHSV",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -86,6 +94,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Bitcoin SV/USD Coin"
+  },
+  {
+    "asset": "BCHSV",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin SV/Tether USD"
   },
   {
     "asset": "BCN",
@@ -185,6 +201,14 @@
   },
   {
     "asset": "DASH",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Dash/USD Coin"
+  },
+  {
+    "asset": "DASH",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -214,6 +238,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "DigiByte/Bitcoin"
+  },
+  {
+    "asset": "DGB",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DigiByte/Tether USD"
   },
   {
     "asset": "DOGE",
@@ -257,6 +289,14 @@
   },
   {
     "asset": "EOS",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "EOS/USD Coin"
+  },
+  {
+    "asset": "EOS",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -278,6 +318,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum Classic/Ethereum"
+  },
+  {
+    "asset": "ETC",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ethereum Classic/USD Coin"
   },
   {
     "asset": "ETC",
@@ -398,6 +446,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Grin/USD Coin"
+  },
+  {
+    "asset": "GRIN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Grin/Tether USD"
   },
   {
     "asset": "KNC",
