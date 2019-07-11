@@ -110,7 +110,7 @@
     "webpack": "^4.28.1",
     "webpack-cli": "^3.0.4",
     "wexnz": "^0.1.3",
-    "ws": "^7.0.0",
+    "ws": "^7.1.0",
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
