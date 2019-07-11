@@ -88,6 +88,22 @@
     "label": "MHC/USD"
   },
   {
+    "asset": "TRX",
+    "currency": "USD",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TRX/USD"
+  },
+  {
+    "asset": "BTT",
+    "currency": "USD",
+    "min_size": "10000",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BTT/USD"
+  },
+  {
     "asset": "BTC",
     "currency": "EUR",
     "min_size": "0.002",
@@ -166,6 +182,22 @@
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/EUR"
+  },
+  {
+    "asset": "TRX",
+    "currency": "EUR",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TRX/EUR"
+  },
+  {
+    "asset": "BTT",
+    "currency": "EUR",
+    "min_size": "10000",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BTT/EUR"
   },
   {
     "asset": "BTC",
@@ -310,5 +342,21 @@
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/ETH"
+  },
+  {
+    "asset": "TRX",
+    "currency": "BTC",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "TRX/BTC"
+  },
+  {
+    "asset": "BTT",
+    "currency": "BTC",
+    "min_size": "10000",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "BTT/BTC"
   }
 ]
