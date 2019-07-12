@@ -2958,5 +2958,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FXC"
+  },
+  {
+    "asset": "DUSK",
+    "currency": "BTC",
+    "min_size": "74.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DUSK"
+  },
+  {
+    "asset": "URAC",
+    "currency": "BTC",
+    "min_size": "333.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/URAC"
   }
 ]
