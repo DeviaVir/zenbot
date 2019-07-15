@@ -4,6 +4,7 @@ var minimist = require('minimist')
   , colors = require('colors')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
+  , _ = require('lodash')
 
 module.exports = function (program, conf) {
   program
@@ -49,7 +50,7 @@ module.exports = function (program, conf) {
         process.exit()
       }, cmd.size)
       function checkOrder () {
-        if (s.api_order) {
+        if (!_.isEmpty(s.api_order)) {
           s.exchange.getQuote({product_id: s.product_id}, function (err, quote) {
             if (err) {
               throw err

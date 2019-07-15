@@ -4,6 +4,7 @@ var Bitstamp = require('bitstamp')
   // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
   , n = require('numbro')
+  , _ = require('lodash')
 
 var args = process.argv
 
@@ -118,17 +119,8 @@ module.exports = function bitstamp (conf) {
     }.bind(this)
   }
   // Placeholders
-  var wsquotes = {bid: 0, ask: 0}
-  var wstrades =
-  [
-    {
-      trade_id: 0,
-      time:1000,
-      size: 0,
-      price: 0,
-      side: ''
-    }
-  ]
+  var wsquotes = {}
+  var wstrades = []
 
   var wsTrades = new Bitstamp_WS({
     channel: wsOpts.trades.channel,
@@ -174,14 +166,13 @@ module.exports = function bitstamp (conf) {
     }
   }
 
-  function retry (method, args) {
-    var to = args.wait
+  function retry (method, wait, args) {
     if (method !== 'getTrades') {
-      console.error(('\nBitstamp API is not answering! unable to call ' + method + ', retrying in ' + to + 's').red)
+      console.error(('\nBitstamp API is not answering! unable to call ' + method + ', retrying in ' + wait + 's').red)
     }
     setTimeout(function () {
       exchange[method].apply(exchange, args)
-    }, to * 1000)
+    }, wait * 1000)
   }
 
   var lastBalance = {asset: 0, currency: 0}
@@ -205,11 +196,9 @@ module.exports = function bitstamp (conf) {
     // Those objects are populated by the websockets event handlers
 
     getTrades: function (opts, cb) {
-      var args = {
-        wait: 2,   // Seconds
-        product_id: wsOpts.currencyPair
-      }
-      if (typeof wstrades.time == undefined) return retry('getTrades', args)
+      var wait = 2   // Seconds
+      var func_args = [].slice.call(arguments) 
+      if (wstrades.length === 0) return retry('getTrades', wait, func_args)
       var t = wstrades
       var trades = t.map(function (trade) {
         return (trade)
@@ -218,12 +207,10 @@ module.exports = function bitstamp (conf) {
     },
 
     getQuote: function (opts, cb) {
-      var args = {
-        wait: 2,   // Seconds
-        currencyPair: wsOpts.currencyPair
-      }
-      if (typeof wsquotes.bid == undefined) return retry('getQuote', args )
-      cb(null, wsquotes)
+      var wait = 2   // Seconds
+      var func_args = [].slice.call(arguments) 
+      if (_.isEmpty(wsquotes)) return retry('getQuote', wait, func_args)
+      cb(null, wsquotes) 
     },
 
     //-----------------------------------------------------
@@ -231,16 +218,13 @@ module.exports = function bitstamp (conf) {
     //
 
     getBalance: function (opts, cb) {
-      var args = {
-        currency: opts.currency.toLowerCase(),
-        asset: opts.asset.toLowerCase(),
-        wait: 10
-      }
+      var wait = 10
+      var func_args = [].slice.call(arguments) 
       var client = authedClient()
       client.balance(null, function (err, body) {
         body = statusErr(err,body)
         if (body.status === 'error') {
-          return retry('getBalance', args)
+          return retry('getBalance', wait, func_args)
         }
         var balance = {
           asset: '0',
@@ -267,13 +251,14 @@ module.exports = function bitstamp (conf) {
     },
 
     cancelOrder: function (opts, cb) {
+      var wait = 2;
       var func_args = [].slice.call(arguments)
       var client = authedClient()
       client.cancel_order(opts.order_id, function (err, body) {
 
         body = statusErr(err,body)
         if (body.status === 'error') {
-          return retry('cancelOrder', func_args)
+          return retry('cancelOrder', wait, func_args)
         }
         cb()
       })
