@@ -283,8 +283,6 @@ module.exports = function (program, conf) {
             })
           } else {
             var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, undefined)
-            //XXX fs.rename(path.resolve(__dirname, '..', tempModelFile), path.resolve(__dirname, '..', finalModelFile))
-            //XXX fs.unlink(path.resolve(__dirname, '..', tempModelFile))
             console.log('\nFinal model with results written to ' + finalModelFile)
 
             process.exit(0)
