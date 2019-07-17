@@ -3256,6 +3256,22 @@
     "label": "DUS/K:B"
   },
   {
+    "asset": "UOS",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "400000.0",
+    "increment": "0.001",
+    "label": "UOS/USD"
+  },
+  {
+    "asset": "UOS",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "400000.0",
+    "increment": "0.000001",
+    "label": "UOS/BTC"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0004",
