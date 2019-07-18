@@ -242,8 +242,9 @@ module.exports = function (program, conf) {
             process.exit(code)
           }
 
-          var trainingResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html')
+          var trainingResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile))
 
+          console.log('Path:' + path.resolve(__dirname, '..', tempModelFile))
           if (so.days_test > 0) {
             var endTest = moment(so.end_training).add(so.days_test, 'days')
 
@@ -273,8 +274,8 @@ module.exports = function (program, conf) {
               var testResult = parseSimulation(path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html')
 
               var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, testResult)
-              fs.rename(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html', path.resolve(__dirname, '..', finalModelFile) + '-simTrainingResult.html')
-              fs.rename(path.resolve(__dirname, '..', tempModelFile) + '-simTestResult.html', path.resolve(__dirname, '..', finalModelFile) + '-simTestResult.html')
+              fs.rename(path.resolve(__dirname, '..', tempModelFile), path.resolve(__dirname, '..', finalModelFile))
+              fs.rename(path.resolve(__dirname, '..', tempModelFile), path.resolve(__dirname, '..', finalModelFile))
               fs.unlink(path.resolve(__dirname, '..', tempModelFile))
               console.log('\nFinal model with results written to ' + finalModelFile)
 
@@ -282,8 +283,6 @@ module.exports = function (program, conf) {
             })
           } else {
             var finalModelFile = writeFinalModel(strategy, so.end_training, trainingResult, undefined)
-            fs.rename(path.resolve(__dirname, '..', tempModelFile) + '-simTrainingResult.html', path.resolve(__dirname, '..', finalModelFile) + '-simTrainingResult.html')
-            fs.unlink(path.resolve(__dirname, '..', tempModelFile))
             console.log('\nFinal model with results written to ' + finalModelFile)
 
             process.exit(0)
