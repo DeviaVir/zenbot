@@ -147,7 +147,6 @@ module.exports = function bitstamp (conf) {
       price: data.price,
       side: data.type === 0 ? 'buy' : 'sell'
     })
-    if (wstrades.length > 30) wstrades.splice(0,10)
   })
   //-----------------------------------------------------
 
@@ -199,10 +198,7 @@ module.exports = function bitstamp (conf) {
       var wait = 2   // Seconds
       var func_args = [].slice.call(arguments) 
       if (wstrades.length === 0) return retry('getTrades', wait, func_args)
-      var t = wstrades
-      var trades = t.map(function (trade) {
-        return (trade)
-      })
+      var trades = wstrades.splice(0, wstrades.length)
       cb(null, trades)
     },
 
