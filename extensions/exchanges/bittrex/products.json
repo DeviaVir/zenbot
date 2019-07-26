@@ -2862,5 +2862,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TEMCO"
+  },
+  {
+    "asset": "SPIN",
+    "currency": "BTC",
+    "min_size": "468.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SPIN"
+  },
+  {
+    "asset": "HINT",
+    "currency": "BTC",
+    "min_size": "71.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/HINT"
+  },
+  {
+    "asset": "LUNA",
+    "currency": "BTC",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LUNA"
   }
 ]
