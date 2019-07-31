@@ -42,7 +42,7 @@
   {
     "asset": "LTC",
     "currency": "USD",
-    "min_size": "0.5",
+    "min_size": "0.1",
     "max_size": null,
     "increment": "0.01",
     "label": "LTC/USD"
@@ -200,6 +200,14 @@
     "label": "BTT/EUR"
   },
   {
+    "asset": "LTC",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LTC/EUR"
+  },
+  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.002",
@@ -230,6 +238,22 @@
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/GBP"
+  },
+  {
+    "asset": "LTC",
+    "currency": "GBP",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LTC/GBP"
+  },
+  {
+    "asset": "XRP",
+    "currency": "GBP",
+    "min_size": "40",
+    "max_size": null,
+    "increment": "0.0001",
+    "label": "XRP/GBP"
   },
   {
     "asset": "BTC",

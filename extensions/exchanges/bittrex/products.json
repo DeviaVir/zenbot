@@ -2848,6 +2848,14 @@
     "label": "BTC/URAC"
   },
   {
+    "asset": "BLOC",
+    "currency": "BTC",
+    "min_size": "467.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BLOC"
+  },
+  {
     "asset": "BRZ",
     "currency": "BTC",
     "min_size": "11.50000000",
@@ -2886,5 +2894,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LUNA"
+  },
+  {
+    "asset": "CHR",
+    "currency": "BTC",
+    "min_size": "59.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CHR"
   }
 ]
