@@ -6400,5 +6400,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "ONT/USDC"
+  },
+  {
+    "id": "WINBNB",
+    "asset": "WIN",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "WIN/BNB"
+  },
+  {
+    "id": "WINBTC",
+    "asset": "WIN",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "WIN/BTC"
+  },
+  {
+    "id": "WINUSDT",
+    "asset": "WIN",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "WIN/USDT"
+  },
+  {
+    "id": "WINUSDC",
+    "asset": "WIN",
+    "currency": "USDC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "WIN/USDC"
   }
 ]
