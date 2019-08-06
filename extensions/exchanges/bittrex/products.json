@@ -128,14 +128,6 @@
     "label": "BTC/MONA"
   },
   {
-    "asset": "THC",
-    "currency": "BTC",
-    "min_size": "70.42253521",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/THC"
-  },
-  {
     "asset": "VRC",
     "currency": "BTC",
     "min_size": "9.79240110",
@@ -214,14 +206,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SYS"
-  },
-  {
-    "asset": "NEOS",
-    "currency": "BTC",
-    "min_size": "8.92857143",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/NEOS"
   },
   {
     "asset": "DGB",
@@ -664,14 +648,6 @@
     "label": "BTC/ARK"
   },
   {
-    "asset": "TKS",
-    "currency": "BTC",
-    "min_size": "3.25478453",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/TKS"
-  },
-  {
     "asset": "INCNT",
     "currency": "BTC",
     "min_size": "7.25478816",
@@ -766,14 +742,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GUP"
-  },
-  {
-    "asset": "LUN",
-    "currency": "BTC",
-    "min_size": "0.38650032",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/LUN"
   },
   {
     "asset": "GNO",
@@ -1270,14 +1238,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/MANA"
-  },
-  {
-    "asset": "TIX",
-    "currency": "BTC",
-    "min_size": "45.45454545",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/TIX"
   },
   {
     "asset": "RCN",
