@@ -6477,5 +6477,16 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "COS/USDT"
+  },
+  {
+    "id": "TUSDBTUSD",
+    "asset": "TUSDB",
+    "currency": "TUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TUSDB/TUSD"
   }
 ]
