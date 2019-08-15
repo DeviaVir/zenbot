@@ -344,12 +344,44 @@
     "label": "GUSD/USD"
   },
   {
+    "asset": "ONT",
+    "currency": "USD",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ONT/USD"
+  },
+  {
+    "asset": "ONG",
+    "currency": "USD",
+    "min_size": "50",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ONG/USD"
+  },
+  {
     "asset": "GUSD",
     "currency": "EUR",
     "min_size": "100",
     "max_size": null,
     "increment": "0.01",
     "label": "GUSD/EUR"
+  },
+  {
+    "asset": "ONT",
+    "currency": "EUR",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ONT/EUR"
+  },
+  {
+    "asset": "ONG",
+    "currency": "EUR",
+    "min_size": "50",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ONG/EUR"
   },
   {
     "asset": "MHC",
@@ -382,5 +414,21 @@
     "max_size": null,
     "increment": "0.000001",
     "label": "BTT/BTC"
+  },
+  {
+    "asset": "ONT",
+    "currency": "BTC",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "ONT/BTC"
+  },
+  {
+    "asset": "ONG",
+    "currency": "BTC",
+    "min_size": "50",
+    "max_size": null,
+    "increment": "0.000001",
+    "label": "ONG/BTC"
   }
 ]
