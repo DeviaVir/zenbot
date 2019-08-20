@@ -121,7 +121,7 @@
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.4",
     "shelljs": "^0.8.0",
-    "yargs": "^13.1.0"
+    "yargs": "^14.0.0"
   },
   "engines": {
     "node": ">=10.0.0"
