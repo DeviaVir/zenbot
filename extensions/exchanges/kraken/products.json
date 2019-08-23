@@ -70,6 +70,34 @@
     "label": "ATOM/XBT"
   },
   {
+    "asset": "BAT",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BAT/ETH"
+  },
+  {
+    "asset": "BAT",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BAT/EUR"
+  },
+  {
+    "asset": "BAT",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BAT/USD"
+  },
+  {
+    "asset": "BAT",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "BAT/XBT"
+  },
+  {
     "asset": "BCH",
     "currency": "ZEUR",
     "min_size": "0.002",
@@ -208,6 +236,34 @@
     "min_size": "5",
     "increment": "0.01",
     "label": "USDT/USD"
+  },
+  {
+    "asset": "WAVES",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "WAVES/ETH"
+  },
+  {
+    "asset": "WAVES",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "WAVES/EUR"
+  },
+  {
+    "asset": "WAVES",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "WAVES/USD"
+  },
+  {
+    "asset": "WAVES",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "WAVES/XBT"
   },
   {
     "asset": "XETC",

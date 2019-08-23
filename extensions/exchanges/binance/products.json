@@ -6543,5 +6543,16 @@
     "increment": "0.00000100",
     "asset_increment": "1.00000000",
     "label": "COCOS/USDT"
+  },
+  {
+    "id": "MTLUSDT",
+    "asset": "MTL",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "MTL/USDT"
   }
 ]

@@ -2886,5 +2886,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PXL"
+  },
+  {
+    "asset": "AKRO",
+    "currency": "BTC",
+    "min_size": "170.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AKRO"
+  },
+  {
+    "asset": "TSHP",
+    "currency": "BTC",
+    "min_size": "357.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TSHP"
   }
 ]
