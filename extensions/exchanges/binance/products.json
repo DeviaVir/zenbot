@@ -6554,5 +6554,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "MTL/USDT"
+  },
+  {
+    "id": "TOMOBNB",
+    "asset": "TOMO",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "TOMO/BNB"
+  },
+  {
+    "id": "TOMOBTC",
+    "asset": "TOMO",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "TOMO/BTC"
+  },
+  {
+    "id": "TOMOUSDT",
+    "asset": "TOMO",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TOMO/USDT"
+  },
+  {
+    "id": "TOMOUSDC",
+    "asset": "TOMO",
+    "currency": "USDC",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TOMO/USDC"
   }
 ]
