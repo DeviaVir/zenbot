@@ -6642,5 +6642,93 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "PERL/USDT"
+  },
+  {
+    "id": "DENTUSDT",
+    "asset": "DENT",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "DENT/USDT"
+  },
+  {
+    "id": "MFTUSDT",
+    "asset": "MFT",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "MFT/USDT"
+  },
+  {
+    "id": "KEYUSDT",
+    "asset": "KEY",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "KEY/USDT"
+  },
+  {
+    "id": "STORMUSDT",
+    "asset": "STORM",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "STORM/USDT"
+  },
+  {
+    "id": "DOCKUSDT",
+    "asset": "DOCK",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "DOCK/USDT"
+  },
+  {
+    "id": "WANUSDT",
+    "asset": "WAN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WAN/USDT"
+  },
+  {
+    "id": "FUNUSDT",
+    "asset": "FUN",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "FUN/USDT"
+  },
+  {
+    "id": "CVCUSDT",
+    "asset": "CVC",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "CVC/USDT"
   }
 ]
