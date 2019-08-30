@@ -1376,20 +1376,20 @@
     "label": "ETH/SRN"
   },
   {
-    "asset": "WAX",
+    "asset": "WAXP",
     "currency": "BTC",
     "min_size": "50.20080321",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/WAX"
+    "label": "BTC/WAXP"
   },
   {
-    "asset": "WAX",
+    "asset": "WAXP",
     "currency": "ETH",
     "min_size": "18.65741259",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/WAX"
+    "label": "ETH/WAXP"
   },
   {
     "asset": "ZRX",
