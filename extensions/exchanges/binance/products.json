@@ -6730,5 +6730,27 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "CVC/USDT"
+  },
+  {
+    "id": "BTTTRX",
+    "asset": "BTT",
+    "currency": "TRX",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BTT/TRX"
+  },
+  {
+    "id": "WINTRX",
+    "asset": "WIN",
+    "currency": "TRX",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "WIN/TRX"
   }
 ]
