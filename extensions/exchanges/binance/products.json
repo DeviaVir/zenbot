@@ -6736,8 +6736,8 @@
     "asset": "BTT",
     "currency": "TRX",
     "min_size": "0.10000000",
-    "max_size": "9000000.00000000",
-    "min_total": "10.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "BTT/TRX"
@@ -6747,8 +6747,8 @@
     "asset": "WIN",
     "currency": "TRX",
     "min_size": "0.10000000",
-    "max_size": "9000000.00000000",
-    "min_total": "10.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00100000",
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "WIN/TRX"
