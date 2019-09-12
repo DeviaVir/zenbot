@@ -196,6 +196,34 @@
     "label": "GNO/XBT"
   },
   {
+    "asset": "ICX",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ICX/ETH"
+  },
+  {
+    "asset": "ICX",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ICX/EUR"
+  },
+  {
+    "asset": "ICX",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ICX/USD"
+  },
+  {
+    "asset": "ICX",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ICX/XBT"
+  },
+  {
     "asset": "QTUM",
     "currency": "ZCAD",
     "min_size": "0.01",
