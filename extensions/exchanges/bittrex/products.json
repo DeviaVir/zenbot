@@ -2918,5 +2918,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MRPH"
+  },
+  {
+    "asset": "HBAR",
+    "currency": "BTC",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/HBAR"
+  },
+  {
+    "asset": "HBAR",
+    "currency": "ETH",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/HBAR"
+  },
+  {
+    "asset": "HBAR",
+    "currency": "USD",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/HBAR"
+  },
+  {
+    "asset": "HBAR",
+    "currency": "USDT",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/HBAR"
   }
 ]
