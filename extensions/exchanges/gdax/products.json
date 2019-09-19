@@ -1,84 +1,12 @@
 [
   {
     "asset": "ETC",
-    "currency": "EUR",
-    "min_size": "0.10000000",
-    "max_size": "20000.00000000",
-    "increment": "0.00100000",
-    "asset_increment": "0.00000001",
-    "label": "ETC/EUR"
-  },
-  {
-    "asset": "ZRX",
-    "currency": "USD",
-    "min_size": "1.00000000",
-    "max_size": "600000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "0.00001000",
-    "label": "ZRX/USD"
-  },
-  {
-    "asset": "XTZ",
-    "currency": "USD",
-    "min_size": "1.00000000",
-    "max_size": "100000.00000000",
-    "increment": "0.00010000",
-    "asset_increment": "0.01000000",
-    "label": "XTZ/USD"
-  },
-  {
-    "asset": "XLM",
-    "currency": "USD",
-    "min_size": "1.00000000",
-    "max_size": "600000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "1.00000000",
-    "label": "XLM/USD"
-  },
-  {
-    "asset": "EOS",
     "currency": "BTC",
     "min_size": "0.10000000",
     "max_size": "5000.00000000",
     "increment": "0.00000100",
-    "asset_increment": "0.10000000",
-    "label": "EOS/BTC"
-  },
-  {
-    "asset": "BTC",
-    "currency": "EUR",
-    "min_size": "0.00100000",
-    "max_size": "200.00000000",
-    "increment": "0.01000000",
     "asset_increment": "0.00000001",
-    "label": "BTC/EUR"
-  },
-  {
-    "asset": "ETH",
-    "currency": "GBP",
-    "min_size": "0.01000000",
-    "max_size": "1400.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "ETH/GBP"
-  },
-  {
-    "asset": "DNT",
-    "currency": "USDC",
-    "min_size": "1.00000000",
-    "max_size": "10000000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "1.00000000",
-    "label": "DNT/USDC"
-  },
-  {
-    "asset": "BCH",
-    "currency": "GBP",
-    "min_size": "0.01000000",
-    "max_size": "250.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "BCH/GBP"
+    "label": "ETC/BTC"
   },
   {
     "asset": "LTC",
@@ -99,123 +27,6 @@
     "label": "LOOM/USDC"
   },
   {
-    "asset": "ALGO",
-    "currency": "USD",
-    "min_size": "1.00000000",
-    "max_size": "500000.00000000",
-    "increment": "0.00010000",
-    "asset_increment": "1.00000000",
-    "label": "ALGO/USD"
-  },
-  {
-    "asset": "ZRX",
-    "currency": "EUR",
-    "min_size": "1.00000000",
-    "max_size": "600000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "0.00001000",
-    "label": "ZRX/EUR"
-  },
-  {
-    "asset": "EOS",
-    "currency": "EUR",
-    "min_size": "0.10000000",
-    "max_size": "5000.00000000",
-    "increment": "0.00100000",
-    "asset_increment": "0.10000000",
-    "label": "EOS/EUR"
-  },
-  {
-    "asset": "XLM",
-    "currency": "EUR",
-    "min_size": "1.00000000",
-    "max_size": "600000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "1.00000000",
-    "label": "XLM/EUR"
-  },
-  {
-    "asset": "REP",
-    "currency": "USD",
-    "min_size": "0.10000000",
-    "max_size": "5000.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000100",
-    "label": "REP/USD"
-  },
-  {
-    "asset": "ETH",
-    "currency": "EUR",
-    "min_size": "0.01000000",
-    "max_size": "1600.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "ETH/EUR"
-  },
-  {
-    "asset": "XRP",
-    "currency": "EUR",
-    "min_size": "1.00000000",
-    "max_size": "500000.00000000",
-    "increment": "0.00010000",
-    "asset_increment": "1.00000000",
-    "label": "XRP/EUR"
-  },
-  {
-    "asset": "BAT",
-    "currency": "ETH",
-    "min_size": "1.00000000",
-    "max_size": "300000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "1.00000000",
-    "label": "BAT/ETH"
-  },
-  {
-    "asset": "ETH",
-    "currency": "BTC",
-    "min_size": "0.01000000",
-    "max_size": "2400.00000000",
-    "increment": "0.00001000",
-    "asset_increment": "0.00000001",
-    "label": "ETH/BTC"
-  },
-  {
-    "asset": "ETH",
-    "currency": "USD",
-    "min_size": "0.01000000",
-    "max_size": "2800.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "ETH/USD"
-  },
-  {
-    "asset": "ETH",
-    "currency": "USDC",
-    "min_size": "0.01000000",
-    "max_size": "2800.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "ETH/USDC"
-  },
-  {
-    "asset": "ETC",
-    "currency": "BTC",
-    "min_size": "0.10000000",
-    "max_size": "5000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "0.00000001",
-    "label": "ETC/BTC"
-  },
-  {
-    "asset": "DAI",
-    "currency": "USDC",
-    "min_size": "1.00000000",
-    "max_size": "100000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "0.00001000",
-    "label": "DAI/USDC"
-  },
-  {
     "asset": "XRP",
     "currency": "BTC",
     "min_size": "1.00000000",
@@ -225,40 +36,13 @@
     "label": "XRP/BTC"
   },
   {
-    "asset": "CVC",
-    "currency": "USDC",
-    "min_size": "1.00000000",
-    "max_size": "2000000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "1.00000000",
-    "label": "CVC/USDC"
-  },
-  {
-    "asset": "GNT",
-    "currency": "USDC",
-    "min_size": "1.00000000",
-    "max_size": "1500000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "1.00000000",
-    "label": "GNT/USDC"
-  },
-  {
-    "asset": "ETC",
-    "currency": "USD",
+    "asset": "EOS",
+    "currency": "EUR",
     "min_size": "0.10000000",
-    "max_size": "20000.00000000",
+    "max_size": "5000.00000000",
     "increment": "0.00100000",
-    "asset_increment": "0.00000001",
-    "label": "ETC/USD"
-  },
-  {
-    "asset": "BTC",
-    "currency": "GBP",
-    "min_size": "0.00100000",
-    "max_size": "80.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "BTC/GBP"
+    "asset_increment": "0.10000000",
+    "label": "EOS/EUR"
   },
   {
     "asset": "MANA",
@@ -271,21 +55,12 @@
   },
   {
     "asset": "REP",
-    "currency": "BTC",
+    "currency": "USD",
     "min_size": "0.10000000",
     "max_size": "5000.00000000",
-    "increment": "0.00000100",
+    "increment": "0.01000000",
     "asset_increment": "0.00000100",
-    "label": "REP/BTC"
-  },
-  {
-    "asset": "ETC",
-    "currency": "GBP",
-    "min_size": "0.10000000",
-    "max_size": "20000.00000000",
-    "increment": "0.00100000",
-    "asset_increment": "0.00000001",
-    "label": "ETC/GBP"
+    "label": "REP/USD"
   },
   {
     "asset": "LTC",
@@ -297,76 +72,13 @@
     "label": "LTC/EUR"
   },
   {
-    "asset": "BTC",
-    "currency": "USDC",
-    "min_size": "0.00100000",
-    "max_size": "280.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "BTC/USDC"
-  },
-  {
-    "asset": "BCH",
-    "currency": "EUR",
-    "min_size": "0.01000000",
-    "max_size": "100.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "BCH/EUR"
-  },
-  {
     "asset": "DASH",
-    "currency": "BTC",
+    "currency": "USD",
     "min_size": "0.01000000",
     "max_size": "1500.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "0.00100000",
-    "label": "DASH/BTC"
-  },
-  {
-    "asset": "LTC",
-    "currency": "GBP",
-    "min_size": "0.10000000",
-    "max_size": "1000.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00000001",
-    "label": "LTC/GBP"
-  },
-  {
-    "asset": "ETH",
-    "currency": "DAI",
-    "min_size": "0.01000000",
-    "max_size": "700.00000000",
-    "increment": "0.01000000",
-    "asset_increment": "0.00010000",
-    "label": "ETH/DAI"
-  },
-  {
-    "asset": "XTZ",
-    "currency": "BTC",
-    "min_size": "1.00000000",
-    "max_size": "100000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "0.01000000",
-    "label": "XTZ/BTC"
-  },
-  {
-    "asset": "EOS",
-    "currency": "USD",
-    "min_size": "0.10000000",
-    "max_size": "5000.00000000",
     "increment": "0.00100000",
-    "asset_increment": "0.10000000",
-    "label": "EOS/USD"
-  },
-  {
-    "asset": "LTC",
-    "currency": "BTC",
-    "min_size": "0.10000000",
-    "max_size": "8000.00000000",
-    "increment": "0.00000100",
-    "asset_increment": "0.00000001",
-    "label": "LTC/BTC"
+    "asset_increment": "0.00100000",
+    "label": "DASH/USD"
   },
   {
     "asset": "XRP",
@@ -378,13 +90,157 @@
     "label": "XRP/USD"
   },
   {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "1.00000000",
+    "max_size": "600000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00001000",
+    "label": "ZRX/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "5000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.10000000",
+    "label": "EOS/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "2400.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00000001",
+    "label": "ETH/BTC"
+  },
+  {
     "asset": "LINK",
-    "currency": "ETH",
+    "currency": "USD",
     "min_size": "1.00000000",
     "max_size": "90000.00000000",
-    "increment": "0.00000001",
+    "increment": "0.00001000",
     "asset_increment": "0.01000000",
-    "label": "LINK/ETH"
+    "label": "LINK/USD"
+  },
+  {
+    "asset": "XLM",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "600000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "XLM/EUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "8000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00000001",
+    "label": "LTC/BTC"
+  },
+  {
+    "asset": "BCH",
+    "currency": "EUR",
+    "min_size": "0.01000000",
+    "max_size": "100.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "BCH/EUR"
+  },
+  {
+    "asset": "XLM",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "600000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "XLM/BTC"
+  },
+  {
+    "asset": "XLM",
+    "currency": "USD",
+    "min_size": "1.00000000",
+    "max_size": "600000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "XLM/USD"
+  },
+  {
+    "asset": "EOS",
+    "currency": "USD",
+    "min_size": "0.10000000",
+    "max_size": "5000.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "EOS/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USD",
+    "min_size": "0.01000000",
+    "max_size": "2800.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "ETH/USD"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "600000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "0.00001000",
+    "label": "ZRX/BTC"
+  },
+  {
+    "asset": "ETC",
+    "currency": "GBP",
+    "min_size": "0.10000000",
+    "max_size": "20000.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00000001",
+    "label": "ETC/GBP"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "USD",
+    "min_size": "1.00000000",
+    "max_size": "500000.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "ALGO/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.01000000",
+    "max_size": "700.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USDC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00001000",
+    "label": "DAI/USDC"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USDC",
+    "min_size": "0.00100000",
+    "max_size": "280.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "BTC/USDC"
   },
   {
     "asset": "BTC",
@@ -397,30 +253,111 @@
   },
   {
     "asset": "BCH",
-    "currency": "USD",
+    "currency": "GBP",
     "min_size": "0.01000000",
-    "max_size": "700.00000000",
+    "max_size": "250.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.00000001",
-    "label": "BCH/USD"
+    "label": "BCH/GBP"
   },
   {
-    "asset": "BCH",
+    "asset": "ZEC",
     "currency": "BTC",
     "min_size": "0.01000000",
-    "max_size": "400.00000000",
-    "increment": "0.00001000",
-    "asset_increment": "0.00000001",
-    "label": "BCH/BTC"
+    "max_size": "1500.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00010000",
+    "label": "ZEC/BTC"
   },
   {
-    "asset": "XLM",
-    "currency": "BTC",
+    "asset": "DNT",
+    "currency": "USDC",
     "min_size": "1.00000000",
-    "max_size": "600000.00000000",
+    "max_size": "10000000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "DNT/USDC"
+  },
+  {
+    "asset": "ETC",
+    "currency": "USD",
+    "min_size": "0.10000000",
+    "max_size": "20000.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00000001",
+    "label": "ETC/USD"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "USD",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "XTZ/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "1400.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "ETH/GBP"
+  },
+  {
+    "asset": "CVC",
+    "currency": "USDC",
+    "min_size": "1.00000000",
+    "max_size": "2000000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "CVC/USDC"
+  },
+  {
+    "asset": "ETC",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "20000.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00000001",
+    "label": "ETC/EUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.01000000",
+    "max_size": "1600.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "ETH/EUR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "200.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "BTC/EUR"
+  },
+  {
+    "asset": "BAT",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "300000.00000000",
     "increment": "0.00000001",
     "asset_increment": "1.00000000",
-    "label": "XLM/BTC"
+    "label": "BAT/ETH"
+  },
+  {
+    "asset": "DASH",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "1500.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "0.00100000",
+    "label": "DASH/BTC"
   },
   {
     "asset": "ZEC",
@@ -432,24 +369,6 @@
     "label": "ZEC/USDC"
   },
   {
-    "asset": "LINK",
-    "currency": "USD",
-    "min_size": "1.00000000",
-    "max_size": "90000.00000000",
-    "increment": "0.00001000",
-    "asset_increment": "0.01000000",
-    "label": "LINK/USD"
-  },
-  {
-    "asset": "DASH",
-    "currency": "USD",
-    "min_size": "0.01000000",
-    "max_size": "1500.00000000",
-    "increment": "0.00100000",
-    "asset_increment": "0.00100000",
-    "label": "DASH/USD"
-  },
-  {
     "asset": "BAT",
     "currency": "USDC",
     "min_size": "1.00000000",
@@ -459,21 +378,102 @@
     "label": "BAT/USDC"
   },
   {
-    "asset": "ZRX",
+    "asset": "REP",
     "currency": "BTC",
-    "min_size": "1.00000000",
-    "max_size": "600000.00000000",
-    "increment": "0.00000001",
-    "asset_increment": "0.00001000",
-    "label": "ZRX/BTC"
+    "min_size": "0.10000000",
+    "max_size": "5000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00000100",
+    "label": "REP/BTC"
   },
   {
-    "asset": "ZEC",
+    "asset": "XTZ",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "100000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01000000",
+    "label": "XTZ/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USDC",
+    "min_size": "0.01000000",
+    "max_size": "2800.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "ETH/USDC"
+  },
+  {
+    "asset": "LINK",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "90000.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01000000",
+    "label": "LINK/ETH"
+  },
+  {
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "500000.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "XRP/EUR"
+  },
+  {
+    "asset": "LTC",
+    "currency": "GBP",
+    "min_size": "0.10000000",
+    "max_size": "1000.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "LTC/GBP"
+  },
+  {
+    "asset": "BTC",
+    "currency": "GBP",
+    "min_size": "0.00100000",
+    "max_size": "80.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000001",
+    "label": "BTC/GBP"
+  },
+  {
+    "asset": "GNT",
+    "currency": "USDC",
+    "min_size": "1.00000000",
+    "max_size": "1500000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "GNT/USDC"
+  },
+  {
+    "asset": "BCH",
     "currency": "BTC",
     "min_size": "0.01000000",
-    "max_size": "1500.00000000",
-    "increment": "0.00000100",
+    "max_size": "400.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00000001",
+    "label": "BCH/BTC"
+  },
+  {
+    "asset": "ETH",
+    "currency": "DAI",
+    "min_size": "0.01000000",
+    "max_size": "700.00000000",
+    "increment": "0.01000000",
     "asset_increment": "0.00010000",
-    "label": "ZEC/BTC"
+    "label": "ETH/DAI"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "600000.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00001000",
+    "label": "ZRX/EUR"
   }
 ]
