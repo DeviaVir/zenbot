@@ -240,14 +240,6 @@
     "label": "BTC/BLOCK"
   },
   {
-    "asset": "BAY",
-    "currency": "BTC",
-    "min_size": "1315.78947368",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/BAY"
-  },
-  {
     "asset": "BTS",
     "currency": "BTC",
     "min_size": "67.20430108",
