@@ -86,11 +86,9 @@ Yes, Zenbot can be installed on Windows, although it is recommended that Linux o
 
 Please note that these instructions are for Windows 10.
 
-To install Zenbot on Windows it is currently required to have Visual Studio 2015 installed (because of the analytic-forex package).
-
 1. Install the "Bash on Windows subsystem" (see https://msdn.microsoft.com/en-us/commandline/wsl/about for more information)
 
-> Note: You can then choose between Ubuntu, Fedora and OpenSUSE in the Windows store. 
+> Note: You can then choose between Ubuntu, Fedora and OpenSUSE in the Windows store.
 
 2. Open a terminal window, your disks will now be mounted under `/mnt/*`. So for example navigate to your directory (example: `cd /mnt/c/zenbot`)
 
@@ -117,7 +115,7 @@ Examples:
 ```
 ./zenbot.sh backfill gdax.ETH-BTC
 ./zenbot.sh sim gdax.ETH-BTC --days=14
-zenbot sim --days 14 
+zenbot sim --days 14
 ```
 You can [generate a command with this shared Google Docs spreadsheet](https://docs.google.com/spreadsheets/d/1HECEHW-I9Evve_FQV3LT_IWGV6FU34tHif9TEouKtfg/edit?usp=sharing).
 Do not hesitate to copy this file to your Google drive or download it as an spreadsheet, as everybody can modify it simultaneously.

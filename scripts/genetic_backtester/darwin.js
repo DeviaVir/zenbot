@@ -523,7 +523,7 @@ for (var i = 0; i < selectedStrategies.length; i++) {
   }
   else {
     if (strategyName === 'all') {
-      // skip it, probably just something like forex_analytics
+      // skip it
       selectedStrategies.splice(i, 1)
       i--
     }

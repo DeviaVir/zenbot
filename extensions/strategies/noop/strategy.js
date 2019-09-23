@@ -1,6 +1,6 @@
 module.exports = {
   name: 'noop',
-  description: 'Just do nothing. Can be used to e.g. generate candlesticks for training the genetic forex strategy.',
+  description: 'Just do nothing. Can be used to e.g. for training the strategy.',
 
   getOptions: function () {
     this.option('period', 'period length, same as --period_length', String, '30m')
@@ -19,4 +19,3 @@ module.exports = {
     return cols
   }
 }
-

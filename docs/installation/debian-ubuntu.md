@@ -18,7 +18,5 @@ npm install
 ./zenbot.sh --help
 ```
 
-**Note:** `npm link` will not work as forex.analytics is built from source.
-
 [Blog Post (Ubuntu 16.04)](https://jaynagpaul.com/algorithmic-crypto-trading?utm_source=zenbot)  
 [Video (Ubuntu 16.04)](https://youtu.be/BEhU55W9pBI)  
