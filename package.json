@@ -54,7 +54,6 @@
     "express-rate-limit": "^5.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^4.0.0",
-    "forex.analytics": "^0.0.15",
     "fs": "0.0.1-security",
     "gemini-api": "^2.0.4",
     "glob": "^7.1.1",
@@ -80,7 +79,7 @@
     "mongodb": "^3.0.5",
     "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.7",
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.12.0",
     "node-telegram-bot-api": "^0.30.0",
     "number-abbreviate": "^2.0.0",
     "numbro": "github:highvelocityspace/numbro",
@@ -101,10 +100,10 @@
     "stats-lite": "2.2.0",
     "style-loader": "^1.0.0",
     "superagent": "^5.0.2",
-    "talib": "^1.0.4",
+    "talib": "^1.1.2",
     "timebucket": "^0.4.0",
     "trend": "0.3.0",
-    "tulind": "^0.8.14",
+    "tulind": "^0.8.18",
     "url-loader": "^2.0.0",
     "uuid": "^3.1.0",
     "waypoints": "^4.0.1",
@@ -122,6 +121,9 @@
     "run-parallel-limit": "^1.0.4",
     "shelljs": "^0.8.0",
     "yargs": "^14.0.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.0.4"
   },
   "engines": {
     "node": ">=10.0.0"
