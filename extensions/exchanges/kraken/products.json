@@ -119,6 +119,27 @@
     "label": "BCH/XBT"
   },
   {
+    "asset": "DAI",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DAI/EUR"
+  },
+  {
+    "asset": "DAI",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DAI/USD"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USDT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DAI/USDT"
+  },
+  {
     "asset": "DASH",
     "currency": "ZEUR",
     "min_size": "0.03",
@@ -166,6 +187,13 @@
     "min_size": "3.0",
     "increment": "0.01",
     "label": "EOS/XBT"
+  },
+  {
+    "asset": "XETH",
+    "currency": "DAI",
+    "min_size": "0.02",
+    "increment": "0.01",
+    "label": "ETH/DAI"
   },
   {
     "asset": "GNO",
@@ -222,6 +250,34 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "ICX/XBT"
+  },
+  {
+    "asset": "LINK",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LINK/ETH"
+  },
+  {
+    "asset": "LINK",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LINK/EUR"
+  },
+  {
+    "asset": "LINK",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LINK/USD"
+  },
+  {
+    "asset": "LINK",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LINK/XBT"
   },
   {
     "asset": "QTUM",
