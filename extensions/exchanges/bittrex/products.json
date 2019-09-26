@@ -2384,14 +2384,6 @@
     "label": "BTC/TTC"
   },
   {
-    "asset": "SPND",
-    "currency": "USD",
-    "min_size": "366.74816626",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USD/SPND"
-  },
-  {
     "asset": "SLT",
     "currency": "BTC",
     "min_size": "2.99401198",
@@ -2942,5 +2934,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/HBAR"
+  },
+  {
+    "asset": "BTC",
+    "currency": "CNHT",
+    "min_size": "21.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "CNHT/BTC"
+  },
+  {
+    "asset": "CNHT",
+    "currency": "USD",
+    "min_size": "21.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/CNHT"
   }
 ]
