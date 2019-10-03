@@ -304,14 +304,6 @@
     "label": "XLM/BTC"
   },
   {
-    "asset": "ZEC",
-    "currency": "BTC",
-    "min_size": "0.03",
-    "max_size": null,
-    "increment": "0.000001",
-    "label": "ZEC/BTC"
-  },
-  {
     "asset": "OMG",
     "currency": "BTC",
     "min_size": "20",
