@@ -568,14 +568,6 @@
     "label": "BTC/ZEC"
   },
   {
-    "asset": "IOP",
-    "currency": "BTC",
-    "min_size": "88.65248227",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/IOP"
-  },
-  {
     "asset": "UBQ",
     "currency": "BTC",
     "min_size": "23.80952381",
@@ -1320,14 +1312,6 @@
     "label": "USDT/XVG"
   },
   {
-    "asset": "NXT",
-    "currency": "USDT",
-    "min_size": "123.36368354",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/NXT"
-  },
-  {
     "asset": "UKG",
     "currency": "BTC",
     "min_size": "84.74576271",
@@ -1912,14 +1896,6 @@
     "label": "BTC/PAX"
   },
   {
-    "asset": "PAX",
-    "currency": "USDT",
-    "min_size": "3.00697290",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/PAX"
-  },
-  {
     "asset": "ZIL",
     "currency": "BTC",
     "min_size": "333.33333333",
@@ -2168,14 +2144,6 @@
     "label": "BTC/ELF"
   },
   {
-    "asset": "EDR",
-    "currency": "USD",
-    "min_size": "272.72727273",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USD/EDR"
-  },
-  {
     "asset": "QNT",
     "currency": "BTC",
     "min_size": "0.31794076",
@@ -2294,14 +2262,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FSN"
-  },
-  {
-    "asset": "HST",
-    "currency": "BTC",
-    "min_size": "87.41258741",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/HST"
   },
   {
     "asset": "ANKR",
