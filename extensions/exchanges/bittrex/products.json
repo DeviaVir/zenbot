@@ -2902,5 +2902,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/CNHT"
+  },
+  {
+    "asset": "PLG",
+    "currency": "BTC",
+    "min_size": "555.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PLG"
   }
 ]

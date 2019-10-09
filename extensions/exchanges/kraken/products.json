@@ -315,6 +315,34 @@
     "label": "QTUM/XBT"
   },
   {
+    "asset": "SC",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "SC/ETH"
+  },
+  {
+    "asset": "SC",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "SC/EUR"
+  },
+  {
+    "asset": "SC",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "SC/USD"
+  },
+  {
+    "asset": "SC",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "SC/XBT"
+  },
+  {
     "asset": "USDT",
     "currency": "ZUSD",
     "min_size": "5",
