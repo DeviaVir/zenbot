@@ -2910,5 +2910,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PLG"
+  },
+  {
+    "asset": "VET",
+    "currency": "BTC",
+    "min_size": "820.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VET"
+  },
+  {
+    "asset": "VET",
+    "currency": "USDT",
+    "min_size": "820.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/VET"
   }
 ]
