@@ -32,7 +32,7 @@
     "async": "^3.0.1",
     "babel-loader": "^8.0.4",
     "babel-preset-env": "^1.6.1",
-    "bitfinex-api-node": "^2.0.0",
+    "bitfinex-api-node": "^3.0.1",
     "bitstamp": "^1.0.4",
     "bl": "^4.0.0",
     "bollinger-bands": "^3.0.1",
