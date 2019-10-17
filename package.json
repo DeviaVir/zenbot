@@ -80,7 +80,7 @@
     "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.7",
     "node-sass": "^4.12.0",
-    "node-telegram-bot-api": "^0.30.0",
+    "node-telegram-bot-api": "^0.40.0",
     "number-abbreviate": "^2.0.0",
     "numbro": "github:highvelocityspace/numbro",
     "path": "^0.12.7",
