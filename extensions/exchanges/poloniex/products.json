@@ -144,14 +144,6 @@
     "label": "BitShares/Bitcoin"
   },
   {
-    "asset": "CLAM",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "CLAMS/Bitcoin"
-  },
-  {
     "asset": "CVC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -336,14 +328,6 @@
     "label": "Foam/Bitcoin"
   },
   {
-    "asset": "GAME",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "GameCredits/Bitcoin"
-  },
-  {
     "asset": "GAS",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -398,14 +382,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Kyber/Bitcoin"
-  },
-  {
-    "asset": "LBC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "LBRY Credits/Bitcoin"
   },
   {
     "asset": "LOOM",
@@ -488,14 +464,6 @@
     "label": "Decentraland/Tether USD"
   },
   {
-    "asset": "NAV",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "NAVCoin/Bitcoin"
-  },
-  {
     "asset": "NMR",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -534,14 +502,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Omni/Bitcoin"
-  },
-  {
-    "asset": "PASC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "PascalCoin/Bitcoin"
   },
   {
     "asset": "POLY",
@@ -614,14 +574,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Status/Bitcoin"
-  },
-  {
-    "asset": "STEEM",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "STEEM/Bitcoin"
   },
   {
     "asset": "STORJ",

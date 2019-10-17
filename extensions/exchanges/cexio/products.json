@@ -406,5 +406,21 @@
     "max_size": null,
     "increment": "0.000001",
     "label": "ONG/BTC"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USDT",
+    "min_size": "0.002",
+    "max_size": null,
+    "increment": "0.1",
+    "label": "BTC/USDT"
+  },
+  {
+    "asset": "ETH",
+    "currency": "USDT",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ETH/USDT"
   }
 ]
