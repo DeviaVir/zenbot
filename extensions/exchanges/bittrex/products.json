@@ -1928,14 +1928,6 @@
     "label": "BTC/SPC"
   },
   {
-    "asset": "MEDX",
-    "currency": "BTC",
-    "min_size": "675.67567568",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/MEDX"
-  },
-  {
     "asset": "BSV",
     "currency": "BTC",
     "min_size": "0.02018331",
