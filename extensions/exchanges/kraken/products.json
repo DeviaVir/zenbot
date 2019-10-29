@@ -280,6 +280,62 @@
     "label": "LINK/XBT"
   },
   {
+    "asset": "OMG",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OMG/ETH"
+  },
+  {
+    "asset": "OMG",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OMG/EUR"
+  },
+  {
+    "asset": "OMG",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OMG/USD"
+  },
+  {
+    "asset": "OMG",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OMG/XBT"
+  },
+  {
+    "asset": "PAXG",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "PAXG/ETH"
+  },
+  {
+    "asset": "PAXG",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "PAXG/EUR"
+  },
+  {
+    "asset": "PAXG",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "PAXG/USD"
+  },
+  {
+    "asset": "PAXG",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "PAXG/XBT"
+  },
+  {
     "asset": "QTUM",
     "currency": "ZCAD",
     "min_size": "0.01",
