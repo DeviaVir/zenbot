@@ -2456,6 +2456,14 @@
     "label": "BTC/CPT"
   },
   {
+    "asset": "FNB",
+    "currency": "BTC",
+    "min_size": "12.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FNB"
+  },
+  {
     "asset": "PROM",
     "currency": "BTC",
     "min_size": "7.90388871",
