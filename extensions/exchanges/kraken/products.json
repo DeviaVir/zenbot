@@ -280,6 +280,34 @@
     "label": "LINK/XBT"
   },
   {
+    "asset": "NANO",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "NANO/ETH"
+  },
+  {
+    "asset": "NANO",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "NANO/EUR"
+  },
+  {
+    "asset": "NANO",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "NANO/USD"
+  },
+  {
+    "asset": "NANO",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "NANO/XBT"
+  },
+  {
     "asset": "OMG",
     "currency": "XETH",
     "min_size": "0.01",
