@@ -2376,22 +2376,6 @@
     "label": "BTC/COSM"
   },
   {
-    "asset": "OGO",
-    "currency": "BTC",
-    "min_size": "100.00000000",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/OGO"
-  },
-  {
-    "asset": "OGO",
-    "currency": "USDT",
-    "min_size": "97.09928823",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/OGO"
-  },
-  {
     "asset": "LAMB",
     "currency": "BTC",
     "min_size": "15.24390244",
@@ -2470,14 +2454,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PROM"
-  },
-  {
-    "asset": "FTM",
-    "currency": "BTC",
-    "min_size": "142.85714286",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/FTM"
   },
   {
     "asset": "ABYSS",
@@ -2710,5 +2686,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/WGP"
+  },
+  {
+    "asset": "APM",
+    "currency": "BTC",
+    "min_size": "150.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/APM"
   }
 ]
