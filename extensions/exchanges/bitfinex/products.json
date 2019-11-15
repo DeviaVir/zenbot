@@ -3376,6 +3376,22 @@
     "label": "CNH/:CN"
   },
   {
+    "asset": "CHZ",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.001",
+    "label": "CHZ/USD"
+  },
+  {
+    "asset": "CHZ",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.000001",
+    "label": "CHZ/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0004",

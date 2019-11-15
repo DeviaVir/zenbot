@@ -1408,6 +1408,14 @@
     "label": "ETH/STORM"
   },
   {
+    "asset": "AID",
+    "currency": "BTC",
+    "min_size": "231.48148148",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AID"
+  },
+  {
     "asset": "NGC",
     "currency": "BTC",
     "min_size": "138.88888889",
@@ -2538,7 +2546,7 @@
   {
     "asset": "SPIN",
     "currency": "BTC",
-    "min_size": "490.19607843",
+    "min_size": "1400.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SPIN"
@@ -2690,7 +2698,7 @@
   {
     "asset": "APM",
     "currency": "BTC",
-    "min_size": "150.00000000",
+    "min_size": "10.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/APM"
