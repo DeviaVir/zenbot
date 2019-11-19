@@ -280,6 +280,34 @@
     "label": "LINK/XBT"
   },
   {
+    "asset": "LSK",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LSK/ETH"
+  },
+  {
+    "asset": "LSK",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LSK/EUR"
+  },
+  {
+    "asset": "LSK",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LSK/USD"
+  },
+  {
+    "asset": "LSK",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "LSK/XBT"
+  },
+  {
     "asset": "NANO",
     "currency": "XETH",
     "min_size": "0.01",

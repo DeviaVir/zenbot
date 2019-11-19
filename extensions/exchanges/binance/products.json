@@ -7247,5 +7247,16 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "RLC/USDT"
+  },
+  {
+    "id": "MCOUSDT",
+    "asset": "MCO",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "MCO/USDT"
   }
 ]
