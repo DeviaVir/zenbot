@@ -2416,28 +2416,28 @@
     "label": "ETH/MKR"
   },
   {
-    "asset": "DAI",
+    "asset": "SAI",
     "currency": "BTC",
     "min_size": "3.05026842",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/DAI"
+    "label": "BTC/SAI"
   },
   {
-    "asset": "DAI",
+    "asset": "SAI",
     "currency": "ETH",
     "min_size": "1.10974982",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/DAI"
+    "label": "ETH/SAI"
   },
   {
-    "asset": "DAI",
+    "asset": "SAI",
     "currency": "USDT",
     "min_size": "2.99994519",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "USDT/DAI"
+    "label": "USDT/SAI"
   },
   {
     "asset": "CPT",
