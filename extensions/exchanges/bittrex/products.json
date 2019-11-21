@@ -96,14 +96,6 @@
     "label": "BTC/XMY"
   },
   {
-    "asset": "GLC",
-    "currency": "BTC",
-    "min_size": "40.84967320",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/GLC"
-  },
-  {
     "asset": "GRS",
     "currency": "BTC",
     "min_size": "11.38433515",
@@ -502,14 +494,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/REP"
-  },
-  {
-    "asset": "SHIFT",
-    "currency": "BTC",
-    "min_size": "8.75963560",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/SHIFT"
   },
   {
     "asset": "ARDR",
@@ -2718,5 +2702,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/DCR"
+  },
+  {
+    "asset": "BLTV",
+    "currency": "BTC",
+    "min_size": "300.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BLTV"
   }
 ]

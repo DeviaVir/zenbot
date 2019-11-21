@@ -7258,5 +7258,27 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "MCO/USDT"
+  },
+  {
+    "id": "XLMBUSD",
+    "asset": "XLM",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "XLM/BUSD"
+  },
+  {
+    "id": "ADABUSD",
+    "asset": "ADA",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ADA/BUSD"
   }
 ]
