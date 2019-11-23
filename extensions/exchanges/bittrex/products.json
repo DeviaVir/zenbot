@@ -552,6 +552,14 @@
     "label": "BTC/SIB"
   },
   {
+    "asset": "ION",
+    "currency": "BTC",
+    "min_size": "43.47826087",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ION"
+  },
+  {
     "asset": "CRW",
     "currency": "BTC",
     "min_size": "35.36067893",
@@ -2710,5 +2718,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BLTV"
+  },
+  {
+    "asset": "HDAC",
+    "currency": "BTC",
+    "min_size": "110.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/HDAC"
   }
 ]
