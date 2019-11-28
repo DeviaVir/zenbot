@@ -7313,5 +7313,82 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "CTXC/USDT"
+  },
+  {
+    "id": "BCHBNB",
+    "asset": "BCH",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BCH/BNB"
+  },
+  {
+    "id": "BCHBTC",
+    "asset": "BCH",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "BCH/BTC"
+  },
+  {
+    "id": "BCHUSDT",
+    "asset": "BCH",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/USDT"
+  },
+  {
+    "id": "BCHUSDC",
+    "asset": "BCH",
+    "currency": "USDC",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/USDC"
+  },
+  {
+    "id": "BCHTUSD",
+    "asset": "BCH",
+    "currency": "TUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/TUSD"
+  },
+  {
+    "id": "BCHPAX",
+    "asset": "BCH",
+    "currency": "PAX",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/PAX"
+  },
+  {
+    "id": "BCHBUSD",
+    "asset": "BCH",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BCH/BUSD"
   }
 ]
