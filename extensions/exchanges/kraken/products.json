@@ -190,6 +190,13 @@
   },
   {
     "asset": "XETH",
+    "currency": "CHF",
+    "min_size": "0.02",
+    "increment": "0.01",
+    "label": "ETH/CHF"
+  },
+  {
+    "asset": "XETH",
     "currency": "DAI",
     "min_size": "0.02",
     "increment": "0.01",
@@ -488,6 +495,13 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "WAVES/XBT"
+  },
+  {
+    "asset": "XXBT",
+    "currency": "CHF",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XBT/CHF"
   },
   {
     "asset": "XETC",

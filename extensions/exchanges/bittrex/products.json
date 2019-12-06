@@ -656,6 +656,14 @@
     "label": "BTC/GNO"
   },
   {
+    "asset": "GUP",
+    "currency": "BTC",
+    "min_size": "316.45569620",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GUP"
+  },
+  {
     "asset": "GNO",
     "currency": "ETH",
     "min_size": "0.04850824",
