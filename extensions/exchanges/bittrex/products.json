@@ -2758,5 +2758,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/EOS"
+  },
+  {
+    "asset": "APIX",
+    "currency": "BTC",
+    "min_size": "63.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/APIX"
   }
 ]
