@@ -342,6 +342,15 @@
     "label": "MANA/USDC"
   },
   {
+    "asset": "OXT",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "OXT/USD"
+  },
+  {
     "asset": "REP",
     "currency": "BTC",
     "min_size": "0.1",
