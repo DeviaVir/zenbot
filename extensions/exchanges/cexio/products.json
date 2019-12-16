@@ -200,6 +200,14 @@
     "label": "LTC/EUR"
   },
   {
+    "asset": "ADA",
+    "currency": "EUR",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ADA/EUR"
+  },
+  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.002",
