@@ -2738,7 +2738,7 @@
   {
     "asset": "HYC",
     "currency": "BTC",
-    "min_size": "750.00000000",
+    "min_size": "1100.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/HYC"
@@ -2766,5 +2766,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/APIX"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "BTC",
+    "min_size": "1.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/XTZ"
   }
 ]
