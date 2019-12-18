@@ -2774,5 +2774,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XTZ"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "ETH",
+    "min_size": "1.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/XTZ"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "USD",
+    "min_size": "1.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/XTZ"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "USDT",
+    "min_size": "1.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XTZ"
   }
 ]
