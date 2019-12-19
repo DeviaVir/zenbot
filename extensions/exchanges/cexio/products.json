@@ -256,6 +256,14 @@
     "label": "XRP/GBP"
   },
   {
+    "asset": "ADA",
+    "currency": "GBP",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ADA/GBP"
+  },
+  {
     "asset": "BTC",
     "currency": "RUB",
     "min_size": "0.001",
@@ -454,5 +462,13 @@
     "max_size": null,
     "increment": "0.0001",
     "label": "XRP/USDT"
+  },
+  {
+    "asset": "USDC",
+    "currency": "USD",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "USDC/USD"
   }
 ]
