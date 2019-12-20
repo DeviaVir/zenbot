@@ -7419,7 +7419,7 @@
     "currency": "RUB",
     "min_size": "0.10000000",
     "max_size": "100000.00000000",
-    "min_total": "0.00100000",
+    "min_total": "100.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.10000000",
     "label": "XRP/RUB"
@@ -7430,7 +7430,7 @@
     "currency": "RUB",
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
-    "min_total": "0.00100000",
+    "min_total": "100.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.01000000",
     "label": "BNB/RUB"
@@ -7474,7 +7474,7 @@
     "currency": "RUB",
     "min_size": "0.10000000",
     "max_size": "100000.00000000",
-    "min_total": "0.00100000",
+    "min_total": "100.00000000",
     "increment": "0.00100000",
     "asset_increment": "0.10000000",
     "label": "BUSD/RUB"
@@ -7533,5 +7533,71 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "VITE/USDT"
+  },
+  {
+    "id": "FTTBNB",
+    "asset": "FTT",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "FTT/BNB"
+  },
+  {
+    "id": "FTTBTC",
+    "asset": "FTT",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "FTT/BTC"
+  },
+  {
+    "id": "FTTUSDT",
+    "asset": "FTT",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "FTT/USDT"
+  },
+  {
+    "id": "BTCTRY",
+    "asset": "BTC",
+    "currency": "TRY",
+    "min_size": "0.00000100",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/TRY"
+  },
+  {
+    "id": "BNBTRY",
+    "asset": "BNB",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "BNB/TRY"
+  },
+  {
+    "id": "BUSDTRY",
+    "asset": "BUSD",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "BUSD/TRY"
   }
 ]

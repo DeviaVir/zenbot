@@ -440,6 +440,14 @@
     "label": "BTC/USDT"
   },
   {
+    "asset": "BTC",
+    "currency": "USDC",
+    "min_size": "0.002",
+    "max_size": null,
+    "increment": "0.1",
+    "label": "BTC/USDC"
+  },
+  {
     "asset": "ETH",
     "currency": "USDT",
     "min_size": "0.1",
