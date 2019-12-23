@@ -472,6 +472,14 @@
     "label": "XRP/USDT"
   },
   {
+    "asset": "ADA",
+    "currency": "USDT",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ADA/USDT"
+  },
+  {
     "asset": "USDC",
     "currency": "USD",
     "min_size": "20",
