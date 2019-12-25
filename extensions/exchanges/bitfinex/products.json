@@ -2803,7 +2803,7 @@
     "asset": "EOS",
     "currency": "UST",
     "min_size": "2.0",
-    "max_size": "2000.0",
+    "max_size": "50000.0",
     "increment": "0.00000001",
     "label": "EOS/UST"
   },

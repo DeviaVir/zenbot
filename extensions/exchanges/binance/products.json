@@ -7599,5 +7599,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "BUSD/TRY"
+  },
+  {
+    "id": "ETHTRY",
+    "asset": "ETH",
+    "currency": "TRY",
+    "min_size": "0.00001000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETH/TRY"
+  },
+  {
+    "id": "XRPTRY",
+    "asset": "XRP",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "XRP/TRY"
+  },
+  {
+    "id": "USDTTRY",
+    "asset": "USDT",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "USDT/TRY"
+  },
+  {
+    "id": "USDTRUB",
+    "asset": "USDT",
+    "currency": "RUB",
+    "min_size": "0.10000000",
+    "max_size": "100000.00000000",
+    "min_total": "100.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "USDT/RUB"
   }
 ]
