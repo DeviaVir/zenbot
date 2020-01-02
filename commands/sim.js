@@ -235,17 +235,18 @@ module.exports = function (program, conf) {
             process.exit(0)
           })
       }
-    
-      async function getNext () {
+
+      var getNext = async () => {
         var opts = {
           query: {
             selector: so.selector.normalized
           },
-          sort: {time: 1},
-          limit: 100
+          sort: { time: 1 },
+          limit: 100,
+          timeout: false
         }
         if (so.end) {
-          opts.query.time = {$lte: so.end}
+          opts.query.time = { $lte: so.end }
         }
         if (cursor) {
           if (reversing) {
@@ -254,14 +255,12 @@ module.exports = function (program, conf) {
             if (query_start) {
               opts.query.time['$gte'] = query_start
             }
-            opts.sort = {time: -1}
-          }
-          else {
+            opts.sort = { time: -1 }
+          } else {
             if (!opts.query.time) opts.query.time = {}
             opts.query.time['$gt'] = cursor
           }
-        }
-        else if (query_start) {
+        } else if (query_start) {
           if (!opts.query.time) opts.query.time = {}
           opts.query.time['$gte'] = query_start
         }
@@ -270,15 +269,14 @@ module.exports = function (program, conf) {
           .sort(opts.sort)
           .limit(opts.limit)
 
-        const totalTrades = await collectionCursor.count(true);
-        collectionCursorStream = collectionCursor.stream()
+        var totalTrades = await collectionCursor.count(true)
+        const collectionCursorStream = collectionCursor.stream()
 
         var numTrades = 0
         var lastTrade
 
-        const onCollectionCursorEnd = () => {
-
-          if(numTrades === 0){
+        var onCollectionCursorEnd = () => {
+          if (numTrades === 0) {
             if (so.symmetrical && !reversing) {
               reversing = true
               reverse_point = cursor
@@ -289,8 +287,7 @@ module.exports = function (program, conf) {
           } else {
             if (reversing) {
               cursor = lastTrade.orig_time
-            }
-            else {
+            } else {
               cursor = lastTrade.time
             }
           }
@@ -298,7 +295,7 @@ module.exports = function (program, conf) {
           setImmediate(async () => await getNext())
         }
 
-        collectionCursorStream.on('data', function(trade){
+        collectionCursorStream.on('data', function(trade) {
           lastTrade = trade
           numTrades++
           if (so.symmetrical && reversing) {
@@ -307,11 +304,10 @@ module.exports = function (program, conf) {
           }
           eventBus.emit('trade', trade)
 
-          if(numTrades && totalTrades && totalTrades == numTrades){
-            onCollectionCursorEnd();
+          if (numTrades && totalTrades && totalTrades == numTrades) {
+            onCollectionCursorEnd()
           }
         })
-
       }
 
       return getNext()
