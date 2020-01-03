@@ -7643,5 +7643,71 @@
     "increment": "0.00100000",
     "asset_increment": "0.10000000",
     "label": "USDT/RUB"
+  },
+  {
+    "id": "BTCEUR",
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/EUR"
+  },
+  {
+    "id": "ETHEUR",
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETH/EUR"
+  },
+  {
+    "id": "BNBEUR",
+    "asset": "BNB",
+    "currency": "EUR",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BNB/EUR"
+  },
+  {
+    "id": "XRPEUR",
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "XRP/EUR"
+  },
+  {
+    "id": "EURBUSD",
+    "asset": "EUR",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "EUR/BUSD"
+  },
+  {
+    "id": "EURUSDT",
+    "asset": "EUR",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "EUR/USDT"
   }
 ]

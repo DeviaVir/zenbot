@@ -185,14 +185,6 @@
   },
   {
     "asset": "DGB",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "DigiByte/Bitcoin"
-  },
-  {
-    "asset": "DGB",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -310,14 +302,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum/Tether USD"
-  },
-  {
-    "asset": "FCT",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Factom/Bitcoin"
   },
   {
     "asset": "FOAM",
@@ -440,14 +424,6 @@
     "label": "Litecoin/Tether USD"
   },
   {
-    "asset": "MAID",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "MaidSafeCoin/Bitcoin"
-  },
-  {
     "asset": "MANA",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -494,14 +470,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "OmiseGO/Bitcoin"
-  },
-  {
-    "asset": "OMNI",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Omni/Bitcoin"
   },
   {
     "asset": "POLY",
@@ -648,22 +616,6 @@
     "label": "Tether USD/USD Coin"
   },
   {
-    "asset": "VIA",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Viacoin/Bitcoin"
-  },
-  {
-    "asset": "VTC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Vertcoin/Bitcoin"
-  },
-  {
     "asset": "XEM",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -694,14 +646,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Monero/Tether USD"
-  },
-  {
-    "asset": "XPM",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Primecoin/Bitcoin"
   },
   {
     "asset": "XRP",

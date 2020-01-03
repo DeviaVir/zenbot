@@ -2475,7 +2475,7 @@
     "asset": "DGB",
     "currency": "USD",
     "min_size": "856.0",
-    "max_size": "500000.0",
+    "max_size": "2500000.0",
     "increment": "0.0000001",
     "label": "DGB/USD"
   },
@@ -2483,7 +2483,7 @@
     "asset": "DGB",
     "currency": "BTC",
     "min_size": "856.0",
-    "max_size": "500000.0",
+    "max_size": "2500000.0",
     "increment": "0.0000000001",
     "label": "DGB/BTC"
   },
