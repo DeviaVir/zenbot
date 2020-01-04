@@ -184,14 +184,6 @@
     "label": "Decred/Bitcoin"
   },
   {
-    "asset": "DGB",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "DigiByte/Tether USD"
-  },
-  {
     "asset": "DOGE",
     "currency": "BTC",
     "min_total": "0.0001",
