@@ -190,10 +190,10 @@
   },
   {
     "asset": "XETH",
-    "currency": "USDT",
+    "currency": "USDC",
     "min_size": "0.02",
     "increment": "0.01",
-    "label": "ETH/USDT"
+    "label": "ETH/USDC"
   },
   {
     "asset": "GNO",
@@ -448,25 +448,25 @@
     "label": "SC/XBT"
   },
   {
-    "asset": "USDT",
-    "currency": "ZCAD",
-    "min_size": "5",
-    "increment": "0.01",
-    "label": "USDT/CAD"
-  },
-  {
-    "asset": "USDT",
+    "asset": "USDC",
     "currency": "ZEUR",
-    "min_size": "5",
+    "min_size": "0.01",
     "increment": "0.01",
-    "label": "USDT/EUR"
+    "label": "USDC/EUR"
   },
   {
-    "asset": "USDT",
-    "currency": "ZGBP",
-    "min_size": "5",
+    "asset": "USDC",
+    "currency": "ZUSD",
+    "min_size": "0.01",
     "increment": "0.01",
-    "label": "USDT/GBP"
+    "label": "USDC/USD"
+  },
+  {
+    "asset": "USDC",
+    "currency": "USDT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "USDC/USDT"
   },
   {
     "asset": "USDT",
@@ -519,10 +519,10 @@
   },
   {
     "asset": "XXBT",
-    "currency": "USDT",
+    "currency": "USDC",
     "min_size": "0.01",
     "increment": "0.01",
-    "label": "XBT/USDT"
+    "label": "XBT/USDC"
   },
   {
     "asset": "XXDG",
@@ -852,5 +852,12 @@
     "min_size": "0.03",
     "increment": "0.01",
     "label": "ZEC/USD"
+  },
+  {
+    "asset": "ZEUR",
+    "currency": "XXDG",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/XDG"
   }
 ]
