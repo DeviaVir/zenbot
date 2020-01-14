@@ -9,6 +9,24 @@
     "label": "ALGO/USD"
   },
   {
+    "asset": "ATOM",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "25000",
+    "increment": "0.000001",
+    "asset_increment": "0.1",
+    "label": "ATOM/BTC"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "25000",
+    "increment": "0.001",
+    "asset_increment": "0.1",
+    "label": "ATOM/USD"
+  },
+  {
     "asset": "BAT",
     "currency": "ETH",
     "min_size": "1",
