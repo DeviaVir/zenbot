@@ -296,6 +296,14 @@
     "label": "Ethereum/Tether USD"
   },
   {
+    "asset": "ETHBNT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bancor ETH Smart Token Relay/Bitcoin"
+  },
+  {
     "asset": "FOAM",
     "currency": "BTC",
     "min_total": "0.0001",
