@@ -295,6 +295,10 @@ module.exports = function (program, conf) {
           setImmediate(async () => await getNext())
         }
 
+        if(totalTrades === 0) {
+          onCollectionCursorEnd()
+        }
+
         collectionCursorStream.on('data', function(trade) {
           lastTrade = trade
           numTrades++
