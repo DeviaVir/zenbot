@@ -296,6 +296,22 @@
     "label": "ADA/GBP"
   },
   {
+    "asset": "NEO",
+    "currency": "GBP",
+    "min_size": "1.2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "NEO/GBP"
+  },
+  {
+    "asset": "GAS",
+    "currency": "GBP",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GAS/GBP"
+  },
+  {
     "asset": "BTC",
     "currency": "RUB",
     "min_size": "0.001",
