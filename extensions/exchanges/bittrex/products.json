@@ -2290,7 +2290,7 @@
   {
     "asset": "ATOM",
     "currency": "BTC",
-    "min_size": "0.85778007",
+    "min_size": "0.50000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ATOM"
@@ -2298,7 +2298,7 @@
   {
     "asset": "ATOM",
     "currency": "USDT",
-    "min_size": "0.85246747",
+    "min_size": "0.50000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ATOM"
@@ -2306,7 +2306,7 @@
   {
     "asset": "ATOM",
     "currency": "ETH",
-    "min_size": "0.32340690",
+    "min_size": "0.50000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ATOM"
@@ -2822,5 +2822,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CTC"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "USD",
+    "min_size": "0.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ATOM"
   }
 ]

@@ -28,6 +28,34 @@
     "label": "ADA/XBT"
   },
   {
+    "asset": "ALGO",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ALGO/ETH"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ALGO/EUR"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ALGO/USD"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ALGO/XBT"
+  },
+  {
     "asset": "ATOM",
     "currency": "XETH",
     "min_size": "0.01",
