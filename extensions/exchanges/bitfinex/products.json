@@ -3392,6 +3392,30 @@
     "label": "CHZ/UST"
   },
   {
+    "asset": "XAU",
+    "currency": "T:U",
+    "min_size": "0.001",
+    "max_size": "400.0",
+    "increment": "0.000001",
+    "label": "XAU/T:U"
+  },
+  {
+    "asset": "XAU",
+    "currency": "T:B",
+    "min_size": "0.001",
+    "max_size": "400.0",
+    "increment": "0.000001",
+    "label": "XAU/T:B"
+  },
+  {
+    "asset": "XAU",
+    "currency": "T:U",
+    "min_size": "0.001",
+    "max_size": "400.0",
+    "increment": "0.000001",
+    "label": "XAU/T:U"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0008",

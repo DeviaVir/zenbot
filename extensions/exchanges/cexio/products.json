@@ -248,6 +248,14 @@
     "label": "GAS/EUR"
   },
   {
+    "asset": "ATOM",
+    "currency": "EUR",
+    "min_size": "5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ATOM/EUR"
+  },
+  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.002",
