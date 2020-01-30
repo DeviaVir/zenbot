@@ -281,6 +281,14 @@
   },
   {
     "asset": "ETH",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ethereum/Tron"
+  },
+  {
+    "asset": "ETH",
     "currency": "USDC",
     "min_total": "0.0001",
     "max_size": null,
@@ -654,6 +662,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ripple/Bitcoin"
+  },
+  {
+    "asset": "XRP",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ripple/Tron"
   },
   {
     "asset": "XRP",
