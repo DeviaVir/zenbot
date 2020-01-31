@@ -120,6 +120,14 @@
     "label": "GAS/USD"
   },
   {
+    "asset": "BAT",
+    "currency": "USD",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAT/USD"
+  },
+  {
     "asset": "ATOM",
     "currency": "USD",
     "min_size": "5",
