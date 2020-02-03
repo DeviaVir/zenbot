@@ -7821,6 +7821,50 @@
     "label": "BEAR/BUSD"
   },
   {
+    "id": "ETHBULLUSDT",
+    "asset": "ETHBULL",
+    "currency": "USDT",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "ETHBULL/USDT"
+  },
+  {
+    "id": "ETHBULLBUSD",
+    "asset": "ETHBULL",
+    "currency": "BUSD",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "ETHBULL/BUSD"
+  },
+  {
+    "id": "ETHBEARUSDT",
+    "asset": "ETHBEAR",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETHBEAR/USDT"
+  },
+  {
+    "id": "ETHBEARBUSD",
+    "asset": "ETHBEAR",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETHBEAR/BUSD"
+  },
+  {
     "id": "TCTBNB",
     "asset": "TCT",
     "currency": "BNB",
