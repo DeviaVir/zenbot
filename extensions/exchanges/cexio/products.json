@@ -256,6 +256,14 @@
     "label": "GAS/EUR"
   },
   {
+    "asset": "BAT",
+    "currency": "EUR",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAT/EUR"
+  },
+  {
     "asset": "ATOM",
     "currency": "EUR",
     "min_size": "5",
