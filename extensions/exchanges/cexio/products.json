@@ -136,6 +136,14 @@
     "label": "ATOM/USD"
   },
   {
+    "asset": "XTZ",
+    "currency": "USD",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "XTZ/USD"
+  },
+  {
     "asset": "BTC",
     "currency": "EUR",
     "min_size": "0.002",
