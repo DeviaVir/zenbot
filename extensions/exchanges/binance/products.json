@@ -7929,5 +7929,71 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "WRX/USDT"
+  },
+  {
+    "id": "ICXBUSD",
+    "asset": "ICX",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ICX/BUSD"
+  },
+  {
+    "id": "BTSUSDT",
+    "asset": "BTS",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BTS/USDT"
+  },
+  {
+    "id": "BTSBUSD",
+    "asset": "BTS",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BTS/BUSD"
+  },
+  {
+    "id": "LSKUSDT",
+    "asset": "LSK",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LSK/USDT"
+  },
+  {
+    "id": "BNTUSDT",
+    "asset": "BNT",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BNT/USDT"
+  },
+  {
+    "id": "BNTBUSD",
+    "asset": "BNT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BNT/BUSD"
   }
 ]

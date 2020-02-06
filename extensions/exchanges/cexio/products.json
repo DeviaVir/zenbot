@@ -360,6 +360,14 @@
     "label": "ATOM/GBP"
   },
   {
+    "asset": "BAT",
+    "currency": "GBP",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAT/GBP"
+  },
+  {
     "asset": "BTC",
     "currency": "RUB",
     "min_size": "0.001",

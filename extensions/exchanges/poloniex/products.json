@@ -144,6 +144,30 @@
     "label": "BitShares/Bitcoin"
   },
   {
+    "asset": "BTT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BitTorrent/Bitcoin"
+  },
+  {
+    "asset": "BTT",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BitTorrent/Tron"
+  },
+  {
+    "asset": "BTT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BitTorrent/Tether USD"
+  },
+  {
     "asset": "CVC",
     "currency": "BTC",
     "min_total": "0.0001",
