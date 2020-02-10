@@ -376,6 +376,14 @@
     "label": "BAT/GBP"
   },
   {
+    "asset": "XTZ",
+    "currency": "GBP",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "XTZ/GBP"
+  },
+  {
     "asset": "BTC",
     "currency": "RUB",
     "min_size": "0.001",
