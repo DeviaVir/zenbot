@@ -8028,5 +8028,60 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "LTO/USDT"
+  },
+  {
+    "id": "ATOMBUSD",
+    "asset": "ATOM",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ATOM/BUSD"
+  },
+  {
+    "id": "DASHBUSD",
+    "asset": "DASH",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "DASH/BUSD"
+  },
+  {
+    "id": "NEOBUSD",
+    "asset": "NEO",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "NEO/BUSD"
+  },
+  {
+    "id": "WAVESBUSD",
+    "asset": "WAVES",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WAVES/BUSD"
+  },
+  {
+    "id": "XTZBUSD",
+    "asset": "XTZ",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "XTZ/BUSD"
   }
 ]

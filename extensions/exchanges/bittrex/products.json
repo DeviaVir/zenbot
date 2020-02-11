@@ -1184,6 +1184,22 @@
     "label": "BTC/MER"
   },
   {
+    "asset": "POWR",
+    "currency": "BTC",
+    "min_size": "43.93673111",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/POWR"
+  },
+  {
+    "asset": "POWR",
+    "currency": "ETH",
+    "min_size": "16.72800268",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/POWR"
+  },
+  {
     "asset": "ADA",
     "currency": "ETH",
     "min_size": "21.91060473",
