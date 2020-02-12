@@ -8083,5 +8083,93 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "XTZ/BUSD"
+  },
+  {
+    "id": "EOSBULLUSDT",
+    "asset": "EOSBULL",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "EOSBULL/USDT"
+  },
+  {
+    "id": "EOSBULLBUSD",
+    "asset": "EOSBULL",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "EOSBULL/BUSD"
+  },
+  {
+    "id": "EOSBEARUSDT",
+    "asset": "EOSBEAR",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "EOSBEAR/USDT"
+  },
+  {
+    "id": "EOSBEARBUSD",
+    "asset": "EOSBEAR",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "EOSBEAR/BUSD"
+  },
+  {
+    "id": "XRPBULLUSDT",
+    "asset": "XRPBULL",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "XRPBULL/USDT"
+  },
+  {
+    "id": "XRPBULLBUSD",
+    "asset": "XRPBULL",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "XRPBULL/BUSD"
+  },
+  {
+    "id": "XRPBEARUSDT",
+    "asset": "XRPBEAR",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "XRPBEAR/USDT"
+  },
+  {
+    "id": "XRPBEARBUSD",
+    "asset": "XRPBEAR",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "XRPBEAR/BUSD"
   }
 ]
