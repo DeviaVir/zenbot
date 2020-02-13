@@ -2854,5 +2854,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/IOTA"
+  },
+  {
+    "asset": "LINK",
+    "currency": "ETH",
+    "min_size": "0.75600000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/LINK"
+  },
+  {
+    "asset": "LINK",
+    "currency": "USD",
+    "min_size": "0.75600000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/LINK"
+  },
+  {
+    "asset": "LINK",
+    "currency": "USDT",
+    "min_size": "0.75600000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LINK"
   }
 ]
