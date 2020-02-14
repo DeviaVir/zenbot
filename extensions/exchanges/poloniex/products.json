@@ -648,6 +648,22 @@
     "label": "Tether USD/USD Coin"
   },
   {
+    "asset": "WIN",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "WINK/Tron"
+  },
+  {
+    "asset": "WIN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "WINK/Tether USD"
+  },
+  {
     "asset": "XEM",
     "currency": "BTC",
     "min_total": "0.0001",

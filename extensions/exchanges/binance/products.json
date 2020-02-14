@@ -8171,5 +8171,60 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "XRPBEAR/BUSD"
+  },
+  {
+    "id": "BATBUSD",
+    "asset": "BAT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BAT/BUSD"
+  },
+  {
+    "id": "ENJBUSD",
+    "asset": "ENJ",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ENJ/BUSD"
+  },
+  {
+    "id": "NANOBUSD",
+    "asset": "NANO",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "NANO/BUSD"
+  },
+  {
+    "id": "ONTBUSD",
+    "asset": "ONT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ONT/BUSD"
+  },
+  {
+    "id": "RVNBUSD",
+    "asset": "RVN",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "RVN/BUSD"
   }
 ]
