@@ -1400,22 +1400,6 @@
     "label": "XVG/ETH"
   },
   {
-    "asset": "BCI",
-    "currency": "USD",
-    "min_size": "180.0",
-    "max_size": "5000.0",
-    "increment": "0.0000001",
-    "label": "BCI/USD"
-  },
-  {
-    "asset": "BCI",
-    "currency": "BTC",
-    "min_size": "180.0",
-    "max_size": "5000.0",
-    "increment": "0.0000000001",
-    "label": "BCI/BTC"
-  },
-  {
     "asset": "MKR",
     "currency": "USD",
     "min_size": "0.02",
@@ -2110,22 +2094,6 @@
     "max_size": "50000.0",
     "increment": "0.000000001",
     "label": "MAN/ETH"
-  },
-  {
-    "asset": "BBN",
-    "currency": "USD",
-    "min_size": "17912.0",
-    "max_size": "200000.0",
-    "increment": "0.0000001",
-    "label": "BBN/USD"
-  },
-  {
-    "asset": "BBN",
-    "currency": "ETH",
-    "min_size": "17912.0",
-    "max_size": "200000.0",
-    "increment": "0.0000000001",
-    "label": "BBN/ETH"
   },
   {
     "asset": "NIO",
