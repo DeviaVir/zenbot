@@ -1,0 +1,56 @@
+**Zenbot Installation guide on Raspberry (Pi3 / Pi4)
+**OS requerment : Ubuntu Server 18.1 or 19.1 / or Raspi
+
+**Ubuntu Downlaod Link https://www.ubuntu.com/download/iot/raspberry-pi-2-3 
+**Rspian Buster Link https://downloads.raspberrypi.org/raspbian_lite_latest
+
+**Ubuntu log in 
+**Username : ubuntu
+**password : ubuntu
+**create new password 
+
+**Raspian Log in 
+
+**Username : pi
+**password : raspberry
+
+**Zenbot installation :
+
+sudo apt-get update (only update do not upgarde) 
+
+sudo apt-get install build-essential mongodb -y
+
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+git clone https://github.com/deviavir/zenbot.git
+cd zenbot
+cp conf-sample.js conf.js
+npm install
+
+** if you using raspian npm already installed in OS in ubuntu install npm follwing command 
+
+sudo apt install npm
+
+**Edit the conf.js file 
+
+sudo nano conf.js
+
+**Edit the file with API keys and secrets
+
+**After edit press Ctrl with X 
+
+**type y Enter
+
+**Running the Bot
+
+cd zenbot
+**Ex: 
+
+./zenbot.sh trade binance.XRP-USDT --profit_stop_enable_pct=10, --profit_stop_pct=4, --trend_ema=10, --sell_rate=-0.006
+
+**change the values as how you want to tarde
+
+
+
+
