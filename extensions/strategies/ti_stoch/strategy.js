@@ -10,16 +10,16 @@ module.exports = {
   getOptions: function () {
     this.option('period', 'period length, same as --period_length', String, '5m')
     this.option('period_length', 'period length, same as --period', String, '5m')
-    this.option('rsi_periods', 'number of RSI periods', 14)
+    this.option('rsi_periods', 'number of RSI periods', Number, 14)
     this.option('stoch_kperiods', 'number of RSI periods', Number, 9)
     this.option('stoch_k', '%D line', Number, 3)
     this.option('stoch_d', '%D line', Number, 3)
     this.option('stoch_k_sell', 'K must be above this before selling', Number, 80)
     this.option('stoch_k_buy', 'K must be below this before buying', Number, 10)
   },
- 
+
   calculate:  function (s) {
-    if (s.in_preroll) return 
+    if (s.in_preroll) return
   },
 
   onPeriod: function (s, cb) {
@@ -34,26 +34,26 @@ module.exports = {
         s.period.srsi_K = result.k[result.k.length-1]
         var last_divergent = result.k[result.k.length-2] - result.d[result.d.length-2]
         var _switch = 0//s.lookback[0]._switch
-        var nextdivergent = (( divergent + last_divergent ) /2) + (divergent - last_divergent) 
-        if ((last_divergent <= 0 && (divergent > 0)) ) _switch = 1 // price rising 
+        var nextdivergent = (( divergent + last_divergent ) /2) + (divergent - last_divergent)
+        if ((last_divergent <= 0 && (divergent > 0)) ) _switch = 1 // price rising
         if ((last_divergent >= 0 && (divergent < 0)) ) _switch = -1 // price falling
-        
+
         s.period.divergent = divergent
         s.period._switch = _switch
 
         s.signal = null
-        if (_switch != 0  ) 
+        if (_switch != 0  )
         {
-          if (_switch == -1 && s.period.srsi_K > s.options.stoch_k_sell) 
+          if (_switch == -1 && s.period.srsi_K > s.options.stoch_k_sell)
           {
             s.signal = 'sell'
-          } 
+          }
           else
-          if (  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.stoch_k_buy) 
+          if (  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.stoch_k_buy)
           {
             s.signal = 'buy'
-          } 
-         
+          }
+
         }
 
         return cb()
@@ -66,13 +66,13 @@ module.exports = {
 
   onReport: function (s) {
     var cols = []
-   
+
     cols.push(z(8, n(s.period.close).format('+00.0000'), ' ').cyan)
     cols.push(z(8, n( s.period.srsi_D).format('0.000000').substring(0,7), ' ').cyan)
     cols.push(z(8, n(s.period.srsi_K).format('0.000000').substring(0,7), ' ').cyan)
     cols.push(z(8, n(s.period.divergent).format('0').substring(0,3), ' ').cyan)
     cols.push(z(8, n( s.period._switch ).format('0').substring(0,2), ' ').cyan)
-       
+
 
     return cols
   },

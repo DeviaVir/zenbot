@@ -8,6 +8,8 @@ module.exports = {
   description: 'MOM = Close(Period) - Close(Length)',
 
   getOptions: function () {
+    this.option('period', 'period length, same as --period_length', String, '1h')
+    this.option('period_length', 'period length, same as --period', String, '1h')
     this.option('momentum_size', 'number of periods to look back for momentum', Number, 5)
   },
 
