@@ -292,7 +292,7 @@ module.exports = function (program, conf) {
             }
           }
           collectionCursorStream.close()
-          setImmediate(async () => await getNext())
+          return getNext()
         }
 
         if(totalTrades === 0) {
