@@ -605,7 +605,7 @@ module.exports = function (program, conf) {
               b.vs_buy_hold = (b.consolidated - b.buy_hold) / b.buy_hold
               conf.output.api.on && printTrade(false, false, true)
               if (so.mode === 'live') {
-                balances.save(b, function (err) {
+                balances.replaceOne({_id: b.id}, b, {upsert: true}, function (err) {
                   if (err) {
                     console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving balance')
                     console.error(err)
@@ -620,7 +620,7 @@ module.exports = function (program, conf) {
                 asset: s.balance.asset
               }
             }
-            sessions.save(session, function (err) {
+            sessions.replaceOne({_id: session.id}, session, {upsert: true}, function (err) {
               if (err) {
                 console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving session')
                 console.error(err)
@@ -676,7 +676,7 @@ module.exports = function (program, conf) {
                 console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving session')
                 console.error(err)
               }
-              resume_markers.save(marker, function (err) {
+              resume_markers.replaceOne({_id: marker.id}, marker, {upsert: true}, function (err) {
                 if (err) {
                   console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving marker')
                   console.error(err)
@@ -689,7 +689,7 @@ module.exports = function (program, conf) {
                   my_trade.selector = so.selector.normalized
                   my_trade.session_id = session.id
                   my_trade.mode = so.mode
-                  my_trades.save(my_trade, function (err) {
+                  my_trades.insertOne(my_trade, function (err) {
                     if (err) {
                       console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving my_trade')
                       console.error(err)
@@ -705,7 +705,7 @@ module.exports = function (program, conf) {
                   period.session_id = session.id
                 }
                 period._id = period.id
-                periods.save(period, function (err) {
+                periods.replaceOne({_id: period.id}, period, {upsert: true}, function (err) {
                   if (err) {
                     console.error('\n' + moment().format('YYYY-MM-DD HH:mm:ss') + ' - error saving my_trade')
                     console.error(err)
