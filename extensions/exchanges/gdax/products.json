@@ -288,6 +288,24 @@
     "label": "GNT/USDC"
   },
   {
+    "asset": "KNC",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "600000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "KNC/BTC"
+  },
+  {
+    "asset": "KNC",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "KNC/USD"
+  },
+  {
     "asset": "LINK",
     "currency": "ETH",
     "min_size": "1",
