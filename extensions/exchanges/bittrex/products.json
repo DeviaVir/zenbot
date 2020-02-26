@@ -2806,5 +2806,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FRSP"
+  },
+  {
+    "asset": "WICC",
+    "currency": "BTC",
+    "min_size": "15.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/WICC"
+  },
+  {
+    "asset": "WICC",
+    "currency": "USDT",
+    "min_size": "15.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/WICC"
   }
 ]
