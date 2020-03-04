@@ -768,6 +768,14 @@
     "label": "BTC/NMR"
   },
   {
+    "asset": "NMR",
+    "currency": "ETH",
+    "min_size": "0.53000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/NMR"
+  },
+  {
     "asset": "LTC",
     "currency": "ETH",
     "min_size": "0.01253808",
@@ -2822,5 +2830,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/WICC"
+  },
+  {
+    "asset": "NMR",
+    "currency": "USDT",
+    "min_size": "0.53000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/NMR"
   }
 ]
