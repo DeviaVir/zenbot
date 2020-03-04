@@ -1,6 +1,6 @@
 
 /*
-	Processes the trades.. 
+	Processes the trades..
 */
 var collectionService = require('../../lib/services/collection-service')
 
@@ -8,12 +8,12 @@ module.exports = function (conf) {
 
   var collectionServiceInstance = collectionService(conf)
 
-  return (targetTimeInMillis, queue, getIDofNextTradeToProcessFunc, cb) => { 
+  return (targetTimeInMillis, queue, getIDofNextTradeToProcessFunc, cb) => {
     var trades = queue.dequeue()
 
     var prev
     var curr
-    var rtnTrade 
+    var rtnTrade
     var index = 0
     var moreInThisBatch = true
     var stopProcessingConditionReached = false
@@ -33,9 +33,9 @@ module.exports = function (conf) {
           if (skipToTradeId === curr.trade_id) {
             let lastTrade = curr
             let idx = {i: index}
-            collectionServiceInstance.getTrades().insert(curr).then((/*err, doc*/) => {
+            collectionServiceInstance.getTrades().insertOne(curr).then((/*err, doc*/) => {
               if (idx.i === trades.length) {
-                cb(null, false, lastTrade.trade_id, lastTrade) 
+                cb(null, false, lastTrade.trade_id, lastTrade)
               }
             })
           }
@@ -49,7 +49,7 @@ module.exports = function (conf) {
           stopProcessingConditionReached = true
           rtnTrade = prev || curr
         }
-      } 
+      }
 
     } while (moreInThisBatch)
 
