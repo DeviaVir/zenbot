@@ -483,6 +483,34 @@
     "label": "SC/XBT"
   },
   {
+    "asset": "TRX",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TRX/ETH"
+  },
+  {
+    "asset": "TRX",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TRX/EUR"
+  },
+  {
+    "asset": "TRX",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TRX/USD"
+  },
+  {
+    "asset": "TRX",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TRX/XBT"
+  },
+  {
     "asset": "USDC",
     "currency": "ZEUR",
     "min_size": "0.01",

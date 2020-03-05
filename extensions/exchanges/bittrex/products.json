@@ -2838,5 +2838,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/NMR"
+  },
+  {
+    "asset": "DASH",
+    "currency": "USD",
+    "min_size": "0.02767746",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/DASH"
   }
 ]
