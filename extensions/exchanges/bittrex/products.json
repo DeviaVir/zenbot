@@ -2846,5 +2846,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/DASH"
+  },
+  {
+    "asset": "RVN",
+    "currency": "USD",
+    "min_size": "75.98784195",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/RVN"
   }
 ]

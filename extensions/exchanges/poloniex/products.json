@@ -576,6 +576,22 @@
     "label": "Status/Bitcoin"
   },
   {
+    "asset": "STEEM",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "STEEM/Bitcoin"
+  },
+  {
+    "asset": "STEEM",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "STEEM/Tron"
+  },
+  {
     "asset": "STORJ",
     "currency": "BTC",
     "min_total": "0.0001",
