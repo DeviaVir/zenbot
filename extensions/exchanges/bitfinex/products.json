@@ -1955,7 +1955,7 @@
     "asset": "IQX",
     "currency": "USD",
     "min_size": "4594.0",
-    "max_size": "100000.0",
+    "max_size": "100000000.0",
     "increment": "0.0000001",
     "label": "IQX/USD"
   },
@@ -1963,7 +1963,7 @@
     "asset": "IQX",
     "currency": "BTC",
     "min_size": "4594.0",
-    "max_size": "100000.0",
+    "max_size": "100000000.0",
     "increment": "0.0000000001",
     "label": "IQX/BTC"
   },
@@ -1971,7 +1971,7 @@
     "asset": "IQX",
     "currency": "EOS",
     "min_size": "4594.0",
-    "max_size": "100000.0",
+    "max_size": "100000000.0",
     "increment": "0.0000000001",
     "label": "IQX/EOS"
   },
