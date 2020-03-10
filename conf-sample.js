@@ -211,6 +211,23 @@ c.notifiers.slack.on = false
 c.notifiers.slack.webhook_url = ''
 // end slack config
 
+// ADAMANT Messenger config
+c.notifiers.adamant = {}
+c.notifiers.adamant.on = false
+c.notifiers.adamant.nodes = [
+  'https://endless.adamant.im',
+  'https://clown.adamant.im',
+  'https://bid.adamant.im',
+  'https://unusual.adamant.im',
+  'https://debate.adamant.im',
+  'http://185.231.245.26:36666',
+  'https://lake.adamant.im',
+  'http://localhost:36666'
+],
+c.notifiers.adamant.fromPassphrase = ''
+c.notifiers.adamant.toAddresses = ['']
+// end ADAMANT Messenger config
+
 // discord configs
 c.notifiers.discord = {}
 c.notifiers.discord.on = false // false discord disabled; true discord enabled (key should be correct)
