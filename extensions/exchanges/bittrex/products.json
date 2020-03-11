@@ -2870,5 +2870,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VANY"
+  },
+  {
+    "asset": "BOA",
+    "currency": "BTC",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BOA"
+  },
+  {
+    "asset": "CPC",
+    "currency": "BTC",
+    "min_size": "770.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CPC"
   }
 ]
