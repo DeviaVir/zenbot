@@ -2886,5 +2886,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CPC"
+  },
+  {
+    "asset": "CKB",
+    "currency": "BTC",
+    "min_size": "430.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CKB"
+  },
+  {
+    "asset": "CKB",
+    "currency": "USDT",
+    "min_size": "430.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CKB"
   }
 ]
