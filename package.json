@@ -29,6 +29,7 @@
   "dependencies": {
     "@babel/core": "^7.1.2",
     "@slack/client": "^5.0.1",
+    "adamant-api": "^0.5.2",
     "async": "^3.0.1",
     "babel-loader": "^8.0.4",
     "babel-preset-env": "^1.6.1",
@@ -68,7 +69,7 @@
     "keltnerchannel": "^1.4.2",
     "kraken-api": "^1.0.0",
     "lint-staged": "^10.0.3",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.15",
     "lolex": "^6.0.0",
     "mathjs": "^6.0.1",
     "micro-request": "^666.0.10",
@@ -79,7 +80,7 @@
     "mongodb": "^3.3.4",
     "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.7",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "node-telegram-bot-api": "^0.40.0",
     "number-abbreviate": "^2.0.0",
     "numbro": "github:highvelocityspace/numbro",
@@ -110,8 +111,7 @@
     "webpack-cli": "^3.0.4",
     "wexnz": "^0.1.3",
     "ws": "^7.1.0",
-    "zero-fill": "^2.2.3",
-    "adamant-api": "^0.5.2"
+    "zero-fill": "^2.2.3"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
