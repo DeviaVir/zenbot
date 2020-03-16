@@ -8402,5 +8402,49 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "ZEC/BUSD"
+  },
+  {
+    "id": "BNBBULLUSDT",
+    "asset": "BNBBULL",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BNBBULL/USDT"
+  },
+  {
+    "id": "BNBBULLBUSD",
+    "asset": "BNBBULL",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BNBBULL/BUSD"
+  },
+  {
+    "id": "BNBBEARUSDT",
+    "asset": "BNBBEAR",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BNBBEAR/USDT"
+  },
+  {
+    "id": "BNBBEARBUSD",
+    "asset": "BNBBEAR",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "BNBBEAR/BUSD"
   }
 ]

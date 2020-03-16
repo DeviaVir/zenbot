@@ -231,6 +231,34 @@
     "label": "ETH/USDT"
   },
   {
+    "asset": "ZEUR",
+    "currency": "ZCAD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/CAD"
+  },
+  {
+    "asset": "ZEUR",
+    "currency": "CHF",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/CHF"
+  },
+  {
+    "asset": "ZEUR",
+    "currency": "ZGBP",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/GBP"
+  },
+  {
+    "asset": "ZEUR",
+    "currency": "ZJPY",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/JPY"
+  },
+  {
     "asset": "GNO",
     "currency": "XETH",
     "min_size": "0.03",
@@ -516,6 +544,13 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "USDC/EUR"
+  },
+  {
+    "asset": "ZUSD",
+    "currency": "CHF",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "USD/CHF"
   },
   {
     "asset": "USDC",
@@ -943,5 +978,33 @@
     "min_size": "0.03",
     "increment": "0.01",
     "label": "ZEC/USD"
+  },
+  {
+    "asset": "ZEUR",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/USD"
+  },
+  {
+    "asset": "ZGBP",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "GBP/USD"
+  },
+  {
+    "asset": "ZUSD",
+    "currency": "ZCAD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "USD/CAD"
+  },
+  {
+    "asset": "ZUSD",
+    "currency": "ZJPY",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "USD/JPY"
   }
 ]

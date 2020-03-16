@@ -2862,5 +2862,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/DAI"
+  },
+  {
+    "asset": "VANY",
+    "currency": "BTC",
+    "min_size": "60.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VANY"
+  },
+  {
+    "asset": "BOA",
+    "currency": "BTC",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BOA"
+  },
+  {
+    "asset": "CPC",
+    "currency": "BTC",
+    "min_size": "770.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CPC"
+  },
+  {
+    "asset": "CKB",
+    "currency": "BTC",
+    "min_size": "430.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CKB"
+  },
+  {
+    "asset": "CKB",
+    "currency": "USDT",
+    "min_size": "430.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CKB"
   }
 ]
