@@ -11,7 +11,7 @@ describe('Collections Service', function() {
 
     it('returns the expected objects', function() {
 
-      var instance = service({db:{mongo:{collection: function() { return { ensureIndex: function() { }} }  }}})
+      var instance = service({db:{mongo:{collection: function() { return { createIndex: function() { }} }  }}})
 
       var rtn = instance.getTrades()
 
@@ -27,7 +27,7 @@ describe('Collections Service', function() {
 
     it('returns the expected objects', function() {
 
-      var instance = service({db:{mongo:{collection: function() { return { ensureIndex: function() { }} }  }}})
+      var instance = service({db:{mongo:{collection: function() { return { createIndex: function() { }} }  }}})
 
       var rtn = instance.getResumeMarkers()
 

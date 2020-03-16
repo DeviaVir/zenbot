@@ -16,13 +16,15 @@ services:
       - "17365:17365"
     depends_on:
       - mongodb
+    links:
+      - mongodb
     environment:
       - MONGODB_PORT_27017_TCP_ADDR=mongodb
   mongodb:
     image: mongo:latest
     volumes:
       - ./database:/data/db
-    command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
+    command: mongod --bind_ip=0.0.0.0 --logpath=/dev/null
     expose:
       - 27017
 
@@ -34,9 +36,10 @@ services:
   #    - mongodb
   #  tty: true
   #  ports:
-  #    - "1234:1234"
+  #    - "127.0.0.1:1234:1234"
   #  environment:
   #    - CONN_NAME=zenbot_mongodb
   #    - DB_HOST=mongodb
   #    - DB_PORT=27017
+  #    - HOST=0.0.0.0
   #  command: "npm start"

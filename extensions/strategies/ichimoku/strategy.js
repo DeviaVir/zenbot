@@ -1,14 +1,15 @@
 var z = require('zero-fill'),
-n = require('numbro'),
-highest = require('../../../lib/highest'),
-lowest = require('../../../lib/lowest'),
-Phenotypes = require('../../../lib/phenotype')
+  n = require('numbro'),
+  highest = require('../../../lib/highest'),
+  lowest = require('../../../lib/lowest'),
+  Phenotypes = require('../../../lib/phenotype')
 
 module.exports = {
   name: 'ichimoku',
   description: 'Ichimoku Cloud',
 
   getOptions: function () {
+    this.option('period', 'period length, same as --period_length', String, '4h')
     this.option('period_length', 'period length', String, '4h')
     this.option('min_periods', 'min periods (should be >= senkou_b option)', Number, 52)
     this.option('tenkan', 'Tenkan (conversion) line', Number, 9)

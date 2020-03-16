@@ -24,6 +24,30 @@
     "label": "ETH/USD"
   },
   {
+    "asset": "BCH",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BCH/USD"
+  },
+  {
+    "asset": "BCH",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BCH/BTC"
+  },
+  {
+    "asset": "BCH",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BCH/ETH"
+  },
+  {
     "asset": "LTC",
     "currency": "USD",
     "min_size": "0.001",
@@ -48,6 +72,14 @@
     "label": "LTC/ETH"
   },
   {
+    "asset": "LTC",
+    "currency": "BCH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LTC/BCH"
+  },
+  {
     "asset": "ZEC",
     "currency": "USD",
     "min_size": "0.001",
@@ -70,6 +102,14 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ZEC/ETH"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "BCH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ZEC/BCH"
   },
   {
     "asset": "ZEC",

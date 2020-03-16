@@ -8,6 +8,7 @@ var tb = require('timebucket')
   , objectifySelector = require('../lib/objectify-selector')
   , engineFactory = require('../lib/engine')
   , collectionService = require('../lib/services/collection-service')
+  , jsonexport = require('jsonexport')
   , _ = require('lodash')
 
 module.exports = function (program, conf) {
@@ -18,6 +19,7 @@ module.exports = function (program, conf) {
     .option('--conf <path>', 'path to optional conf overrides file')
     .option('--strategy <name>', 'strategy to use', String, conf.strategy)
     .option('--order_type <type>', 'order type to use (maker/taker)', /^(maker|taker)$/i, conf.order_type)
+    .option('--reverse', 'use this and all your signals(buy/sell) will be switch! TAKE CARE!', Boolean, false)
     .option('--filename <filename>', 'filename for the result output (ex: result.html). "none" to disable', String, conf.filename)
     .option('--start <datetime>', 'start ("YYYYMMDDhhmm")')
     .option('--end <datetime>', 'end ("YYYYMMDDhhmm")')
@@ -31,6 +33,7 @@ module.exports = function (program, conf) {
     .option('--markup_sell_pct <pct>', '% to mark up sell price', Number, conf.markup_sell_pct)
     .option('--order_adjust_time <ms>', 'adjust bid/ask on this interval to keep orders competitive', Number, conf.order_adjust_time)
     .option('--order_poll_time <ms>', 'poll order status on this interval', Number, conf.order_poll_time)
+    .option('--sell_cancel_pct <pct>', 'cancels the sale if the price is between this percentage (for more or less)', Number, conf.sell_cancel_pct)
     .option('--sell_stop_pct <pct>', 'sell if price drops below this % of bought price', Number, conf.sell_stop_pct)
     .option('--buy_stop_pct <pct>', 'buy if price surges above this % of sold price', Number, conf.buy_stop_pct)
     .option('--profit_stop_enable_pct <pct>', 'enable trailing sell stop when reaching this % profit', Number, conf.profit_stop_enable_pct)
@@ -43,6 +46,7 @@ module.exports = function (program, conf) {
     .option('--exact_buy_orders', 'instead of only adjusting maker buy when the price goes up, adjust it if price has changed at all')
     .option('--exact_sell_orders', 'instead of only adjusting maker sell when the price goes down, adjust it if price has changed at all')
     .option('--disable_options', 'disable printing of options')
+    .option('--quarentine_time <minutes>', 'For loss trade, set quarentine time for cancel buys', Number, conf.quarentine_time)
     .option('--enable_stats', 'enable printing order stats')
     .option('--backtester_generation <generation>','creates a json file in simulations with the generation number', Number, -1)
     .option('--verbose', 'print status lines on every period')
@@ -50,6 +54,10 @@ module.exports = function (program, conf) {
     .action(function (selector, cmd) {
       var s = { options: minimist(process.argv) }
       var so = s.options
+      if (!so.quarentine_time) {
+        so.quarentine_time = 10
+      }
+
       delete so._
       if (cmd.conf) {
         var overrides = require(path.resolve(process.cwd(), cmd.conf))
@@ -159,7 +167,7 @@ module.exports = function (program, conf) {
         }
         options_output.simresults.start_capital = s.start_capital
         options_output.simresults.last_buy_price = s.last_buy_price
-        options_output.simresults.last_assest_value = s.trades[s.trades.length-1].price
+        options_output.simresults.last_assest_value = s.period.close
         options_output.net_currency = s.net_currency
         options_output.simresults.asset_capital = s.asset_capital
         options_output.simresults.currency = n(s.balance.currency).value()
@@ -183,7 +191,14 @@ module.exports = function (program, conf) {
 
         if (so.backtester_generation >= 0)
         {
-          fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_'+so.strategy.replace('_','')+'_'+ so.selector.normalized.replace('_','').toLowerCase()+'_'+so.backtester_generation+'.json'),options_json, {encoding: 'utf8'})
+          var file_name = so.strategy.replace('_','')+'_'+ so.selector.normalized.replace('_','').toLowerCase()+'_'+so.backtester_generation
+          fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_'+file_name+'.json'),options_json, {encoding: 'utf8'})
+          var trades_json = JSON.stringify(s.my_trades, null, 2)
+          fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_trades_'+file_name+'.json'),trades_json, {encoding: 'utf8'})
+          jsonexport(s.my_trades,function(err, csv){
+            if(err) return console.log(err)
+            fs.writeFileSync(path.resolve(__dirname, '..', 'simulations','sim_trades_'+file_name+'.csv'),csv, {encoding: 'utf8'})
+          })
         }
 
         if (so.filename !== 'none') {
@@ -211,7 +226,7 @@ module.exports = function (program, conf) {
           console.log('wrote', out_target)
         }
 
-        simResults.save(options_output)
+        simResults.insertOne(options_output)
           .then(() => {
             process.exit(0)
           })
@@ -221,16 +236,17 @@ module.exports = function (program, conf) {
           })
       }
 
-      function getNext () {
+      var getNext = async () => {
         var opts = {
           query: {
             selector: so.selector.normalized
           },
-          sort: {time: 1},
-          limit: 1000
+          sort: { time: 1 },
+          limit: 100,
+          timeout: false
         }
         if (so.end) {
-          opts.query.time = {$lte: so.end}
+          opts.query.time = { $lte: so.end }
         }
         if (cursor) {
           if (reversing) {
@@ -239,33 +255,28 @@ module.exports = function (program, conf) {
             if (query_start) {
               opts.query.time['$gte'] = query_start
             }
-            opts.sort = {time: -1}
-          }
-          else {
+            opts.sort = { time: -1 }
+          } else {
             if (!opts.query.time) opts.query.time = {}
             opts.query.time['$gt'] = cursor
           }
-        }
-        else if (query_start) {
+        } else if (query_start) {
           if (!opts.query.time) opts.query.time = {}
           opts.query.time['$gte'] = query_start
         }
-        var collectionCursor = tradesCollection.find(opts.query).sort(opts.sort).stream()
+        var collectionCursor = tradesCollection
+          .find(opts.query)
+          .sort(opts.sort)
+          .limit(opts.limit)
+
+        var totalTrades = await collectionCursor.count(true)
+        const collectionCursorStream = collectionCursor.stream()
+
         var numTrades = 0
         var lastTrade
 
-        collectionCursor.on('data', function(trade){
-          lastTrade = trade
-          numTrades++
-          if (so.symmetrical && reversing) {
-            trade.orig_time = trade.time
-            trade.time = reverse_point + (reverse_point - trade.time)
-          }
-          eventBus.emit('trade', trade)
-        })
-
-        collectionCursor.on('end', function(){
-          if(numTrades === 0){
+        var onCollectionCursorEnd = () => {
+          if (numTrades === 0) {
             if (so.symmetrical && !reversing) {
               reversing = true
               reverse_point = cursor
@@ -276,16 +287,33 @@ module.exports = function (program, conf) {
           } else {
             if (reversing) {
               cursor = lastTrade.orig_time
-            }
-            else {
+            } else {
               cursor = lastTrade.time
             }
           }
-          setImmediate(getNext)
+          collectionCursorStream.close()
+          return getNext()
+        }
+
+        if(totalTrades === 0) {
+          onCollectionCursorEnd()
+        }
+
+        collectionCursorStream.on('data', function(trade) {
+          lastTrade = trade
+          numTrades++
+          if (so.symmetrical && reversing) {
+            trade.orig_time = trade.time
+            trade.time = reverse_point + (reverse_point - trade.time)
+          }
+          eventBus.emit('trade', trade)
+
+          if (numTrades && totalTrades && totalTrades == numTrades) {
+            onCollectionCursorEnd()
+          }
         })
       }
 
-      getNext()
+      return getNext()
     })
 }
-

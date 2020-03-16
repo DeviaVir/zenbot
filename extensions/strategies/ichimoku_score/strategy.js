@@ -60,7 +60,7 @@ module.exports = {
     this.option('strongPoints', 'Strong Point Value', Number, 2)                                                 //range 0 - 2 Default = 2
 
     this.option('buyLevel', 'when to signal buy', Number, 50)                                                    //range -100 - 100 Default = 50
-    this.option('sellLevel', 'when to signal sell', Number, 50)                                                  //range -100 - 100 Default = 50
+    this.option('sellLevel', 'when to signal sell', Number, 49)                                                  //range -100 - 100 Default = 50
 
   },
 
@@ -117,7 +117,7 @@ module.exports = {
   onPeriod: function (s, cb) {
 
 
-   //    == Debugging ==
+    //    == Debugging ==
 
     if (s.options.debug) {console.log('\n== Options ==')}
 
@@ -167,6 +167,9 @@ module.exports = {
     if (!s.previousScore) {s.previousScore = 0}
 
     if (s.normalizedScore > s.options.buyLevel && s.previousScore < s.options.buyLevel) {
+      s.signal = 'buy'
+      s.previousScore = s.normalizedScore
+    } else if (s.normalizedScore > s.options.sellLevel && s.previousScore > s.options.buyLevel && s.previousScore < s.options.sellLevel) {
       s.signal = 'buy'
       s.previousScore = s.normalizedScore
     } else if (s.normalizedScore < s.options.sellLevel && s.previousScore > s.options.sellLevel) {
@@ -271,7 +274,7 @@ function valueAboveKumo(s, val, key1, key2) {
 }
 
 function valueAbove(val, target1, target2) {
-    return val > Math.max(target1, target2)
+  return val > Math.max(target1, target2)
 }
 
 function valueBelow(val, target1, target2) {
