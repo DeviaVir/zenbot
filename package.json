@@ -116,7 +116,7 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "geneticalgorithm": "^1.0.1",
-    "json2csv": "^4.0.2",
+    "json2csv": "^5.0.0",
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.4",
     "shelljs": "^0.8.0",
