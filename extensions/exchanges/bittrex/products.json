@@ -1282,7 +1282,7 @@
   {
     "asset": "WAXP",
     "currency": "BTC",
-    "min_size": "50.20080321",
+    "min_size": "72.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/WAXP"
@@ -1290,7 +1290,7 @@
   {
     "asset": "WAXP",
     "currency": "ETH",
-    "min_size": "18.65741259",
+    "min_size": "72.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/WAXP"
@@ -2902,5 +2902,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CKB"
+  },
+  {
+    "asset": "MOF",
+    "currency": "BTC",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/MOF"
+  },
+  {
+    "asset": "MOF",
+    "currency": "USDT",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MOF"
+  },
+  {
+    "asset": "WAXP",
+    "currency": "USD",
+    "min_size": "72.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/WAXP"
+  },
+  {
+    "asset": "WAXP",
+    "currency": "USDT",
+    "min_size": "72.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/WAXP"
   }
 ]
