@@ -2934,5 +2934,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/WAXP"
+  },
+  {
+    "asset": "UPT",
+    "currency": "BTC",
+    "min_size": "300.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UPT"
+  },
+  {
+    "asset": "UPUSD",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UPUSD"
+  },
+  {
+    "asset": "UPEUR",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UPEUR"
   }
 ]
