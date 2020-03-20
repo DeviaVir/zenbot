@@ -44,6 +44,7 @@ module.exports = {
   description: '',
 
   getOptions: function() {
+    this.option('period', 'period length, same as --period_length', String, '30m')
     this.option('period_length', 'period length, same as --period', String, '30m')
     this.option('fish_pct_change', 'percent change of fisher transform for reversal', Number, 0)
     this.option('length', 'number of past periods to use including current', Number, 10)

@@ -11,7 +11,7 @@ module.exports = {
     this.option('period', 'period length, same as --period_length', String, '5m')
     this.option('period_length', 'period length, same as --period', String, '5m')
     this.option('min_periods', 'min. number of history periods', Number, 200)
-    this.option('rsi_periods', 'number of RSI periods', 14)
+    this.option('rsi_periods', 'number of RSI periods', Number, 14)
     this.option('srsi_periods', 'number of Stochastic RSI periods',Number, 9)
     this.option('srsi_k', '%D line', Number, 3)
     this.option('srsi_d', '%D line', Number, 3)
@@ -20,8 +20,8 @@ module.exports = {
     this.option('srsi_dType','D type mode : SMA,EMA,WMA,DEMA,TEMA,TRIMA,KAMA,MAMA,T3', String, 'SMA'),
 
     //'SMA','EMA','WMA','DEMA','TEMA','TRIMA','KAMA','MAMA','T3'
-    
-    
+
+
     this.option('bollinger_size', 'period size', Number, 14)
     this.option('bollinger_updev', 'Upper Bollinger Time Divisor', Number, 2)
     this.option('bollinger_dndev', 'Lower Bollinger Time Divisor', Number, 2)
@@ -31,11 +31,11 @@ module.exports = {
 
 
   },
- 
+
 
   calculate: function (s) {
-    
-    if (s.in_preroll) return 
+
+    if (s.in_preroll) return
 
   },
 
@@ -47,47 +47,47 @@ module.exports = {
       then(function(inbol){
         ta_srsi(s, 'srsi', s.options.srsi_periods, s.options.srsi_k, s.options.srsi_d, s.options.srsi_dType).
           then(function(inres) {
-    
+
             if (!inres) return cb()
             var divergent = inres.outFastK[inres.outFastK.length-1] - inres.outFastD[inres.outFastD.length-1]
             s.period.srsi_D = inres.outFastD[inres.outFastD.length-1]
             s.period.srsi_K = inres.outFastK[inres.outFastK.length-1]
             var last_divergent = inres.outFastK[inres.outFastK.length-2] - inres.outFastD[inres.outFastD.length-2]
             var _switch = 0//s.lookback[0]._switch
-            var nextdivergent = (( divergent + last_divergent ) /2) + (divergent - last_divergent) 
-            if ((last_divergent <= 0 && (divergent > 0)) ) _switch = 1 // price rising 
+            var nextdivergent = (( divergent + last_divergent ) /2) + (divergent - last_divergent)
+            if ((last_divergent <= 0 && (divergent > 0)) ) _switch = 1 // price rising
             if ((last_divergent >= 0 && (divergent < 0)) ) _switch = -1 // price falling
-            
+
             s.period.divergent = divergent
             s.period._switch = _switch
-           
 
-               
-            let upperBound = inbol.outRealUpperBand[inbol.outRealUpperBand.length-1] 
-            let lowerBound = inbol.outRealLowerBand[inbol.outRealLowerBand.length-1] 
+
+
+            let upperBound = inbol.outRealUpperBand[inbol.outRealUpperBand.length-1]
+            let lowerBound = inbol.outRealLowerBand[inbol.outRealLowerBand.length-1]
             let midBound =inbol.outRealMiddleBand[inbol.outRealMiddleBand.length-1]
             if (!s.period.bollinger) s.period.bollinger = {}
 
             s.period.bollinger.upperBound = upperBound
             s.period.bollinger.lowerBound = lowerBound
             s.period.bollinger.midBound = midBound
-  
-  
+
+
             // K is fast moving
-  
+
             s.signal = null
-            if (_switch != 0  ) 
+            if (_switch != 0  )
             {
-              if (s.period.close > ((upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct))  && nextdivergent < divergent && _switch == -1 && s.period.srsi_K > s.options.srsi_k_sell) 
+              if (s.period.close > ((upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct))  && nextdivergent < divergent && _switch == -1 && s.period.srsi_K > s.options.srsi_k_sell)
               {
                 s.signal = 'sell'
-              } 
+              }
               else
-              if (s.period.close < ((lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct))   &&  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.srsi_k_buy) 
+              if (s.period.close < ((lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct))   &&  nextdivergent >= divergent  && _switch == 1    && s.period.srsi_K < s.options.srsi_k_buy)
               {
                 s.signal = 'buy'
-              } 
-             
+              }
+
             }
 
             cb()
@@ -126,7 +126,7 @@ module.exports = {
     return cols
   },
 
-  phenotypes: 
+  phenotypes:
         {
           // -- common
           period_length: Phenotypes.ListOption(['1m', '2m', '3m', '4m', '5m', '10m','15m']),//, '10m','15m','30m','45m','60m'
@@ -156,6 +156,6 @@ module.exports = {
           bollinger_dType: Phenotypes.ListOption(['SMA','EMA','WMA','DEMA','TEMA','TRIMA','KAMA','MAMA','T3']),
           bollinger_upper_bound_pct: Phenotypes.RangeFactor(0.0, 100.0, 1.0),
           bollinger_lower_bound_pct: Phenotypes.RangeFactor(0.0, 100.0, 1.0)
-  
+
         }
 }

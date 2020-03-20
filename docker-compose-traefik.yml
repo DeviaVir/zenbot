@@ -48,6 +48,7 @@ services:
       - "CONN_NAME=zenbot_mongodb"
       - "DB_HOST=mongodb"
       - "DB_PORT=27017"
+      - "HOST=0.0.0.0"
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:$(TRAEFIK_HOST_DB)"

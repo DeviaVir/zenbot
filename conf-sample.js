@@ -177,6 +177,10 @@ c.min_prev_trades = 0
 // Notifiers:
 c.notifiers = {}
 
+//common
+
+c.notifiers.only_completed_trades = false // Filter to notifier's messages for getting Commpleted Trades info.
+
 // xmpp config
 c.notifiers.xmpp = {}
 c.notifiers.xmpp.on = false  // false xmpp disabled; true xmpp enabled (credentials should be correct)
@@ -206,6 +210,23 @@ c.notifiers.slack = {}
 c.notifiers.slack.on = false
 c.notifiers.slack.webhook_url = ''
 // end slack config
+
+// ADAMANT Messenger config
+c.notifiers.adamant = {}
+c.notifiers.adamant.on = false
+c.notifiers.adamant.nodes = [
+  'https://endless.adamant.im',
+  'https://clown.adamant.im',
+  'https://bid.adamant.im',
+  'https://unusual.adamant.im',
+  'https://debate.adamant.im',
+  'http://185.231.245.26:36666',
+  'https://lake.adamant.im',
+  'http://localhost:36666'
+],
+c.notifiers.adamant.fromPassphrase = ''
+c.notifiers.adamant.toAddresses = ['']
+// end ADAMANT Messenger config
 
 // discord configs
 c.notifiers.discord = {}

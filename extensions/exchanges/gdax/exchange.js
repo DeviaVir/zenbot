@@ -1,4 +1,4 @@
-var Gdax = require('gdax'),
+var Gdax = require('coinbase-pro'),
   minimist = require('minimist')
 
 module.exports = function gdax (conf) {
@@ -19,8 +19,8 @@ module.exports = function gdax (conf) {
       var client_state = {}
       if(conf.gdax.key && conf.gdax.key !== 'YOUR-API-KEY'){
         auth = {
-          key: conf.gdax.key, 
-          secret: conf.gdax.b64secret, 
+          key: conf.gdax.key,
+          secret: conf.gdax.b64secret,
           passphrase: conf.gdax.passphrase
         }
       }
@@ -103,7 +103,7 @@ module.exports = function gdax (conf) {
         websocket_cache[product_id] = null
         websocketClient(product_id)
       })
-      
+
       websocket_client[product_id].on('close', () => {
         if (client_state.errored){
           client_state.errored = false
@@ -492,15 +492,15 @@ module.exports = function gdax (conf) {
           err = statusErr(resp, body)
         }
 
-        if (err) {
-          return retry('getOrder', func_args, err)
-        }
-
         if (resp.statusCode === 404) {
           // order was cancelled. recall from cache
           body = orders['~' + opts.order_id]
           body.status = 'done'
           body.done_reason = 'canceled'
+        }
+
+        if (err) {
+          return retry('getOrder', func_args, err)
         }
 
         cb(null, body)
