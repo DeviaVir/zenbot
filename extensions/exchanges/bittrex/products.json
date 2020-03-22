@@ -2966,5 +2966,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CVT"
+  },
+  {
+    "asset": "HBD",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/HBD"
+  },
+  {
+    "asset": "HIVE",
+    "currency": "BTC",
+    "min_size": "15.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/HIVE"
   }
 ]
