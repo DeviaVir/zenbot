@@ -6,7 +6,7 @@
     "geneticalgorithm": "git+https://github.com/cmroche/geneticalgorithm.git",
     "json2csv": "^4.3.5",
     "round-precision": "^1.0.0",
-    "run-parallel-limit": "^1.0.3",
+    "run-parallel-limit": "^1.0.5",
     "shelljs": "^0.7.8",
     "yargs": "^8.0.2",
     "strip-ansi": "^4.0.0"
