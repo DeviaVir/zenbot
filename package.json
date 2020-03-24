@@ -27,7 +27,7 @@
     ]
   },
   "dependencies": {
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.9.0",
     "@slack/client": "^5.0.1",
     "adamant-api": "^0.5.2",
     "async": "^3.0.1",
