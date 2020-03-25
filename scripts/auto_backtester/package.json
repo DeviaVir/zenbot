@@ -6,7 +6,7 @@
     "json2csv": "^3.7.3",
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.3",
-    "shelljs": "^0.7.8",
+    "shelljs": "^0.8.3",
     "strip-ansi": "^4.0.0"
   }
 }
