@@ -107,8 +107,6 @@
     "tulind": "^0.8.18",
     "url-loader": "^4.0.0",
     "waypoints": "^4.0.1",
-    "webpack": "^4.38.0",
-    "webpack-cli": "^3.3.11",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
     "wexnz": "^0.1.3",
