@@ -59,7 +59,7 @@
     "file-loader": "^6.0.0",
     "fs": "0.0.1-security",
     "gemini-api": "^2.0.4",
-    "glob": "^7.1.1",
+    "glob": "^7.1.6",
     "har-validator": "^5.0.3",
     "husky": "^4.2.3",
     "idgen": "^2.0.2",
