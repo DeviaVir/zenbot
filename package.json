@@ -33,7 +33,7 @@
     "@slack/client": "^5.0.1",
     "adamant-api": "^0.5.2",
     "async": "^3.2.0",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.1.0",
     "babel-preset-env": "^1.6.1",
     "bitfinex-api-node": "^4.0.10",
     "bitstamp": "^1.0.4",
