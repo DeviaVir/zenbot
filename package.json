@@ -76,7 +76,7 @@
     "mathjs": "^6.6.1",
     "micro-request": "^666.0.10",
     "mime": "^2.4.4",
-    "minimist": "^1.2.3",
+    "minimist": "^1.2.5",
     "mock-require": "^3.0.2",
     "moment": "^2.22.0",
     "mongodb": "^3.5.5",
