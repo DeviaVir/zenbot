@@ -92,7 +92,7 @@
     "postcss-loader": "^3.0.0",
     "progress": "^2.0.0",
     "pushbullet": "2.4.0",
-    "pusher-js": "^5.0.3",
+    "pusher-js": "^5.1.1",
     "quadrigacx": "0.0.7",
     "random-port": "^0.1.0",
     "regression": "^2.0.0",
