@@ -50,7 +50,7 @@
     "counterup": "^1.0.2",
     "css-loader": "^3.4.2",
     "echarts": "^4.7.0",
-    "ejs": "^3.0.1",
+    "ejs": "^3.0.2",
     "exports-loader": "^0.7.0",
     "expose-loader": "^0.7.5",
     "express": "^4.17.1",
