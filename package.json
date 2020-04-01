@@ -40,7 +40,7 @@
     "bl": "^4.0.2",
     "bollinger-bands": "^3.0.1",
     "bootstrap": "^4.4.1",
-    "ccxt": "^1.25.33",
+    "ccxt": "^1.25.37",
     "cexio-api-node": "^1.0.8",
     "cliff": "^0.1.10",
     "coinbase-pro": "^0.9.0",
