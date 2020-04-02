@@ -640,6 +640,30 @@
     "label": "Status/Bitcoin"
   },
   {
+    "asset": "SNX",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Synthetix Network Token/Bitcoin"
+  },
+  {
+    "asset": "SNX",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Synthetix Network Token/Tron"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Synthetix Network Token/Tether USD"
+  },
+  {
     "asset": "STEEM",
     "currency": "BTC",
     "min_total": "0.0001",
