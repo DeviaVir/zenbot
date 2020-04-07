@@ -112,6 +112,14 @@
     "label": "Bytecoin/Bitcoin"
   },
   {
+    "asset": "BEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Bitcoin Token/Tether USD"
+  },
+  {
     "asset": "BNT",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -121,11 +129,27 @@
   },
   {
     "asset": "BTC",
+    "currency": "PAX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin/Paxos Standard"
+  },
+  {
+    "asset": "BTC",
     "currency": "USDC",
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Bitcoin/USD Coin"
+  },
+  {
+    "asset": "BTC",
+    "currency": "USDJ",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin/USDJ"
   },
   {
     "asset": "BTC",
@@ -166,6 +190,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "BitTorrent/Tether USD"
+  },
+  {
+    "asset": "BULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Bitcoin Token/Tether USD"
   },
   {
     "asset": "CVC",
@@ -302,6 +334,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum/Bitcoin"
+  },
+  {
+    "asset": "ETH",
+    "currency": "PAX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ethereum/Paxos Standard"
   },
   {
     "asset": "ETH",
@@ -520,6 +560,14 @@
     "label": "OmiseGO/Bitcoin"
   },
   {
+    "asset": "PAX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Paxos Standard/Tether USD"
+  },
+  {
     "asset": "POLY",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -590,6 +638,30 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Status/Bitcoin"
+  },
+  {
+    "asset": "SNX",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Synthetix Network Token/Bitcoin"
+  },
+  {
+    "asset": "SNX",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Synthetix Network Token/Tron"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Synthetix Network Token/Tether USD"
   },
   {
     "asset": "STEEM",
@@ -665,11 +737,43 @@
   },
   {
     "asset": "TRX",
+    "currency": "USDJ",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tron/USDJ"
+  },
+  {
+    "asset": "TRX",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Tron/Tether USD"
+  },
+  {
+    "asset": "TRXBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short TRX Token/Tether USD"
+  },
+  {
+    "asset": "TRXBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long TRX Token/Tether USD"
+  },
+  {
+    "asset": "USDJ",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "USDJ/Tether USD"
   },
   {
     "asset": "USDT",
@@ -758,6 +862,30 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ripple/Tether USD"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tezos/Bitcoin"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tezos/Tron"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tezos/Tether USD"
   },
   {
     "asset": "ZEC",
