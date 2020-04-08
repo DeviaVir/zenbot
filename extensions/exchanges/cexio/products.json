@@ -614,5 +614,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "MATIC/USD"
+  },
+  {
+    "asset": "MATIC",
+    "currency": "EUR",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MATIC/EUR"
   }
 ]
