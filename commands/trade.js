@@ -120,47 +120,44 @@ module.exports = function (program, conf) {
       keyMap.set('d', 'dump statistical output to HTML file'.grey)
       keyMap.set('D', 'toggle automatic HTML dump to file'.grey)
 
+      var pushStr = ''
+
       function listKeys() {
-        console.log('\nAvailable command keys:')
+        printLog('Available command keys:', true)
         keyMap.forEach((value, key) => {
-          console.log(' ' + key + ' - ' + value)
+          printLog(' ' + key + ' - ' + value)
         })
       }
 
       function listOptions () {
-        console.log()
-        console.log(s.exchange.name.toUpperCase() + ' exchange active trading options:'.grey)
-        console.log()
-        process.stdout.write(z(22, 'STRATEGY'.grey, ' ') + '\t' + so.strategy + '\t' + (require(`../extensions/strategies/${so.strategy}/strategy`).description).grey)
-        console.log('\n')
-        process.stdout.write([
+        printLog(s.exchange.name.toUpperCase() + ' exchange active trading options:'.grey, true)
+        printLog(z(22, 'STRATEGY'.grey, ' ') + '\t' + so.strategy + '\t' + (require(`../extensions/strategies/${so.strategy}/strategy`).description).grey, true)
+        printLog([
           z(24, (so.mode === 'paper' ? so.mode.toUpperCase() : so.mode.toUpperCase()) + ' MODE'.grey, ' '),
           z(26, 'PERIOD'.grey, ' '),
           z(30, 'ORDER TYPE'.grey, ' '),
           z(28, 'SLIPPAGE'.grey, ' '),
           z(33, 'EXCHANGE FEES'.grey, ' ')
-        ].join('') + '\n')
-        process.stdout.write([
+        ].join(''), true)
+        printLog([
           z(15, (so.mode === 'paper' ? '      ' : (so.mode === 'live' && (so.manual === false || typeof so.manual === 'undefined')) ? '       ' + 'AUTO'.black.bgRed + '    ' : '       ' + 'MANUAL'.black.bgGreen + '  '), ' '),
           z(13, so.period_length, ' '),
           z(29, (so.order_type === 'maker' ? so.order_type.toUpperCase().green : so.order_type.toUpperCase().red), ' '),
           z(31, (so.mode === 'paper' ? 'avg. '.grey + so.avg_slippage_pct + '%' : 'max '.grey + so.max_slippage_pct + '%'), ' '),
           z(20, (so.order_type === 'maker' ? so.order_type + ' ' + s.exchange.makerFee : so.order_type + ' ' + s.exchange.takerFee), ' ')
-        ].join('') + '\n')
-        process.stdout.write('')
-        process.stdout.write([
+        ].join(''))
+        printLog([
           z(19, 'BUY %'.grey, ' '),
           z(20, 'SELL %'.grey, ' '),
           z(35, 'TRAILING STOP %'.grey, ' '),
           z(33, 'TRAILING DISTANCE %'.grey, ' ')
-        ].join('') + '\n')
-        process.stdout.write([
+        ].join(''))
+        printLog([
           z(9, so.buy_pct + '%', ' '),
           z(9, so.sell_pct + '%', ' '),
           z(20, so.profit_stop_enable_pct + '%', ' '),
           z(20, so.profit_stop_pct + '%', ' ')
-        ].join('') + '\n')
-        process.stdout.write('')
+        ].join(''))
       }
 
       /* Implementing statistical Exit */
@@ -226,7 +223,7 @@ module.exports = function (program, conf) {
         }
         if (!statsonly) {
           output_lines.forEach(function (line) {
-            console.log(line)
+            printLog(line)
           })
         }
         if (quit || dump) {
@@ -275,9 +272,9 @@ module.exports = function (program, conf) {
       function toggleStats(){
         shouldSaveStats = !shouldSaveStats
         if(shouldSaveStats)
-          console.log('Auto stats dump enabled')
+          printLog('Auto stats dump enabled')
         else
-          console.log('Auto stats dump disabled')
+          printLog('Auto stats dump disabled')
       }
 
       function saveStatsLoop(){
@@ -366,6 +363,79 @@ module.exports = function (program, conf) {
           //console.log('\nwrote'.grey, out_target)
         }
 
+      }
+
+      function printLog(str, cr = false) {
+        if (str) {
+          console.log((cr?'\n':'') + str)
+          pushStr += str + '\n'
+        }
+      }
+
+      function executeCommand(command) {
+        var info = { ctrl: false }
+        if (conf.debug) {
+          console.log('\nCommand received: ' + command)
+        }
+        executeKey(command, info)
+      }
+
+      function executeKey(key, info) {
+        if (key === 'l') {
+          listKeys()
+        } else if (key === 'b' && !info.ctrl ) {
+          engine.executeSignal('buy')
+          printLog('manual'.grey + ' limit ' + 'BUY'.green + ' command executed'.grey, true)
+        } else if (key === 'B' && !info.ctrl) {
+          engine.executeSignal('buy', null, null, false, true)
+          printLog('manual'.grey + ' market ' + 'BUY'.green + ' command executed'.grey, true)
+        } else if (key === 's' && !info.ctrl) {
+          engine.executeSignal('sell')
+          printLog('manual'.grey + ' limit ' + 'SELL'.red + ' command executed'.grey, true)
+        } else if (key === 'S' && !info.ctrl) {
+          engine.executeSignal('sell', null, null, false, true)
+          printLog('manual'.grey + ' market ' + 'SELL'.red + ' command executed'.grey, true)
+        } else if ((key === 'c' || key === 'C') && !info.ctrl) {
+          delete s.buy_order
+          delete s.sell_order
+          printLog('manual'.grey + ' order cancel' + ' command executed'.grey, true)
+        } else if (key === 'm' && !info.ctrl && so.mode === 'live') {
+          so.manual = !so.manual
+          printLog('MANUAL trade in LIVE mode: ' + (so.manual ? 'ON'.green.inverse : 'OFF'.red.inverse), true)
+        } else if (key === 'T' && !info.ctrl) {
+          so.order_type = 'taker'
+          printLog('Taker fees activated'.bgRed, true)
+        } else if (key === 'M' && !info.ctrl) {
+          so.order_type = 'maker'
+          printLog('Maker fees activated'.black.bgGreen, true)
+        } else if (key === 'o' && !info.ctrl) {
+          listOptions()
+        } else if (key === 'O' && !info.ctrl) {
+          printLog(cliff.inspect(so), true)
+        } else if (key === 'P' && !info.ctrl) {
+          printLog('Writing statistics...'.grey, true)
+          printTrade(false)
+        } else if (key === 'X' && !info.ctrl) {
+          printLog('Exiting... ' + '\nWriting statistics...'.grey, true)
+          printTrade(true)
+        } else if (key === 'd' && !info.ctrl) {
+          printLog('Dumping statistics...'.grey, true)
+          printTrade(false, true)
+        } else if (key === 'D' && !info.ctrl) {
+          printLog('Dumping statistics...'.grey, true)
+          toggleStats()
+        } else if (key === 'L' && !info.ctrl) {
+          debug.flip()
+          printLog('DEBUG mode: ' + (debug.on ? 'ON'.green.inverse : 'OFF'.red.inverse), true)
+        } else if (info.name === 'c' && info.ctrl) {
+          // @todo: cancel open orders before exit
+          process.exit()
+        }
+
+        if (pushStr) {
+          engine.pushMessage('Reply', colors.stripColors(pushStr))
+          pushStr = ''
+        }
       }
 
       var order_types = ['maker', 'taker']
@@ -483,62 +553,13 @@ module.exports = function (program, conf) {
 
                   forwardScan()
                   setInterval(forwardScan, so.poll_trades)
+                  if (!so.non_interactive) {
+                    engine.onMessage(executeCommand)
+                  }
                   readline.emitKeypressEvents(process.stdin)
                   if (!so.non_interactive && process.stdin.setRawMode) {
                     process.stdin.setRawMode(true)
-                    process.stdin.on('keypress', function (key, info) {
-                      if (key === 'l') {
-                        listKeys()
-                      } else if (key === 'b' && !info.ctrl ) {
-                        engine.executeSignal('buy')
-                        console.log('\nmanual'.grey + ' limit ' + 'BUY'.green + ' command executed'.grey)
-                      } else if (key === 'B' && !info.ctrl) {
-                        engine.executeSignal('buy', null, null, false, true)
-                        console.log('\nmanual'.grey + ' market ' + 'BUY'.green + ' command executed'.grey)
-                      } else if (key === 's' && !info.ctrl) {
-                        engine.executeSignal('sell')
-                        console.log('\nmanual'.grey + ' limit ' + 'SELL'.red + ' command executed'.grey)
-                      } else if (key === 'S' && !info.ctrl) {
-                        engine.executeSignal('sell', null, null, false, true)
-                        console.log('\nmanual'.grey + ' market ' + 'SELL'.red + ' command executed'.grey)
-                      } else if ((key === 'c' || key === 'C') && !info.ctrl) {
-                        delete s.buy_order
-                        delete s.sell_order
-                        console.log('\nmanual'.grey + ' order cancel' + ' command executed'.grey)
-                      } else if (key === 'm' && !info.ctrl && so.mode === 'live') {
-                        so.manual = !so.manual
-                        console.log('\nMANUAL trade in LIVE mode: ' + (so.manual ? 'ON'.green.inverse : 'OFF'.red.inverse))
-                      } else if (key === 'T' && !info.ctrl) {
-                        so.order_type = 'taker'
-                        console.log('\n' + 'Taker fees activated'.bgRed)
-                      } else if (key === 'M' && !info.ctrl) {
-                        so.order_type = 'maker'
-                        console.log('\n' + 'Maker fees activated'.black.bgGreen)
-                      } else if (key === 'o' && !info.ctrl) {
-                        listOptions()
-                      } else if (key === 'O' && !info.ctrl) {
-                        console.log('\n' + cliff.inspect(so))
-                      } else if (key === 'P' && !info.ctrl) {
-                        console.log('\nWriting statistics...'.grey)
-                        printTrade(false)
-                      } else if (key === 'X' && !info.ctrl) {
-                        console.log('\nExiting... ' + '\nWriting statistics...'.grey)
-                        printTrade(true)
-                      } else if (key === 'd' && !info.ctrl) {
-                        console.log('\nDumping statistics...'.grey)
-                        printTrade(false, true)
-                      } else if (key === 'D' && !info.ctrl) {
-                        console.log('\nDumping statistics...'.grey)
-                        toggleStats()
-                      } else if (key === 'L' && !info.ctrl) {
-                        debug.flip()
-                        console.log('\nDEBUG mode: ' + (debug.on ? 'ON'.green.inverse : 'OFF'.red.inverse))
-                      } else if (info.name === 'c' && info.ctrl) {
-                        // @todo: cancel open orders before exit
-                        console.log()
-                        process.exit()
-                      }
-                    })
+                    process.stdin.on('keypress', executeKey)
                   }
                 })
               })
