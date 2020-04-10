@@ -622,5 +622,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "MATIC/EUR"
+  },
+  {
+    "asset": "MATIC",
+    "currency": "GBP",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MATIC/GBP"
   }
 ]
