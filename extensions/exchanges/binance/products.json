@@ -8611,5 +8611,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "XZC/USDT"
+  },
+  {
+    "id": "SOLBNB",
+    "asset": "SOL",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "SOL/BNB"
+  },
+  {
+    "id": "SOLBTC",
+    "asset": "SOL",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "SOL/BTC"
+  },
+  {
+    "id": "SOLBUSD",
+    "asset": "SOL",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SOL/BUSD"
   }
 ]
