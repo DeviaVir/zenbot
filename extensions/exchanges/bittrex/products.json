@@ -3182,5 +3182,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/USDC"
+  },
+  {
+    "asset": "UPUSD",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/UPUSD"
   }
 ]
