@@ -66,7 +66,7 @@
     "imports-loader": "^0.8.0",
     "ip": "~1.1.5",
     "jasmine": "^3.2.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsonexport": "^2.4.1",
     "keltnerchannel": "^1.4.2",
     "kraken-api": "^1.0.0",
