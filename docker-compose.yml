@@ -20,6 +20,7 @@ services:
       - mongodb
     environment:
       - MONGODB_PORT_27017_TCP_ADDR=mongodb
+    stdin_open: true
   mongodb:
     image: mongo:latest
     volumes:
