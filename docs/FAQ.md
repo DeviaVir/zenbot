@@ -27,7 +27,7 @@ Thanks!
 
 ### [Errors](#errors-1)
 * [Why do I keep getting a "Nonce" error?](#why-do-i-keep-getting-a-nonce-error)
-
+* [Why do I keep getting a "JavaScript heap out of memory" error](#why-do-i-keep-getting-a-javascript-heap-out-of-memory-error)
 
 
 ## Answers
@@ -149,3 +149,17 @@ docker-compose up -d
 This error may occur when multiple instances of Zenbot are used with the same API key. To avoid this, use a different API key for each concurrent instance of Zenbot.
 
 This could also occur if the Zenbot server's time is not correct. Using NTP will keep the time current and help avoid this error.
+
+#### Why do I keep getting a "JavaScript heap out of memory" error
+
+This error may occur when your node environment does not have enough memory.
+
+Solution (Linux & Docker): Change the line
+
+`env node zenbot.js $@`
+
+in [zenbot.sh](../zenbot.sh) to 
+
+`env node --max-old-space-size=<memory> zenbot.js $@`
+
+ where `<memory>` is the amount of memory node is allowed to use (e.g. 4096 for 4GB). For Windows you have to change the file [zenbot.bat](../zenbot.bat) respectively.
