@@ -2464,6 +2464,14 @@
     "label": "BTC/BLOC"
   },
   {
+    "asset": "BRZ",
+    "currency": "BTC",
+    "min_size": "12.00768492",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BRZ"
+  },
+  {
     "asset": "TEMCO",
     "currency": "BTC",
     "min_size": "4500.00000000",

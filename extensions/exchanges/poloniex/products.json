@@ -80,6 +80,22 @@
     "label": "Bitcoin Cash/Tether USD"
   },
   {
+    "asset": "BCHBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Bitcoin Cash Token/Tether USD"
+  },
+  {
+    "asset": "BCHBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Bitcoin Cash Token/Tether USD"
+  },
+  {
     "asset": "BCHSV",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -384,12 +400,28 @@
     "label": "Ethereum/Tether USD"
   },
   {
+    "asset": "ETHBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Ethereum Token/Tether USD"
+  },
+  {
     "asset": "ETHBNT",
     "currency": "BTC",
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
     "label": "Bancor ETH Smart Token Relay/Bitcoin"
+  },
+  {
+    "asset": "ETHBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Ethereum Token/Tether USD"
   },
   {
     "asset": "FOAM",
