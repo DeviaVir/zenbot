@@ -2466,7 +2466,7 @@
   {
     "asset": "BRZ",
     "currency": "BTC",
-    "min_size": "12.00768492",
+    "min_size": "16.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BRZ"
@@ -3198,5 +3198,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/UPUSD"
+  },
+  {
+    "asset": "BRZ",
+    "currency": "USDT",
+    "min_size": "16.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BRZ"
+  },
+  {
+    "asset": "XUC",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/XUC"
+  },
+  {
+    "asset": "MDT",
+    "currency": "BTC",
+    "min_size": "375.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/MDT"
+  },
+  {
+    "asset": "MDT",
+    "currency": "USDT",
+    "min_size": "375.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MDT"
   }
 ]
