@@ -8644,5 +8644,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "SOL/BUSD"
+  },
+  {
+    "id": "BTCIDRT",
+    "asset": "BTC",
+    "currency": "IDRT",
+    "min_size": "0.00000100",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00000100",
+    "label": "BTC/IDRT"
+  },
+  {
+    "id": "BNBIDRT",
+    "asset": "BNB",
+    "currency": "IDRT",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00100000",
+    "label": "BNB/IDRT"
+  },
+  {
+    "id": "USDTIDRT",
+    "asset": "USDT",
+    "currency": "IDRT",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "USDT/IDRT"
+  },
+  {
+    "id": "BUSDIDRT",
+    "asset": "BUSD",
+    "currency": "IDRT",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "BUSD/IDRT"
   }
 ]
