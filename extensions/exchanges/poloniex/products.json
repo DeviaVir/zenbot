@@ -600,6 +600,22 @@
     "label": "Matic Network/Tether USD"
   },
   {
+    "asset": "MKR",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Maker/Bitcoin"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Maker/Tether USD"
+  },
+  {
     "asset": "NMR",
     "currency": "BTC",
     "min_total": "0.0001",
