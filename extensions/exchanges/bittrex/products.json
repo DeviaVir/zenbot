@@ -3254,5 +3254,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/REV"
+  },
+  {
+    "asset": "UCT",
+    "currency": "BTC",
+    "min_size": "130.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UCT"
+  },
+  {
+    "asset": "UCT",
+    "currency": "USDT",
+    "min_size": "130.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/UCT"
+  },
+  {
+    "asset": "YOU",
+    "currency": "BTC",
+    "min_size": "100.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/YOU"
   }
 ]
