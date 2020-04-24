@@ -118,5 +118,101 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ZEC/LTC"
+  },
+  {
+    "asset": "BAT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAT/USD"
+  },
+  {
+    "asset": "BAT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BAT/BTC"
+  },
+  {
+    "asset": "BAT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAT/ETH"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DAI/USD"
+  },
+  {
+    "asset": "DAI",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "DAI/BTC"
+  },
+  {
+    "asset": "DAI",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DAI/ETH"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KUS"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KBT",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KBT"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KET",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KET"
+  },
+  {
+    "asset": "OXT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "OXT/USD"
+  },
+  {
+    "asset": "OXT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "OXT/BTC"
+  },
+  {
+    "asset": "OXT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "OXT/ETH"
   }
 ]
