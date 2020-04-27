@@ -638,5 +638,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "LINK/USD"
+  },
+  {
+    "asset": "LINK",
+    "currency": "EUR",
+    "min_size": "5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LINK/EUR"
   }
 ]

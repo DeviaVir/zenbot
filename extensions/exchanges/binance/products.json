@@ -8732,5 +8732,38 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "CTSI/BUSD"
+  },
+  {
+    "id": "HIVEBNB",
+    "asset": "HIVE",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "HIVE/BNB"
+  },
+  {
+    "id": "HIVEBTC",
+    "asset": "HIVE",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "HIVE/BTC"
+  },
+  {
+    "id": "HIVEUSDT",
+    "asset": "HIVE",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "HIVE/USDT"
   }
 ]
