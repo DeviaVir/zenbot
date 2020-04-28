@@ -45,7 +45,7 @@
     "cliff": "^0.1.10",
     "coinbase-pro": "^0.9.0",
     "colors": "^1.4.0",
-    "commander": "^5.0.0",
+    "commander": "^5.1.0",
     "convnetjs": "0.3.0",
     "counterup": "^1.0.2",
     "css-loader": "^3.5.2",
