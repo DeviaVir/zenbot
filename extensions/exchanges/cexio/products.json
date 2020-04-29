@@ -646,5 +646,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "LINK/EUR"
+  },
+  {
+    "asset": "LINK",
+    "currency": "GBP",
+    "min_size": "5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LINK/GBP"
   }
 ]
