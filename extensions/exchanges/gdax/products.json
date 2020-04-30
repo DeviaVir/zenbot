@@ -127,6 +127,15 @@
   },
   {
     "asset": "DAI",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "100000",
+    "increment": "0.000001",
+    "asset_increment": "0.00001",
+    "label": "DAI/USD"
+  },
+  {
+    "asset": "DAI",
     "currency": "USDC",
     "min_size": "1",
     "max_size": "100000",

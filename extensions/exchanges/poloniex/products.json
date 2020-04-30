@@ -161,6 +161,14 @@
   },
   {
     "asset": "BTC",
+    "currency": "DAI",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin/Dai Stablecoin"
+  },
+  {
+    "asset": "BTC",
     "currency": "PAX",
     "min_total": "0.0001",
     "max_size": null,
@@ -246,6 +254,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Civic/Bitcoin"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Dai Stablecoin/Tether USD"
   },
   {
     "asset": "DASH",
@@ -374,6 +390,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum/Bitcoin"
+  },
+  {
+    "asset": "ETH",
+    "currency": "DAI",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ethereum/Dai Stablecoin"
   },
   {
     "asset": "ETH",

@@ -3,7 +3,7 @@
     "asset": "BTC",
     "currency": "USD",
     "min_size": "0.002",
-    "max_size": "30",
+    "max_size": null,
     "increment": "0.1",
     "label": "BTC/USD"
   },
@@ -11,7 +11,7 @@
     "asset": "ETH",
     "currency": "USD",
     "min_size": "0.1",
-    "max_size": "1000",
+    "max_size": null,
     "increment": "0.01",
     "label": "ETH/USD"
   },
@@ -19,7 +19,7 @@
     "asset": "BCH",
     "currency": "USD",
     "min_size": "0.07",
-    "max_size": "30",
+    "max_size": null,
     "increment": "0.01",
     "label": "BCH/USD"
   },
@@ -147,7 +147,7 @@
     "asset": "BTC",
     "currency": "EUR",
     "min_size": "0.002",
-    "max_size": "30",
+    "max_size": null,
     "increment": "0.1",
     "label": "BTC/EUR"
   },
@@ -395,7 +395,7 @@
     "asset": "ETH",
     "currency": "BTC",
     "min_size": "0.13",
-    "max_size": "1000",
+    "max_size": null,
     "increment": "0.000001",
     "label": "ETH/BTC"
   },

@@ -1128,14 +1128,6 @@
     "label": "VEE/USD"
   },
   {
-    "asset": "DAD",
-    "currency": "USD",
-    "min_size": "132.0",
-    "max_size": "200000.0",
-    "increment": "0.0000001",
-    "label": "DAD/USD"
-  },
-  {
     "asset": "ORS",
     "currency": "USD",
     "min_size": "180.0",
@@ -1182,14 +1174,6 @@
     "max_size": "50000.0",
     "increment": "0.000001",
     "label": "ZCN/USD"
-  },
-  {
-    "asset": "SEN",
-    "currency": "USD",
-    "min_size": "5882.0",
-    "max_size": "200000.0",
-    "increment": "0.0000001",
-    "label": "SEN/USD"
   },
   {
     "asset": "NCA",
@@ -1334,22 +1318,6 @@
     "max_size": "50000.0",
     "increment": "0.000001",
     "label": "MAN/USD"
-  },
-  {
-    "asset": "NIO",
-    "currency": "USD",
-    "min_size": "1372.0",
-    "max_size": "200000.0",
-    "increment": "0.0000001",
-    "label": "NIO/USD"
-  },
-  {
-    "asset": "NIO",
-    "currency": "ETH",
-    "min_size": "1372.0",
-    "max_size": "200000.0",
-    "increment": "0.0000000001",
-    "label": "NIO/ETH"
   },
   {
     "asset": "DGX",
