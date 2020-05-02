@@ -79,7 +79,7 @@
     "minimist": "^1.2.5",
     "mock-require": "^3.0.2",
     "moment": "^2.22.0",
-    "mongodb": "^3.5.6",
+    "mongodb": "^3.5.7",
     "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.8",
     "node-sass": "^4.14.0",
