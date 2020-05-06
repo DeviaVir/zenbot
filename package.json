@@ -114,7 +114,7 @@
     "wexnz": "^0.1.3",
     "ws": "^7.2.5",
     "zero-fill": "^2.2.3",
-    "snyk": "^1.316.2"
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
