@@ -872,6 +872,30 @@
     "label": "Stratis/Bitcoin"
   },
   {
+    "asset": "SWFTC",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "SwftCoin/Bitcoin"
+  },
+  {
+    "asset": "SWFTC",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "SwftCoin/Tron"
+  },
+  {
+    "asset": "SWFTC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "SwftCoin/Tether USD"
+  },
+  {
     "asset": "TRX",
     "currency": "BTC",
     "min_total": "0.0001",
