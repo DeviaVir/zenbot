@@ -520,6 +520,22 @@
     "label": "Inverse Bitcoin Volatility Token/Tether USD"
   },
   {
+    "asset": "JST",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Just/Tron"
+  },
+  {
+    "asset": "JST",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Just/Tether USD"
+  },
+  {
     "asset": "KNC",
     "currency": "BTC",
     "min_total": "0.0001",
