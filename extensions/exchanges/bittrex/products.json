@@ -1424,6 +1424,14 @@
     "label": "BTC/AID"
   },
   {
+    "asset": "NGC",
+    "currency": "BTC",
+    "min_size": "300.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/NGC"
+  },
+  {
     "asset": "GTO",
     "currency": "BTC",
     "min_size": "145.34883721",
