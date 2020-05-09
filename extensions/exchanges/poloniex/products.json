@@ -128,6 +128,14 @@
     "label": "Bytecoin/Bitcoin"
   },
   {
+    "asset": "BCN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bytecoin/Tether USD"
+  },
+  {
     "asset": "BEAR",
     "currency": "USDT",
     "min_total": "1",
@@ -222,6 +230,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "BitTorrent/Tron"
+  },
+  {
+    "asset": "BTT",
+    "currency": "USDJ",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BitTorrent/USDJ"
   },
   {
     "asset": "BTT",
@@ -464,6 +480,30 @@
     "label": "Foam/Bitcoin"
   },
   {
+    "asset": "FXC",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Flexacoin/Bitcoin"
+  },
+  {
+    "asset": "FXC",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Flexacoin/Tron"
+  },
+  {
+    "asset": "FXC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Flexacoin/Tether USD"
+  },
+  {
     "asset": "GAS",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -558,6 +598,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Chainlink/Tron"
+  },
+  {
+    "asset": "LINK",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Chainlink/Tether USD"
   },
   {
     "asset": "LOOM",
@@ -846,6 +894,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "STEEM/Tron"
+  },
+  {
+    "asset": "STEEM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "STEEM/Tether USD"
   },
   {
     "asset": "STORJ",
