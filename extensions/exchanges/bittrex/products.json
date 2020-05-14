@@ -3342,5 +3342,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DNA"
+  },
+  {
+    "asset": "SOLVE",
+    "currency": "USDT",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SOLVE"
   }
 ]
