@@ -9,7 +9,7 @@ module.exports = function container (conf) {
   var public_client, authed_client
 
   function publicClient () {
-    if (!public_client) public_client = new ccxt.hitbtc2({ 'apiKey': '', 'secret': '' })
+    if (!public_client) public_client = new ccxt.hitbtc({ 'apiKey': '', 'secret': '' })
     return public_client
   }
 
@@ -18,7 +18,7 @@ module.exports = function container (conf) {
       if (!conf.hitbtc || !conf.hitbtc.key || !conf.hitbtc.key === 'YOUR-API-KEY') {
         throw new Error('please configure your HitBTC credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.hitbtc2({ 'apiKey': conf.hitbtc.key, 'secret': conf.hitbtc.secret })
+      authed_client = new ccxt.hitbtc({ 'apiKey': conf.hitbtc.key, 'secret': conf.hitbtc.secret })
     }
     return authed_client
   }
