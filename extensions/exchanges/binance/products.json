@@ -8831,5 +8831,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "GXS/USDT"
+  },
+  {
+    "id": "ARDRUSDT",
+    "asset": "ARDR",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ARDR/USDT"
+  },
+  {
+    "id": "ERDBUSD",
+    "asset": "ERD",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "ERD/BUSD"
+  },
+  {
+    "id": "LENDUSDT",
+    "asset": "LEND",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "LEND/USDT"
   }
 ]

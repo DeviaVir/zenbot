@@ -392,6 +392,22 @@
     "label": "EOS/Tether USD"
   },
   {
+    "asset": "EOSBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short EOS Token/Tether USD"
+  },
+  {
+    "asset": "EOSBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long EOS Token/Tether USD"
+  },
+  {
     "asset": "ETC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -630,6 +646,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Chainlink/Tether USD"
+  },
+  {
+    "asset": "LINKBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Chainlink Token/Tether USD"
+  },
+  {
+    "asset": "LINKBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Chainlink Token/Tether USD"
   },
   {
     "asset": "LOOM",
@@ -1134,6 +1166,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ripple/Tether USD"
+  },
+  {
+    "asset": "XRPBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short XRP Token/Tether USD"
+  },
+  {
+    "asset": "XRPBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long XRP Token/Tether USD"
   },
   {
     "asset": "XTZ",

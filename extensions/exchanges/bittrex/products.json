@@ -3350,5 +3350,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SOLVE"
+  },
+  {
+    "asset": "CNTM",
+    "currency": "BTC",
+    "min_size": "12.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CNTM"
+  },
+  {
+    "asset": "LBC",
+    "currency": "USDT",
+    "min_size": "64.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LBC"
   }
 ]
