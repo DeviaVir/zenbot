@@ -387,6 +387,42 @@
     "label": "MANA/USDC"
   },
   {
+    "asset": "OMG",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.00000001",
+    "asset_increment": "0.1",
+    "label": "OMG/BTC"
+  },
+  {
+    "asset": "OMG",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "OMG/EUR"
+  },
+  {
+    "asset": "OMG",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "150000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "OMG/GBP"
+  },
+  {
+    "asset": "OMG",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "OMG/USD"
+  },
+  {
     "asset": "OXT",
     "currency": "USD",
     "min_size": "1",

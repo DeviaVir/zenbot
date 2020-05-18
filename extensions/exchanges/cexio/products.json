@@ -616,6 +616,14 @@
     "label": "WABI/USD"
   },
   {
+    "asset": "WABI",
+    "currency": "EUR",
+    "min_size": "150",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "WABI/EUR"
+  },
+  {
     "asset": "MATIC",
     "currency": "USD",
     "min_size": "100",
