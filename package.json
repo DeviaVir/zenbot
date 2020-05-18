@@ -69,7 +69,7 @@
     "jquery": "^3.5.1",
     "jsonexport": "^2.4.1",
     "keltnerchannel": "^1.4.2",
-    "kraken-api": "^1.0.0",
+    "kraken-api": "^1.0.1",
     "lint-staged": "^10.2.2",
     "lodash": "^4.17.15",
     "lolex": "^6.0.0",
