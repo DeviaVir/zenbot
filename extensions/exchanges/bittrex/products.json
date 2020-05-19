@@ -3366,5 +3366,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/LBC"
+  },
+  {
+    "asset": "LOON",
+    "currency": "BTC",
+    "min_size": "150.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LOON"
+  },
+  {
+    "asset": "TNC",
+    "currency": "BTC",
+    "min_size": "12.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TNC"
+  },
+  {
+    "asset": "LOON",
+    "currency": "USDT",
+    "min_size": "150.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LOON"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "USD",
+    "min_size": "20.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ALGO"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "USDT",
+    "min_size": "20.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ALGO"
   }
 ]
