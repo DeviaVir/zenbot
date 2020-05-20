@@ -3406,5 +3406,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ALGO"
+  },
+  {
+    "asset": "UBT",
+    "currency": "BTC",
+    "min_size": "8.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UBT"
+  },
+  {
+    "asset": "UBT",
+    "currency": "ETH",
+    "min_size": "8.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/UBT"
+  },
+  {
+    "asset": "DEP",
+    "currency": "BTC",
+    "min_size": "400.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DEP"
+  },
+  {
+    "asset": "DEP",
+    "currency": "USDT",
+    "min_size": "400.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DEP"
   }
 ]
