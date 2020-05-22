@@ -8864,5 +8864,49 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "LEND/USDT"
+  },
+  {
+    "id": "HBARBUSD",
+    "asset": "HBAR",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "HBAR/BUSD"
+  },
+  {
+    "id": "MATICBUSD",
+    "asset": "MATIC",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "MATIC/BUSD"
+  },
+  {
+    "id": "WRXBUSD",
+    "asset": "WRX",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "WRX/BUSD"
+  },
+  {
+    "id": "ZILBUSD",
+    "asset": "ZIL",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ZIL/BUSD"
   }
 ]
