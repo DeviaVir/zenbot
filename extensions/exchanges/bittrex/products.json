@@ -3486,5 +3486,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CNTM"
+  },
+  {
+    "asset": "VID",
+    "currency": "BTC",
+    "min_size": "20.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VID"
+  },
+  {
+    "asset": "HNS",
+    "currency": "BTC",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/HNS"
+  },
+  {
+    "asset": "HNS",
+    "currency": "ETH",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/HNS"
+  },
+  {
+    "asset": "HNS",
+    "currency": "USDT",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/HNS"
   }
 ]
