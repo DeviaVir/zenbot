@@ -8,10 +8,10 @@
   },
   {
     "asset": "BTC",
-    "currency": "USDT",
-    "min_size": 0.01,
-    "increment": "0.010000000000000000",
-    "label": "BTC/USDT"
+    "currency": "USD",
+    "min_size": 0.001,
+    "increment": "0.00001",
+    "label": "BTC/USD"
   },
   {
     "asset": "DASH",
