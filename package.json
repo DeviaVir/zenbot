@@ -67,7 +67,7 @@
     "ip": "~1.1.5",
     "jasmine": "^3.2.0",
     "jquery": "^3.5.1",
-    "jsonexport": "^2.5.0",
+    "jsonexport": "^2.5.2",
     "keltnerchannel": "^1.4.2",
     "kraken-api": "^1.0.1",
     "lint-staged": "^10.2.6",
