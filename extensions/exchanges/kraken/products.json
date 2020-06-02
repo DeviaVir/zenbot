@@ -469,6 +469,34 @@
     "label": "OMG/XBT"
   },
   {
+    "asset": "OXT",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OXT/ETH"
+  },
+  {
+    "asset": "OXT",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OXT/EUR"
+  },
+  {
+    "asset": "OXT",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OXT/USD"
+  },
+  {
+    "asset": "OXT",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "OXT/XBT"
+  },
+  {
     "asset": "PAXG",
     "currency": "XETH",
     "min_size": "0.01",

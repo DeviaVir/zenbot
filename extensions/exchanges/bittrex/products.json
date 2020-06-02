@@ -3542,5 +3542,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UTI"
+  },
+  {
+    "asset": "SOLVE",
+    "currency": "USD",
+    "min_size": "17.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/SOLVE"
   }
 ]
