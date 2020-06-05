@@ -160,6 +160,30 @@
     "label": "3X Short Bitcoin Token/Tether USD"
   },
   {
+    "asset": "BNB",
+    "currency": "BUSD",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Binance Token/Binance USD"
+  },
+  {
+    "asset": "BNB",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Binance Token/Tron"
+  },
+  {
+    "asset": "BNB",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Binance Token/Tether USD"
+  },
+  {
     "asset": "BNT",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -182,6 +206,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "3X Long Bitcoin SV Token/Tether USD"
+  },
+  {
+    "asset": "BTC",
+    "currency": "BNB",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin/Binance Token"
+  },
+  {
+    "asset": "BTC",
+    "currency": "BUSD",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin/Binance USD"
   },
   {
     "asset": "BTC",
@@ -262,6 +302,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "3X Long Bitcoin Token/Tether USD"
+  },
+  {
+    "asset": "BUSD",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Binance USD/Tether USD"
   },
   {
     "asset": "BVOL",
@@ -766,6 +814,30 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Matic Network/Tether USD"
+  },
+  {
+    "asset": "MDT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Measurable Data Token/Bitcoin"
+  },
+  {
+    "asset": "MDT",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Measurable Data Token/Tron"
+  },
+  {
+    "asset": "MDT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Measurable Data Token/Tether USD"
   },
   {
     "asset": "MKR",
