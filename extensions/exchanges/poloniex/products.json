@@ -165,7 +165,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Binance Token/Binance USD"
+    "label": "Binance Coin/Binance USD"
   },
   {
     "asset": "BNB",
@@ -173,7 +173,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Binance Token/Tron"
+    "label": "Binance Coin/Tron"
   },
   {
     "asset": "BNB",
@@ -181,7 +181,7 @@
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Binance Token/Tether USD"
+    "label": "Binance Coin/Tether USD"
   },
   {
     "asset": "BNT",
@@ -213,7 +213,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Bitcoin/Binance Token"
+    "label": "Bitcoin/Binance Coin"
   },
   {
     "asset": "BTC",
