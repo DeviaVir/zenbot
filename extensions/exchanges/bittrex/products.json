@@ -168,6 +168,14 @@
     "label": "BTC/XST"
   },
   {
+    "asset": "AR",
+    "currency": "BTC",
+    "min_size": "5.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AR"
+  },
+  {
     "asset": "VIA",
     "currency": "BTC",
     "min_size": "9.76181179",
@@ -1408,20 +1416,20 @@
     "label": "USDT/TRX"
   },
   {
-    "asset": "STORM",
+    "asset": "STMX",
     "currency": "BTC",
     "min_size": "1562.50000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/STORM"
+    "label": "BTC/STMX"
   },
   {
-    "asset": "STORM",
+    "asset": "STMX",
     "currency": "ETH",
     "min_size": "599.52038369",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/STORM"
+    "label": "ETH/STMX"
   },
   {
     "asset": "AID",

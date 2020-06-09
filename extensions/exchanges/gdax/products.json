@@ -391,8 +391,8 @@
     "currency": "BTC",
     "min_size": "0.001",
     "max_size": "240",
-    "increment": "0.000001",
-    "asset_increment": "0.0001",
+    "increment": "0.00001",
+    "asset_increment": "0.000001",
     "label": "MKR/BTC"
   },
   {
@@ -400,8 +400,8 @@
     "currency": "USD",
     "min_size": "0.001",
     "max_size": "240",
-    "increment": "0.01",
-    "asset_increment": "0.0001",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
     "label": "MKR/USD"
   },
   {
