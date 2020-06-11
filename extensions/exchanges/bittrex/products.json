@@ -3574,5 +3574,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/4ART"
+  },
+  {
+    "asset": "VLX",
+    "currency": "BTC",
+    "min_size": "60.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VLX"
+  },
+  {
+    "asset": "VLX",
+    "currency": "USDT",
+    "min_size": "60.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/VLX"
   }
 ]

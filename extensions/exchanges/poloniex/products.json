@@ -120,6 +120,14 @@
     "label": "3X Long Bitcoin Cash Token/Tether USD"
   },
   {
+    "asset": "BCHC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BitCherry/Tether USD"
+  },
+  {
     "asset": "BCHSV",
     "currency": "BTC",
     "min_total": "0.0001",
