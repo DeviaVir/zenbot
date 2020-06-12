@@ -8985,5 +8985,71 @@
     "increment": "0.00000100",
     "asset_increment": "1.00000000",
     "label": "STMX/USDT"
+  },
+  {
+    "id": "KNCBUSD",
+    "asset": "KNC",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "KNC/BUSD"
+  },
+  {
+    "id": "KNCUSDT",
+    "asset": "KNC",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "KNC/USDT"
+  },
+  {
+    "id": "REPBUSD",
+    "asset": "REP",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "REP/BUSD"
+  },
+  {
+    "id": "REPUSDT",
+    "asset": "REP",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "REP/USDT"
+  },
+  {
+    "id": "LRCBUSD",
+    "asset": "LRC",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "LRC/BUSD"
+  },
+  {
+    "id": "LRCUSDT",
+    "asset": "LRC",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "LRC/USDT"
   }
 ]
