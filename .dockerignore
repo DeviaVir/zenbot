@@ -1,2 +1,11 @@
 node_modules
 data
+database
+simulations/*
+docs
+docker-compose*
+Dockerfile
+*.md
+.gitignore
+.dockerignore
+.github/
