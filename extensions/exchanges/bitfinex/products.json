@@ -2320,6 +2320,14 @@
     "label": "XAU/T:U"
   },
   {
+    "asset": "RIN",
+    "currency": "GX:",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.000001",
+    "label": "RIN/GX:"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0006",
