@@ -1,25 +1,20 @@
-version: '3.1'
+version: "3.1"
 services:
   server:
     build:
       context: .
       dockerfile: Dockerfile
+    image: fculpo/zenbot:latest
     volumes:
-      - ./:/app/
-      - /app/node_modules/
-      - /app/dist/
-     # Avoid syncing database to our server
-      - /app/database/
+      - ./simulations/:/app/simulations/
     restart: always
     tty: true
     ports:
       - "17365:17365"
     depends_on:
       - mongodb
-    links:
-      - mongodb
     environment:
-      - MONGODB_PORT_27017_TCP_ADDR=mongodb
+      - ZENBOT_MONGODB_HOST=mongodb
     stdin_open: true
   mongodb:
     image: mongo:latest
@@ -28,7 +23,6 @@ services:
     command: mongod --bind_ip=0.0.0.0 --logpath=/dev/null
     expose:
       - 27017
-
   # Remove below comments to use this container. "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
   #
   #adminmongo:
