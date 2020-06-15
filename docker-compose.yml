@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: fculpo/zenbot:latest
     volumes:
-      - ./conf.js:/app/conf.js:ro
       - ./simulations/:/app/simulations/
     restart: always
     tty: true
