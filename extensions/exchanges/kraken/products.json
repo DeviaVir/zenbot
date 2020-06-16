@@ -84,6 +84,20 @@
     "label": "ATOM/XBT"
   },
   {
+    "asset": "ZAUD",
+    "currency": "ZJPY",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AUD/JPY"
+  },
+  {
+    "asset": "ZAUD",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AUD/USD"
+  },
+  {
     "asset": "BAT",
     "currency": "XETH",
     "min_size": "0.01",
@@ -110,6 +124,13 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "BAT/XBT"
+  },
+  {
+    "asset": "BCH",
+    "currency": "ZAUD",
+    "min_size": "0.002",
+    "increment": "0.01",
+    "label": "BCH/AUD"
   },
   {
     "asset": "BCH",
@@ -225,6 +246,13 @@
   },
   {
     "asset": "XETH",
+    "currency": "ZAUD",
+    "min_size": "0.02",
+    "increment": "0.01",
+    "label": "ETH/AUD"
+  },
+  {
+    "asset": "XETH",
     "currency": "CHF",
     "min_size": "0.02",
     "increment": "0.01",
@@ -250,6 +278,13 @@
     "min_size": "0.02",
     "increment": "0.01",
     "label": "ETH/USDT"
+  },
+  {
+    "asset": "ZEUR",
+    "currency": "ZAUD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "EUR/AUD"
   },
   {
     "asset": "ZEUR",
@@ -390,6 +425,13 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "LSK/XBT"
+  },
+  {
+    "asset": "XLTC",
+    "currency": "ZAUD",
+    "min_size": "0.1",
+    "increment": "0.01",
+    "label": "LTC/AUD"
   },
   {
     "asset": "XLTC",
@@ -638,6 +680,13 @@
   },
   {
     "asset": "USDT",
+    "currency": "ZAUD",
+    "min_size": "5",
+    "increment": "0.01",
+    "label": "USDT/AUD"
+  },
+  {
+    "asset": "USDT",
     "currency": "ZCAD",
     "min_size": "5",
     "increment": "0.01",
@@ -705,6 +754,13 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "WAVES/XBT"
+  },
+  {
+    "asset": "XXBT",
+    "currency": "ZAUD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "XBT/AUD"
   },
   {
     "asset": "XXBT",
@@ -894,6 +950,13 @@
     "min_size": "0.3",
     "increment": "0.01",
     "label": "REP/USD"
+  },
+  {
+    "asset": "XXRP",
+    "currency": "ZAUD",
+    "min_size": "30",
+    "increment": "0.01",
+    "label": "XRP/AUD"
   },
   {
     "asset": "XXRP",
