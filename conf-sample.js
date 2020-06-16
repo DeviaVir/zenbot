@@ -25,87 +25,87 @@ c.strategy = process.env.ZENBOT_DEFAULT_STRATEGY || 'trend_ema'
 
 // to enable GDAX trading, enter your API credentials:
 c.gdax = {}
-c.gdax.key = process.env.ZENBOT_GDAX_API_KEY
-c.gdax.b64secret = process.env.ZENBOT_GDAX_B64_SECRET
-c.gdax.passphrase = process.env.ZENBOT_GDAX_PASSPHRASE
+c.gdax.key = process.env.ZENBOT_GDAX_API_KEY || 'YOUR-API-KEY'
+c.gdax.b64secret = process.env.ZENBOT_GDAX_B64_SECRET || 'YOUR-API-SECRET'
+c.gdax.passphrase = process.env.ZENBOT_GDAX_PASSPHRASE || 'YOUR-API-PASSPHRASE'
 
 // to enable Poloniex trading, enter your API credentials:
 c.poloniex = {}
-c.poloniex.key = process.env.ZENBOT_POLONIEX_API_KEY
-c.poloniex.secret = process.env.ZENBOT_POLONIEX_SECRET
+c.poloniex.key = process.env.ZENBOT_POLONIEX_API_KEY || 'YOUR-API-KEY'
+c.poloniex.secret = process.env.ZENBOT_POLONIEX_SECRET || 'YOUR-API-SECRET'
 // please note: poloniex does not support market orders via the API
 
 // to enable Kraken trading, enter your API credentials:
 c.kraken = {}
-c.kraken.key = process.env.ZENBOT_KRAKEN_API_KEY
-c.kraken.secret = process.env.ZENBOT_KRAKEN_SECRET
+c.kraken.key = process.env.ZENBOT_KRAKEN_API_KEY || 'YOUR-API-KEY'
+c.kraken.secret = process.env.ZENBOT_KRAKEN_SECRET || 'YOUR-API-SECRET'
 // Please read API TOS on https://www.kraken.com/u/settings/api
 c.kraken.tosagree = process.env.ZENBOT_KRAKEN_TOS_AGREE || 'disagree'
 
 // to enable Binance trading, enter your API credentials:
 c.binance = {}
-c.binance.key = process.env.ZENBOT_BINANCE_API_KEY
-c.binance.secret = process.env.ZENBOT_BINANCE_SECRET
+c.binance.key = process.env.ZENBOT_BINANCE_API_KEY || 'YOUR-API-KEY'
+c.binance.secret = process.env.ZENBOT_BINANCE_SECRET || 'YOUR-API-SECRET'
 
 // to enable Bittrex trading, enter your API credentials:
 c.bittrex = {}
-c.bittrex.key = process.env.ZENBOT_BITTREX_API_KEY
-c.bittrex.secret = process.env.ZENBOT_BITTREX_SECRET
+c.bittrex.key = process.env.ZENBOT_BITTREX_API_KEY || 'YOUR-API-KEY'
+c.bittrex.secret = process.env.ZENBOT_BITTREX_SECRET || 'YOUR-API-SECRET'
 // make sure to give your API key access to only: "Trade Limit" and "Read Info",
 // please note that this might change in the future.
 // please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
 
 // to enable Bitfinex trading, enter your API credentials:
 c.bitfinex = {}
-c.bitfinex.key = process.env.ZENBOT_BITFINEX_API_KEY
-c.bitfinex.secret = process.env.ZENBOT_BITFINEX_SECRET
+c.bitfinex.key = process.env.ZENBOT_BITFINEX_API_KEY || 'YOUR-API-KEY'
+c.bitfinex.secret = process.env.ZENBOT_BITFINEX_SECRET || 'YOUR-API-SECRET'
 // May use 'exchange' or 'margin' wallet balances
 c.bitfinex.wallet = process.env.ZENBOT_BITFINEX_WALLET || 'exchange'
 
 // to enable Bitstamp trading, enter your API credentials:
 c.bitstamp = {}
-c.bitstamp.key = process.env.ZENBOT_BITSTAMP_API_KEY
-c.bitstamp.secret = process.env.ZENBOT_BITSTAMP_SECRET
+c.bitstamp.key = process.env.ZENBOT_BITSTAMP_API_KEY || 'YOUR-API-KEY'
+c.bitstamp.secret = process.env.ZENBOT_BITSTAMP_SECRET || 'YOUR-API-SECRET'
 // A client ID is required on Bitstamp
-c.bitstamp.client_id = process.env.ZENBOT_BITSTAMP_CLIENT_ID
+c.bitstamp.client_id = process.env.ZENBOT_BITSTAMP_CLIENT_ID || 'YOUR-CLIENT-ID'
 
 // to enable CEX.IO trading, enter your API credentials:
 c.cexio = {}
-c.cexio.username = process.env.ZENBOT_CEXIO_CLIENT_ID
-c.cexio.key = process.env.ZENBOT_CEXIO_API_KEY
-c.cexio.secret = process.env.ZENBOT_CEXIO_SECRET
+c.cexio.username = process.env.ZENBOT_CEXIO_CLIENT_ID || 'YOUR-CLIENT-ID'
+c.cexio.key = process.env.ZENBOT_CEXIO_API_KEY || 'YOUR-API-KEY'
+c.cexio.secret = process.env.ZENBOT_CEXIO_SECRET || 'YOUR-API-SECRET'
 
 // to enable QuadrigaCX tranding, enter your API credentials:
 c.quadriga = {}
-c.quadriga.key = process.env.ZENBOT_QUADRIGA_API_KEY
+c.quadriga.key = process.env.ZENBOT_QUADRIGA_API_KEY || 'YOUR-API-KEY'
 // this is the manual secret key entered by editing the API access
 // and NOT the md5 hash you see in the summary
-c.quadriga.secret = process.env.ZENBOT_QUADRIGA_SECRET
+c.quadriga.secret = process.env.ZENBOT_QUADRIGA_SECRET || 'YOUR-API-SECRET'
 // replace with the client id used at login, as a string, not number
-c.quadriga.client_id = process.env.ZENBOT_QUADRIGA_CLIENT_ID
+c.quadriga.client_id = process.env.ZENBOT_QUADRIGA_CLIENT_ID || 'YOUR-CLIENT-ID'
 
 // to enable WEX.NZ trading, enter your API credentials:
 // Note: WexNZ only supports backfilling the last ~1/4 day ATM.
 c.wexnz = {}
-c.wexnz.key = process.env.ZENBOT_WEXNZ_API_KEY
-c.wexnz.secret = process.env.ZENBOT_WEXNZ_SECRET
+c.wexnz.key = process.env.ZENBOT_WEXNZ_API_KEY || 'YOUR-API-KEY'
+c.wexnz.secret = process.env.ZENBOT_WEXNZ_SECRET || 'YOUR-API-SECRET'
 
 // to enable Gemini trading, enter your API credentials:
 c.gemini = {}
-c.gemini.key = process.env.ZENBOT_GEMINI_API_KEY
-c.gemini.secret = process.env.ZENBOT_GEMINI_SECRET
+c.gemini.key = process.env.ZENBOT_GEMINI_API_KEY || 'YOUR-API-KEY'
+c.gemini.secret = process.env.ZENBOT_GEMINI_SECRET || 'YOUR-API-SECRET'
 // set to false to trade on the live platform API
 c.gemini.sandbox = process.env.ZENBOT_GEMINI_SANDBOX || true
 
 // to enable hitBTC trading, enter your API credentials:
 c.hitbtc = {}
-c.hitbtc.key = process.env.ZENBOT_HITBTC_API_KEY
-c.hitbtc.secret = process.env.ZENBOT_HITBTC_SECRET
+c.hitbtc.key = process.env.ZENBOT_HITBTC_API_KEY || 'YOUR-API-KEY'
+c.hitbtc.secret = process.env.ZENBOT_HITBTC_SECRET || 'YOUR-API-SECRET'
 
 // to enable therock trading, enter your API credentials:
 c.therock = {}
-c.therock.key = process.env.ZENBOT_THEROCK_API_KEY
-c.therock.secret = process.env.ZENBOT_THEROCK_SECRET
+c.therock.key = process.env.ZENBOT_THEROCK_API_KEY || 'YOUR-API-KEY'
+c.therock.secret = process.env.ZENBOT_THEROCK_SECRET || 'YOUR-API-SECRET'
 
 // Optional stop-order triggers:
 
