@@ -352,6 +352,22 @@
     "label": "Chromia/Tether USD"
   },
   {
+    "asset": "COMP",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Compound Governance Token/Ethereum"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Compound Governance Token/Tether USD"
+  },
+  {
     "asset": "CVC",
     "currency": "BTC",
     "min_total": "0.0001",

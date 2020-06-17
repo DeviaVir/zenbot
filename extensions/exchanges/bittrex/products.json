@@ -2130,7 +2130,7 @@
   {
     "asset": "TRAC",
     "currency": "BTC",
-    "min_size": "189.39393939",
+    "min_size": "40.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TRAC"
@@ -3598,5 +3598,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/MET"
+  },
+  {
+    "asset": "TRAC",
+    "currency": "ETH",
+    "min_size": "40.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/TRAC"
+  },
+  {
+    "asset": "TRAC",
+    "currency": "USDT",
+    "min_size": "40.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/TRAC"
   }
 ]
