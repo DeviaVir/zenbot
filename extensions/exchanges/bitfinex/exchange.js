@@ -531,7 +531,7 @@ module.exports = function bitfinex (conf) {
     },
 
     getQuote: function (opts, cb) {
-      cb(null, { bid : String(ws_ticker.BID), ask : String(ws_ticker.ASK) })
+      cb(null, { bid : String(ws_ticker.bid), ask : String(ws_ticker.ask) })
     },
 
     cancelOrder: function (opts, cb) {
