@@ -164,6 +164,7 @@ module.exports = function bitfinex (conf) {
   function wsConnect () {
     if (ws_connected || ws_connecting) return
     ws_client.open()
+    ws_connecting = true
   }
 
   function wsOpen () {
@@ -219,7 +220,6 @@ module.exports = function bitfinex (conf) {
       if (!conf.bitfinex || !conf.bitfinex.key || conf.bitfinex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Bitfinex credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      ws_connecting = true
       ws_connected = false
 
       ws_client = new BFX({apiKey: conf.bitfinex.key, apiSecret: conf.bitfinex.secret, transform: true}).ws()
