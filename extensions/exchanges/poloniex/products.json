@@ -649,14 +649,6 @@
   },
   {
     "asset": "GRIN",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Grin/Bitcoin"
-  },
-  {
-    "asset": "GRIN",
     "currency": "USDC",
     "min_total": "0.0001",
     "max_size": null,
@@ -920,14 +912,6 @@
     "label": "NXT/Bitcoin"
   },
   {
-    "asset": "NXT",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "NXT/Tether USD"
-  },
-  {
     "asset": "OMG",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -974,14 +958,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Augur/Bitcoin"
-  },
-  {
-    "asset": "REP",
-    "currency": "ETH",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Augur/Ethereum"
   },
   {
     "asset": "REP",
@@ -1214,6 +1190,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "NEM/Bitcoin"
+  },
+  {
+    "asset": "XFIL",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Filecoin [IOU]/Bitcoin"
+  },
+  {
+    "asset": "XFIL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Filecoin [IOU]/Tether USD"
   },
   {
     "asset": "XMR",

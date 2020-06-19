@@ -3464,36 +3464,36 @@
     "label": "EUR/USD"
   },
   {
-    "asset": "CGLD",
+    "asset": "CELO",
     "currency": "BTC",
     "min_size": "3.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/CGLD"
+    "label": "BTC/CELO"
   },
   {
-    "asset": "CGLD",
+    "asset": "CELO",
     "currency": "ETH",
     "min_size": "3.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/CGLD"
+    "label": "ETH/CELO"
   },
   {
-    "asset": "CGLD",
+    "asset": "CELO",
     "currency": "USD",
     "min_size": "3.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "USD/CGLD"
+    "label": "USD/CELO"
   },
   {
-    "asset": "CGLD",
+    "asset": "CELO",
     "currency": "USDT",
     "min_size": "3.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "USDT/CGLD"
+    "label": "USDT/CELO"
   },
   {
     "asset": "CNTM",
