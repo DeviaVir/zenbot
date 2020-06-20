@@ -368,6 +368,14 @@
     "label": "Compound Governance Token/Tether USD"
   },
   {
+    "asset": "CUSDT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Compound USDT/Tether USD"
+  },
+  {
     "asset": "CVC",
     "currency": "BTC",
     "min_total": "0.0001",
