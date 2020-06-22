@@ -117,6 +117,24 @@
     "label": "BTC/USDC"
   },
   {
+    "asset": "COMP",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1700",
+    "increment": "0.000001",
+    "asset_increment": "0.001",
+    "label": "COMP/BTC"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1700",
+    "increment": "0.01",
+    "asset_increment": "0.001",
+    "label": "COMP/USD"
+  },
+  {
     "asset": "CVC",
     "currency": "USDC",
     "min_size": "1",

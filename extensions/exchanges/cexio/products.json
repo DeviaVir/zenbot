@@ -560,6 +560,14 @@
     "label": "USDT/USD"
   },
   {
+    "asset": "USDT",
+    "currency": "EUR",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "USDT/EUR"
+  },
+  {
     "asset": "BTC",
     "currency": "USDT",
     "min_size": "0.002",
