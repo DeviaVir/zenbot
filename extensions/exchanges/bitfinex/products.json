@@ -2336,6 +2336,30 @@
     "label": "BTS/E:U"
   },
   {
+    "asset": "TES",
+    "currency": "TBT",
+    "min_size": "0.001",
+    "max_size": "100.0",
+    "increment": "0.000001",
+    "label": "TES/TBT"
+  },
+  {
+    "asset": "TES",
+    "currency": "TBT",
+    "min_size": "0.001",
+    "max_size": "100.0",
+    "increment": "0.000001",
+    "label": "TES/TBT"
+  },
+  {
+    "asset": "AAA",
+    "currency": "BBB",
+    "min_size": "0.001",
+    "max_size": "100.0",
+    "increment": "0.000001",
+    "label": "AAA/BBB"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0006",

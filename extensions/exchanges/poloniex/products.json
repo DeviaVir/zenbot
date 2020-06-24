@@ -56,6 +56,22 @@
     "label": "Travala.com Token/Tether USD"
   },
   {
+    "asset": "BAL",
+    "currency": "ETH",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Balancer/Ethereum"
+  },
+  {
+    "asset": "BAL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Balancer/Tether USD"
+  },
+  {
     "asset": "BAT",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -704,6 +720,22 @@
     "label": "Kyber/Bitcoin"
   },
   {
+    "asset": "LEND",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Aave/Bitcoin"
+  },
+  {
+    "asset": "LEND",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Aave/Tether USD"
+  },
+  {
     "asset": "LINK",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -758,6 +790,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Livepeer/Bitcoin"
+  },
+  {
+    "asset": "LRC",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Loopring/Bitcoin"
+  },
+  {
+    "asset": "LRC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Loopring/Tether USD"
   },
   {
     "asset": "LSK",
@@ -958,6 +1006,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Qtum/Tether USD"
+  },
+  {
+    "asset": "REN",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ren/Bitcoin"
+  },
+  {
+    "asset": "REN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ren/Tether USD"
   },
   {
     "asset": "REP",
