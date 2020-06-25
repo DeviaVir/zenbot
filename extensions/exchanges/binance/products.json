@@ -9205,5 +9205,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.10000000",
     "label": "USDT/UAH"
+  },
+  {
+    "id": "COMPBTC",
+    "asset": "COMP",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "COMP/BTC"
+  },
+  {
+    "id": "COMPBNB",
+    "asset": "COMP",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "COMP/BNB"
+  },
+  {
+    "id": "COMPBUSD",
+    "asset": "COMP",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "COMP/BUSD"
+  },
+  {
+    "id": "COMPUSDT",
+    "asset": "COMP",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "COMP/USDT"
   }
 ]
