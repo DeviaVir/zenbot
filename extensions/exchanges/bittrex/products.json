@@ -3630,5 +3630,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DAWN"
+  },
+  {
+    "asset": "KDA",
+    "currency": "BTC",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KDA"
+  },
+  {
+    "asset": "KDA",
+    "currency": "USDT",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KDA"
   }
 ]
