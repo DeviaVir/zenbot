@@ -9249,5 +9249,60 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "COMP/USDT"
+  },
+  {
+    "id": "BTCBIDR",
+    "asset": "BTC",
+    "currency": "BIDR",
+    "min_size": "0.00000100",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00000100",
+    "label": "BTC/BIDR"
+  },
+  {
+    "id": "ETHBIDR",
+    "asset": "ETH",
+    "currency": "BIDR",
+    "min_size": "0.00001000",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00001000",
+    "label": "ETH/BIDR"
+  },
+  {
+    "id": "BNBBIDR",
+    "asset": "BNB",
+    "currency": "BIDR",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00100000",
+    "label": "BNB/BIDR"
+  },
+  {
+    "id": "BUSDBIDR",
+    "asset": "BUSD",
+    "currency": "BIDR",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "BUSD/BIDR"
+  },
+  {
+    "id": "USDTBIDR",
+    "asset": "USDT",
+    "currency": "BIDR",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "USDT/BIDR"
   }
 ]
