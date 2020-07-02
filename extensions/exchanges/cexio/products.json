@@ -608,6 +608,14 @@
     "label": "BCH/USDT"
   },
   {
+    "asset": "BTG",
+    "currency": "USDT",
+    "min_size": "0.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BTG/USDT"
+  },
+  {
     "asset": "LTC",
     "currency": "USDT",
     "min_size": "0.5",

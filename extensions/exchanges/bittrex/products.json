@@ -3678,5 +3678,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/GXC"
+  },
+  {
+    "asset": "LUCY",
+    "currency": "BTC",
+    "min_size": "33.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LUCY"
+  },
+  {
+    "asset": "LUCY",
+    "currency": "USDT",
+    "min_size": "33.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LUCY"
   }
 ]
