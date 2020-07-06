@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
+version: v1.16.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -1739,3 +1739,61 @@ patch:
         patched: '2020-05-01T07:02:24.711Z'
     - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-api-node-util > babel-preset-env > babel-plugin-transform-es2015-modules-umd > babel-plugin-transform-es2015-modules-amd > babel-plugin-transform-es2015-modules-commonjs > babel-template > babel-traverse > babel-types > lodash:
         patched: '2020-05-01T07:02:24.711Z'
+    - bitfinex-api-node > bfx-api-node-models > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > blessed-contrib > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/cli > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > create-index > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-block-scoping > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/cli > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > babel-eslint > babel-types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > babel-eslint > babel-traverse > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > create-index > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-unicode-regex > @babel/helper-regex > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-block-scoping > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > babel-eslint > babel-traverse > babel-types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > babel-eslint > babel-types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > babel-eslint > babel-traverse > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-simple-access > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-unicode-regex > @babel/helper-regex > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > babel-eslint > babel-traverse > babel-types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-modules-umd > @babel/helper-module-transforms > @babel/helper-simple-access > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > @babel/helper-function-name > @babel/template > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > @babel/helper-function-name > @babel/template > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-es2015 > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-models > bfx-hf-util > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
+    - bitfinex-api-node > bfx-api-node-rest > bfx-api-node-models > bfx-hf-util > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-07-06T09:32:09.747Z'
