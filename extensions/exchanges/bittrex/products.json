@@ -3694,5 +3694,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/LUCY"
+  },
+  {
+    "asset": "COMP",
+    "currency": "BTC",
+    "min_size": "0.01500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/COMP"
+  },
+  {
+    "asset": "COMP",
+    "currency": "ETH",
+    "min_size": "0.01500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/COMP"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USD",
+    "min_size": "0.01500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/COMP"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USDT",
+    "min_size": "0.01500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/COMP"
   }
 ]

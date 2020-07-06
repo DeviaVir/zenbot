@@ -9304,5 +9304,49 @@
     "increment": "1.00",
     "asset_increment": "0.01000000",
     "label": "USDT/BIDR"
+  },
+  {
+    "id": "BKRWUSDT",
+    "asset": "BKRW",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "BKRW/USDT"
+  },
+  {
+    "id": "BKRWBUSD",
+    "asset": "BKRW",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "BKRW/BUSD"
+  },
+  {
+    "id": "SCUSDT",
+    "asset": "SC",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "SC/USDT"
+  },
+  {
+    "id": "ZENUSDT",
+    "asset": "ZEN",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ZEN/USDT"
   }
 ]
