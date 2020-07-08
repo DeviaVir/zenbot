@@ -2506,7 +2506,7 @@
   {
     "asset": "LUNA",
     "currency": "BTC",
-    "min_size": "2.56383961",
+    "min_size": "14.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LUNA"
@@ -3726,5 +3726,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/COMP"
+  },
+  {
+    "asset": "LUNA",
+    "currency": "USDT",
+    "min_size": "14.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LUNA"
   }
 ]
