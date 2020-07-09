@@ -3734,5 +3734,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/LUNA"
+  },
+  {
+    "asset": "KDAG",
+    "currency": "BTC",
+    "min_size": "25.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KDAG"
+  },
+  {
+    "asset": "KDAG",
+    "currency": "USDT",
+    "min_size": "25.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KDAG"
+  },
+  {
+    "asset": "WBTC",
+    "currency": "BTC",
+    "min_size": "0.00031915",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/WBTC"
+  },
+  {
+    "asset": "WBTC",
+    "currency": "ETH",
+    "min_size": "0.00031915",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/WBTC"
+  },
+  {
+    "asset": "WBTC",
+    "currency": "USDT",
+    "min_size": "0.00031915",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/WBTC"
   }
 ]
