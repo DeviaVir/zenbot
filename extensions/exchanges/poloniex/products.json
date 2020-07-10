@@ -1088,6 +1088,14 @@
     "label": "Synthetix Network Token/Tether USD"
   },
   {
+    "asset": "STAKE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "xDAI Stake/Tether USD"
+  },
+  {
     "asset": "STEEM",
     "currency": "BTC",
     "min_total": "0.0001",

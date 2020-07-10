@@ -2360,6 +2360,30 @@
     "label": "AAA/BBB"
   },
   {
+    "asset": "DOG",
+    "currency": "USD",
+    "min_size": "0.0000001",
+    "max_size": "1000.0",
+    "increment": "0.001",
+    "label": "DOG/USD"
+  },
+  {
+    "asset": "DOG",
+    "currency": "BTC",
+    "min_size": "0.0000001",
+    "max_size": "1000.0",
+    "increment": "0.000001",
+    "label": "DOG/BTC"
+  },
+  {
+    "asset": "DOG",
+    "currency": "UST",
+    "min_size": "0.0000001",
+    "max_size": "1000.0",
+    "increment": "0.000001",
+    "label": "DOG/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0006",

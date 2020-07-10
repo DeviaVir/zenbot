@@ -3774,5 +3774,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/WBTC"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "USD",
+    "min_size": "1000.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/DOGE"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "ETH",
+    "min_size": "1000.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/DOGE"
   }
 ]
