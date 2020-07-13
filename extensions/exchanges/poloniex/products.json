@@ -344,6 +344,14 @@
     "label": "Bitcoin Volatility Token/Tether USD"
   },
   {
+    "asset": "BZRX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "bZx Protocol Token/Tether USD"
+  },
+  {
     "asset": "CHR",
     "currency": "BTC",
     "min_total": "0.0001",
