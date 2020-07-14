@@ -640,6 +640,14 @@
     "label": "XLM/USDT"
   },
   {
+    "asset": "OMG",
+    "currency": "USDT",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "OMG/USDT"
+  },
+  {
     "asset": "ADA",
     "currency": "USDT",
     "min_size": "500",
