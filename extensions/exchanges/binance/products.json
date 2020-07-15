@@ -9447,5 +9447,49 @@
     "increment": "0.01000000",
     "asset_increment": "0.01000000",
     "label": "ETHDOWN/USDT"
+  },
+  {
+    "id": "ADAUPUSDT",
+    "asset": "ADAUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "ADAUP/USDT"
+  },
+  {
+    "id": "ADADOWNUSDT",
+    "asset": "ADADOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "ADADOWN/USDT"
+  },
+  {
+    "id": "LINKUPUSDT",
+    "asset": "LINKUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "LINKUP/USDT"
+  },
+  {
+    "id": "LINKDOWNUSDT",
+    "asset": "LINKDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "LINKDOWN/USDT"
   }
 ]

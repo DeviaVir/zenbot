@@ -3790,5 +3790,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/DOGE"
+  },
+  {
+    "asset": "UQC",
+    "currency": "BTC",
+    "min_size": "1.78500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UQC"
+  },
+  {
+    "asset": "UQC",
+    "currency": "USDT",
+    "min_size": "1.78500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/UQC"
   }
 ]
