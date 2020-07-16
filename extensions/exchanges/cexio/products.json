@@ -648,6 +648,14 @@
     "label": "OMG/USDT"
   },
   {
+    "asset": "TRX",
+    "currency": "USDT",
+    "min_size": "200",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TRX/USDT"
+  },
+  {
     "asset": "ADA",
     "currency": "USDT",
     "min_size": "500",
