@@ -113,7 +113,7 @@
     "webpack-cli": "^3.3.12",
     "wexnz": "^0.1.3",
     "ws": "^7.3.1",
-    "zero-fill": "^2.2.3",
+    "zero-fill": "^2.2.4",
     "snyk": "^1.361.3"
   },
   "devDependencies": {
