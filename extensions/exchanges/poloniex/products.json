@@ -936,6 +936,14 @@
     "label": "Maker/Tether USD"
   },
   {
+    "asset": "MTA",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Meta/Tether USD"
+  },
+  {
     "asset": "NEO",
     "currency": "BTC",
     "min_total": "0.0001",
