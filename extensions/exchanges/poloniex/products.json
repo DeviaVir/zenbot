@@ -1448,6 +1448,14 @@
     "label": "Tezos/Tether USD"
   },
   {
+    "asset": "YFI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "yearn.finance/Tether USD"
+  },
+  {
     "asset": "ZEC",
     "currency": "BTC",
     "min_total": "0.0001",

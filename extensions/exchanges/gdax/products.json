@@ -1,6 +1,24 @@
 [
   {
     "asset": "ALGO",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "ALGO/EUR"
+  },
+  {
+    "asset": "ALGO",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "ALGO/GBP"
+  },
+  {
+    "asset": "ALGO",
     "currency": "USD",
     "min_size": "1",
     "max_size": "500000",
@@ -343,6 +361,24 @@
   },
   {
     "asset": "LINK",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "90000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "LINK/EUR"
+  },
+  {
+    "asset": "LINK",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "90000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "LINK/GBP"
+  },
+  {
+    "asset": "LINK",
     "currency": "USD",
     "min_size": "1",
     "max_size": "90000",
@@ -532,6 +568,15 @@
   },
   {
     "asset": "XRP",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "XRP/GBP"
+  },
+  {
+    "asset": "XRP",
     "currency": "USD",
     "min_size": "1",
     "max_size": "500000",
@@ -547,6 +592,24 @@
     "increment": "0.00000001",
     "asset_increment": "0.01",
     "label": "XTZ/BTC"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "100000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "XTZ/EUR"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "100000",
+    "increment": "0.00001",
+    "asset_increment": "0.01",
+    "label": "XTZ/GBP"
   },
   {
     "asset": "XTZ",
