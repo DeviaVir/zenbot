@@ -752,6 +752,14 @@
     "label": "DASH/USDT"
   },
   {
+    "asset": "NEO",
+    "currency": "USDT",
+    "min_size": "2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "NEO/USDT"
+  },
+  {
     "asset": "LINK",
     "currency": "USDT",
     "min_size": "5",
