@@ -760,6 +760,38 @@
     "label": "NEO/USDT"
   },
   {
+    "asset": "GAS",
+    "currency": "USDT",
+    "min_size": "15",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GAS/USDT"
+  },
+  {
+    "asset": "BAT",
+    "currency": "USDT",
+    "min_size": "100",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAT/USDT"
+  },
+  {
+    "asset": "ATOM",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ATOM/USDT"
+  },
+  {
+    "asset": "XTZ",
+    "currency": "USDT",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "XTZ/USDT"
+  },
+  {
     "asset": "LINK",
     "currency": "USDT",
     "min_size": "5",
