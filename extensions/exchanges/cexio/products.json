@@ -744,6 +744,14 @@
     "label": "LINK/GBP"
   },
   {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "120",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ZRX/USD"
+  },
+  {
     "asset": "DASH",
     "currency": "USDT",
     "min_size": "0.25",
