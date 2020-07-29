@@ -656,6 +656,22 @@
     "label": "TRX/USDT"
   },
   {
+    "asset": "ONT",
+    "currency": "USDT",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ONT/USDT"
+  },
+  {
+    "asset": "ONG",
+    "currency": "USDT",
+    "min_size": "50",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ONG/USDT"
+  },
+  {
     "asset": "ADA",
     "currency": "USDT",
     "min_size": "500",
@@ -746,10 +762,18 @@
   {
     "asset": "ZRX",
     "currency": "USD",
-    "min_size": "120",
+    "min_size": "40",
     "max_size": null,
     "increment": "0.01",
     "label": "ZRX/USD"
+  },
+  {
+    "asset": "HOT",
+    "currency": "USD",
+    "min_size": "25000",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "HOT/USD"
   },
   {
     "asset": "DASH",
@@ -798,6 +822,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "XTZ/USDT"
+  },
+  {
+    "asset": "USDC",
+    "currency": "USDT",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "USDC/USDT"
   },
   {
     "asset": "LINK",
