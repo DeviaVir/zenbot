@@ -1328,6 +1328,14 @@
     "label": "3X Long TRX Token/Tether USD"
   },
   {
+    "asset": "UMA",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "UMA/Tether USD"
+  },
+  {
     "asset": "USDJ",
     "currency": "USDT",
     "min_total": "1",

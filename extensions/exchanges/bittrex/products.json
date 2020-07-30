@@ -650,7 +650,7 @@
   {
     "asset": "RLC",
     "currency": "BTC",
-    "min_size": "10.50861707",
+    "min_size": "2.72727000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RLC"
@@ -1146,7 +1146,7 @@
   {
     "asset": "ADA",
     "currency": "BTC",
-    "min_size": "58.00464037",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ADA"
@@ -1218,7 +1218,7 @@
   {
     "asset": "ADA",
     "currency": "ETH",
-    "min_size": "21.91060473",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/ADA"
@@ -1242,7 +1242,7 @@
   {
     "asset": "ADA",
     "currency": "USDT",
-    "min_size": "58.92606076",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ADA"
@@ -1618,7 +1618,7 @@
   {
     "asset": "ADA",
     "currency": "USD",
-    "min_size": "58.89281508",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/ADA"
@@ -2618,7 +2618,7 @@
   {
     "asset": "VET",
     "currency": "BTC",
-    "min_size": "820.00000000",
+    "min_size": "191.39977032",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VET"
@@ -2626,7 +2626,7 @@
   {
     "asset": "VET",
     "currency": "USDT",
-    "min_size": "820.00000000",
+    "min_size": "191.39977032",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/VET"
@@ -3846,5 +3846,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/CRO"
+  },
+  {
+    "asset": "SKM",
+    "currency": "BTC",
+    "min_size": "1400.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SKM"
+  },
+  {
+    "asset": "SKM",
+    "currency": "USDT",
+    "min_size": "1400.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SKM"
+  },
+  {
+    "asset": "CRO",
+    "currency": "EUR",
+    "min_size": "20.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/CRO"
+  },
+  {
+    "asset": "INSTAR",
+    "currency": "BTC",
+    "min_size": "68.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/INSTAR"
   }
 ]
