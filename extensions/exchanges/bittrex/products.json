@@ -3878,5 +3878,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/INSTAR"
+  },
+  {
+    "asset": "SUTER",
+    "currency": "BTC",
+    "min_size": "350.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SUTER"
+  },
+  {
+    "asset": "SUTER",
+    "currency": "USDT",
+    "min_size": "350.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SUTER"
+  },
+  {
+    "asset": "CRO",
+    "currency": "USD",
+    "min_size": "18.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/CRO"
   }
 ]
