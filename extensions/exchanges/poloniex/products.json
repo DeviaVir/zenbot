@@ -1232,6 +1232,22 @@
     "label": "Stratis/Bitcoin"
   },
   {
+    "asset": "SWAP",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Trustswap/Bitcoin"
+  },
+  {
+    "asset": "SWAP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Trustswap/Tether USD"
+  },
+  {
     "asset": "SWFTC",
     "currency": "BTC",
     "min_total": "0.0001",
