@@ -1296,6 +1296,14 @@
     "label": "Swipe/Tether USD"
   },
   {
+    "asset": "TEND",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tendies/Tether USD"
+  },
+  {
     "asset": "TRUMPLOSE",
     "currency": "USDT",
     "min_total": "1",
