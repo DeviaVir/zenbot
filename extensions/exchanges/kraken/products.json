@@ -679,6 +679,34 @@
     "label": "QTUM/XBT"
   },
   {
+    "asset": "REPV2",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "REPV2/ETH"
+  },
+  {
+    "asset": "REPV2",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "REPV2/EUR"
+  },
+  {
+    "asset": "REPV2",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "REPV2/USD"
+  },
+  {
+    "asset": "REPV2",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "REPV2/XBT"
+  },
+  {
     "asset": "SC",
     "currency": "XETH",
     "min_size": "0.01",

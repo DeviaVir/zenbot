@@ -2306,7 +2306,7 @@
   {
     "asset": "OCEAN",
     "currency": "BTC",
-    "min_size": "185.18518519",
+    "min_size": "12.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OCEAN"
@@ -2314,7 +2314,7 @@
   {
     "asset": "OCEAN",
     "currency": "USDT",
-    "min_size": "186.21858337",
+    "min_size": "12.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/OCEAN"
@@ -3910,5 +3910,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/VANY"
+  },
+  {
+    "asset": "SUKU",
+    "currency": "BTC",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SUKU"
   }
 ]

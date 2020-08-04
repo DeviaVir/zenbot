@@ -632,6 +632,22 @@
     "label": "3X Long Ethereum Token/Tether USD"
   },
   {
+    "asset": "EXE",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "8X8 Protocol/Bitcoin"
+  },
+  {
+    "asset": "EXE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "8X8 Protocol/Tether USD"
+  },
+  {
     "asset": "FOAM",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1302,6 +1318,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Tendies/Tether USD"
+  },
+  {
+    "asset": "TRADE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "UniTrade/Tether USD"
   },
   {
     "asset": "TRUMPLOSE",
