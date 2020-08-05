@@ -9887,5 +9887,82 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "FIO/BUSD"
+  },
+  {
+    "id": "BNBUPUSDT",
+    "asset": "BNBUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "BNBUP/USDT"
+  },
+  {
+    "id": "BNBDOWNUSDT",
+    "asset": "BNBDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "BNBDOWN/USDT"
+  },
+  {
+    "id": "XTZUPUSDT",
+    "asset": "XTZUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "XTZUP/USDT"
+  },
+  {
+    "id": "XTZDOWNUSDT",
+    "asset": "XTZDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "XTZDOWN/USDT"
+  },
+  {
+    "id": "AVABNB",
+    "asset": "AVA",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "AVA/BNB"
+  },
+  {
+    "id": "AVABTC",
+    "asset": "AVA",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "AVA/BTC"
+  },
+  {
+    "id": "AVABUSD",
+    "asset": "AVA",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "AVA/BUSD"
   }
 ]

@@ -488,12 +488,12 @@
     "label": "BTC/STRAT"
   },
   {
-    "asset": "REP",
+    "asset": "REPV2",
     "currency": "BTC",
     "min_size": "0.26808502",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/REP"
+    "label": "BTC/REPV2"
   },
   {
     "asset": "ARDR",
@@ -624,12 +624,12 @@
     "label": "ETH/GNT"
   },
   {
-    "asset": "REP",
+    "asset": "REPV2",
     "currency": "ETH",
     "min_size": "0.10212477",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/REP"
+    "label": "ETH/REPV2"
   },
   {
     "asset": "ETH",
@@ -3918,5 +3918,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SUKU"
+  },
+  {
+    "asset": "CGT",
+    "currency": "BTC",
+    "min_size": "0.04610000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CGT"
+  },
+  {
+    "asset": "CGT",
+    "currency": "USDT",
+    "min_size": "0.04610000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CGT"
   }
 ]
