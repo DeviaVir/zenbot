@@ -39,7 +39,7 @@
     "bitstamp": "^1.0.4",
     "bl": "^4.0.2",
     "bollinger-bands": "^3.0.1",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.1",
     "ccxt": "^1.32.52",
     "cexio-api-node": "^1.0.8",
     "cliff": "^0.1.10",
