@@ -120,6 +120,14 @@
     "label": "BTC/MONA"
   },
   {
+    "asset": "THC",
+    "currency": "BTC",
+    "min_size": "2350.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/THC"
+  },
+  {
     "asset": "VRC",
     "currency": "BTC",
     "min_size": "50.30181087",

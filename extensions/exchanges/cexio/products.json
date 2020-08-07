@@ -50,7 +50,7 @@
   {
     "asset": "XRP",
     "currency": "USD",
-    "min_size": "100",
+    "min_size": "65",
     "max_size": null,
     "increment": "0.0001",
     "label": "XRP/USD"
@@ -186,7 +186,7 @@
   {
     "asset": "XRP",
     "currency": "EUR",
-    "min_size": "100",
+    "min_size": "65",
     "max_size": null,
     "increment": "0.0001",
     "label": "XRP/EUR"
@@ -330,7 +330,7 @@
   {
     "asset": "XRP",
     "currency": "GBP",
-    "min_size": "100",
+    "min_size": "65",
     "max_size": null,
     "increment": "0.0001",
     "label": "XRP/GBP"
@@ -626,7 +626,7 @@
   {
     "asset": "XRP",
     "currency": "USDT",
-    "min_size": "100",
+    "min_size": "65",
     "max_size": null,
     "increment": "0.0001",
     "label": "XRP/USDT"
