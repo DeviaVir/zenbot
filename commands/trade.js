@@ -33,6 +33,7 @@ module.exports = function (program, conf) {
     .option('--asset_capital <amount>', 'for paper trading, amount of start capital in asset', Number, conf.asset_capital)
     .option('--avg_slippage_pct <pct>', 'avg. amount of slippage to apply to paper trades', Number, conf.avg_slippage_pct)
     .option('--buy_pct <pct>', 'buy with this % of currency balance', Number, conf.buy_pct)
+    .option('--buy_volume_pct', 'buy % proportional to average running trade volume', Boolean, false)
     .option('--deposit <amt>', 'absolute initial capital (in currency) at the bots disposal (previously --buy_max_amt)', Number, conf.deposit)
     .option('--sell_pct <pct>', 'sell with this % of asset balance', Number, conf.sell_pct)
     .option('--markdown_buy_pct <pct>', '% to mark down buy price', Number, conf.markdown_buy_pct)
@@ -102,6 +103,7 @@ module.exports = function (program, conf) {
       var engine = engineFactory(s, conf)
       var collectionServiceInstance = collectionService(conf)
       if (!so.min_periods) so.min_periods = 1
+      if (so.buy_volume_pct) so.min_periods = 300
 
       const keyMap = new Map()
       keyMap.set('b', 'limit'.grey + ' BUY'.green)
@@ -578,6 +580,7 @@ module.exports = function (program, conf) {
       })
 
       var prev_timeout = null
+      
       function forwardScan () {
         function saveSession () {
           engine.syncBalance(function (err) {
