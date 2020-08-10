@@ -7,6 +7,12 @@
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.3",
     "shelljs": "^0.8.4",
-    "strip-ansi": "^4.0.0"
-  }
+    "strip-ansi": "^4.0.0",
+    "snyk": "^1.370.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
