@@ -10074,5 +10074,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "BAL/BUSD"
+  },
+  {
+    "id": "YFIBNB",
+    "asset": "YFI",
+    "currency": "BNB",
+    "min_size": "0.00010000",
+    "max_size": "10000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00010000",
+    "label": "YFI/BNB"
+  },
+  {
+    "id": "YFIBTC",
+    "asset": "YFI",
+    "currency": "BTC",
+    "min_size": "0.00010000",
+    "max_size": "9000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00010000",
+    "label": "YFI/BTC"
+  },
+  {
+    "id": "YFIBUSD",
+    "asset": "YFI",
+    "currency": "BUSD",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "YFI/BUSD"
+  },
+  {
+    "id": "YFIUSDT",
+    "asset": "YFI",
+    "currency": "USDT",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "YFI/USDT"
   }
 ]
