@@ -8635,6 +8635,17 @@
     "label": "SOL/BTC"
   },
   {
+    "id": "SOLUSDT",
+    "asset": "SOL",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SOL/USDT"
+  },
+  {
     "id": "SOLBUSD",
     "asset": "SOL",
     "currency": "BUSD",
@@ -10118,5 +10129,214 @@
     "increment": "0.01000000",
     "asset_increment": "0.00000100",
     "label": "YFI/USDT"
+  },
+  {
+    "id": "BLZBUSD",
+    "asset": "BLZ",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BLZ/BUSD"
+  },
+  {
+    "id": "KMDBUSD",
+    "asset": "KMD",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "KMD/BUSD"
+  },
+  {
+    "id": "BALUSDT",
+    "asset": "BAL",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BAL/USDT"
+  },
+  {
+    "id": "BLZUSDT",
+    "asset": "BLZ",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BLZ/USDT"
+  },
+  {
+    "id": "IRISUSDT",
+    "asset": "IRIS",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "IRIS/USDT"
+  },
+  {
+    "id": "KMDUSDT",
+    "asset": "KMD",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "KMD/USDT"
+  },
+  {
+    "id": "BTCDAI",
+    "asset": "BTC",
+    "currency": "DAI",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/DAI"
+  },
+  {
+    "id": "ETHDAI",
+    "asset": "ETH",
+    "currency": "DAI",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETH/DAI"
+  },
+  {
+    "id": "BNBDAI",
+    "asset": "BNB",
+    "currency": "DAI",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BNB/DAI"
+  },
+  {
+    "id": "USDTDAI",
+    "asset": "USDT",
+    "currency": "DAI",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "USDT/DAI"
+  },
+  {
+    "id": "BUSDDAI",
+    "asset": "BUSD",
+    "currency": "DAI",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BUSD/DAI"
+  },
+  {
+    "id": "JSTBNB",
+    "asset": "JST",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "JST/BNB"
+  },
+  {
+    "id": "JSTBTC",
+    "asset": "JST",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "JST/BTC"
+  },
+  {
+    "id": "JSTBUSD",
+    "asset": "JST",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "JST/BUSD"
+  },
+  {
+    "id": "JSTUSDT",
+    "asset": "JST",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "JST/USDT"
+  },
+  {
+    "id": "SRMBNB",
+    "asset": "SRM",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "SRM/BNB"
+  },
+  {
+    "id": "SRMBTC",
+    "asset": "SRM",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "SRM/BTC"
+  },
+  {
+    "id": "SRMBUSD",
+    "asset": "SRM",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SRM/BUSD"
+  },
+  {
+    "id": "SRMUSDT",
+    "asset": "SRM",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SRM/USDT"
   }
 ]

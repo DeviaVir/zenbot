@@ -72,6 +72,14 @@
     "label": "Balancer/Tether USD"
   },
   {
+    "asset": "BAND",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Band Protocol Token/Tether USD"
+  },
+  {
     "asset": "BAT",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -478,6 +486,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Dogecoin/Tether USD"
+  },
+  {
+    "asset": "DOS",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DOS Network/Tether USD"
   },
   {
     "asset": "EOS",
