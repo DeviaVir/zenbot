@@ -464,6 +464,14 @@
     "label": "Decentr/Tether USD"
   },
   {
+    "asset": "DIA",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DIA/Tether USD"
+  },
+  {
     "asset": "DOGE",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1056,6 +1064,14 @@
     "label": "Paxos Standard/Tether USD"
   },
   {
+    "asset": "PERX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "PeerEx Network/Tether USD"
+  },
+  {
     "asset": "PLT",
     "currency": "USDT",
     "min_total": "1",
@@ -1126,6 +1142,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Darwinia Network Native Token/Tether USD"
+  },
+  {
+    "asset": "SBREE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Coinbreeder DAO/Tether USD"
   },
   {
     "asset": "SC",
@@ -1606,6 +1630,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "yearn.finance/Tether USD"
+  },
+  {
+    "asset": "ZAP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Zap/Tether USD"
   },
   {
     "asset": "ZEC",
