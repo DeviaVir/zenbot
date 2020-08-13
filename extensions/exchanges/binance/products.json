@@ -8817,7 +8817,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "BTCUP/USDT"
   },
@@ -8828,7 +8828,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "BTCDOWN/USDT"
   },
@@ -9444,7 +9444,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "ETHUP/USDT"
   },
@@ -9455,7 +9455,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "ETHDOWN/USDT"
   },
@@ -9466,7 +9466,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "ADAUP/USDT"
   },
@@ -9477,7 +9477,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "ADADOWN/USDT"
   },
@@ -9488,7 +9488,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "LINKUP/USDT"
   },
@@ -9499,7 +9499,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "LINKDOWN/USDT"
   },
@@ -9906,7 +9906,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "BNBUP/USDT"
   },
@@ -9917,7 +9917,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "BNBDOWN/USDT"
   },
@@ -9928,7 +9928,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "XTZUP/USDT"
   },
@@ -9939,7 +9939,7 @@
     "min_size": "0.01000000",
     "max_size": "10000000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "XTZDOWN/USDT"
   },
@@ -10338,5 +10338,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "SRM/USDT"
+  },
+  {
+    "id": "ANTBNB",
+    "asset": "ANT",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ANT/BNB"
+  },
+  {
+    "id": "ANTBTC",
+    "asset": "ANT",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "ANT/BTC"
+  },
+  {
+    "id": "ANTBUSD",
+    "asset": "ANT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ANT/BUSD"
+  },
+  {
+    "id": "ANTUSDT",
+    "asset": "ANT",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ANT/USDT"
   }
 ]

@@ -3942,5 +3942,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CGT"
+  },
+  {
+    "asset": "KSM",
+    "currency": "BTC",
+    "min_size": "0.21897000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KSM"
+  },
+  {
+    "asset": "KSM",
+    "currency": "ETH",
+    "min_size": "0.21660000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/KSM"
+  },
+  {
+    "asset": "KSM",
+    "currency": "USDT",
+    "min_size": "0.21660000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KSM"
   }
 ]

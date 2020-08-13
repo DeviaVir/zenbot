@@ -464,6 +464,14 @@
     "label": "Decentr/Tether USD"
   },
   {
+    "asset": "DEXT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DexTools/Tether USD"
+  },
+  {
     "asset": "DIA",
     "currency": "USDT",
     "min_total": "1",
@@ -502,6 +510,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "DOS Network/Tether USD"
+  },
+  {
+    "asset": "DOT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Polkadot [IOU]/Tether USD"
   },
   {
     "asset": "EOS",
@@ -1374,6 +1390,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "UniTrade/Tether USD"
+  },
+  {
+    "asset": "TRB",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tellor/Tether USD"
   },
   {
     "asset": "TRUMPLOSE",

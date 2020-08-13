@@ -2091,7 +2091,7 @@
     "asset": "ALG",
     "currency": "USD",
     "min_size": "20.0",
-    "max_size": "25000.0",
+    "max_size": "150000.0",
     "increment": "0.00001",
     "label": "ALG/USD"
   },
@@ -2099,7 +2099,7 @@
     "asset": "ALG",
     "currency": "BTC",
     "min_size": "20.0",
-    "max_size": "25000.0",
+    "max_size": "150000.0",
     "increment": "0.00000001",
     "label": "ALG/BTC"
   },
@@ -2107,7 +2107,7 @@
     "asset": "ALG",
     "currency": "UST",
     "min_size": "20.0",
-    "max_size": "25000.0",
+    "max_size": "150000.0",
     "increment": "0.00000001",
     "label": "ALG/UST"
   },
