@@ -17,7 +17,7 @@ Or, without git,
 
 ```
 wget https://github.com/deviavir/zenbot/archive/master.tar.gz
-tar -xf zenbot-master.tar.gz
+tar -xf master.tar.gz
 mv zenbot-master zenbot
 ```
 
