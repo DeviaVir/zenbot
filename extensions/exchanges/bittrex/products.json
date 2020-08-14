@@ -744,14 +744,6 @@
     "label": "BTC/ZEN"
   },
   {
-    "asset": "1ST",
-    "currency": "BTC",
-    "min_size": "23.12673451",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/1ST"
-  },
-  {
     "asset": "QRL",
     "currency": "BTC",
     "min_size": "13.88888889",

@@ -400,6 +400,14 @@
     "label": "Compound Governance Token/Tether USD"
   },
   {
+    "asset": "CRV",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Curve Finance/Tether USD"
+  },
+  {
     "asset": "CUSDT",
     "currency": "USDT",
     "min_total": "1",
@@ -974,6 +982,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Matic Network/Tether USD"
+  },
+  {
+    "asset": "MCB",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "MCDex/Tether USD"
   },
   {
     "asset": "MDT",
