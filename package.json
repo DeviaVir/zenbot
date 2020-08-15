@@ -71,7 +71,7 @@
     "keltnerchannel": "^1.4.2",
     "kraken-api": "^1.0.1",
     "lint-staged": "^10.2.11",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "lolex": "^6.0.0",
     "mathjs": "^6.6.5",
     "micro-request": "^666.0.10",
