@@ -776,6 +776,14 @@
     "label": "HOT/USD"
   },
   {
+    "asset": "HOT",
+    "currency": "USDT",
+    "min_size": "25000",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "HOT/USDT"
+  },
+  {
     "asset": "DASH",
     "currency": "USDT",
     "min_size": "0.25",

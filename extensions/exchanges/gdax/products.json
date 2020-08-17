@@ -495,6 +495,42 @@
     "label": "MKR/USD"
   },
   {
+    "asset": "NMR",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "3900",
+    "increment": "0.00000001",
+    "asset_increment": "0.001",
+    "label": "NMR/BTC"
+  },
+  {
+    "asset": "NMR",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "3900",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "NMR/EUR"
+  },
+  {
+    "asset": "NMR",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "3900",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "NMR/GBP"
+  },
+  {
+    "asset": "NMR",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "3900",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "NMR/USD"
+  },
+  {
     "asset": "OMG",
     "currency": "BTC",
     "min_size": "1",

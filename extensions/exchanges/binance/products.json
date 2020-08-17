@@ -10470,5 +10470,71 @@
     "increment": "0.00000100",
     "asset_increment": "1.00000000",
     "label": "SAND/BUSD"
+  },
+  {
+    "id": "OCEANBNB",
+    "asset": "OCEAN",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "OCEAN/BNB"
+  },
+  {
+    "id": "OCEANBTC",
+    "asset": "OCEAN",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "OCEAN/BTC"
+  },
+  {
+    "id": "OCEANBUSD",
+    "asset": "OCEAN",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "OCEAN/BUSD"
+  },
+  {
+    "id": "NMRBNB",
+    "asset": "NMR",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "NMR/BNB"
+  },
+  {
+    "id": "NMRBTC",
+    "asset": "NMR",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "NMR/BTC"
+  },
+  {
+    "id": "NMRBUSD",
+    "asset": "NMR",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "NMR/BUSD"
   }
 ]
