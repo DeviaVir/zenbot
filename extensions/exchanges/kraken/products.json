@@ -245,6 +245,34 @@
     "label": "DASH/XBT"
   },
   {
+    "asset": "DOT",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DOT/ETH"
+  },
+  {
+    "asset": "DOT",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DOT/EUR"
+  },
+  {
+    "asset": "DOT",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DOT/USD"
+  },
+  {
+    "asset": "DOT",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "DOT/XBT"
+  },
+  {
     "asset": "EOS",
     "currency": "XETH",
     "min_size": "3.0",

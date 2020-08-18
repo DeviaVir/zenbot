@@ -520,14 +520,6 @@
     "label": "DOS Network/Tether USD"
   },
   {
-    "asset": "DOT",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Polkadot [IOU]/Tether USD"
-  },
-  {
     "asset": "EOS",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1080,6 +1072,22 @@
     "label": "NXT/Bitcoin"
   },
   {
+    "asset": "OCEAN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ocean Protocol/Tether USD"
+  },
+  {
+    "asset": "OM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Mantra DAO/Tether USD"
+  },
+  {
     "asset": "OMG",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1542,6 +1550,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "WazirX/Tether USD"
+  },
+  {
+    "asset": "XDOT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Polkadot OLD [IOU]/Tether USD"
   },
   {
     "asset": "XEM",
