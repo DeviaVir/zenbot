@@ -10505,6 +10505,17 @@
     "label": "OCEAN/BUSD"
   },
   {
+    "id": "OCEANUSDT",
+    "asset": "OCEAN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "OCEAN/USDT"
+  },
+  {
     "id": "NMRBNB",
     "asset": "NMR",
     "currency": "BNB",
@@ -10536,5 +10547,93 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "NMR/BUSD"
+  },
+  {
+    "id": "NMRUSDT",
+    "asset": "NMR",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "NMR/USDT"
+  },
+  {
+    "id": "DOTBNB",
+    "asset": "DOT",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "DOT/BNB"
+  },
+  {
+    "id": "DOTBTC",
+    "asset": "DOT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "DOT/BTC"
+  },
+  {
+    "id": "DOTBUSD",
+    "asset": "DOT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "DOT/BUSD"
+  },
+  {
+    "id": "DOTUSDT",
+    "asset": "DOT",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "DOT/USDT"
+  },
+  {
+    "id": "LUNABNB",
+    "asset": "LUNA",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "LUNA/BNB"
+  },
+  {
+    "id": "LUNABTC",
+    "asset": "LUNA",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "LUNA/BTC"
+  },
+  {
+    "id": "LUNABUSD",
+    "asset": "LUNA",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LUNA/BUSD"
   }
 ]

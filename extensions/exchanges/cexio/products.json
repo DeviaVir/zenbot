@@ -576,6 +576,14 @@
     "label": "USDT/GBP"
   },
   {
+    "asset": "USDT",
+    "currency": "RUB",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "USDT/RUB"
+  },
+  {
     "asset": "BTC",
     "currency": "USDT",
     "min_size": "0.002",
