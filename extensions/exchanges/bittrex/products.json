@@ -3982,5 +3982,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CNS"
+  },
+  {
+    "asset": "MFA",
+    "currency": "BTC",
+    "min_size": "5.77000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/MFA"
+  },
+  {
+    "asset": "MFA",
+    "currency": "USDT",
+    "min_size": "5.77000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MFA"
   }
 ]

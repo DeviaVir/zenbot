@@ -192,6 +192,14 @@
     "label": "3X Short Bitcoin Token/Tether USD"
   },
   {
+    "asset": "BLY",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Blocery/Tether USD"
+  },
+  {
     "asset": "BNB",
     "currency": "BUSD",
     "min_total": "0.0001",
