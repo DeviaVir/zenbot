@@ -1104,6 +1104,14 @@
     "label": "OmiseGO/Bitcoin"
   },
   {
+    "asset": "OPT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "OpenPredict/Tether USD"
+  },
+  {
     "asset": "PAX",
     "currency": "USDT",
     "min_total": "1",
@@ -1384,6 +1392,30 @@
     "label": "SwftCoin/Tether USD"
   },
   {
+    "asset": "SWINGBY",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Swingby/Bitcoin"
+  },
+  {
+    "asset": "SWINGBY",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Swingby/Tron"
+  },
+  {
+    "asset": "SWINGBY",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Swingby/Tether USD"
+  },
+  {
     "asset": "SXP",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1558,14 +1590,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "WazirX/Tether USD"
-  },
-  {
-    "asset": "XDOT",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Polkadot OLD [IOU]/Tether USD"
   },
   {
     "asset": "XEM",

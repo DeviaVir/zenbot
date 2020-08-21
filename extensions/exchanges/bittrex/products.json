@@ -3998,5 +3998,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MFA"
+  },
+  {
+    "asset": "DOT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DOT"
+  },
+  {
+    "asset": "DOT",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/DOT"
+  },
+  {
+    "asset": "DOT",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DOT"
+  },
+  {
+    "asset": "DOT",
+    "currency": "USD",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/DOT"
+  },
+  {
+    "asset": "DOT",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/DOT"
   }
 ]

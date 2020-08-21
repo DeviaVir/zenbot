@@ -144,30 +144,6 @@
     "label": "BAT/ETH"
   },
   {
-    "asset": "DAI",
-    "currency": "USD",
-    "min_size": "0.001",
-    "max_size": "10000",
-    "increment": "0.01",
-    "label": "DAI/USD"
-  },
-  {
-    "asset": "DAI",
-    "currency": "BTC",
-    "min_size": "0.001",
-    "max_size": "10000",
-    "increment": "0.00001",
-    "label": "DAI/BTC"
-  },
-  {
-    "asset": "DAI",
-    "currency": "ETH",
-    "min_size": "0.001",
-    "max_size": "10000",
-    "increment": "0.01",
-    "label": "DAI/ETH"
-  },
-  {
     "asset": "LIN",
     "currency": "KUS",
     "min_size": "0.001",
@@ -190,6 +166,30 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "LIN/KET"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DAI/USD"
+  },
+  {
+    "asset": "DAI",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "DAI/BTC"
+  },
+  {
+    "asset": "DAI",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DAI/ETH"
   },
   {
     "asset": "OXT",
