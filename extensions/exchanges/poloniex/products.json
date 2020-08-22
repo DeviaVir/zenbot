@@ -528,6 +528,14 @@
     "label": "DOS Network/Tether USD"
   },
   {
+    "asset": "DOT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Polkadot [IOU]/Tether USD"
+  },
+  {
     "asset": "EOS",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1142,6 +1150,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Polymath/Bitcoin"
+  },
+  {
+    "asset": "PRQ",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "PARSIQ/Tether USD"
   },
   {
     "asset": "QTUM",
