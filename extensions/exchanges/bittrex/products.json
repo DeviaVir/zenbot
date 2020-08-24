@@ -4038,5 +4038,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/DOT"
+  },
+  {
+    "asset": "SENSO",
+    "currency": "BTC",
+    "min_size": "12.89000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SENSO"
+  },
+  {
+    "asset": "SENSO",
+    "currency": "ETH",
+    "min_size": "12.89000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/SENSO"
   }
 ]
