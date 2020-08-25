@@ -496,6 +496,30 @@
     "label": "DIA/Tether USD"
   },
   {
+    "asset": "DMG",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DMM: Governance/Bitcoin"
+  },
+  {
+    "asset": "DMG",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DMM: Governance/Tron"
+  },
+  {
+    "asset": "DMG",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DMM: Governance/Tether USD"
+  },
+  {
     "asset": "DOGE",
     "currency": "BTC",
     "min_total": "0.0001",
