@@ -4070,5 +4070,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/FME"
+  },
+  {
+    "asset": "INX",
+    "currency": "BTC",
+    "min_size": "14.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/INX"
+  },
+  {
+    "asset": "INX",
+    "currency": "USDT",
+    "min_size": "14.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/INX"
   }
 ]

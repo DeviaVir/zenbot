@@ -1240,6 +1240,14 @@
     "label": "Darwinia Network Native Token/Tether USD"
   },
   {
+    "asset": "RSR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Reserve Rights Token/Tether USD"
+  },
+  {
     "asset": "SBREE",
     "currency": "USDT",
     "min_total": "1",

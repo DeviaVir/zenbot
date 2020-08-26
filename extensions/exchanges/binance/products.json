@@ -10701,5 +10701,71 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "RSR/BUSD"
+  },
+  {
+    "id": "PAXGBNB",
+    "asset": "PAXG",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "PAXG/BNB"
+  },
+  {
+    "id": "PAXGBTC",
+    "asset": "PAXG",
+    "currency": "BTC",
+    "min_size": "0.00010000",
+    "max_size": "9000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00010000",
+    "label": "PAXG/BTC"
+  },
+  {
+    "id": "PAXGBUSD",
+    "asset": "PAXG",
+    "currency": "BUSD",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "PAXG/BUSD"
+  },
+  {
+    "id": "WNXMBNB",
+    "asset": "WNXM",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "WNXM/BNB"
+  },
+  {
+    "id": "WNXMBTC",
+    "asset": "WNXM",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "WNXM/BTC"
+  },
+  {
+    "id": "WNXMBUSD",
+    "asset": "WNXM",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "WNXM/BUSD"
   }
 ]

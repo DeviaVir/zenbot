@@ -862,5 +862,21 @@
     "max_size": null,
     "increment": "0.01",
     "label": "LINK/USDT"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USD",
+    "min_size": "0.04",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "COMP/USD"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USDT",
+    "min_size": "0.04",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "COMP/USDT"
   }
 ]
