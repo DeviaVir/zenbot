@@ -1616,6 +1616,14 @@
     "label": "WINK/Tether USD"
   },
   {
+    "asset": "WNXM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Wrapped NXM/Tether USD"
+  },
+  {
     "asset": "WRX",
     "currency": "BTC",
     "min_total": "0.0001",

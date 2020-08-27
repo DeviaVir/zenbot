@@ -7165,7 +7165,7 @@
     "asset": "BTC",
     "currency": "NGN",
     "min_size": "0.00000100",
-    "max_size": "100000.00000000",
+    "max_size": "500.00000000",
     "min_total": "500.00000000",
     "increment": "1.00000000",
     "asset_increment": "0.00000100",
@@ -10703,6 +10703,17 @@
     "label": "RSR/BUSD"
   },
   {
+    "id": "RSRUSDT",
+    "asset": "RSR",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "RSR/USDT"
+  },
+  {
     "id": "PAXGBNB",
     "asset": "PAXG",
     "currency": "BNB",
@@ -10767,5 +10778,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "WNXM/BUSD"
+  },
+  {
+    "id": "TRBBNB",
+    "asset": "TRB",
+    "currency": "BNB",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "TRB/BNB"
+  },
+  {
+    "id": "TRBBTC",
+    "asset": "TRB",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "TRB/BTC"
+  },
+  {
+    "id": "TRBBUSD",
+    "asset": "TRB",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "TRB/BUSD"
   }
 ]

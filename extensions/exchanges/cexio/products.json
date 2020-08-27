@@ -784,6 +784,14 @@
     "label": "ZRX/USD"
   },
   {
+    "asset": "ZRX",
+    "currency": "USDT",
+    "min_size": "40",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ZRX/USDT"
+  },
+  {
     "asset": "HOT",
     "currency": "USD",
     "min_size": "25000",
