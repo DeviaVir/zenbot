@@ -10747,6 +10747,17 @@
     "label": "PAXG/BUSD"
   },
   {
+    "id": "PAXGUSDT",
+    "asset": "PAXG",
+    "currency": "USDT",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "PAXG/USDT"
+  },
+  {
     "id": "WNXMBNB",
     "asset": "WNXM",
     "currency": "BNB",
@@ -10780,6 +10791,17 @@
     "label": "WNXM/BUSD"
   },
   {
+    "id": "WNXMUSDT",
+    "asset": "WNXM",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "WNXM/USDT"
+  },
+  {
     "id": "TRBBNB",
     "asset": "TRB",
     "currency": "BNB",
@@ -10811,5 +10833,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "TRB/BUSD"
+  },
+  {
+    "id": "ETHNGN",
+    "asset": "ETH",
+    "currency": "NGN",
+    "min_size": "0.00001000",
+    "max_size": "900.00000000",
+    "min_total": "0.00100000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00001000",
+    "label": "ETH/NGN"
+  },
+  {
+    "id": "DOTBIDR",
+    "asset": "DOT",
+    "currency": "BIDR",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00100000",
+    "label": "DOT/BIDR"
+  },
+  {
+    "id": "LINKAUD",
+    "asset": "LINK",
+    "currency": "AUD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "LINK/AUD"
+  },
+  {
+    "id": "SXPAUD",
+    "asset": "SXP",
+    "currency": "AUD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SXP/AUD"
   }
 ]
