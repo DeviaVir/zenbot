@@ -10921,5 +10921,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "BZRX/BUSD"
+  },
+  {
+    "id": "BZRXUSDT",
+    "asset": "BZRX",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BZRX/USDT"
+  },
+  {
+    "id": "WBTCBTC",
+    "asset": "WBTC",
+    "currency": "BTC",
+    "min_size": "0.00010000",
+    "max_size": "9000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00010000",
+    "label": "WBTC/BTC"
+  },
+  {
+    "id": "WBTCETH",
+    "asset": "WBTC",
+    "currency": "ETH",
+    "min_size": "0.00010000",
+    "max_size": "100000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.00010000",
+    "label": "WBTC/ETH"
   }
 ]

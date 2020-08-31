@@ -171,6 +171,42 @@
     "label": "BTC/USDC"
   },
   {
+    "asset": "CGLD",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "34000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "CGLD/BTC"
+  },
+  {
+    "asset": "CGLD",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "34000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "CGLD/EUR"
+  },
+  {
+    "asset": "CGLD",
+    "currency": "GBP",
+    "min_size": "0.1",
+    "max_size": "34000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "CGLD/GBP"
+  },
+  {
+    "asset": "CGLD",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "34000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "CGLD/USD"
+  },
+  {
     "asset": "COMP",
     "currency": "BTC",
     "min_size": "0.01",
