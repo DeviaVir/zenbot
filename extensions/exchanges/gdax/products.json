@@ -184,7 +184,7 @@
     "currency": "EUR",
     "min_size": "0.1",
     "max_size": "34000",
-    "increment": "0.001",
+    "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "CGLD/EUR"
   },
@@ -193,7 +193,7 @@
     "currency": "GBP",
     "min_size": "0.1",
     "max_size": "34000",
-    "increment": "0.001",
+    "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "CGLD/GBP"
   },
@@ -202,7 +202,7 @@
     "currency": "USD",
     "min_size": "0.1",
     "max_size": "34000",
-    "increment": "0.001",
+    "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "CGLD/USD"
   },

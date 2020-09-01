@@ -4086,5 +4086,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/INX"
+  },
+  {
+    "asset": "FCT2",
+    "currency": "BTC",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FCT2"
+  },
+  {
+    "asset": "TRYB",
+    "currency": "BTC",
+    "min_size": "23.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TRYB"
+  },
+  {
+    "asset": "TRYB",
+    "currency": "USDT",
+    "min_size": "23.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/TRYB"
   }
 ]

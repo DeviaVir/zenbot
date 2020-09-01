@@ -10954,5 +10954,93 @@
     "increment": "0.00010000",
     "asset_increment": "0.00010000",
     "label": "WBTC/ETH"
+  },
+  {
+    "id": "SUSHIBNB",
+    "asset": "SUSHI",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SUSHI/BNB"
+  },
+  {
+    "id": "SUSHIBTC",
+    "asset": "SUSHI",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "SUSHI/BTC"
+  },
+  {
+    "id": "SUSHIBUSD",
+    "asset": "SUSHI",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SUSHI/BUSD"
+  },
+  {
+    "id": "SUSHIUSDT",
+    "asset": "SUSHI",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SUSHI/USDT"
+  },
+  {
+    "id": "YFIIBNB",
+    "asset": "YFII",
+    "currency": "BNB",
+    "min_size": "0.00010000",
+    "max_size": "10000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00010000",
+    "label": "YFII/BNB"
+  },
+  {
+    "id": "YFIIBTC",
+    "asset": "YFII",
+    "currency": "BTC",
+    "min_size": "0.00010000",
+    "max_size": "9000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00010000",
+    "label": "YFII/BTC"
+  },
+  {
+    "id": "YFIIBUSD",
+    "asset": "YFII",
+    "currency": "BUSD",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "YFII/BUSD"
+  },
+  {
+    "id": "YFIIUSDT",
+    "asset": "YFII",
+    "currency": "USDT",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "YFII/USDT"
   }
 ]
