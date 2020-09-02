@@ -11042,5 +11042,71 @@
     "increment": "0.01000000",
     "asset_increment": "0.00000100",
     "label": "YFII/USDT"
+  },
+  {
+    "id": "KSMBNB",
+    "asset": "KSM",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "KSM/BNB"
+  },
+  {
+    "id": "KSMBTC",
+    "asset": "KSM",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "KSM/BTC"
+  },
+  {
+    "id": "KSMBUSD",
+    "asset": "KSM",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "KSM/BUSD"
+  },
+  {
+    "id": "DIABNB",
+    "asset": "DIA",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "DIA/BNB"
+  },
+  {
+    "id": "DIABTC",
+    "asset": "DIA",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "DIA/BTC"
+  },
+  {
+    "id": "DIABUSD",
+    "asset": "DIA",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "DIA/BUSD"
   }
 ]

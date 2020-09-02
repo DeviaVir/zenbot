@@ -1416,6 +1416,14 @@
     "label": "Stratis/Bitcoin"
   },
   {
+    "asset": "SUSHI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "SushiSwap/Tether USD"
+  },
+  {
     "asset": "SWAP",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1790,6 +1798,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "yearn.finance/Tether USD"
+  },
+  {
+    "asset": "YFII",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "DFI.money/Tether USD"
+  },
+  {
+    "asset": "YFV",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "YFValue/Tether USD"
   },
   {
     "asset": "ZAP",
