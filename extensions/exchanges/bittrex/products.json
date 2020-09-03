@@ -2376,6 +2376,22 @@
     "label": "BTC/STPT"
   },
   {
+    "asset": "MKR",
+    "currency": "BTC",
+    "min_size": "0.00555492",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/MKR"
+  },
+  {
+    "asset": "MKR",
+    "currency": "ETH",
+    "min_size": "0.00211199",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/MKR"
+  },
+  {
     "asset": "DAI",
     "currency": "BTC",
     "min_size": "3.00000000",
@@ -4110,5 +4126,53 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/TRYB"
+  },
+  {
+    "asset": "KLAY",
+    "currency": "BTC",
+    "min_size": "4.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KLAY"
+  },
+  {
+    "asset": "UST",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UST"
+  },
+  {
+    "asset": "UST",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/UST"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USDT",
+    "min_size": "0.00440000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MKR"
+  },
+  {
+    "asset": "KLV",
+    "currency": "BTC",
+    "min_size": "250.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KLV"
+  },
+  {
+    "asset": "KLV",
+    "currency": "USDT",
+    "min_size": "250.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KLV"
   }
 ]

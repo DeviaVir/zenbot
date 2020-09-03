@@ -1512,6 +1512,22 @@
     "label": "Swipe/Tether USD"
   },
   {
+    "asset": "TAI",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "tBridge Token/Tron"
+  },
+  {
+    "asset": "TAI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "tBridge Token/Tether USD"
+  },
+  {
     "asset": "TEND",
     "currency": "USDT",
     "min_total": "1",
@@ -1806,6 +1822,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "DFI.money/Tether USD"
+  },
+  {
+    "asset": "YFL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "YFLink/Tether USD"
   },
   {
     "asset": "YFV",
