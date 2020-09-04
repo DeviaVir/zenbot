@@ -2386,7 +2386,7 @@
   {
     "asset": "MKR",
     "currency": "ETH",
-    "min_size": "0.00211199",
+    "min_size": "0.00555492",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/MKR"
@@ -4136,6 +4136,14 @@
     "label": "BTC/KLAY"
   },
   {
+    "asset": "KLAY",
+    "currency": "USDT",
+    "min_size": "4.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KLAY"
+  },
+  {
     "asset": "UST",
     "currency": "BTC",
     "min_size": "3.00000000",
@@ -4154,7 +4162,7 @@
   {
     "asset": "MKR",
     "currency": "USDT",
-    "min_size": "0.00440000",
+    "min_size": "0.00555492",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MKR"
@@ -4174,5 +4182,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/KLV"
+  },
+  {
+    "asset": "LOKI",
+    "currency": "BTC",
+    "min_size": "5.45000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LOKI"
+  },
+  {
+    "asset": "LOKI",
+    "currency": "USDT",
+    "min_size": "5.45000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LOKI"
+  },
+  {
+    "asset": "USDN",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/USDN"
+  },
+  {
+    "asset": "USDN",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/USDN"
   }
 ]

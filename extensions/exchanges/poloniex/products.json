@@ -1,5 +1,13 @@
 [
   {
+    "asset": "ANK",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "AlphaLink/Tether USD"
+  },
+  {
     "asset": "ARDR",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -406,6 +414,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Compound Governance Token/Tether USD"
+  },
+  {
+    "asset": "CRT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Carrot Finance/Tether USD"
   },
   {
     "asset": "CRV",
@@ -832,6 +848,14 @@
     "label": "Inverse Bitcoin Volatility Token/Tether USD"
   },
   {
+    "asset": "JFI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "JackPool.finance/Tether USD"
+  },
+  {
     "asset": "JST",
     "currency": "TRX",
     "min_total": "0.0001",
@@ -1166,6 +1190,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Paxos Standard/Tether USD"
+  },
+  {
+    "asset": "PEARL",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Pearl Finance/Tron"
+  },
+  {
+    "asset": "PEARL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Pearl Finance/Tether USD"
   },
   {
     "asset": "PERX",

@@ -11077,6 +11077,17 @@
     "label": "KSM/BUSD"
   },
   {
+    "id": "KSMUSDT",
+    "asset": "KSM",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "KSM/USDT"
+  },
+  {
     "id": "EGLDBNB",
     "asset": "EGLD",
     "currency": "BNB",
@@ -11152,5 +11163,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "DIA/BUSD"
+  },
+  {
+    "id": "DIAUSDT",
+    "asset": "DIA",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "DIA/USDT"
+  },
+  {
+    "id": "RUNEUSDT",
+    "asset": "RUNE",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "RUNE/USDT"
+  },
+  {
+    "id": "FIOUSDT",
+    "asset": "FIO",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "FIO/USDT"
   }
 ]
