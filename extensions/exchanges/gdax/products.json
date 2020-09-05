@@ -630,42 +630,6 @@
     "label": "REP/USD"
   },
   {
-    "asset": "UMA",
-    "currency": "BTC",
-    "min_size": "0.01",
-    "max_size": "4500",
-    "increment": "0.00000001",
-    "asset_increment": "0.001",
-    "label": "UMA/BTC"
-  },
-  {
-    "asset": "UMA",
-    "currency": "EUR",
-    "min_size": "0.01",
-    "max_size": "4500",
-    "increment": "0.001",
-    "asset_increment": "0.001",
-    "label": "UMA/EUR"
-  },
-  {
-    "asset": "UMA",
-    "currency": "GBP",
-    "min_size": "0.01",
-    "max_size": "4500",
-    "increment": "0.001",
-    "asset_increment": "0.001",
-    "label": "UMA/GBP"
-  },
-  {
-    "asset": "UMA",
-    "currency": "USD",
-    "min_size": "0.01",
-    "max_size": "4500",
-    "increment": "0.001",
-    "asset_increment": "0.001",
-    "label": "UMA/USD"
-  },
-  {
     "asset": "XLM",
     "currency": "BTC",
     "min_size": "1",

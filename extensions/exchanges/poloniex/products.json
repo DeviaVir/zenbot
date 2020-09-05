@@ -416,6 +416,14 @@
     "label": "Compound Governance Token/Tether USD"
   },
   {
+    "asset": "CORN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Corn/Tether USD"
+  },
+  {
     "asset": "CRT",
     "currency": "USDT",
     "min_total": "1",
@@ -1302,6 +1310,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Reserve Rights Token/Tether USD"
+  },
+  {
+    "asset": "SAL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Salmon/Tether USD"
   },
   {
     "asset": "SBREE",
