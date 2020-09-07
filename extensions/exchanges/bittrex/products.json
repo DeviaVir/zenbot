@@ -4214,5 +4214,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/USDN"
+  },
+  {
+    "asset": "SDT",
+    "currency": "BTC",
+    "min_size": "2.15000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SDT"
+  },
+  {
+    "asset": "SDT",
+    "currency": "USDT",
+    "min_size": "2.15000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SDT"
   }
 ]
