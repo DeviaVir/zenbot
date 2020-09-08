@@ -888,6 +888,14 @@
     "label": "LINK/USDT"
   },
   {
+    "asset": "DOT",
+    "currency": "USD",
+    "min_size": "1.1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "DOT/USD"
+  },
+  {
     "asset": "COMP",
     "currency": "USD",
     "min_size": "0.04",
