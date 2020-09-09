@@ -1,6 +1,6 @@
 # Genetic Backtester - Darwin
 
-The Genetic Backtester will execute a range of simulations with a range of parameters, limited by the population size, per strategy. Once all sims in the population are complete, the top results are taken as the starting point for the next generation. This continues indefinitely, until interrupted by the user.
+The Genetic Backtester will execute a range of simulations with a range of parameters, limited by the population size, per strategy. Once all sims in the population are complete, the top results are taken as the starting point for the next generation. This continues indefinitely, until interrupted by the user, or --runGenerations is reached.
 
 ## Installation
 
@@ -37,13 +37,13 @@ The following parameters are available when executing darwin.js:
 // Specific Parameters
 --use_strategies="all | strategy1,strategy2"                                            # With this parameter, you can choose to test all, some (comma separated), or just one of the available strategies defined within darwin.
 --population="150"                                                                      # Optional - Number of simulation per generation
---population_data="./simulations/generation_data_[simtimestamp]_gen_[X].json"           # Optional - Resume backtesting on a previously terminated backtesting session based on results from specified generation.
-
+--population_data="./simulations/backtest_[simtimestamp]"                               # Optional - Resume backtesting on a previously terminated backtesting session.
+--runGenerations									# Optional - Makes it possible to stop after a number of generations
 ```
 
 ## Results
 
-When the next generation starts testing, a csv file will appear in the simulations folder. This CSV contains all simulations that were executed in that generation, including the parameters and results. 
+When the next generation starts testing, a csv file will appear in the simulations folder. This CSV contains all simulations that were executed in that generation, including the parameters and results.
 
 The top results are listed at the top of the file, in descending order.
 

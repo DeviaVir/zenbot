@@ -1,25 +1,24 @@
 var Poloniex = require('poloniex.js')
-  , path = require('path')
   , moment = require('moment')
   , n = require('numbro')
+  // eslint-disable-next-line no-unused-vars
   , colors = require('colors')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
+module.exports = function container (conf) {
 
   var public_client, authed_client
 
-  function publicClient (product_id) {
-    if (!public_client) public_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
+  function publicClient (/*product_id*/) {
+    if (!public_client) public_client = new Poloniex()
     return public_client
   }
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.poloniex || !c.poloniex.key || c.poloniex.key === 'YOUR-API-KEY') {
+      if (!conf.poloniex || !conf.poloniex.key || conf.poloniex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Poloniex credentials in conf.js')
       }
-      authed_client = new Poloniex(c.poloniex.key, c.poloniex.secret)
+      authed_client = new Poloniex(conf.poloniex.key, conf.poloniex.secret)
     }
     return authed_client
   }
@@ -41,6 +40,7 @@ module.exports = function container (get, set, clear) {
     historyScan: 'backward',
     makerFee: 0.15,
     takerFee: 0.25,
+    offset: 43200,
 
     getProducts: function () {
       return require('./products.json')
@@ -60,11 +60,11 @@ module.exports = function container (get, set, clear) {
       }
       if (args.start && !args.end) {
         // add 12 hours
-        args.end = args.start + 43200
+        args.end = args.start + (opts.offset || this.offset)
       }
       else if (args.end && !args.start) {
         // subtract 12 hours
-        args.start = args.end - 43200
+        args.start = args.end - (opts.offset || this.offset)
       }
 
       client._public('returnTradeHistory', args, function (err, body) {
@@ -77,6 +77,12 @@ module.exports = function container (get, set, clear) {
           console.error(body)
           return retry('getTrades', func_args)
         }
+
+        if (body.length >= 50000) {
+          func_args[0].offset = opts.offset / 2;
+          return retry('getTrades', func_args)
+        }
+
         var trades = body.map(function (trade) {
           return {
             trade_id: trade.tradeID,
@@ -113,6 +119,30 @@ module.exports = function container (get, set, clear) {
           balance.asset_hold = body[opts.asset].onOrders
         }
         cb(null, balance)
+      })
+    },
+
+    getOrderBook: function (opts, cb) {
+      var client = publicClient()
+      var params = {
+        currencyPair: joinProduct(opts.product_id),
+        depth: 10
+      }
+      client._public('returnOrderBook', params, function (err,  data) {
+        if (typeof data !== 'object') {
+          return cb(null, [])
+        }
+        if (data.error) {
+          console.error('getOrderBook error:')
+          console.error(data)
+          return retry('getOrderBook', params)
+        }
+        cb(null, {
+          buyOrderRate: data.bids[0][0],
+          buyOrderAmount: data.bids[0][1],
+          sellOrderRate: data.asks[0][0],
+          sellOrderAmount: data.asks[0][1]
+        })
       })
     },
 
@@ -189,6 +219,8 @@ module.exports = function container (get, set, clear) {
           order.status = 'rejected'
           order.reject_reason = 'balance'
           return cb(null, order)
+        } else if (result && result.error && result.error.match(/^Nonce must be greater/)) {
+            return retry('trade', args)
         }
         if (!err && result.error) {
           err = new Error('unable to ' + type)
@@ -232,16 +264,15 @@ module.exports = function container (get, set, clear) {
             if (api_order.orderNumber == opts.order_id) active = true
           })
         }
-        if (!active) {
-          order.status = 'done'
-          order.done_at = new Date().getTime()
-          return cb(null, order)
-        }
         client.returnOrderTrades(opts.order_id, function (err, body) {
           if (typeof body === 'string' || !body) {
             return retry('getOrder', args)
           }
           if (err || body.error || !body.forEach) return cb(null, order)
+          if (body.length === 0 && !active) {
+            order.status = 'cancelled'
+            return cb(null, order)
+          }
           order.filled_size = '0'
           body.forEach(function (trade) {
             order.filled_size = n(order.filled_size).add(trade.amount).format('0.00000000')

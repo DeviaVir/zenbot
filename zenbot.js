@@ -1,9 +1,7 @@
 
 var semver = require('semver')
-var version = require('./package.json').version
-USER_AGENT = 'zenbot/' + version
+var path = require('path')
 var program = require('commander')
-program.version(version)
 program._name = 'zenbot'
 
 var versions = process.versions
@@ -14,27 +12,37 @@ if (semver.gt('8.3.0', versions.node)) {
 }
 
 var fs = require('fs')
-  , path = require('path')
   , boot = require('./boot')
 
 boot(function (err, zenbot) {
-  var command_name = process.argv[2]
   if (err) {
     throw err
   }
-  var commands = zenbot.get('zenbot:commands.list')
-  commands.forEach(function (command) {
-    command(program)
+  program.version(zenbot.version)
+
+  var command_directory = './commands'
+  fs.readdir(command_directory, function(err, files){
+    if (err) {
+      throw err
+    }
+    
+    var commands = files.map((file)=>{
+      return path.join(command_directory, file)
+    }).filter((file)=>{
+      return fs.statSync(file).isFile()
+    })
+
+    commands.forEach((file)=>{
+      require(path.resolve(__dirname, file.replace('.js','')))(program, zenbot.conf)
+    })
+
+    program
+      .command('*', 'Display help', { noHelp: true })
+      .action((cmd)=>{
+        console.log('Invalid command: ' + cmd)
+        program.help()
+      })
+
+    program.parse(process.argv)
   })
-  var command_found = false
-  try {
-    zenbot.get('zenbot:commands.' + command_name)
-    command_found = true
-  }
-  catch (e) {
-  }
-  if (!command_name || !command_found && (!process.argv[2] || !process.argv[2].match(/^-V|--version$/))) {
-    program.help()
-  }
-  program.parse(process.argv)
 })

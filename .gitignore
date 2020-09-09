@@ -1,4 +1,5 @@
 .DS_Store
+.env
 *.tar.gz
 *.log.*
 t.js
@@ -22,6 +23,7 @@ paper_result*
 *_test
 backtesting_*
 generation_data_*
+simulations/*
 models/**/*.json
 models/**/*.html
 *.pyc
@@ -30,3 +32,11 @@ temp.html
 logs
 .sync
 dist/*
+.idea
+*.iml
+simulations/sim_*.json
+gen.*.bat
+gen.*.sh
+.env
+scripts/auto_backtester/backtesting_*.csv
+database/*

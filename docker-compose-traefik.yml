@@ -1,0 +1,67 @@
+version: '3.1'
+services:
+  zenbotserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app/
+      - /app/node_modules/
+      - /app/dist/
+    restart: always
+    tty: true
+    expose:
+      - "17365"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:$(TRAEFIK_HOST_ZEN)"
+      - "traefik.docker.network=$(TRAEFIK_NETWORK_NAME)"
+      - "traefik.port=17365"
+      - "traefik.frontend.auth.basic=$(BASIC_AUTH_ZEN)"
+    networks:
+      - internal
+      - proxy
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_PORT_27017_TCP_ADDR=mongodb
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./data/db:/data/db
+    command: mongod --smallfiles --bind_ip=0.0.0.0 --logpath=/dev/null
+    networks:
+      - internal
+    expose:
+      - 27017
+
+  # "adminMongo is a Web based user interface (GUI) to handle all your MongoDB connections/databases needs."
+  adminmongo:
+    image: mrvautin/adminmongo
+    expose:
+      - 1234
+    depends_on:
+      - mongodb
+    environment:
+      - "CONN_NAME=zenbot_mongodb"
+      - "DB_HOST=mongodb"
+      - "DB_PORT=27017"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:$(TRAEFIK_HOST_DB)"
+      - "traefik.docker.network=$(TRAEFIK_NETWORK_NAME)"
+      - "traefik.port=1234"
+      - "traefik.frontend.auth.basic=$(BASIC_AUTH_DB)"
+    networks:
+      - internal
+      - proxy
+    command: "npm start"
+
+networks:
+  proxy:
+    external:
+      name: "$(TRAEFIK_NETWORK_NAME)"
+  internal:
+    external: false

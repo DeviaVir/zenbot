@@ -2,11 +2,11 @@ var QuadrigaCX = require('quadrigacx'),
   path = require('path'),
   minimist = require('minimist'),
   moment = require('moment'),
+  // eslint-disable-next-line no-unused-vars
   colors = require('colors'),
   n = require('numbro')
 
-module.exports = function container(get, set, clear) {
-  var c = get('conf')
+module.exports = function container(conf) {
   var s = {
     options: minimist(process.argv)
   }
@@ -17,17 +17,17 @@ module.exports = function container(get, set, clear) {
   var public_client, authed_client
 
   function publicClient() {
-    if (!public_client) public_client = new QuadrigaCX("1", "", "")
+    if (!public_client) public_client = new QuadrigaCX('1', '', '')
     return public_client
   }
 
   function authedClient() {
     if (!authed_client) {
-      if (!c.quadriga || !c.quadriga.key || !c.quadriga.key === 'YOUR-API-KEY') {
+      if (!conf.quadriga || !conf.quadriga.key || !conf.quadriga.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Quadriga credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
 
-      authed_client = new QuadrigaCX(c.quadriga.client_id, c.quadriga.key, c.quadriga.secret)
+      authed_client = new QuadrigaCX(conf.quadriga.client_id, conf.quadriga.key, conf.quadriga.secret)
     }
     return authed_client
   }
@@ -44,7 +44,7 @@ module.exports = function container(get, set, clear) {
 
     if (method !== 'getTrades') {
       console.error((`\nQuadrigaCX API is down: (${method}) ${error.message}`).red)
-      console.error((`Retrying in 30 seconds ...`).yellow)
+      console.error(('Retrying in 30 seconds ...').yellow)
     }
 
     setTimeout(function() {
@@ -123,7 +123,7 @@ module.exports = function container(get, set, clear) {
         balance.currency_hold = n(wallet[currency + '_reserved']).format('0.00000000')
         balance.asset_hold = n(wallet[asset + '_reserved']).format('0.00000000')
 
-        debugOut(`Balance/Reserve/Hold:`)
+        debugOut('Balance/Reserve/Hold:')
         debugOut(`  ${currency} (${wallet[currency + '_balance']}/${wallet[currency + '_reserved']}/${wallet[currency + '_available']})`)
         debugOut(`  ${asset} (${wallet[asset + '_balance']}/${wallet[asset + '_reserved']}/${wallet[asset + '_available']})`)
 

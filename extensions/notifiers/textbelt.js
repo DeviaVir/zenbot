@@ -1,9 +1,9 @@
 var request = require('request')
 
-module.exports = function container (get, set, clear) {
+module.exports = function textbelt (config) {
   var textbelt = {
-    pushMessage: function(config, title, message) {
-      var postData = {'number': config.phone, 'message': title+": "+message, 'key': config.key }
+    pushMessage: function(title, message) {
+      var postData = {'number': config.phone, 'message': title+': '+message, 'key': config.key }
 
       function callback(error) {
         if (error) {

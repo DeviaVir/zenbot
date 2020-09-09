@@ -1,14 +1,13 @@
 const ccxt = require('ccxt')
-  , path = require('path')
-  , colors = require('colors')
-  , moment = require('moment')
-  , _ = require('lodash')
-  , n = require('numbro')
+, path = require('path')
+// eslint-disable-next-line no-unused-vars
+, colors = require('colors')
+, _ = require('lodash')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
-
+module.exports = function bittrex (conf) {
   var public_client, authed_client
+  let firstRun = true
+  let allowGetMarketCall = true
 
   function publicClient () {
     if (!public_client) public_client = new ccxt.binance({ 'apiKey': '', 'secret': '' })
@@ -17,22 +16,22 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.binance || !c.binance.key || c.binance.key === 'YOUR-API-KEY') {
+      if (!conf.binance || !conf.binance.key || conf.binance.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Binance credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      authed_client = new ccxt.binance({ 'apiKey': c.binance.key, 'secret': c.binance.secret })
+      authed_client = new ccxt.binance({ 'apiKey': conf.binance.key, 'secret': conf.binance.secret })
     }
     return authed_client
   }
 
   /**
-   * Convert BNB-BTC to BNB/BTC
-   *
-   * @param product_id BNB-BTC
-   * @returns {string}
-   */
+  * Convert BNB-BTC to BNB/BTC
+  *
+  * @param product_id BNB-BTC
+  * @returns {string}
+  */
   function joinProduct(product_id) {
-    let split = product_id.split('-');
+    let split = product_id.split('-')
     return split[0] + '/' + split[1]
   }
 
@@ -52,6 +51,7 @@ module.exports = function container (get, set, clear) {
   var exchange = {
     name: 'binance',
     historyScan: 'forward',
+    historyScanUsesTime: true,
     makerFee: 0.1,
     takerFee: 0.1,
 
@@ -61,39 +61,65 @@ module.exports = function container (get, set, clear) {
 
     getTrades: function (opts, cb) {
       var func_args = [].slice.call(arguments)
-
-      var args = {};
-      if (opts.from) {
-        args.startTime = opts.from
-      }
-      if (opts.to) {
-        args.endTime = opts.to
-      }
+      , trades = []
+      , maxTime = 0
+      var client = publicClient()
+      var args = {}
+      if (opts.from) args.startTime = opts.from
+      if (opts.to) args.endTime = opts.to
       if (args.startTime && !args.endTime) {
         // add 12 hours
-        args.endTime = args.startTime + 3600000
+        args.endTime = parseInt(args.startTime, 10) + 3600000
       }
       else if (args.endTime && !args.startTime) {
         // subtract 12 hours
-        args.startTime = args.endTime - 3600000
+        args.startTime = parseInt(args.endTime, 10) - 3600000
       }
-
-      var client = publicClient()
-      client.fetchTrades(joinProduct(opts.product_id), '','', args).then(result => {
-        var trades = result.map(function (trade) {
-          return {
-            trade_id: trade.id,
-            time: trade.timestamp,
-            size: parseFloat(trade.amount),
-            price: parseFloat(trade.price),
-            side: trade.side
-          }
+      if (allowGetMarketCall != true) {
+        cb(null, [])
+        return null
+      }
+      if (firstRun) {
+        client.fetchOHLCV(joinProduct(opts.product_id), args.timeframe, opts.from).then(result => {
+          var lastVal = 0
+          trades = result.map(function(trade) {
+            let buySell = parseFloat(trade[4]) > lastVal ? 'buy' : 'sell'
+            lastVal = parseFloat(trade[4])
+            if (Number(trade[0]) > maxTime) maxTime = Number(trade[0])
+            return {
+              trade_id: trade[0]+''+ (trade[5]+'').slice(-2) + (trade[4]+'').slice(-2),
+              time: trade[0],
+              size: parseFloat(trade[5]),
+              price: parseFloat(trade[4]),
+              side: buySell
+            }
+          })
+          cb(null, trades)
+        }).catch(function(error) {
+          firstRun = false
+          allowGetMarketCall = false
+          setTimeout(()=>{allowGetMarketCall = true}, 5000)
+          console.error('[OHLCV] An error occurred', error)
+          return retry('getTrades', func_args, error)
         })
-        cb(null, trades)
-      }).catch(function (error) {
-        console.error('An error occurred', error)
-        return retry('getTrades', func_args)
-      })
+      }
+      else {
+        client.fetchTrades(joinProduct(opts.product_id), undefined, undefined, args).then(result => {
+          var trades = result.map(function (trade) {
+            return {
+              trade_id: trade.id,
+              time: trade.timestamp,
+              size: parseFloat(trade.amount),
+              price: parseFloat(trade.price),
+              side: trade.side
+            }
+          })
+          cb(null, trades)
+        }).catch(function (error) {
+          console.error('An error occurred', error)
+          return retry('getTrades', func_args)
+        })
+      }
     },
 
     getBalance: function (opts, cb) {
@@ -113,10 +139,10 @@ module.exports = function container (get, set, clear) {
         })
         cb(null, balance)
       })
-        .catch(function (error) {
-          console.error('An error occurred', error)
-          return retry('getBalance', func_args)
-        })
+      .catch(function (error) {
+        console.error('An error occurred', error)
+        return retry('getBalance', func_args)
+      })
     },
 
     getQuote: function (opts, cb) {
@@ -125,10 +151,22 @@ module.exports = function container (get, set, clear) {
       client.fetchTicker(joinProduct(opts.product_id)).then(result => {
         cb(null, { bid: result.bid, ask: result.ask })
       })
-        .catch(function (error) {
-          console.error('An error occurred', error)
-          return retry('getQuote', func_args)
-        })
+      .catch(function (error) {
+        console.error('An error occurred', error)
+        return retry('getQuote', func_args)
+      })
+    },
+
+    getDepth: function (opts, cb) {
+      var func_args = [].slice.call(arguments)
+      var client = publicClient()
+      client.fetchOrderBook(joinProduct(opts.product_id), {limit: opts.limit}).then(result => {
+        cb(null, result)
+      })
+      .catch(function(error) {
+        console.error('An error ocurred', error)
+        return retry('getDepth', func_args)
+      })
     },
 
     cancelOrder: function (opts, cb) {
@@ -140,12 +178,12 @@ module.exports = function container (get, set, clear) {
       }, function(err){
         // match error against string:
         // "binance {"code":-2011,"msg":"UNKNOWN_ORDER"}"
-        
+
         if (err) {
-          // decide if this error is allowed for a retry 
+          // decide if this error is allowed for a retry
 
           if (err.message && err.message.match(new RegExp(/-2011|UNKNOWN_ORDER/))) {
-            console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + " - " + err).cyan)
+            console.error(('\ncancelOrder retry - unknown Order: ' + JSON.stringify(opts) + ' - ' + err).cyan)
           } else {
             // retry is allowed for this error
 
@@ -197,10 +235,12 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
-        
+
         // decide if this error is allowed for a retry:
         // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
-        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+        // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
+
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL|-2010/))) {
           return cb(null, {
             status: 'rejected',
             reject_reason: 'balance'
@@ -251,10 +291,12 @@ module.exports = function container (get, set, clear) {
         cb(null, order)
       }).catch(function (error) {
         console.error('An error occurred', error)
-        
+
         // decide if this error is allowed for a retry:
         // {"code":-1013,"msg":"Filter failure: MIN_NOTIONAL"}
-        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL/))) {
+        // {"code":-2010,"msg":"Account has insufficient balance for requested action"}
+
+        if (error.message.match(new RegExp(/-1013|MIN_NOTIONAL|-2010/))) {
           return cb(null, {
             status: 'rejected',
             reject_reason: 'balance'

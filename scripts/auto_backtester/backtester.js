@@ -1,328 +1,279 @@
 #!/usr/bin/env node
 
-/* Zenbot 4.04 Backtester v0.2
- * Ali Anari <ali@anari.io>
- * 05/30/2017
+/* Zenbot 4 Auto Backtester v2.0
+ * glennfu
  *
  * Usage: Pass in the same parameters as you would to "zenbot sim", EXCEPT for:
- * EMA Parameters: "trend_ema", "neutral_rate"
- * RSI Parameters: "oversold_rsi", "oversold_rsi_periods"
+ * 2 parameters you want to be backtested
  *
- * Example: ./backtester.js gdax.ETH-USD --days=10 --currency_capital=5
+ * Imagine you've just run:
+ *
+ *    ./scripts/genetic_backtester/darwin.js --days=1 --asset_capital=0 --currency_capital=500 --selector="binance.EOS-BTC" --population=20 --use_strategies=trend_ema
+ *
+ * and got the following result:
+ *
+ *    ./zenbot.sh sim binance.EOS-BTC --avg_slippage_pct=0.045 --buy_stop_pct=40 --markdown_buy_pct=0.37804270974174603 --markup_sell_pct=4.088646046027306 --max_buy_loss_pct=25 --max_sell_loss_pct=25 --max_slippage_pct=5 --min_periods=7 --neutral_rate=auto --order_poll_time=5000 --order_type=maker --oversold_rsi=78 --oversold_rsi_periods=15 --period=73m --period_length=73m --profit_stop_enable_pct=2 --profit_stop_pct=5 --rsi_periods=15 --sell_stop_pct=0 --strategy=trend_ema --trend_ema=4 --start=201802251900 --asset_capital=0 --currency_capital=500
+ *
+ * which performs like:
+ *     end balance: 500.34778000 (0.06%)
+ *     buy hold: 500.98047787 (0.19%)
+ *     vs. buy hold: -0.13%
+ *     2 trades over 3 days (avg 0.66 trades/day)
+ *     win/loss: 1/0
+ *     error rate: 0.00%
+ *
+ * To use the Auto Backtester, simply remove one or two parameters that are in strategies/trend_ema/strategy.js's phenotype definition.
+ * Let's remove `order_type` and `oversold_rsi`
+ *
+ *    ./zenbot.sh sim binance.EOS-BTC --avg_slippage_pct=0.045 --buy_stop_pct=40 --markdown_buy_pct=0.37804270974174603 --markup_sell_pct=4.088646046027306 --max_buy_loss_pct=25 --max_sell_loss_pct=25 --max_slippage_pct=5 --min_periods=7 --neutral_rate=auto --order_poll_time=5000 --oversold_rsi_periods=15 --period=73m --period_length=73m --profit_stop_enable_pct=2 --profit_stop_pct=5 --rsi_periods=15 --sell_stop_pct=0 --strategy=trend_ema --trend_ema=4 --start=201802251900 --asset_capital=0 --currency_capital=500
+ *
+ * Now pass this to backtester.js and add a step_size, like 10, and re-add days=1 from darwin
+ *
+ *    ./scripts/auto_backtester/backtester.js --step_size=10 --days=1 --selector=binance.EOS-BTC --avg_slippage_pct=0.045 --buy_stop_pct=40 --markdown_buy_pct=0.37804270974174603 --markup_sell_pct=4.088646046027306 --max_buy_loss_pct=25 --max_sell_loss_pct=25 --max_slippage_pct=5 --min_periods=7 --neutral_rate=auto --order_poll_time=5000 --oversold_rsi_periods=15 --period=73m --period_length=73m --profit_stop_enable_pct=2 --profit_stop_pct=5 --rsi_periods=15 --sell_stop_pct=0 --strategy=trend_ema --trend_ema=4 --start=201802251900 --asset_capital=0 --currency_capital=500
+ *
+ * See output:
+ *
+ *   Auto Backtest of order_type and oversold_rsi completed at 2018-02-27 15:43:28, took 0m 7s, results saved to:
+ *   simulations/auto_backtest_201802271543/results_auto_backtest_201802271543.csv
+ *
+ *
+ *   Best Result had order_type=taker and oversold_rsi=73
+ *   (trend_ema) Result Fitness 0.006083518953845421, VS Buy and Hold:   0.3% BuyAndHold Balance: 500.980477  End Balance: 502.504339, Wins/Losses 1/0, ROI 0.000000.
+ *   ./zenbot.sh sim binance.EOS-BTC --period_length=73m --min_periods=7 --markdown_buy_pct=0.37804270974174603 --markup_sell_pct=4.088646046027306 --order_type=taker --sell_stop_pct=0 --buy_stop_pct=40 --profit_stop_enable_pct=2 --profit_stop_pct=5 --trend_ema=4 --oversold_rsi_periods=15 --oversold_rsi=73 --backtester_generation=16 --strategy=trend_ema --days=1 --avg_slippage_pct=0.045 --max_buy_loss_pct=25 --max_sell_loss_pct=25 --max_slippage_pct=5 --neutral_rate=auto --order_poll_time=5000 --rsi_periods=15 --start=201802251900 --asset_capital=0 --currency_capital=500
+ *
+ * So you can see our vsBuyHold has gone from -0.13% to 0.30%, an improvement!
 */
 
-let shell     = require('shelljs');
-let parallel  = require('run-parallel-limit');
-let json2csv  = require('json2csv');
-let roundp    = require('round-precision');
-let fs        = require('fs');
-let StripAnsi = require('strip-ansi');
+let Phenotypes = require('../../lib/phenotype')
+  , Backtester = require('../../lib/backtester')
+  , argv = require('yargs').argv
+  , moment = require('moment')
+  , path = require('path')
+  , parallel = require('run-parallel-limit')
+  , colors = require('colors')
+  , z = require('zero-fill')
+  , n = require('numbro')
+  , _ = require('underscore')
+  , json2csv = require('json2csv')
 
-let VERSION = 'Zenbot 4.04 Backtester v0.2';
+let PARALLEL_LIMIT = (process.env.PARALLEL_LIMIT && +process.env.PARALLEL_LIMIT) || require('os').cpus().length
 
-let PARALLEL_LIMIT = require('os').cpus().length;
+simArgs = Object.assign({}, argv)
+if (simArgs.period)
+  simArgs.period_length = simArgs.period
+delete simArgs.period
+delete simArgs['$0'] // This comes in to argv all by itself
+delete simArgs['_']  // This comes in to argv all by itself
 
-let TREND_EMA_MIN = 20;
-let TREND_EMA_MAX = 20;
+let debug = simArgs.debug
+delete simArgs.debug
 
-let OVERSOLD_RSI_MIN = 20;
-let OVERSOLD_RSI_MAX = 35;
+if (simArgs.maxCores) {
+  if (simArgs.maxCores < 1)
+    PARALLEL_LIMIT = 1
+  else
+    PARALLEL_LIMIT = simArgs.maxCores
 
-let OVERSOLD_RSI_PERIODS_MIN = 15;
-let OVERSOLD_RSI_PERIODS_MAX = 25;
-
-let NEUTRAL_RATE_MIN = 10;
-let NEUTRAL_RATE_MAX = 10;
-
-let NEUTRAL_RATE_AUTO = false
-
-let countArr = [];
-
-let range = (start, end, step) => {
-  if (!step) step = 1;
-  var r = [];
-  for (i=start; i<=end; i+=step) {
-    r = r.concat(i);
-  }
-  return r;
-};
-
-let product = args => {
-  if(!args.length)
-    return [[]];
-  var prod = product(args.slice(1)), r = [];
-  args[0].forEach(function(x) {
-    prod.forEach(function(p) {
-      r.push([x].concat(p));
-    });
-  });
-  return r;
-};
-
-let objectProduct = obj => {
-  var keys = Object.keys(obj),
-    values = keys.map(function(x) { return obj[x] });
-
-  return product(values).map(function(p) {
-    var e = {};
-    keys.forEach(function(k, n) { e[k] = p[n] });
-    return e;
-  });
-};
-
-let runCommand = (strategy, cb) => {
-  countArr.push(1);
-  let strategyArgs = {
-    cci_srsi: `--cci_periods=${strategy.rsi_periods} --rsi_periods=${strategy.srsi_periods} --srsi_periods=${strategy.srsi_periods} --srsi_k=${strategy.srsi_k} --srsi_d=${strategy.srsi_d} --oversold_rsi=${strategy.oversold_rsi} --overbought_rsi=${strategy.overbought_rsi} --oversold_cci=${strategy.oversold_cci} --overbought_cci=${strategy.overbought_cci} --constant=${strategy.constant}`,
-    srsi_macd: `--rsi_periods=${strategy.rsi_periods} --srsi_periods=${strategy.srsi_periods} --srsi_k=${strategy.srsi_k} --srsi_d=${strategy.srsi_d} --oversold_rsi=${strategy.oversold_rsi} --overbought_rsi=${strategy.overbought_rsi} --ema_short_period=${strategy.ema_short_period} --ema_long_period=${strategy.ema_long_period} --signal_period=${strategy.signal_period} --up_trend_threshold=${strategy.up_trend_threshold} --down_trend_threshold=${strategy.down_trend_threshold}`,
-    macd: `--ema_short_period=${strategy.ema_short_period} --ema_long_period=${strategy.ema_long_period} --signal_period=${strategy.signal_period} --up_trend_threshold=${strategy.up_trend_threshold} --down_trend_threshold=${strategy.down_trend_threshold} --overbought_rsi_periods=${strategy.overbought_rsi_periods} --overbought_rsi=${strategy.overbought_rsi}`,
-    rsi: `--rsi_periods=${strategy.rsi_periods} --oversold_rsi=${strategy.oversold_rsi} --overbought_rsi=${strategy.overbought_rsi} --rsi_recover=${strategy.rsi_recover} --rsi_drop=${strategy.rsi_drop} --rsi_divisor=${strategy.rsi_divisor}`,
-    sar: `--sar_af=${strategy.sar_af} --sar_max_af=${strategy.sar_max_af}`,
-    speed: `--baseline_periods=${strategy.baseline_periods} --trigger_factor=${strategy.trigger_factor}`,
-    trend_ema: `--trend_ema=${strategy.trend_ema} --oversold_rsi=${strategy.oversold_rsi} --oversold_rsi_periods=${strategy.oversold_rsi_periods} --neutral_rate=${strategy.neutral_rate}`
-  };
-  let zenbot_cmd = process.platform === 'win32' ? 'zenbot.bat' : './zenbot.sh'; // Use 'win32' for 64 bit windows too
-  let command = `${zenbot_cmd} sim ${simArgs} ${strategyArgs[strategyName]} --period_length=${strategy.period_length}  --min_periods=${strategy.min_periods}`;
-  console.log(`[ ${countArr.length}/${strategies[strategyName].length} ] ${command}`);
-
-  shell.exec(command, {silent:true, async:true}, (code, stdout, stderr) => {
-    if (code) {
-      console.error(command)
-      console.error(stderr)
-      return cb(null, null)
-    }
-    cb(null, processOutput(stdout));
-  });
-};
-
-let processOutput = output => {
-  let jsonRegexp    = /(\{[\s\S]*?\})\send balance/g;
-  let endBalRegexp  = /end balance: (\d+\.\d+) \(/g;
-  let buyHoldRegexp  = /buy hold: (\d+\.\d+) \(/g;
-  let vsBuyHoldRegexp  = /vs. buy hold: (-?\d+\.\d+)%/g;
-  let wlRegexp      = /win\/loss: (\d+)\/(\d+)/g;
-  let errRegexp     = /error rate: (.*)%/g;
-
-  let strippedOutput = StripAnsi(output);
-  let output2 = strippedOutput.substr(strippedOutput.length - 3500);
-
-  let rawParams     = jsonRegexp.exec(output2)[1];
-  let params        = JSON.parse(rawParams);
-  let endBalance    = endBalRegexp.exec(output2)[1];
-  let buyHold       = buyHoldRegexp.exec(output2)[1];
-  let vsBuyHold     = vsBuyHoldRegexp.exec(output2)[1];
-  let wlMatch       = wlRegexp.exec(output2);
-  let errMatch      = errRegexp.exec(output2);
-  let wins          = wlMatch !== null ? parseInt(wlMatch[1]) : 0;
-  let losses        = wlMatch !== null ? parseInt(wlMatch[2]) : 0;
-  let errorRate     = errMatch !== null ? parseInt(errMatch[1]) : 0;
-  let days          = parseInt(params.days);
-
-  let roi = roundp(
-    ((endBalance - params.currency_capital) / params.currency_capital) * 100,
-    3
-  );
-
-  return {
-    params:             rawParams.replace(/[\r\n]/g, ''),
-    endBalance:         parseFloat(endBalance),
-    buyHold:            parseFloat(buyHold),
-    vsBuyHold:          parseFloat(vsBuyHold),
-    wins:               wins,
-    losses:             losses,
-    errorRate:          parseFloat(errorRate),
-
-    // cci_srsi
-    cciPeriods:         params.cci_periods,
-    rsiPeriods:         params.rsi_periods,
-    srsiPeriods:        params.srsi_periods,
-    srsiK:              params.srsi_k,
-    srsiD:              params.srsi_d,
-    oversoldRsi:        params.oversold_rsi,
-    overboughtRsi:      params.overbought_rsi,
-    oversoldCci:        params.oversold_cci,
-    overboughtCci:      params.overbought_cci,
-    constant:           params.consant,
-
-    // srsi_macd
-    rsiPeriods:         params.rsi_periods,
-    srsiPeriods:        params.srsi_periods,
-    srsiK:              params.srsi_k,
-    srsiD:              params.srsi_d,
-    oversoldRsi:        params.oversold_rsi,
-    overboughtRsi:      params.overbought_rsi,
-    emaShortPeriod:     params.ema_short_period,
-    emaLongPeriod:      params.ema_long_period,
-    signalPeriod:       params.signal_period,
-    upTrendThreshold:   params.up_trend_threshold,
-    downTrendThreshold: params.down_trend_threshold,
-
-    // macd
-    emaShortPeriod:     params.ema_short_period,
-    emaLongPeriod:      params.ema_long_period,
-    signalPeriod:       params.signal_period,
-    upTrendThreshold:   params.up_trend_threshold,
-    downTrendThreshold: params.down_trend_threshold,
-    overboughtRsiPeriods: params.overbought_rsi_periods,
-    overboughtRsi:      params.overbought_rsi,
-
-    // rsi
-    rsiPeriods:         params.rsi_periods,
-    oversoldRsi:        params.oversold_rsi,
-    overboughtRsi:      params.overbought_rsi,
-    rsiRecover:         params.rsi_recover,
-    rsiDrop:            params.rsi_drop,
-    rsiDivsor:          params.rsi_divisor,
-
-    // sar
-    sarAf:              params.sar_af,
-    sarMaxAf:           params.sar_max_af,
-
-    // speed
-    baselinePeriods:   params.baseline_periods,
-    triggerFactor:     params.trigger_factor,
-
-    // trend_ema
-    trendEma:           params.trend_ema,
-    neutralRate:        params.neutral_rate,
-    oversoldRsiPeriods: params.oversold_rsi_periods,
-    oversoldRsi:        params.oversold_rsi,
-
-    days:               days,
-    period_length:       params.period_length,
-    min_periods:        params.min_periods,
-    roi:                roi,
-    wlRatio:            losses > 0 ? roundp(wins / losses, 3) : 'Infinity',
-    frequency:          roundp((wins + losses) / days, 3)
-  };
-};
-
-let strategies = {
-  cci_srsi: objectProduct({
-    period_length: ['20m'],
-    min_periods: [52, 200],
-    rsi_periods: [14, 20],
-    srsi_periods: [14, 20],
-    srsi_k: [3, 9],
-    srsi_d: [3, 9],
-    oversold_rsi: [22],
-    overbought_rsi: [85],
-    oversold_cci: [-90],
-    overbought_cci: [140],
-    constant: [0.015]
-  }),
-  srsi_macd: objectProduct({
-    period_length: ['30m'],
-    min_periods: [52, 200],
-    rsi_periods: [14, 20],
-    srsi_periods: [14, 20],
-    srsi_k: [3, 9],
-    srsi_d: [3, 9],
-    oversold_rsi: [18],
-    overbought_rsi: [82],
-    ema_short_period: [12, 24],
-    ema_long_period: [26, 200],
-    signal_period: [9, 14],
-    up_trend_threshold: [0],
-    down_trend_threshold: [0]
-  }),
-  macd: objectProduct({
-    period_length: ['1h'],
-    min_periods: [52],
-    ema_short_period: range(10, 15),
-    ema_long_period: range(20, 30),
-    signal_period: range(9, 9),
-    up_trend_threshold: range(0, 0),
-    down_trend_threshold: range(0, 0),
-    overbought_rsi_periods: range(15, 25),
-    overbought_rsi: range(70, 70)
-  }),
-  rsi: objectProduct({
-    period_length: ['2m'],
-    min_periods: [52],
-    rsi_periods: range(10, 30),
-    oversold_rsi: range(20, 35),
-    overbought_rsi: range(82, 82),
-    rsi_recover: range(3, 3),
-    rsi_drop: range(0, 0),
-    rsi_divisor: range(2, 2)
-  }),
-  sar: objectProduct({
-    period_length: ['2m'],
-    min_periods: [52],
-    sar_af: range(0.01, 0.055, 0.005),
-    sar_max_af: range(0.1, 0.55, 0.05)
-  }),
-  speed: objectProduct({
-    period_length: ['1m'],
-    min_periods: [52],
-    baseline_periods: range(1000, 5000, 200),
-    trigger_factor: range(1.0, 2.0, 0.1)
-  }),
-  trend_ema: objectProduct({
-    period_length: ['2m'],
-    min_periods: [52],
-    trend_ema: range(TREND_EMA_MIN, TREND_EMA_MAX),
-    neutral_rate: (NEUTRAL_RATE_AUTO ? new Array('auto') : []).concat(range(NEUTRAL_RATE_MIN, NEUTRAL_RATE_MAX).map(r => r / 100)),
-    oversold_rsi_periods: range(OVERSOLD_RSI_PERIODS_MIN, OVERSOLD_RSI_PERIODS_MAX),
-    oversold_rsi: range(OVERSOLD_RSI_MIN, OVERSOLD_RSI_MAX)
-  })
-};
-
-let args = process.argv;
-args.shift();
-args.shift();
-let simArgs = args.join(' ');
-let strategyName = 'trend_ema';
-if (args.indexOf('--strategy') !== -1) {
-  strategyName = args[args.indexOf('--strategy') + 1];
+  delete simArgs.maxCores
 }
 
-let tasks = strategies[strategyName].map(strategy => {
-  return cb => {
-    runCommand(strategy, cb)
+let population_data = `auto_backtest_${moment().format('YYYYMMDDHHmm')}`
+let iterationCount = 0
+
+if (simArgs.help || !simArgs.selector || !simArgs.step_size || simArgs.step_size < 2) {
+  console.log('--strategy=<stragegy_name> only one strategy')
+  console.log('--step_size=<int>    number of sims for each parameter, minimum 2')
+  console.log('--maxCores=<int>    maximum processes to execute at a time default is # of cpu cores in system')
+  console.log('--selector=<exchange.marketPair>  ')
+  console.log('--asset_capital=<float>    amount coin to start sim with ')
+  console.log('--currency_capital=<float>  amount of capital/base currency to start sim with'),
+  console.log('--days=<int>  amount of days to use when backfilling')
+  console.log('--sort_results  add if you want results.csv sorted by fitness')
+  process.exit(0)
+}
+
+var timeCount = 0
+if (simArgs.days) timeCount++
+if (simArgs.start) timeCount++
+if (simArgs.end) timeCount++
+
+if (timeCount < 2) {
+  console.log('need at least 2 of: days, start, end')
+  process.exit(1)
+}
+
+function runAutoBacktester () {
+
+  let strategyName = simArgs.strategy
+  let strategyData = require(path.resolve(__dirname, `../../extensions/strategies/${strategyName}/strategy`))
+  let strategyPhenotypes = strategyData.phenotypes
+  if (!strategyPhenotypes) {
+    console.log(`No phenotypes definition found for strategy ${strategyName}`)
+    process.exit(1)
   }
-});
 
-console.log(`\n--==${VERSION}==--`);
-console.log(new Date().toUTCString());
-console.log(`\nBacktesting [${strategies[strategyName].length}] iterations for strategy ${strategyName}...\n`);
-
-parallel(tasks, PARALLEL_LIMIT, (err, results) => {
-  console.log("\nBacktesting complete, saving results...");
-  results = results.filter(function (r) {
-    return !!r
+  var pData = Object.assign({}, strategyPhenotypes)
+  var unsetKeys = []
+  Object.keys(strategyPhenotypes).forEach(function (key) {
+    if (key in simArgs) {
+      pData[key] = simArgs[key]
+    }
+    else {
+      unsetKeys.push(key)
+    }
   })
-  results.sort((a,b) => (a.roi < b.roi) ? 1 : ((b.roi < a.roi) ? -1 : 0));
-  let fileName = `backtesting_${Math.round(+new Date()/1000)}.csv`;
-  let filedsGeneral = ['roi', 'vsBuyHold', 'errorRate', 'wlRatio', 'frequency', 'endBalance', 'buyHold', 'wins', 'losses', 'period', 'min_periods', 'days'];
-  let filedNamesGeneral = ['ROI (%)', 'VS Buy Hold (%)', 'Error Rate (%)', 'Win/Loss Ratio', '# Trades/Day', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days'];
-  let fields = {
-    cci_srsi: filedsGeneral.concat(['cciPeriods', 'rsiPeriods', 'srsiPeriods', 'srsiK', 'srsiD', 'oversoldRsi', 'overboughtRsi', 'oversoldCci', 'overboughtCci', 'Constant', 'params']),
-    srsi_macd: filedsGeneral.concat(['rsiPeriods', 'srsiPeriods', 'srsiK', 'srsiD', 'oversoldRsi', 'overboughtRsi', 'emaShortPeriod', 'emaLongPeriod', 'signalPeriod', 'upTrendThreshold', 'downTrendThreshold', 'params']),
-    macd: filedsGeneral.concat([ 'emaShortPeriod', 'emaLongPeriod', 'signalPeriod', 'upTrendThreshold', 'downTrendThreshold', 'overboughtRsiPeriods', 'overboughtRsi', 'params']),
-    rsi: filedsGeneral.concat(['rsiPeriods', 'oversoldRsi', 'overboughtRsi', 'rsiRecover', 'rsiDrop', 'rsiDivsor', 'params']),
-    sar: filedsGeneral.concat(['sarAf', 'sarMaxAf', 'params']),
-    speed: filedsGeneral.concat(['baselinePeriods', 'triggerFactor', 'params']),
-    trend_ema: filedsGeneral.concat(['trendEma', 'neutralRate', 'oversoldRsiPeriods', 'oversoldRsi', 'params'])
-  };
-  let fieldNames = {
-    cci_srsi: filedNamesGeneral.concat(['CCI Periods', 'RSI Periods', 'SRSI Periods', 'SRSI K', 'SRSI D', 'Oversold RSI', 'Overbought RSI', 'Oversold CCI', 'Overbought CCI', 'Constant', 'Full Parameters']),
-    srsi_macd: filedNamesGeneral.concat(['RSI Periods', 'SRSI Periods', 'SRSI K', 'SRSI D', 'Oversold RSI', 'Overbought RSI', 'EMA Short Period', 'EMA Long Period', 'Signal Period', 'Up Trend Threshold', 'Down Trend Threshold', 'Full Parameters']),
-    macd: filedNamesGeneral.concat(['EMA Short Period', 'EMA Long Period', 'Signal Period', 'Up Trend Threshold', 'Down Trend Threshold', 'Overbought Rsi Periods', 'Overbought Rsi', 'Full Parameters']),
-    rsi: filedNamesGeneral.concat(['RSI Periods', 'Oversold RSI', 'Overbought RSI', 'RSI Recover', 'RSI Drop', 'RSI Divisor', 'Full Parameters']),
-    sar: filedNamesGeneral.concat(['SAR AF', 'SAR MAX AF', 'Full Parameters']),
-    speed: filedNamesGeneral.concat(['Baseline Periods', 'Trigger Factor', 'Full Parameters']),
-    trend_ema: filedNamesGeneral.concat(['Trend EMA', 'Neutral Rate', 'Oversold RSI Periods', 'Oversold RSI', 'Full Parameters'])
-  };
-  let csv = json2csv({
-    data: results,
-    fields: fields[strategyName],
-    fieldNames: fieldNames[strategyName]
+
+  if (unsetKeys.length > 2) {
+    console.log(`You omitted values for keys: ${unsetKeys.join(', ')}. You can have at most 2 unset keys`)
+    process.exit(1)
+  }
+  else if (unsetKeys.length <= 0) {
+    console.log(`You must omit at least one key in ${strategyName}'s phenotype for backtesting`)
+    process.exit(1)
+  }
+
+  console.log(`\n\n=== Running Auto Backtester on ${unsetKeys.join(' and ').blue} ===\n`)
+
+  Backtester.resetMonitor()
+  Backtester.ensureBackfill()
+
+  let step_size = simArgs.step_size
+  delete simArgs.step_size
+
+  let phenotypes = []
+
+  let step_size_1 = step_size
+    , step_size_2 = step_size
+    , key1 = unsetKeys[0]
+    , key2 = unsetKeys[1]
+    , p1 = strategyPhenotypes[key1]
+    , p2 = strategyPhenotypes[key2]
+
+  // If you're iterating through a set, do the whole set regardless of step_size
+  if (p1 && p1.type === 'listOption')
+    step_size_1 = p1.options.length
+  if (p2 && p2.type === 'listOption')
+    step_size_2 = p2.options.length
+
+  // If we have 2 keys, build all combinations of both, otherwise just loop through the 1 key values
+  if (unsetKeys.length == 2) {
+    for (let i = 0; i < step_size_1; i++) {
+      for (let j = 0; j < step_size_2; j++) {
+        var phenotype = Object.assign({}, pData)
+        phenotype[key1] = Phenotypes.range(p1, i, step_size_1)
+        phenotype[key2] = Phenotypes.range(p2, j, step_size_2)
+        phenotypes.push(phenotype)
+      }
+    }
+  }
+  else {
+    for (let i = 0; i < step_size_1; i++) {
+      var phenotype = Object.assign({}, pData)
+      phenotype[key1] = Phenotypes.range(p1, i, step_size_1)
+      phenotypes.push(phenotype)
+    }
+  }
+
+  if (debug)
+    console.log(`Running options:`)
+
+  // Remove duplicates in case something is screwy in combination with step_size higher than the number of options.
+  // No sense in re-running the same thing multiple times
+  phenotypes = _.uniq(phenotypes, function(p, key, a) {
+    if (debug)
+      console.log(`${key1}: ${p[key1]}, ${key2}: ${p[key2]}`) // print all combinations of options
+    return JSON.stringify(p);
   });
 
-  fs.writeFile(fileName, csv, err => {
-    if (err) throw err;
-    console.log(`\nResults successfully saved to ${fileName}!\n`);
-  });
-});
+  Backtester.init({
+    simArgs: simArgs,
+    simTotalCount: phenotypes.length,
+    parallelLimit: PARALLEL_LIMIT,
+    writeFile: writeSimDataFile
+  })
+
+  let tasks = phenotypes.map(phenotype => {
+
+    return cb => {
+      phenotype.backtester_generation = iterationCount
+      phenotype.selector = argv.selector
+      Backtester.trackPhenotype(phenotype)
+
+      var command = Backtester.buildCommand(strategyName, phenotype, `simulations/${population_data}/sim_${iterationCount}_result.html`)
+      command.iteration = iterationCount
+      writeSimDataFile(iterationCount, JSON.stringify(command))
+
+      iterationCount++
+      Backtester.runCommand(strategyName, phenotype, command, cb)
+    }
+  })
+
+  Backtester.startMonitor()
+
+  parallel(tasks, PARALLEL_LIMIT, (err, results) => {
+    Backtester.stopMonitor(`Auto Backtest of ${unsetKeys.join(' and ').blue}`)
+
+    results = results.filter(function(r) {
+      return !!r
+    })
+
+    if (argv.sort_results)
+      results.sort((a, b) => (Number(a.fitness) < Number(b.fitness)) ? 1 : ((Number(b.fitness) < Number(a.fitness)) ? -1 : 0))
+
+    // console.log(`results(${results.length}): ${JSON.stringify(results)}`)
+
+    results.forEach(function(result) {
+      let it = result.params.match(/backtester_generation\":(\d+),/)
+      let phenotype = phenotypes[parseInt(it[1], 10)]
+      result.commandString = phenotype.command.commandString
+
+      unsetKeys.forEach(function(key) {
+        result[key] = phenotype[key]
+      })
+      // console.log(`it: ${JSON.stringify(it)}`)
+    })
+
+    let fieldsGeneral = unsetKeys.slice(0)
+    let fieldNamesGeneral = unsetKeys.slice(0)
+
+    fieldsGeneral = fieldsGeneral.concat(['selector', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period_length', 'min_periods', 'days', 'commandString'])
+    fieldNamesGeneral = fieldNamesGeneral.concat(['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Command'])
+
+    let dataCSV = json2csv({
+      data: results,
+      fields: fieldsGeneral,
+      fieldNames: fieldNamesGeneral
+    })
+    let csvFileName = `simulations/${population_data}/results_${population_data}.csv` // MS Word whines about opening multiple files of the same name
+    console.log(csvFileName)
+    Backtester.writeFileAndFolder(csvFileName, dataCSV)
+
+
+    // If we didn't sort them before, definitely sort them now to get the best one
+    if (!argv.sort_results)
+      results.sort((a, b) => (Number(a.fitness) < Number(b.fitness)) ? 1 : ((Number(b.fitness) < Number(a.fitness)) ? -1 : 0))
+    let best = results[0]
+
+    // Display best of the generation
+    let best_string = []
+    unsetKeys.forEach(function(key) {
+      best_string.push(`${key}=${best[key]}`)
+    })
+    console.log(`\n\nBest Result had ${best_string.join(' and ').green}`)
+
+    console.log(`(${best.strategy}) Result Fitness ${best.fitness}, VS Buy and Hold: ${z(5, (n(best.vsBuyHold).format('0.0') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(best.buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(best.endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${best.wins}/${best.losses}, ROI ${z(5, (n(results.roi).format('0.000000') ), ' ').yellow}.`)
+    console.log(best.commandString + '\n')
+  })
+
+}
+
+let writeSimDataFile = (iteration, data) => {
+  let jsonFileName = `simulations/${population_data}/sim_${iteration}.json`
+  Backtester.writeFileAndFolder(jsonFileName, data)
+}
+
+
+Backtester.deLint()
+runAutoBacktester()
+
+

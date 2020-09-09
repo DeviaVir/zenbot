@@ -5,12 +5,26 @@ var client = new ccxt.cex()
 client.fetchMarkets().then(result => {
   var products = []
   result.forEach(function (product) {
+    var increment = ''
+    if (product.info.symbol1 === 'BTC' && product.info.symbol2 !== 'RUB') {
+      increment = '0.1'
+    } else if (product.info.symbol1 === 'BTC' && product.info.symbol2 === 'RUB') {
+      increment = '1'
+    } else if (product.info.symbol2 === 'BTC' && (product.info.symbol1 === 'XRP' || product.info.symbol1 === 'GHS')) {
+      increment = '0.00000001'
+    } else if (product.info.symbol2 === 'BTC') {
+      increment = '0.000001'
+    } else if (product.info.symbol1 === 'XRP') {
+      increment = '0.0001'
+    } else {
+      increment = '0.01'
+    }
     products.push({
       asset: product.info.symbol1,
       currency: product.info.symbol2,
       min_size: product.info.minLotSize.toString(),
       max_size: product.info.maxLotSize != null ? product.info.maxLotSize.toString() : product.info.maxLotSize,
-      increment: product.info.symbol1 === 'BTC' ? '0.01' : (product.info.symbol2 === 'BTC' ? '0.00000001' : '0.0001'),
+      increment: increment,
       label: product.id
     })
   })

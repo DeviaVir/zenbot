@@ -1,8 +1,8 @@
 var pusher = require('pushbullet')
 
-module.exports = function container (get, set, clear) {
+module.exports = function pushbullet (config) {
   var pushbullet = {
-    pushMessage: function(config, title, message) {
+    pushMessage: function(title, message) {
       var pb = new pusher(config.key)
       pb.note(config.deviceID, title, message, (err) => {
         if (err) {

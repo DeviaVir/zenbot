@@ -1,15 +1,21 @@
-FROM node:8
-
-RUN mkdir -p /app
+FROM node:8 as builder
+ADD . /app
 WORKDIR /app
-
-COPY . /app
 RUN npm install -g node-gyp
 RUN npm install --unsafe
+
+FROM node:8-alpine
+
+ADD . /app
+WORKDIR /app
+
+COPY --from=builder /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
+COPY --from=builder /app/node_modules /app/node_modules/
+COPY --from=builder /app/dist /app/dist/
 
 RUN ln -s /app/zenbot.sh /usr/local/bin/zenbot
 
 ENV NODE_ENV production
 
-ENTRYPOINT ["/usr/local/bin/node", "zenbot.js"]
+ENTRYPOINT ["/app/zenbot.sh"]
 CMD [ "trade", "--paper" ]

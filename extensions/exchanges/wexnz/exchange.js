@@ -5,13 +5,8 @@
 // the buy, sell, cancelOrderand getOrderfunctions
 //
 var WEXNZ = require('wexnz')
-  , path = require('path')
-  , colors = require('colors')
-  , numbro = require('numbro')
 
-module.exports = function container (get, set, clear) {
-  var c = get('conf')
-
+module.exports = function container (conf) {
   var public_client, authed_client
 
   function publicClient () {
@@ -23,10 +18,10 @@ module.exports = function container (get, set, clear) {
 
   function authedClient () {
     if (!authed_client) {
-      if (!c.wexnz || !c.wexnz.key || c.wexnz.key === 'YOUR-API-KEY') {
+      if (!conf.wexnz || !conf.wexnz.key || conf.wexnz.key === 'YOUR-API-KEY') {
         throw new Error('please configure your WEX.NZ credentials in conf.js')
       }
-      authed_client = new WEXNZ(c.wexnz.key, c.wexnz.secret)
+      authed_client = new WEXNZ(conf.wexnz.key, conf.wexnz.secret)
     }
     return authed_client
   }
@@ -125,7 +120,6 @@ module.exports = function container (get, set, clear) {
           balance.currency_hold = 0
           balance.asset_hold = 0
           cb(null, balance)
-        } else {
         }
       })
     },
