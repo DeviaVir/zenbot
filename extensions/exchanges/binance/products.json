@@ -11196,5 +11196,115 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "FIO/USDT"
+  },
+  {
+    "id": "UMABTC",
+    "asset": "UMA",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "UMA/BTC"
+  },
+  {
+    "id": "UMAUSDT",
+    "asset": "UMA",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "UMA/USDT"
+  },
+  {
+    "id": "EOSUPUSDT",
+    "asset": "EOSUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "EOSUP/USDT"
+  },
+  {
+    "id": "EOSDOWNUSDT",
+    "asset": "EOSDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "EOSDOWN/USDT"
+  },
+  {
+    "id": "TRXUPUSDT",
+    "asset": "TRXUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "TRXUP/USDT"
+  },
+  {
+    "id": "TRXDOWNUSDT",
+    "asset": "TRXDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "TRXDOWN/USDT"
+  },
+  {
+    "id": "XRPUPUSDT",
+    "asset": "XRPUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "XRPUP/USDT"
+  },
+  {
+    "id": "XRPDOWNUSDT",
+    "asset": "XRPDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "XRPDOWN/USDT"
+  },
+  {
+    "id": "DOTUPUSDT",
+    "asset": "DOTUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "DOTUP/USDT"
+  },
+  {
+    "id": "DOTDOWNUSDT",
+    "asset": "DOTDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "DOTDOWN/USDT"
   }
 ]
