@@ -776,6 +776,14 @@
     "label": "Foam/Bitcoin"
   },
   {
+    "asset": "FSW",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "FalconSwap/Tether USD"
+  },
+  {
     "asset": "FUND",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1566,6 +1574,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Swingby/Tether USD"
+  },
+  {
+    "asset": "SWRV",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Swerve/Tether USD"
   },
   {
     "asset": "SXP",
