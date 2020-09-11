@@ -4246,5 +4246,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MATIC"
+  },
+  {
+    "asset": "RVC",
+    "currency": "BTC",
+    "min_size": "6818.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/RVC"
   }
 ]

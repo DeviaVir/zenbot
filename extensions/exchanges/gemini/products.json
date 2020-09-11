@@ -214,5 +214,29 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "OXT/ETH"
+  },
+  {
+    "asset": "AMP",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "AMP/USD"
+  },
+  {
+    "asset": "PAX",
+    "currency": "GUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "PAX/GUS"
+  },
+  {
+    "asset": "COM",
+    "currency": "PUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "COM/PUS"
   }
 ]

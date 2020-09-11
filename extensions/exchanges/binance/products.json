@@ -11306,5 +11306,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "DOTDOWN/USDT"
+  },
+  {
+    "id": "SRMBIDR",
+    "asset": "SRM",
+    "currency": "BIDR",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00100000",
+    "label": "SRM/BIDR"
+  },
+  {
+    "id": "ONEBIDR",
+    "asset": "ONE",
+    "currency": "BIDR",
+    "min_size": "1.00000000",
+    "max_size": "100000000.00000000",
+    "min_total": "20000.00",
+    "increment": "0.01",
+    "asset_increment": "1.00000000",
+    "label": "ONE/BIDR"
+  },
+  {
+    "id": "LINKTRY",
+    "asset": "LINK",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "LINK/TRY"
+  },
+  {
+    "id": "USDTNGN",
+    "asset": "USDT",
+    "currency": "NGN",
+    "min_size": "0.01000000",
+    "max_size": "922328.00000000",
+    "min_total": "500.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "USDT/NGN"
   }
 ]

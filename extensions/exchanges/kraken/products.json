@@ -155,13 +155,6 @@
   },
   {
     "asset": "BCH",
-    "currency": "ZJPY",
-    "min_size": "0.002",
-    "increment": "0.01",
-    "label": "BCH/JPY"
-  },
-  {
-    "asset": "BCH",
     "currency": "ZUSD",
     "min_size": "0.002",
     "increment": "0.01",
@@ -1062,13 +1055,6 @@
     "min_size": "0.1",
     "increment": "0.01",
     "label": "LTC/EUR"
-  },
-  {
-    "asset": "XLTC",
-    "currency": "ZJPY",
-    "min_size": "0.1",
-    "increment": "0.01",
-    "label": "LTC/JPY"
   },
   {
     "asset": "XLTC",

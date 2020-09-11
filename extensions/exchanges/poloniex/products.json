@@ -424,6 +424,14 @@
     "label": "Corn/Tether USD"
   },
   {
+    "asset": "CREAM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Cream/Tether USD"
+  },
+  {
     "asset": "CRT",
     "currency": "USDT",
     "min_total": "1",
@@ -1502,6 +1510,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Stratis/Bitcoin"
+  },
+  {
+    "asset": "SUN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Sun/Tether USD"
   },
   {
     "asset": "SUSHI",
