@@ -468,6 +468,15 @@
     "label": "LOOM/USDC"
   },
   {
+    "asset": "LRC",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "560000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "LRC/USD"
+  },
+  {
     "asset": "LTC",
     "currency": "BTC",
     "min_size": "0.1",
@@ -763,6 +772,15 @@
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "XTZ/USD"
+  },
+  {
+    "asset": "YFI",
+    "currency": "USD",
+    "min_size": "0.00001",
+    "max_size": "5",
+    "increment": "0.01",
+    "asset_increment": "0.000001",
+    "label": "YFI/USD"
   },
   {
     "asset": "ZEC",

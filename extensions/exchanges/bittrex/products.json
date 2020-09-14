@@ -4254,5 +4254,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RVC"
+  },
+  {
+    "asset": "RVC",
+    "currency": "USDT",
+    "min_size": "6818.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/RVC"
+  },
+  {
+    "asset": "KRT",
+    "currency": "BTC",
+    "min_size": "3571.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KRT"
+  },
+  {
+    "asset": "KRT",
+    "currency": "USDT",
+    "min_size": "3571.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KRT"
   }
 ]
