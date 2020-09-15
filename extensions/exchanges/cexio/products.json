@@ -792,6 +792,14 @@
     "label": "ZRX/USDT"
   },
   {
+    "asset": "GNT",
+    "currency": "USD",
+    "min_size": "70",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GNT/USD"
+  },
+  {
     "asset": "HOT",
     "currency": "USD",
     "min_size": "10000",

@@ -1081,11 +1081,11 @@
     "id": "BNBUSDT",
     "asset": "BNB",
     "currency": "USDT",
-    "min_size": "0.01000000",
+    "min_size": "0.00100000",
     "max_size": "900000.00000000",
     "min_total": "10.00000000",
     "increment": "0.00010000",
-    "asset_increment": "0.01000000",
+    "asset_increment": "0.00100000",
     "label": "BNB/USDT"
   },
   {
@@ -7670,11 +7670,11 @@
     "id": "BNBEUR",
     "asset": "BNB",
     "currency": "EUR",
-    "min_size": "0.01000000",
+    "min_size": "0.00100000",
     "max_size": "900000.00000000",
     "min_total": "10.00000000",
     "increment": "0.00010000",
-    "asset_increment": "0.01000000",
+    "asset_increment": "0.00100000",
     "label": "BNB/EUR"
   },
   {
@@ -11350,5 +11350,93 @@
     "increment": "0.01000000",
     "asset_increment": "0.01000000",
     "label": "USDT/NGN"
+  },
+  {
+    "id": "BELBNB",
+    "asset": "BEL",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BEL/BNB"
+  },
+  {
+    "id": "BELBTC",
+    "asset": "BEL",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "BEL/BTC"
+  },
+  {
+    "id": "BELBUSD",
+    "asset": "BEL",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BEL/BUSD"
+  },
+  {
+    "id": "BELUSDT",
+    "asset": "BEL",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BEL/USDT"
+  },
+  {
+    "id": "SWRVBNB",
+    "asset": "SWRV",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SWRV/BNB"
+  },
+  {
+    "id": "SWRVBUSD",
+    "asset": "SWRV",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SWRV/BUSD"
+  },
+  {
+    "id": "LTCUPUSDT",
+    "asset": "LTCUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "LTCUP/USDT"
+  },
+  {
+    "id": "LTCDOWNUSDT",
+    "asset": "LTCDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "LTCDOWN/USDT"
   }
 ]
