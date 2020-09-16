@@ -4278,5 +4278,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/KRT"
+  },
+  {
+    "asset": "DUCATO",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DUCATO"
+  },
+  {
+    "asset": "DUCATO",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DUCATO"
   }
 ]

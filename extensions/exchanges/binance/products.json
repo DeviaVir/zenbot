@@ -9816,7 +9816,7 @@
     "asset": "XRP",
     "currency": "BKRW",
     "min_size": "0.10000000",
-    "max_size": "10000000.00000000",
+    "max_size": "90000.00000000",
     "min_total": "1000.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.10000000",
@@ -9827,7 +9827,7 @@
     "asset": "ADA",
     "currency": "BKRW",
     "min_size": "0.10000000",
-    "max_size": "10000000.00000000",
+    "max_size": "90000.00000000",
     "min_total": "1000.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.10000000",
@@ -9981,7 +9981,7 @@
     "asset": "USDT",
     "currency": "BKRW",
     "min_size": "0.10000000",
-    "max_size": "10000000.00000000",
+    "max_size": "90000.00000000",
     "min_total": "1000.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.10000000",
@@ -9992,7 +9992,7 @@
     "asset": "BUSD",
     "currency": "BKRW",
     "min_size": "0.10000000",
-    "max_size": "10000000.00000000",
+    "max_size": "90000.00000000",
     "min_total": "1000.00000000",
     "increment": "0.01000000",
     "asset_increment": "0.10000000",
@@ -11396,6 +11396,28 @@
     "label": "BEL/USDT"
   },
   {
+    "id": "WINGBNB",
+    "asset": "WING",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "WING/BNB"
+  },
+  {
+    "id": "WINGBTC",
+    "asset": "WING",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.00100000",
+    "label": "WING/BTC"
+  },
+  {
     "id": "SWRVBNB",
     "asset": "SWRV",
     "currency": "BNB",
@@ -11418,6 +11440,28 @@
     "label": "SWRV/BUSD"
   },
   {
+    "id": "WINGBUSD",
+    "asset": "WING",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "WING/BUSD"
+  },
+  {
+    "id": "WINGUSDT",
+    "asset": "WING",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "WING/USDT"
+  },
+  {
     "id": "LTCUPUSDT",
     "asset": "LTCUP",
     "currency": "USDT",
@@ -11438,5 +11482,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "LTCDOWN/USDT"
+  },
+  {
+    "id": "LENDBKRW",
+    "asset": "LEND",
+    "currency": "BKRW",
+    "min_size": "0.10000000",
+    "max_size": "90000.00000000",
+    "min_total": "1000.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.10000000",
+    "label": "LEND/BKRW"
+  },
+  {
+    "id": "SXPEUR",
+    "asset": "SXP",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SXP/EUR"
+  },
+  {
+    "id": "CREAMBNB",
+    "asset": "CREAM",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CREAM/BNB"
+  },
+  {
+    "id": "CREAMBUSD",
+    "asset": "CREAM",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "CREAM/BUSD"
   }
 ]
