@@ -4294,5 +4294,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DUCATO"
+  },
+  {
+    "asset": "LMCH",
+    "currency": "BTC",
+    "min_size": "9.43700000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LMCH"
+  },
+  {
+    "asset": "LMCH",
+    "currency": "USDT",
+    "min_size": "9.43700000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LMCH"
+  },
+  {
+    "asset": "GST",
+    "currency": "BTC",
+    "min_size": "8.08000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GST"
+  },
+  {
+    "asset": "GST",
+    "currency": "USDT",
+    "min_size": "8.08000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GST"
   }
 ]

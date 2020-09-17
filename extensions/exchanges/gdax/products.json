@@ -675,6 +675,15 @@
     "label": "UMA/USD"
   },
   {
+    "asset": "UNI",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "200000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "UNI/USD"
+  },
+  {
     "asset": "XLM",
     "currency": "BTC",
     "min_size": "1",

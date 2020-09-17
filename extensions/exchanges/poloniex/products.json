@@ -1,5 +1,29 @@
 [
   {
+    "asset": "ADEL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Akropolis Delphi/Tether USD"
+  },
+  {
+    "asset": "AKRO",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Akropolis/Bitcoin"
+  },
+  {
+    "asset": "AKRO",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Akropolis/Tether USD"
+  },
+  {
     "asset": "ANK",
     "currency": "USDT",
     "min_total": "1",
@@ -1750,6 +1774,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "UMA/Tether USD"
+  },
+  {
+    "asset": "UNI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Uniswap/Tether USD"
   },
   {
     "asset": "USDJ",
