@@ -2328,6 +2328,22 @@
     "label": "EGL/D:U"
   },
   {
+    "asset": "UNI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.001",
+    "label": "UNI/USD"
+  },
+  {
+    "asset": "UNI",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "UNI/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0006",

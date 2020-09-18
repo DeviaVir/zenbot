@@ -544,6 +544,14 @@
     "label": "DexTools/Tether USD"
   },
   {
+    "asset": "DHT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "dHedge DAO/Tether USD"
+  },
+  {
     "asset": "DIA",
     "currency": "USDT",
     "min_total": "1",
@@ -1405,7 +1413,7 @@
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Coinbreeder DAO/Tether USD"
+    "label": "Synthetic Coinbreeder DAO/Tether USD"
   },
   {
     "asset": "SC",
