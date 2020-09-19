@@ -8,6 +8,14 @@
     "label": "BTC/USD"
   },
   {
+    "asset": "BTC",
+    "currency": "DAI",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/DAI"
+  },
+  {
     "asset": "ETH",
     "currency": "BTC",
     "min_size": "0.001",
@@ -22,6 +30,14 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ETH/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "DAI",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/DAI"
   },
   {
     "asset": "BCH",
@@ -118,5 +134,109 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ZEC/LTC"
+  },
+  {
+    "asset": "BAT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAT/USD"
+  },
+  {
+    "asset": "BAT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BAT/BTC"
+  },
+  {
+    "asset": "BAT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAT/ETH"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KUS"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KBT",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KBT"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KET",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KET"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DAI/USD"
+  },
+  {
+    "asset": "OXT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "OXT/USD"
+  },
+  {
+    "asset": "OXT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "OXT/BTC"
+  },
+  {
+    "asset": "OXT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "OXT/ETH"
+  },
+  {
+    "asset": "AMP",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "AMP/USD"
+  },
+  {
+    "asset": "PAX",
+    "currency": "GUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "PAX/GUS"
+  },
+  {
+    "asset": "COM",
+    "currency": "PUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "COM/PUS"
   }
 ]

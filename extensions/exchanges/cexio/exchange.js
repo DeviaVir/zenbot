@@ -281,6 +281,11 @@ module.exports = function cexio (conf) {
               side: trade.type
             }
           })
+          const maxTrade = _.maxBy(trades, 'trade_id')
+          if (maxTrade && (maxTrade.trade_id <= opts.from)) {
+            func_args[0].from = func_args[0].from + trades.length
+            return retry('getTrades', func_args)
+          }
           cb(null, trades)
         })
       } else { // WebSocket once Live

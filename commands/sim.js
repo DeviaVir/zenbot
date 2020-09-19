@@ -226,7 +226,7 @@ module.exports = function (program, conf) {
           console.log('wrote', out_target)
         }
 
-        simResults.save(options_output)
+        simResults.insertOne(options_output)
           .then(() => {
             process.exit(0)
           })
@@ -292,7 +292,11 @@ module.exports = function (program, conf) {
             }
           }
           collectionCursorStream.close()
-          setImmediate(async () => await getNext())
+          return getNext()
+        }
+
+        if(totalTrades === 0) {
+          onCollectionCursorEnd()
         }
 
         collectionCursorStream.on('data', function(trade) {

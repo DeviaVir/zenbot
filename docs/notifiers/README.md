@@ -48,3 +48,8 @@ https://pushover.net/
 
 Supply Zenbot with your Telegram bot token and chat id and Zenbot will push notifications to your Telegram chat.
 https://telegram.org/
+
+### ADAMANT Messenger
+
+Supply Zenbot with recipients' ADM addresses, sender's account passPhrase and node list and Zenbot will push notifications to ADAMANT chats.
+https://adamant.im/
