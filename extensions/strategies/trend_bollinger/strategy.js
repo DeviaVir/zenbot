@@ -34,10 +34,10 @@ module.exports = {
     }
 
     if (s.period.bollinger) {
-      if (s.period.bollinger.upper && s.period.bollinger.lower) {
+      if (s.period.bollinger.upperBound && s.period.bollinger.lowerBound) {
         s.signal = null // hold
-        let upperBound = s.period.bollinger.upper[s.period.bollinger.upper.length-1]
-        let lowerBound = s.period.bollinger.lower[s.period.bollinger.lower.length-1]
+        let upperBound = s.period.bollinger.upperBound
+        let lowerBound = s.period.bollinger.lowerBound
         if (s.period.close > (upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct)) {
           s.last_hit_bollinger = 'upper'
         } else if (s.period.close < (lowerBound / 100) * (100 + s.options.bollinger_lower_bound_pct)) {
@@ -67,9 +67,9 @@ module.exports = {
   onReport: function (s) {
     var cols = []
     if (s.period.bollinger) {
-      if (s.period.bollinger.upper && s.period.bollinger.lower) {
-        let upperBound = s.period.bollinger.upper[s.period.bollinger.upper.length-1]
-        let lowerBound = s.period.bollinger.lower[s.period.bollinger.lower.length-1]
+      if (s.period.bollinger.upperBound && s.period.bollinger.lowerBound) {
+        let upperBound = s.period.bollinger.upperBound
+        let lowerBound = s.period.bollinger.lowerBound
         var color = 'grey'
         if (s.period.close > (upperBound / 100) * (100 - s.options.bollinger_upper_bound_pct)) {
           color = 'green'

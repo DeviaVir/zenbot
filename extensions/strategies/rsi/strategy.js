@@ -2,6 +2,7 @@ var z = require('zero-fill')
   , n = require('numbro')
   , rsi = require('../../../lib/rsi')
   , Phenotypes = require('../../../lib/phenotype')
+  , Asset_currency = require('../../../lib/engine')
 
 module.exports = {
   name: 'rsi',
@@ -11,7 +12,7 @@ module.exports = {
     this.option('period', 'period length, same as --period_length', String, '2m')
     this.option('period_length', 'period length, same as --period', String, '2m')
     this.option('min_periods', 'min. number of history periods', Number, 52)
-    this.option('rsi_periods', 'number of RSI periods', 14)
+    this.option('rsi_periods', 'number of RSI periods', Number, 14)
     this.option('oversold_rsi', 'buy when RSI reaches or drops below this value', Number, 30)
     this.option('overbought_rsi', 'sell when RSI reaches or goes above this value', Number, 82)
     this.option('rsi_recover', 'allow RSI to recover this many points before buying', Number, 3)
@@ -30,7 +31,7 @@ module.exports = {
         s.rsi_low = s.period.rsi
         s.trend = 'oversold'
       }
-      if (s.trend === 'oversold') {
+      if (s.trend === 'oversold' || s.asset_capital > 0) {
         s.rsi_low = Math.min(s.rsi_low, s.period.rsi)
         if (s.period.rsi >= s.rsi_low + s.options.rsi_recover) {
           s.trend = 'long'
@@ -42,7 +43,7 @@ module.exports = {
         s.rsi_high = s.period.rsi
         s.trend = 'long'
       }
-      if (s.trend === 'long') {
+      if (s.trend === 'long' || s.currency_capital > 0) {
         s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
         if (s.period.rsi <= s.rsi_high / s.options.rsi_divisor) {
           s.trend = 'short'
@@ -53,7 +54,7 @@ module.exports = {
         s.rsi_high = s.period.rsi
         s.trend = 'overbought'
       }
-      if (s.trend === 'overbought') {
+      if (s.trend === 'overbought' || s.currency_capital > 0) {
         s.rsi_high = Math.max(s.rsi_high, s.period.rsi)
         if (s.period.rsi <= s.rsi_high - s.options.rsi_drop) {
           s.trend = 'short'

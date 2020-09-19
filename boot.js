@@ -58,7 +58,7 @@ module.exports = function (cb) {
       (authMechanism ? '&authMechanism=' + authMechanism : '' )
   }
 
-  require('mongodb').MongoClient.connect(connectionString, function (err, client) {
+  require('mongodb').MongoClient.connect(connectionString, { useNewUrlParser: true }, function (err, client) {
     if (err) {
       console.error('WARNING: MongoDB Connection Error: ', err)
       console.error('WARNING: without MongoDB some features (such as backfilling/simulation) may be disabled.')

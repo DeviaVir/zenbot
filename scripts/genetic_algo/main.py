@@ -27,7 +27,7 @@ def main(instrument, days, popsize, strategy='trend_ema'):
     Andividual.mutate = partial(mutGaussian, mu=0, sigma=sigma, indpb=indpb)
     # Andividual.strategy = strategy
     strategies = parsing.strategies()
-    Andividual.strategies = [st for st in strategies if 'forex' not in st]
+    Andividual.strategies = [st for st in strategies]
     print('using strategies:', Andividual.strategies)
     print(colored(f"Mating function is ", 'blue') + colored(Andividual.mate, 'green'))
     print(colored(f"Mutating function is ", 'blue') + colored(Andividual.mutate, 'green'))

@@ -1,4 +1,4 @@
-var Gdax = require('gdax')
+var Gdax = require('coinbase-pro')
 var c = require('../../../conf')
 var client = new Gdax.AuthenticatedClient(c.gdax.key, c.gdax.b64secret, c.gdax.passphrase, c.gdax.apiURI)
 
