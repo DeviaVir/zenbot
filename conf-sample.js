@@ -47,6 +47,11 @@ c.binance = {}
 c.binance.key = 'YOUR-API-KEY'
 c.binance.secret = 'YOUR-SECRET'
 
+// to enable Binance US trading, enter your API credentials:
+c.binanceus = {}
+c.binanceus.key = 'YOUR-API-KEY'
+c.binanceus.secret = 'YOUR-SECRET'
+
 // to enable Bittrex trading, enter your API credentials:
 c.bittrex = {}
 c.bittrex.key = 'YOUR-API-KEY'
