@@ -1184,6 +1184,14 @@
     "label": "Measurable Data Token/Tether USD"
   },
   {
+    "asset": "MEME",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Meme/Tether USD"
+  },
+  {
     "asset": "MKR",
     "currency": "BTC",
     "min_total": "0.0001",
