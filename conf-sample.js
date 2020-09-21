@@ -47,6 +47,11 @@ c.binance = {}
 c.binance.key = process.env.ZENBOT_BINANCE_API_KEY || 'YOUR-API-KEY'
 c.binance.secret = process.env.ZENBOT_BINANCE_SECRET || 'YOUR-API-SECRET'
 
+// to enable Binance US trading, enter your API credentials:
+c.binanceus = {}
+c.binanceus.key = 'YOUR-API-KEY'
+c.binanceus.secret = 'YOUR-SECRET'
+
 // to enable Bittrex trading, enter your API credentials:
 c.bittrex = {}
 c.bittrex.key = process.env.ZENBOT_BITTREX_API_KEY || 'YOUR-API-KEY'
