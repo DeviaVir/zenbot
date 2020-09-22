@@ -11636,5 +11636,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "SUN/USDT"
+  },
+  {
+    "id": "AVAXBNB",
+    "asset": "AVAX",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "AVAX/BNB"
+  },
+  {
+    "id": "AVAXBTC",
+    "asset": "AVAX",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.10000000",
+    "label": "AVAX/BTC"
+  },
+  {
+    "id": "AVAXBUSD",
+    "asset": "AVAX",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "AVAX/BUSD"
+  },
+  {
+    "id": "AVAXUSDT",
+    "asset": "AVAX",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "AVAX/USDT"
   }
 ]

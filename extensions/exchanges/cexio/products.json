@@ -808,6 +808,14 @@
     "label": "GNT/USDT"
   },
   {
+    "asset": "LAMB",
+    "currency": "USD",
+    "min_size": "300",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LAMB/USD"
+  },
+  {
     "asset": "HOT",
     "currency": "USD",
     "min_size": "10000",
@@ -934,5 +942,29 @@
     "max_size": null,
     "increment": "0.01",
     "label": "COMP/USDT"
+  },
+  {
+    "asset": "UNI",
+    "currency": "USD",
+    "min_size": "1.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UNI/USD"
+  },
+  {
+    "asset": "UNI",
+    "currency": "USDT",
+    "min_size": "1.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UNI/USDT"
+  },
+  {
+    "asset": "UNI",
+    "currency": "ETH",
+    "min_size": "1.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UNI/ETH"
   }
 ]

@@ -488,6 +488,14 @@
     "label": "Civic/Bitcoin"
   },
   {
+    "asset": "CVP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "PowerPool Concentrated Vot Power/Tether USD"
+  },
+  {
     "asset": "DAI",
     "currency": "USDT",
     "min_total": "1",
@@ -886,6 +894,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "GEEQ/Tether USD"
+  },
+  {
+    "asset": "GHST",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Aavegotchi/Tether USD"
   },
   {
     "asset": "GNT",
@@ -1374,22 +1390,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ren/Tether USD"
-  },
-  {
-    "asset": "REP",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Augur/Bitcoin"
-  },
-  {
-    "asset": "REP",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Augur/Tether USD"
   },
   {
     "asset": "RING",

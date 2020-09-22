@@ -2360,6 +2360,22 @@
     "label": "BAN/D:U"
   },
   {
+    "asset": "AVA",
+    "currency": "X:U",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "AVA/X:U"
+  },
+  {
+    "asset": "AVA",
+    "currency": "X:U",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "AVA/X:U"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0006",
