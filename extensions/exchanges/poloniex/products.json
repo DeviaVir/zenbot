@@ -1376,6 +1376,14 @@
     "label": "Qtum/Tether USD"
   },
   {
+    "asset": "RARI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Rarible/Tether USD"
+  },
+  {
     "asset": "REN",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1390,6 +1398,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ren/Tether USD"
+  },
+  {
+    "asset": "REPV2",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Augur/Bitcoin"
+  },
+  {
+    "asset": "REPV2",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Augur/Tether USD"
   },
   {
     "asset": "RING",

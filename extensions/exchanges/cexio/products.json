@@ -816,6 +816,14 @@
     "label": "LAMB/USD"
   },
   {
+    "asset": "LAMB",
+    "currency": "USDT",
+    "min_size": "300",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LAMB/USDT"
+  },
+  {
     "asset": "HOT",
     "currency": "USD",
     "min_size": "10000",
