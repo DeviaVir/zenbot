@@ -1208,6 +1208,14 @@
     "label": "Meme/Tether USD"
   },
   {
+    "asset": "MEXP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "MOJI Experience Points/Tether USD"
+  },
+  {
     "asset": "MKR",
     "currency": "BTC",
     "min_total": "0.0001",
