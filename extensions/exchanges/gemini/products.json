@@ -238,5 +238,101 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "COM/PUS"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "MKR/USD"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ZRX/USD"
+  },
+  {
+    "asset": "KNC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "KNC/USD"
+  },
+  {
+    "asset": "STO",
+    "currency": "RJU",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "STO/RJU"
+  },
+  {
+    "asset": "MAN",
+    "currency": "AUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "MAN/AUS"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "SNX/USD"
+  },
+  {
+    "asset": "YFI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "YFI/USD"
+  },
+  {
+    "asset": "UMA",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "UMA/USD"
+  },
+  {
+    "asset": "BAL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAL/USD"
+  },
+  {
+    "asset": "CRV",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "CRV/USD"
+  },
+  {
+    "asset": "REN",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "REN/USD"
+  },
+  {
+    "asset": "UNI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "UNI/USD"
   }
 ]

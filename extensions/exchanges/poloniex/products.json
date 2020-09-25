@@ -568,6 +568,22 @@
     "label": "DIA/Tether USD"
   },
   {
+    "asset": "DICE",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TRONbetDice/Tron"
+  },
+  {
+    "asset": "DICE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TRONbetDice/Tether USD"
+  },
+  {
     "asset": "DMG",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -854,30 +870,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Unification/Tether USD"
-  },
-  {
-    "asset": "FXC",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Flexacoin/Bitcoin"
-  },
-  {
-    "asset": "FXC",
-    "currency": "TRX",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Flexacoin/Tron"
-  },
-  {
-    "asset": "FXC",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Flexacoin/Tether USD"
   },
   {
     "asset": "GAS",
@@ -1438,14 +1430,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Reserve Rights Token/Tether USD"
-  },
-  {
-    "asset": "SAL",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Salmon/Tether USD"
   },
   {
     "asset": "SBREE",

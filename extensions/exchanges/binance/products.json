@@ -11724,5 +11724,27 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "BURGER/BNB"
+  },
+  {
+    "id": "SXPBIDR",
+    "asset": "SXP",
+    "currency": "BIDR",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "SXP/BIDR"
+  },
+  {
+    "id": "LINKBKRW",
+    "asset": "LINK",
+    "currency": "BKRW",
+    "min_size": "0.10000000",
+    "max_size": "90000.00000000",
+    "min_total": "1000.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.10000000",
+    "label": "LINK/BKRW"
   }
 ]

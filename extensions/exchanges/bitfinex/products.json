@@ -2376,6 +2376,22 @@
     "label": "AVA/X:U"
   },
   {
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.001",
+    "label": "SNX/USD"
+  },
+  {
+    "asset": "SNX",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "SNX/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0006",
