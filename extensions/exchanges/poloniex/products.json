@@ -24,6 +24,30 @@
     "label": "Akropolis/Tether USD"
   },
   {
+    "asset": "AMP",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Amp/Bitcoin"
+  },
+  {
+    "asset": "AMP",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Amp/Tron"
+  },
+  {
+    "asset": "AMP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Amp/Tether USD"
+  },
+  {
     "asset": "ANK",
     "currency": "USDT",
     "min_total": "1",
@@ -1430,6 +1454,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Reserve Rights Token/Tether USD"
+  },
+  {
+    "asset": "SAND",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "The Sandbox/Bitcoin"
+  },
+  {
+    "asset": "SAND",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "The Sandbox/Tether USD"
   },
   {
     "asset": "SBREE",
