@@ -4390,5 +4390,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/UNI"
+  },
+  {
+    "asset": "EXE",
+    "currency": "BTC",
+    "min_size": "18.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/EXE"
+  },
+  {
+    "asset": "EXE",
+    "currency": "USDT",
+    "min_size": "18.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/EXE"
   }
 ]

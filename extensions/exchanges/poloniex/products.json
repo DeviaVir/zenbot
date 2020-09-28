@@ -1440,6 +1440,14 @@
     "label": "Augur/Tether USD"
   },
   {
+    "asset": "RFUEL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Rio DeFi/Tether USD"
+  },
+  {
     "asset": "RING",
     "currency": "USDT",
     "min_total": "1",
