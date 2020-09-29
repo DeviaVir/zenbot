@@ -11790,5 +11790,60 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "FLM/USDT"
+  },
+  {
+    "id": "CAKEBNB",
+    "asset": "CAKE",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "CAKE/BNB"
+  },
+  {
+    "id": "CAKEBUSD",
+    "asset": "CAKE",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CAKE/BUSD"
+  },
+  {
+    "id": "SPARTABNB",
+    "asset": "SPARTA",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "SPARTA/BNB"
+  },
+  {
+    "id": "UNIUPUSDT",
+    "asset": "UNIUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "UNIUP/USDT"
+  },
+  {
+    "id": "UNIDOWNUSDT",
+    "asset": "UNIDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "UNIDOWN/USDT"
   }
 ]

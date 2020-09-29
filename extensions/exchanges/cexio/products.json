@@ -952,6 +952,14 @@
     "label": "COMP/USDT"
   },
   {
+    "asset": "ZIL",
+    "currency": "USD",
+    "min_size": "350",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ZIL/USD"
+  },
+  {
     "asset": "UNI",
     "currency": "USD",
     "min_size": "1.5",
