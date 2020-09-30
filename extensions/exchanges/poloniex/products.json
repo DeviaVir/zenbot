@@ -288,6 +288,14 @@
     "label": "Bancor/Bitcoin"
   },
   {
+    "asset": "BREE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "CBDAO Coinbreeder DAO/Tether USD"
+  },
+  {
     "asset": "BSVBEAR",
     "currency": "USDT",
     "min_total": "1",
@@ -1368,6 +1376,14 @@
     "label": "PlutusDeFi/Tether USD"
   },
   {
+    "asset": "POLS",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Polkastarter/Tether USD"
+  },
+  {
     "asset": "POLY",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1478,14 +1494,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "The Sandbox/Tether USD"
-  },
-  {
-    "asset": "SBREE",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Synthetic Coinbreeder DAO/Tether USD"
   },
   {
     "asset": "SC",
@@ -1880,6 +1888,14 @@
     "label": "Tether USD/USD Coin"
   },
   {
+    "asset": "VALUE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Value Liquidity/Tether USD"
+  },
+  {
     "asset": "WIN",
     "currency": "TRX",
     "min_total": "0.0001",
@@ -2070,14 +2086,6 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "YFLink/Tether USD"
-  },
-  {
-    "asset": "YFV",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "YFValue/Tether USD"
   },
   {
     "asset": "ZAP",

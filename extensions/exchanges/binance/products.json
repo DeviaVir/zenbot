@@ -11792,6 +11792,28 @@
     "label": "FLM/USDT"
   },
   {
+    "id": "SCRTBTC",
+    "asset": "SCRT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "SCRT/BTC"
+  },
+  {
+    "id": "SCRTETH",
+    "asset": "SCRT",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "SCRT/ETH"
+  },
+  {
     "id": "CAKEBNB",
     "asset": "CAKE",
     "currency": "BNB",
@@ -11845,5 +11867,27 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "UNIDOWN/USDT"
+  },
+  {
+    "id": "ORNBTC",
+    "asset": "ORN",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "ORN/BTC"
+  },
+  {
+    "id": "ORNUSDT",
+    "asset": "ORN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ORN/USDT"
   }
 ]
