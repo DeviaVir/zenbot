@@ -45,6 +45,24 @@
     "label": "ATOM/USD"
   },
   {
+    "asset": "BAL",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "6700",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "BAL/BTC"
+  },
+  {
+    "asset": "BAL",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "6700",
+    "increment": "0.00001",
+    "asset_increment": "0.001",
+    "label": "BAL/USD"
+  },
+  {
     "asset": "BAND",
     "currency": "BTC",
     "min_size": "0.1",
@@ -619,6 +637,24 @@
     "increment": "0.0001",
     "asset_increment": "1",
     "label": "OXT/USD"
+  },
+  {
+    "asset": "REN",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "460000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "REN/BTC"
+  },
+  {
+    "asset": "REN",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "460000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "REN/USD"
   },
   {
     "asset": "REP",
