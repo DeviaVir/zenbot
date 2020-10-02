@@ -2392,6 +2392,22 @@
     "label": "SNX/UST"
   },
   {
+    "asset": "YFI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100.0",
+    "increment": "0.001",
+    "label": "YFI/USD"
+  },
+  {
+    "asset": "YFI",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "100.0",
+    "increment": "0.000001",
+    "label": "YFI/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",
