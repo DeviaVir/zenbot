@@ -2408,6 +2408,22 @@
     "label": "YFI/UST"
   },
   {
+    "asset": "BAL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.001",
+    "label": "BAL/USD"
+  },
+  {
+    "asset": "BAL",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.000001",
+    "label": "BAL/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",
