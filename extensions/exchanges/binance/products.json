@@ -10574,11 +10574,11 @@
     "id": "DOTBTC",
     "asset": "DOT",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.10000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00000001",
-    "asset_increment": "1.00000000",
+    "asset_increment": "0.10000000",
     "label": "DOT/BTC"
   },
   {
