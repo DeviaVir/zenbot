@@ -4406,5 +4406,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/EXE"
+  },
+  {
+    "asset": "UPXAU",
+    "currency": "BTC",
+    "min_size": "0.00150000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/UPXAU"
   }
 ]

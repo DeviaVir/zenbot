@@ -24,14 +24,6 @@
     "label": "BCH/USD"
   },
   {
-    "asset": "BTG",
-    "currency": "USD",
-    "min_size": "0.6",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "BTG/USD"
-  },
-  {
     "asset": "DASH",
     "currency": "USD",
     "min_size": "0.08",
@@ -166,14 +158,6 @@
     "max_size": null,
     "increment": "0.01",
     "label": "BCH/EUR"
-  },
-  {
-    "asset": "BTG",
-    "currency": "EUR",
-    "min_size": "0.6",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "BTG/EUR"
   },
   {
     "asset": "DASH",
@@ -408,14 +392,6 @@
     "label": "BCH/BTC"
   },
   {
-    "asset": "BTG",
-    "currency": "BTC",
-    "min_size": "0.6",
-    "max_size": null,
-    "increment": "0.000001",
-    "label": "BTG/BTC"
-  },
-  {
     "asset": "DASH",
     "currency": "BTC",
     "min_size": "0.08",
@@ -614,14 +590,6 @@
     "max_size": null,
     "increment": "0.01",
     "label": "BCH/USDT"
-  },
-  {
-    "asset": "BTG",
-    "currency": "USDT",
-    "min_size": "0.6",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "BTG/USDT"
   },
   {
     "asset": "LTC",

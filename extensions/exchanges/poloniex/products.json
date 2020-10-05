@@ -1024,22 +1024,6 @@
     "label": "Darwinia Commitment Token/Tether USD"
   },
   {
-    "asset": "LEND",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Aave/Bitcoin"
-  },
-  {
-    "asset": "LEND",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Aave/Tether USD"
-  },
-  {
     "asset": "LINK",
     "currency": "BTC",
     "min_total": "0.0001",
