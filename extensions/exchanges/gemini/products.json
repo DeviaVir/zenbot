@@ -280,6 +280,14 @@
     "label": "MAN/AUS"
   },
   {
+    "asset": "AAV",
+    "currency": "EUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "AAV/EUS"
+  },
+  {
     "asset": "SNX",
     "currency": "USD",
     "min_size": "0.001",

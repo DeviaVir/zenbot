@@ -2424,6 +2424,38 @@
     "label": "BAL/UST"
   },
   {
+    "asset": "EOS",
+    "currency": "DT:",
+    "min_size": "0.001",
+    "max_size": "25000.0",
+    "increment": "0.000001",
+    "label": "EOS/DT:"
+  },
+  {
+    "asset": "EOS",
+    "currency": "DT:",
+    "min_size": "0.001",
+    "max_size": "25000.0",
+    "increment": "0.000001",
+    "label": "EOS/DT:"
+  },
+  {
+    "asset": "NUT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1000.0",
+    "increment": "0.001",
+    "label": "NUT/USD"
+  },
+  {
+    "asset": "NUT",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "1000.0",
+    "increment": "0.000001",
+    "label": "NUT/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",
