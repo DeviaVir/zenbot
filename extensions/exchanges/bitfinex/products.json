@@ -2456,6 +2456,22 @@
     "label": "NUT/UST"
   },
   {
+    "asset": "DAP",
+    "currency": "P:U",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.000001",
+    "label": "DAP/P:U"
+  },
+  {
+    "asset": "DAP",
+    "currency": "P:U",
+    "min_size": "0.001",
+    "max_size": "1000000.0",
+    "increment": "0.000001",
+    "label": "DAP/P:U"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",

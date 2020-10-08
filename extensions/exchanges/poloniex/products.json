@@ -1,5 +1,21 @@
 [
   {
+    "asset": "AAVE",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Aave/Bitcoin"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Aave/Tether USD"
+  },
+  {
     "asset": "ADEL",
     "currency": "USDT",
     "min_total": "1",
