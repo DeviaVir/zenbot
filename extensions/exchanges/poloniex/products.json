@@ -176,6 +176,22 @@
     "label": "Basic Attention Token/Tether USD"
   },
   {
+    "asset": "BCHA",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash ABC PF/Bitcoin"
+  },
+  {
+    "asset": "BCHA",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash ABC PF/Tether USD"
+  },
+  {
     "asset": "BCHABC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -222,6 +238,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "BitCherry/Tether USD"
+  },
+  {
+    "asset": "BCHN",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash Node PF/Bitcoin"
+  },
+  {
+    "asset": "BCHN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Cash Node PF/Tether USD"
   },
   {
     "asset": "BCHSV",
