@@ -11979,6 +11979,50 @@
     "label": "XVS/USDT"
   },
   {
+    "id": "ALPHABNB",
+    "asset": "ALPHA",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "ALPHA/BNB"
+  },
+  {
+    "id": "ALPHABTC",
+    "asset": "ALPHA",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "ALPHA/BTC"
+  },
+  {
+    "id": "ALPHABUSD",
+    "asset": "ALPHA",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ALPHA/BUSD"
+  },
+  {
+    "id": "ALPHAUSDT",
+    "asset": "ALPHA",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ALPHA/USDT"
+  },
+  {
     "id": "VIDTBTC",
     "asset": "VIDT",
     "currency": "BTC",
