@@ -2558,5 +2558,29 @@
     "max_size": "1000.0",
     "increment": "0.000001",
     "label": "GER/MAN"
+  },
+  {
+    "asset": "EOS",
+    "currency": "F0:",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.000001",
+    "label": "EOS/F0:"
+  },
+  {
+    "asset": "LTC",
+    "currency": "F0:",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.000001",
+    "label": "LTC/F0:"
+  },
+  {
+    "asset": "DOT",
+    "currency": "F0:",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.000001",
+    "label": "DOT/F0:"
   }
 ]
