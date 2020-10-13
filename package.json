@@ -73,7 +73,7 @@
     "lint-staged": "^10.4.0",
     "lodash": "^4.17.20",
     "lolex": "^6.0.0",
-    "mathjs": "^6.6.5",
+    "mathjs": "^7.5.1",
     "micro-request": "^666.0.10",
     "mime": "^2.4.6",
     "minimist": "^1.2.5",
