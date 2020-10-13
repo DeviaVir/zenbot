@@ -958,5 +958,149 @@
     "max_size": null,
     "increment": "0.01",
     "label": "UNI/ETH"
+  },
+  {
+    "asset": "UMA",
+    "currency": "USDT",
+    "min_size": "0.7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UMA/USDT"
+  },
+  {
+    "asset": "UMA",
+    "currency": "ETH",
+    "min_size": "0.7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UMA/ETH"
+  },
+  {
+    "asset": "YFI",
+    "currency": "USDT",
+    "min_size": "0.0003",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "YFI/USDT"
+  },
+  {
+    "asset": "YFI",
+    "currency": "ETH",
+    "min_size": "0.0003",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "YFI/ETH"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USDT",
+    "min_size": "2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SNX/USDT"
+  },
+  {
+    "asset": "SNX",
+    "currency": "ETH",
+    "min_size": "2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SNX/ETH"
+  },
+  {
+    "asset": "KNC",
+    "currency": "USDT",
+    "min_size": "7.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "KNC/USDT"
+  },
+  {
+    "asset": "KNC",
+    "currency": "ETH",
+    "min_size": "7.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "KNC/ETH"
+  },
+  {
+    "asset": "BAL",
+    "currency": "USDT",
+    "min_size": "0.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAL/USDT"
+  },
+  {
+    "asset": "BAL",
+    "currency": "ETH",
+    "min_size": "0.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAL/ETH"
+  },
+  {
+    "asset": "CRV",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "CRV/USDT"
+  },
+  {
+    "asset": "CRV",
+    "currency": "ETH",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "CRV/ETH"
+  },
+  {
+    "asset": "WBTC",
+    "currency": "USDT",
+    "min_size": "0.0007",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "WBTC/USDT"
+  },
+  {
+    "asset": "WBTC",
+    "currency": "ETH",
+    "min_size": "0.0007",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "WBTC/ETH"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "DAI/USDT"
+  },
+  {
+    "asset": "DAI",
+    "currency": "ETH",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "DAI/ETH"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TUSD/USDT"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "ETH",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TUSD/ETH"
   }
 ]

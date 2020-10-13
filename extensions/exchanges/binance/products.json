@@ -12043,5 +12043,27 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "VIDT/BUSD"
+  },
+  {
+    "id": "BTCBRL",
+    "asset": "BTC",
+    "currency": "BRL",
+    "min_size": "0.00000100",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/BRL"
+  },
+  {
+    "id": "USDTBRL",
+    "asset": "USDT",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "USDT/BRL"
   }
 ]
