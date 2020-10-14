@@ -216,6 +216,14 @@
     "label": "OXT/ETH"
   },
   {
+    "asset": "FIL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "FIL/USD"
+  },
+  {
     "asset": "AMP",
     "currency": "USD",
     "min_size": "0.001",

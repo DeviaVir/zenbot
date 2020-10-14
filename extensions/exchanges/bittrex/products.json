@@ -4414,5 +4414,101 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UPXAU"
+  },
+  {
+    "asset": "ETHBULL",
+    "currency": "USD",
+    "min_size": "4.56200217",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ETHBULL"
+  },
+  {
+    "asset": "ADABEAR",
+    "currency": "USDT",
+    "min_size": "4.39095930",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ADABEAR"
+  },
+  {
+    "asset": "ADABULL",
+    "currency": "USDT",
+    "min_size": "0.00262987",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ADABULL"
+  },
+  {
+    "asset": "ETHBEAR",
+    "currency": "USDT",
+    "min_size": "43.21832456",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ETHBEAR"
+  },
+  {
+    "asset": "ETHBULL",
+    "currency": "USDT",
+    "min_size": "0.00752785",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ETHBULL"
+  },
+  {
+    "asset": "BEAR",
+    "currency": "USDT",
+    "min_size": "4.09642996",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BEAR"
+  },
+  {
+    "asset": "BULL",
+    "currency": "USDT",
+    "min_size": "0.00094503",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BULL"
+  },
+  {
+    "asset": "ADABEAR",
+    "currency": "USD",
+    "min_size": "4.39095930",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ADABEAR"
+  },
+  {
+    "asset": "ADABULL",
+    "currency": "USD",
+    "min_size": "0.00262987",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ADABULL"
+  },
+  {
+    "asset": "ETHBEAR",
+    "currency": "USD",
+    "min_size": "43.21832450",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ETHBEAR"
+  },
+  {
+    "asset": "BULL",
+    "currency": "USD",
+    "min_size": "0.00094503",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/BULL"
+  },
+  {
+    "asset": "BEAR",
+    "currency": "USD",
+    "min_size": "4.09642996",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/BEAR"
   }
 ]
