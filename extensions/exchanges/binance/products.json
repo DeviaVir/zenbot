@@ -12045,6 +12045,17 @@
     "label": "VIDT/BUSD"
   },
   {
+    "id": "AAVEBNB",
+    "asset": "AAVE",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "AAVE/BNB"
+  },
+  {
     "id": "BTCBRL",
     "asset": "BTC",
     "currency": "BRL",
@@ -12065,6 +12076,61 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "USDT/BRL"
+  },
+  {
+    "id": "AAVEBTC",
+    "asset": "AAVE",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "AAVE/BTC"
+  },
+  {
+    "id": "AAVEETH",
+    "asset": "AAVE",
+    "currency": "ETH",
+    "min_size": "0.00100000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00100000",
+    "label": "AAVE/ETH"
+  },
+  {
+    "id": "AAVEBUSD",
+    "asset": "AAVE",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "AAVE/BUSD"
+  },
+  {
+    "id": "AAVEUSDT",
+    "asset": "AAVE",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "AAVE/USDT"
+  },
+  {
+    "id": "AAVEBKRW",
+    "asset": "AAVE",
+    "currency": "BKRW",
+    "min_size": "0.00100000",
+    "max_size": "10000.00000000",
+    "min_total": "1000.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00100000",
+    "label": "AAVE/BKRW"
   },
   {
     "id": "NEARBNB",
@@ -12109,5 +12175,93 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "NEAR/USDT"
+  },
+  {
+    "id": "SXPUPUSDT",
+    "asset": "SXPUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "SXPUP/USDT"
+  },
+  {
+    "id": "SXPDOWNUSDT",
+    "asset": "SXPDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "SXPDOWN/USDT"
+  },
+  {
+    "id": "DOTBKRW",
+    "asset": "DOT",
+    "currency": "BKRW",
+    "min_size": "0.10000000",
+    "max_size": "90000.00000000",
+    "min_total": "1000.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.10000000",
+    "label": "DOT/BKRW"
+  },
+  {
+    "id": "SXPGBP",
+    "asset": "SXP",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "SXP/GBP"
+  },
+  {
+    "id": "FILBNB",
+    "asset": "FIL",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "FIL/BNB"
+  },
+  {
+    "id": "FILBTC",
+    "asset": "FIL",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "FIL/BTC"
+  },
+  {
+    "id": "FILBUSD",
+    "asset": "FIL",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "FIL/BUSD"
+  },
+  {
+    "id": "FILUSDT",
+    "asset": "FIL",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "FIL/USDT"
   }
 ]

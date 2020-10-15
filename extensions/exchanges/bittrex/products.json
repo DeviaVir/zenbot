@@ -2168,12 +2168,12 @@
     "label": "BTC/ONG"
   },
   {
-    "asset": "TTC",
+    "asset": "MARO",
     "currency": "BTC",
     "min_size": "51.33470226",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/TTC"
+    "label": "BTC/MARO"
   },
   {
     "asset": "PTON",
@@ -4510,5 +4510,53 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/BEAR"
+  },
+  {
+    "asset": "DFI",
+    "currency": "BTC",
+    "min_size": "14.80800000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DFI"
+  },
+  {
+    "asset": "DFI",
+    "currency": "USDT",
+    "min_size": "14.80800000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DFI"
+  },
+  {
+    "asset": "FIL",
+    "currency": "BTC",
+    "min_size": "0.08571000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FIL"
+  },
+  {
+    "asset": "FIL",
+    "currency": "ETH",
+    "min_size": "0.08571000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/FIL"
+  },
+  {
+    "asset": "FIL",
+    "currency": "USD",
+    "min_size": "0.08571000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/FIL"
+  },
+  {
+    "asset": "FIL",
+    "currency": "USDT",
+    "min_size": "0.08581000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/FIL"
   }
 ]

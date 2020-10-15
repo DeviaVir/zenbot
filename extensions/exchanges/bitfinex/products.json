@@ -1472,14 +1472,6 @@
     "label": "BAB/BTC"
   },
   {
-    "asset": "WLO",
-    "currency": "USD",
-    "min_size": "3656.0",
-    "max_size": "500000.0",
-    "increment": "0.0000001",
-    "label": "WLO/USD"
-  },
-  {
     "asset": "VLD",
     "currency": "USD",
     "min_size": "522.0",
@@ -2470,6 +2462,22 @@
     "max_size": "1000000.0",
     "increment": "0.000001",
     "label": "DAP/P:U"
+  },
+  {
+    "asset": "FIL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.001",
+    "label": "FIL/USD"
+  },
+  {
+    "asset": "FIL",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "10000.0",
+    "increment": "0.000001",
+    "label": "FIL/UST"
   },
   {
     "asset": "BTC",
