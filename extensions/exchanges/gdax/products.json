@@ -720,6 +720,24 @@
     "label": "UNI/USD"
   },
   {
+    "asset": "WBTC",
+    "currency": "BTC",
+    "min_size": "0.0001",
+    "max_size": "10",
+    "increment": "0.0001",
+    "asset_increment": "0.00000001",
+    "label": "WBTC/BTC"
+  },
+  {
+    "asset": "WBTC",
+    "currency": "USD",
+    "min_size": "0.0001",
+    "max_size": "10",
+    "increment": "0.01",
+    "asset_increment": "0.00000001",
+    "label": "WBTC/USD"
+  },
+  {
     "asset": "XLM",
     "currency": "BTC",
     "min_size": "1",
