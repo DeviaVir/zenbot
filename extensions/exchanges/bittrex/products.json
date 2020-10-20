@@ -4558,5 +4558,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/FIL"
+  },
+  {
+    "asset": "ELA",
+    "currency": "BTC",
+    "min_size": "1.72400000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ELA"
+  },
+  {
+    "asset": "ELA",
+    "currency": "USDT",
+    "min_size": "1.72400000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ELA"
+  },
+  {
+    "asset": "CUSD",
+    "currency": "BTC",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CUSD"
+  },
+  {
+    "asset": "CUSD",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CUSD"
   }
 ]

@@ -12285,5 +12285,27 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "FILDOWN/USDT"
+  },
+  {
+    "id": "YFIUPUSDT",
+    "asset": "YFIUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "YFIUP/USDT"
+  },
+  {
+    "id": "YFIDOWNUSDT",
+    "asset": "YFIDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "YFIDOWN/USDT"
   }
 ]

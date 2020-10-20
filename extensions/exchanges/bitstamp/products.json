@@ -286,5 +286,50 @@
     "min_total": "25",
     "increment": "0.00001",
     "label": "XLM/GBP"
+  },
+  {
+    "id": "LINKUSD",
+    "asset": "LINK",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "LINK/USD"
+  },
+  {
+    "id": "LINKEUR",
+    "asset": "LINK",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "LINK/EUR"
+  },
+  {
+    "id": "LINKGBP",
+    "asset": "LINK",
+    "currency": "GBP",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "LINK/GBP"
+  },
+  {
+    "id": "LINKBTC",
+    "asset": "LINK",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.001",
+    "increment": "0.00000001",
+    "label": "LINK/BTC"
+  },
+  {
+    "id": "LINKETH",
+    "asset": "LINK",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "min_total": "0.02",
+    "increment": "0.00000001",
+    "label": "LINK/ETH"
   }
 ]
