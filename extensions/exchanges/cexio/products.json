@@ -1102,5 +1102,133 @@
     "max_size": null,
     "increment": "0.01",
     "label": "TUSD/ETH"
+  },
+  {
+    "asset": "MTA",
+    "currency": "USDT",
+    "min_size": "3",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MTA/USDT"
+  },
+  {
+    "asset": "MTA",
+    "currency": "ETH",
+    "min_size": "3",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MTA/ETH"
+  },
+  {
+    "asset": "MUSD",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MUSD/USDT"
+  },
+  {
+    "asset": "MUSD",
+    "currency": "ETH",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MUSD/ETH"
+  },
+  {
+    "asset": "SUSHI",
+    "currency": "USDT",
+    "min_size": "6",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SUSHI/USDT"
+  },
+  {
+    "asset": "SUSHI",
+    "currency": "ETH",
+    "min_size": "6",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SUSHI/ETH"
+  },
+  {
+    "asset": "CREAM",
+    "currency": "USDT",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "CREAM/USDT"
+  },
+  {
+    "asset": "CREAM",
+    "currency": "ETH",
+    "min_size": "0.1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "CREAM/ETH"
+  },
+  {
+    "asset": "YFII",
+    "currency": "USDT",
+    "min_size": "0.0025",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "YFII/USDT"
+  },
+  {
+    "asset": "YFII",
+    "currency": "ETH",
+    "min_size": "0.0025",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "YFII/ETH"
+  },
+  {
+    "asset": "BUSD",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BUSD/USDT"
+  },
+  {
+    "asset": "BUSD",
+    "currency": "ETH",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BUSD/ETH"
+  },
+  {
+    "asset": "REN",
+    "currency": "USDT",
+    "min_size": "35",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "REN/USDT"
+  },
+  {
+    "asset": "REN",
+    "currency": "ETH",
+    "min_size": "35",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "REN/ETH"
+  },
+  {
+    "asset": "BAND",
+    "currency": "USDT",
+    "min_size": "1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAND/USDT"
+  },
+  {
+    "asset": "BAND",
+    "currency": "ETH",
+    "min_size": "1",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAND/ETH"
   }
 ]

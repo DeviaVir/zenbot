@@ -36,6 +36,15 @@
     "label": "BTC/PAX"
   },
   {
+    "id": "BTCUSDC",
+    "asset": "BTC",
+    "currency": "USDC",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "BTC/USDC"
+  },
+  {
     "id": "GBPUSD",
     "asset": "GBP",
     "currency": "USD",
@@ -189,6 +198,15 @@
     "label": "ETH/PAX"
   },
   {
+    "id": "ETHUSDC",
+    "asset": "ETH",
+    "currency": "USDC",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "ETH/USDC"
+  },
+  {
     "id": "BCHUSD",
     "asset": "BCH",
     "currency": "USD",
@@ -331,5 +349,23 @@
     "min_total": "0.02",
     "increment": "0.00000001",
     "label": "LINK/ETH"
+  },
+  {
+    "id": "USDCUSD",
+    "asset": "USDC",
+    "currency": "USD",
+    "min_size": "0.00001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "USDC/USD"
+  },
+  {
+    "id": "USDCEUR",
+    "asset": "USDC",
+    "currency": "EUR",
+    "min_size": "0.00001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "USDC/EUR"
   }
 ]
