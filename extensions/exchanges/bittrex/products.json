@@ -4590,5 +4590,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CUSD"
+  },
+  {
+    "asset": "CAMP",
+    "currency": "BTC",
+    "min_size": "86.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CAMP"
+  },
+  {
+    "asset": "CAMP",
+    "currency": "USDT",
+    "min_size": "86.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CAMP"
+  },
+  {
+    "asset": "QLC",
+    "currency": "BTC",
+    "min_size": "181.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/QLC"
+  },
+  {
+    "asset": "QLC",
+    "currency": "USDT",
+    "min_size": "181.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/QLC"
   }
 ]
