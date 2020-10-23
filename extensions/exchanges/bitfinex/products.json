@@ -368,14 +368,6 @@
     "label": "DAT/BTC"
   },
   {
-    "asset": "DAT",
-    "currency": "ETH",
-    "min_size": "48.0",
-    "max_size": "250000.0",
-    "increment": "0.000000001",
-    "label": "DAT/ETH"
-  },
-  {
     "asset": "QSH",
     "currency": "USD",
     "min_size": "52.0",
@@ -422,14 +414,6 @@
     "max_size": "500000.0",
     "increment": "0.000001",
     "label": "SNT/USD"
-  },
-  {
-    "asset": "SNT",
-    "currency": "BTC",
-    "min_size": "82.0",
-    "max_size": "500000.0",
-    "increment": "0.000000001",
-    "label": "SNT/BTC"
   },
   {
     "asset": "IOT",
@@ -488,14 +472,6 @@
     "label": "FUN/USD"
   },
   {
-    "asset": "FUN",
-    "currency": "ETH",
-    "min_size": "656.0",
-    "max_size": "200000.0",
-    "increment": "0.0000000001",
-    "label": "FUN/ETH"
-  },
-  {
     "asset": "ZRX",
     "currency": "USD",
     "min_size": "6.0",
@@ -526,14 +502,6 @@
     "max_size": "200000.0",
     "increment": "0.0000001",
     "label": "TNB/USD"
-  },
-  {
-    "asset": "TNB",
-    "currency": "BTC",
-    "min_size": "1000.0",
-    "max_size": "200000.0",
-    "increment": "0.0000000001",
-    "label": "TNB/BTC"
   },
   {
     "asset": "SPK",
@@ -800,14 +768,6 @@
     "label": "WAX/USD"
   },
   {
-    "asset": "WAX",
-    "currency": "BTC",
-    "min_size": "50.0",
-    "max_size": "50000.0",
-    "increment": "0.000000001",
-    "label": "WAX/BTC"
-  },
-  {
     "asset": "DAI",
     "currency": "USD",
     "min_size": "2.0",
@@ -921,22 +881,6 @@
   },
   {
     "asset": "XLM",
-    "currency": "EUR",
-    "min_size": "28.0",
-    "max_size": "1000000.0",
-    "increment": "0.00000001",
-    "label": "XLM/EUR"
-  },
-  {
-    "asset": "XLM",
-    "currency": "GBP",
-    "min_size": "28.0",
-    "max_size": "1000000.0",
-    "increment": "0.00000001",
-    "label": "XLM/GBP"
-  },
-  {
-    "asset": "XLM",
     "currency": "BTC",
     "min_size": "28.0",
     "max_size": "1000000.0",
@@ -958,14 +902,6 @@
     "max_size": "1500000.0",
     "increment": "0.0000001",
     "label": "XVG/USD"
-  },
-  {
-    "asset": "XVG",
-    "currency": "BTC",
-    "min_size": "472.0",
-    "max_size": "1500000.0",
-    "increment": "0.0000000001",
-    "label": "XVG/BTC"
   },
   {
     "asset": "MKR",
@@ -1328,14 +1264,6 @@
     "label": "TRX/EUR"
   },
   {
-    "asset": "TRX",
-    "currency": "GBP",
-    "min_size": "74.0",
-    "max_size": "1000000.0",
-    "increment": "0.000000001",
-    "label": "TRX/GBP"
-  },
-  {
     "asset": "MGO",
     "currency": "USD",
     "min_size": "160.0",
@@ -1430,14 +1358,6 @@
     "max_size": "2500000.0",
     "increment": "0.000001",
     "label": "DGB/USD"
-  },
-  {
-    "asset": "DGB",
-    "currency": "BTC",
-    "min_size": "76.0",
-    "max_size": "2500000.0",
-    "increment": "0.000000001",
-    "label": "DGB/BTC"
   },
   {
     "asset": "BSV",
@@ -1576,14 +1496,6 @@
     "label": "RIF/USD"
   },
   {
-    "asset": "RIF",
-    "currency": "BTC",
-    "min_size": "24.0",
-    "max_size": "50000.0",
-    "increment": "0.00000001",
-    "label": "RIF/BTC"
-  },
-  {
     "asset": "PAS",
     "currency": "USD",
     "min_size": "1586.0",
@@ -1614,14 +1526,6 @@
     "max_size": "100000000.0",
     "increment": "0.0000001",
     "label": "BTT/USD"
-  },
-  {
-    "asset": "BTT",
-    "currency": "BTC",
-    "min_size": "6036.0",
-    "max_size": "100000000.0",
-    "increment": "0.0000000001",
-    "label": "BTT/BTC"
   },
   {
     "asset": "BTC",
