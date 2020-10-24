@@ -16,6 +16,14 @@
     "label": "BTC/DAI"
   },
   {
+    "asset": "BTC",
+    "currency": "GBP",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/GBP"
+  },
+  {
     "asset": "ETH",
     "currency": "BTC",
     "min_size": "0.001",
@@ -30,6 +38,14 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ETH/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "GBP",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/GBP"
   },
   {
     "asset": "ETH",
