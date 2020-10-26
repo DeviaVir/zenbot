@@ -4622,5 +4622,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/QLC"
+  },
+  {
+    "asset": "KAI",
+    "currency": "BTC",
+    "min_size": "179.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/KAI"
+  },
+  {
+    "asset": "KAI",
+    "currency": "USDT",
+    "min_size": "179.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KAI"
   }
 ]
