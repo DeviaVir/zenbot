@@ -351,6 +351,42 @@
     "label": "LINK/ETH"
   },
   {
+    "id": "OMGUSD",
+    "asset": "OMG",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "OMG/USD"
+  },
+  {
+    "id": "OMGEUR",
+    "asset": "OMG",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "OMG/EUR"
+  },
+  {
+    "id": "OMGGBP",
+    "asset": "OMG",
+    "currency": "GBP",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "OMG/GBP"
+  },
+  {
+    "id": "OMGBTC",
+    "asset": "OMG",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.001",
+    "increment": "0.00000001",
+    "label": "OMG/BTC"
+  },
+  {
     "id": "USDCUSD",
     "asset": "USDC",
     "currency": "USD",

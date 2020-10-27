@@ -12439,5 +12439,71 @@
     "increment": "0.00001000",
     "asset_increment": "0.10000000",
     "label": "AUDIO/USDT"
+  },
+  {
+    "id": "CTKBNB",
+    "asset": "CTK",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "CTK/BNB"
+  },
+  {
+    "id": "CTKBTC",
+    "asset": "CTK",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.10000000",
+    "label": "CTK/BTC"
+  },
+  {
+    "id": "CTKBUSD",
+    "asset": "CTK",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CTK/BUSD"
+  },
+  {
+    "id": "CTKUSDT",
+    "asset": "CTK",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CTK/USDT"
+  },
+  {
+    "id": "BCHUPUSDT",
+    "asset": "BCHUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "BCHUP/USDT"
+  },
+  {
+    "id": "BCHDOWNUSDT",
+    "asset": "BCHDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "BCHDOWN/USDT"
   }
 ]
