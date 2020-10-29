@@ -1230,5 +1230,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "BAND/ETH"
+  },
+  {
+    "asset": "AKRO",
+    "currency": "USDT",
+    "min_size": "500",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "AKRO/USDT"
   }
 ]
