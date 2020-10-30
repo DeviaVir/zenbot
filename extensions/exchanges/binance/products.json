@@ -12527,5 +12527,27 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "BOT/BUSD"
+  },
+  {
+    "id": "ETHBRL",
+    "asset": "ETH",
+    "currency": "BRL",
+    "min_size": "0.00001000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "ETH/BRL"
+  },
+  {
+    "id": "DOTEUR",
+    "asset": "DOT",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "DOT/EUR"
   }
 ]
