@@ -1256,22 +1256,6 @@
     "label": "USDT/XVG"
   },
   {
-    "asset": "UKG",
-    "currency": "BTC",
-    "min_size": "84.74576271",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/UKG"
-  },
-  {
-    "asset": "UKG",
-    "currency": "ETH",
-    "min_size": "32.89473684",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/UKG"
-  },
-  {
     "asset": "IGNIS",
     "currency": "BTC",
     "min_size": "82.78145695",
