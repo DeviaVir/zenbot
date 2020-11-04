@@ -112,6 +112,14 @@
     "label": "BTC/NLG"
   },
   {
+    "asset": "XWC",
+    "currency": "BTC",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/XWC"
+  },
+  {
     "asset": "MONA",
     "currency": "BTC",
     "min_size": "1.57748612",
@@ -4622,5 +4630,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/KAI"
+  },
+  {
+    "asset": "XWC",
+    "currency": "USDT",
+    "min_size": "10.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XWC"
+  },
+  {
+    "asset": "GLEEC",
+    "currency": "BTC",
+    "min_size": "3.40000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GLEEC"
   }
 ]
