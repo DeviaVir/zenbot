@@ -1712,14 +1712,6 @@
     "label": "Stellar/Tether USD"
   },
   {
-    "asset": "STRAT",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Stratis/Bitcoin"
-  },
-  {
     "asset": "SUN",
     "currency": "USDT",
     "min_total": "1",
