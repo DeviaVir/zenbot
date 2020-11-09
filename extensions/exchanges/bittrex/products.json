@@ -4662,5 +4662,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/AKN"
+  },
+  {
+    "asset": "NVT",
+    "currency": "BTC",
+    "min_size": "22.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/NVT"
+  },
+  {
+    "asset": "NVT",
+    "currency": "USDT",
+    "min_size": "22.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/NVT"
   }
 ]

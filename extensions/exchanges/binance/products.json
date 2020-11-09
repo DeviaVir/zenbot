@@ -12703,5 +12703,27 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "LTC/EUR"
+  },
+  {
+    "id": "RENBTCBTC",
+    "asset": "RENBTC",
+    "currency": "BTC",
+    "min_size": "0.00010000",
+    "max_size": "9000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00010000",
+    "label": "RENBTC/BTC"
+  },
+  {
+    "id": "RENBTCETH",
+    "asset": "RENBTC",
+    "currency": "ETH",
+    "min_size": "0.00010000",
+    "max_size": "100000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.00010000",
+    "label": "RENBTC/ETH"
   }
 ]

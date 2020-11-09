@@ -1864,22 +1864,6 @@
     "label": "Tellor/Tether USD"
   },
   {
-    "asset": "TRUMPLOSE",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Trump Loses Token/Tether USD"
-  },
-  {
-    "asset": "TRUMPWIN",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Trump Wins Token/Tether USD"
-  },
-  {
     "asset": "TRX",
     "currency": "BTC",
     "min_total": "0.0001",
