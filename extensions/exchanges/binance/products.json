@@ -12725,5 +12725,60 @@
     "increment": "0.00010000",
     "asset_increment": "0.00010000",
     "label": "RENBTC/ETH"
+  },
+  {
+    "id": "DNTBUSD",
+    "asset": "DNT",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "DNT/BUSD"
+  },
+  {
+    "id": "DNTUSDT",
+    "asset": "DNT",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "DNT/USDT"
+  },
+  {
+    "id": "SLPETH",
+    "asset": "SLP",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "SLP/ETH"
+  },
+  {
+    "id": "ADAEUR",
+    "asset": "ADA",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "ADA/EUR"
+  },
+  {
+    "id": "LTCNGN",
+    "asset": "LTC",
+    "currency": "NGN",
+    "min_size": "0.00100000",
+    "max_size": "100000.00000000",
+    "min_total": "500.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00100000",
+    "label": "LTC/NGN"
   }
 ]

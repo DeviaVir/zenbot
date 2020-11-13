@@ -1458,7 +1458,7 @@
   {
     "asset": "BTC",
     "currency": "USD",
-    "min_size": "0.00025427",
+    "min_size": "0.00018634",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/BTC"
@@ -2456,12 +2456,12 @@
     "label": "USDT/EOS"
   },
   {
-    "asset": "FXC",
+    "asset": "AMP",
     "currency": "BTC",
     "min_size": "806.45161290",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/FXC"
+    "label": "BTC/AMP"
   },
   {
     "asset": "DUSK",
@@ -4678,5 +4678,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/NVT"
+  },
+  {
+    "asset": "LCS",
+    "currency": "BTC",
+    "min_size": "16.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/LCS"
+  },
+  {
+    "asset": "LCS",
+    "currency": "USDT",
+    "min_size": "16.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LCS"
   }
 ]
