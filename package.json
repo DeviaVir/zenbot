@@ -35,7 +35,7 @@
     "async": "^3.2.0",
     "babel-loader": "^8.2.1",
     "babel-preset-env": "^1.6.1",
-    "bitfinex-api-node": "^4.0.15",
+    "bitfinex-api-node": "^4.0.16",
     "bitstamp": "^1.0.4",
     "bl": "^4.0.3",
     "bollinger-bands": "^3.0.1",
