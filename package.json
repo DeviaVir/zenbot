@@ -123,7 +123,7 @@
     "round-precision": "^1.0.0",
     "run-parallel-limit": "^1.0.4",
     "shelljs": "^0.8.0",
-    "yargs": "^15.0.1"
+    "yargs": "^16.1.1"
   },
   "optionalDependencies": {
     "fsevents": "^2.1.2"
