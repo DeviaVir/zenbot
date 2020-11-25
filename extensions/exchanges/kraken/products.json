@@ -63,6 +63,34 @@
     "label": "ALGO/XBT"
   },
   {
+    "asset": "ANT",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ANT/ETH"
+  },
+  {
+    "asset": "ANT",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ANT/EUR"
+  },
+  {
+    "asset": "ANT",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ANT/USD"
+  },
+  {
+    "asset": "ANT",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ANT/XBT"
+  },
+  {
     "asset": "ATOM",
     "currency": "XETH",
     "min_size": "0.01",
@@ -567,6 +595,34 @@
     "label": "KAVA/XBT"
   },
   {
+    "asset": "KEEP",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "KEEP/ETH"
+  },
+  {
+    "asset": "KEEP",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "KEEP/EUR"
+  },
+  {
+    "asset": "KEEP",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "KEEP/USD"
+  },
+  {
+    "asset": "KEEP",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "KEEP/XBT"
+  },
+  {
     "asset": "KNC",
     "currency": "XETH",
     "min_size": "0.01",
@@ -964,6 +1020,34 @@
     "min_size": "0.01",
     "increment": "0.01",
     "label": "STORJ/XBT"
+  },
+  {
+    "asset": "TBTC",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TBTC/ETH"
+  },
+  {
+    "asset": "TBTC",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TBTC/EUR"
+  },
+  {
+    "asset": "TBTC",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TBTC/USD"
+  },
+  {
+    "asset": "TBTC",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "TBTC/XBT"
   },
   {
     "asset": "TRX",

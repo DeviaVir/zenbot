@@ -1238,5 +1238,69 @@
     "max_size": null,
     "increment": "0.01",
     "label": "AKRO/USDT"
+  },
+  {
+    "asset": "ZAP",
+    "currency": "USDT",
+    "min_size": "140",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ZAP/USDT"
+  },
+  {
+    "asset": "SRM",
+    "currency": "USDT",
+    "min_size": "6.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SRM/USDT"
+  },
+  {
+    "asset": "ANT",
+    "currency": "USDT",
+    "min_size": "2.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ANT/USDT"
+  },
+  {
+    "asset": "PAXG",
+    "currency": "USDT",
+    "min_size": "0.004",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "PAXG/USDT"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "USDT",
+    "min_size": "16",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "OCEAN/USDT"
+  },
+  {
+    "asset": "STORJ",
+    "currency": "USDT",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "STORJ/USDT"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "USDT",
+    "min_size": "0.2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "AAVE/USDT"
+  },
+  {
+    "asset": "REPV2",
+    "currency": "USDT",
+    "min_size": "0.6",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "REPV2/USDT"
   }
 ]
