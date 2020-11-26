@@ -10851,7 +10851,7 @@
     "currency": "NGN",
     "min_size": "0.00001000",
     "max_size": "900.00000000",
-    "min_total": "0.00100000",
+    "min_total": "500.00000000",
     "increment": "1.00000000",
     "asset_increment": "0.00001000",
     "label": "ETH/NGN"
@@ -13055,5 +13055,71 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "HEGIC/BUSD"
+  },
+  {
+    "id": "AAVEUPUSDT",
+    "asset": "AAVEUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "AAVEUP/USDT"
+  },
+  {
+    "id": "AAVEDOWNUSDT",
+    "asset": "AAVEDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "AAVEDOWN/USDT"
+  },
+  {
+    "id": "PROMBNB",
+    "asset": "PROM",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "0.10000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "PROM/BNB"
+  },
+  {
+    "id": "PROMBUSD",
+    "asset": "PROM",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "PROM/BUSD"
+  },
+  {
+    "id": "XRPBRL",
+    "asset": "XRP",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "XRP/BRL"
+  },
+  {
+    "id": "XRPNGN",
+    "asset": "XRP",
+    "currency": "NGN",
+    "min_size": "0.01000000",
+    "max_size": "922328.00000000",
+    "min_total": "500.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "XRP/NGN"
   }
 ]
