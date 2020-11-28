@@ -170,7 +170,7 @@ module.exports = function (program, conf) {
             diff = tb(marker.newest_time - newest_time).resize('1h').value
             console.log('\nskipping ' + diff + ' hrs of previously collected data')
           }
-          resume_markers.save(marker)
+          resume_markers.replaceOne({_id: marker.id}, marker, {upsert: true})
             .then(setupNext)
             .catch(function(err){
               if (err) throw err
@@ -234,7 +234,7 @@ module.exports = function (program, conf) {
           marker.to = marker.to ? Math.max(marker.to, cursor) : cursor
           marker.newest_time = Math.max(marker.newest_time, trade.time)
         }
-        return tradesCollection.save(trade)
+        return tradesCollection.replaceOne({_id: trade.id}, trade, {upsert: true})
       }
     })
 }

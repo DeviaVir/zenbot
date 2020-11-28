@@ -3,8 +3,8 @@ var minimist = require('minimist')
   , path = require('path')
   , n = require('numbro')
 
-module.exports = function bitfinex (conf) {
-  var s = {options: minimist(process.argv)}
+module.exports = function bitfinex(conf) {
+  var s = { options: minimist(process.argv) }
   var so = s.options
 
   var ws_connecting = false
@@ -20,28 +20,22 @@ module.exports = function bitfinex (conf) {
   var ws_orders = []
   var ws_ticker = []
   var ws_hb = []
-  var ws_walletCalcDone
+  var ws_walletCalcDone = []
   var heartbeat_interval
 
-  function publicClient () {
-    if (!public_client) public_client = new BFX().rest(2, {transform: true })
+  function publicClient() {
+    if (!public_client) public_client = new BFX().rest(2, { transform: true })
     return public_client
   }
 
-  function wsUpdateTrades (pair, trades) {
-    if (trades[0] === 'tu') {
-      trades = [trades[1]]
-    } else if (trades[0] === 'te') {
-      return
-    }
-
+  function wsUpdateTrades(pair, trades) {
     trades.forEach(function (trade) {
       var newTrade = {
-        trade_id: Number(trade.ID),
-        time: Number(trade.MTS),
-        size: Math.abs(trade.AMOUNT),
-        price: Number(trade.PRICE),
-        side: trade.AMOUNT > 0 ? 'buy' : 'sell'
+        trade_id: Number(trade.id),
+        time: Number(trade.mts),
+        size: Math.abs(trade.amount),
+        price: Number(trade.price),
+        side: trade.amount > 0 ? 'buy' : 'sell'
       }
       ws_trades.push(newTrade)
     })
@@ -50,22 +44,17 @@ module.exports = function bitfinex (conf) {
       ws_trades.shift()
   }
 
-  function wsUpdateTicker (pair, ticker) {
+  function wsUpdateTicker(pair, ticker) {
     ws_ticker = ticker
   }
 
-  function wsMessage (message) {
-    if (message.event == 'auth' && message.status == 'OK') {
-      if (so.debug) { console.log(('\nWebSockets: We are now fully connected and authenticated.').green) }
-      ws_connecting = false
-      ws_connected = true
-    }
-
+  function wsMessage(message) {
+    console.log(message)
     if (message[0] != 'undefined')
       ws_hb[message[0]] = Date.now()
   }
 
-  function wsUpdateOrder (ws_order) {
+  function wsUpdateOrder(ws_order) {
     var cid = ws_order[2]
 
     // https://bitfinex.readme.io/v2/reference#ws-auth-orders
@@ -96,7 +85,7 @@ module.exports = function bitfinex (conf) {
     ws_orders['~' + cid] = order
   }
 
-  function wsUpdateOrderCancel (ws_order) {
+  function wsUpdateOrderCancel(ws_order) {
     var cid = ws_order[2]
 
     if (!ws_orders['~' + cid]) {
@@ -110,13 +99,13 @@ module.exports = function bitfinex (conf) {
     }
 
     setTimeout(function () {
-      delete(ws_orders['~' + cid])
+      delete (ws_orders['~' + cid])
     }, 60000 * 60 * 12)
 
     wsUpdateOrder(ws_order)
   }
 
-  function wsUpdateReqOrder (error) {
+  function wsUpdateReqOrder(error) {
     if (error[6] === 'ERROR' && error[7].match(/^Invalid order: not enough .* balance for/)) {
       var cid = error[4][2]
 
@@ -144,40 +133,34 @@ module.exports = function bitfinex (conf) {
   }
 
   function updateWallet(wallets) {
-    if (typeof(wallets[0]) !== 'object') wallets = [wallets]
+    if (typeof (wallets[0]) !== 'object') wallets = [wallets]
 
     wallets.forEach(function (wallet) {
-      if (wallet[0] === conf.bitfinex.wallet) {
+      if (wallet['type'] === conf.bitfinex.wallet) {
+        ws_balance[wallet['currency'].toUpperCase()] = {}
+        ws_balance[wallet['currency'].toUpperCase()].balance = wallet['balance']
+        ws_balance[wallet['currency'].toUpperCase()].available = wallet['balanceAvailable'] ? wallet['balanceAvailable'] : 0
+        ws_balance[wallet['currency'].toUpperCase()].wallet = wallet['type']
 
-        ws_balance[wallet[1].toUpperCase()] = {}
-        ws_balance[wallet[1].toUpperCase()].balance = wallet[2]
-        ws_balance[wallet[1].toUpperCase()].available = wallet[4] ? wallet[4] : 0
-        ws_balance[wallet[1].toUpperCase()].wallet = wallet[0]
-
-        if (wallet[4] !== null) {
-          ws_walletCalcDone[wallet[1]] = true
+        if (wallet['balanceAvailable'] !== null) {
+          ws_walletCalcDone[wallet['currency']] = true
         }
       }
     })
   }
 
-  function wsConnect () {
+  function wsConnect() {
     if (ws_connected || ws_connecting) return
     ws_client.open()
+    ws_connecting = true
   }
 
-  function wsOpen () {
-    ws_client.auth()
-    ws_client.subscribeTrades(pair)
-    ws_client.subscribeTicker(pair)
-  }
-
-  function wsSubscribed (event) {
+  function wsSubscribed(event) {
     // We only use the 'trades' channel for heartbeats. That one should be most frequently updated.
     if (event.channel === 'trades') {
       ws_hb[event.chanId] = Date.now()
 
-      heartbeat_interval = setInterval(function() {
+      heartbeat_interval = setInterval(function () {
         if (ws_hb[event.chanId]) {
           var timeoutThreshold = (Number(Date.now()) - ws_timeout)
           if (timeoutThreshold > ws_hb[event.chanId]) {
@@ -189,7 +172,7 @@ module.exports = function bitfinex (conf) {
     }
   }
 
-  function wsClose () {
+  function wsClose() {
     ws_connecting = false
     ws_connected = false
     clearInterval(heartbeat_interval)
@@ -197,7 +180,7 @@ module.exports = function bitfinex (conf) {
     console.error(('\nWebSockets Error: Connection closed.').red + ' Retrying every ' + (ws_retry / 1000 + ' seconds').yellow + '.')
   }
 
-  function wsError (e) {
+  function wsError(e) {
     console.warn(e)
 
     ws_connecting = false
@@ -214,38 +197,51 @@ module.exports = function bitfinex (conf) {
     }
   }
 
-  function wsClient () {
+  function wsClient() {
     if (!ws_client) {
       if (!conf.bitfinex || !conf.bitfinex.key || conf.bitfinex.key === 'YOUR-API-KEY') {
         throw new Error('please configure your Bitfinex credentials in ' + path.resolve(__dirname, 'conf.js'))
       }
-      ws_connecting = true
       ws_connected = false
 
-      ws_client = new BFX({apiKey: conf.bitfinex.key, apiSecret: conf.bitfinex.secret, transform: true}).ws()
+      ws_client = new BFX({ apiKey: conf.bitfinex.key, apiSecret: conf.bitfinex.secret, transform: true }).ws()
 
-      ws_client
-        .on('open', wsOpen)
-        .on('close', wsClose)
-        .on('error', wsError)
-        .on('subscribed', wsSubscribed)
-        .on('message', wsMessage)
-        .on('trade', wsUpdateTrades)
-        .on('ticker', wsUpdateTicker)
-        .on('ws', updateWallet)
-        .on('wu', updateWallet)
-        .on('on', wsUpdateOrder)
-        .on('on-req', wsUpdateReqOrder)
-        .on('ou', wsUpdateOrder)
-        .on('oc', wsUpdateOrderCancel)
-        .on('miu', marginSymbolWebsocket)
-        .on('ps', assetPositionMargin)
+      ws_client.on('error', (err) => wsError(err))
+      ws_client.on('open', ws_client.auth.bind(ws_client))
+      ws_client.on('close', wsClose)
+      ws_client.on('subscribed', wsSubscribed)
+
+      ws_client.once('auth', () => {
+        if (so.debug) {
+          console.log(('\nWebSockets: We are now fully connected and authenticated.').green)
+        }
+        ws_connecting = false
+        ws_connected = true
+
+        ws_client.subscribeTrades(pair)
+        ws_client.subscribeTicker(pair)
+        ws_client.onWalletSnapshot({}, (wallets) => updateWallet(wallets))
+        ws_client.onWalletUpdate({}, (wallets) => updateWallet(wallets))
+        ws_client.onTicker({}, (ticker) => wsUpdateTicker(pair, ticker))
+        ws_client.onMessage({}, (msg) => wsMessage(msg))
+        ws_client.onTrades({}, (trades) => wsUpdateTrades(pair, trades))
+        ws_client.onOrderUpdate({}, (order) => {
+          if (order['type'] == 'oc') {
+            wsUpdateOrderCancel(order)
+          } else {
+            wsUpdateOrder(order)
+          }
+        })
+        ws_client.onMarginInfoUpdate({}, (symbol) => marginSymbolWebsocket(symbol))
+        ws_client.onPositionSnapshot({}, (positions) => assetPositionMargin(positions))
+        ws_client.onNotification({ type: 'on-req' }, (order) => wsUpdateReqOrder(order))
+      })
 
       // we need also more position updates here, but messages are completely undocumented
       // https://bitfinex.readme.io/v1/reference#ws-auth-position-updates
       // <pn|pu|pc> possible only "pu" for update
 
-      setInterval(function() {
+      setInterval(function () {
         wsConnect()
       }, ws_retry)
     }
@@ -275,7 +271,7 @@ module.exports = function bitfinex (conf) {
    */
   function assetPositionMargin(positions) {
     // skip non margin
-    if(conf.bitfinex.wallet !== 'margin') {
+    if (conf.bitfinex.wallet !== 'margin') {
       return
     }
 
@@ -295,11 +291,11 @@ module.exports = function bitfinex (conf) {
 
       let action = position[1].toLowerCase()
 
-      if(action === 'active') {
+      if (action === 'active') {
         ws_balance[asset].balance = position[2]
         ws_balance[asset].available = position[2]
         ws_balance[asset].wallet = 'margin'
-      } else if(action === 'closed') {
+      } else if (action === 'closed') {
         ws_balance[asset].balance = 0
         ws_balance[asset].available = 0
         ws_balance[asset].wallet = 'margin'
@@ -307,29 +303,29 @@ module.exports = function bitfinex (conf) {
     })
 
     // clear non open positions; which are not existing anymore
-    for(let key in ws_balance) {
-      if(assets.indexOf(key) < 0 && ws_balance[key]) {
+    for (let key in ws_balance) {
+      if (assets.indexOf(key) < 0 && ws_balance[key]) {
         ws_balance[key].balance = 0
         ws_balance[key].available = 0
 
-        if(so.debug) {
+        if (so.debug) {
           console.log('Clear asset: ' + JSON.stringify(ws_balance[key]))
         }
       }
     }
   }
 
-  function joinProduct (product_id) {
+  function joinProduct(product_id) {
     return product_id.split('-')[0] + '' + product_id.split('-')[1]
   }
 
-  function retry (method, args, cb) {
+  function retry(method, args, cb) {
     setTimeout(function () {
       exchange[method].call(exchange, args, cb)
     }, ws_retry)
   }
 
-  function waitForCalc (method, args, cb) {
+  function waitForCalc(method, args, cb) {
     setTimeout(function () {
       exchange[method].call(exchange, args, cb)
     }, 50)
@@ -350,12 +346,12 @@ module.exports = function bitfinex (conf) {
    ]
     */
 
-    if(symbol[0] !== 'sym') {
+    if (symbol[0] !== 'sym') {
       return
     }
 
     // tBTCUSD
-    if(symbol[1].substring(0, 1) !== 't') {
+    if (symbol[1].substring(0, 1) !== 't') {
       return
     }
 
@@ -375,44 +371,44 @@ module.exports = function bitfinex (conf) {
 
   function updateBalance(opts) {
     switch (conf.bitfinex.wallet) {
-    case 'margin':
-      try {
-        ws_walletCalcDone[opts.asset] = 'inProgress'
-        ws_walletCalcDone[opts.currency] = 'inProgress'
+      case 'margin':
+        try {
+          ws_walletCalcDone[opts.asset] = 'inProgress'
+          ws_walletCalcDone[opts.currency] = 'inProgress'
 
-        ws_client.send([0, 'calc', null, [
-          ['margin_base'],
-          ['margin_sym_' + opts.asset.toUpperCase() + opts.currency.toUpperCase()],
-          ['funding_sym_' + opts.currency.toUpperCase()],
-        ]])
-      } catch (e) {
-        if (so.debug) {
-          console.warn(e)
-          console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
+          ws_client.send([0, 'calc', null, [
+            ['margin_base'],
+            ['margin_sym_' + opts.asset.toUpperCase() + opts.currency.toUpperCase()],
+            ['funding_sym_' + opts.currency.toUpperCase()],
+          ]])
+        } catch (e) {
+          if (so.debug) {
+            console.warn(e)
+            console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
+          }
         }
-      }
 
-      break
+        break
 
-    case 'exchange':
-      try {
-        ws_walletCalcDone[opts.asset] = 'inProgress'
-        ws_walletCalcDone[opts.currency] = 'inProgress'
+      case 'exchange':
+        try {
+          ws_walletCalcDone[opts.asset] = 'inProgress'
+          ws_walletCalcDone[opts.currency] = 'inProgress'
 
-        ws_client.send([0, 'calc', null, [
-          ['wallet_exchange_' + opts.currency],
-          ['wallet_exchange_' + opts.asset]
-        ]])
-      } catch (e) {
-        if (so.debug) {
-          console.warn(e)
-          console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
+          ws_client.send([0, 'calc', null, [
+            ['wallet_exchange_' + opts.currency],
+            ['wallet_exchange_' + opts.asset]
+          ]])
+        } catch (e) {
+          if (so.debug) {
+            console.warn(e)
+            console.warn(('\nWebSockets Warning: Cannot send \'calc\' for getBalance update (maybe connection not open?).').red + ' Waiting for reconnect.')
+          }
         }
-      }
 
-      break
-    default:
-      console.log('not supported wallet:' + opts.wallet)
+        break
+      default:
+        console.log('not supported wallet:' + opts.wallet)
     }
   }
 
@@ -469,7 +465,7 @@ module.exports = function bitfinex (conf) {
               }
             })
             if (so.debug && trades.length > 0) console.log(new Date().toISOString(), 'got trade count ', trades.length, ' range: ',
-              new Date(trades[trades.length - 1].time).toISOString(),'-', new Date(trades[0].time).toISOString())
+              new Date(trades[trades.length - 1].time).toISOString(), '-', new Date(trades[0].time).toISOString())
             cb(null, trades)
           })
           // only 1 request per second allowed https://bitcoin.stackexchange.com/questions/36952/bitfinex-api-limit
@@ -478,7 +474,7 @@ module.exports = function bitfinex (conf) {
       } else {
         // We're live now (i.e. opts.from is set), use websockets
         if (!ws_client) { wsClient() }
-        if (typeof(ws_trades) === 'undefined') { return retry('getTrades', opts, cb) }
+        if (typeof (ws_trades) === 'undefined') { return retry('getTrades', opts, cb) }
         var trades = ws_trades.filter(function (trade) { return trade.time >= opts.from })
         cb(null, trades)
       }
@@ -531,7 +527,7 @@ module.exports = function bitfinex (conf) {
     },
 
     getQuote: function (opts, cb) {
-      cb(null, { bid : String(ws_ticker.BID), ask : String(ws_ticker.ASK) })
+      cb(null, { bid: String(ws_ticker.bid), ask: String(ws_ticker.ask) })
     },
 
     cancelOrder: function (opts, cb) {
@@ -641,7 +637,7 @@ module.exports = function bitfinex (conf) {
     getOrder: function (opts, cb) {
       var order = ws_orders['~' + opts.order_id]
 
-      if(!order) {
+      if (!order) {
         return cb(new Error('order id ' + opts.order_id + ' not found'))
       }
 

@@ -8,6 +8,30 @@
     "label": "BTC/USD"
   },
   {
+    "asset": "BTC",
+    "currency": "DAI",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/DAI"
+  },
+  {
+    "asset": "BTC",
+    "currency": "GBP",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/GBP"
+  },
+  {
+    "asset": "BTC",
+    "currency": "EUR",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/EUR"
+  },
+  {
     "asset": "ETH",
     "currency": "BTC",
     "min_size": "0.001",
@@ -22,6 +46,30 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ETH/USD"
+  },
+  {
+    "asset": "ETH",
+    "currency": "GBP",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/GBP"
+  },
+  {
+    "asset": "ETH",
+    "currency": "EUR",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/EUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "DAI",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/DAI"
   },
   {
     "asset": "BCH",
@@ -118,5 +166,221 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ZEC/LTC"
+  },
+  {
+    "asset": "BAT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAT/USD"
+  },
+  {
+    "asset": "BAT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "BAT/BTC"
+  },
+  {
+    "asset": "BAT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAT/ETH"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KUS"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KBT",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KBT"
+  },
+  {
+    "asset": "LIN",
+    "currency": "KET",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LIN/KET"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DAI/USD"
+  },
+  {
+    "asset": "OXT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "OXT/USD"
+  },
+  {
+    "asset": "OXT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.00001",
+    "label": "OXT/BTC"
+  },
+  {
+    "asset": "OXT",
+    "currency": "ETH",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "OXT/ETH"
+  },
+  {
+    "asset": "FIL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "FIL/USD"
+  },
+  {
+    "asset": "AMP",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "AMP/USD"
+  },
+  {
+    "asset": "PAX",
+    "currency": "GUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "PAX/GUS"
+  },
+  {
+    "asset": "COM",
+    "currency": "PUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "COM/PUS"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "MKR/USD"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ZRX/USD"
+  },
+  {
+    "asset": "KNC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "KNC/USD"
+  },
+  {
+    "asset": "STO",
+    "currency": "RJU",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "STO/RJU"
+  },
+  {
+    "asset": "MAN",
+    "currency": "AUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "MAN/AUS"
+  },
+  {
+    "asset": "AAV",
+    "currency": "EUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "AAV/EUS"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "SNX/USD"
+  },
+  {
+    "asset": "YFI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "YFI/USD"
+  },
+  {
+    "asset": "UMA",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "UMA/USD"
+  },
+  {
+    "asset": "BAL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BAL/USD"
+  },
+  {
+    "asset": "CRV",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "CRV/USD"
+  },
+  {
+    "asset": "REN",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "REN/USD"
+  },
+  {
+    "asset": "UNI",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "UNI/USD"
   }
 ]
