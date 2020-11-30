@@ -73,7 +73,7 @@ module.exports = function (program, conf) {
         so.interval_trade = 10
       }
       if (!so.quarentine_time) {
-        so.quarentine_time = 10
+        so.quarentine_time = 0
       }
       delete so._
       if (cmd.conf) {
@@ -98,7 +98,7 @@ module.exports = function (program, conf) {
         console.log(('--buy_max_amt is deprecated, use --deposit instead!\n').red)
         so.deposit = so.buy_max_amt
       }
-      so.selector = objectifySelector(selector || conf.selector)      
+      so.selector = objectifySelector(selector || conf.selector)
       var engine = engineFactory(s, conf)
       var collectionServiceInstance = collectionService(conf)
       if (!so.min_periods) so.min_periods = 1
