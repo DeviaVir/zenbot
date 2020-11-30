@@ -1302,5 +1302,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "REPV2/USDT"
+  },
+  {
+    "asset": "BCHA",
+    "currency": "USDT",
+    "min_size": "0.4",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BCHA/USDT"
   }
 ]

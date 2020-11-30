@@ -594,6 +594,42 @@
     "label": "NMR/USD"
   },
   {
+    "asset": "NU",
+    "currency": "BTC",
+    "min_size": "10",
+    "max_size": "1300000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "NU/BTC"
+  },
+  {
+    "asset": "NU",
+    "currency": "EUR",
+    "min_size": "10",
+    "max_size": "1300000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "NU/EUR"
+  },
+  {
+    "asset": "NU",
+    "currency": "GBP",
+    "min_size": "10",
+    "max_size": "1300000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "NU/GBP"
+  },
+  {
+    "asset": "NU",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": "1300000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "NU/USD"
+  },
+  {
     "asset": "OMG",
     "currency": "BTC",
     "min_size": "1",
