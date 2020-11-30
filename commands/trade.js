@@ -750,6 +750,7 @@ module.exports = function (program, conf) {
         })
         function saveTrade (trade) {
           trade.id = so.selector.normalized + '-' + String(trade.trade_id)
+          trade._id = trade.id
           trade.selector = so.selector.normalized
           if (!marker.from) {
             marker.from = trade_cursor
