@@ -920,14 +920,6 @@
     "label": "POA/USD"
   },
   {
-    "asset": "EVT",
-    "currency": "USD",
-    "min_size": "6662.0",
-    "max_size": "200000.0",
-    "increment": "0.0000001",
-    "label": "EVT/USD"
-  },
-  {
     "asset": "LYM",
     "currency": "USD",
     "min_size": "904.0",

@@ -520,12 +520,12 @@
     "label": "BTC/ARDR"
   },
   {
-    "asset": "XZC",
+    "asset": "FIRO",
     "currency": "BTC",
     "min_size": "0.37721614",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/XZC"
+    "label": "BTC/FIRO"
   },
   {
     "asset": "NEO",
@@ -5070,5 +5070,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/XLM"
+  },
+  {
+    "asset": "SG",
+    "currency": "USDT",
+    "min_size": "0.81740000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SG"
   }
 ]

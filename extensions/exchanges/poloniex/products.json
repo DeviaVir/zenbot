@@ -1312,6 +1312,14 @@
     "label": "Numeraire/Bitcoin"
   },
   {
+    "asset": "NU",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "NuCypher/Tether USD"
+  },
+  {
     "asset": "NXT",
     "currency": "BTC",
     "min_total": "0.0001",
