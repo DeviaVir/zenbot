@@ -13220,5 +13220,27 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "SUSD/USDT"
+  },
+  {
+    "id": "COVERETH",
+    "asset": "COVER",
+    "currency": "ETH",
+    "min_size": "0.00010000",
+    "max_size": "100000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.00010000",
+    "label": "COVER/ETH"
+  },
+  {
+    "id": "COVERBUSD",
+    "asset": "COVER",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "COVER/BUSD"
   }
 ]
