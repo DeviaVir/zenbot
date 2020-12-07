@@ -504,6 +504,14 @@
     "label": "Corn/Tether USD"
   },
   {
+    "asset": "COVER",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Cover Protocol/Tether USD"
+  },
+  {
     "asset": "CREAM",
     "currency": "USDT",
     "min_total": "1",
@@ -709,7 +717,7 @@
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Polkadot [IOU]/Tether USD"
+    "label": "Polkadot Token/Tether USD"
   },
   {
     "asset": "EOS",

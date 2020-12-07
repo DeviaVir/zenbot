@@ -414,6 +414,42 @@
     "label": "ETH/USDC"
   },
   {
+    "asset": "FIL",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "3400",
+    "increment": "0.00000001",
+    "asset_increment": "0.001",
+    "label": "FIL/BTC"
+  },
+  {
+    "asset": "FIL",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "3400",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "FIL/EUR"
+  },
+  {
+    "asset": "FIL",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "3400",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "FIL/GBP"
+  },
+  {
+    "asset": "FIL",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "3400",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "FIL/USD"
+  },
+  {
     "asset": "GNT",
     "currency": "USDC",
     "min_size": "1",

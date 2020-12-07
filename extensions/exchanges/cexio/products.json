@@ -1288,6 +1288,22 @@
     "label": "STORJ/USDT"
   },
   {
+    "asset": "KAVA",
+    "currency": "USDT",
+    "min_size": "4",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "KAVA/USDT"
+  },
+  {
+    "asset": "KSM",
+    "currency": "USDT",
+    "min_size": "0.22",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "KSM/USDT"
+  },
+  {
     "asset": "AAVE",
     "currency": "USDT",
     "min_size": "0.2",
@@ -1310,5 +1326,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "BCHA/USDT"
+  },
+  {
+    "asset": "KAVA",
+    "currency": "USD",
+    "min_size": "4",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "KAVA/USD"
   }
 ]
