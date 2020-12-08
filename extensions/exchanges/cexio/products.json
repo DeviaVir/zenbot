@@ -1240,6 +1240,14 @@
     "label": "AKRO/USDT"
   },
   {
+    "asset": "BNT",
+    "currency": "USDT",
+    "min_size": "8.2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BNT/USDT"
+  },
+  {
     "asset": "ZAP",
     "currency": "USDT",
     "min_size": "140",

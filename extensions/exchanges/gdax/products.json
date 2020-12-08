@@ -1,6 +1,15 @@
 [
   {
     "asset": "ALGO",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "260000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "ALGO/BTC"
+  },
+  {
+    "asset": "ALGO",
     "currency": "EUR",
     "min_size": "1",
     "max_size": "500000",
@@ -478,6 +487,15 @@
   },
   {
     "asset": "LINK",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "6500",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "LINK/BTC"
+  },
+  {
+    "asset": "LINK",
     "currency": "ETH",
     "min_size": "1",
     "max_size": "90000",
@@ -520,6 +538,15 @@
     "increment": "0.000001",
     "asset_increment": "1",
     "label": "LOOM/USDC"
+  },
+  {
+    "asset": "LRC",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "440000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "LRC/BTC"
   },
   {
     "asset": "LRC",
@@ -784,6 +811,15 @@
   },
   {
     "asset": "UNI",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "25000",
+    "increment": "0.00000001",
+    "asset_increment": "0.1",
+    "label": "UNI/BTC"
+  },
+  {
+    "asset": "UNI",
     "currency": "USD",
     "min_size": "1",
     "max_size": "200000",
@@ -910,6 +946,15 @@
   },
   {
     "asset": "YFI",
+    "currency": "BTC",
+    "min_size": "0.00001",
+    "max_size": "4.2",
+    "increment": "0.00001",
+    "asset_increment": "0.000001",
+    "label": "YFI/BTC"
+  },
+  {
+    "asset": "YFI",
     "currency": "USD",
     "min_size": "0.00001",
     "max_size": "5",
@@ -925,6 +970,15 @@
     "increment": "0.000001",
     "asset_increment": "0.0001",
     "label": "ZEC/BTC"
+  },
+  {
+    "asset": "ZEC",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1200",
+    "increment": "0.01",
+    "asset_increment": "0.00001",
+    "label": "ZEC/USD"
   },
   {
     "asset": "ZEC",
