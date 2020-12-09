@@ -13264,5 +13264,49 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "GHST/BUSD"
+  },
+  {
+    "id": "SUSHIUPUSDT",
+    "asset": "SUSHIUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "SUSHIUP/USDT"
+  },
+  {
+    "id": "SUSHIDOWNUSDT",
+    "asset": "SUSHIDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "SUSHIDOWN/USDT"
+  },
+  {
+    "id": "XLMUPUSDT",
+    "asset": "XLMUP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "XLMUP/USDT"
+  },
+  {
+    "id": "XLMDOWNUSDT",
+    "asset": "XLMDOWN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "XLMDOWN/USDT"
   }
 ]
