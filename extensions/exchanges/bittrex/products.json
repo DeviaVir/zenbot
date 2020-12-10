@@ -5198,5 +5198,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/UPXAU"
+  },
+  {
+    "asset": "GNC",
+    "currency": "BTC",
+    "min_size": "72.79400000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GNC"
+  },
+  {
+    "asset": "GNC",
+    "currency": "USDT",
+    "min_size": "72.79400000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GNC"
   }
 ]
