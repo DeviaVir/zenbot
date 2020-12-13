@@ -2360,6 +2360,22 @@
     "label": "SUN/UST"
   },
   {
+    "asset": "UOP",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.001",
+    "label": "UOP/USD"
+  },
+  {
+    "asset": "UOP",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "UOP/UST"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",
