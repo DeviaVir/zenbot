@@ -977,6 +977,14 @@
   },
   {
     "asset": "YFI",
+    "currency": "USD",
+    "min_size": "0.0004",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "YFI/USD"
+  },
+  {
+    "asset": "YFI",
     "currency": "USDT",
     "min_size": "0.0004",
     "max_size": null,
@@ -990,6 +998,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "YFI/ETH"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SNX/USD"
   },
   {
     "asset": "SNX",
@@ -1137,6 +1153,14 @@
   },
   {
     "asset": "SUSHI",
+    "currency": "USD",
+    "min_size": "4.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SUSHI/USD"
+  },
+  {
+    "asset": "SUSHI",
     "currency": "USDT",
     "min_size": "4.5",
     "max_size": null,
@@ -1166,6 +1190,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "CREAM/ETH"
+  },
+  {
+    "asset": "YFII",
+    "currency": "USD",
+    "min_size": "0.004",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "YFII/USD"
   },
   {
     "asset": "YFII",
