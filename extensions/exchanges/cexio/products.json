@@ -760,22 +760,6 @@
     "label": "ZRX/USDT"
   },
   {
-    "asset": "GNT",
-    "currency": "USD",
-    "min_size": "50",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "GNT/USD"
-  },
-  {
-    "asset": "GNT",
-    "currency": "USDT",
-    "min_size": "50",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "GNT/USDT"
-  },
-  {
     "asset": "LAMB",
     "currency": "USD",
     "min_size": "400",
@@ -1374,5 +1358,21 @@
     "max_size": null,
     "increment": "0.01",
     "label": "KAVA/USD"
+  },
+  {
+    "asset": "GZIL",
+    "currency": "USDT",
+    "min_size": "0.25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GZIL/USDT"
+  },
+  {
+    "asset": "GZIL",
+    "currency": "USD",
+    "min_size": "0.25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GZIL/USD"
   }
 ]

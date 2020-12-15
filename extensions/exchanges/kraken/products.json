@@ -1,5 +1,33 @@
 [
   {
+    "asset": "AAVE",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AAVE/ETH"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AAVE/EUR"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AAVE/USD"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AAVE/XBT"
+  },
+  {
     "asset": "ADA",
     "currency": "XETH",
     "min_size": "0.01",
@@ -413,6 +441,13 @@
     "label": "EOS/XBT"
   },
   {
+    "asset": "ETH2.S",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "ETH2.S/ETH"
+  },
+  {
     "asset": "XETH",
     "currency": "ZAUD",
     "min_size": "0.02",
@@ -768,6 +803,34 @@
     "min_size": "0.1",
     "increment": "0.01",
     "label": "LTC/USDT"
+  },
+  {
+    "asset": "MANA",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "MANA/ETH"
+  },
+  {
+    "asset": "MANA",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "MANA/EUR"
+  },
+  {
+    "asset": "MANA",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "MANA/USD"
+  },
+  {
+    "asset": "MANA",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "MANA/XBT"
   },
   {
     "asset": "NANO",

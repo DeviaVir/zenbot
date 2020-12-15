@@ -1,5 +1,41 @@
 [
   {
+    "asset": "AAVE",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "1200",
+    "increment": "0.00000001",
+    "asset_increment": "0.001",
+    "label": "AAVE/BTC"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "1200",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "AAVE/EUR"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "1200",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "AAVE/GBP"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "1200",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "AAVE/USD"
+  },
+  {
     "asset": "ALGO",
     "currency": "BTC",
     "min_size": "1",
@@ -160,6 +196,42 @@
     "increment": "0.01",
     "asset_increment": "0.00000001",
     "label": "BCH/USD"
+  },
+  {
+    "asset": "BNT",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "95000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "BNT/BTC"
+  },
+  {
+    "asset": "BNT",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "95000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "BNT/EUR"
+  },
+  {
+    "asset": "BNT",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "95000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "BNT/GBP"
+  },
+  {
+    "asset": "BNT",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "95000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "BNT/USD"
   },
   {
     "asset": "BTC",
@@ -772,6 +844,42 @@
     "increment": "0.01",
     "asset_increment": "0.000001",
     "label": "REP/USD"
+  },
+  {
+    "asset": "SNX",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "19000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "SNX/BTC"
+  },
+  {
+    "asset": "SNX",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "19000",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "SNX/EUR"
+  },
+  {
+    "asset": "SNX",
+    "currency": "GBP",
+    "min_size": "0.1",
+    "max_size": "19000",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "SNX/GBP"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "19000",
+    "increment": "0.0001",
+    "asset_increment": "0.001",
+    "label": "SNX/USD"
   },
   {
     "asset": "UMA",
