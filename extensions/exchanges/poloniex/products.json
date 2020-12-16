@@ -888,6 +888,22 @@
     "label": "8X8 Protocol/Tether USD"
   },
   {
+    "asset": "FARM",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Harvest Finance/Bitcoin"
+  },
+  {
+    "asset": "FARM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Harvest Finance/Tether USD"
+  },
+  {
     "asset": "FCT2",
     "currency": "BTC",
     "min_total": "0.0001",

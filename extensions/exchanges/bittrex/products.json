@@ -496,12 +496,12 @@
     "label": "ETH/ETC"
   },
   {
-    "asset": "STRAT",
+    "asset": "STRAX",
     "currency": "BTC",
     "min_size": "6.48172155",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/STRAT"
+    "label": "BTC/STRAX"
   },
   {
     "asset": "REPV2",
@@ -1080,12 +1080,12 @@
     "label": "ETH/WAVES"
   },
   {
-    "asset": "STRAT",
+    "asset": "STRAX",
     "currency": "ETH",
     "min_size": "2.47524752",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/STRAT"
+    "label": "ETH/STRAX"
   },
   {
     "asset": "DGB",
@@ -5214,5 +5214,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/GNC"
+  },
+  {
+    "asset": "CBC",
+    "currency": "USDT",
+    "min_size": "150.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CBC"
+  },
+  {
+    "asset": "FIT",
+    "currency": "BTC",
+    "min_size": "350.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FIT"
   }
 ]

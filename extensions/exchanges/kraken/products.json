@@ -15,6 +15,13 @@
   },
   {
     "asset": "AAVE",
+    "currency": "ZGBP",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "AAVE/GBP"
+  },
+  {
+    "asset": "AAVE",
     "currency": "ZUSD",
     "min_size": "0.01",
     "increment": "0.01",
