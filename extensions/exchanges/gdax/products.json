@@ -540,6 +540,42 @@
     "label": "GNT/USDC"
   },
   {
+    "asset": "GRT",
+    "currency": "BTC",
+    "min_size": "10",
+    "max_size": "2500000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "GRT/BTC"
+  },
+  {
+    "asset": "GRT",
+    "currency": "EUR",
+    "min_size": "10",
+    "max_size": "2500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "GRT/EUR"
+  },
+  {
+    "asset": "GRT",
+    "currency": "GBP",
+    "min_size": "10",
+    "max_size": "2500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "GRT/GBP"
+  },
+  {
+    "asset": "GRT",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": "2500000",
+    "increment": "0.0001",
+    "asset_increment": "1",
+    "label": "GRT/USD"
+  },
+  {
     "asset": "KNC",
     "currency": "BTC",
     "min_size": "1",

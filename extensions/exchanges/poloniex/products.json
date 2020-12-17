@@ -721,11 +721,19 @@
   },
   {
     "asset": "DOT",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Polkadot/Bitcoin"
+  },
+  {
+    "asset": "DOT",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Polkadot Token/Tether USD"
+    "label": "Polkadot/Tether USD"
   },
   {
     "asset": "EOS",
