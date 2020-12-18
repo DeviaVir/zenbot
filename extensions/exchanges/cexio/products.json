@@ -1374,5 +1374,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "GZIL/USD"
+  },
+  {
+    "asset": "TON",
+    "currency": "USDT",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TON/USDT"
   }
 ]

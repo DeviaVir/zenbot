@@ -581,6 +581,34 @@
     "label": "GNO/XBT"
   },
   {
+    "asset": "GRT",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "GRT/ETH"
+  },
+  {
+    "asset": "GRT",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "GRT/EUR"
+  },
+  {
+    "asset": "GRT",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "GRT/USD"
+  },
+  {
+    "asset": "GRT",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "GRT/XBT"
+  },
+  {
     "asset": "ICX",
     "currency": "XETH",
     "min_size": "0.01",

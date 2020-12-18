@@ -1024,6 +1024,14 @@
     "label": "Golem Network Token/Tether USD"
   },
   {
+    "asset": "GRT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "The Graph/Tether USD"
+  },
+  {
     "asset": "HEGIC",
     "currency": "USDT",
     "min_total": "1",

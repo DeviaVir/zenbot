@@ -13407,5 +13407,60 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "DF/BUSD"
+  },
+  {
+    "id": "GRTBTC",
+    "asset": "GRT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "GRT/BTC"
+  },
+  {
+    "id": "GRTETH",
+    "asset": "GRT",
+    "currency": "ETH",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "GRT/ETH"
+  },
+  {
+    "id": "GRTUSDT",
+    "asset": "GRT",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "GRT/USDT"
+  },
+  {
+    "id": "BUSDBVND",
+    "asset": "BUSD",
+    "currency": "BVND",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "30000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "BUSD/BVND"
+  },
+  {
+    "id": "USDTBVND",
+    "asset": "USDT",
+    "currency": "BVND",
+    "min_size": "0.01000000",
+    "max_size": "1000000.00000000",
+    "min_total": "30000.00",
+    "increment": "1.00",
+    "asset_increment": "0.01000000",
+    "label": "USDT/BVND"
   }
 ]
