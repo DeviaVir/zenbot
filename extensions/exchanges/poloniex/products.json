@@ -784,6 +784,14 @@
     "label": "3X Long EOS Token/Tether USD"
   },
   {
+    "asset": "ESD",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Empty Set Dollar/Tether USD"
+  },
+  {
     "asset": "ETC",
     "currency": "BTC",
     "min_total": "0.0001",

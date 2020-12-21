@@ -13442,6 +13442,72 @@
     "label": "GRT/USDT"
   },
   {
+    "id": "JUVBTC",
+    "asset": "JUV",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "JUV/BTC"
+  },
+  {
+    "id": "JUVBUSD",
+    "asset": "JUV",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "JUV/BUSD"
+  },
+  {
+    "id": "JUVUSDT",
+    "asset": "JUV",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "JUV/USDT"
+  },
+  {
+    "id": "PSGBTC",
+    "asset": "PSG",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "PSG/BTC"
+  },
+  {
+    "id": "PSGBUSD",
+    "asset": "PSG",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "PSG/BUSD"
+  },
+  {
+    "id": "PSGUSDT",
+    "asset": "PSG",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "PSG/USDT"
+  },
+  {
     "id": "BUSDBVND",
     "asset": "BUSD",
     "currency": "BVND",

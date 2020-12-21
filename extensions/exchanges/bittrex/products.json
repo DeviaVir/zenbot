@@ -400,12 +400,12 @@
     "label": "BTC/SLS"
   },
   {
-    "asset": "RADS",
+    "asset": "VAL",
     "currency": "BTC",
     "min_size": "4.55290475",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/RADS"
+    "label": "BTC/VAL"
   },
   {
     "asset": "DCR",
@@ -5230,5 +5230,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FIT"
+  },
+  {
+    "asset": "ACXT",
+    "currency": "USDT",
+    "min_size": "3.88000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ACXT"
   }
 ]
