@@ -2056,6 +2056,14 @@
     "label": "Filecoin [IOU]/Tether USD"
   },
   {
+    "asset": "XFLR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Spark [IOU]/Tether USD"
+  },
+  {
     "asset": "XMR",
     "currency": "BTC",
     "min_total": "0.0001",

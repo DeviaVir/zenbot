@@ -1009,6 +1009,14 @@
   },
   {
     "asset": "KNC",
+    "currency": "USD",
+    "min_size": "8",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "KNC/USD"
+  },
+  {
+    "asset": "KNC",
     "currency": "USDT",
     "min_size": "8",
     "max_size": null,
@@ -1025,6 +1033,14 @@
   },
   {
     "asset": "BAL",
+    "currency": "USD",
+    "min_size": "0.6",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BAL/USD"
+  },
+  {
+    "asset": "BAL",
     "currency": "USDT",
     "min_size": "0.6",
     "max_size": null,
@@ -1038,6 +1054,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "BAL/ETH"
+  },
+  {
+    "asset": "CRV",
+    "currency": "USD",
+    "min_size": "15",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "CRV/USD"
   },
   {
     "asset": "CRV",
@@ -1217,6 +1241,14 @@
   },
   {
     "asset": "REN",
+    "currency": "USD",
+    "min_size": "25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "REN/USD"
+  },
+  {
+    "asset": "REN",
     "currency": "USDT",
     "min_size": "25",
     "max_size": null,
@@ -1382,5 +1414,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "TON/USDT"
+  },
+  {
+    "asset": "TON",
+    "currency": "USD",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TON/USD"
   }
 ]

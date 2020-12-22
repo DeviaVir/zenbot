@@ -592,12 +592,12 @@
     "label": "BTC/GBYTE"
   },
   {
-    "asset": "GNT",
+    "asset": "GLM",
     "currency": "BTC",
     "min_size": "52.63157895",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/GNT"
+    "label": "BTC/GLM"
   },
   {
     "asset": "MORE",
@@ -608,12 +608,12 @@
     "label": "BTC/MORE"
   },
   {
-    "asset": "GNT",
+    "asset": "GLM",
     "currency": "ETH",
     "min_size": "19.92031873",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "ETH/GNT"
+    "label": "ETH/GLM"
   },
   {
     "asset": "REPV2",
@@ -5238,5 +5238,61 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ACXT"
+  },
+  {
+    "asset": "TEA",
+    "currency": "BTC",
+    "min_size": "47.62000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TEA"
+  },
+  {
+    "asset": "TEA",
+    "currency": "USDT",
+    "min_size": "47.62000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/TEA"
+  },
+  {
+    "asset": "GRT",
+    "currency": "BTC",
+    "min_size": "12.41000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GRT"
+  },
+  {
+    "asset": "GRT",
+    "currency": "ETH",
+    "min_size": "12.41000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/GRT"
+  },
+  {
+    "asset": "GRT",
+    "currency": "EUR",
+    "min_size": "12.41000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/GRT"
+  },
+  {
+    "asset": "GRT",
+    "currency": "USD",
+    "min_size": "12.41000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/GRT"
+  },
+  {
+    "asset": "GRT",
+    "currency": "USDT",
+    "min_size": "12.41000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GRT"
   }
 ]
