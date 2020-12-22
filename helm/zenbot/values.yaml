@@ -1,0 +1,40 @@
+# ZenBot Values
+replicaCount: 1
+image: "fculpo/zenbot:latest"
+service:
+  type: "LoadBalancer"
+  port: 17365
+  externalPort: 17365
+
+persistence:
+  storageClass: ""
+  accessModes: 
+    - ReadWriteOnce
+  size: "8Gi"
+
+ingress:
+  enabled: false
+  annotations: []
+  hostname: "zenbot.example.com"
+  tls: false
+
+
+# Dependenciy Charts - https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+mongodb:
+  service:
+    type: LoadBalancer
+  architecture: standalone
+  auth:
+    rootPassword:  ""
+    username: "admin"
+    password: ""
+    database: "zenbot4"
+
+  persistence:
+    enabled: true
+  #  existingClaim: "-"
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 8Gi
+  #  mountPath: /bitnami/mongodb
