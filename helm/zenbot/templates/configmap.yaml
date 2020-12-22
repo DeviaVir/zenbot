@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ template "zenbot.fullname" . }}-config
+data:
+  conf.js: |
+{{ .Files.Get "resources/conf.js" | indent 4 }}

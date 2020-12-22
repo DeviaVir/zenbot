@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "zenbot.fullname" . }}
+  labels:
+    chart: {{ template "zenbot.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "zenbot.fullname" . }}
+  replicas: {{ default 1 .Values.replicaCount | int }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "zenbot.fullname" . }}
+    spec:
+      containers:
+        - name: {{ template "zenbot.fullname" . }}
+          image: "{{ .Values.image }}"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ZENBOT_MONGODB_HOST
+              value: {{ template "zenbot.fullname" . }}-mongodb
+          ports:
+            - containerPort: {{ .Values.service.port | int }}
+          volumeMounts:
+            - mountPath: "/app/simulations/"
+              name: simulations
+            - name: confjs
+              mountPath: /app/conf.js
+              readOnly: true        
+              subPath: "conf.js"      
+      volumes:
+        - name: simulations
+          persistentVolumeClaim:
+            claimName: {{ template "zenbot.fullname" . }}-simulations-pvc
+        - name: confjs
+          configMap:
+            name: {{ template "zenbot.fullname" . }}-config
