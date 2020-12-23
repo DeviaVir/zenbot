@@ -1392,6 +1392,22 @@
     "label": "KAVA/USD"
   },
   {
+    "asset": "GLM",
+    "currency": "USDT",
+    "min_size": "60",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GLM/USDT"
+  },
+  {
+    "asset": "GLM",
+    "currency": "USD",
+    "min_size": "60",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "GLM/USD"
+  },
+  {
     "asset": "GZIL",
     "currency": "USDT",
     "min_size": "0.25",
