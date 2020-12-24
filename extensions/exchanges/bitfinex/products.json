@@ -2331,7 +2331,7 @@
     "asset": "B21",
     "currency": "X:U",
     "min_size": "0.001",
-    "max_size": "10000.0",
+    "max_size": "100000.0",
     "increment": "0.000001",
     "label": "B21/X:U"
   },
@@ -2339,7 +2339,7 @@
     "asset": "B21",
     "currency": "X:U",
     "min_size": "0.001",
-    "max_size": "10000.0",
+    "max_size": "100000.0",
     "increment": "0.000001",
     "label": "B21/X:U"
   },
