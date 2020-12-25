@@ -1432,6 +1432,14 @@
     "label": "OmiseGO/Bitcoin"
   },
   {
+    "asset": "ONEINCH",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "1INCH Token/Tether USD"
+  },
+  {
     "asset": "PAX",
     "currency": "USDT",
     "min_total": "1",
