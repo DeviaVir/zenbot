@@ -14,7 +14,6 @@ RUN chown -R node:node /app
 COPY --chown=node . /app
 COPY --chown=node --from=builder /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
 COPY --chown=node --from=builder /app/node_modules /app/node_modules/
-COPY --chown=node --from=builder /app/dist /app/dist/
 
 USER node
 ENV NODE_ENV production
