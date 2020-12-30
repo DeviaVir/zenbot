@@ -13572,5 +13572,71 @@
     "increment": "0.00000100",
     "asset_increment": "1.00000000",
     "label": "REEF/USDT"
+  },
+  {
+    "id": "OGBTC",
+    "asset": "OG",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "OG/BTC"
+  },
+  {
+    "id": "OGUSDT",
+    "asset": "OG",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "OG/USDT"
+  },
+  {
+    "id": "ATMBTC",
+    "asset": "ATM",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "ATM/BTC"
+  },
+  {
+    "id": "ATMUSDT",
+    "asset": "ATM",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ATM/USDT"
+  },
+  {
+    "id": "ASRBTC",
+    "asset": "ASR",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "ASR/BTC"
+  },
+  {
+    "id": "ASRUSDT",
+    "asset": "ASR",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ASR/USDT"
   }
 ]
