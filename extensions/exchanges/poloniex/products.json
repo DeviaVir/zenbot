@@ -128,6 +128,14 @@
     "label": "Travala.com Token/Tether USD"
   },
   {
+    "asset": "BAC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Basis Cash/Tether USD"
+  },
+  {
     "asset": "BADGER",
     "currency": "USDT",
     "min_total": "1",
@@ -150,6 +158,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Band Protocol Token/Tether USD"
+  },
+  {
+    "asset": "BAS",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Basis Share/Tether USD"
   },
   {
     "asset": "BAT",
@@ -1518,6 +1534,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Rarible/Tether USD"
+  },
+  {
+    "asset": "REEF",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Reef Finance/Tether USD"
   },
   {
     "asset": "REN",
