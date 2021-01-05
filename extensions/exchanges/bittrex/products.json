@@ -800,22 +800,6 @@
     "label": "ETH/SNT"
   },
   {
-    "asset": "MCO",
-    "currency": "BTC",
-    "min_size": "0.74859265",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/MCO"
-  },
-  {
-    "asset": "MCO",
-    "currency": "ETH",
-    "min_size": "0.28430527",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/MCO"
-  },
-  {
     "asset": "ADT",
     "currency": "BTC",
     "min_size": "757.57575758",
