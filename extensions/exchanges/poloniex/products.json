@@ -1192,6 +1192,14 @@
     "label": "3X Long Chainlink Token/Tether USD"
   },
   {
+    "asset": "LON",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tokenlon/Tether USD"
+  },
+  {
     "asset": "LOOM",
     "currency": "BTC",
     "min_total": "0.0001",
