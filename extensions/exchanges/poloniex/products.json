@@ -1600,6 +1600,14 @@
     "label": "Darwinia Network Native Token/Tether USD"
   },
   {
+    "asset": "ROOK",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "KeeperDAO/Tether USD"
+  },
+  {
     "asset": "RSR",
     "currency": "USDT",
     "min_total": "1",
