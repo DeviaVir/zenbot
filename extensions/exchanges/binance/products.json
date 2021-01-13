@@ -13726,5 +13726,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "GRT/EUR"
+  },
+  {
+    "id": "BTCSTBTC",
+    "asset": "BTCST",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "BTCST/BTC"
+  },
+  {
+    "id": "BTCSTBUSD",
+    "asset": "BTCST",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BTCST/BUSD"
+  },
+  {
+    "id": "BTCSTUSDT",
+    "asset": "BTCST",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BTCST/USDT"
   }
 ]

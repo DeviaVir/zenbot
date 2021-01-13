@@ -344,6 +344,14 @@
     "label": "Bancor/Bitcoin"
   },
   {
+    "asset": "BOND",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "BarnBridge/Tether USD"
+  },
+  {
     "asset": "BSVBEAR",
     "currency": "USDT",
     "min_total": "1",
@@ -550,6 +558,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Curve Finance/Tether USD"
+  },
+  {
+    "asset": "CUDOS",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "CudosToken/Tether USD"
   },
   {
     "asset": "CUSDT",
@@ -1470,6 +1486,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Paxos Standard/Tether USD"
+  },
+  {
+    "asset": "PBTC35A",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Poolin pBTC35A/Tether USD"
   },
   {
     "asset": "PEARL",
