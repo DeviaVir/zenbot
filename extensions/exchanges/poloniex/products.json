@@ -512,6 +512,14 @@
     "label": "Chromia/Tether USD"
   },
   {
+    "asset": "COMBO",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Furucombo/Tether USD"
+  },
+  {
     "asset": "COMP",
     "currency": "ETH",
     "min_total": "0.0001",

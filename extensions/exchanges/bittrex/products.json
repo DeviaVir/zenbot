@@ -3976,20 +3976,20 @@
     "label": "USDT/KLV"
   },
   {
-    "asset": "LOKI",
+    "asset": "OXEN",
     "currency": "BTC",
     "min_size": "5.45000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "BTC/LOKI"
+    "label": "BTC/OXEN"
   },
   {
-    "asset": "LOKI",
+    "asset": "OXEN",
     "currency": "USDT",
     "min_size": "5.45000000",
     "max_size": "1000000",
     "increment": "0.00000001",
-    "label": "USDT/LOKI"
+    "label": "USDT/OXEN"
   },
   {
     "asset": "USDN",
@@ -5318,5 +5318,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SAND"
+  },
+  {
+    "asset": "PANDO",
+    "currency": "USDT",
+    "min_size": "6.81000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PANDO"
   }
 ]
