@@ -1960,6 +1960,14 @@
     "label": "Tellor/Tether USD"
   },
   {
+    "asset": "TRU",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TrueFi/Tether USD"
+  },
+  {
     "asset": "TRX",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -2006,6 +2014,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "3X Long TRX Token/Tether USD"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "USDC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TrueUSD/USD Coin"
+  },
+  {
+    "asset": "TUSD",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TrueUSD/Tether USD"
   },
   {
     "asset": "UMA",

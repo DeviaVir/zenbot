@@ -945,6 +945,14 @@
   },
   {
     "asset": "UMA",
+    "currency": "USD",
+    "min_size": "0.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UMA/USD"
+  },
+  {
+    "asset": "UMA",
     "currency": "USDT",
     "min_size": "0.5",
     "max_size": null,
@@ -1094,6 +1102,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "WBTC/ETH"
+  },
+  {
+    "asset": "DAI",
+    "currency": "USD",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "DAI/USD"
   },
   {
     "asset": "DAI",

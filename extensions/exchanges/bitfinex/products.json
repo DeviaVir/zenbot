@@ -931,7 +931,7 @@
     "asset": "ESS",
     "currency": "USD",
     "min_size": "2046.0",
-    "max_size": "200000.0",
+    "max_size": "20000000.0",
     "increment": "0.0000001",
     "label": "ESS/USD"
   },
@@ -2302,6 +2302,14 @@
     "max_size": "50000.0",
     "increment": "0.000001",
     "label": "EXR/D:B"
+  },
+  {
+    "asset": "DOT",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "2000.0",
+    "increment": "0.000001",
+    "label": "DOT/BTC"
   },
   {
     "asset": "BTC",
