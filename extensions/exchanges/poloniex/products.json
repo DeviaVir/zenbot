@@ -16,6 +16,22 @@
     "label": "Aave/Tether USD"
   },
   {
+    "asset": "ADABEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Cardano Token/Tether USD"
+  },
+  {
+    "asset": "ADABULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Cardano Token/Tether USD"
+  },
+  {
     "asset": "ADEL",
     "currency": "USDT",
     "min_total": "1",
@@ -1296,6 +1312,22 @@
     "label": "Litecoin/Tether USD"
   },
   {
+    "asset": "LTCBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Litecoin Token/Tether USD"
+  },
+  {
+    "asset": "LTCBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Litecoin Token/Tether USD"
+  },
+  {
     "asset": "MANA",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -2166,6 +2198,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Spark [IOU]/Tether USD"
+  },
+  {
+    "asset": "XLMBEAR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Short Stellar Token/Tether USD"
+  },
+  {
+    "asset": "XLMBULL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "3X Long Stellar Token/Tether USD"
   },
   {
     "asset": "XMR",

@@ -346,7 +346,7 @@
   {
     "asset": "ETH",
     "currency": "BTC",
-    "min_size": "0.01000000",
+    "min_size": "0.00200000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ETH"
@@ -1426,7 +1426,7 @@
   {
     "asset": "ETH",
     "currency": "USD",
-    "min_size": "0.01338091",
+    "min_size": "0.00200000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/ETH"
