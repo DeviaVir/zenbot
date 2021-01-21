@@ -1017,6 +1017,42 @@
     "label": "XLM/USD"
   },
   {
+    "asset": "XRP",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "XRP/BTC"
+  },
+  {
+    "asset": "XRP",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "XRP/EUR"
+  },
+  {
+    "asset": "XRP",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "XRP/GBP"
+  },
+  {
+    "asset": "XRP",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "500000",
+    "increment": "0.0001",
+    "asset_increment": "0.000001",
+    "label": "XRP/USD"
+  },
+  {
     "asset": "XTZ",
     "currency": "BTC",
     "min_size": "1",

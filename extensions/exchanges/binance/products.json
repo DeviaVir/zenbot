@@ -13792,5 +13792,27 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "TRU/USDT"
+  },
+  {
+    "id": "DEXEETH",
+    "asset": "DEXE",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "DEXE/ETH"
+  },
+  {
+    "id": "DEXEBUSD",
+    "asset": "DEXE",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "DEXE/BUSD"
   }
 ]

@@ -1993,6 +1993,14 @@
   },
   {
     "asset": "TRU",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TrueFi/Bitcoin"
+  },
+  {
+    "asset": "TRU",
     "currency": "USDT",
     "min_total": "1",
     "max_size": null,
@@ -2118,6 +2126,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Wrapped Bitcoin/Tether USD"
+  },
+  {
+    "asset": "WETH",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Wrapped Ethereum on Tron/Tether USD"
   },
   {
     "asset": "WIN",

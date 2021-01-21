@@ -5342,5 +5342,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MTC"
+  },
+  {
+    "asset": "LBC",
+    "currency": "ETH",
+    "min_size": "28.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/LBC"
+  },
+  {
+    "asset": "LBC",
+    "currency": "USD",
+    "min_size": "28.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/LBC"
   }
 ]
