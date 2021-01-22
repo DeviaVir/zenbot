@@ -8,7 +8,7 @@
     "run-parallel-limit": "^1.0.6",
     "shelljs": "^0.8.4",
     "strip-ansi": "^4.0.0",
-    "snyk": "^1.437.4"
+    "snyk": "^1.438.0"
   },
   "scripts": {
     "snyk-protect": "snyk protect",
