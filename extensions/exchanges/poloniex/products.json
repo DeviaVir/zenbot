@@ -1024,6 +1024,14 @@
     "label": "FalconSwap/Tether USD"
   },
   {
+    "asset": "FTT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "FTX Token/Tether USD"
+  },
+  {
     "asset": "FUND",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1254,6 +1262,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Livepeer/Bitcoin"
+  },
+  {
+    "asset": "LPT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Livepeer/Tether USD"
   },
   {
     "asset": "LRC",
@@ -1758,6 +1774,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Synthetix Network Token/Tether USD"
+  },
+  {
+    "asset": "SRM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Serum/Tether USD"
   },
   {
     "asset": "STAKE",
