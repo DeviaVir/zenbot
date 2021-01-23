@@ -5358,5 +5358,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/LBC"
+  },
+  {
+    "asset": "OGT",
+    "currency": "BTC",
+    "min_size": "9.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/OGT"
+  },
+  {
+    "asset": "OGT",
+    "currency": "USDT",
+    "min_size": "9.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/OGT"
   }
 ]
