@@ -13814,5 +13814,60 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "DEXE/BUSD"
+  },
+  {
+    "id": "EOSEUR",
+    "asset": "EOS",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "EOS/EUR"
+  },
+  {
+    "id": "LTCBRL",
+    "asset": "LTC",
+    "currency": "BRL",
+    "min_size": "0.00001000",
+    "max_size": "45000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/BRL"
+  },
+  {
+    "id": "USDCBUSD",
+    "asset": "USDC",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "USDC/BUSD"
+  },
+  {
+    "id": "TUSDBUSD",
+    "asset": "TUSD",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TUSD/BUSD"
+  },
+  {
+    "id": "PAXBUSD",
+    "asset": "PAX",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "PAX/BUSD"
   }
 ]
