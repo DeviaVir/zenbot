@@ -39,7 +39,7 @@ module.exports = function container(conf) {
     var asset = product_id.split('-')[0]
     var currency = product_id.split('-')[1]
 
-    var assetsToFix = ['ADA', 'ANT', 'BAL', 'BAT', 'BCH', 'CRV', 'DAI', 'DOT', 'DASH', 'EOS', 'FIL', 'GNO', 'GRT', 'ICX', 'KNC', 'KSM', 'LSK', 'OMG', 'OXT', 'SC', 'SNX', 'TRX', 'UNI', 'XTZ', 'YFI']
+    var assetsToFix = ['AAVE', 'ADA', 'ALGO', 'ANT', 'ATOM', 'BAL', 'BAT', 'BCH', 'COMP', 'CRV', 'DAI', 'DOT', 'DASH', 'EOS', 'FIL', 'GNO', 'GRT', 'ICX', 'KAVA', 'KEEP',  'KNC', 'KSM', 'LINK', 'LSK', 'MANA', 'NANO', 'OMG', 'OXT', 'PAXG', 'QTUM', 'REPV2', 'SC', 'SNX', 'STORJ', 'TBTC', 'TRX', 'UNI', 'USDT', 'USDC', 'WAVES', 'XTZ', 'YFI']
     if (assetsToFix.indexOf(asset) >= 0 && currency.length > 3) {
       currency = currency.substring(1)
     }
