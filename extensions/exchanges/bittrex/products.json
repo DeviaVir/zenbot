@@ -5374,5 +5374,69 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/OGT"
+  },
+  {
+    "asset": "MCH",
+    "currency": "USDT",
+    "min_size": "42.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MCH"
+  },
+  {
+    "asset": "MYST",
+    "currency": "USDT",
+    "min_size": "15.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MYST"
+  },
+  {
+    "asset": "AMC",
+    "currency": "BTC",
+    "min_size": "0.18750000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AMC"
+  },
+  {
+    "asset": "AMC",
+    "currency": "USDT",
+    "min_size": "0.18750000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/AMC"
+  },
+  {
+    "asset": "AMC",
+    "currency": "USD",
+    "min_size": "0.18750000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/AMC"
+  },
+  {
+    "asset": "GME",
+    "currency": "BTC",
+    "min_size": "0.00821917",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GME"
+  },
+  {
+    "asset": "GME",
+    "currency": "USDT",
+    "min_size": "0.00821917",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GME"
+  },
+  {
+    "asset": "GME",
+    "currency": "USD",
+    "min_size": "0.00821917",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/GME"
   }
 ]

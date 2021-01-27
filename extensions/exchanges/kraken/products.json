@@ -623,6 +623,41 @@
     "label": "FIL/XBT"
   },
   {
+    "asset": "FLOW",
+    "currency": "XETH",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "FLOW/ETH"
+  },
+  {
+    "asset": "FLOW",
+    "currency": "ZEUR",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "FLOW/EUR"
+  },
+  {
+    "asset": "FLOW",
+    "currency": "ZGBP",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "FLOW/GBP"
+  },
+  {
+    "asset": "FLOW",
+    "currency": "ZUSD",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "FLOW/USD"
+  },
+  {
+    "asset": "FLOW",
+    "currency": "XXBT",
+    "min_size": "0.01",
+    "increment": "0.01",
+    "label": "FLOW/XBT"
+  },
+  {
     "asset": "GNO",
     "currency": "XETH",
     "min_size": "0.03",
