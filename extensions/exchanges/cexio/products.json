@@ -881,14 +881,6 @@
   },
   {
     "asset": "DOT",
-    "currency": "USD",
-    "min_size": "1.25",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "DOT/USD"
-  },
-  {
-    "asset": "DOT",
     "currency": "USDT",
     "min_size": "1.25",
     "max_size": null,
