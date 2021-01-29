@@ -13935,5 +13935,71 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "TWT/USDT"
+  },
+  {
+    "id": "FIROBTC",
+    "asset": "FIRO",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "FIRO/BTC"
+  },
+  {
+    "id": "FIROETH",
+    "asset": "FIRO",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "FIRO/ETH"
+  },
+  {
+    "id": "FIROUSDT",
+    "asset": "FIRO",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "FIRO/USDT"
+  },
+  {
+    "id": "BETHETH",
+    "asset": "BETH",
+    "currency": "ETH",
+    "min_size": "0.00010000",
+    "max_size": "100000.00000000",
+    "min_total": "0.01000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.00010000",
+    "label": "BETH/ETH"
+  },
+  {
+    "id": "DOGEEUR",
+    "asset": "DOGE",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "DOGE/EUR"
+  },
+  {
+    "id": "DOGETRY",
+    "asset": "DOGE",
+    "currency": "TRY",
+    "min_size": "1.00000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "DOGE/TRY"
   }
 ]

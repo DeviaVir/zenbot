@@ -10,7 +10,7 @@
   {
     "asset": "DOGE",
     "currency": "BTC",
-    "min_size": "1000.00000000",
+    "min_size": "100.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DOGE"
@@ -1538,7 +1538,7 @@
   {
     "asset": "DOGE",
     "currency": "USDT",
-    "min_size": "1017.92912499",
+    "min_size": "100.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DOGE"
@@ -3594,7 +3594,7 @@
   {
     "asset": "DOGE",
     "currency": "USD",
-    "min_size": "1000.00000000",
+    "min_size": "100.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/DOGE"
@@ -3602,7 +3602,7 @@
   {
     "asset": "DOGE",
     "currency": "ETH",
-    "min_size": "1000.00000000",
+    "min_size": "100.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/DOGE"
