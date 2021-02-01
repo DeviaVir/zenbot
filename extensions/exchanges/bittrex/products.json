@@ -5566,5 +5566,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MSTR"
+  },
+  {
+    "asset": "PHNX",
+    "currency": "USDT",
+    "min_size": "103.71654000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PHNX"
   }
 ]
