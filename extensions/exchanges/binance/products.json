@@ -14001,5 +14001,38 @@
     "increment": "0.00010000",
     "asset_increment": "1.00000000",
     "label": "DOGE/TRY"
+  },
+  {
+    "id": "DOGEAUD",
+    "asset": "DOGE",
+    "currency": "AUD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "DOGE/AUD"
+  },
+  {
+    "id": "DOGEBRL",
+    "asset": "DOGE",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "DOGE/BRL"
+  },
+  {
+    "id": "DOTNGN",
+    "asset": "DOT",
+    "currency": "NGN",
+    "min_size": "0.00001000",
+    "max_size": "900.00000000",
+    "min_total": "500.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00001000",
+    "label": "DOT/NGN"
   }
 ]
