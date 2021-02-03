@@ -417,6 +417,14 @@
   },
   {
     "asset": "BTC",
+    "currency": "TUSD",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin/TrueUSD"
+  },
+  {
+    "asset": "BTC",
     "currency": "USDC",
     "min_total": "0.0001",
     "max_size": null,
@@ -910,6 +918,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Ethereum/Tron"
+  },
+  {
+    "asset": "ETH",
+    "currency": "TUSD",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ethereum/TrueUSD"
   },
   {
     "asset": "ETH",

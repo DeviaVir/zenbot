@@ -5574,5 +5574,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/PHNX"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "EUR",
+    "min_size": "96.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/DOGE"
   }
 ]
