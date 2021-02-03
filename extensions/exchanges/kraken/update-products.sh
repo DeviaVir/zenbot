@@ -67,7 +67,7 @@ function addProduct(base, quote, altname) {
     asset: base,
     currency: quote,
     min_size: min_size,
-    increment: '0.01',
+    increment: '0.00100000',
     label: getPair(base) + '/' + getPair(quote)
   })
 }
