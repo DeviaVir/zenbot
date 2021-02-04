@@ -14045,5 +14045,60 @@
     "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "PROS/ETH"
+  },
+  {
+    "id": "LITBTC",
+    "asset": "LIT",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "LIT/BTC"
+  },
+  {
+    "id": "LITBUSD",
+    "asset": "LIT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LIT/BUSD"
+  },
+  {
+    "id": "LITUSDT",
+    "asset": "LIT",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "LIT/USDT"
+  },
+  {
+    "id": "BTCVAI",
+    "asset": "BTC",
+    "currency": "VAI",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/VAI"
+  },
+  {
+    "id": "BUSDVAI",
+    "asset": "BUSD",
+    "currency": "VAI",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "BUSD/VAI"
   }
 ]
