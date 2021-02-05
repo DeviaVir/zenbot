@@ -39,10 +39,34 @@ module.exports = function container(conf) {
     var asset = product_id.split('-')[0]
     var currency = product_id.split('-')[1]
 
-    var assetsToFix = ['BCH', 'DASH', 'EOS', 'GNO']
-    if (assetsToFix.indexOf(asset) >= 0 && currency.length > 3) {
-      currency = currency.substring(1)
+    var fixMap = {
+      'XETH': 'ETH',
+      'XXBT': 'XBT',
+      'XLTC': 'LTC',
+      'XXDG': 'XDG',
+      'XETC': 'ETC',
+      'XMLN': 'MLN',
+      'XREP': 'REP',
+      'XXRP': 'XRP',
+      'XXLM': 'XLM',
+      'XXMR': 'XMR',
+      'XZEC': 'ZEC',
+      'ZAUD': 'AUD',
+      'ZEUR': 'EUR',
+      'ZGBP': 'GBP',
+      'ZUSD': 'USD',
+      'ZJPY': 'JPY',
+      'ZCAD': 'CAD',
     }
+
+    if (asset in fixMap) {
+      asset = fixMap[asset]
+    }
+
+    if (currency in fixMap) {
+      currency = fixMap[currency]
+    }
+
     return asset + currency
   }
 
