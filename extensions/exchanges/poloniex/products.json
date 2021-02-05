@@ -56,6 +56,14 @@
     "label": "Akropolis/Tether USD"
   },
   {
+    "asset": "ALPHA",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Alpha Finance/Tether USD"
+  },
+  {
     "asset": "AMP",
     "currency": "BTC",
     "min_total": "0.0001",
