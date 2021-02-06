@@ -2,6 +2,8 @@ var tb = require('timebucket')
   , crypto = require('crypto')
   , objectifySelector = require('../lib/objectify-selector')
   , collectionService = require('../lib/services/collection-service')
+  , debug = require('../lib/debug')
+  , moment = require('moment')
 
 module.exports = function (program, conf) {
   program
@@ -12,6 +14,8 @@ module.exports = function (program, conf) {
     .option('-d, --days <days>', 'number of days to acquire (default: ' + conf.days + ')', Number, conf.days)
     .option('--start <unix_in_ms>', 'lower bound as unix time in ms', Number, -1)
     .option('--end <unix_in_ms>', 'upper bound as unix time in ms', Number, -1)
+    .option('--start_date <datetime>', 'start date in format ("YYYYMMDDhhmm")', Number, -1)
+    .option('--end_date <datetime>', 'end date in format ("YYYYMMDDhhmm")', Number, -1)
     .action(function (selector, cmd) {
       selector = objectifySelector(selector || conf.selector)
       var exchange = require(`../extensions/exchanges/${selector.exchange_id}/exchange`)(conf)
@@ -50,7 +54,11 @@ module.exports = function (program, conf) {
         target_time = new Date().getTime() - (86400000 * cmd.days)
       }
       else {
-        if(cmd.start >= 0 && cmd.end >= 0){
+        if (cmd.start_date >= 0 && cmd.end_date >= 0) {
+          start_time = moment(cmd.start_date, 'YYYYMMDDhhmm').valueOf()
+          target_time = moment(cmd.end_date, 'YYYYMMDDhhmm').valueOf()
+        }
+        else if(cmd.start >= 0 && cmd.end >= 0){
           start_time = cmd.start
           target_time = cmd.end
         } else {
