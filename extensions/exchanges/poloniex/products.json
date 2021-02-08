@@ -2024,6 +2024,14 @@
     "label": "Tendies/Tether USD"
   },
   {
+    "asset": "TORN",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Tornado Cash/Tether USD"
+  },
+  {
     "asset": "TRADE",
     "currency": "USDT",
     "min_total": "1",
