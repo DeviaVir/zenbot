@@ -1827,7 +1827,7 @@
     "asset": "DOT",
     "currency": "USD",
     "min_size": "0.2",
-    "max_size": "10000.0",
+    "max_size": "50000.0",
     "increment": "0.0001",
     "label": "DOT/USD"
   },
@@ -1875,7 +1875,7 @@
     "asset": "DOT",
     "currency": "UST",
     "min_size": "0.2",
-    "max_size": "10000.0",
+    "max_size": "50000.0",
     "increment": "0.0000001",
     "label": "DOT/UST"
   },
@@ -2306,9 +2306,9 @@
   {
     "asset": "DOT",
     "currency": "BTC",
-    "min_size": "0.001",
-    "max_size": "2000.0",
-    "increment": "0.000001",
+    "min_size": "0.2",
+    "max_size": "50000.0",
+    "increment": "0.0000001",
     "label": "DOT/BTC"
   },
   {
@@ -2467,7 +2467,7 @@
     "asset": "DOT",
     "currency": "F0:",
     "min_size": "0.001",
-    "max_size": "250000.0",
+    "max_size": "50000.0",
     "increment": "0.000001",
     "label": "DOT/F0:"
   },
