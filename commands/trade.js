@@ -182,9 +182,10 @@ module.exports = function (program, conf) {
         if (!statsonly) {
           console.log()
           var output_lines = []
-          output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
-          output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-          output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
+          output_lines.push('Strategy: ' + so.strategy)
+          output_lines.push('Last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+          output_lines.push('Buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+          output_lines.push('vs. Buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
           output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
         }
         // Build stats for UI
@@ -212,8 +213,8 @@ module.exports = function (program, conf) {
         })
         if (s.my_trades.length && sells > 0) {
           if (!statsonly) {
-            output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
-            output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+            output_lines.push('Win/Loss: ' + (sells - losses) + '/' + losses)
+            output_lines.push('Error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
           }
 
           //for API
@@ -292,11 +293,12 @@ module.exports = function (program, conf) {
         var tmp_balance = n(s.balance.currency).add(n(s.period.close).multiply(s.balance.asset)).format('0.00000000')
 
         var profit = s.start_capital ? n(tmp_balance).subtract(s.start_capital).divide(s.start_capital) : n(0)
-        output_lines.push('last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
+        output_lines.push('Strategy: ' + so.strategy)
+        output_lines.push('Last balance: ' + n(tmp_balance).format('0.00000000').yellow + ' (' + profit.format('0.00%') + ')')
         var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(tmp_balance)
         var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
-        output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
-        output_lines.push('vs. buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
+        output_lines.push('Buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+        output_lines.push('vs. Buy hold: ' + n(tmp_balance).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
         output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
         // Build stats for UI
         s.stats = {
@@ -322,8 +324,8 @@ module.exports = function (program, conf) {
           }
         })
         if (s.my_trades.length && sells > 0) {
-          output_lines.push('win/loss: ' + (sells - losses) + '/' + losses)
-          output_lines.push('error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
+          output_lines.push('Win/Loss: ' + (sells - losses) + '/' + losses)
+          output_lines.push('Error rate: ' + (sells ? n(losses).divide(sells).format('0.00%') : '0.00%').yellow)
 
           //for API
           s.stats.win = (sells - losses)
@@ -770,4 +772,3 @@ module.exports = function (program, conf) {
       }
     })
 }
-
