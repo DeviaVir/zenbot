@@ -1389,7 +1389,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Matic Network/Bitcoin"
+    "label": "Polygon/Bitcoin"
   },
   {
     "asset": "MATIC",
@@ -1397,7 +1397,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Matic Network/Tron"
+    "label": "Polygon/Tron"
   },
   {
     "asset": "MATIC",
@@ -1405,7 +1405,7 @@
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Matic Network/Tether USD"
+    "label": "Polygon/Tether USD"
   },
   {
     "asset": "MCB",
@@ -1541,7 +1541,7 @@
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Mantra DAO/Tether USD"
+    "label": "MANTRA DAO/Tether USD"
   },
   {
     "asset": "OMG",
@@ -2317,7 +2317,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/Bitcoin"
+    "label": "XRP/Bitcoin"
   },
   {
     "asset": "XRP",
@@ -2325,7 +2325,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/Tron"
+    "label": "XRP/Tron"
   },
   {
     "asset": "XRP",
@@ -2333,7 +2333,7 @@
     "min_total": "0.0001",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/USD Coin"
+    "label": "XRP/USD Coin"
   },
   {
     "asset": "XRP",
@@ -2341,7 +2341,7 @@
     "min_total": "1",
     "max_size": null,
     "increment": "0.00000001",
-    "label": "Ripple/Tether USD"
+    "label": "XRP/Tether USD"
   },
   {
     "asset": "XRPBEAR",

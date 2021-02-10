@@ -2526,5 +2526,21 @@
     "max_size": "250000.0",
     "increment": "0.000001",
     "label": "XLM/F0:"
+  },
+  {
+    "asset": "DOT",
+    "currency": "F0:",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "DOT/F0:"
+  },
+  {
+    "asset": "LTC",
+    "currency": "F0:",
+    "min_size": "0.001",
+    "max_size": "7500.0",
+    "increment": "0.000001",
+    "label": "LTC/F0:"
   }
 ]
