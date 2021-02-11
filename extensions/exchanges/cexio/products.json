@@ -1462,5 +1462,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "TON/USD"
+  },
+  {
+    "asset": "USDC",
+    "currency": "EUR",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "USDC/EUR"
   }
 ]
