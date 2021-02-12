@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: fculpo/zenbot:latest
+    image: deviavir/zenbot:unstable
     volumes:
       - ./simulations/:/app/simulations/
       - ./conf.js:/app/conf.js:ro
