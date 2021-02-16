@@ -2448,6 +2448,14 @@
     "label": "Zcash/Tether USD"
   },
   {
+    "asset": "ZKS",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ZKSwap/Tether USD"
+  },
+  {
     "asset": "ZLOT",
     "currency": "USDT",
     "min_total": "1",
