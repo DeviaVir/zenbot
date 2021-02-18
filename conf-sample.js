@@ -89,11 +89,6 @@ c.quadriga.secret = process.env.ZENBOT_QUADRIGA_SECRET || 'YOUR-API-SECRET'
 // replace with the client id used at login, as a string, not number
 c.quadriga.client_id = process.env.ZENBOT_QUADRIGA_CLIENT_ID || 'YOUR-CLIENT-ID'
 
-// to enable WEX.NZ trading, enter your API credentials:
-// Note: WexNZ only supports backfilling the last ~1/4 day ATM.
-c.wexnz = {}
-c.wexnz.key = process.env.ZENBOT_WEXNZ_API_KEY || 'YOUR-API-KEY'
-c.wexnz.secret = process.env.ZENBOT_WEXNZ_SECRET || 'YOUR-API-SECRET'
 
 // to enable Gemini trading, enter your API credentials:
 c.gemini = {}
