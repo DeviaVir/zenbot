@@ -5622,5 +5622,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UPCO2"
+  },
+  {
+    "asset": "VRA",
+    "currency": "USDT",
+    "min_size": "2000.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/VRA"
   }
 ]

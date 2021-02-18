@@ -9915,7 +9915,7 @@
     "asset": "BNBDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "99999999.00000000",
+    "max_size": "920000.00000000",
     "min_total": "10.00000000",
     "increment": "0.00001000",
     "asset_increment": "0.01000000",
@@ -14155,5 +14155,27 @@
     "increment": "0.01000000",
     "asset_increment": "0.01000000",
     "label": "DOT/TRY"
+  },
+  {
+    "id": "FXSBTC",
+    "asset": "FXS",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "FXS/BTC"
+  },
+  {
+    "id": "FXSBUSD",
+    "asset": "FXS",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "FXS/BUSD"
   }
 ]

@@ -1464,6 +1464,22 @@
     "label": "TON/USD"
   },
   {
+    "asset": "FUN",
+    "currency": "USD",
+    "min_size": "160",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "FUN/USD"
+  },
+  {
+    "asset": "UTK",
+    "currency": "USD",
+    "min_size": "25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UTK/USD"
+  },
+  {
     "asset": "USDC",
     "currency": "EUR",
     "min_size": "7",
