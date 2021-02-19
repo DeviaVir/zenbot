@@ -2,6 +2,18 @@
 
 The following tips can increase reliability in using Zenbot with GDAX (Coinbase Pro).
 
+## Sandbox
+A public sandbox is available for testing API connectivity and web trading. While the sandbox only hosts a subset of the production order books, all of the exchange functionality is available. Additionally, in this environment you are allowed to add unlimited fake funds for testing.
+
+Adjust the config file to enable (true) or disable (false) the use of the sandbox. Ensure the correct API credentials (live or sandbox) are inputted in the config file - otherwise you will recieve an API error.
+
+The default setting is set to false.
+
+Example of the Sandbox enabled:
+```
+c.gdax.sandbox = process.env.ZENBOT_GDAX_SANDBOX || true
+```
+
 ## Fee Limits
 
 GDAX (Coinbase Pro) uses a maker-taker fee model for determining its trading fees. Orders that provide liquidity (maker orders) are charged different fees than orders that take liquidity (taker orders). Fees are calculated based on the current pricing tier you are in when the order is placed, and not on the tier you would be in after a trade is completed.
