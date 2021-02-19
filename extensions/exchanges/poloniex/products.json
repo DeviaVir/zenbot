@@ -2168,6 +2168,22 @@
     "label": "Value Liquidity/Tether USD"
   },
   {
+    "asset": "VSP",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Vesper Finance/Tron"
+  },
+  {
+    "asset": "VSP",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Vesper Finance/Tether USD"
+  },
+  {
     "asset": "WBTC",
     "currency": "BTC",
     "min_total": "0.0001",

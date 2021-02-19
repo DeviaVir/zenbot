@@ -5630,5 +5630,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/VRA"
+  },
+  {
+    "asset": "PROS",
+    "currency": "USDT",
+    "min_size": "0.24000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PROS"
   }
 ]
