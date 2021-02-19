@@ -28,6 +28,8 @@ c.gdax = {}
 c.gdax.key = process.env.ZENBOT_GDAX_API_KEY || 'YOUR-API-KEY'
 c.gdax.b64secret = process.env.ZENBOT_GDAX_B64_SECRET || 'YOUR-API-SECRET'
 c.gdax.passphrase = process.env.ZENBOT_GDAX_PASSPHRASE || 'YOUR-API-PASSPHRASE'
+// set to true to trade on the sandbox platform API
+c.gdax.sandbox = process.env.ZENBOT_GDAX_SANDBOX || false
 
 // to enable Poloniex trading, enter your API credentials:
 c.poloniex = {}
