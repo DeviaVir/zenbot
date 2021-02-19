@@ -6,6 +6,7 @@ Any contribution that makes this better for everyone is certainly welcome.
 ## Exchanges
 
 * [Bitstamp](bitstamp.md)
+* [GDAX](gdax.md)
 * [Kraken](kraken.md)
 
 
