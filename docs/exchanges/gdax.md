@@ -5,7 +5,7 @@ The following tips can increase reliability in using Zenbot with GDAX (Coinbase 
 ## Sandbox
 A public sandbox is available for testing API connectivity and web trading. While the sandbox only hosts a subset of the production order books, all of the exchange functionality is available. Additionally, in this environment you are allowed to add unlimited fake funds for testing.
 
-Adjust the config file to enable (true) or disable (false) the use of the sandbox. Ensure the correct API credentials (live or sandbox) are inputted in the config file - otherwise you will recieve an API error.
+Adjust the config file to enable (true) or disable (false) the use of the sandbox. Ensure the correct API credentials (live or sandbox) are inputted in the config file - otherwise you will recieve an API error. Additionally you will not use the --paper option since it will be conducting (simulated) trades in the sandbox. 
 
 The default setting is set to false.
 
