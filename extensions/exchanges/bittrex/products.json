@@ -5638,5 +5638,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/PROS"
+  },
+  {
+    "asset": "TFC",
+    "currency": "BTC",
+    "min_size": "6.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/TFC"
+  },
+  {
+    "asset": "TFC",
+    "currency": "USDT",
+    "min_size": "6.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/TFC"
   }
 ]

@@ -376,6 +376,22 @@
     "label": "BarnBridge/Tether USD"
   },
   {
+    "asset": "BRG",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bridge Oracle/Tron"
+  },
+  {
+    "asset": "BRG",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bridge Oracle/Tether USD"
+  },
+  {
     "asset": "BSVBEAR",
     "currency": "USDT",
     "min_total": "1",
