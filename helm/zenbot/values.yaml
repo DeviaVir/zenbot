@@ -162,7 +162,7 @@ env:
 replicaCount: 1
 image: "deviavir/zenbot:latest"
 service:
-  type: "LoadBalancer"
+  type: ClusterIP
   port: 17365
   externalPort: 17365
 
@@ -182,7 +182,7 @@ ingress:
 # Dependenciy Charts - https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
   service:
-    type: LoadBalancer
+    type: ClusterIP
   architecture: standalone
   auth:
     rootPassword:  ""
