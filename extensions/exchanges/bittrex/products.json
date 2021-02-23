@@ -5654,5 +5654,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/TFC"
+  },
+  {
+    "asset": "DGB",
+    "currency": "EUR",
+    "min_size": "45.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/DGB"
+  },
+  {
+    "asset": "SMBSWAP",
+    "currency": "BTC",
+    "min_size": "4.20000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SMBSWAP"
+  },
+  {
+    "asset": "SMBSWAP",
+    "currency": "ETH",
+    "min_size": "4.20000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/SMBSWAP"
+  },
+  {
+    "asset": "SMBSWAP",
+    "currency": "USDT",
+    "min_size": "4.20000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SMBSWAP"
   }
 ]

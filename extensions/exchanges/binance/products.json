@@ -14265,5 +14265,93 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "BAKE/BUSD"
+  },
+  {
+    "id": "UFTETH",
+    "asset": "UFT",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00500000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "UFT/ETH"
+  },
+  {
+    "id": "UFTBUSD",
+    "asset": "UFT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "UFT/BUSD"
+  },
+  {
+    "id": "1INCHBUSD",
+    "asset": "1INCH",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "1INCH/BUSD"
+  },
+  {
+    "id": "BANDBUSD",
+    "asset": "BAND",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BAND/BUSD"
+  },
+  {
+    "id": "GRTBUSD",
+    "asset": "GRT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "GRT/BUSD"
+  },
+  {
+    "id": "IOSTBUSD",
+    "asset": "IOST",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "IOST/BUSD"
+  },
+  {
+    "id": "OMGBUSD",
+    "asset": "OMG",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "OMG/BUSD"
+  },
+  {
+    "id": "REEFBUSD",
+    "asset": "REEF",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "REEF/BUSD"
   }
 ]
