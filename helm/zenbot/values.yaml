@@ -179,16 +179,16 @@ ingress:
   tls: false
 
 
-# Dependenciy Charts - https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+# Dependency Charts - https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
   service:
     type: ClusterIP
   architecture: standalone
   auth:
-    rootPassword:  ""
-    username: "admin"
-    password: ""
-    database: "zenbot4"
+    rootPassword: "zenbot"
+    username: zenbot
+    password: zenbot
+    database: zenbot
 
   persistence:
     enabled: true
