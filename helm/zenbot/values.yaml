@@ -160,7 +160,7 @@ env:
   ZENBOT_TELEGRAM_CHAT_ID: ""
 
 replicaCount: 1
-image: "fculpo/zenbot:latest"
+image: "deviavir/zenbot:latest"
 service:
   type: "LoadBalancer"
   port: 17365
