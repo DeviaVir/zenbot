@@ -1,15 +1,27 @@
 # Helm Chart for ZenBot
 
->This chart is very basic without many configuration options. It's an umbrella chart which has a dependency to the mongodb chart from Bitnami.
+This chart deploys the [ZenBot](https://github.com/DeviaVir/zenbot) crypto trading bot. It installed the MongoDB dependency using the
+[Bitnami MongoDB chart](https://bitnami.com/stack/mongodb/helm).
 
 ## Configuration
 
-Copy the **conf-sample.js** file in *helm/zenbot/resources* to **conf.js**. This hasn't changed from the normal conf.js file.
+By default, Zenbot gets all of its config from the `conf.js` file, but every value can also be overridden by setting environment variables.
+The `values.yaml` file in this chart contains a copy of every config variable.
 
-## Setup
+We sneakily load `conf-sample.js` into the deployment as this is required to load the environment variables.
 
-Configure your values.yaml file to match your settings (MongoDB User, PW, DB etc.)
+To set these variables, **do not edit** the original `values.yaml` but create your own copy of it. Set the values you require and delete everything
+else. This will override the defaults where necessary. Pass your customised variable file to Helm using the `-f` parameter.
 
-### Persistence
-For MongoDB you can choose if persistence is enabled. At the moment you it is not possible to disable persistence for the ZenBot part.
+## Install
 
+```sh
+# Fresh deployment accepting all defaults
+helm install -n zenbot zenbot --create-namespace .
+
+# Fresh deployment with some overrides
+helm install -n zenbot zenbot --create-namespace -f my-values.yaml .
+
+# Upgrade existing deployment
+helm upgrade --install -n zenbot zenbot --create-namespace -f my-values.yaml .
+```
