@@ -28,6 +28,8 @@ c.gdax = {}
 c.gdax.key = process.env.ZENBOT_GDAX_API_KEY || 'YOUR-API-KEY'
 c.gdax.b64secret = process.env.ZENBOT_GDAX_B64_SECRET || 'YOUR-API-SECRET'
 c.gdax.passphrase = process.env.ZENBOT_GDAX_PASSPHRASE || 'YOUR-API-PASSPHRASE'
+// set to true to trade on the sandbox platform API
+c.gdax.sandbox = process.env.ZENBOT_GDAX_SANDBOX || false
 
 // to enable Poloniex trading, enter your API credentials:
 c.poloniex = {}
@@ -89,11 +91,6 @@ c.quadriga.secret = process.env.ZENBOT_QUADRIGA_SECRET || 'YOUR-API-SECRET'
 // replace with the client id used at login, as a string, not number
 c.quadriga.client_id = process.env.ZENBOT_QUADRIGA_CLIENT_ID || 'YOUR-CLIENT-ID'
 
-// to enable WEX.NZ trading, enter your API credentials:
-// Note: WexNZ only supports backfilling the last ~1/4 day ATM.
-c.wexnz = {}
-c.wexnz.key = process.env.ZENBOT_WEXNZ_API_KEY || 'YOUR-API-KEY'
-c.wexnz.secret = process.env.ZENBOT_WEXNZ_SECRET || 'YOUR-API-SECRET'
 
 // to enable Gemini trading, enter your API credentials:
 c.gemini = {}

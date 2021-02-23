@@ -744,6 +744,14 @@
     "label": "LINK/GBP"
   },
   {
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.005",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MKR/USD"
+  },
+  {
     "asset": "ZRX",
     "currency": "USD",
     "min_size": "15",
@@ -1454,5 +1462,29 @@
     "max_size": null,
     "increment": "0.01",
     "label": "TON/USD"
+  },
+  {
+    "asset": "FUN",
+    "currency": "USD",
+    "min_size": "160",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "FUN/USD"
+  },
+  {
+    "asset": "UTK",
+    "currency": "USD",
+    "min_size": "25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UTK/USD"
+  },
+  {
+    "asset": "USDC",
+    "currency": "EUR",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "USDC/EUR"
   }
 ]

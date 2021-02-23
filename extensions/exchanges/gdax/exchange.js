@@ -23,6 +23,8 @@ module.exports = function gdax (conf) {
           secret: conf.gdax.b64secret,
           passphrase: conf.gdax.passphrase
         }
+      if(conf.gdax.sandbox == true){
+        conf.gdax.websocketURI = 'wss://ws-feed-public.sandbox.pro.coinbase.com' }
       }
 
       var channels = ['matches', 'ticker']
@@ -125,6 +127,9 @@ module.exports = function gdax (conf) {
     if (!authed_client) {
       if (!conf.gdax || !conf.gdax.key || conf.gdax.key === 'YOUR-API-KEY') {
         throw new Error('please configure your GDAX credentials in conf.js')
+      }
+      if (conf.gdax.sandbox === true) {
+        conf.gdax.apiURI = 'https://api-public.sandbox.pro.coinbase.com'
       }
       authed_client = new Gdax.AuthenticatedClient(conf.gdax.key, conf.gdax.b64secret, conf.gdax.passphrase, conf.gdax.apiURI)
     }
@@ -247,8 +252,8 @@ module.exports = function gdax (conf) {
   var exchange = {
     name: 'gdax',
     historyScan: 'backward',
-    makerFee: 0,
-    takerFee: 0.3,
+    makerFee: 0.35,
+    takerFee: 0.35,
     backfillRateLimit: 335,
 
     getProducts: function () {

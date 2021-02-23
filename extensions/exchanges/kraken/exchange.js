@@ -38,11 +38,6 @@ module.exports = function container(conf) {
   function joinProductFormatted(product_id) {
     var asset = product_id.split('-')[0]
     var currency = product_id.split('-')[1]
-
-    var assetsToFix = ['BCH', 'DASH', 'EOS', 'GNO']
-    if (assetsToFix.indexOf(asset) >= 0 && currency.length > 3) {
-      currency = currency.substring(1)
-    }
     return asset + currency
   }
 

@@ -32,6 +32,14 @@
     "label": "BTC/EUR"
   },
   {
+    "asset": "BTC",
+    "currency": "SGD",
+    "min_size": "0.00001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BTC/SGD"
+  },
+  {
     "asset": "ETH",
     "currency": "BTC",
     "min_size": "0.001",
@@ -62,6 +70,14 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "ETH/EUR"
+  },
+  {
+    "asset": "ETH",
+    "currency": "SGD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ETH/SGD"
   },
   {
     "asset": "ETH",
