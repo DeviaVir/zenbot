@@ -18,22 +18,6 @@ spec:
         - name: {{ template "zenbot.fullname" . }}
           image: "{{ .Values.image }}"
           imagePullPolicy: IfNotPresent
-          env:
-            - name: ZENBOT_MONGODB_HOST
-              value: "{{ template "zenbot.fullname" . }}-mongodb"
-            - name: ZENBOT_MONGODB_DATABASE
-              value: {{ .Values.mongodb.auth.database }}
-            - name: ZENBOT_MONGODB_PORT
-              value: '27017'
-            - name: ZENBOT_MONGO_USERNAME
-              value: {{ .Values.mongodb.auth.username }}
-            - name: ZENBOT_MONGO_PASSWORD
-              value: {{ .Values.mongodb.auth.password }}
-            # ZENBOT_MONGO_AUTH_MECHANISM: null
-          {{- range $key, $value := .Values.env }}
-            - name: {{ $key }}
-              value: {{ $value|quote }}
-          {{- end }}
           ports:
             - containerPort: {{ .Values.service.port | int }}
           volumeMounts:
