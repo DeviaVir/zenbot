@@ -1432,6 +1432,14 @@
     "label": "BTC/TUBE"
   },
   {
+    "asset": "CBC",
+    "currency": "BTC",
+    "min_size": "63.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CBC"
+  },
+  {
     "asset": "ETH",
     "currency": "USD",
     "min_size": "0.00200000",
@@ -5664,6 +5672,14 @@
     "label": "EUR/DGB"
   },
   {
+    "asset": "CBC",
+    "currency": "ETH",
+    "min_size": "63.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/CBC"
+  },
+  {
     "asset": "SMBSWAP",
     "currency": "BTC",
     "min_size": "4.20000000",
@@ -5686,5 +5702,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SMBSWAP"
+  },
+  {
+    "asset": "SMARTCREDIT",
+    "currency": "USDT",
+    "min_size": "0.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SMARTCREDIT"
   }
 ]
