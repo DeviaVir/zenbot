@@ -18,6 +18,7 @@ c.gdax.b64secret = {{ .Values.config.gdax.b64secret | quote }}
 c.gdax.passphrase = {{ .Values.config.gdax.passphrase | quote }}
 c.gdax.apiURI = {{ .Values.config.gdax.apiURI | quote }}
 c.gdax.websocketURI = {{ .Values.config.gdax.websocketURI | quote }}
+c.gdax.sandbox = {{ .Values.config.gdax.sandbox }}
 
 c.poloniex = {}
 c.poloniex.key = {{ .Values.config.poloniex.key | quote }}
@@ -54,15 +55,6 @@ c.cexio = {}
 c.cexio.username = {{ .Values.config.cexio.username | quote }}
 c.cexio.key = {{ .Values.config.cexio.key | quote }}
 c.cexio.secret = {{ .Values.config.cexio.secret | quote }}
-
-c.quadriga = {}
-c.quadriga.key = {{ .Values.config.quadriga.key | quote }}
-c.quadriga.secret = {{ .Values.config.quadriga.secret | quote }}
-c.quadriga.client_id = {{ .Values.config.client_id| quote }}
-
-c.wexnz = {}
-c.wexnz.key = {{ .Values.config.wexnz.key | quote }}
-c.wexnz.secret = {{ .Values.config.wexnz.secret | quote }}
 
 c.gemini = {}
 c.gemini.key = {{ .Values.config.gemini.key | quote }}

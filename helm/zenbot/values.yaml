@@ -79,6 +79,8 @@ config:
     passphrase: YOUR-API-PASSPHRASE
     apiURI: https://api.pro.coinbase.com
     websocketURI: wss://ws-feed.pro.coinbase.com
+    # set to true to trade on the sandbox platform API
+    sandbox: false
 
   # Poloniex
   # please note: poloniex does not support market orders via the API
@@ -128,21 +130,6 @@ config:
   # CEX.IO
   cexio:
     username: YOUR-CLIENT-ID
-    key: YOUR-API-KEY
-    secret: YOUR-API-SECRET
-
-  # QuadrigaCX
-  quadriga:
-    key: YOUR-API-KEY
-    # the secret is the manual secret key entered by editing the API access
-    # and NOT the md5 hash you see in the summary
-    secret: YOUR-API-SECRET
-    # replace with the client id used at login, as a string, not number
-    client_id: YOUR-CLIENT-ID
-
-  # WEX.NZ
-  # Note: WexNZ only supports backfilling the last ~1/4 day ATM.
-  wexnz:
     key: YOUR-API-KEY
     secret: YOUR-API-SECRET
 
