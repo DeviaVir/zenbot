@@ -18,6 +18,10 @@ spec:
         - name: {{ template "zenbot.fullname" . }}
           image: "{{ .Values.image }}"
           imagePullPolicy: IfNotPresent
+          args:
+          {{- range .Values.config.command }}
+            - {{ . | quote }}
+          {{- end }}
           ports:
             - containerPort: {{ .Values.service.port | int }}
           volumeMounts:

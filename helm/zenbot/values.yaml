@@ -4,6 +4,15 @@ config:
   selector: gdax.BTC-USD
   # name of default trade strategy
   strategy: trend_ema
+  # startup arguments, expressed as an array. Defaults to ['trade', '--paper'] so you'll need to drop '--paper'
+  # when you want to perform real trades
+  # common values:
+  # ['trade']
+  # ['trade', '--paper']
+  # ['sim']
+  args:
+    - "trade"
+    - "--paper"
 
   # Optional stop-order triggers
   # sell if price drops below this % of bought price (0 to disable)
