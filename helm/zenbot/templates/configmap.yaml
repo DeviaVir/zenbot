@@ -4,4 +4,4 @@ metadata:
   name: {{ template "zenbot.fullname" . }}-config
 data:
   conf.js: |
-{{ tpl (.Files.Get "resources/conf-sample.js") . | indent 4 }}
+{{ tpl (.Files.Get "resources/conf-sample.js.tpl") . | indent 4 }}

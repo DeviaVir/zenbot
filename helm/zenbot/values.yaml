@@ -1,163 +1,240 @@
 # ZenBot Values
+config:
+  # default selector. only used if omitting [selector] argument from a command.
+  selector: gdax.BTC-USD
+  # name of default trade strategy
+  strategy: trend_ema
 
-env:
-  # Global config
-  ZENBOT_DEFAULT_SELECTOR: 'gdax.BTC-USD'
-  ZENBOT_DEFAULT_STRATEGY: 'trend_ema'
-  ZENBOT_SELL_STOP_PCT: '0'
-  ZENBOT_BUY_STOP_PCT: '0'
-  ZENBOT_PROFIT_STOP_ENABLE_PCT: '0'
-  ZENBOT_PROFIT_STOP_PCT: '1'
-  ZENBOT_MAX_SLIPPAGE_PCT: '5'
-  ZENBOT_BUY_PCT: '99'
-  ZENBOT_SELL_PCT: '99'
-  ZENBOT_ORDER_ADJUST_TIME: '5000'
-  ZENBOT_MAX_SELL_LOSS_PCT: '99'
-  ZENBOT_MAX_BUY_LOSS_PCT: '99'
-  ZENBOT_ORDER_POLL_TIME: '5000'
-  ZENBOT_WAIT_FOR_SETTLEMENT: '5000'
-  ZENBOT_MARKDOWN_BUY_PCT: '0'
-  ZENBOT_MARKUP_SELL_PCT: '0'
-  ZENBOT_ORDER_TYPE: 'maker'
-  ZENBOT_POST_ONLY: 'true'
-  ZENBOT_USE_FEE_ASSET: 'false'
-  ZENBOT_DAYS: '14'
-  ZENBOT_KEEP_LOOKBACK_PERIODS: '50000'
-  ZENBOT_POLL_TRADES: '30000'
-  ZENBOT_CURRENCY_CAPITAL: '1000'
-  ZENBOT_ASSET_CAPITAL: '0'
-  ZENBOT_SYMMETRICAL: 'false'
-  ZENBOT_RSI_PERIODS: '14'
-  ZENBOT_BALANCE_SNAPSHOT_PERIOD: '15m'
-  ZENBOT_AVG_SLIPPAGE_PCT: '0.045'
-  ZENBOT_CANCEL_AFTER: 'day'
-  ZENBOT_USE_PREV_TRADES: 'false'
-  ZENBOT_MIN_PREV_TRADES: '0'
-  # Filter to notifier's messages for getting Commpleted Trades info.
-  ZENBOT_NOTIFY_ONLY_COMPLETED_TRADES: 'false'
-  ZENBOT_API_ENABLE: 'true'
-  # IPv4 or IPv6 address to listen on, uses all available interfaces if omitted
-  ZENBOT_API_IP: '0.0.0.0'
-  ZENBOT_API_PORT: '17365'
+  # Optional stop-order triggers
+  # sell if price drops below this % of bought price (0 to disable)
+  sell_stop_pct: 0
+  # buy if price surges above this % of sold price (0 to disable)
+  buy_stop_pct: 0
+  # enable trailing sell stop when reaching this % profit (0 to disable)
+  profit_stop_enable_pct: 0
+  # maintain a trailing stop this % below the high-water mark of profit
+  profit_stop_pct: 1
+  
+  # Order execution rules:
+  # avoid trading at a slippage above this pct
+  max_slippage_pct: 5
+  # buy with this % of currency balance (WARNING : sim won't work properly if you set this value to 100)
+  buy_pct: 99
+  # sell with this % of asset balance (WARNING : sim won't work properly if you set this value to 100)
+  sell_pct: 99
+  # ms to adjust non-filled order after
+  order_adjust_time: 5000
+  # avoid selling at a loss below this pct set to 0 to ensure selling at a higher price...
+  max_sell_loss_pct: 99
+  # avoid buying at a loss above this pct set to 0 to ensure buying at a lower price...
+  max_buy_loss_pct: 99
+  # ms to poll order status
+  order_poll_time: 5000
+  # ms to wait for settlement (after an order cancel)
+  wait_for_settlement: 5000
+  # % to mark down buy price for orders
+  markdown_buy_pct: 0
+  # % to mark up sell price for orders
+  markup_sell_pct: 0
+  # become a market taker (high fees) or a market maker (low fees)
+  order_type: maker
+  # when supported by the exchange, use post only type orders.
+  post_only: true
+  # use separated fee currency such as binance's BNB.
+  use_fee_asset: false
+  
+  # Misc options
+  
+  # days for backfill and sim commands
+  days: 14
+  # defaults to a high number of lookback periods
+  keep_lookback_periods: 50000
+  # ms to poll new trades at
+  poll_trades: 30000
+  # amount of currency to start simulations with
+  currency_capital: 1000
+  # amount of asset to start simulations with
+  asset_capital: 0
+  # for sim, reverse time at the end of the graph, normalizing buy/hold to 0
+  symmetrical: false
+  # number of periods to calculate RSI at
+  rsi_periods: 14
+  # period to record balances for stats
+  balance_snapshot_period: 15m
+  # avg. amount of slippage to apply to sim trades
+  avg_slippage_pct: 0.045
+  # time to leave an order open, default to 1 day (this feature is not supported on all exchanges, currently: GDAX)
+  cancel_after: day
+  # load and use previous trades for stop-order triggers and loss protection (live/paper mode only)
+  use_prev_trades: false
+  # minimum number of previous trades to load if use_prev_trades is enabled, set to 0 to disable and use trade time instead
+  min_prev_trades: 0
 
-  # GDAX exchange
-  ZENBOT_GDAX_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_GDAX_B64_SECRET: 'YOUR-API-SECRET'
-  ZENBOT_GDAX_PASSPHRASE: 'YOUR-API-PASSPHRASE'
+  # Exchange API keys
+
+  # GDAX / Coinbase Pro
+  gdax:
+    key: YOUR-API-KEY
+    b64secret: YOUR-API-SECRET
+    passphrase: YOUR-API-PASSPHRASE
+    apiURI: https://api.pro.coinbase.com
+    websocketURI: wss://ws-feed.pro.coinbase.com
 
   # Poloniex
-  ZENBOT_POLONIEX_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_POLONIEX_SECRET: 'YOUR-API-SECRET'
+  # please note: poloniex does not support market orders via the API
+  poloniex:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
 
-  # Kraken exchange
-  ZENBOT_KRAKEN_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_KRAKEN_SECRET: 'YOUR-API-SECRET'
-  ZENBOT_KRAKEN_TOS_AGREE: 'disagree'
+  # Kraken
+  kraken:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
+    # Please read API TOS on https://www.kraken.com/u/settings/api
+    tosagree: disagree
 
-  # Binance exchange
-  ZENBOT_BINANCE_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_BINANCE_SECRET: 'YOUR-API-SECRET'
+  # Binance
+  binance:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
 
-  # Bittrex exchange
-  ZENBOT_BITTREX_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_BITTREX_SECRET: 'YOUR-API-SECRET'
+  # Binance US
+  binanceus:
+    key: YOUR-API-KEY
+    secret: YOUR-SECRET
+  
+  # Bittrex
+  bittrex:
+  # make sure to give your API key access to only: "Trade Limit" and "Read Info",
+  # please note that this might change in the future.
+  # please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
 
-  # Bitfinex exchange
-  ZENBOT_BITFINEX_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_BITFINEX_SECRET: 'YOUR-API-SECRET'
-  ZENBOT_BITFINEX_WALLET: 'exchange'
+  # Bitfinex
+  bitfinex:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
+    # May use 'exchange' or 'margin' wallet balances
+    wallet: exchange
 
-  # Bitstamp exchange
-  ZENBOT_BITSTAMP_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_BITSTAMP_SECRET: 'YOUR-API-SECRET'
-  ZENBOT_BITSTAMP_CLIENT_ID: 'YOUR-CLIENT-ID'
+  # Bitstamp
+  bitstamp:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
+    # A client ID is required on Bitstamp
+    client_id: YOUR-CLIENT-ID
 
-  # Cexio exchange
-  ZENBOT_CEXIO_CLIENT_ID: 'YOUR-CLIENT-ID'
-  ZENBOT_CEXIO_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_CEXIO_SECRET: 'YOUR-API-SECRET'
+  # CEX.IO
+  cexio:
+    username: YOUR-CLIENT-ID
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
 
-  # Quadriga exchange
-  ZENBOT_QUADRIGA_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_QUADRIGA_SECRET: 'YOUR-API-SECRET'
-  ZENBOT_QUADRIGA_CLIENT_ID: 'YOUR-CLIENT-ID'
+  # QuadrigaCX
+  quadriga:
+    key: YOUR-API-KEY
+    # the secret is the manual secret key entered by editing the API access
+    # and NOT the md5 hash you see in the summary
+    secret: YOUR-API-SECRET
+    # replace with the client id used at login, as a string, not number
+    client_id: YOUR-CLIENT-ID
 
-  # Wexnz exchange
-  ZENBOT_WEXNZ_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_WEXNZ_SECRET: 'YOUR-API-SECRET'
+  # WEX.NZ
+  # Note: WexNZ only supports backfilling the last ~1/4 day ATM.
+  wexnz:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
 
-  # Gemini exchange
-  ZENBOT_GEMINI_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_GEMINI_SECRET: 'YOUR-API-SECRET'
-  ZENBOT_GEMINI_SANDBOX: true
+  # Gemini
+  gemini:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
+    # set to false to trade on the live platform API
+    sandbox: true
+  
+  # hitBTC
+  hitbtc:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
+  
+  # therock
+  therock:
+    key: YOUR-API-KEY
+    secret: YOUR-API-SECRET
 
-  # Hitbtc exchange
-  ZENBOT_HITBTC_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_HITBTC_SECRET: 'YOUR-API-SECRET'
-
-  ZENBOT_THEROCK_API_KEY: 'YOUR-API-KEY'
-  ZENBOT_THEROCK_SECRET: 'YOUR-API-SECRET'
-
-  # XMPP notifications
-  ZENBOT_XMPP_ENABLE: false
-  ZENBOT_XMPP_JID: 'trader@domain.com'
-  ZENBOT_XMPP_PASSWORD: ''
-  ZENBOT_XMPP_HOST: 'domain.com'
-  ZENBOT_XMPP_PORT: 5222
-  ZENBOT_XMPP_TO: 'MeMyselfAndI@domain.com'
-
-  # Pushbullet notifications
-  ZENBOT_PUSHBULLET_ENABLE: 'false'
-  ZENBOT_PUSHBULLET_API_KEY: ''
-  ZENBOT_PUSHBULLET_DEVICE_ID: ''
-
-  # iffitt notifications
-  ZENBOT_IFTTT_ENABLE: 'false'
-  ZENBOT_IFTTT_API_KEY: ''
-  ZENBOT_IFTTT_EVENT_NAME: 'zenbot'
-
-  # Slack notifications
-  ZENBOT_SLACK_ENABLE: 'false'
-  ZENBOT_SLACK_WEBHOOK_URL: ''
-
-  # ADAMANT notifications
-  ZENBOT_ADAMANT_ENABLE: ''
-  ZENBOT_ADAMANT_NODES: 'undefined'
-  ZENBOT_ADAMANT_FROM_PASSPHRASE: ''
-  ZENBOT_ADAMANT_TO_ADDRESSES: 'undefined'
-
-  # Discord notifications
-  ZENBOT_DISCORD_ENABLE: 'false'
-  ZENBOT_DISCORD_ID: ''
-  ZENBOT_DISCORD_TOKEN: ''
-  ZENBOT_DISCORD_USERNAME: 'Zenbot'
-  ZENBOT_DISCORD_AVATAR_URL: ''
-  # color as a decimal
-  ZENBOT_DISCORD_COLOR: null
-
-  # Prowl notifications
-  ZENBOT_PROWL_ENABLE: 'false'
-  ZENBOT_PROWL_KEY: ''
-
-  # Textbelt notifications
-  ZENBOT_TEXTBELT_ENABLE: 'false'
-  ZENBOT_TEXTBELT_PHONE: ''
-  ZENBOT_TEXTBELT_KEY: ''
-
-  # Pushover
-  ZENBOT_PUSHOVER_ENABLE: 'false'
-  # create application and supply the token here
-  ZENBOT_PUSHOVER_TOKEN: ''
-  # this is your own user's key (not application related)
-  ZENBOT_PUSHOVER_USER_KEY: ''
-  # choose a priority to send zenbot messages with, see https://pushover.net/api#priority
-  ZENBOT_PUSHOVER_PRIORITY: '0'
-
-  # Telegram
-  ZENBOT_TELEGRAM_ENABLE: 'false'
-  ZENBOT_TELEGRAM_INTERACTIVE: 'false'
-  ZENBOT_TELEGRAM_BOT_TOKEN: ""
-  ZENBOT_TELEGRAM_CHAT_ID: ""
+  # Notifiers 
+  notifiers:
+    # Filter to notifier's messages for getting Commpleted Trades info.
+    only_completed_trades: false
+    xmpp:
+      enabled: false
+      jid: trader@domain.com
+      password: ''
+      host: domain.com
+      port: 5222
+      to: MeMyselfAndI@domain.com
+    pushbullet:
+      enabled: false
+      key: ''
+      deviceID:
+    ifttt:
+      enabled: false
+      makerKey: ''
+      eventName: zenbot
+    slack:
+      enabled: false
+      webhook_url: ''
+    adamant:
+      enabled: false
+      nodes:
+        - 'https://endless.adamant.im'
+        - 'https://clown.adamant.im'
+        - 'https://bid.adamant.im'
+        - 'https://unusual.adamant.im'
+        - 'https://debate.adamant.im'
+        - 'http://185.231.245.26:36666'
+        - 'https://lake.adamant.im'
+        - 'http://localhost:36666'
+      fromPassphrase: ''
+      toAddresses: []
+    discord:
+      enabled: false
+      id: ''
+      token: ''
+      username: Zenbot
+      avatar_url: ''
+      # color as a decimal
+      color: ''
+    prowl:
+      enabled: false
+      key: ''
+    textbelt:
+      enabled: false
+      phone: ''
+      key: ''
+    pushover:
+      enabled: false
+      # create application and supply the token here
+      token: ''
+      # this is your own user's key (not application related)
+      user: ''
+      # choose a priority to send zenbot messages with
+      # see https://pushover.net/api#priority
+      priority: 0
+    telegram:
+      enabled: false
+      interactive: false
+      bot_token: ''
+      # the id of the chat the messages should be send in
+      chat_id: ''
+  output:
+    api:
+      enabled: true
+      # IPv4 or IPv6 address to listen on
+      # uses all available interfaces if omitted
+      ip: 0.0.0.0
+      port: 17365
 
 replicaCount: 1
 image: "deviavir/zenbot:latest"
@@ -168,7 +245,7 @@ service:
 
 persistence:
   storageClass: ""
-  accessModes: 
+  accessModes:
     - ReadWriteOnce
   size: "8Gi"
 
@@ -178,8 +255,8 @@ ingress:
   hostname: "zenbot.example.com"
   tls: false
 
-
-# Dependency Charts - https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+# Dependency Charts
+# https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
   service:
     type: ClusterIP
@@ -192,9 +269,9 @@ mongodb:
 
   persistence:
     enabled: true
-  #  existingClaim: "-"
+    # existingClaim: "-"
     storageClass: ""
     accessModes:
       - ReadWriteOnce
     size: 8Gi
-  #  mountPath: /bitnami/mongodb
+    # mountPath: /bitnami/mongodb
