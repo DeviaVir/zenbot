@@ -23,7 +23,7 @@ spec:
             - {{ . | quote }}
           {{- end }}
           ports:
-            - containerPort: {{ .Values.service.port | int }}
+            - containerPort: {{ .Values.config.output.api.port | int }}
           volumeMounts:
             - mountPath: "/app/simulations/"
               name: simulations
