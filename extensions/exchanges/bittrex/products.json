@@ -5710,5 +5710,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SMARTCREDIT"
+  },
+  {
+    "asset": "WXBTC",
+    "currency": "USDT",
+    "min_size": "0.58000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/WXBTC"
+  },
+  {
+    "asset": "WXBTC",
+    "currency": "BTC",
+    "min_size": "0.58000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/WXBTC"
   }
 ]
