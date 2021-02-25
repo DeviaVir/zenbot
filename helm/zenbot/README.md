@@ -17,8 +17,10 @@ Keep your personal values file secret, and pass it to Helm using the `-f` parame
 
 ## Install
 
+The first install will set up a MongoDB and trigger a ZenBot run.
+
 ```sh
-# Fresh deployment accepting all defaults
+# Fresh deployment accepting all defaults - this will run a paper trade
 helm install -n zenbot zenbot --create-namespace .
 
 # Fresh deployment with some overrides
@@ -26,6 +28,8 @@ helm install -n zenbot zenbot --create-namespace -f my-values.yaml .
 ```
 
 ## Upgrade
+
+Running `helm upgrade` will reconfigure your ZenBot and run a new job, but it won't overwrite MongoDB.
 
 ```sh
 # Upgrade existing deployment with new values
