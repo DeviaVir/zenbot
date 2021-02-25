@@ -240,8 +240,6 @@ replicaCount: 1
 image: "deviavir/zenbot:latest"
 service:
   type: ClusterIP
-  port: 17365
-  externalPort: 17365
 
 persistence:
   storageClass: ""

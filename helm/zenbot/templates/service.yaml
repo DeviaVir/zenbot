@@ -1,3 +1,4 @@
+{{- if .Values.config.output.api.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,9 +8,10 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.externalPort }}
-    targetPort: {{ .Values.service.port }}
+  - port: {{ .Values.config.output.api.port }}
+    targetPort: {{ .Values.config.output.api.port }}
     protocol: TCP
     name: {{ template "zenbot.fullname" . }}
   selector:
     app: {{ template "zenbot.fullname" . }}
+{{- end -}}

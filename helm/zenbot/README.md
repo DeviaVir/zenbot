@@ -35,6 +35,13 @@ kubectl delete pods -l app=zenbot -n zenbot
 
 You can follow the log output of the ZenBot pod with this command. Hit Ctrl-C to exit.
 
-```
+```sh
 kubectl logs -l app=zenbot -n zenbot -f
+```
+
+There will also be a web service listening on port 17365, unless overridden.
+You can get by the IP by doing:
+
+```sh
+kubectl get service zenbot
 ```

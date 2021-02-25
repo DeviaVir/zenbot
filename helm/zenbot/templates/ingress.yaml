@@ -17,7 +17,7 @@ spec:
           - path: /
             backend:
               serviceName: {{ template "zenbot.fullname" . }}
-              servicePort: {{ .Values.service.port }}
+              servicePort: {{ .Values.config.output.api.port }}
   {{- if .Values.ingress.tls }}
   tls:
 {{ toYaml .Values.ingress.tls | indent 4 }}
