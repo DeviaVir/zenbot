@@ -3,6 +3,10 @@
 This Helm chart deploys the [ZenBot](https://github.com/DeviaVir/zenbot) crypto trading bot. It installs the MongoDB dependency using the
 [Bitnami MongoDB chart](https://bitnami.com/stack/mongodb/helm).
 
+Kubernetes runs ZenBot as a [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) rather than a
+[Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) so once the ZenBot run comes to an end,
+Kubernetes does not try to restart it.
+
 ## Configuration
 
 This chart creates its own `conf.js` config file from a template. All the settings are represented in `values.yaml` with their defaults.
@@ -26,9 +30,6 @@ helm install -n zenbot zenbot --create-namespace -f my-values.yaml .
 ```sh
 # Upgrade existing deployment with new values
 helm upgrade --install -n zenbot zenbot --create-namespace -f my-values.yaml .
-
-# Restart Zenbot after deploying new config
-kubectl delete pods -l app=zenbot -n zenbot
 ```
 
 ## Monitor
