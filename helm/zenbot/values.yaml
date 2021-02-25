@@ -23,7 +23,7 @@ config:
   profit_stop_enable_pct: 0
   # maintain a trailing stop this % below the high-water mark of profit
   profit_stop_pct: 1
-  
+
   # Order execution rules:
   # avoid trading at a slippage above this pct
   max_slippage_pct: 5
@@ -51,9 +51,9 @@ config:
   post_only: true
   # use separated fee currency such as binance's BNB.
   use_fee_asset: false
-  
+
   # Misc options
-  
+
   # days for backfill and sim commands
   days: 14
   # defaults to a high number of lookback periods
@@ -113,12 +113,12 @@ config:
   binanceus:
     key: YOUR-API-KEY
     secret: YOUR-SECRET
-  
+
   # Bittrex
   bittrex:
-  # make sure to give your API key access to only: "Trade Limit" and "Read Info",
-  # please note that this might change in the future.
-  # please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
+    # make sure to give your API key access to only: "Trade Limit" and "Read Info",
+    # please note that this might change in the future.
+    # please note that bittrex API is limited, you cannot use backfills or sims (paper/live trading only)
     key: YOUR-API-KEY
     secret: YOUR-API-SECRET
 
@@ -148,82 +148,82 @@ config:
     secret: YOUR-API-SECRET
     # set to false to trade on the live platform API
     sandbox: true
-  
+
   # hitBTC
   hitbtc:
     key: YOUR-API-KEY
     secret: YOUR-API-SECRET
-  
+
   # therock
   therock:
     key: YOUR-API-KEY
     secret: YOUR-API-SECRET
 
-  # Notifiers 
+  # Notifiers
   notifiers:
     # Filter to notifier's messages for getting Commpleted Trades info.
     only_completed_trades: false
     xmpp:
       enabled: false
       jid: trader@domain.com
-      password: ''
+      password: ""
       host: domain.com
       port: 5222
       to: MeMyselfAndI@domain.com
     pushbullet:
       enabled: false
-      key: ''
+      key: ""
       deviceID:
     ifttt:
       enabled: false
-      makerKey: ''
+      makerKey: ""
       eventName: zenbot
     slack:
       enabled: false
-      webhook_url: ''
+      webhook_url: ""
     adamant:
       enabled: false
       nodes:
-        - 'https://endless.adamant.im'
-        - 'https://clown.adamant.im'
-        - 'https://bid.adamant.im'
-        - 'https://unusual.adamant.im'
-        - 'https://debate.adamant.im'
-        - 'http://185.231.245.26:36666'
-        - 'https://lake.adamant.im'
-        - 'http://localhost:36666'
-      fromPassphrase: ''
+        - "https://endless.adamant.im"
+        - "https://clown.adamant.im"
+        - "https://bid.adamant.im"
+        - "https://unusual.adamant.im"
+        - "https://debate.adamant.im"
+        - "http://185.231.245.26:36666"
+        - "https://lake.adamant.im"
+        - "http://localhost:36666"
+      fromPassphrase: ""
       toAddresses: []
     discord:
       enabled: false
-      id: ''
-      token: ''
+      id: ""
+      token: ""
       username: Zenbot
-      avatar_url: ''
+      avatar_url: ""
       # color as a decimal
-      color: ''
+      color: ""
     prowl:
       enabled: false
-      key: ''
+      key: ""
     textbelt:
       enabled: false
-      phone: ''
-      key: ''
+      phone: ""
+      key: ""
     pushover:
       enabled: false
       # create application and supply the token here
-      token: ''
+      token: ""
       # this is your own user's key (not application related)
-      user: ''
+      user: ""
       # choose a priority to send zenbot messages with
       # see https://pushover.net/api#priority
       priority: 0
     telegram:
       enabled: false
       interactive: false
-      bot_token: ''
+      bot_token: ""
       # the id of the chat the messages should be send in
-      chat_id: ''
+      chat_id: ""
   output:
     api:
       enabled: true
