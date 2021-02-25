@@ -19,9 +19,16 @@ helm install -n zenbot zenbot --create-namespace .
 
 # Fresh deployment with some overrides
 helm install -n zenbot zenbot --create-namespace -f my-values.yaml .
+```
 
-# Upgrade existing deployment
+## Upgrade
+
+```sh
+# Upgrade existing deployment with new values
 helm upgrade --install -n zenbot zenbot --create-namespace -f my-values.yaml .
+
+# Restart Zenbot after deploying new config
+kubectl delete pods -l app=zenbot -n zenbot
 ```
 
 ## Monitor
