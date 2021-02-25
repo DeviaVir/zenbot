@@ -82,15 +82,6 @@ c.cexio.username = process.env.ZENBOT_CEXIO_CLIENT_ID || 'YOUR-CLIENT-ID'
 c.cexio.key = process.env.ZENBOT_CEXIO_API_KEY || 'YOUR-API-KEY'
 c.cexio.secret = process.env.ZENBOT_CEXIO_SECRET || 'YOUR-API-SECRET'
 
-// to enable QuadrigaCX tranding, enter your API credentials:
-c.quadriga = {}
-c.quadriga.key = process.env.ZENBOT_QUADRIGA_API_KEY || 'YOUR-API-KEY'
-// this is the manual secret key entered by editing the API access
-// and NOT the md5 hash you see in the summary
-c.quadriga.secret = process.env.ZENBOT_QUADRIGA_SECRET || 'YOUR-API-SECRET'
-// replace with the client id used at login, as a string, not number
-c.quadriga.client_id = process.env.ZENBOT_QUADRIGA_CLIENT_ID || 'YOUR-CLIENT-ID'
-
 
 // to enable Gemini trading, enter your API credentials:
 c.gemini = {}

@@ -10,7 +10,7 @@
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:
 
 - Fully-automated [technical-analysis](https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:introduction_to_technical_indicators_and_oscillators)-based trading approach
-- Full support for [Binance](https://www.binance.com/), [Bitfinex](https://www.bitfinex.com/), [Bitstamp](https://www.bitstamp.net/), [Bittrex](https://bittrex.com/), [CEX.IO](https://cex.io/), [GDAX](https://gdax.com/), [Gemini](https://gemini.com/), [HitBTC](https://hitbtc.com/), [Kraken](https://www.kraken.com/), [Poloniex](https://poloniex.com/), [QuadrigaCX](https://www.quadrigacx.com/) and [TheRockTrading](https://www.therocktrading.com/), work on further exchange support is ongoing.
+- Full support for [Binance](https://www.binance.com/), [Bitfinex](https://www.bitfinex.com/), [Bitstamp](https://www.bitstamp.net/), [Bittrex](https://bittrex.com/), [CEX.IO](https://cex.io/), [GDAX](https://gdax.com/), [Gemini](https://gemini.com/), [HitBTC](https://hitbtc.com/), [Kraken](https://www.kraken.com/), [Poloniex](https://poloniex.com/)and [TheRockTrading](https://www.therocktrading.com/), work on further exchange support is ongoing.
 - Plugin architecture for implementing exchange support, or writing new strategies
 - Simulator for [backtesting strategies](https://gist.github.com/carlos8f/b09a734cf626ffb9bb3bcb1ca35f3db4) against historical data
 - "Paper" trading mode, operates on a simulated balance while watching the live market
