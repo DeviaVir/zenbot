@@ -19,7 +19,7 @@ spec:
           image: "{{ .Values.image }}"
           imagePullPolicy: IfNotPresent
           args:
-          {{- range .Values.config.command }}
+          {{- range .Values.config.args }}
             - {{ . | quote }}
           {{- end }}
           ports:
