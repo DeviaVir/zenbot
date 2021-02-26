@@ -56,14 +56,6 @@
     "label": "BTC/NXT"
   },
   {
-    "asset": "DASH",
-    "currency": "BTC",
-    "min_size": "0.02767746",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/DASH"
-  },
-  {
     "asset": "POT",
     "currency": "BTC",
     "min_size": "367.64705882",
@@ -150,14 +142,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CURE"
-  },
-  {
-    "asset": "XMR",
-    "currency": "BTC",
-    "min_size": "0.03128508",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/XMR"
   },
   {
     "asset": "XDN",
@@ -418,7 +402,7 @@
   {
     "asset": "XVG",
     "currency": "BTC",
-    "min_size": "568.18181818",
+    "min_size": "164.27824500",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XVG"
@@ -534,14 +518,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NEO"
-  },
-  {
-    "asset": "ZEC",
-    "currency": "BTC",
-    "min_size": "0.03500000",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/ZEC"
   },
   {
     "asset": "UBQ",
@@ -864,36 +840,12 @@
     "label": "ETH/ADX"
   },
   {
-    "asset": "DASH",
-    "currency": "ETH",
-    "min_size": "0.01052392",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/DASH"
-  },
-  {
     "asset": "SC",
     "currency": "ETH",
     "min_size": "448.02867384",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SC"
-  },
-  {
-    "asset": "ZEC",
-    "currency": "ETH",
-    "min_size": "0.01844207",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/ZEC"
-  },
-  {
-    "asset": "ZEC",
-    "currency": "USDT",
-    "min_size": "0.04929850",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/ZEC"
   },
   {
     "asset": "LTC",
@@ -976,14 +928,6 @@
     "label": "ETH/QTUM"
   },
   {
-    "asset": "XMR",
-    "currency": "ETH",
-    "min_size": "0.01184297",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "ETH/XMR"
-  },
-  {
     "asset": "XEM",
     "currency": "ETH",
     "min_size": "18.18843216",
@@ -1006,22 +950,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/NEO"
-  },
-  {
-    "asset": "XMR",
-    "currency": "USDT",
-    "min_size": "0.03167454",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/XMR"
-  },
-  {
-    "asset": "DASH",
-    "currency": "USDT",
-    "min_size": "0.02820325",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/DASH"
   },
   {
     "asset": "BCH",
@@ -1202,7 +1130,7 @@
   {
     "asset": "XVG",
     "currency": "USDT",
-    "min_size": "561.15148284",
+    "min_size": "164.27824500",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XVG"
@@ -1534,14 +1462,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/ADA"
-  },
-  {
-    "asset": "ZEC",
-    "currency": "USD",
-    "min_size": "0.04937703",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USD/ZEC"
   },
   {
     "asset": "DOGE",
@@ -2686,14 +2606,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/NMR"
-  },
-  {
-    "asset": "DASH",
-    "currency": "USD",
-    "min_size": "0.02767746",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USD/DASH"
   },
   {
     "asset": "RVN",

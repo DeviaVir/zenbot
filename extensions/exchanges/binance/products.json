@@ -14430,5 +14430,71 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "PHA/BUSD"
+  },
+  {
+    "id": "DOTGBP",
+    "asset": "DOT",
+    "currency": "GBP",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "DOT/GBP"
+  },
+  {
+    "id": "ADATRY",
+    "asset": "ADA",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "ADA/TRY"
+  },
+  {
+    "id": "ADABRL",
+    "asset": "ADA",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "ADA/BRL"
+  },
+  {
+    "id": "ADAGBP",
+    "asset": "ADA",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ADA/GBP"
+  },
+  {
+    "id": "TVKBTC",
+    "asset": "TVK",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "TVK/BTC"
+  },
+  {
+    "id": "TVKBUSD",
+    "asset": "TVK",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TVK/BUSD"
   }
 ]
