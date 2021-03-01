@@ -1486,5 +1486,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "USDC/EUR"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "USD",
+    "min_size": "1.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "1INCH/USD"
   }
 ]

@@ -9477,7 +9477,7 @@
     "min_size": "0.01000000",
     "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "ADADOWN/USDT"
   },
