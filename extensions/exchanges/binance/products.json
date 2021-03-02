@@ -14496,5 +14496,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "TVK/BUSD"
+  },
+  {
+    "id": "BADGERBTC",
+    "asset": "BADGER",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "10000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "BADGER/BTC"
+  },
+  {
+    "id": "BADGERBUSD",
+    "asset": "BADGER",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BADGER/BUSD"
+  },
+  {
+    "id": "BADGERUSDT",
+    "asset": "BADGER",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BADGER/USDT"
   }
 ]

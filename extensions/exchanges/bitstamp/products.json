@@ -403,5 +403,32 @@
     "min_total": "25",
     "increment": "0.00001",
     "label": "USDC/EUR"
+  },
+  {
+    "id": "ZRXUSD",
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "ZRX/USD"
+  },
+  {
+    "id": "ZRXEUR",
+    "asset": "ZRX",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "ZRX/EUR"
+  },
+  {
+    "id": "ZRXBTC",
+    "asset": "ZRX",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.001",
+    "increment": "0.00000001",
+    "label": "ZRX/BTC"
   }
 ]
