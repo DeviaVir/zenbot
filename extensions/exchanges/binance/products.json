@@ -14529,5 +14529,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "BADGER/USDT"
+  },
+  {
+    "id": "FISBTC",
+    "asset": "FIS",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.10000000",
+    "label": "FIS/BTC"
+  },
+  {
+    "id": "FISBUSD",
+    "asset": "FIS",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "FIS/BUSD"
+  },
+  {
+    "id": "FISUSDT",
+    "asset": "FIS",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "FIS/USDT"
   }
 ]

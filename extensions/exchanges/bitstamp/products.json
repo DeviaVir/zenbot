@@ -405,6 +405,33 @@
     "label": "USDC/EUR"
   },
   {
+    "id": "MKRUSD",
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "MKR/USD"
+  },
+  {
+    "id": "MKREUR",
+    "asset": "MKR",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.01",
+    "label": "MKR/EUR"
+  },
+  {
+    "id": "MKRBTC",
+    "asset": "MKR",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.001",
+    "increment": "0.00000001",
+    "label": "MKR/BTC"
+  },
+  {
     "id": "ZRXUSD",
     "asset": "ZRX",
     "currency": "USD",

@@ -581,6 +581,34 @@
     "label": "EUR/JPY"
   },
   {
+    "asset": "EWT",
+    "currency": "EUR",
+    "min_size": "1.0000000000",
+    "increment": "0.0010000000",
+    "label": "EWT/EUR"
+  },
+  {
+    "asset": "EWT",
+    "currency": "GBP",
+    "min_size": "1.0000000000",
+    "increment": "0.0010000000",
+    "label": "EWT/GBP"
+  },
+  {
+    "asset": "EWT",
+    "currency": "USD",
+    "min_size": "1.0000000000",
+    "increment": "0.0010000000",
+    "label": "EWT/USD"
+  },
+  {
+    "asset": "EWT",
+    "currency": "XBT",
+    "min_size": "1.0000000000",
+    "increment": "0.0000000100",
+    "label": "EWT/XBT"
+  },
+  {
     "asset": "FIL",
     "currency": "AUD",
     "min_size": "0.3000000000",
@@ -1041,6 +1069,34 @@
     "min_size": "2.0000000000",
     "increment": "0.0000000010",
     "label": "NANO/XBT"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "EUR",
+    "min_size": "10.0000000000",
+    "increment": "0.0001000000",
+    "label": "OCEAN/EUR"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "GBP",
+    "min_size": "10.0000000000",
+    "increment": "0.0001000000",
+    "label": "OCEAN/GBP"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "USD",
+    "min_size": "10.0000000000",
+    "increment": "0.0001000000",
+    "label": "OCEAN/USD"
+  },
+  {
+    "asset": "OCEAN",
+    "currency": "XBT",
+    "min_size": "10.0000000000",
+    "increment": "0.0000000100",
+    "label": "OCEAN/XBT"
   },
   {
     "asset": "OMG",

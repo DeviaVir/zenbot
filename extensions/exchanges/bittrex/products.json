@@ -4074,7 +4074,7 @@
   {
     "asset": "UNI",
     "currency": "BTC",
-    "min_size": "0.67400000",
+    "min_size": "0.12000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UNI"
@@ -4082,7 +4082,7 @@
   {
     "asset": "UNI",
     "currency": "ETH",
-    "min_size": "0.67400000",
+    "min_size": "0.12000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/UNI"
@@ -4090,7 +4090,7 @@
   {
     "asset": "UNI",
     "currency": "USD",
-    "min_size": "0.67400000",
+    "min_size": "0.12000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/UNI"
@@ -4098,7 +4098,7 @@
   {
     "asset": "UNI",
     "currency": "USDT",
-    "min_size": "0.67400000",
+    "min_size": "0.12000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/UNI"
@@ -5646,5 +5646,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SBT"
+  },
+  {
+    "asset": "CUSD",
+    "currency": "ETH",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/CUSD"
+  },
+  {
+    "asset": "GLEEC",
+    "currency": "USDT",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GLEEC"
   }
 ]
