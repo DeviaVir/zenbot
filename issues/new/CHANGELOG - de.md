@@ -1,0 +1,47 @@
+## Changelog
+- [v4.1.01](https://github.com/carlos8f/zenbot/releases/tag/v4.1.0) (Neueste)
+    - Deutsche Sprache
+- [v4.1.0](https://github.com/carlos8f/zenbot/releases/tag/v4.1.0) (Neueste)
+    - mehr Indikatoren
+    - mehr Strategien
+    - mehr Austausch
+    - zu viele Fehlerbehebungen, um sie hier aufzulisten
+    - Web-Benutzeroberfläche
+    - Travis
+    - Automatisierte Docker-Builds
+    - Automatisierte Tests
+- [v4.0.5](https://github.com/carlos8f/zenbot/releases/tag/v4.0.5)
+    - Behandelt unzureichende Geldfehler von gdax
+    - Neue trend_ema-Standardeinstellungen, angepasst an die neuesten BTC-Bewegungen: 20m Zeitraum, neutrale Rate = 0
+    - mehr Daten in die Sim-Ausgabe aufnehmen
+    - Entfernen Sie selten nützliche trend_ema-Optionen
+    - Vermeiden Sie einen Abbruch des Traders bei fehlgeschlagenen getTrades ()
+- v4.0.4
+    - Debuggen für ungerade Polo-Ergebnisse
+    - sim: MakerFee-Bewertung vereinfachen und korrigieren
+    - Behebung des Conf-Pfads bei Fehlern mit API-Anmeldeinformationen
+    - Bestellsumme unter 0,0001 Fehler auf Polo korrigieren
+    - Docker: README leicht erweitern (danke [@DeviaVir] (https://github.com/deviavir) und [@egorbenko] (https://github.com/egorbenko))
+    - Docker-Compose: Mongodb nicht standardmäßig aussetzen! (danke [@DeviaVir] (https://github.com/deviavir))
+- v4.0.3
+    - Behebung des Docker Mongo Host-Fehlers
+    - Link für neuen Discord Chat!
+    - Polo Crash auf getOrder komisches Ergebnis behoben
+    - Oversold_rsi-Trigger während des Prerolls korrigieren
+    - Polo "nicht genug ..." Fehler behoben
+    - ausgefallene Farben für Preisbericht
+    - Produkt-ID im Bericht anzeigen
+    - Poloniex-Verfüllchargen zu große Mongo-Timeouts beheben
+    - Behebung des Absturzes von cursorTo() bei einigen Knoteninstallationen
+    - memDump zum Debuggen von Auftragsfehlern
+    - Spaltenabstand im Fortschrittsbericht korrigieren
+
+- v4.0.2
+    - Kleinere Überarbeitung von trend_ema strat - Whipsaw-Filterung über std hinzugefügt. Abweichung (`--neutral_rate=auto`)
+    - Trimmen Sie das Preroll des Sim-Ergebnisdiagramms
+
+- v4.0.1
+    - .dockerignore hinzugefügt (danke [@sulphur] (https://github.com/sulphur))
+    - Absturz beim Mongo-Timeout während des Auffüllens behoben
+    - Lücken in der Poloniex-Verfüllung schließen
+    - Standard-Verfüllungstage 90 -> 14

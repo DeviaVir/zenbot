@@ -184,6 +184,7 @@ module.exports = function binance (conf) {
       opts.type = 'limit'
       var args = {}
       if (opts.order_type === 'taker') {
+        delete opts.price
         delete opts.post_only
         opts.type = 'market'
       } else {
@@ -239,6 +240,7 @@ module.exports = function binance (conf) {
       opts.type = 'limit'
       var args = {}
       if (opts.order_type === 'taker') {
+        delete opts.price
         delete opts.post_only
         opts.type = 'market'
       } else {

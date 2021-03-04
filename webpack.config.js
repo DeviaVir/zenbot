@@ -3,7 +3,7 @@
 const path = require('path')
 
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -20,9 +20,7 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default'],
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].bundle.css'
-    })
+    new ExtractTextPlugin('[name].bundle.css'),
   ],
   output: {
     publicPath: '/assets-wp/',
@@ -31,11 +29,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { 
-        test: /\.js$/, 
-        loader: 'babel-loader', 
-        exclude: /(node_modules)/, 
-        options: { presets: ['env'] } },
+      { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules)/, query: { presets: ['env'] } },
       {
         test: /\.(scss)$/,
         use: [{
@@ -58,57 +52,30 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
       },
-      { 
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
-        loader: 'file' 
-      },
-      { 
-        test: /\.(woff|woff2)$/, 
-        use: ['url-loader', 
-        { options: 
-          { 
-            limit: 5000
-          } 
-        } ] 
-      },
-      { 
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, 
-        use: [{
-          loader: 'url-loader', 
-          options: { 
-            limit: 10000, 
-            mimetype: 'application/octet-stream' 
-          } 
-        }] 
-      },
-      { 
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, 
-        use: [{
-          loader: 'url-loader', 
-          options: { 
-            limit: 10000, 
-            mimetype: 'image/svg+xml' 
-          } 
-        }] 
-      },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
+      { test: /\.(woff|woff2)$/, loader:'url?prefix=font/&limit=5000' },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
       {
         test: require.resolve('jquery'),
         use: [{
           loader: 'expose-loader',
-          options: {
-            exposes: ['$','jQuery']
-          }
+          options: 'jQuery'
+        },{
+          loader: 'expose-loader',
+          options: '$'
         }]
       },
       {
         test: require.resolve('./webpack-src/js/echarts.js'),
         use: [{
           loader: 'expose-loader',
-          options: {
-            exposes: ['echarts']
-          }
+          options: 'echarts'
         }]
       }
     ],

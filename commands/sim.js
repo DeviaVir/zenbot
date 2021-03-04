@@ -55,7 +55,7 @@ module.exports = function (program, conf) {
       var s = { options: minimist(process.argv) }
       var so = s.options
       if (!so.quarentine_time) {
-        so.quarentine_time = 0
+        so.quarentine_time = 10
       }
 
       delete so._

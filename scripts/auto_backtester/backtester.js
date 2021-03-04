@@ -238,8 +238,7 @@ function runAutoBacktester () {
 
     fieldsGeneral = fieldsGeneral.concat(['selector', 'fitness', 'vsBuyHold', 'wlRatio', 'frequency', 'strategy', 'order_type', 'endBalance', 'buyHold', 'wins', 'losses', 'period_length', 'min_periods', 'days', 'commandString'])
     fieldNamesGeneral = fieldNamesGeneral.concat(['Selector', 'Fitness', 'VS Buy Hold (%)', 'Win/Loss Ratio', '# Trades/Day', 'Strategy', 'Order Type', 'Ending Balance ($)', 'Buy Hold ($)', '# Wins', '# Losses', 'Period', 'Min Periods', '# Days', 'Command'])
-    
-    const json2csv = require('json2csv').parse;
+
     let dataCSV = json2csv({
       data: results,
       fields: fieldsGeneral,

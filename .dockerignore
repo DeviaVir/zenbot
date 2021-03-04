@@ -5,7 +5,6 @@ simulations/*
 docs
 docker-compose*
 Dockerfile
-conf.js
 *.md
 .gitignore
 .dockerignore

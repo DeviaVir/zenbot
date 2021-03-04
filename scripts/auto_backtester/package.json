@@ -5,10 +5,10 @@
   "dependencies": {
     "json2csv": "^4.5.4",
     "round-precision": "^1.0.0",
-    "run-parallel-limit": "^1.0.6",
+    "run-parallel-limit": "^1.0.3",
     "shelljs": "^0.8.4",
     "strip-ansi": "^4.0.0",
-    "snyk": "^1.437.4"
+    "snyk": "^1.386.0"
   },
   "scripts": {
     "snyk-protect": "snyk protect",
