@@ -5170,7 +5170,7 @@
   {
     "asset": "GRT",
     "currency": "BTC",
-    "min_size": "12.41000000",
+    "min_size": "1.62000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GRT"
@@ -5178,7 +5178,7 @@
   {
     "asset": "GRT",
     "currency": "ETH",
-    "min_size": "12.41000000",
+    "min_size": "1.62000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/GRT"
@@ -5186,7 +5186,7 @@
   {
     "asset": "GRT",
     "currency": "EUR",
-    "min_size": "12.41000000",
+    "min_size": "1.62000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/GRT"
@@ -5194,7 +5194,7 @@
   {
     "asset": "GRT",
     "currency": "USD",
-    "min_size": "12.41000000",
+    "min_size": "1.62000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/GRT"
@@ -5202,7 +5202,7 @@
   {
     "asset": "GRT",
     "currency": "USDT",
-    "min_size": "12.41000000",
+    "min_size": "1.62000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/GRT"

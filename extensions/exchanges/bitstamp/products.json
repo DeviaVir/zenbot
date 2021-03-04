@@ -405,6 +405,33 @@
     "label": "USDC/EUR"
   },
   {
+    "id": "KNCUSD",
+    "asset": "KNC",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "KNC/USD"
+  },
+  {
+    "id": "KNCEUR",
+    "asset": "KNC",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "KNC/EUR"
+  },
+  {
+    "id": "KNCBTC",
+    "asset": "KNC",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.001",
+    "increment": "0.00000001",
+    "label": "KNC/BTC"
+  },
+  {
     "id": "MKRUSD",
     "asset": "MKR",
     "currency": "USD",
