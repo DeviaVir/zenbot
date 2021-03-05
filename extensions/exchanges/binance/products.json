@@ -14562,5 +14562,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "FIS/USDT"
+  },
+  {
+    "id": "DOTBRL",
+    "asset": "DOT",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "DOT/BRL"
+  },
+  {
+    "id": "ADAAUD",
+    "asset": "ADA",
+    "currency": "AUD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ADA/AUD"
+  },
+  {
+    "id": "HOTTRY",
+    "asset": "HOT",
+    "currency": "TRY",
+    "min_size": "1.00000000",
+    "max_size": "10000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "1.00000000",
+    "label": "HOT/TRY"
+  },
+  {
+    "id": "EGLDEUR",
+    "asset": "EGLD",
+    "currency": "EUR",
+    "min_size": "0.00001000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "EGLD/EUR"
   }
 ]
