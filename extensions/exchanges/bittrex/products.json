@@ -34,7 +34,7 @@
   {
     "asset": "FTC",
     "currency": "BTC",
-    "min_size": "213.67521368",
+    "min_size": "75.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/FTC"
@@ -42,7 +42,7 @@
   {
     "asset": "RDD",
     "currency": "BTC",
-    "min_size": "2777.77777778",
+    "min_size": "750.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/RDD"
@@ -66,7 +66,7 @@
   {
     "asset": "BLK",
     "currency": "BTC",
-    "min_size": "49.11591356",
+    "min_size": "35.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/BLK"
@@ -82,7 +82,7 @@
   {
     "asset": "XMY",
     "currency": "BTC",
-    "min_size": "2272.72727273",
+    "min_size": "500.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XMY"
@@ -98,7 +98,7 @@
   {
     "asset": "NLG",
     "currency": "BTC",
-    "min_size": "328.94736842",
+    "min_size": "188.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/NLG"
@@ -314,7 +314,7 @@
   {
     "asset": "OK",
     "currency": "BTC",
-    "min_size": "56.81818182",
+    "min_size": "55.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OK"
@@ -386,7 +386,7 @@
   {
     "asset": "VAL",
     "currency": "BTC",
-    "min_size": "4.55290475",
+    "min_size": "1.50000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VAL"
@@ -522,7 +522,7 @@
   {
     "asset": "UBQ",
     "currency": "BTC",
-    "min_size": "23.80952381",
+    "min_size": "9.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UBQ"
@@ -546,7 +546,7 @@
   {
     "asset": "CRW",
     "currency": "BTC",
-    "min_size": "35.36067893",
+    "min_size": "20.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CRW"
@@ -1146,7 +1146,7 @@
   {
     "asset": "SRN",
     "currency": "BTC",
-    "min_size": "238.09523810",
+    "min_size": "79.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SRN"
@@ -1154,7 +1154,7 @@
   {
     "asset": "SRN",
     "currency": "ETH",
-    "min_size": "91.39097057",
+    "min_size": "79.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SRN"
@@ -1658,7 +1658,7 @@
   {
     "asset": "SOLVE",
     "currency": "BTC",
-    "min_size": "21.44082333",
+    "min_size": "17.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SOLVE"
@@ -1938,7 +1938,7 @@
   {
     "asset": "SOLVE",
     "currency": "ETH",
-    "min_size": "8.16806613",
+    "min_size": "17.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SOLVE"
@@ -1994,7 +1994,7 @@
   {
     "asset": "ORBS",
     "currency": "BTC",
-    "min_size": "173.61111111",
+    "min_size": "86.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/ORBS"
@@ -3098,7 +3098,7 @@
   {
     "asset": "SOLVE",
     "currency": "USDT",
-    "min_size": "30.00000000",
+    "min_size": "17.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SOLVE"
@@ -5522,7 +5522,7 @@
   {
     "asset": "RDD",
     "currency": "USDT",
-    "min_size": "920.00000000",
+    "min_size": "750.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/RDD"
