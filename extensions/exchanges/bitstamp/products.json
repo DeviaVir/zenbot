@@ -405,6 +405,15 @@
     "label": "USDC/EUR"
   },
   {
+    "id": "DAIUSD",
+    "asset": "DAI",
+    "currency": "USD",
+    "min_size": "0.00001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "DAI/USD"
+  },
+  {
     "id": "KNCUSD",
     "asset": "KNC",
     "currency": "USD",

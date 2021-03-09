@@ -344,6 +344,14 @@
     "label": "BTC/EXP"
   },
   {
+    "asset": "AGRS",
+    "currency": "BTC",
+    "min_size": "4.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AGRS"
+  },
+  {
     "asset": "XLM",
     "currency": "BTC",
     "min_size": "38.34355828",
@@ -5662,5 +5670,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/GLEEC"
+  },
+  {
+    "asset": "AGRS",
+    "currency": "USDT",
+    "min_size": "6.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/AGRS"
   }
 ]
