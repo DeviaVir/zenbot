@@ -493,5 +493,14 @@
     "min_total": "0.001",
     "increment": "0.00000001",
     "label": "ZRX/BTC"
+  },
+  {
+    "id": "GUSDUSD",
+    "asset": "GUSD",
+    "currency": "USD",
+    "min_size": "0.00001",
+    "min_total": "25",
+    "increment": "0.00001",
+    "label": "GUSD/USD"
   }
 ]
