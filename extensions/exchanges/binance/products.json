@@ -14749,5 +14749,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "UNI/EUR"
+  },
+  {
+    "id": "CHZBUSD",
+    "asset": "CHZ",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CHZ/BUSD"
+  },
+  {
+    "id": "CHZEUR",
+    "asset": "CHZ",
+    "currency": "EUR",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CHZ/EUR"
+  },
+  {
+    "id": "CHZGBP",
+    "asset": "CHZ",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "CHZ/GBP"
   }
 ]
