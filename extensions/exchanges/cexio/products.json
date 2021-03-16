@@ -1494,5 +1494,21 @@
     "max_size": null,
     "increment": "0.01",
     "label": "1INCH/USD"
+  },
+  {
+    "asset": "RSR",
+    "currency": "USD",
+    "min_size": "120",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "RSR/USD"
+  },
+  {
+    "asset": "LRC",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "LRC/USD"
   }
 ]

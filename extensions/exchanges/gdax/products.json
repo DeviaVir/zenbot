@@ -36,6 +36,42 @@
     "label": "AAVE/USD"
   },
   {
+    "asset": "ADA",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "250000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "ADA/BTC"
+  },
+  {
+    "asset": "ADA",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "250000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "ADA/EUR"
+  },
+  {
+    "asset": "ADA",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "250000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "ADA/GBP"
+  },
+  {
+    "asset": "ADA",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "250000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "ADA/USD"
+  },
+  {
     "asset": "ALGO",
     "currency": "BTC",
     "min_size": "1",

@@ -976,6 +976,14 @@
     "label": "ZIL/USD"
   },
   {
+    "asset": "ZIL",
+    "currency": "BTC",
+    "min_size": "748.0",
+    "max_size": "1500000.0",
+    "increment": "0.0000000001",
+    "label": "ZIL/BTC"
+  },
+  {
     "asset": "BNT",
     "currency": "USD",
     "min_size": "2.0",
