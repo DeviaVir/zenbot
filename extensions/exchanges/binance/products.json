@@ -740,11 +740,11 @@
     "id": "BNTBTC",
     "asset": "BNT",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.10000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00000001",
-    "asset_increment": "1.00000000",
+    "asset_increment": "0.10000000",
     "label": "BNT/BTC"
   },
   {
@@ -3644,11 +3644,11 @@
     "id": "THETABTC",
     "asset": "THETA",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.10000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00000001",
-    "asset_increment": "1.00000000",
+    "asset_increment": "0.10000000",
     "label": "THETA/BTC"
   },
   {
@@ -7120,11 +7120,11 @@
     "id": "KAVABTC",
     "asset": "KAVA",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.10000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00000001",
-    "asset_increment": "1.00000000",
+    "asset_increment": "0.10000000",
     "label": "KAVA/BTC"
   },
   {
@@ -7428,11 +7428,11 @@
     "id": "BNBRUB",
     "asset": "BNB",
     "currency": "RUB",
-    "min_size": "0.01000000",
+    "min_size": "0.00100000",
     "max_size": "100000.00000000",
     "min_total": "100.00000000",
     "increment": "0.01000000",
-    "asset_increment": "0.01000000",
+    "asset_increment": "0.00100000",
     "label": "BNB/RUB"
   },
   {
@@ -9727,11 +9727,11 @@
     "id": "RUNEBTC",
     "asset": "RUNE",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.10000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00000001",
-    "asset_increment": "1.00000000",
+    "asset_increment": "0.10000000",
     "label": "RUNE/BTC"
   },
   {
@@ -12708,11 +12708,11 @@
     "id": "RENBTCBTC",
     "asset": "RENBTC",
     "currency": "BTC",
-    "min_size": "0.00010000",
+    "min_size": "0.00001000",
     "max_size": "9000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00001000",
-    "asset_increment": "0.00010000",
+    "asset_increment": "0.00001000",
     "label": "RENBTC/BTC"
   },
   {
@@ -14754,11 +14754,11 @@
     "id": "ALICEBTC",
     "asset": "ALICE",
     "currency": "BTC",
-    "min_size": "1.00000000",
+    "min_size": "0.10000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00000001",
-    "asset_increment": "1.00000000",
+    "asset_increment": "0.10000000",
     "label": "ALICE/BTC"
   },
   {
