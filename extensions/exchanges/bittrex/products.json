@@ -5650,7 +5650,7 @@
   {
     "asset": "SBT",
     "currency": "USDT",
-    "min_size": "1940.00000000",
+    "min_size": "1500.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SBT"
@@ -5790,5 +5790,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/MATIC"
+  },
+  {
+    "asset": "ROOM",
+    "currency": "BTC",
+    "min_size": "0.90000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ROOM"
+  },
+  {
+    "asset": "ROOM",
+    "currency": "USDT",
+    "min_size": "0.90000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ROOM"
+  },
+  {
+    "asset": "SPI",
+    "currency": "BTC",
+    "min_size": "0.06000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SPI"
+  },
+  {
+    "asset": "SPI",
+    "currency": "USDT",
+    "min_size": "0.06000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SPI"
   }
 ]

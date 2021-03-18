@@ -32,6 +32,14 @@
     "label": "3X Long Cardano Token/Tether USD"
   },
   {
+    "asset": "ADD",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "ADD/Tether USD"
+  },
+  {
     "asset": "ADEL",
     "currency": "USDT",
     "min_total": "1",
