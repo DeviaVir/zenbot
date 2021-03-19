@@ -5752,6 +5752,22 @@
     "label": "BTC/IQQ"
   },
   {
+    "asset": "REVV",
+    "currency": "BTC",
+    "min_size": "7.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/REVV"
+  },
+  {
+    "asset": "REVV",
+    "currency": "USDT",
+    "min_size": "7.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/REVV"
+  },
+  {
     "asset": "XEM",
     "currency": "USD",
     "min_size": "7.50000000",
@@ -5782,6 +5798,14 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XEM"
+  },
+  {
+    "asset": "UBQ",
+    "currency": "USDT",
+    "min_size": "8.22000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/UBQ"
   },
   {
     "asset": "MATIC",

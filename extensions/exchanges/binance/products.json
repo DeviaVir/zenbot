@@ -14870,5 +14870,93 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "LINA/USDT"
+  },
+  {
+    "id": "ADARUB",
+    "asset": "ADA",
+    "currency": "RUB",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "100.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "ADA/RUB"
+  },
+  {
+    "id": "ENJBRL",
+    "asset": "ENJ",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "ENJ/BRL"
+  },
+  {
+    "id": "ENJEUR",
+    "asset": "ENJ",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ENJ/EUR"
+  },
+  {
+    "id": "MATICEUR",
+    "asset": "MATIC",
+    "currency": "EUR",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "MATIC/EUR"
+  },
+  {
+    "id": "NEOTRY",
+    "asset": "NEO",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.10000000",
+    "asset_increment": "0.01000000",
+    "label": "NEO/TRY"
+  },
+  {
+    "id": "PERPBTC",
+    "asset": "PERP",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "PERP/BTC"
+  },
+  {
+    "id": "PERPBUSD",
+    "asset": "PERP",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "PERP/BUSD"
+  },
+  {
+    "id": "PERPUSDT",
+    "asset": "PERP",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "PERP/USDT"
   }
 ]
