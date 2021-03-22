@@ -10937,11 +10937,11 @@
     "id": "WBTCBTC",
     "asset": "WBTC",
     "currency": "BTC",
-    "min_size": "0.00010000",
+    "min_size": "0.00001000",
     "max_size": "9000.00000000",
     "min_total": "0.00010000",
     "increment": "0.00001000",
-    "asset_increment": "0.00010000",
+    "asset_increment": "0.00001000",
     "label": "WBTC/BTC"
   },
   {
@@ -14958,5 +14958,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "PERP/USDT"
+  },
+  {
+    "id": "RAMPBTC",
+    "asset": "RAMP",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "RAMP/BTC"
+  },
+  {
+    "id": "RAMPBUSD",
+    "asset": "RAMP",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "RAMP/BUSD"
+  },
+  {
+    "id": "RAMPUSDT",
+    "asset": "RAMP",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "RAMP/USDT"
   }
 ]

@@ -5808,6 +5808,14 @@
     "label": "USDT/UBQ"
   },
   {
+    "asset": "LSK",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LSK"
+  },
+  {
     "asset": "MATIC",
     "currency": "USD",
     "min_size": "8.33000000",
