@@ -5816,6 +5816,14 @@
     "label": "USDT/LSK"
   },
   {
+    "asset": "WAVES",
+    "currency": "USDT",
+    "min_size": "0.33000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/WAVES"
+  },
+  {
     "asset": "MATIC",
     "currency": "USD",
     "min_size": "8.33000000",
@@ -5854,5 +5862,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SPI"
+  },
+  {
+    "asset": "GNY",
+    "currency": "BTC",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GNY"
+  },
+  {
+    "asset": "GAME",
+    "currency": "USDT",
+    "min_size": "6.25000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GAME"
   }
 ]

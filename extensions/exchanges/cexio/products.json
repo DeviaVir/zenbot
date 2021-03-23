@@ -1510,5 +1510,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "LRC/USD"
+  },
+  {
+    "asset": "XSGD",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "XSGD/USD"
   }
 ]
