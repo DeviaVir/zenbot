@@ -5824,6 +5824,14 @@
     "label": "USDT/WAVES"
   },
   {
+    "asset": "KMD",
+    "currency": "USDT",
+    "min_size": "2.48000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KMD"
+  },
+  {
     "asset": "MATIC",
     "currency": "USD",
     "min_size": "8.33000000",
