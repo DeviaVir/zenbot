@@ -14991,5 +14991,38 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "RAMP/USDT"
+  },
+  {
+    "id": "SUPERBTC",
+    "asset": "SUPER",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.10000000",
+    "label": "SUPER/BTC"
+  },
+  {
+    "id": "SUPERBUSD",
+    "asset": "SUPER",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SUPER/BUSD"
+  },
+  {
+    "id": "SUPERUSDT",
+    "asset": "SUPER",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "SUPER/USDT"
   }
 ]

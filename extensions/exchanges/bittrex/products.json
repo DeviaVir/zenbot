@@ -882,7 +882,7 @@
   {
     "asset": "OMG",
     "currency": "BTC",
-    "min_size": "2.09257554",
+    "min_size": "0.65000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OMG"
@@ -890,7 +890,7 @@
   {
     "asset": "OMG",
     "currency": "ETH",
-    "min_size": "0.78766206",
+    "min_size": "0.65000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/OMG"
@@ -922,7 +922,7 @@
   {
     "asset": "QTUM",
     "currency": "BTC",
-    "min_size": "1.02450619",
+    "min_size": "0.38000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QTUM"
@@ -930,7 +930,7 @@
   {
     "asset": "QTUM",
     "currency": "ETH",
-    "min_size": "0.38353970",
+    "min_size": "0.38000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/QTUM"
@@ -1026,7 +1026,7 @@
   {
     "asset": "OMG",
     "currency": "USDT",
-    "min_size": "2.10393526",
+    "min_size": "0.65000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/OMG"
@@ -5832,6 +5832,14 @@
     "label": "USDT/KMD"
   },
   {
+    "asset": "VAL",
+    "currency": "USDT",
+    "min_size": "1.42000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/VAL"
+  },
+  {
     "asset": "MATIC",
     "currency": "USD",
     "min_size": "8.33000000",
@@ -5886,5 +5894,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/GAME"
+  },
+  {
+    "asset": "OMG",
+    "currency": "USD",
+    "min_size": "0.65000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/OMG"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "USDT",
+    "min_size": "0.40053404",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/QTUM"
   }
 ]

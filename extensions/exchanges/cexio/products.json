@@ -1518,5 +1518,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "XSGD/USD"
+  },
+  {
+    "asset": "HAPI",
+    "currency": "USD",
+    "min_size": "0.08",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "HAPI/USD"
   }
 ]
