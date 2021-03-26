@@ -108,6 +108,42 @@
     "label": "ALGO/USD"
   },
   {
+    "asset": "ANKR",
+    "currency": "BTC",
+    "min_size": "10",
+    "max_size": "4000000",
+    "increment": "0.00000001",
+    "asset_increment": "1",
+    "label": "ANKR/BTC"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "EUR",
+    "min_size": "10",
+    "max_size": "4000000",
+    "increment": "0.00001",
+    "asset_increment": "1",
+    "label": "ANKR/EUR"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "GBP",
+    "min_size": "10",
+    "max_size": "4000000",
+    "increment": "0.00001",
+    "asset_increment": "1",
+    "label": "ANKR/GBP"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": "4000000",
+    "increment": "0.00001",
+    "asset_increment": "1",
+    "label": "ANKR/USD"
+  },
+  {
     "asset": "ATOM",
     "currency": "BTC",
     "min_size": "0.1",
@@ -358,6 +394,42 @@
     "increment": "0.01",
     "asset_increment": "0.001",
     "label": "COMP/USD"
+  },
+  {
+    "asset": "CRV",
+    "currency": "BTC",
+    "min_size": "0.5",
+    "max_size": "100000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "CRV/BTC"
+  },
+  {
+    "asset": "CRV",
+    "currency": "EUR",
+    "min_size": "0.5",
+    "max_size": "100000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "CRV/EUR"
+  },
+  {
+    "asset": "CRV",
+    "currency": "GBP",
+    "min_size": "0.5",
+    "max_size": "100000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "CRV/GBP"
+  },
+  {
+    "asset": "CRV",
+    "currency": "USD",
+    "min_size": "0.5",
+    "max_size": "100000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "CRV/USD"
   },
   {
     "asset": "CVC",
@@ -1024,6 +1096,24 @@
     "increment": "0.0001",
     "asset_increment": "0.001",
     "label": "SNX/USD"
+  },
+  {
+    "asset": "STORJ",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "280000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01",
+    "label": "STORJ/BTC"
+  },
+  {
+    "asset": "STORJ",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "280000",
+    "increment": "0.0001",
+    "asset_increment": "0.01",
+    "label": "STORJ/USD"
   },
   {
     "asset": "SUSHI",

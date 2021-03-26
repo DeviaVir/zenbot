@@ -882,7 +882,7 @@
   {
     "asset": "OMG",
     "currency": "BTC",
-    "min_size": "2.09257554",
+    "min_size": "0.65000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/OMG"
@@ -890,7 +890,7 @@
   {
     "asset": "OMG",
     "currency": "ETH",
-    "min_size": "0.78766206",
+    "min_size": "0.65000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/OMG"
@@ -922,7 +922,7 @@
   {
     "asset": "QTUM",
     "currency": "BTC",
-    "min_size": "1.02450619",
+    "min_size": "0.38000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QTUM"
@@ -930,7 +930,7 @@
   {
     "asset": "QTUM",
     "currency": "ETH",
-    "min_size": "0.38353970",
+    "min_size": "0.38000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/QTUM"
@@ -1026,7 +1026,7 @@
   {
     "asset": "OMG",
     "currency": "USDT",
-    "min_size": "2.10393526",
+    "min_size": "0.65000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/OMG"
@@ -5650,7 +5650,7 @@
   {
     "asset": "SBT",
     "currency": "USDT",
-    "min_size": "1940.00000000",
+    "min_size": "1500.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SBT"
@@ -5752,6 +5752,22 @@
     "label": "BTC/IQQ"
   },
   {
+    "asset": "REVV",
+    "currency": "BTC",
+    "min_size": "7.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/REVV"
+  },
+  {
+    "asset": "REVV",
+    "currency": "USDT",
+    "min_size": "7.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/REVV"
+  },
+  {
     "asset": "XEM",
     "currency": "USD",
     "min_size": "7.50000000",
@@ -5784,11 +5800,115 @@
     "label": "USDT/XEM"
   },
   {
+    "asset": "UBQ",
+    "currency": "USDT",
+    "min_size": "8.22000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/UBQ"
+  },
+  {
+    "asset": "LSK",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/LSK"
+  },
+  {
+    "asset": "WAVES",
+    "currency": "USDT",
+    "min_size": "0.33000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/WAVES"
+  },
+  {
+    "asset": "KMD",
+    "currency": "USDT",
+    "min_size": "2.48000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/KMD"
+  },
+  {
+    "asset": "VAL",
+    "currency": "USDT",
+    "min_size": "1.42000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/VAL"
+  },
+  {
     "asset": "MATIC",
     "currency": "USD",
     "min_size": "8.33000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/MATIC"
+  },
+  {
+    "asset": "ROOM",
+    "currency": "BTC",
+    "min_size": "0.90000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ROOM"
+  },
+  {
+    "asset": "ROOM",
+    "currency": "USDT",
+    "min_size": "0.90000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ROOM"
+  },
+  {
+    "asset": "SPI",
+    "currency": "BTC",
+    "min_size": "0.06000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SPI"
+  },
+  {
+    "asset": "SPI",
+    "currency": "USDT",
+    "min_size": "0.06000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SPI"
+  },
+  {
+    "asset": "GNY",
+    "currency": "BTC",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GNY"
+  },
+  {
+    "asset": "GAME",
+    "currency": "USDT",
+    "min_size": "6.25000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GAME"
+  },
+  {
+    "asset": "OMG",
+    "currency": "USD",
+    "min_size": "0.65000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/OMG"
+  },
+  {
+    "asset": "QTUM",
+    "currency": "USDT",
+    "min_size": "0.40053404",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/QTUM"
   }
 ]

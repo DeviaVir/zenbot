@@ -398,5 +398,61 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "UNI/USD"
+  },
+  {
+    "asset": "ENJ",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "ENJ/USD"
+  },
+  {
+    "asset": "BNT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BNT/USD"
+  },
+  {
+    "asset": "1IN",
+    "currency": "CHU",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "1IN/CHU"
+  },
+  {
+    "asset": "SKL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "SKL/USD"
+  },
+  {
+    "asset": "GRT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "GRT/USD"
+  },
+  {
+    "asset": "LRC",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LRC/USD"
+  },
+  {
+    "asset": "SAN",
+    "currency": "DUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "SAN/DUS"
   }
 ]

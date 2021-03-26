@@ -883,7 +883,7 @@
     "asset": "VEE",
     "currency": "USD",
     "min_size": "1332.0",
-    "max_size": "800000.0",
+    "max_size": "5000000.0",
     "increment": "0.0000001",
     "label": "VEE/USD"
   },
@@ -2430,6 +2430,38 @@
     "max_size": "50000.0",
     "increment": "0.000001",
     "label": "ALB/T:U"
+  },
+  {
+    "asset": "CEL",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.001",
+    "label": "CEL/USD"
+  },
+  {
+    "asset": "CEL",
+    "currency": "UST",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "CEL/UST"
+  },
+  {
+    "asset": "SUK",
+    "currency": "U:U",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "SUK/U:U"
+  },
+  {
+    "asset": "SUK",
+    "currency": "U:U",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "SUK/U:U"
   },
   {
     "asset": "BTC",
