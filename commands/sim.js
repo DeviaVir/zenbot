@@ -145,7 +145,9 @@ module.exports = function (program, conf) {
         var buy_hold = s.start_price ? n(s.period.close).multiply(n(s.start_capital).divide(s.start_price)) : n(s.balance.currency)
         //console.log('buy hold', buy_hold.format('0.00000000'))
         var buy_hold_profit = s.start_capital ? n(buy_hold).subtract(s.start_capital).divide(s.start_capital) : n(0)
-        output_lines.push('buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')')
+        var buy_hold_out_message = 'buy hold: ' + buy_hold.format('0.00000000').yellow + ' (' + n(buy_hold_profit).format('0.00%') + ')';
+        buy_hold_out_message = s.start_price ? buy_hold_out_message + ' (from ' + s.start_price + ' to ' + s.period.close + ')': buy_hold_out_message;        
+        output_lines.push(buy_hold_out_message)
         output_lines.push('vs. buy hold: ' + n(s.balance.currency).subtract(buy_hold).divide(buy_hold).format('0.00%').yellow)
         output_lines.push(s.my_trades.length + ' trades over ' + s.day_count + ' days (avg ' + n(s.my_trades.length / s.day_count).format('0.00') + ' trades/day)')
         var last_buy
