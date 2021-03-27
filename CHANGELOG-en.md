@@ -1,5 +1,7 @@
 ## Changelog
 
+- [v4.1.0.1](https://github.com/dwhr-pi/zenbot/releases/tag/v4.1.0.1) (Latest in German)
+     - Translations into the German language, the most important files.
 - [v4.1.0](https://github.com/carlos8f/zenbot/releases/tag/v4.1.0) (Latest)
     - more indicators
     - more strategies

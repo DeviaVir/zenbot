@@ -3,7 +3,7 @@
 Um Zenbot unter Docker auszuführen, installieren Sie Docker, Docker Compose und Docker Machine (falls erforderlich).
 Sie können den Anweisungen unter https://docs.docker.com/compose/install/ folgen.
 
-Nach der [Installation von Zenbot] (README.md):
+Nach der [Installation von Zenbot](README.md):
 ```
 cd zenbot
 docker-compose up    # -d, wenn Sie das Protokoll nicht sehen möchten.
@@ -31,3 +31,8 @@ Führen Sie `docker-compose up -d` erneut aus, um das neue Image zu starten.
 
 `deviavir/zenbot` wird nach jeder Zusammenführung automatisch aktualisiert.
 Sie können den tags/builds unter https://hub.docker.com/r/deviavir/zenbot/builds/ folgen.
+
+Oder zukünftig auch in Deutsch:
+
+`dwhr-pi/zenbot` wird nach jeder Zusammenführung automatisch aktualisiert.
+Sie können den tags/builds unter https://hub.docker.com/r/dwhr-pi/zenbot/builds/ folgen.

@@ -1,6 +1,6 @@
 ### Die `rsi` Strategie
 
-Versuche, niedrig zu kaufen und hoch zu verkaufen, indem RSI-Hochwasserwerte verfolgt werden.
+Versuche, niedrig zu kaufen und hoch zu verkaufen, in dem RSI-Hochwasserwerte verfolgt werden.
 
 - Wirksam in Seitwärtsmärkten oder Märkten, die sich nach Preissenkungen tendenziell erholen.
 - Die Verwendung auf Bärenmärkten ist riskant, da der Algorithmus von der Preiserholung abhängt.

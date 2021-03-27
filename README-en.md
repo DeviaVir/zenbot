@@ -5,6 +5,8 @@
 
 # Zenbot [![Build/Test Status](https://travis-ci.org/DeviaVir/zenbot.svg?branch=master)](https://travis-ci.org/DeviaVir/zenbot) 
 
+This German version of Zenbot corresponds to the original English version v4.1.0 of [DeviaVir] (https://github.com/DeviaVir/zenbot).
+
 ## Description
 
 Zenbot is a command-line cryptocurrency trading bot using Node.js and MongoDB. It features:

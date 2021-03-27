@@ -1,6 +1,7 @@
 ## Changelog
-- [v4.1.01](https://github.com/carlos8f/zenbot/releases/tag/v4.1.0) (Neueste)
-    - Deutsche Sprache
+
+- [v4.1.0.1](https://github.com/dwhr-pi/zenbot/releases/tag/v4.1.0.1) (Neueste auf Deutsch)
+    - Übersetzungen in die Deutsche Sprache, der wichtigsten Dateien.
 - [v4.1.0](https://github.com/carlos8f/zenbot/releases/tag/v4.1.0) (Neueste)
     - mehr Indikatoren
     - mehr Strategien

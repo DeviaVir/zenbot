@@ -43,7 +43,7 @@ Benennen Sie die MongoDB-Dockerdatei in "mongo" um (wenn Sie das obige Abbild ve
 docker tag nonoroazoro/rpi-mongo mongo
 ```
 
-Installieren Sie Zenbot, beschrieben im [Installationshandbuch] (README.md).
+Installieren Sie Zenbot, beschrieben im [Installationshandbuch](README.md).
 
 Führen Sie Zenbot aus:
 ```

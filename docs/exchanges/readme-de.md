@@ -8,7 +8,7 @@ Jeder Beitrag, der dies für alle verbessert, ist sicherlich willkommen.
 
 ## Börsen (Exchanges)
 
-* [Bitstamp](bitstamp - de.md)
-* [Kraken](kraken - de.md)
+* [Bitstamp](bitstamp-de.md)
+* [Kraken](kraken-de.md)
 
 
