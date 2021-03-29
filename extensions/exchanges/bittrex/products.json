@@ -5910,5 +5910,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/QTUM"
+  },
+  {
+    "asset": "QCX",
+    "currency": "USDT",
+    "min_size": "107.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/QCX"
+  },
+  {
+    "asset": "INXT",
+    "currency": "BTC",
+    "min_size": "0.17000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/INXT"
+  },
+  {
+    "asset": "INXT",
+    "currency": "USDT",
+    "min_size": "0.17000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/INXT"
   }
 ]

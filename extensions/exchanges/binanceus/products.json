@@ -1087,5 +1087,115 @@
     "increment": "0.00000001",
     "asset_increment": "1.00000000",
     "label": "UNI/BTC"
+  },
+  {
+    "id": "EGLDUSDT",
+    "asset": "EGLD",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "EGLD/USDT"
+  },
+  {
+    "id": "EGLDUSD",
+    "asset": "EGLD",
+    "currency": "USD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.0000",
+    "increment": "0.0010",
+    "asset_increment": "0.00100000",
+    "label": "EGLD/USD"
+  },
+  {
+    "id": "PAXGUSDT",
+    "asset": "PAXG",
+    "currency": "USDT",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "PAXG/USDT"
+  },
+  {
+    "id": "PAXGUSD",
+    "asset": "PAXG",
+    "currency": "USD",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.0000",
+    "increment": "0.0100",
+    "asset_increment": "0.00000100",
+    "label": "PAXG/USD"
+  },
+  {
+    "id": "OXTUSDT",
+    "asset": "OXT",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "OXT/USDT"
+  },
+  {
+    "id": "OXTUSD",
+    "asset": "OXT",
+    "currency": "USD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.0000",
+    "increment": "0.0001",
+    "asset_increment": "0.01000000",
+    "label": "OXT/USD"
+  },
+  {
+    "id": "ZENUSDT",
+    "asset": "ZEN",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ZEN/USDT"
+  },
+  {
+    "id": "ZENUSD",
+    "asset": "ZEN",
+    "currency": "USD",
+    "min_size": "0.00100000",
+    "max_size": "900000.00000000",
+    "min_total": "10.0000",
+    "increment": "0.0010",
+    "asset_increment": "0.00100000",
+    "label": "ZEN/USD"
+  },
+  {
+    "id": "BTCUSDC",
+    "asset": "BTC",
+    "currency": "USDC",
+    "min_size": "0.00000100",
+    "max_size": "9000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00000100",
+    "label": "BTC/USDC"
+  },
+  {
+    "id": "ONEBUSD",
+    "asset": "ONE",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "ONE/BUSD"
   }
 ]
