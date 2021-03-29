@@ -360,13 +360,13 @@ function simulateGeneration(generateLaunchFile) {
     let bestOverallResult = []
     let prefix = './zenbot.sh sim '
     selectedStrategies.forEach((v) => {
-      let best = pools[v]['pool'].best()
+      let best = results.find(r => r.strategy == v)
       let bestCommand
 
-      if (best.sim) {
-        console.log(`(${best.sim.strategy}) Sim Fitness ${best.sim.fitness}, VS Buy and Hold: ${z(5, (n(best.sim.vsBuyHold).format('0.0') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(best.sim.buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(best.sim.endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${best.sim.wins}/${best.sim.losses}, ROI ${z(5, (n(best.sim.roi).format('0.000000')), ' ').yellow}.`)
-        bestCommand = generateCommandParams(best.sim)
-        bestOverallResult.push(best.sim)
+      if (best) {
+        console.log(`(${best.strategy}) Sim Fitness ${best.fitness}, VS Buy and Hold: ${z(5, (n(best.vsBuyHold).format('0.0') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(best.buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(best.endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${best.wins}/${best.losses}, ROI ${z(5, (n(best.roi).format('0.000000')), ' ').yellow}.`)
+        bestCommand = generateCommandParams(best)
+        bestOverallResult.push(best)
       } else {
         console.log(`(${results[0].strategy}) Result Fitness ${results[0].fitness}, VS Buy and Hold: ${z(5, (n(results[0].vsBuyHold).format('0.0') + '%'), ' ').yellow} BuyAndHold Balance: ${z(5, (n(results[0].buyHold).format('0.000000')), ' ').yellow}  End Balance: ${z(5, (n(results[0].endBalance).format('0.000000')), ' ').yellow}, Wins/Losses ${results[0].wins}/${results[0].losses}, ROI ${z(5, (n(results.roi).format('0.000000')), ' ').yellow}.`)
         bestCommand = generateCommandParams(results[0])
