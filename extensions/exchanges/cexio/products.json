@@ -1464,6 +1464,14 @@
     "label": "TON/USD"
   },
   {
+    "asset": "AWG",
+    "currency": "USD",
+    "min_size": "0.12",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "AWG/USD"
+  },
+  {
     "asset": "FUN",
     "currency": "USD",
     "min_size": "160",
@@ -1504,12 +1512,36 @@
     "label": "RSR/USD"
   },
   {
+    "asset": "MANA",
+    "currency": "USD",
+    "min_size": "25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MANA/USD"
+  },
+  {
     "asset": "LRC",
     "currency": "USD",
     "min_size": "10",
     "max_size": null,
     "increment": "0.01",
     "label": "LRC/USD"
+  },
+  {
+    "asset": "DNT",
+    "currency": "USD",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "DNT/USD"
+  },
+  {
+    "asset": "CVC",
+    "currency": "USD",
+    "min_size": "15",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "CVC/USD"
   },
   {
     "asset": "XSGD",
@@ -1526,5 +1558,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "HAPI/USD"
+  },
+  {
+    "asset": "AWX",
+    "currency": "USDT",
+    "min_size": "2",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "AWX/USDT"
   }
 ]

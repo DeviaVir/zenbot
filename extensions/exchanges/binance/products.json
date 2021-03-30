@@ -15057,5 +15057,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "CFX/USDT"
+  },
+  {
+    "id": "ENJGBP",
+    "asset": "ENJ",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "ENJ/GBP"
+  },
+  {
+    "id": "EOSTRY",
+    "asset": "EOS",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "EOS/TRY"
+  },
+  {
+    "id": "LTCGBP",
+    "asset": "LTC",
+    "currency": "GBP",
+    "min_size": "0.00001000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "LTC/GBP"
+  },
+  {
+    "id": "LUNAEUR",
+    "asset": "LUNA",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "LUNA/EUR"
   }
 ]
