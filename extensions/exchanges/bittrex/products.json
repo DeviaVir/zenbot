@@ -3210,7 +3210,7 @@
   {
     "asset": "CELO",
     "currency": "BTC",
-    "min_size": "3.00000000",
+    "min_size": "0.61000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/CELO"
@@ -3218,7 +3218,7 @@
   {
     "asset": "CELO",
     "currency": "ETH",
-    "min_size": "3.00000000",
+    "min_size": "0.61000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/CELO"
@@ -3226,7 +3226,7 @@
   {
     "asset": "CELO",
     "currency": "USD",
-    "min_size": "3.00000000",
+    "min_size": "0.61000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/CELO"
@@ -3234,7 +3234,7 @@
   {
     "asset": "CELO",
     "currency": "USDT",
-    "min_size": "3.00000000",
+    "min_size": "0.61000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CELO"
@@ -5950,5 +5950,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/INXT"
+  },
+  {
+    "asset": "STRK",
+    "currency": "BTC",
+    "min_size": "0.05000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/STRK"
+  },
+  {
+    "asset": "STRK",
+    "currency": "USDT",
+    "min_size": "0.05000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/STRK"
+  },
+  {
+    "asset": "CELO",
+    "currency": "EUR",
+    "min_size": "0.61000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/CELO"
   }
 ]

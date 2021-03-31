@@ -786,7 +786,7 @@
   {
     "asset": "HOT",
     "currency": "USD",
-    "min_size": "11000",
+    "min_size": "400",
     "max_size": null,
     "increment": "0.01",
     "label": "HOT/USD"
@@ -794,7 +794,7 @@
   {
     "asset": "HOT",
     "currency": "USDT",
-    "min_size": "11000",
+    "min_size": "400",
     "max_size": null,
     "increment": "0.01",
     "label": "HOT/USDT"
@@ -1550,6 +1550,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "XSGD/USD"
+  },
+  {
+    "asset": "ZWAP",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "ZWAP/USD"
   },
   {
     "asset": "HAPI",

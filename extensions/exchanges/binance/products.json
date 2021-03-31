@@ -9915,9 +9915,9 @@
     "asset": "BNBDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "920000.00000000",
+    "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "BNBDOWN/USDT"
   },
@@ -9939,7 +9939,7 @@
     "min_size": "0.01000000",
     "max_size": "920000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00100000",
+    "increment": "0.00001000",
     "asset_increment": "0.01000000",
     "label": "XTZDOWN/USDT"
   },
@@ -11259,7 +11259,7 @@
     "min_size": "0.01000000",
     "max_size": "920000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00100000",
+    "increment": "0.00001000",
     "asset_increment": "0.01000000",
     "label": "TRXDOWN/USDT"
   },
@@ -12282,7 +12282,7 @@
     "min_size": "0.01000000",
     "max_size": "920000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00100000",
+    "increment": "0.00001000",
     "asset_increment": "0.01000000",
     "label": "FILDOWN/USDT"
   },
