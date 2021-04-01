@@ -4642,7 +4642,7 @@
   {
     "asset": "KNC",
     "currency": "BTC",
-    "min_size": "3.25000000",
+    "min_size": "1.05000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/KNC"
@@ -4650,7 +4650,7 @@
   {
     "asset": "KNC",
     "currency": "ETH",
-    "min_size": "3.25000000",
+    "min_size": "1.05000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/KNC"
@@ -4666,7 +4666,7 @@
   {
     "asset": "KNC",
     "currency": "USD",
-    "min_size": "3.25000000",
+    "min_size": "1.05000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/KNC"
@@ -4674,7 +4674,7 @@
   {
     "asset": "KNC",
     "currency": "USDT",
-    "min_size": "3.25000000",
+    "min_size": "1.05000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/KNC"
@@ -5950,6 +5950,22 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/INXT"
+  },
+  {
+    "asset": "CLT",
+    "currency": "BTC",
+    "min_size": "0.45000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CLT"
+  },
+  {
+    "asset": "CLT",
+    "currency": "USDT",
+    "min_size": "0.45000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CLT"
   },
   {
     "asset": "STRK",
