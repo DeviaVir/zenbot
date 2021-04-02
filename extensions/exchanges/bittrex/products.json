@@ -1712,14 +1712,6 @@
     "label": "USD/ZRX"
   },
   {
-    "asset": "JNT",
-    "currency": "BTC",
-    "min_size": "110.61946903",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/JNT"
-  },
-  {
     "asset": "BAT",
     "currency": "USD",
     "min_size": "13.39285714",
@@ -1814,14 +1806,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/ZEN"
-  },
-  {
-    "asset": "SPND",
-    "currency": "BTC",
-    "min_size": "357.14285714",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/SPND"
   },
   {
     "asset": "BTT",
@@ -4409,14 +4393,6 @@
   },
   {
     "asset": "LCS",
-    "currency": "BTC",
-    "min_size": "16.00000000",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/LCS"
-  },
-  {
-    "asset": "LCS",
     "currency": "USDT",
     "min_size": "16.00000000",
     "max_size": "1000000",
@@ -4806,14 +4782,6 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SG"
-  },
-  {
-    "asset": "SG",
-    "currency": "BTC",
-    "min_size": "0.81740000",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/SG"
   },
   {
     "asset": "AAPL",
@@ -5512,22 +5480,6 @@
     "label": "EUR/DOGE"
   },
   {
-    "asset": "FNK",
-    "currency": "BTC",
-    "min_size": "0.18500000",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "BTC/FNK"
-  },
-  {
-    "asset": "FNK",
-    "currency": "USDT",
-    "min_size": "0.18500000",
-    "max_size": "1000000",
-    "increment": "0.00000001",
-    "label": "USDT/FNK"
-  },
-  {
     "asset": "RDD",
     "currency": "USDT",
     "min_size": "750.00000000",
@@ -5966,6 +5918,14 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/CLT"
+  },
+  {
+    "asset": "VIL",
+    "currency": "BTC",
+    "min_size": "0.08500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/VIL"
   },
   {
     "asset": "STRK",

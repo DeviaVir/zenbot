@@ -10,7 +10,7 @@
   {
     "asset": "ETH",
     "currency": "USD",
-    "min_size": "0.012",
+    "min_size": "0.003",
     "max_size": null,
     "increment": "0.01",
     "label": "ETH/USD"

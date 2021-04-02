@@ -2456,11 +2456,11 @@
     "id": "NAVETH",
     "asset": "NAV",
     "currency": "ETH",
-    "min_size": "0.01000000",
+    "min_size": "1.00000000",
     "max_size": "90000000.00000000",
     "min_total": "0.00500000",
-    "increment": "0.00000100",
-    "asset_increment": "0.01000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
     "label": "NAV/ETH"
   },
   {
@@ -15101,5 +15101,104 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "LUNA/EUR"
+  },
+  {
+    "id": "RVNTRY",
+    "asset": "RVN",
+    "currency": "TRY",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "RVN/TRY"
+  },
+  {
+    "id": "THETAEUR",
+    "asset": "THETA",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "THETA/EUR"
+  },
+  {
+    "id": "XVGBUSD",
+    "asset": "XVG",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "XVG/BUSD"
+  },
+  {
+    "id": "EPSBTC",
+    "asset": "EPS",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.10000000",
+    "label": "EPS/BTC"
+  },
+  {
+    "id": "EPSBUSD",
+    "asset": "EPS",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "EPS/BUSD"
+  },
+  {
+    "id": "EPSUSDT",
+    "asset": "EPS",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "EPS/USDT"
+  },
+  {
+    "id": "AUTOBTC",
+    "asset": "AUTO",
+    "currency": "BTC",
+    "min_size": "0.00010000",
+    "max_size": "9000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00001000",
+    "asset_increment": "0.00010000",
+    "label": "AUTO/BTC"
+  },
+  {
+    "id": "AUTOBUSD",
+    "asset": "AUTO",
+    "currency": "BUSD",
+    "min_size": "0.00001000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "AUTO/BUSD"
+  },
+  {
+    "id": "AUTOUSDT",
+    "asset": "AUTO",
+    "currency": "USDT",
+    "min_size": "0.00001000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00001000",
+    "label": "AUTO/USDT"
   }
 ]
