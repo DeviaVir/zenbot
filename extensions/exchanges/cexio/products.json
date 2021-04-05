@@ -1504,6 +1504,14 @@
     "label": "1INCH/USD"
   },
   {
+    "asset": "RENBTC",
+    "currency": "USD",
+    "min_size": "0.00015",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "RENBTC/USD"
+  },
+  {
     "asset": "RSR",
     "currency": "USD",
     "min_size": "120",

@@ -250,7 +250,7 @@
   {
     "asset": "XRP",
     "currency": "BTC",
-    "min_size": "9.65250965",
+    "min_size": "4.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XRP"
@@ -770,7 +770,7 @@
   {
     "asset": "XRP",
     "currency": "ETH",
-    "min_size": "3.64495247",
+    "min_size": "4.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/XRP"
@@ -874,7 +874,7 @@
   {
     "asset": "XRP",
     "currency": "USDT",
-    "min_size": "9.77198729",
+    "min_size": "4.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XRP"
@@ -1418,7 +1418,7 @@
   {
     "asset": "XRP",
     "currency": "USD",
-    "min_size": "9.77771984",
+    "min_size": "4.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/XRP"
@@ -3154,7 +3154,7 @@
   {
     "asset": "UBT",
     "currency": "BTC",
-    "min_size": "8.00000000",
+    "min_size": "1.75000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/UBT"
@@ -3162,7 +3162,7 @@
   {
     "asset": "UBT",
     "currency": "ETH",
-    "min_size": "8.00000000",
+    "min_size": "1.75000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/UBT"
@@ -4218,7 +4218,7 @@
   {
     "asset": "DFI",
     "currency": "BTC",
-    "min_size": "14.80800000",
+    "min_size": "0.90000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DFI"
@@ -4226,7 +4226,7 @@
   {
     "asset": "DFI",
     "currency": "USDT",
-    "min_size": "14.80800000",
+    "min_size": "0.90000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DFI"
@@ -4754,7 +4754,7 @@
   {
     "asset": "XRP",
     "currency": "EUR",
-    "min_size": "4.50000000",
+    "min_size": "4.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/XRP"
@@ -5950,5 +5950,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/CELO"
+  },
+  {
+    "asset": "DFI",
+    "currency": "EUR",
+    "min_size": "0.90000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/DFI"
+  },
+  {
+    "asset": "UBT",
+    "currency": "EUR",
+    "min_size": "1.75000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/UBT"
+  },
+  {
+    "asset": "UNI",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "EUR/UNI"
+  },
+  {
+    "asset": "GET",
+    "currency": "USDT",
+    "min_size": "0.40000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/GET"
+  },
+  {
+    "asset": "GET",
+    "currency": "BTC",
+    "min_size": "0.40000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/GET"
   }
 ]
