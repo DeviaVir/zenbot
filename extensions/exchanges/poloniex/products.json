@@ -488,6 +488,14 @@
     "label": "Bitcoin/Tether USD"
   },
   {
+    "asset": "BTCST",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Bitcoin Standard Hashrate Token/Tether USD"
+  },
+  {
     "asset": "BTS",
     "currency": "BTC",
     "min_total": "0.0001",

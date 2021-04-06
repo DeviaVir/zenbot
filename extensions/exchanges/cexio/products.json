@@ -82,7 +82,7 @@
   {
     "asset": "BTT",
     "currency": "USD",
-    "min_size": "20000",
+    "min_size": "780",
     "max_size": null,
     "increment": "0.01",
     "label": "BTT/USD"
@@ -210,7 +210,7 @@
   {
     "asset": "BTT",
     "currency": "EUR",
-    "min_size": "20000",
+    "min_size": "780",
     "max_size": null,
     "increment": "0.01",
     "label": "BTT/EUR"
@@ -506,7 +506,7 @@
   {
     "asset": "BTT",
     "currency": "BTC",
-    "min_size": "20000",
+    "min_size": "780",
     "max_size": null,
     "increment": "0.000001",
     "label": "BTT/BTC"
@@ -882,7 +882,7 @@
   {
     "asset": "DOT",
     "currency": "USD",
-    "min_size": "1.25",
+    "min_size": "0.15",
     "max_size": null,
     "increment": "0.01",
     "label": "DOT/USD"

@@ -5920,6 +5920,22 @@
     "label": "USDT/CLT"
   },
   {
+    "asset": "FOL",
+    "currency": "BTC",
+    "min_size": "3.30000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/FOL"
+  },
+  {
+    "asset": "FOL",
+    "currency": "USDT",
+    "min_size": "3.30000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/FOL"
+  },
+  {
     "asset": "VIL",
     "currency": "BTC",
     "min_size": "0.08500000",
