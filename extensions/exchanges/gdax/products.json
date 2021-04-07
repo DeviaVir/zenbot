@@ -1,5 +1,41 @@
 [
   {
+    "asset": "1INCH",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "59000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "1INCH/BTC"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "59000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "1INCH/EUR"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "GBP",
+    "min_size": "0.1",
+    "max_size": "59000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "1INCH/GBP"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "59000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "1INCH/USD"
+  },
+  {
     "asset": "AAVE",
     "currency": "BTC",
     "min_size": "0.01",
@@ -486,6 +522,24 @@
     "label": "DNT/USDC"
   },
   {
+    "asset": "ENJ",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "97000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "ENJ/BTC"
+  },
+  {
+    "asset": "ENJ",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "97000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "ENJ/USD"
+  },
+  {
     "asset": "EOS",
     "currency": "BTC",
     "min_size": "0.1",
@@ -873,6 +927,24 @@
     "label": "MKR/USD"
   },
   {
+    "asset": "NKN",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "1400000",
+    "increment": "0.0000001",
+    "asset_increment": "0.1",
+    "label": "NKN/BTC"
+  },
+  {
+    "asset": "NKN",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "1400000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "NKN/USD"
+  },
+  {
     "asset": "NMR",
     "currency": "BTC",
     "min_size": "0.01",
@@ -943,6 +1015,24 @@
     "increment": "0.0001",
     "asset_increment": "0.000001",
     "label": "NU/USD"
+  },
+  {
+    "asset": "OGN",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "130000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "OGN/BTC"
+  },
+  {
+    "asset": "OGN",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "130000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "OGN/USD"
   },
   {
     "asset": "OMG",

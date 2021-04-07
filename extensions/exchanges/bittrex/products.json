@@ -6006,5 +6006,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/GET"
+  },
+  {
+    "asset": "XELS",
+    "currency": "BTC",
+    "min_size": "0.67000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/XELS"
+  },
+  {
+    "asset": "XELS",
+    "currency": "USDT",
+    "min_size": "0.67000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XELS"
   }
 ]

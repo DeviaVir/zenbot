@@ -8828,7 +8828,7 @@
     "min_size": "0.01000000",
     "max_size": "920000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00010000",
+    "increment": "0.00001000",
     "asset_increment": "0.01000000",
     "label": "BTCDOWN/USDT"
   },
@@ -9455,7 +9455,7 @@
     "min_size": "0.01000000",
     "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "ETHDOWN/USDT"
   },
@@ -9915,9 +9915,9 @@
     "asset": "BNBDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "99999999.00000000",
+    "max_size": "922327.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00000100",
+    "increment": "0.00000010",
     "asset_increment": "0.01000000",
     "label": "BNBDOWN/USDT"
   },
@@ -11237,7 +11237,7 @@
     "min_size": "0.01000000",
     "max_size": "920000.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00100000",
+    "increment": "0.00001000",
     "asset_increment": "0.01000000",
     "label": "EOSDOWN/USDT"
   },
@@ -11257,9 +11257,9 @@
     "asset": "TRXDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "920000.00000000",
+    "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "TRXDOWN/USDT"
   },
@@ -11477,9 +11477,9 @@
     "asset": "LTCDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "920000.00000000",
+    "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "LTCDOWN/USDT"
   },
@@ -11864,7 +11864,7 @@
     "min_size": "0.01000000",
     "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "UNIDOWN/USDT"
   },
@@ -12280,9 +12280,9 @@
     "asset": "FILDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "920000.00000000",
+    "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "FILDOWN/USDT"
   },
@@ -12302,9 +12302,9 @@
     "asset": "YFIDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "999999999.99999999",
+    "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "YFIDOWN/USDT"
   },
@@ -13325,9 +13325,9 @@
     "asset": "XLMDOWN",
     "currency": "USDT",
     "min_size": "0.01000000",
-    "max_size": "920000.00000000",
+    "max_size": "99999999.00000000",
     "min_total": "10.00000000",
-    "increment": "0.00001000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "XLMDOWN/USDT"
   },
@@ -15200,5 +15200,49 @@
     "increment": "0.01000000",
     "asset_increment": "0.00001000",
     "label": "AUTO/USDT"
+  },
+  {
+    "id": "TKOBTC",
+    "asset": "TKO",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "TKO/BTC"
+  },
+  {
+    "id": "TKOBIDR",
+    "asset": "TKO",
+    "currency": "BIDR",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "20000.00",
+    "increment": "0.01",
+    "asset_increment": "1.00000000",
+    "label": "TKO/BIDR"
+  },
+  {
+    "id": "TKOBUSD",
+    "asset": "TKO",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TKO/BUSD"
+  },
+  {
+    "id": "TKOUSDT",
+    "asset": "TKO",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "900000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TKO/USDT"
   }
 ]
