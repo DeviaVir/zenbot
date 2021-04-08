@@ -1808,6 +1808,14 @@
     "label": "SENSO/Tether USD"
   },
   {
+    "asset": "SFI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "saffron.finance/Tether USD"
+  },
+  {
     "asset": "SNT",
     "currency": "BTC",
     "min_total": "0.0001",
