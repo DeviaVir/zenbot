@@ -754,7 +754,7 @@
   {
     "asset": "ZRX",
     "currency": "USD",
-    "min_size": "15",
+    "min_size": "3.5",
     "max_size": null,
     "increment": "0.01",
     "label": "ZRX/USD"

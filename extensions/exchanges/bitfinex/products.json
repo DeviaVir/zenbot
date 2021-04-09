@@ -2510,5 +2510,13 @@
     "max_size": "7500.0",
     "increment": "0.000001",
     "label": "LTC/F0:"
+  },
+  {
+    "asset": "XAU",
+    "currency": "TF0",
+    "min_size": "0.001",
+    "max_size": "500.0",
+    "increment": "0.000001",
+    "label": "XAU/TF0"
   }
 ]

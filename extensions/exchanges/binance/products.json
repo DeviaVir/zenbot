@@ -15244,5 +15244,71 @@
     "increment": "0.00010000",
     "asset_increment": "0.01000000",
     "label": "TKO/USDT"
+  },
+  {
+    "id": "PUNDIXETH",
+    "asset": "PUNDIX",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00500000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "PUNDIX/ETH"
+  },
+  {
+    "id": "PUNDIXUSDT",
+    "asset": "PUNDIX",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "PUNDIX/USDT"
+  },
+  {
+    "id": "BTTBRL",
+    "asset": "BTT",
+    "currency": "BRL",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "BTT/BRL"
+  },
+  {
+    "id": "BTTEUR",
+    "asset": "BTT",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "BTT/EUR"
+  },
+  {
+    "id": "HOTEUR",
+    "asset": "HOT",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "HOT/EUR"
+  },
+  {
+    "id": "WINEUR",
+    "asset": "WIN",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "9000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00000000",
+    "label": "WIN/EUR"
   }
 ]

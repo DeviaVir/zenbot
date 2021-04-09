@@ -876,6 +876,13 @@
   },
   {
     "asset": "KSM",
+    "currency": "DOT",
+    "min_size": "0.1000000000",
+    "increment": "0.0100000000",
+    "label": "KSM/DOT"
+  },
+  {
+    "asset": "KSM",
     "currency": "ETH",
     "min_size": "0.1000000000",
     "increment": "0.0000100000",
@@ -1587,6 +1594,13 @@
     "min_size": "50.0000000000",
     "increment": "0.0000001000",
     "label": "XDG/USD"
+  },
+  {
+    "asset": "XDG",
+    "currency": "USDT",
+    "min_size": "50.0000000000",
+    "increment": "0.0000100000",
+    "label": "XDG/USDT"
   },
   {
     "asset": "XETC",
