@@ -2312,22 +2312,6 @@
     "label": "NEM/Bitcoin"
   },
   {
-    "asset": "XFIL",
-    "currency": "BTC",
-    "min_total": "0.0001",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Filecoin [IOU]/Bitcoin"
-  },
-  {
-    "asset": "XFIL",
-    "currency": "USDT",
-    "min_total": "1",
-    "max_size": null,
-    "increment": "0.00000001",
-    "label": "Filecoin [IOU]/Tether USD"
-  },
-  {
     "asset": "XFLR",
     "currency": "USDT",
     "min_total": "1",
