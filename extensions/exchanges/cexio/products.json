@@ -34,7 +34,7 @@
   {
     "asset": "LTC",
     "currency": "USD",
-    "min_size": "0.08",
+    "min_size": "0.03",
     "max_size": null,
     "increment": "0.01",
     "label": "LTC/USD"
@@ -1074,7 +1074,7 @@
   {
     "asset": "CRV",
     "currency": "USD",
-    "min_size": "15",
+    "min_size": "2.3",
     "max_size": null,
     "increment": "0.01",
     "label": "CRV/USD"
