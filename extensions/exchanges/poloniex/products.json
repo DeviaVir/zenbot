@@ -1056,6 +1056,22 @@
     "label": "Firmachain/Tether USD"
   },
   {
+    "asset": "FIL",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Filecoin/Bitcoin"
+  },
+  {
+    "asset": "FIL",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Filecoin/Tether USD"
+  },
+  {
     "asset": "FOAM",
     "currency": "BTC",
     "min_total": "0.0001",

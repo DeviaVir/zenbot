@@ -2,7 +2,7 @@
   {
     "asset": "LTC",
     "currency": "BTC",
-    "min_size": "0.05000000",
+    "min_size": "0.01100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LTC"
@@ -10,7 +10,7 @@
   {
     "asset": "DOGE",
     "currency": "BTC",
-    "min_size": "100.00000000",
+    "min_size": "40.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/DOGE"
@@ -250,7 +250,7 @@
   {
     "asset": "XRP",
     "currency": "BTC",
-    "min_size": "4.00000000",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XRP"
@@ -674,7 +674,7 @@
   {
     "asset": "SC",
     "currency": "BTC",
-    "min_size": "1190.47619048",
+    "min_size": "150.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/SC"
@@ -762,7 +762,7 @@
   {
     "asset": "LTC",
     "currency": "ETH",
-    "min_size": "0.01253808",
+    "min_size": "0.01100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/LTC"
@@ -770,7 +770,7 @@
   {
     "asset": "XRP",
     "currency": "ETH",
-    "min_size": "4.00000000",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/XRP"
@@ -850,7 +850,7 @@
   {
     "asset": "SC",
     "currency": "ETH",
-    "min_size": "448.02867384",
+    "min_size": "150.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/SC"
@@ -858,7 +858,7 @@
   {
     "asset": "LTC",
     "currency": "USDT",
-    "min_size": "0.03355074",
+    "min_size": "0.01100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/LTC"
@@ -874,7 +874,7 @@
   {
     "asset": "XRP",
     "currency": "USDT",
-    "min_size": "4.00000000",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XRP"
@@ -1210,7 +1210,7 @@
   {
     "asset": "TRX",
     "currency": "BTC",
-    "min_size": "134.40860215",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/TRX"
@@ -1218,7 +1218,7 @@
   {
     "asset": "TRX",
     "currency": "ETH",
-    "min_size": "50.83367222",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/TRX"
@@ -1274,7 +1274,7 @@
   {
     "asset": "SC",
     "currency": "USDT",
-    "min_size": "1199.04076739",
+    "min_size": "150.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/SC"
@@ -1282,7 +1282,7 @@
   {
     "asset": "TRX",
     "currency": "USDT",
-    "min_size": "134.46559339",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/TRX"
@@ -1418,7 +1418,7 @@
   {
     "asset": "XRP",
     "currency": "USD",
-    "min_size": "4.00000000",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/XRP"
@@ -1474,7 +1474,7 @@
   {
     "asset": "DOGE",
     "currency": "USDT",
-    "min_size": "100.00000000",
+    "min_size": "40.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DOGE"
@@ -1498,7 +1498,7 @@
   {
     "asset": "LTC",
     "currency": "USD",
-    "min_size": "0.03355292",
+    "min_size": "0.01100000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/LTC"
@@ -1506,7 +1506,7 @@
   {
     "asset": "TRX",
     "currency": "USD",
-    "min_size": "135.19603425",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/TRX"
@@ -1538,7 +1538,7 @@
   {
     "asset": "XHV",
     "currency": "BTC",
-    "min_size": "8.25354903",
+    "min_size": "0.15000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XHV"
@@ -1586,7 +1586,7 @@
   {
     "asset": "SC",
     "currency": "USD",
-    "min_size": "1239.66942149",
+    "min_size": "150.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/SC"
@@ -1786,7 +1786,7 @@
   {
     "asset": "QNT",
     "currency": "BTC",
-    "min_size": "0.31794076",
+    "min_size": "0.06000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/QNT"
@@ -2386,7 +2386,7 @@
   {
     "asset": "VET",
     "currency": "BTC",
-    "min_size": "191.39977032",
+    "min_size": "22.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/VET"
@@ -2394,7 +2394,7 @@
   {
     "asset": "VET",
     "currency": "USDT",
-    "min_size": "191.39977032",
+    "min_size": "22.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/VET"
@@ -2834,7 +2834,7 @@
   {
     "asset": "TRX",
     "currency": "EUR",
-    "min_size": "271.19413577",
+    "min_size": "21.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/TRX"
@@ -3506,7 +3506,7 @@
   {
     "asset": "DOGE",
     "currency": "USD",
-    "min_size": "100.00000000",
+    "min_size": "40.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/DOGE"
@@ -3514,7 +3514,7 @@
   {
     "asset": "DOGE",
     "currency": "ETH",
-    "min_size": "100.00000000",
+    "min_size": "40.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/DOGE"
@@ -4754,7 +4754,7 @@
   {
     "asset": "XRP",
     "currency": "EUR",
-    "min_size": "4.00000000",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/XRP"
@@ -5474,7 +5474,7 @@
   {
     "asset": "DOGE",
     "currency": "EUR",
-    "min_size": "96.50000000",
+    "min_size": "40.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "EUR/DOGE"
