@@ -6038,5 +6038,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/RFOX"
+  },
+  {
+    "asset": "BONDLY",
+    "currency": "BTC",
+    "min_size": "5.45000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BONDLY"
+  },
+  {
+    "asset": "BONDLY",
+    "currency": "USDT",
+    "min_size": "5.45000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BONDLY"
+  },
+  {
+    "asset": "COIN",
+    "currency": "USD",
+    "min_size": "0.01200000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/COIN"
+  },
+  {
+    "asset": "COIN",
+    "currency": "USDT",
+    "min_size": "0.01200000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/COIN"
+  },
+  {
+    "asset": "COIN",
+    "currency": "BTC",
+    "min_size": "0.01200000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/COIN"
   }
 ]

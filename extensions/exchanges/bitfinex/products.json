@@ -2328,6 +2328,22 @@
     "label": "BOS/ON:"
   },
   {
+    "asset": "LUN",
+    "currency": "A:U",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "LUN/A:U"
+  },
+  {
+    "asset": "LUN",
+    "currency": "A:U",
+    "min_size": "0.001",
+    "max_size": "50000.0",
+    "increment": "0.000001",
+    "label": "LUN/A:U"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",

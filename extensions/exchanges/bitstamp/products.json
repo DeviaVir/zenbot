@@ -405,6 +405,15 @@
     "label": "USDC/EUR"
   },
   {
+    "id": "ETH2ETH",
+    "asset": "ETH2",
+    "currency": "ETH",
+    "min_size": "0.00000001",
+    "min_total": "0.02",
+    "increment": "0.00000001",
+    "label": "ETH2/ETH"
+  },
+  {
     "id": "DAIUSD",
     "asset": "DAI",
     "currency": "USD",
