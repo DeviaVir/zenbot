@@ -6078,5 +6078,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/COIN"
+  },
+  {
+    "asset": "BONDLY",
+    "currency": "ETH",
+    "min_size": "5.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/BONDLY"
   }
 ]
