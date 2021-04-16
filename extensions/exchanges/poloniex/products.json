@@ -1320,6 +1320,14 @@
     "label": "3X Long Chainlink Token/Tether USD"
   },
   {
+    "asset": "LIVE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TRONbetLive/Tether USD"
+  },
+  {
     "asset": "LON",
     "currency": "USDT",
     "min_total": "1",
@@ -1830,6 +1838,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "saffron.finance/Tether USD"
+  },
+  {
+    "asset": "SHIB",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Shiba Inu/Tether USD"
   },
   {
     "asset": "SNT",
