@@ -48,6 +48,14 @@
     "label": "Akropolis Delphi/Tether USD"
   },
   {
+    "asset": "AKITA",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Akita Inu/Tether USD"
+  },
+  {
     "asset": "AKRO",
     "currency": "BTC",
     "min_total": "0.0001",

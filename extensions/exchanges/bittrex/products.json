@@ -458,7 +458,7 @@
   {
     "asset": "LBC",
     "currency": "BTC",
-    "min_size": "193.79844961",
+    "min_size": "12.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LBC"
@@ -3106,7 +3106,7 @@
   {
     "asset": "LBC",
     "currency": "USDT",
-    "min_size": "64.00000000",
+    "min_size": "12.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/LBC"
@@ -5250,7 +5250,7 @@
   {
     "asset": "LBC",
     "currency": "ETH",
-    "min_size": "28.00000000",
+    "min_size": "12.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/LBC"
@@ -5258,7 +5258,7 @@
   {
     "asset": "LBC",
     "currency": "USD",
-    "min_size": "28.00000000",
+    "min_size": "12.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/LBC"
