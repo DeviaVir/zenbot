@@ -6086,5 +6086,61 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/BONDLY"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "BTC",
+    "min_size": "0.51194539",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/1INCH"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "ETH",
+    "min_size": "0.51107325",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/1INCH"
+  },
+  {
+    "asset": "1INCH",
+    "currency": "USDT",
+    "min_size": "0.51107325",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/1INCH"
+  },
+  {
+    "asset": "NFTX",
+    "currency": "BTC",
+    "min_size": "0.02021154",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/NFTX"
+  },
+  {
+    "asset": "NFTX",
+    "currency": "ETH",
+    "min_size": "0.02019658",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/NFTX"
+  },
+  {
+    "asset": "NFTX",
+    "currency": "USDT",
+    "min_size": "0.02021699",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/NFTX"
+  },
+  {
+    "asset": "MANA",
+    "currency": "USD",
+    "min_size": "2.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/MANA"
   }
 ]
