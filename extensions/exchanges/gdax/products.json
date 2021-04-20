@@ -82,6 +82,15 @@
   },
   {
     "asset": "ADA",
+    "currency": "ETH",
+    "min_size": "0.1",
+    "max_size": "170000",
+    "increment": "0.000001",
+    "asset_increment": "0.01",
+    "label": "ADA/ETH"
+  },
+  {
+    "asset": "ADA",
     "currency": "EUR",
     "min_size": "1",
     "max_size": "250000",
@@ -106,6 +115,15 @@
     "increment": "0.0001",
     "asset_increment": "0.01",
     "label": "ADA/USD"
+  },
+  {
+    "asset": "ADA",
+    "currency": "USDC",
+    "min_size": "0.1",
+    "max_size": "170000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "ADA/USDC"
   },
   {
     "asset": "ALGO",
@@ -253,12 +271,39 @@
   },
   {
     "asset": "BAT",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "170000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "BAT/BTC"
+  },
+  {
+    "asset": "BAT",
     "currency": "ETH",
     "min_size": "1",
     "max_size": "300000",
     "increment": "0.00000001",
     "asset_increment": "1",
     "label": "BAT/ETH"
+  },
+  {
+    "asset": "BAT",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "170000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "BAT/EUR"
+  },
+  {
+    "asset": "BAT",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "170000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "BAT/USD"
   },
   {
     "asset": "BAT",
@@ -865,6 +910,42 @@
   },
   {
     "asset": "MANA",
+    "currency": "BTC",
+    "min_size": "0.1",
+    "max_size": "220000",
+    "increment": "0.0000001",
+    "asset_increment": "0.01",
+    "label": "MANA/BTC"
+  },
+  {
+    "asset": "MANA",
+    "currency": "ETH",
+    "min_size": "0.1",
+    "max_size": "220000",
+    "increment": "0.000001",
+    "asset_increment": "0.01",
+    "label": "MANA/ETH"
+  },
+  {
+    "asset": "MANA",
+    "currency": "EUR",
+    "min_size": "0.1",
+    "max_size": "220000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "MANA/EUR"
+  },
+  {
+    "asset": "MANA",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "220000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "MANA/USD"
+  },
+  {
+    "asset": "MANA",
     "currency": "USDC",
     "min_size": "1",
     "max_size": "2800000",
@@ -1303,6 +1384,24 @@
     "increment": "0.0001",
     "asset_increment": "0.000001",
     "label": "UNI/USD"
+  },
+  {
+    "asset": "USDC",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "250000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "USDC/EUR"
+  },
+  {
+    "asset": "USDC",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "250000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "USDC/GBP"
   },
   {
     "asset": "WBTC",
