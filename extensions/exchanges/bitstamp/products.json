@@ -441,6 +441,33 @@
     "label": "AAVE/BTC"
   },
   {
+    "id": "BATUSD",
+    "asset": "BAT",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "BAT/USD"
+  },
+  {
+    "id": "BATEUR",
+    "asset": "BAT",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "BAT/EUR"
+  },
+  {
+    "id": "BATBTC",
+    "asset": "BAT",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "BAT/BTC"
+  },
+  {
     "id": "DAIUSD",
     "asset": "DAI",
     "currency": "USD",

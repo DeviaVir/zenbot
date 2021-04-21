@@ -2352,6 +2352,22 @@
     "label": "ICE/USD"
   },
   {
+    "asset": "DOG",
+    "currency": "E:U",
+    "min_size": "0.001",
+    "max_size": "500000.0",
+    "increment": "0.000001",
+    "label": "DOG/E:U"
+  },
+  {
+    "asset": "DOG",
+    "currency": "E:U",
+    "min_size": "0.001",
+    "max_size": "500000.0",
+    "increment": "0.000001",
+    "label": "DOG/E:U"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",

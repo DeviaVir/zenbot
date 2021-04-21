@@ -168,6 +168,14 @@
     "label": "Travala.com Token/Tether USD"
   },
   {
+    "asset": "B20",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "B20/Tether USD"
+  },
+  {
     "asset": "BAC",
     "currency": "USDT",
     "min_total": "1",

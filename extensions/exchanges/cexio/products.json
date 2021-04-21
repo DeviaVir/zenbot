@@ -1582,5 +1582,13 @@
     "max_size": null,
     "increment": "0.01",
     "label": "AWX/USDT"
+  },
+  {
+    "asset": "AAVE",
+    "currency": "USD",
+    "min_size": "0.02",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "AAVE/USD"
   }
 ]

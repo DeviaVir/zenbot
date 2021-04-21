@@ -738,6 +738,42 @@
     "label": "FIL/USD"
   },
   {
+    "asset": "FORTH",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "7200",
+    "increment": "0.0000001",
+    "asset_increment": "0.001",
+    "label": "FORTH/BTC"
+  },
+  {
+    "asset": "FORTH",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "7200",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "FORTH/EUR"
+  },
+  {
+    "asset": "FORTH",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "7200",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "FORTH/GBP"
+  },
+  {
+    "asset": "FORTH",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "7200",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "FORTH/USD"
+  },
+  {
     "asset": "GNT",
     "currency": "USDC",
     "min_size": "1",

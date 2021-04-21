@@ -2096,6 +2096,14 @@
     "label": "BTC/BWX"
   },
   {
+    "asset": "SNX",
+    "currency": "BTC",
+    "min_size": "9.98801438",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/SNX"
+  },
+  {
     "asset": "VDX",
     "currency": "BTC",
     "min_size": "1350.00000000",
@@ -6136,6 +6144,38 @@
     "label": "USDT/NFTX"
   },
   {
+    "asset": "RSV",
+    "currency": "USD",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/RSV"
+  },
+  {
+    "asset": "RSV",
+    "currency": "USDT",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/RSV"
+  },
+  {
+    "asset": "RSR",
+    "currency": "BTC",
+    "min_size": "37.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/RSR"
+  },
+  {
+    "asset": "RSR",
+    "currency": "USDT",
+    "min_size": "37.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/RSR"
+  },
+  {
     "asset": "MANA",
     "currency": "USD",
     "min_size": "2.50000000",
@@ -6174,5 +6214,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/RGT"
+  },
+  {
+    "asset": "MONA",
+    "currency": "USDT",
+    "min_size": "1.20000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MONA"
   }
 ]

@@ -15486,5 +15486,38 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "MIR/USDT"
+  },
+  {
+    "id": "BARBTC",
+    "asset": "BAR",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "BAR/BTC"
+  },
+  {
+    "id": "BARBUSD",
+    "asset": "BAR",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BAR/BUSD"
+  },
+  {
+    "id": "BARUSDT",
+    "asset": "BAR",
+    "currency": "USDT",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "BAR/USDT"
   }
 ]
