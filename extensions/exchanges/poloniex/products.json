@@ -1272,6 +1272,30 @@
     "label": "Just/Tether USD"
   },
   {
+    "asset": "KLV",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Klever/Bitcoin"
+  },
+  {
+    "asset": "KLV",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Klever/Tron"
+  },
+  {
+    "asset": "KLV",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Klever/Tether USD"
+  },
+  {
     "asset": "KNC",
     "currency": "BTC",
     "min_total": "0.0001",

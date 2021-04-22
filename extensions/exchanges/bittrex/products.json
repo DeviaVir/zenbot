@@ -6144,6 +6144,22 @@
     "label": "USDT/NFTX"
   },
   {
+    "asset": "URQA",
+    "currency": "BTC",
+    "min_size": "0.85000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/URQA"
+  },
+  {
+    "asset": "URQA",
+    "currency": "USDT",
+    "min_size": "0.85000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/URQA"
+  },
+  {
     "asset": "RSV",
     "currency": "USD",
     "min_size": "3.00000000",
@@ -6222,5 +6238,45 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MONA"
+  },
+  {
+    "asset": "AVAX",
+    "currency": "BTC",
+    "min_size": "0.11000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/AVAX"
+  },
+  {
+    "asset": "AVAX",
+    "currency": "USDT",
+    "min_size": "0.11000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/AVAX"
+  },
+  {
+    "asset": "SNX",
+    "currency": "ETH",
+    "min_size": "5.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/SNX"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USDT",
+    "min_size": "5.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SNX"
+  },
+  {
+    "asset": "XMY",
+    "currency": "USDT",
+    "min_size": "667.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XMY"
   }
 ]

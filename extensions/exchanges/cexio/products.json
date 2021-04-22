@@ -1408,6 +1408,14 @@
     "label": "BCHA/USDT"
   },
   {
+    "asset": "OCEAN",
+    "currency": "USD",
+    "min_size": "5.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "OCEAN/USD"
+  },
+  {
     "asset": "KAVA",
     "currency": "USD",
     "min_size": "4",
@@ -1582,6 +1590,22 @@
     "max_size": null,
     "increment": "0.01",
     "label": "AWX/USDT"
+  },
+  {
+    "asset": "COTI",
+    "currency": "USD",
+    "min_size": "15",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "COTI/USD"
+  },
+  {
+    "asset": "AWS",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "AWS/USD"
   },
   {
     "asset": "AAVE",
