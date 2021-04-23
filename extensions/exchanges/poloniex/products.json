@@ -1096,6 +1096,14 @@
     "label": "Foam/Bitcoin"
   },
   {
+    "asset": "FORTH",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Ampleforth Governance Token/Tether USD"
+  },
+  {
     "asset": "FRONT",
     "currency": "BTC",
     "min_total": "0.0001",

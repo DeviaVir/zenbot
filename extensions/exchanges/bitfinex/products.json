@@ -384,22 +384,6 @@
     "label": "GNT/USD"
   },
   {
-    "asset": "GNT",
-    "currency": "BTC",
-    "min_size": "20.0",
-    "max_size": "250000.0",
-    "increment": "0.00000001",
-    "label": "GNT/BTC"
-  },
-  {
-    "asset": "GNT",
-    "currency": "ETH",
-    "min_size": "20.0",
-    "max_size": "250000.0",
-    "increment": "0.00000001",
-    "label": "GNT/ETH"
-  },
-  {
     "asset": "SNT",
     "currency": "USD",
     "min_size": "82.0",
@@ -544,14 +528,6 @@
     "label": "NEC/USD"
   },
   {
-    "asset": "NEC",
-    "currency": "ETH",
-    "min_size": "12.0",
-    "max_size": "200000.0",
-    "increment": "0.00000001",
-    "label": "NEC/ETH"
-  },
-  {
     "asset": "BTC",
     "currency": "GBP",
     "min_size": "0.0002",
@@ -662,14 +638,6 @@
     "max_size": "50000.0",
     "increment": "0.00001",
     "label": "LRC/USD"
-  },
-  {
-    "asset": "LRC",
-    "currency": "BTC",
-    "min_size": "10.0",
-    "max_size": "50000.0",
-    "increment": "0.00000001",
-    "label": "LRC/BTC"
   },
   {
     "asset": "WAX",
@@ -790,22 +758,6 @@
     "max_size": "250.0",
     "increment": "0.001",
     "label": "MKR/USD"
-  },
-  {
-    "asset": "MKR",
-    "currency": "BTC",
-    "min_size": "0.004",
-    "max_size": "250.0",
-    "increment": "0.000001",
-    "label": "MKR/BTC"
-  },
-  {
-    "asset": "MKR",
-    "currency": "ETH",
-    "min_size": "0.004",
-    "max_size": "250.0",
-    "increment": "0.000001",
-    "label": "MKR/ETH"
   },
   {
     "asset": "KNC",
@@ -1254,22 +1206,6 @@
     "max_size": "250000.0",
     "increment": "0.00001",
     "label": "EUS/USD"
-  },
-  {
-    "asset": "WBT",
-    "currency": "ETH",
-    "min_size": "0.0002",
-    "max_size": "10.0",
-    "increment": "0.000001",
-    "label": "WBT/ETH"
-  },
-  {
-    "asset": "XCH",
-    "currency": "ETH",
-    "min_size": "2.0",
-    "max_size": "30000.0",
-    "increment": "0.00000001",
-    "label": "XCH/ETH"
   },
   {
     "asset": "LEO",
@@ -1870,14 +1806,6 @@
     "max_size": "1000.0",
     "increment": "0.001",
     "label": "NUT/USD"
-  },
-  {
-    "asset": "NUT",
-    "currency": "UST",
-    "min_size": "0.001",
-    "max_size": "1000.0",
-    "increment": "0.000001",
-    "label": "NUT/UST"
   },
   {
     "asset": "DAP",
