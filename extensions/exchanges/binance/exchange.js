@@ -300,6 +300,7 @@ module.exports = function binance (conf) {
         if (body.status !== 'open' && body.status !== 'canceled') {
           order.status = 'done'
           order.done_at = new Date().getTime()
+          order.price = parseFloat(body.price)
           order.filled_size = parseFloat(body.amount) - parseFloat(body.remaining)
           return cb(null, order)
         }
