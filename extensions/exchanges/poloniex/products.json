@@ -752,6 +752,14 @@
     "label": "Decentr/Tether USD"
   },
   {
+    "asset": "DEGO",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Dego Finance/Tether USD"
+  },
+  {
     "asset": "DEXT",
     "currency": "USDT",
     "min_total": "1",
@@ -1408,6 +1416,14 @@
     "label": "Livepeer/Tether USD"
   },
   {
+    "asset": "LQTY",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "LQTY/Tether USD"
+  },
+  {
     "asset": "LRC",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1478,6 +1494,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "3X Long Litecoin Token/Tether USD"
+  },
+  {
+    "asset": "LUSD",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "LUSD Stablecoin/Tether USD"
   },
   {
     "asset": "MANA",
@@ -1560,6 +1584,14 @@
     "label": "Meme/Tether USD"
   },
   {
+    "asset": "MIR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Wrapped Mirror Token/Tether USD"
+  },
+  {
     "asset": "MKR",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -1614,6 +1646,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Neo/Tether USD"
+  },
+  {
+    "asset": "NFTX",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "NFTX/Tether USD"
   },
   {
     "asset": "NMR",
@@ -2288,6 +2328,14 @@
     "label": "Tether USD/USD Coin"
   },
   {
+    "asset": "UST",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "TerraUSD/Tether USD"
+  },
+  {
     "asset": "VALUE",
     "currency": "USDT",
     "min_total": "1",
@@ -2334,6 +2382,14 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Wrapped Ethereum on Tron/Tether USD"
+  },
+  {
+    "asset": "WHALE",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "WHALE/Tether USD"
   },
   {
     "asset": "WIN",
