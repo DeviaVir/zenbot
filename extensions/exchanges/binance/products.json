@@ -28,7 +28,7 @@
     "min_size": "0.01000000",
     "max_size": "100000.00000000",
     "min_total": "0.00010000",
-    "increment": "0.00000010",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "BNB/BTC"
   },
@@ -15552,5 +15552,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.00100000",
     "label": "FORTH/USDT"
+  },
+  {
+    "id": "CAKEGBP",
+    "asset": "CAKE",
+    "currency": "GBP",
+    "min_size": "0.00100000",
+    "max_size": "90000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "CAKE/GBP"
+  },
+  {
+    "id": "DOGERUB",
+    "asset": "DOGE",
+    "currency": "RUB",
+    "min_size": "0.10000000",
+    "max_size": "100000.00000000",
+    "min_total": "100.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "DOGE/RUB"
+  },
+  {
+    "id": "HOTBRL",
+    "asset": "HOT",
+    "currency": "BRL",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "HOT/BRL"
+  },
+  {
+    "id": "WRXEUR",
+    "asset": "WRX",
+    "currency": "EUR",
+    "min_size": "0.10000000",
+    "max_size": "1000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "WRX/EUR"
   }
 ]

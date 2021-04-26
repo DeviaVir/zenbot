@@ -6286,5 +6286,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/IGNIS"
+  },
+  {
+    "asset": "AVAX",
+    "currency": "ETH",
+    "min_size": "0.11000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/AVAX"
   }
 ]
