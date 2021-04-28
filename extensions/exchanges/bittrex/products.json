@@ -6824,6 +6824,14 @@
     "label": "USDT/ZM"
   },
   {
+    "asset": "MMAON",
+    "currency": "USDT",
+    "min_size": "20.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MMAON"
+  },
+  {
     "asset": "MRPH",
     "currency": "ETH",
     "min_size": "1.53583620",
@@ -6862,5 +6870,37 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/ZUSD"
+  },
+  {
+    "asset": "SYLO",
+    "currency": "USDT",
+    "min_size": "300.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/SYLO"
+  },
+  {
+    "asset": "XYM",
+    "currency": "USDT",
+    "min_size": "12.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XYM"
+  },
+  {
+    "asset": "XYM",
+    "currency": "ETH",
+    "min_size": "12.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/XYM"
+  },
+  {
+    "asset": "XYM",
+    "currency": "BTC",
+    "min_size": "12.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/XYM"
   }
 ]

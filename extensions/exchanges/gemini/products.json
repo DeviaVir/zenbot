@@ -454,5 +454,53 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "SAN/DUS"
+  },
+  {
+    "asset": "CUB",
+    "currency": "EUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "CUB/EUS"
+  },
+  {
+    "asset": "LPT",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "LPT/USD"
+  },
+  {
+    "asset": "BON",
+    "currency": "DUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "BON/DUS"
+  },
+  {
+    "asset": "MAT",
+    "currency": "ICU",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "MAT/ICU"
+  },
+  {
+    "asset": "INJ",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "INJ/USD"
+  },
+  {
+    "asset": "SUS",
+    "currency": "HIU",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "SUS/HIU"
   }
 ]
