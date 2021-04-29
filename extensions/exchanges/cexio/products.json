@@ -690,7 +690,7 @@
   {
     "asset": "MATIC",
     "currency": "USD",
-    "min_size": "300",
+    "min_size": "9",
     "max_size": null,
     "increment": "0.01",
     "label": "MATIC/USD"
@@ -698,7 +698,7 @@
   {
     "asset": "MATIC",
     "currency": "EUR",
-    "min_size": "300",
+    "min_size": "9",
     "max_size": null,
     "increment": "0.01",
     "label": "MATIC/EUR"
@@ -706,7 +706,7 @@
   {
     "asset": "MATIC",
     "currency": "GBP",
-    "min_size": "300",
+    "min_size": "9",
     "max_size": null,
     "increment": "0.01",
     "label": "MATIC/GBP"
@@ -714,7 +714,7 @@
   {
     "asset": "MATIC",
     "currency": "USDT",
-    "min_size": "300",
+    "min_size": "9",
     "max_size": null,
     "increment": "0.01",
     "label": "MATIC/USDT"

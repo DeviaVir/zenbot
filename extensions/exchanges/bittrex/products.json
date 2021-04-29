@@ -6902,5 +6902,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XYM"
+  },
+  {
+    "asset": "NDAU",
+    "currency": "USDT",
+    "min_size": "0.12500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/NDAU"
   }
 ]
