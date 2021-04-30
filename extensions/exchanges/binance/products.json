@@ -15305,7 +15305,7 @@
     "asset": "WIN",
     "currency": "EUR",
     "min_size": "1.00000000",
-    "max_size": "9000000.00000000",
+    "max_size": "90000000.00000000",
     "min_total": "10.00000000",
     "increment": "0.00000100",
     "asset_increment": "1.00000000",
@@ -15596,5 +15596,115 @@
     "increment": "0.00100000",
     "asset_increment": "0.10000000",
     "label": "WRX/EUR"
+  },
+  {
+    "id": "EZBTC",
+    "asset": "EZ",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "EZ/BTC"
+  },
+  {
+    "id": "EZETH",
+    "asset": "EZ",
+    "currency": "ETH",
+    "min_size": "0.01000000",
+    "max_size": "90000000.00000000",
+    "min_total": "0.00500000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "EZ/ETH"
+  },
+  {
+    "id": "BAKEUSDT",
+    "asset": "BAKE",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.10000000",
+    "label": "BAKE/USDT"
+  },
+  {
+    "id": "BURGERBUSD",
+    "asset": "BURGER",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.10000000",
+    "label": "BURGER/BUSD"
+  },
+  {
+    "id": "BURGERUSDT",
+    "asset": "BURGER",
+    "currency": "USDT",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.10000000",
+    "label": "BURGER/USDT"
+  },
+  {
+    "id": "SLPBUSD",
+    "asset": "SLP",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "SLP/BUSD"
+  },
+  {
+    "id": "SLPUSDT",
+    "asset": "SLP",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "SLP/USDT"
+  },
+  {
+    "id": "TRXAUD",
+    "asset": "TRX",
+    "currency": "AUD",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "TRX/AUD"
+  },
+  {
+    "id": "TRXEUR",
+    "asset": "TRX",
+    "currency": "EUR",
+    "min_size": "1.00000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "TRX/EUR"
+  },
+  {
+    "id": "VETTRY",
+    "asset": "VET",
+    "currency": "TRY",
+    "min_size": "0.10000000",
+    "max_size": "90000000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "VET/TRY"
   }
 ]
