@@ -426,9 +426,9 @@
     "asset": "BTC",
     "currency": "USDT",
     "min_size": "0.0001",
-    "max_size": "2",
-    "increment": "0.1",
-    "asset_increment": "0.0000001",
+    "max_size": "280",
+    "increment": "0.01",
+    "asset_increment": "0.00000001",
     "label": "BTC/USDT"
   },
   {
@@ -713,10 +713,10 @@
   {
     "asset": "ETH",
     "currency": "USDT",
-    "min_size": "0.002",
-    "max_size": "100",
-    "increment": "0.1",
-    "asset_increment": "0.000001",
+    "min_size": "0.001",
+    "max_size": "2800",
+    "increment": "0.01",
+    "asset_increment": "0.00000001",
     "label": "ETH/USDT"
   },
   {
@@ -1461,36 +1461,36 @@
     "asset": "USDT",
     "currency": "EUR",
     "min_size": "1",
-    "max_size": "260000",
+    "max_size": "100000",
     "increment": "0.0001",
-    "asset_increment": "0.1",
+    "asset_increment": "0.01",
     "label": "USDT/EUR"
   },
   {
     "asset": "USDT",
     "currency": "GBP",
     "min_size": "1",
-    "max_size": "260000",
+    "max_size": "100000",
     "increment": "0.0001",
-    "asset_increment": "0.1",
+    "asset_increment": "0.01",
     "label": "USDT/GBP"
   },
   {
     "asset": "USDT",
     "currency": "USD",
     "min_size": "1",
-    "max_size": "260000",
+    "max_size": "1000000",
     "increment": "0.0001",
-    "asset_increment": "0.1",
+    "asset_increment": "0.01",
     "label": "USDT/USD"
   },
   {
     "asset": "USDT",
     "currency": "USDC",
     "min_size": "1",
-    "max_size": "260000",
+    "max_size": "1000000",
     "increment": "0.0001",
-    "asset_increment": "0.1",
+    "asset_increment": "0.01",
     "label": "USDT/USDC"
   },
   {

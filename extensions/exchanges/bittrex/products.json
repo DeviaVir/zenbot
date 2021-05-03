@@ -2304,6 +2304,30 @@
     "label": "BTC/CHR"
   },
   {
+    "asset": "ARDX",
+    "currency": "BTC",
+    "min_size": "1800.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/ARDX"
+  },
+  {
+    "asset": "ARDX",
+    "currency": "ETH",
+    "min_size": "1800.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/ARDX"
+  },
+  {
+    "asset": "ARDX",
+    "currency": "USDT",
+    "min_size": "1800.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ARDX"
+  },
+  {
     "asset": "TUDA",
     "currency": "BTC",
     "min_size": "234.78260870",
