@@ -1768,6 +1768,14 @@
     "label": "Qtum/Tether USD"
   },
   {
+    "asset": "QUICK",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Quickswap/Tether USD"
+  },
+  {
     "asset": "RARI",
     "currency": "USDT",
     "min_total": "1",
@@ -2472,6 +2480,14 @@
     "label": "Monero/Tether USD"
   },
   {
+    "asset": "XOR",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Sora Token/Tether USD"
+  },
+  {
     "asset": "XRP",
     "currency": "BTC",
     "min_total": "0.0001",
@@ -2542,6 +2558,22 @@
     "max_size": null,
     "increment": "0.00000001",
     "label": "Tezos/Tether USD"
+  },
+  {
+    "asset": "XYM",
+    "currency": "BTC",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Symbol/Bitcoin"
+  },
+  {
+    "asset": "XYM",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Symbol/Tether USD"
   },
   {
     "asset": "YFI",

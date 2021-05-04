@@ -502,5 +502,13 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "SUS/HIU"
+  },
+  {
+    "asset": "DOG",
+    "currency": "EUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "DOG/EUS"
   }
 ]

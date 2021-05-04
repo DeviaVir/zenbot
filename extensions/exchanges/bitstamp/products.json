@@ -171,6 +171,33 @@
     "label": "XRP/PAX"
   },
   {
+    "id": "UNIUSD",
+    "asset": "UNI",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "UNI/USD"
+  },
+  {
+    "id": "UNIEUR",
+    "asset": "UNI",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "UNI/EUR"
+  },
+  {
+    "id": "UNIBTC",
+    "asset": "UNI",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "UNI/BTC"
+  },
+  {
     "id": "LTCUSD",
     "asset": "LTC",
     "currency": "USD",
