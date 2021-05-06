@@ -1234,7 +1234,7 @@
   {
     "asset": "LRC",
     "currency": "BTC",
-    "min_size": "5.41624880",
+    "min_size": "5.40000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/LRC"
@@ -6942,5 +6942,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MYID"
+  },
+  {
+    "asset": "LRC",
+    "currency": "USD",
+    "min_size": "5.40000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/LRC"
+  },
+  {
+    "asset": "PIST",
+    "currency": "USDT",
+    "min_size": "6.67000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PIST"
   }
 ]

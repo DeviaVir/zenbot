@@ -378,6 +378,33 @@
     "label": "AAVE/BTC"
   },
   {
+    "id": "SNXUSD",
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "SNX/USD"
+  },
+  {
+    "id": "SNXEUR",
+    "asset": "SNX",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "SNX/EUR"
+  },
+  {
+    "id": "SNXBTC",
+    "asset": "SNX",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "SNX/BTC"
+  },
+  {
     "id": "BATUSD",
     "asset": "BAT",
     "currency": "USD",
@@ -457,6 +484,33 @@
     "min_total": "0.0002",
     "increment": "0.00000001",
     "label": "ZRX/BTC"
+  },
+  {
+    "id": "YFIUSD",
+    "asset": "YFI",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.01",
+    "label": "YFI/USD"
+  },
+  {
+    "id": "YFIEUR",
+    "asset": "YFI",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.01",
+    "label": "YFI/EUR"
+  },
+  {
+    "id": "YFIBTC",
+    "asset": "YFI",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "YFI/BTC"
   },
   {
     "id": "UMAUSD",
