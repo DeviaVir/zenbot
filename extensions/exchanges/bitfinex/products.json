@@ -2312,6 +2312,22 @@
     "label": "OXY/UST"
   },
   {
+    "asset": "1IN",
+    "currency": "CH:",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "1IN/CH:"
+  },
+  {
+    "asset": "1IN",
+    "currency": "CH:",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "1IN/CH:"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",

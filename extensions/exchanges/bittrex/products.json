@@ -6958,5 +6958,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/PIST"
+  },
+  {
+    "asset": "DOGEBULL",
+    "currency": "USD",
+    "min_size": "0.00002200",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/DOGEBULL"
+  },
+  {
+    "asset": "DOGEBULL",
+    "currency": "USDT",
+    "min_size": "0.00002200",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DOGEBULL"
   }
 ]
