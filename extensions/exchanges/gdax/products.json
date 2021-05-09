@@ -855,6 +855,51 @@
     "label": "GRT/USD"
   },
   {
+    "asset": "ICP",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "1300",
+    "increment": "0.0000001",
+    "asset_increment": "0.0001",
+    "label": "ICP/BTC"
+  },
+  {
+    "asset": "ICP",
+    "currency": "EUR",
+    "min_size": "0.001",
+    "max_size": "1300",
+    "increment": "0.001",
+    "asset_increment": "0.0001",
+    "label": "ICP/EUR"
+  },
+  {
+    "asset": "ICP",
+    "currency": "GBP",
+    "min_size": "0.001",
+    "max_size": "1300",
+    "increment": "0.001",
+    "asset_increment": "0.0001",
+    "label": "ICP/GBP"
+  },
+  {
+    "asset": "ICP",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "1300",
+    "increment": "0.001",
+    "asset_increment": "0.0001",
+    "label": "ICP/USD"
+  },
+  {
+    "asset": "ICP",
+    "currency": "USDT",
+    "min_size": "0.001",
+    "max_size": "1300",
+    "increment": "0.001",
+    "asset_increment": "0.0001",
+    "label": "ICP/USDT"
+  },
+  {
     "asset": "KNC",
     "currency": "BTC",
     "min_size": "1",
