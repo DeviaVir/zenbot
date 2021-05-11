@@ -146,7 +146,7 @@
   {
     "asset": "XDN",
     "currency": "BTC",
-    "min_size": "675.00000000",
+    "min_size": "380.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/XDN"
@@ -6944,6 +6944,22 @@
     "label": "USDT/MYID"
   },
   {
+    "asset": "MOGX",
+    "currency": "USDT",
+    "min_size": "230.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/MOGX"
+  },
+  {
+    "asset": "DAF",
+    "currency": "USDT",
+    "min_size": "30.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DAF"
+  },
+  {
     "asset": "LRC",
     "currency": "USD",
     "min_size": "5.40000000",
@@ -6974,5 +6990,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/DOGEBULL"
+  },
+  {
+    "asset": "POLC",
+    "currency": "ETH",
+    "min_size": "5.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/POLC"
+  },
+  {
+    "asset": "POLC",
+    "currency": "USDT",
+    "min_size": "5.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/POLC"
+  },
+  {
+    "asset": "XDN",
+    "currency": "USDT",
+    "min_size": "380.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/XDN"
   }
 ]
