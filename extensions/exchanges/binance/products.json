@@ -15772,5 +15772,27 @@
     "increment": "0.01000000",
     "asset_increment": "0.01000000",
     "label": "ICP/USDT"
+  },
+  {
+    "id": "BTCGYEN",
+    "asset": "BTC",
+    "currency": "GYEN",
+    "min_size": "0.00001000",
+    "max_size": "153.00000000",
+    "min_total": "1000.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00001000",
+    "label": "BTC/GYEN"
+  },
+  {
+    "id": "USDTGYEN",
+    "asset": "USDT",
+    "currency": "GYEN",
+    "min_size": "0.10000000",
+    "max_size": "9222449.00000000",
+    "min_total": "1000.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.10000000",
+    "label": "USDT/GYEN"
   }
 ]

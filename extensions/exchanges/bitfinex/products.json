@@ -2328,6 +2328,22 @@
     "label": "1IN/CH:"
   },
   {
+    "asset": "IDX",
+    "currency": "USD",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.001",
+    "label": "IDX/USD"
+  },
+  {
+    "asset": "IDX",
+    "currency": "BTC",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "IDX/BTC"
+  },
+  {
     "asset": "BTC",
     "currency": "F0:",
     "min_size": "0.0002",
