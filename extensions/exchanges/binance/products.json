@@ -15794,5 +15794,104 @@
     "increment": "0.01000000",
     "asset_increment": "0.10000000",
     "label": "USDT/GYEN"
+  },
+  {
+    "id": "SHIBEUR",
+    "asset": "SHIB",
+    "currency": "EUR",
+    "min_size": "1.00",
+    "max_size": "92141578.00",
+    "min_total": "10.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00",
+    "label": "SHIB/EUR"
+  },
+  {
+    "id": "SHIBRUB",
+    "asset": "SHIB",
+    "currency": "RUB",
+    "min_size": "1.00",
+    "max_size": "92141578.00",
+    "min_total": "100.00000000",
+    "increment": "0.00000100",
+    "asset_increment": "1.00",
+    "label": "SHIB/RUB"
+  },
+  {
+    "id": "ETCEUR",
+    "asset": "ETC",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "ETC/EUR"
+  },
+  {
+    "id": "ETCBRL",
+    "asset": "ETC",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "ETC/BRL"
+  },
+  {
+    "id": "DOGEBIDR",
+    "asset": "DOGE",
+    "currency": "BIDR",
+    "min_size": "1.00000000",
+    "max_size": "92232731290.00000000",
+    "min_total": "20000.00",
+    "increment": "0.01",
+    "asset_increment": "1.00000000",
+    "label": "DOGE/BIDR"
+  },
+  {
+    "id": "ARBTC",
+    "asset": "AR",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "AR/BTC"
+  },
+  {
+    "id": "ARBNB",
+    "asset": "AR",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.01000000",
+    "label": "AR/BNB"
+  },
+  {
+    "id": "ARBUSD",
+    "asset": "AR",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "AR/BUSD"
+  },
+  {
+    "id": "ARUSDT",
+    "asset": "AR",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "100000.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "AR/USDT"
   }
 ]

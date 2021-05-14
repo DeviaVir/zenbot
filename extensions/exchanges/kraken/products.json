@@ -1050,6 +1050,34 @@
     "label": "MANA/XBT"
   },
   {
+    "asset": "MKR",
+    "currency": "EUR",
+    "min_size": "0.0020000000",
+    "increment": "0.1000000000",
+    "label": "MKR/EUR"
+  },
+  {
+    "asset": "MKR",
+    "currency": "GBP",
+    "min_size": "0.0020000000",
+    "increment": "0.1000000000",
+    "label": "MKR/GBP"
+  },
+  {
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.0020000000",
+    "increment": "0.1000000000",
+    "label": "MKR/USD"
+  },
+  {
+    "asset": "MKR",
+    "currency": "XBT",
+    "min_size": "0.0020000000",
+    "increment": "0.0000100000",
+    "label": "MKR/XBT"
+  },
+  {
     "asset": "NANO",
     "currency": "ETH",
     "min_size": "1.5000000000",
@@ -1216,6 +1244,34 @@
     "min_size": "0.5000000000",
     "increment": "0.0000001000",
     "label": "QTUM/XBT"
+  },
+  {
+    "asset": "REN",
+    "currency": "EUR",
+    "min_size": "5.0000000000",
+    "increment": "0.0001000000",
+    "label": "REN/EUR"
+  },
+  {
+    "asset": "REN",
+    "currency": "GBP",
+    "min_size": "5.0000000000",
+    "increment": "0.0001000000",
+    "label": "REN/GBP"
+  },
+  {
+    "asset": "REN",
+    "currency": "USD",
+    "min_size": "5.0000000000",
+    "increment": "0.0001000000",
+    "label": "REN/USD"
+  },
+  {
+    "asset": "REN",
+    "currency": "XBT",
+    "min_size": "5.0000000000",
+    "increment": "0.0000000100",
+    "label": "REN/XBT"
   },
   {
     "asset": "REPV2",
@@ -2035,6 +2091,34 @@
     "min_size": "5.0000000000",
     "increment": "0.0000100000",
     "label": "GBP/USD"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "EUR",
+    "min_size": "5.0000000000",
+    "increment": "0.0010000000",
+    "label": "ZRX/EUR"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "GBP",
+    "min_size": "5.0000000000",
+    "increment": "0.0010000000",
+    "label": "ZRX/GBP"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "USD",
+    "min_size": "5.0000000000",
+    "increment": "0.0010000000",
+    "label": "ZRX/USD"
+  },
+  {
+    "asset": "ZRX",
+    "currency": "XBT",
+    "min_size": "5.0000000000",
+    "increment": "0.0000000100",
+    "label": "ZRX/XBT"
   },
   {
     "asset": "ZUSD",
