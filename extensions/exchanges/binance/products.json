@@ -15800,7 +15800,7 @@
     "asset": "SHIB",
     "currency": "EUR",
     "min_size": "1.00",
-    "max_size": "92141578.00",
+    "max_size": "10000000000.00",
     "min_total": "10.00000000",
     "increment": "0.00000001",
     "asset_increment": "1.00",
