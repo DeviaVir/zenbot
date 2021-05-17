@@ -686,6 +686,34 @@
     "label": "FLOW/XBT"
   },
   {
+    "asset": "GHST",
+    "currency": "EUR",
+    "min_size": "5.0000000000",
+    "increment": "0.0001000000",
+    "label": "GHST/EUR"
+  },
+  {
+    "asset": "GHST",
+    "currency": "GBP",
+    "min_size": "5.0000000000",
+    "increment": "0.0001000000",
+    "label": "GHST/GBP"
+  },
+  {
+    "asset": "GHST",
+    "currency": "USD",
+    "min_size": "5.0000000000",
+    "increment": "0.0001000000",
+    "label": "GHST/USD"
+  },
+  {
+    "asset": "GHST",
+    "currency": "XBT",
+    "min_size": "5.0000000000",
+    "increment": "0.0000000100",
+    "label": "GHST/XBT"
+  },
+  {
     "asset": "GNO",
     "currency": "ETH",
     "min_size": "0.0500000000",
@@ -1050,6 +1078,34 @@
     "label": "MANA/XBT"
   },
   {
+    "asset": "MATIC",
+    "currency": "EUR",
+    "min_size": "20.0000000000",
+    "increment": "0.0001000000",
+    "label": "MATIC/EUR"
+  },
+  {
+    "asset": "MATIC",
+    "currency": "GBP",
+    "min_size": "20.0000000000",
+    "increment": "0.0001000000",
+    "label": "MATIC/GBP"
+  },
+  {
+    "asset": "MATIC",
+    "currency": "USD",
+    "min_size": "20.0000000000",
+    "increment": "0.0001000000",
+    "label": "MATIC/USD"
+  },
+  {
+    "asset": "MATIC",
+    "currency": "XBT",
+    "min_size": "20.0000000000",
+    "increment": "0.0000000100",
+    "label": "MATIC/XBT"
+  },
+  {
     "asset": "MKR",
     "currency": "EUR",
     "min_size": "0.0020000000",
@@ -1244,6 +1300,34 @@
     "min_size": "0.5000000000",
     "increment": "0.0000001000",
     "label": "QTUM/XBT"
+  },
+  {
+    "asset": "RARI",
+    "currency": "EUR",
+    "min_size": "0.3000000000",
+    "increment": "0.0100000000",
+    "label": "RARI/EUR"
+  },
+  {
+    "asset": "RARI",
+    "currency": "GBP",
+    "min_size": "0.3000000000",
+    "increment": "0.0100000000",
+    "label": "RARI/GBP"
+  },
+  {
+    "asset": "RARI",
+    "currency": "USD",
+    "min_size": "0.3000000000",
+    "increment": "0.0100000000",
+    "label": "RARI/USD"
+  },
+  {
+    "asset": "RARI",
+    "currency": "XBT",
+    "min_size": "0.3000000000",
+    "increment": "0.0000001000",
+    "label": "RARI/XBT"
   },
   {
     "asset": "REN",
