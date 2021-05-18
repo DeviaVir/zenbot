@@ -378,6 +378,33 @@
     "label": "AAVE/BTC"
   },
   {
+    "id": "ALGOUSD",
+    "asset": "ALGO",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "ALGO/USD"
+  },
+  {
+    "id": "ALGOEUR",
+    "asset": "ALGO",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "ALGO/EUR"
+  },
+  {
+    "id": "ALGOBTC",
+    "asset": "ALGO",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "ALGO/BTC"
+  },
+  {
     "id": "SNXUSD",
     "asset": "SNX",
     "currency": "USD",

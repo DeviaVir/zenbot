@@ -6968,6 +6968,14 @@
     "label": "USD/LRC"
   },
   {
+    "asset": "ZILD",
+    "currency": "USDT",
+    "min_size": "0.00750000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ZILD"
+  },
+  {
     "asset": "PIST",
     "currency": "USDT",
     "min_size": "6.67000000",
@@ -7014,5 +7022,53 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XDN"
+  },
+  {
+    "asset": "CRV",
+    "currency": "BTC",
+    "min_size": "0.83000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/CRV"
+  },
+  {
+    "asset": "CRV",
+    "currency": "ETH",
+    "min_size": "0.83000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/CRV"
+  },
+  {
+    "asset": "CRV",
+    "currency": "USDT",
+    "min_size": "0.83000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/CRV"
+  },
+  {
+    "asset": "RAMP",
+    "currency": "BTC",
+    "min_size": "8.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/RAMP"
+  },
+  {
+    "asset": "RAMP",
+    "currency": "ETH",
+    "min_size": "8.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/RAMP"
+  },
+  {
+    "asset": "RAMP",
+    "currency": "USDT",
+    "min_size": "5.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/RAMP"
   }
 ]

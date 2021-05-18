@@ -1131,7 +1131,7 @@
     "asset": "CLO",
     "currency": "USD",
     "min_size": "3696.0",
-    "max_size": "50000.0",
+    "max_size": "1000000.0",
     "increment": "0.0000001",
     "label": "CLO/USD"
   },
@@ -2336,28 +2336,36 @@
     "label": "IDX/USD"
   },
   {
+    "asset": "FOR",
+    "currency": "TH:",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "FOR/TH:"
+  },
+  {
+    "asset": "FOR",
+    "currency": "TH:",
+    "min_size": "0.001",
+    "max_size": "100000.0",
+    "increment": "0.000001",
+    "label": "FOR/TH:"
+  },
+  {
     "asset": "IDX",
-    "currency": "BTC",
+    "currency": "UST",
     "min_size": "0.001",
-    "max_size": "100000.0",
+    "max_size": "2000.0",
     "increment": "0.000001",
-    "label": "IDX/BTC"
+    "label": "IDX/UST"
   },
   {
-    "asset": "FOR",
-    "currency": "TH:",
+    "asset": "CHE",
+    "currency": "X:U",
     "min_size": "0.001",
-    "max_size": "100000.0",
+    "max_size": "1000000.0",
     "increment": "0.000001",
-    "label": "FOR/TH:"
-  },
-  {
-    "asset": "FOR",
-    "currency": "TH:",
-    "min_size": "0.001",
-    "max_size": "100000.0",
-    "increment": "0.000001",
-    "label": "FOR/TH:"
+    "label": "CHE/X:U"
   },
   {
     "asset": "BTC",
@@ -2550,5 +2558,13 @@
     "max_size": "500.0",
     "increment": "0.000001",
     "label": "XAU/TF0"
+  },
+  {
+    "asset": "DOG",
+    "currency": "EF0",
+    "min_size": "0.001",
+    "max_size": "500000.0",
+    "increment": "0.000001",
+    "label": "DOG/EF0"
   }
 ]
