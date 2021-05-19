@@ -7070,5 +7070,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/RAMP"
+  },
+  {
+    "asset": "PUNDIX",
+    "currency": "ETH",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/PUNDIX"
+  },
+  {
+    "asset": "PUNDIX",
+    "currency": "USDT",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PUNDIX"
+  },
+  {
+    "asset": "PUNDIX",
+    "currency": "BTC",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PUNDIX"
   }
 ]

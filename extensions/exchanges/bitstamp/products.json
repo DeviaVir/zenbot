@@ -630,6 +630,33 @@
     "label": "KNC/BTC"
   },
   {
+    "id": "AUDIOUSD",
+    "asset": "AUDIO",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "AUDIO/USD"
+  },
+  {
+    "id": "AUDIOEUR",
+    "asset": "AUDIO",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "AUDIO/EUR"
+  },
+  {
+    "id": "AUDIOBTC",
+    "asset": "AUDIO",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "AUDIO/BTC"
+  },
+  {
     "id": "USDCUSD",
     "asset": "USDC",
     "currency": "USD",

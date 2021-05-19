@@ -12984,7 +12984,7 @@
     "asset": "AVAX",
     "currency": "TRY",
     "min_size": "0.01000000",
-    "max_size": "100000.00000000",
+    "max_size": "922327.00000000",
     "min_total": "10.00000000",
     "increment": "0.10000000",
     "asset_increment": "0.01000000",
@@ -15351,7 +15351,7 @@
     "min_size": "0.01000000",
     "max_size": "92141578.00000000",
     "min_total": "10.00000000",
-    "increment": "0.01000000",
+    "increment": "0.00000100",
     "asset_increment": "0.01000000",
     "label": "1INCHUP/USDT"
   },
@@ -15893,5 +15893,49 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "AR/USDT"
+  },
+  {
+    "id": "POLSBTC",
+    "asset": "POLS",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01000000",
+    "label": "POLS/BTC"
+  },
+  {
+    "id": "POLSBNB",
+    "asset": "POLS",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00000100",
+    "asset_increment": "0.01000000",
+    "label": "POLS/BNB"
+  },
+  {
+    "id": "POLSBUSD",
+    "asset": "POLS",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "POLS/BUSD"
+  },
+  {
+    "id": "POLSUSDT",
+    "asset": "POLS",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "POLS/USDT"
   }
 ]
