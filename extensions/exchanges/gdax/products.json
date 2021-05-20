@@ -1440,6 +1440,51 @@
     "label": "SNX/USD"
   },
   {
+    "asset": "SOL",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "6000",
+    "increment": "0.0000001",
+    "asset_increment": "0.001",
+    "label": "SOL/BTC"
+  },
+  {
+    "asset": "SOL",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "6000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "SOL/EUR"
+  },
+  {
+    "asset": "SOL",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "6000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "SOL/GBP"
+  },
+  {
+    "asset": "SOL",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "6000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "SOL/USD"
+  },
+  {
+    "asset": "SOL",
+    "currency": "USDT",
+    "min_size": "0.01",
+    "max_size": "6000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "SOL/USDT"
+  },
+  {
     "asset": "STORJ",
     "currency": "BTC",
     "min_size": "1",

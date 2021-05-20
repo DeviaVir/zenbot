@@ -630,6 +630,33 @@
     "label": "KNC/BTC"
   },
   {
+    "id": "CRVUSD",
+    "asset": "CRV",
+    "currency": "USD",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "CRV/USD"
+  },
+  {
+    "id": "CRVEUR",
+    "asset": "CRV",
+    "currency": "EUR",
+    "min_size": "0.00000001",
+    "min_total": "20",
+    "increment": "0.00001",
+    "label": "CRV/EUR"
+  },
+  {
+    "id": "CRVBTC",
+    "asset": "CRV",
+    "currency": "BTC",
+    "min_size": "0.00000001",
+    "min_total": "0.0002",
+    "increment": "0.00000001",
+    "label": "CRV/BTC"
+  },
+  {
     "id": "AUDIOUSD",
     "asset": "AUDIO",
     "currency": "USD",

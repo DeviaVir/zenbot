@@ -714,7 +714,7 @@
   {
     "asset": "PTOY",
     "currency": "BTC",
-    "min_size": "90.00000000",
+    "min_size": "150.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PTOY"
@@ -5978,7 +5978,7 @@
   {
     "asset": "STRK",
     "currency": "BTC",
-    "min_size": "0.06122590",
+    "min_size": "0.07500000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/STRK"
@@ -5986,7 +5986,7 @@
   {
     "asset": "STRK",
     "currency": "USDT",
-    "min_size": "0.06183020",
+    "min_size": "0.07500000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/STRK"
@@ -7094,5 +7094,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PUNDIX"
+  },
+  {
+    "asset": "PTOY",
+    "currency": "USDT",
+    "min_size": "150.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PTOY"
+  },
+  {
+    "asset": "STRK",
+    "currency": "USD",
+    "min_size": "0.07500000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/STRK"
+  },
+  {
+    "asset": "PIST",
+    "currency": "BTC",
+    "min_size": "6.67000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PIST"
   }
 ]

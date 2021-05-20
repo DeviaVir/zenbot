@@ -469,6 +469,34 @@
     "label": "DOT/XBT"
   },
   {
+    "asset": "ENJ",
+    "currency": "EUR",
+    "min_size": "2.0000000000",
+    "increment": "0.0010000000",
+    "label": "ENJ/EUR"
+  },
+  {
+    "asset": "ENJ",
+    "currency": "GBP",
+    "min_size": "2.0000000000",
+    "increment": "0.0010000000",
+    "label": "ENJ/GBP"
+  },
+  {
+    "asset": "ENJ",
+    "currency": "USD",
+    "min_size": "2.0000000000",
+    "increment": "0.0010000000",
+    "label": "ENJ/USD"
+  },
+  {
+    "asset": "ENJ",
+    "currency": "XBT",
+    "min_size": "2.0000000000",
+    "increment": "0.0000000100",
+    "label": "ENJ/XBT"
+  },
+  {
     "asset": "EOS",
     "currency": "ETH",
     "min_size": "1.0000000000",
@@ -994,6 +1022,34 @@
     "label": "LINK/XBT"
   },
   {
+    "asset": "LPT",
+    "currency": "EUR",
+    "min_size": "0.2000000000",
+    "increment": "0.0100000000",
+    "label": "LPT/EUR"
+  },
+  {
+    "asset": "LPT",
+    "currency": "GBP",
+    "min_size": "0.2000000000",
+    "increment": "0.0100000000",
+    "label": "LPT/GBP"
+  },
+  {
+    "asset": "LPT",
+    "currency": "USD",
+    "min_size": "0.2000000000",
+    "increment": "0.0100000000",
+    "label": "LPT/USD"
+  },
+  {
+    "asset": "LPT",
+    "currency": "XBT",
+    "min_size": "0.2000000000",
+    "increment": "0.0000001000",
+    "label": "LPT/XBT"
+  },
+  {
     "asset": "LSK",
     "currency": "ETH",
     "min_size": "1.0000000000",
@@ -1384,6 +1440,34 @@
     "min_size": "0.1500000000",
     "increment": "0.0000010000",
     "label": "REPV2/XBT"
+  },
+  {
+    "asset": "SAND",
+    "currency": "EUR",
+    "min_size": "10.0000000000",
+    "increment": "0.0001000000",
+    "label": "SAND/EUR"
+  },
+  {
+    "asset": "SAND",
+    "currency": "GBP",
+    "min_size": "10.0000000000",
+    "increment": "0.0001000000",
+    "label": "SAND/GBP"
+  },
+  {
+    "asset": "SAND",
+    "currency": "USD",
+    "min_size": "10.0000000000",
+    "increment": "0.0001000000",
+    "label": "SAND/USD"
+  },
+  {
+    "asset": "SAND",
+    "currency": "XBT",
+    "min_size": "10.0000000000",
+    "increment": "0.0000000100",
+    "label": "SAND/XBT"
   },
   {
     "asset": "SC",
