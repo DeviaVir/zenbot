@@ -90,7 +90,7 @@
   {
     "asset": "ADA",
     "currency": "USD",
-    "min_size": "50",
+    "min_size": "3.825136",
     "max_size": null,
     "increment": "0.01",
     "label": "ADA/USD"
@@ -226,7 +226,7 @@
   {
     "asset": "ADA",
     "currency": "EUR",
-    "min_size": "50",
+    "min_size": "3.825136",
     "max_size": null,
     "increment": "0.01",
     "label": "ADA/EUR"
@@ -322,7 +322,7 @@
   {
     "asset": "ADA",
     "currency": "GBP",
-    "min_size": "50",
+    "min_size": "3.825136",
     "max_size": null,
     "increment": "0.01",
     "label": "ADA/GBP"
@@ -450,7 +450,7 @@
   {
     "asset": "ONG",
     "currency": "USD",
-    "min_size": "50",
+    "min_size": "4.241961",
     "max_size": null,
     "increment": "0.01",
     "label": "ONG/USD"
@@ -474,7 +474,7 @@
   {
     "asset": "ONG",
     "currency": "EUR",
-    "min_size": "50",
+    "min_size": "4.241961",
     "max_size": null,
     "increment": "0.01",
     "label": "ONG/EUR"
@@ -522,7 +522,7 @@
   {
     "asset": "ONG",
     "currency": "BTC",
-    "min_size": "50",
+    "min_size": "4.241961",
     "max_size": null,
     "increment": "0.000001",
     "label": "ONG/BTC"
@@ -642,7 +642,7 @@
   {
     "asset": "ONG",
     "currency": "USDT",
-    "min_size": "50",
+    "min_size": "4.241961",
     "max_size": null,
     "increment": "0.01",
     "label": "ONG/USDT"

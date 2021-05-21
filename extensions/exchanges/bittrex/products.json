@@ -7096,6 +7096,22 @@
     "label": "BTC/PUNDIX"
   },
   {
+    "asset": "JASMY",
+    "currency": "USDT",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/JASMY"
+  },
+  {
+    "asset": "ROC",
+    "currency": "USDT",
+    "min_size": "7.50000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/ROC"
+  },
+  {
     "asset": "PTOY",
     "currency": "USDT",
     "min_size": "150.00000000",

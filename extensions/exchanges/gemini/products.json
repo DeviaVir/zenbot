@@ -510,5 +510,13 @@
     "max_size": "10000",
     "increment": "0.01",
     "label": "DOG/EUS"
+  },
+  {
+    "asset": "GUS",
+    "currency": "DUS",
+    "min_size": "0.001",
+    "max_size": "10000",
+    "increment": "0.01",
+    "label": "GUS/DUS"
   }
 ]
