@@ -1640,6 +1640,22 @@
     "label": "Neo/Tether USD"
   },
   {
+    "asset": "NFT",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "APENFT/Tron"
+  },
+  {
+    "asset": "NFT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "APENFT/Tether USD"
+  },
+  {
     "asset": "NFTX",
     "currency": "USDT",
     "min_total": "1",
