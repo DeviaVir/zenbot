@@ -1264,6 +1264,14 @@
     "label": "KuCoin Token/Tether USD"
   },
   {
+    "asset": "KISHU",
+    "currency": "TRX",
+    "min_total": "0.0001",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Kishu Inu /Tron"
+  },
+  {
     "asset": "KLV",
     "currency": "BTC",
     "min_total": "0.0001",

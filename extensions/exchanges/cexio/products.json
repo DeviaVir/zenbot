@@ -66,7 +66,7 @@
   {
     "asset": "MHC",
     "currency": "USD",
-    "min_size": "2100",
+    "min_size": "650",
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/USD"
@@ -194,7 +194,7 @@
   {
     "asset": "MHC",
     "currency": "EUR",
-    "min_size": "2100",
+    "min_size": "650",
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/EUR"
@@ -298,7 +298,7 @@
   {
     "asset": "MHC",
     "currency": "GBP",
-    "min_size": "216",
+    "min_size": "650",
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/GBP"
@@ -482,7 +482,7 @@
   {
     "asset": "MHC",
     "currency": "BTC",
-    "min_size": "2100",
+    "min_size": "650",
     "max_size": null,
     "increment": "0.000001",
     "label": "MHC/BTC"
@@ -490,7 +490,7 @@
   {
     "asset": "MHC",
     "currency": "ETH",
-    "min_size": "216",
+    "min_size": "650",
     "max_size": null,
     "increment": "0.01",
     "label": "MHC/ETH"

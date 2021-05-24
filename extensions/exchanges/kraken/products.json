@@ -126,6 +126,34 @@
     "label": "ALGO/XBT"
   },
   {
+    "asset": "ANKR",
+    "currency": "EUR",
+    "min_size": "50.0000000000",
+    "increment": "0.0000100000",
+    "label": "ANKR/EUR"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "GBP",
+    "min_size": "50.0000000000",
+    "increment": "0.0000100000",
+    "label": "ANKR/GBP"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "USD",
+    "min_size": "50.0000000000",
+    "increment": "0.0000100000",
+    "label": "ANKR/USD"
+  },
+  {
+    "asset": "ANKR",
+    "currency": "XBT",
+    "min_size": "50.0000000000",
+    "increment": "0.0000000100",
+    "label": "ANKR/XBT"
+  },
+  {
     "asset": "ANT",
     "currency": "ETH",
     "min_size": "0.5000000000",
@@ -320,6 +348,34 @@
     "min_size": "0.0100000000",
     "increment": "0.0000100000",
     "label": "BCH/XBT"
+  },
+  {
+    "asset": "BNT",
+    "currency": "EUR",
+    "min_size": "1.0000000000",
+    "increment": "0.0010000000",
+    "label": "BNT/EUR"
+  },
+  {
+    "asset": "BNT",
+    "currency": "GBP",
+    "min_size": "1.0000000000",
+    "increment": "0.0010000000",
+    "label": "BNT/GBP"
+  },
+  {
+    "asset": "BNT",
+    "currency": "USD",
+    "min_size": "1.0000000000",
+    "increment": "0.0010000000",
+    "label": "BNT/USD"
+  },
+  {
+    "asset": "BNT",
+    "currency": "XBT",
+    "min_size": "1.0000000000",
+    "increment": "0.0000001000",
+    "label": "BNT/XBT"
   },
   {
     "asset": "COMP",
@@ -1566,6 +1622,34 @@
     "min_size": "3.0000000000",
     "increment": "0.0000000010",
     "label": "STORJ/XBT"
+  },
+  {
+    "asset": "SUSHI",
+    "currency": "EUR",
+    "min_size": "0.5000000000",
+    "increment": "0.0100000000",
+    "label": "SUSHI/EUR"
+  },
+  {
+    "asset": "SUSHI",
+    "currency": "GBP",
+    "min_size": "0.5000000000",
+    "increment": "0.0100000000",
+    "label": "SUSHI/GBP"
+  },
+  {
+    "asset": "SUSHI",
+    "currency": "USD",
+    "min_size": "0.5000000000",
+    "increment": "0.0100000000",
+    "label": "SUSHI/USD"
+  },
+  {
+    "asset": "SUSHI",
+    "currency": "XBT",
+    "min_size": "0.5000000000",
+    "increment": "0.0000001000",
+    "label": "SUSHI/XBT"
   },
   {
     "asset": "TBTC",
