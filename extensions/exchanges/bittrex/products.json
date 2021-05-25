@@ -3978,7 +3978,7 @@
   {
     "asset": "MATIC",
     "currency": "BTC",
-    "min_size": "8.85245900",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/MATIC"
@@ -3986,7 +3986,7 @@
   {
     "asset": "MATIC",
     "currency": "USDT",
-    "min_size": "9.05824450",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/MATIC"
@@ -5826,7 +5826,7 @@
   {
     "asset": "MATIC",
     "currency": "USD",
-    "min_size": "8.73896710",
+    "min_size": "2.00000000",
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/MATIC"
@@ -7112,6 +7112,22 @@
     "label": "USDT/ROC"
   },
   {
+    "asset": "BST",
+    "currency": "BTC",
+    "min_size": "6.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/BST"
+  },
+  {
+    "asset": "BST",
+    "currency": "USDT",
+    "min_size": "6.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BST"
+  },
+  {
     "asset": "PTOY",
     "currency": "USDT",
     "min_size": "150.00000000",
@@ -7136,6 +7152,22 @@
     "label": "BTC/PIST"
   },
   {
+    "asset": "EDG",
+    "currency": "BTC",
+    "min_size": "188.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/EDG"
+  },
+  {
+    "asset": "EDG",
+    "currency": "USDT",
+    "min_size": "188.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/EDG"
+  },
+  {
     "asset": "AKT",
     "currency": "BTC",
     "min_size": "1.00000000",
@@ -7150,5 +7182,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/AKT"
+  },
+  {
+    "asset": "MATIC",
+    "currency": "ETH",
+    "min_size": "2.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/MATIC"
   }
 ]
