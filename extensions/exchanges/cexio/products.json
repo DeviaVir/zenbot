@@ -744,14 +744,6 @@
     "label": "LINK/GBP"
   },
   {
-    "asset": "MKR",
-    "currency": "USD",
-    "min_size": "0.0015",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "MKR/USD"
-  },
-  {
     "asset": "ZRX",
     "currency": "USD",
     "min_size": "3.5",
@@ -894,14 +886,6 @@
     "max_size": null,
     "increment": "0.01",
     "label": "DOT/USDT"
-  },
-  {
-    "asset": "COMP",
-    "currency": "USD",
-    "min_size": "0.06",
-    "max_size": null,
-    "increment": "0.01",
-    "label": "COMP/USD"
   },
   {
     "asset": "COMP",
@@ -1416,12 +1400,28 @@
     "label": "OCEAN/USD"
   },
   {
+    "asset": "SRM",
+    "currency": "USD",
+    "min_size": "6.5",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "SRM/USD"
+  },
+  {
     "asset": "KAVA",
     "currency": "USD",
     "min_size": "4",
     "max_size": null,
     "increment": "0.01",
     "label": "KAVA/USD"
+  },
+  {
+    "asset": "STORJ",
+    "currency": "USD",
+    "min_size": "20",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "STORJ/USD"
   },
   {
     "asset": "GLM",
@@ -1494,6 +1494,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "UTK/USD"
+  },
+  {
+    "asset": "UTK",
+    "currency": "USDT",
+    "min_size": "25",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "UTK/USDT"
   },
   {
     "asset": "USDC",
