@@ -7182,5 +7182,13 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "ETH/MATIC"
+  },
+  {
+    "asset": "SNX",
+    "currency": "USD",
+    "min_size": "0.25000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/SNX"
   }
 ]

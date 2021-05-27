@@ -1121,6 +1121,14 @@
   },
   {
     "asset": "TUSD",
+    "currency": "USD",
+    "min_size": "7",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "TUSD/USD"
+  },
+  {
+    "asset": "TUSD",
     "currency": "USDT",
     "min_size": "7",
     "max_size": null,
@@ -1230,6 +1238,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "YFII/ETH"
+  },
+  {
+    "asset": "BUSD",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BUSD/USD"
   },
   {
     "asset": "BUSD",
