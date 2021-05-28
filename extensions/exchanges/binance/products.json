@@ -16014,5 +16014,93 @@
     "increment": "0.00100000",
     "asset_increment": "0.01000000",
     "label": "MASK/USDT"
+  },
+  {
+    "id": "LPTBTC",
+    "asset": "LPT",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "92141570.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "LPT/BTC"
+  },
+  {
+    "id": "LPTBNB",
+    "asset": "LPT",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "92141570.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "LPT/BNB"
+  },
+  {
+    "id": "LPTBUSD",
+    "asset": "LPT",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "9222440.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "LPT/BUSD"
+  },
+  {
+    "id": "LPTUSDT",
+    "asset": "LPT",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "9222440.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "LPT/USDT"
+  },
+  {
+    "id": "ETHUAH",
+    "asset": "ETH",
+    "currency": "UAH",
+    "min_size": "0.00000100",
+    "max_size": "9220.00000000",
+    "min_total": "100.00000000",
+    "increment": "1.00000000",
+    "asset_increment": "0.00000100",
+    "label": "ETH/UAH"
+  },
+  {
+    "id": "MATICBRL",
+    "asset": "MATIC",
+    "currency": "BRL",
+    "min_size": "0.01000000",
+    "max_size": "9222440.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "MATIC/BRL"
+  },
+  {
+    "id": "SOLEUR",
+    "asset": "SOL",
+    "currency": "EUR",
+    "min_size": "0.01000000",
+    "max_size": "9222440.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "SOL/EUR"
+  },
+  {
+    "id": "SHIBBRL",
+    "asset": "SHIB",
+    "currency": "BRL",
+    "min_size": "1.00",
+    "max_size": "10000000000.00",
+    "min_total": "10.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00",
+    "label": "SHIB/BRL"
   }
 ]

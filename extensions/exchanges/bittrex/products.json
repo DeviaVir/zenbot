@@ -7120,6 +7120,14 @@
     "label": "USDT/BST"
   },
   {
+    "asset": "BAX",
+    "currency": "USDT",
+    "min_size": "3000.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/BAX"
+  },
+  {
     "asset": "PTOY",
     "currency": "USDT",
     "min_size": "150.00000000",
@@ -7190,5 +7198,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/SNX"
+  },
+  {
+    "asset": "PRT",
+    "currency": "USDT",
+    "min_size": "86.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PRT"
+  },
+  {
+    "asset": "BAX",
+    "currency": "ETH",
+    "min_size": "3000.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "ETH/BAX"
   }
 ]

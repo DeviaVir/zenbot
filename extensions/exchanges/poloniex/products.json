@@ -1184,6 +1184,14 @@
     "label": "The Graph/Tether USD"
   },
   {
+    "asset": "GTC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Gitcoin/Tether USD"
+  },
+  {
     "asset": "HEGIC",
     "currency": "USDT",
     "min_total": "1",
