@@ -594,6 +594,51 @@
     "label": "DNT/USDC"
   },
   {
+    "asset": "DOGE",
+    "currency": "BTC",
+    "min_size": "1",
+    "max_size": "690000",
+    "increment": "0.0000001",
+    "asset_increment": "0.1",
+    "label": "DOGE/BTC"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "EUR",
+    "min_size": "1",
+    "max_size": "690000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "DOGE/EUR"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "GBP",
+    "min_size": "1",
+    "max_size": "690000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "DOGE/GBP"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "USD",
+    "min_size": "1",
+    "max_size": "690000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "DOGE/USD"
+  },
+  {
+    "asset": "DOGE",
+    "currency": "USDT",
+    "min_size": "1",
+    "max_size": "690000",
+    "increment": "0.0001",
+    "asset_increment": "0.1",
+    "label": "DOGE/USDT"
+  },
+  {
     "asset": "ENJ",
     "currency": "BTC",
     "min_size": "0.1",

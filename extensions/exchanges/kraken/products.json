@@ -1218,6 +1218,34 @@
     "label": "MATIC/XBT"
   },
   {
+    "asset": "MINA",
+    "currency": "EUR",
+    "min_size": "0.2000000000",
+    "increment": "0.0100000000",
+    "label": "MINA/EUR"
+  },
+  {
+    "asset": "MINA",
+    "currency": "GBP",
+    "min_size": "0.2000000000",
+    "increment": "0.0100000000",
+    "label": "MINA/GBP"
+  },
+  {
+    "asset": "MINA",
+    "currency": "USD",
+    "min_size": "0.2000000000",
+    "increment": "0.0100000000",
+    "label": "MINA/USD"
+  },
+  {
+    "asset": "MINA",
+    "currency": "XBT",
+    "min_size": "0.2000000000",
+    "increment": "0.0000001000",
+    "label": "MINA/XBT"
+  },
+  {
     "asset": "MKR",
     "currency": "EUR",
     "min_size": "0.0020000000",
