@@ -16102,5 +16102,16 @@
     "increment": "0.00000001",
     "asset_increment": "1.00",
     "label": "SHIB/BRL"
+  },
+  {
+    "id": "AGIXBTC",
+    "asset": "AGIX",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "AGIX/BTC"
   }
 ]
