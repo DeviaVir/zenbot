@@ -131,7 +131,7 @@
     "asset": "XRP",
     "currency": "USD",
     "min_size": "8.0",
-    "max_size": "200000.0",
+    "max_size": "2000000.0",
     "increment": "0.00001",
     "label": "XRP/USD"
   },
@@ -139,7 +139,7 @@
     "asset": "XRP",
     "currency": "BTC",
     "min_size": "8.0",
-    "max_size": "200000.0",
+    "max_size": "2000000.0",
     "increment": "0.00000001",
     "label": "XRP/BTC"
   },
@@ -1035,7 +1035,7 @@
     "asset": "UST",
     "currency": "USD",
     "min_size": "2.0",
-    "max_size": "1000000.0",
+    "max_size": "5000000.0",
     "increment": "0.00001",
     "label": "UST/USD"
   },
@@ -1979,7 +1979,7 @@
     "asset": "XRP",
     "currency": "UST",
     "min_size": "0.001",
-    "max_size": "200000.0",
+    "max_size": "2000000.0",
     "increment": "0.000001",
     "label": "XRP/UST"
   },
@@ -2283,7 +2283,7 @@
     "asset": "DOG",
     "currency": "E:U",
     "min_size": "0.001",
-    "max_size": "500000.0",
+    "max_size": "1500000.0",
     "increment": "0.000001",
     "label": "DOG/E:U"
   },
@@ -2291,7 +2291,7 @@
     "asset": "DOG",
     "currency": "E:U",
     "min_size": "0.001",
-    "max_size": "500000.0",
+    "max_size": "1500000.0",
     "increment": "0.000001",
     "label": "DOG/E:U"
   },
@@ -2398,6 +2398,22 @@
     "max_size": "250000.0",
     "increment": "0.000001",
     "label": "OCE/AN:"
+  },
+  {
+    "asset": "PLA",
+    "currency": "NET",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.000001",
+    "label": "PLA/NET"
+  },
+  {
+    "asset": "PLA",
+    "currency": "NET",
+    "min_size": "0.001",
+    "max_size": "250000.0",
+    "increment": "0.000001",
+    "label": "PLA/NET"
   },
   {
     "asset": "BTC",

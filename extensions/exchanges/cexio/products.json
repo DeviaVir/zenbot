@@ -1600,6 +1600,14 @@
     "label": "ZWAP/USD"
   },
   {
+    "asset": "BNB",
+    "currency": "USD",
+    "min_size": "0.02",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "BNB/USD"
+  },
+  {
     "asset": "HAPI",
     "currency": "USD",
     "min_size": "0.08",
