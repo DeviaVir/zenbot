@@ -7230,5 +7230,29 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USDT/XEP"
+  },
+  {
+    "asset": "PPAY",
+    "currency": "USDT",
+    "min_size": "38.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/PPAY"
+  },
+  {
+    "asset": "PPAY",
+    "currency": "USD",
+    "min_size": "38.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/PPAY"
+  },
+  {
+    "asset": "PPAY",
+    "currency": "BTC",
+    "min_size": "38.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/PPAY"
   }
 ]

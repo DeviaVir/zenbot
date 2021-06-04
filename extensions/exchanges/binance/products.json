@@ -16113,5 +16113,104 @@
     "increment": "0.00000001",
     "asset_increment": "1.00000000",
     "label": "AGIX/BTC"
+  },
+  {
+    "id": "ICPEUR",
+    "asset": "ICP",
+    "currency": "EUR",
+    "min_size": "0.00100000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.00100000",
+    "label": "ICP/EUR"
+  },
+  {
+    "id": "MATICGBP",
+    "asset": "MATIC",
+    "currency": "GBP",
+    "min_size": "0.00100000",
+    "max_size": "92141578.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.00100000",
+    "label": "MATIC/GBP"
+  },
+  {
+    "id": "SHIBTRY",
+    "asset": "SHIB",
+    "currency": "TRY",
+    "min_size": "1.00",
+    "max_size": "10000000000.00",
+    "min_total": "10.00000000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00",
+    "label": "SHIB/TRY"
+  },
+  {
+    "id": "MATICBIDR",
+    "asset": "MATIC",
+    "currency": "BIDR",
+    "min_size": "0.00010000",
+    "max_size": "9223.00000000",
+    "min_total": "20000.00",
+    "increment": "1.00",
+    "asset_increment": "0.00010000",
+    "label": "MATIC/BIDR"
+  },
+  {
+    "id": "MATICRUB",
+    "asset": "MATIC",
+    "currency": "RUB",
+    "min_size": "0.00010000",
+    "max_size": "922327.00000000",
+    "min_total": "100.00000000",
+    "increment": "0.10000000",
+    "asset_increment": "0.00010000",
+    "label": "MATIC/RUB"
+  },
+  {
+    "id": "NUBTC",
+    "asset": "NU",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "0.01000000",
+    "label": "NU/BTC"
+  },
+  {
+    "id": "NUBNB",
+    "asset": "NU",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "NU/BNB"
+  },
+  {
+    "id": "NUBUSD",
+    "asset": "NU",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "92141578.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "NU/BUSD"
+  },
+  {
+    "id": "NUUSDT",
+    "asset": "NU",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "92141578.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "NU/USDT"
   }
 ]
