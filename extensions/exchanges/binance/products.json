@@ -16212,5 +16212,115 @@
     "increment": "0.00010000",
     "asset_increment": "1.00000000",
     "label": "NU/USDT"
+  },
+  {
+    "id": "XVGUSDT",
+    "asset": "XVG",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "1.00000000",
+    "label": "XVG/USDT"
+  },
+  {
+    "id": "RLCBUSD",
+    "asset": "RLC",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "RLC/BUSD"
+  },
+  {
+    "id": "CELRBUSD",
+    "asset": "CELR",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "1.00000000",
+    "label": "CELR/BUSD"
+  },
+  {
+    "id": "ATMBUSD",
+    "asset": "ATM",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "ATM/BUSD"
+  },
+  {
+    "id": "ZENBUSD",
+    "asset": "ZEN",
+    "currency": "BUSD",
+    "min_size": "0.00100000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.10000000",
+    "asset_increment": "0.00100000",
+    "label": "ZEN/BUSD"
+  },
+  {
+    "id": "FTMBUSD",
+    "asset": "FTM",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "FTM/BUSD"
+  },
+  {
+    "id": "THETABUSD",
+    "asset": "THETA",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "THETA/BUSD"
+  },
+  {
+    "id": "WINBUSD",
+    "asset": "WIN",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "WIN/BUSD"
+  },
+  {
+    "id": "KAVABUSD",
+    "asset": "KAVA",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.01000000",
+    "label": "KAVA/BUSD"
+  },
+  {
+    "id": "XEMBUSD",
+    "asset": "XEM",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "1.00000000",
+    "label": "XEM/BUSD"
   }
 ]
