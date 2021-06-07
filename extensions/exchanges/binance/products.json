@@ -16322,5 +16322,49 @@
     "increment": "0.00010000",
     "asset_increment": "1.00000000",
     "label": "XEM/BUSD"
+  },
+  {
+    "id": "ATABTC",
+    "asset": "ATA",
+    "currency": "BTC",
+    "min_size": "1.00000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000001",
+    "asset_increment": "1.00000000",
+    "label": "ATA/BTC"
+  },
+  {
+    "id": "ATABNB",
+    "asset": "ATA",
+    "currency": "BNB",
+    "min_size": "1.00000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00000010",
+    "asset_increment": "1.00000000",
+    "label": "ATA/BNB"
+  },
+  {
+    "id": "ATABUSD",
+    "asset": "ATA",
+    "currency": "BUSD",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "1.00000000",
+    "label": "ATA/BUSD"
+  },
+  {
+    "id": "ATAUSDT",
+    "asset": "ATA",
+    "currency": "USDT",
+    "min_size": "1.00000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00001000",
+    "asset_increment": "1.00000000",
+    "label": "ATA/USDT"
   }
 ]

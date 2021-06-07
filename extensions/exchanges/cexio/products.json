@@ -1146,7 +1146,7 @@
   {
     "asset": "MTA",
     "currency": "USDT",
-    "min_size": "875",
+    "min_size": "6",
     "max_size": null,
     "increment": "0.01",
     "label": "MTA/USDT"
@@ -1154,7 +1154,7 @@
   {
     "asset": "MTA",
     "currency": "ETH",
-    "min_size": "875",
+    "min_size": "6",
     "max_size": null,
     "increment": "0.01",
     "label": "MTA/ETH"

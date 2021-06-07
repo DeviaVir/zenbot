@@ -1216,6 +1216,14 @@
     "label": "Hedget/Tether USD"
   },
   {
+    "asset": "HT",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Huobi Token/Tether USD"
+  },
+  {
     "asset": "IBVOL",
     "currency": "USDT",
     "min_total": "1",
