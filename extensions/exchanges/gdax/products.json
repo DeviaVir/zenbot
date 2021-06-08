@@ -162,6 +162,15 @@
     "label": "ALGO/USD"
   },
   {
+    "asset": "AMP",
+    "currency": "USD",
+    "min_size": "10",
+    "max_size": "6800000",
+    "increment": "0.00001",
+    "asset_increment": "1",
+    "label": "AMP/USD"
+  },
+  {
     "asset": "ANKR",
     "currency": "BTC",
     "min_size": "10",
@@ -900,6 +909,15 @@
     "label": "GRT/USD"
   },
   {
+    "asset": "GTC",
+    "currency": "USD",
+    "min_size": "0.1",
+    "max_size": "44000",
+    "increment": "0.001",
+    "asset_increment": "0.01",
+    "label": "GTC/USD"
+  },
+  {
     "asset": "ICP",
     "currency": "BTC",
     "min_size": "0.001",
@@ -1204,6 +1222,15 @@
     "increment": "0.0001",
     "asset_increment": "0.000001",
     "label": "MKR/USD"
+  },
+  {
+    "asset": "MLN",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "3300",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "MLN/USD"
   },
   {
     "asset": "NKN",

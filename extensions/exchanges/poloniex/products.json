@@ -1888,6 +1888,14 @@
     "label": "Darwinia Network Native Token/Tether USD"
   },
   {
+    "asset": "RLC",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "RLC/Tether USD"
+  },
+  {
     "asset": "ROOK",
     "currency": "USDT",
     "min_total": "1",
