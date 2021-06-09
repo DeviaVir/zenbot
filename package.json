@@ -76,7 +76,7 @@
     "micro-request": "^666.0.10",
     "mime": "^2.5.0",
     "minimist": "^1.2.5",
-    "mini-css-extract-plugin": "^1.3.4",
+    "mini-css-extract-plugin": "^1.6.0",
     "mock-require": "^3.0.2",
     "moment": "^2.29.1",
     "mongodb": "^3.6.3",
