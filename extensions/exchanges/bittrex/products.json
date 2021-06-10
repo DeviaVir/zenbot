@@ -7254,5 +7254,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "BTC/PPAY"
+  },
+  {
+    "asset": "STORJ",
+    "currency": "USD",
+    "min_size": "3.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/STORJ"
+  },
+  {
+    "asset": "ANT",
+    "currency": "USD",
+    "min_size": "0.70000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USD/ANT"
   }
 ]

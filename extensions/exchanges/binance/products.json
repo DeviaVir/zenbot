@@ -16366,5 +16366,49 @@
     "increment": "0.00001000",
     "asset_increment": "1.00000000",
     "label": "ATA/USDT"
+  },
+  {
+    "id": "GTCBTC",
+    "asset": "GTC",
+    "currency": "BTC",
+    "min_size": "0.01000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.01000000",
+    "label": "GTC/BTC"
+  },
+  {
+    "id": "GTCBNB",
+    "asset": "GTC",
+    "currency": "BNB",
+    "min_size": "0.10000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00001000",
+    "asset_increment": "0.10000000",
+    "label": "GTC/BNB"
+  },
+  {
+    "id": "GTCBUSD",
+    "asset": "GTC",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "GTC/BUSD"
+  },
+  {
+    "id": "GTCUSDT",
+    "asset": "GTC",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "GTC/USDT"
   }
 ]

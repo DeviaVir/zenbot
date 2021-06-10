@@ -640,6 +640,14 @@
     "label": "Curve Finance/Tether USD"
   },
   {
+    "asset": "CTSI",
+    "currency": "USDT",
+    "min_total": "1",
+    "max_size": null,
+    "increment": "0.00000001",
+    "label": "Cartesi Token /Tether USD"
+  },
+  {
     "asset": "CUDOS",
     "currency": "USDT",
     "min_total": "1",
