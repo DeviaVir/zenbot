@@ -16410,5 +16410,104 @@
     "increment": "0.01000000",
     "asset_increment": "0.01000000",
     "label": "GTC/USDT"
+  },
+  {
+    "id": "TORNBTC",
+    "asset": "TORN",
+    "currency": "BTC",
+    "min_size": "0.00100000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.00100000",
+    "label": "TORN/BTC"
+  },
+  {
+    "id": "TORNBNB",
+    "asset": "TORN",
+    "currency": "BNB",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "0.05000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.01000000",
+    "label": "TORN/BNB"
+  },
+  {
+    "id": "TORNBUSD",
+    "asset": "TORN",
+    "currency": "BUSD",
+    "min_size": "0.01000000",
+    "max_size": "922327.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "TORN/BUSD"
+  },
+  {
+    "id": "TORNUSDT",
+    "asset": "TORN",
+    "currency": "USDT",
+    "min_size": "0.01000000",
+    "max_size": "922327.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "TORN/USDT"
+  },
+  {
+    "id": "MATICTRY",
+    "asset": "MATIC",
+    "currency": "TRY",
+    "min_size": "0.10000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00100000",
+    "asset_increment": "0.10000000",
+    "label": "MATIC/TRY"
+  },
+  {
+    "id": "ETCGBP",
+    "asset": "ETC",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "ETC/GBP"
+  },
+  {
+    "id": "SOLGBP",
+    "asset": "SOL",
+    "currency": "GBP",
+    "min_size": "0.01000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.01000000",
+    "asset_increment": "0.01000000",
+    "label": "SOL/GBP"
+  },
+  {
+    "id": "BAKEBTC",
+    "asset": "BAKE",
+    "currency": "BTC",
+    "min_size": "0.10000000",
+    "max_size": "92141578.00000000",
+    "min_total": "0.00010000",
+    "increment": "0.00000010",
+    "asset_increment": "0.10000000",
+    "label": "BAKE/BTC"
+  },
+  {
+    "id": "COTIBUSD",
+    "asset": "COTI",
+    "currency": "BUSD",
+    "min_size": "0.10000000",
+    "max_size": "9222449.00000000",
+    "min_total": "10.00000000",
+    "increment": "0.00010000",
+    "asset_increment": "0.10000000",
+    "label": "COTI/BUSD"
   }
 ]
