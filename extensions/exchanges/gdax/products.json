@@ -648,6 +648,51 @@
     "label": "DOGE/USDT"
   },
   {
+    "asset": "DOT",
+    "currency": "BTC",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.0000001",
+    "asset_increment": "0.001",
+    "label": "DOT/BTC"
+  },
+  {
+    "asset": "DOT",
+    "currency": "EUR",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "DOT/EUR"
+  },
+  {
+    "asset": "DOT",
+    "currency": "GBP",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "DOT/GBP"
+  },
+  {
+    "asset": "DOT",
+    "currency": "USD",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "DOT/USD"
+  },
+  {
+    "asset": "DOT",
+    "currency": "USDT",
+    "min_size": "0.01",
+    "max_size": "10000",
+    "increment": "0.001",
+    "asset_increment": "0.001",
+    "label": "DOT/USDT"
+  },
+  {
     "asset": "ENJ",
     "currency": "BTC",
     "min_size": "0.1",

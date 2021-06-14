@@ -744,6 +744,14 @@
     "label": "LINK/GBP"
   },
   {
+    "asset": "MKR",
+    "currency": "USD",
+    "min_size": "0.0015",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "MKR/USD"
+  },
+  {
     "asset": "ZRX",
     "currency": "USD",
     "min_size": "7.5",
@@ -886,6 +894,14 @@
     "max_size": null,
     "increment": "0.01",
     "label": "DOT/USDT"
+  },
+  {
+    "asset": "COMP",
+    "currency": "USD",
+    "min_size": "0.06",
+    "max_size": null,
+    "increment": "0.01",
+    "label": "COMP/USD"
   },
   {
     "asset": "COMP",

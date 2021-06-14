@@ -7120,6 +7120,14 @@
     "label": "USDT/BST"
   },
   {
+    "asset": "VVT",
+    "currency": "USDT",
+    "min_size": "22.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/VVT"
+  },
+  {
     "asset": "BAX",
     "currency": "USDT",
     "min_size": "3000.00000000",
@@ -7270,5 +7278,21 @@
     "max_size": "1000000",
     "increment": "0.00000001",
     "label": "USD/ANT"
+  },
+  {
+    "asset": "DACXI",
+    "currency": "BTC",
+    "min_size": "46.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "BTC/DACXI"
+  },
+  {
+    "asset": "DACXI",
+    "currency": "USDT",
+    "min_size": "46.00000000",
+    "max_size": "1000000",
+    "increment": "0.00000001",
+    "label": "USDT/DACXI"
   }
 ]
