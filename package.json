@@ -38,7 +38,7 @@
     "bitfinex-api-node": "^4.0.16",
     "bitstamp": "^1.0.4",
     "bl": "^4.0.3",
-    "bollinger-bands": "^3.0.1",
+    "bollinger-bands": "^3.0.2",
     "bootstrap": "^4.6.0",
     "ccxt": "^1.51.40",
     "cexio-api-node": "^1.0.8",
