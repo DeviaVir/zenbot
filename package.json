@@ -112,7 +112,7 @@
     "webpack-cli": "^4.7.2",
     "ws": "^7.5.1",
     "zero-fill": "^2.2.4",
-    "snyk": "^1.652.0"
+    "snyk": "^1.667.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
