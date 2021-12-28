@@ -82,7 +82,7 @@
     "mongodb": "^3.6.9",
     "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.8",
-    "node-sass": "^7.0.0",
+    "node-sass": "^7.0.1",
     "node-telegram-bot-api": "^0.53.0",
     "number-abbreviate": "^2.0.0",
     "numbro": "github:highvelocityspace/numbro",
