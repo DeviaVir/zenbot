@@ -79,7 +79,7 @@
     "mini-css-extract-plugin": "^1.6.2",
     "mock-require": "^3.0.2",
     "moment": "^2.29.1",
-    "mongodb": "^3.6.9",
+    "mongodb": "^3.7.3",
     "node-bittrex-api": "^0.8.2",
     "node-prowl": "^0.1.8",
     "node-sass": "^7.0.1",
