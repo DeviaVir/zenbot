@@ -108,7 +108,7 @@
     "tulind": "^0.8.18",
     "url-loader": "^4.1.1",
     "waypoints": "^4.0.1",
-    "webpack": "^5.65.0",
+    "webpack": "^5.67.0",
     "webpack-cli": "^4.9.1",
     "ws": "^7.5.6",
     "zero-fill": "^2.2.4",
