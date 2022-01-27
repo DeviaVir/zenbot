@@ -48,7 +48,7 @@
     "commander": "^5.1.0",
     "convnetjs": "0.3.0",
     "counterup": "^1.0.2",
-    "css-loader": "^5.2.6",
+    "css-loader": "^5.2.7",
     "echarts": "^5.2.1",
     "ejs": "^3.1.6",
     "exports-loader": "^0.7.0",
