@@ -105,7 +105,7 @@
     "talib": "^1.1.4",
     "timebucket": "^0.4.0",
     "trend": "0.3.0",
-    "tulind": "^0.8.18",
+    "tulind": "^0.8.20",
     "url-loader": "^4.1.1",
     "waypoints": "^4.0.1",
     "webpack": "^5.67.0",
