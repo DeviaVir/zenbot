@@ -91,7 +91,7 @@
     "popper.js": "^1.16.1",
     "postcss-loader": "^4.3.0",
     "progress": "^2.0.0",
-    "pushbullet": "2.4.0",
+    "pushbullet": "3.0.0",
     "pusher-js": "^5.1.1",
     "random-port": "^0.1.0",
     "regression": "^2.0.0",
