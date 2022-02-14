@@ -1,3 +1,5 @@
+WARNING: project is no longer actively maintained, make sure to update any dependencies if you plan on using this in your project.
+
 ![zenbot logo](assets/logo.png)
 
 > “To follow the path, look to the master, follow the master, walk with the master, see through the master, become the master.”
